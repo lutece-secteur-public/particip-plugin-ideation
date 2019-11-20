@@ -1,435 +1,1 @@
-<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" >
-	<@messages infos=infos />
-	<@messages errors=errors />
-        <div id="resultItems" class="row resultats-recherche project_list_container">
-        <h1> #i18n{ideation.ideesSubscriber.submitted.projects}</h1>
-        <#list projectsSubmitted as idee>
-        
-        <#assign theme_class = "autre">
-			<#if idee.codeTheme??>
-				<#if idee.codeTheme = "CADRE"><#assign theme_class = "cadre_vie">
-				<#elseif idee.codeTheme = "CULTURE"><#assign theme_class = "culture">
-				<#elseif idee.codeTheme = "ECO"><#assign theme_class = "economie_emploi">
-				<#elseif idee.codeTheme = "EDU"><#assign theme_class = "education">
-				<#elseif idee.codeTheme = "ENVIRONNEMENT" || idee.codeTheme = "NAT"><#assign theme_class = "environnement">
-				<#elseif idee.codeTheme = "LOGEMENT"><#assign theme_class = "logement">
-				<#elseif idee.codeTheme = "PARTICIPATION"><#assign theme_class = "participation_citoyenne">
-				<#elseif idee.codeTheme = "SECURITE"><#assign theme_class = "prevention_securite">
-				<#elseif idee.codeTheme = "PROPRETE"><#assign theme_class = "proprete">
-				<#elseif idee.codeTheme = "SOLIDARITE" || idee.codeTheme = "VIVREENSEMBLE"><#assign theme_class = "solidarite">
-				<#elseif idee.codeTheme = "SPORT"><#assign theme_class = "sport">
-				<#elseif idee.codeTheme = "TRANSPORT"><#assign theme_class = "transport">
-				<#elseif idee.codeTheme = "NUM"><#assign theme_class = "ville_numerique">
-			</#if>
-		</#if>
-	<#assign url_idee = "jsp/site/Portal.jsp?page=idee&campagne="+idee.codeCampagne+"&idee="+idee.id>
-	 
-          <div class="item" style="margin:10px;"> 
-                <div id="right-item" class="col-xs-12 col-sm-3 col-md-3 col-lg-3" style="padding:10px;">
-                    <div class="row projectlist_project">
-                        <div class="project_ref project_${theme_class!}">
-                                PROJET N°${idee.codeIdee!}
-                        </div>
-                        <div class="project_category col-xs-12 hidden-sm hidden-md hidden-lg
-                            <#if idee.codeTheme??>
-                                ${theme_class!}"><img src="images/local/skin/i_${theme_class!}.png" alt="${idee.codeTheme!}" title="${idee.codeTheme!}">
-                        
-                            ${idee.codeTheme!}
-                            <#else>
-                                <#assign theme_class = "notheme">
-                                ${theme_class}">
-                                <img src="images/local/skin/i_notheme.png">
-                                PAS DE THEMATIQUE
-                            </#if>
-                        </div>
-                        <div class="project_category hidden-xs col-sm-12 hidden-md hidden-lg 
-                            <#if idee.codeTheme??>
-                                ${theme_class!}"><img src="images/local/skin/i_${theme_class!}.png" alt="${idee.codeTheme}" title="${idee.codeTheme}">
-                        
-                            <#if idee.codeTheme?length &gt; 32>${idee.codeTheme}?substring(0,32)}...<#else>${idee.codeTheme}</#if>
-                            <#else>
-                                <#assign theme_class = "notheme">
-                                ${theme_class}">
-                                <img src="images/local/skin/i_notheme.png">
-                                PAS DE THEMATIQUE
-                            </#if>
-                        </div>
-                        <div class="project_category hidden-xs hidden-sm col-md-12 hidden-lg 
-                            <#if idee.codeTheme??>
-                                ${theme_class!}"><img src="images/local/skin/i_${theme_class!}.png" alt="${idee.codeTheme}" title="${idee.codeTheme}">
-                        
-                            <#if idee.codeTheme?length &gt; 16>${idee.codeTheme}?substring(0,16)}...<#else>${idee.codeTheme}</#if>
-                            <#else>
-                                <#assign theme_class = "notheme">
-                                ${theme_class}">
-                                <img src="images/local/skin/i_notheme.png">
-                                PAS DE THEMATIQUE
-                            </#if>
-                        </div>
-                        <div class="project_category hidden-xs hidden-sm hidden-md col-lg-12 
-                            <#if idee.codeTheme??>
-                                ${theme_class!}"><img src="images/local/skin/i_${theme_class!}.png" alt="${idee.codeTheme}" title="${idee.codeTheme}">
-                        
-                            <#if idee.codeTheme?length &gt; 27>${idee.codeTheme}?substring(0,27)}...<#else>${idee.codeTheme}</#if>
-                            <#else>
-                                <#assign theme_class = "notheme">
-                                ${theme_class}">
-                                <img src="images/local/skin/i_notheme.png">
-                                PAS DE THEMATIQUE
-                            </#if>
-                        </div>
-                        
-                        <div class="project_title col-xs-12 hidden-sm hidden-md hidden-lg">
-                            <a href="${url_idee}" alt="${idee.titre}" title="${idee.titre}">
-                                ${idee.titre}
-                            </a>
-                        </div>
-                        <div class="project_title hidden-xs col-sm-12 hidden-md hidden-lg">
-                            <a href="${url_idee}" alt="${idee.titre}" title="${idee.titre}">
-                                <#if idee.titre?length &gt; 45>${idee.titre?substring(0,45)}...<#else>${idee.titre}</#if>
-                            </a>
-                        </div>
-                        <div class="project_title hidden-xs hidden-sm col-md-12 hidden-lg">
-                            <a href="${url_idee}" alt="${idee.titre}" title="${idee.titre}">
-                                <#if idee.titre?length &gt; 40>${idee.titre?substring(0,40)}...<#else>${idee.titre}</#if>
-                            </a>
-                        </div>
-                        <div class="project_title hidden-xs hidden-sm hidden-md col-lg-12">
-                            <a href="${url_idee}" alt="${idee.titre}" title="${idee.titre}">
-                                <#if idee.titre?length &gt; 65>${idee.titre?substring(0,65)}...<#else>${idee.titre}</#if>
-                            </a>
-                        </div>
-                        <div>
-                            <div class="row">
-                                <div class="col-xs-8" style="height:70px">
-                                    <span class="project_location">
-                                        <img src="images/local/skin/projet_localisation.png" width="25px" height="25px" alt="Localisation" title="Localisation">
-                                        <#if idee.localisationType??>
-                                            <#if idee.localisationType = "paris">
-                                                Tout Paris
-                                            <#elseif idee.localisationArdt?length &gt; 45>${idee.localisationArdt?substring(0,45)?html}<#else>${idee.localisationArdt?html}</#if>
-                                        </#if>
-                                    </span>
-                                </div>
-                                <div class="col-xs-4" style="height:70px">
-                                    <span class="project_budget">
-                                        <#if idee.cout?? && idee.cout &gt; 0>
-                                        <#setting locale="fr_FR">
-                                        ${idee.cout?string("#,###")} &#8364;
-                                        <#else>-
-                                        </#if>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="project_description col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                            <#if idee.description?has_content>
-                                <#if idee.description?length &gt; 200>${idee.description?substring(0,200)}...<#else>${idee.description}</#if>
-                            </#if>  
-                        </div>
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="lien-detail">
-                        <#assign atelier = AtelierHome.getAtelierByIdee(idee.id)!>
-                        <#if atelier?has_content>
-                        <div class="panel-footer text-center">
-                             <a class="btn btn-idee text-center" href="jsp/site/Portal.jsp?page=atelier&atelier=${atelier.id}">
-                                 #i18n{ideation.ideesSubscriber.button.label.gotoWorkshop}
-                             </a>
-                        </div>
-                        </#if>
-                        <#if idee.canDelete() >     
-                        <div id="" class="">
-				            <a href="jsp/site/Portal.jsp?page=myProjects&action=actionDeleteIdee&idee_id=${idee.id}">
-                                <div class="bg-perdant">
-                                    <span class="budget-label-remove-vote"><i class='glyphicon glyphicon-remove-circle'></i> Supprimer</span>
-                                </div>
-                            </a>
-                        </div>
-                        </#if>
-                    </div> 
-                </div> 
-            </div>
-	</div>
-        </#list>
-</div>
-         <div id="resultItems" class="row resultats-recherche project_list_container">
-         <h1>#i18n{ideation.ideesSubscriber.participate.projects}</h1>
-        <#list projectsParticipate as idee>
-         <#assign theme_class = "autre">
-			<#if idee.codeTheme??>
-				<#if idee.codeTheme = "CADRE"><#assign theme_class = "cadre_vie">
-				<#elseif idee.codeTheme = "CULTURE"><#assign theme_class = "culture">
-				<#elseif idee.codeTheme = "ECO"><#assign theme_class = "economie_emploi">
-				<#elseif idee.codeTheme = "EDU"><#assign theme_class = "education">
-				<#elseif idee.codeTheme = "ENVIRONNEMENT" || idee.codeTheme = "NAT"><#assign theme_class = "environnement">
-				<#elseif idee.codeTheme = "LOGEMENT"><#assign theme_class = "logement">
-				<#elseif idee.codeTheme = "PARTICIPATION"><#assign theme_class = "participation_citoyenne">
-				<#elseif idee.codeTheme = "SECURITE"><#assign theme_class = "prevention_securite">
-				<#elseif idee.codeTheme = "PROPRETE"><#assign theme_class = "proprete">
-				<#elseif idee.codeTheme = "SOLIDARITE" || idee.codeTheme = "VIVREENSEMBLE"><#assign theme_class = "solidarite">
-				<#elseif idee.codeTheme = "SPORT"><#assign theme_class = "sport">
-				<#elseif idee.codeTheme = "TRANSPORT"><#assign theme_class = "transport">
-				<#elseif idee.codeTheme = "NUM"><#assign theme_class = "ville_numerique">
-			</#if>
-		</#if>
-	  	<#assign url_idee = "jsp/site/Portal.jsp?page=idee&campagne="+idee.codeCampagne+"&idee="+idee.id>
-          <div class="item" style="margin:10px;"> 
-                <div id="right-item" class="col-xs-12 col-sm-3 col-md-3 col-lg-3" style="padding:10px;">
-                    <div class="row projectlist_project">
-                        <div class="project_ref project_${theme_class!}">
-                                PROJET N°${idee.codeIdee!}
-                        </div>
-                        <div class="project_category col-xs-12 hidden-sm hidden-md hidden-lg
-                            <#if idee.codeTheme??>
-                                ${theme_class!}"><img src="images/local/skin/i_${theme_class!}.png" alt="${idee.codeTheme!}" title="${idee.codeTheme!}">
-                        
-                            ${idee.codeTheme!}
-                            <#else>
-                                <#assign theme_class = "notheme">
-                                ${theme_class}">
-                                <img src="images/local/skin/i_notheme.png">
-                                PAS DE THEMATIQUE
-                            </#if>
-                        </div>
-                        <div class="project_category hidden-xs col-sm-12 hidden-md hidden-lg 
-                            <#if idee.codeTheme??>
-                                ${theme_class!}"><img src="images/local/skin/i_${theme_class!}.png" alt="${idee.codeTheme}" title="${idee.codeTheme}">
-                        
-                            <#if idee.codeTheme?length &gt; 32>${idee.codeTheme}?substring(0,32)}...<#else>${idee.codeTheme}</#if>
-                            <#else>
-                                <#assign theme_class = "notheme">
-                                ${theme_class}">
-                                <img src="images/local/skin/i_notheme.png">
-                                PAS DE THEMATIQUE
-                            </#if>
-                        </div>
-                        <div class="project_category hidden-xs hidden-sm col-md-12 hidden-lg 
-                            <#if idee.codeTheme??>
-                                ${theme_class!}"><img src="images/local/skin/i_${theme_class!}.png" alt="${idee.codeTheme}" title="${idee.codeTheme}">
-                        
-                            <#if idee.codeTheme?length &gt; 16>${idee.codeTheme}?substring(0,16)}...<#else>${idee.codeTheme}</#if>
-                            <#else>
-                                <#assign theme_class = "notheme">
-                                ${theme_class}">
-                                <img src="images/local/skin/i_notheme.png">
-                                PAS DE THEMATIQUE
-                            </#if>
-                        </div>
-                        <div class="project_category hidden-xs hidden-sm hidden-md col-lg-12 
-                            <#if idee.codeTheme??>
-                                ${theme_class!}"><img src="images/local/skin/i_${theme_class!}.png" alt="${idee.codeTheme}" title="${idee.codeTheme}">
-                        
-                            <#if idee.codeTheme?length &gt; 27>${idee.codeTheme}?substring(0,27)}...<#else>${idee.codeTheme}</#if>
-                            <#else>
-                                <#assign theme_class = "notheme">
-                                ${theme_class}">
-                                <img src="images/local/skin/i_notheme.png">
-                                PAS DE THEMATIQUE
-                            </#if>
-                        </div>
-                        
-                        <div class="project_title col-xs-12 hidden-sm hidden-md hidden-lg">
-                            <a href="${url_idee}" alt="${idee.titre}" title="${idee.titre}">
-                                ${idee.titre}
-                            </a>
-                        </div>
-                        <div class="project_title hidden-xs col-sm-12 hidden-md hidden-lg">
-                            <a href="${url_idee}" alt="${idee.titre}" title="${idee.titre}">
-                                <#if idee.titre?length &gt; 45>${idee.titre?substring(0,45)}...<#else>${idee.titre}</#if>
-                            </a>
-                        </div>
-                        <div class="project_title hidden-xs hidden-sm col-md-12 hidden-lg">
-                            <a href="${url_idee}" alt="${idee.titre}" title="${idee.titre}">
-                                <#if idee.titre?length &gt; 40>${idee.titre?substring(0,40)}...<#else>${idee.titre}</#if>
-                            </a>
-                        </div>
-                        <div class="project_title hidden-xs hidden-sm hidden-md col-lg-12">
-                            <a href="${url_idee}" alt="${idee.titre}" title="${idee.titre}">
-                                <#if idee.titre?length &gt; 65>${idee.titre?substring(0,65)}...<#else>${idee.titre}</#if>
-                            </a>
-                        </div>
-                        <div>
-                            <div class="row">
-                                <div class="col-xs-8" style="height:70px">
-                                    <span class="project_location">
-                                        <img src="images/local/skin/projet_localisation.png" width="25px" height="25px" alt="Localisation" title="Localisation">
-                                        <#if idee.localisationType??>
-                                            <#if idee.localisationType = "paris">
-                                                Tout Paris
-                                            <#elseif idee.localisationArdt?length &gt; 45>${idee.localisationArdt?substring(0,45)?html}<#else>${idee.localisationArdt?html}</#if>
-                                        </#if>
-                                    </span>
-                                </div>
-                                <div class="col-xs-4" style="height:70px">
-                                    <span class="project_budget">
-                                        <#if idee.cout?? && idee.cout &gt; 0>
-                                        <#setting locale="fr_FR">
-                                        ${idee.cout?string("#,###")} &#8364;
-                                        <#else>-
-                                        </#if>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="project_description col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                            <#if idee.description?has_content>
-                                <#if idee.description?length &gt; 200>${idee.description?substring(0,200)}...<#else>${idee.description}</#if>
-                            </#if>  
-                        </div>
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="lien-detail">
-			<div id="" class="">
-                <#assign atelier = AtelierHome.getAtelierByIdee(idee.id)!>
-                <#if atelier?has_content>
-                    <div class="panel-footer text-center">
-                         <a class="btn btn-idee text-center" href="jsp/site/Portal.jsp?page=atelier&atelier=${atelier.id}">
-                             #i18n{ideation.ideesSubscriber.button.label.gotoWorkshop}
-                         </a>
-                    </div>
-                </#if>
-				<a  class="budget-cancel-vote-button" >
-               				 <div class="bg-perdant">
-					     <span class="budget-label-remove-vote"><i class='glyphicon glyphicon-remove-circle'></i> @Extender[${idee.id},IDEE,follow,{show:"cancel"}]@ </span>
-					 </div>
-			    </a>
-		       </div>
-    					                 
-    
-                        </div>
-                    </div> 
-                </div> 
-            </div>
-        </#list>
-       </div>
- 	<div id="resultItems" class="row resultats-recherche project_list_container">
-         <h1>#i18n{ideation.ideesSubscriber.commented.projects}</h1>
-        <#list projectsCommented as idee>
-         <#assign theme_class = "autre">
-			<#if idee.codeTheme??>
-				<#if idee.codeTheme = "CADRE"><#assign theme_class = "cadre_vie">
-				<#elseif idee.codeTheme = "CULTURE"><#assign theme_class = "culture">
-				<#elseif idee.codeTheme = "ECO"><#assign theme_class = "economie_emploi">
-				<#elseif idee.codeTheme = "EDU"><#assign theme_class = "education">
-				<#elseif idee.codeTheme = "ENVIRONNEMENT" || idee.codeTheme = "NAT"><#assign theme_class = "environnement">
-				<#elseif idee.codeTheme = "LOGEMENT"><#assign theme_class = "logement">
-				<#elseif idee.codeTheme = "PARTICIPATION"><#assign theme_class = "participation_citoyenne">
-				<#elseif idee.codeTheme = "SECURITE"><#assign theme_class = "prevention_securite">
-				<#elseif idee.codeTheme = "PROPRETE"><#assign theme_class = "proprete">
-				<#elseif idee.codeTheme = "SOLIDARITE" || idee.codeTheme = "VIVREENSEMBLE"><#assign theme_class = "solidarite">
-				<#elseif idee.codeTheme = "SPORT"><#assign theme_class = "sport">
-				<#elseif idee.codeTheme = "TRANSPORT"><#assign theme_class = "transport">
-				<#elseif idee.codeTheme = "NUM"><#assign theme_class = "ville_numerique">
-			</#if>
-		</#if>
-	 	<#assign url_idee = "jsp/site/Portal.jsp?page=idee&campagne="+idee.codeCampagne+"&idee="+idee.id>
-          <div class="item" style="margin:10px;"> 
-                <div id="right-item" class="col-xs-12 col-sm-3 col-md-3 col-lg-3" style="padding:10px;">
-                    <div class="row projectlist_project">
-                        <div class="project_ref project_${theme_class!}">
-                                PROJET N°${idee.codeIdee!}
-                        </div>
-                        <div class="project_category col-xs-12 hidden-sm hidden-md hidden-lg
-                            <#if idee.codeTheme??>
-                                ${theme_class!}"><img src="images/local/skin/i_${theme_class!}.png" alt="${idee.codeTheme!}" title="${idee.codeTheme!}">
-                        
-                            ${idee.codeTheme!}
-                            <#else>
-                                <#assign theme_class = "notheme">
-                                ${theme_class}">
-                                <img src="images/local/skin/i_notheme.png">
-                                PAS DE THEMATIQUE
-                            </#if>
-                        </div>
-                        <div class="project_category hidden-xs col-sm-12 hidden-md hidden-lg 
-                            <#if idee.codeTheme??>
-                                ${theme_class!}"><img src="images/local/skin/i_${theme_class!}.png" alt="${idee.codeTheme}" title="${idee.codeTheme}">
-                        
-                            <#if idee.codeTheme?length &gt; 32>${idee.codeTheme}?substring(0,32)}...<#else>${idee.codeTheme}</#if>
-                            <#else>
-                                <#assign theme_class = "notheme">
-                                ${theme_class}">
-                                <img src="images/local/skin/i_notheme.png">
-                                PAS DE THEMATIQUE
-                            </#if>
-                        </div>
-                        <div class="project_category hidden-xs hidden-sm col-md-12 hidden-lg 
-                            <#if idee.codeTheme??>
-                                ${theme_class!}"><img src="images/local/skin/i_${theme_class!}.png" alt="${idee.codeTheme}" title="${idee.codeTheme}">
-                        
-                            <#if idee.codeTheme?length &gt; 16>${idee.codeTheme}?substring(0,16)}...<#else>${idee.codeTheme}</#if>
-                            <#else>
-                                <#assign theme_class = "notheme">
-                                ${theme_class}">
-                                <img src="images/local/skin/i_notheme.png">
-                                PAS DE THEMATIQUE
-                            </#if>
-                        </div>
-                        <div class="project_category hidden-xs hidden-sm hidden-md col-lg-12 
-                            <#if idee.codeTheme??>
-                                ${theme_class!}"><img src="images/local/skin/i_${theme_class!}.png" alt="${idee.codeTheme}" title="${idee.codeTheme}">
-                        
-                            <#if idee.codeTheme?length &gt; 27>${idee.codeTheme}?substring(0,27)}...<#else>${idee.codeTheme}</#if>
-                            <#else>
-                                <#assign theme_class = "notheme">
-                                ${theme_class}">
-                                <img src="images/local/skin/i_notheme.png">
-                                PAS DE THEMATIQUE
-                            </#if>
-                        </div>
-                        
-                        <div class="project_title col-xs-12 hidden-sm hidden-md hidden-lg">
-                            <a href="${url_idee}" alt="${idee.titre}" title="${idee.titre}">
-                                ${idee.titre}
-                            </a>
-                        </div>
-                        <div class="project_title hidden-xs col-sm-12 hidden-md hidden-lg">
-                            <a href="${url_idee}" alt="${idee.titre}" title="${idee.titre}">
-                                <#if idee.titre?length &gt; 45>${idee.titre?substring(0,45)}...<#else>${idee.titre}</#if>
-                            </a>
-                        </div>
-                        <div class="project_title hidden-xs hidden-sm col-md-12 hidden-lg">
-                            <a href="${url_idee}" alt="${idee.titre}" title="${idee.titre}">
-                                <#if idee.titre?length &gt; 40>${idee.titre?substring(0,40)}...<#else>${idee.titre}</#if>
-                            </a>
-                        </div>
-                        <div class="project_title hidden-xs hidden-sm hidden-md col-lg-12">
-                            <a href="${url_idee}" alt="${idee.titre}" title="${idee.titre}">
-                                <#if idee.titre?length &gt; 65>${idee.titre?substring(0,65)}...<#else>${idee.titre}</#if>
-                            </a>
-                        </div>
-                        <div>
-                            <div class="row">
-                                <div class="col-xs-8" style="height:70px">
-                                    <span class="project_location">
-                                        <img src="images/local/skin/projet_localisation.png" width="25px" height="25px" alt="Localisation" title="Localisation">
-                                        <#if idee.localisationType??>
-                                            <#if idee.localisationType = "paris">
-                                                Tout Paris
-                                            <#elseif idee.localisationArdt?length &gt; 45>${idee.localisationArdt?substring(0,45)?html}<#else>${idee.localisationArdt?html}</#if>
-                                        </#if>
-                                    </span>
-                                </div>
-                                <div class="col-xs-4" style="height:70px">
-                                    <span class="project_budget">
-                                        <#if idee.cout?? && idee.cout &gt; 0>
-                                        <#setting locale="fr_FR">
-                                        ${idee.cout?string("#,###")} &#8364;
-                                        <#else>-
-                                        </#if>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="project_description col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                            <#if idee.description?has_content>
-                                <#if idee.description?length &gt; 200>${idee.description?substring(0,200)}...<#else>${idee.description}</#if>
-                            </#if>  
-                        </div>
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="lien-detail">
-                           
-    
-                        </div>
-                    </div> 
-                </div> 
-            </div>
-        </#list>
-   </div>
-   </div>
+<h1 class="visuallyhidden">Page listant les projets que j'ai déposés ou auxquels je me suis associé.</h1><div id="my-projects-container" class="container">	<@messages infos=infos />	<@messages errors=errors />	<#-- *********************************************************************************** -->	<#-- * DEPOSES DEPOSES DEPOSES DEPOSES DEPOSES DEPOSES DEPOSES DEPOSES DEPOSES DEPOSES * -->	<#-- * DEPOSES DEPOSES DEPOSES DEPOSES DEPOSES DEPOSES DEPOSES DEPOSES DEPOSES DEPOSES * -->	<#-- *********************************************************************************** -->	<div id="resultSubmited">			<h2>#i18n{ideation.ideesSubscriber.submitted.projects}</h2>				<div class="row row-eq-height">			<#if !projectsSubmitted?has_content >				<div class="col-xs-12">					<p class="empty-list">Il semble que vous n'ayez pas déposé de projet.</p>				</div>			<#else>							<#list projectsSubmitted as idee>					<#assign theme_class = "autre">					<#if idee.codeTheme??>											<#if     idee.codeTheme = "CADRE">											<#assign theme_class = "cadre_vie">						<#elseif idee.codeTheme = "CULTURE">										<#assign theme_class = "culture">						<#elseif idee.codeTheme = "ECO">											<#assign theme_class = "economie_emploi">						<#elseif idee.codeTheme = "EDU">											<#assign theme_class = "education">						<#elseif idee.codeTheme = "ENVIRONNEMENT" || idee.codeTheme = "NAT">		<#assign theme_class = "environnement">						<#elseif idee.codeTheme = "LOGEMENT">										<#assign theme_class = "logement">						<#elseif idee.codeTheme = "PARTICIPATION">									<#assign theme_class = "participation_citoyenne">						<#elseif idee.codeTheme = "PROPRETE">										<#assign theme_class = "proprete">						<#elseif idee.codeTheme = "SOLIDARITE" || idee.codeTheme = "VIVREENSEMBLE">	<#assign theme_class = "solidarite">						<#elseif idee.codeTheme = "SPORT">											<#assign theme_class = "sport">						<#elseif idee.codeTheme = "TRANSPORT">										<#assign theme_class = "transport">						<#elseif idee.codeTheme = "NUMERIQUE">										<#assign theme_class = "ville_numerique">						<#elseif idee.codeTheme = "SANTE">											<#assign theme_class = "sante">						<#elseif idee.codeTheme = "SECURITE">										<#assign theme_class = "prevention_securite">						</#if>					</#if>										<#if idee.codeTheme??>						<#assign campagne_year = "Budget Participatif " + (2014 + "ABCDEFGHIJKLMNOPQRSTUVWXYZ"?index_of(idee.codeCampagne))>					</#if>										<#if (idee.codeTheme)??>						<#assign theme_libelle = (global_static[idee.codeCampagne].themes_map[idee.codeTheme].title)!idee.codeTheme>					</#if>										<#assign url_idee = "jsp/site/Portal.jsp?page=idee&campagne="+idee.codeCampagne+"&idee="+idee.codeIdee>					<#assign url_idee = "jsp/site/Portal.jsp?page=idee&campagne="+idee.codeCampagne+"&idee="+idee.codeIdee>					<div class="col-xs-12 col-sm-4 col-md-3 prop-panel">						<div class="prop-card bordered-4px-theme-${theme_class}">														<#-- Thématique -->							<div class="prop-card-theme bgcolor-theme-${theme_class}">								<img src="images/local/skin/i2_${theme_class}.png">								<span>${theme_libelle}</span>							</div>							<#-- Localisation -->							<div class="prop-card-loc">								<img src="images/local/skin/marker_1.png" class="img-responsive pull-left" alt="" title="">								<#if idee.localisationType == "paris"  >Projet « Tout Paris »<#elseif idee.localisationType == "ardt"  ><#if idee.adress??>Projet d'arrondissement<#else>${(arrondissements_map[idee.localisationArdt])!idee.localisationArdt}</#if></#if>							</div>														<#-- Titre -->							<div class="prop-card-titre">								<h3>${idee.titre!''}</h3>							</div>							<#-- Campagne -->							<div class="prop-card-campagne">								<p class="pull-right">									${campagne_year}								</p>							</div>							<#-- Ligne séparatrice colorée -->							<div class="prop-card-line bgcolor-theme-${theme_class}"></div>							<div class="buttons-wrapper">															<a href="${url_idee}" alt="${idee.titre}" title="${idee.titre}" class="btn btn-12rem btn-black-on-white">Consulter le projet</a>									<#-- Lien vers un éventuel atelier -->								<#assign atelier = AtelierHome.getAtelierByIdee(idee.id)!>								<#if atelier?has_content>									<div class="prop-card-workshop">										<a class="btn btn-12rem btn-black-on-white" href="jsp/site/Portal.jsp?page=atelier&atelier=${atelier.id}" title="Accéder à l'atelier ${atelier.titre!'(atelier sans titre)'}">											#i18n{ideation.ideesSubscriber.button.label.gotoWorkshop}										</a>									</div>								</#if>																<#if idee.canDelete()>									<div class="prop-card-delete">										 <a class="btn btn-12rem btn-black-on-white" href="jsp/site/Portal.jsp?page=myProjects&action=actionDeleteIdee&idee_id=${idee.id}">											 <i class='fa fa-trash-o'></i> Supprimer										 </a>									</div>								</#if>							</div>						</div>					</div>				</#list>			</#if>		</div>	</div>		<#-- *********************************************************************************** -->	<#-- * ASSOCIE ASSOCIE ASSOCIE ASSOCIE ASSOCIE ASSOCIE ASSOCIE ASSOCIE ASSOCIE ASSOCIE * -->	<#-- * ASSOCIE ASSOCIE ASSOCIE ASSOCIE ASSOCIE ASSOCIE ASSOCIE ASSOCIE ASSOCIE ASSOCIE * -->	<#-- *********************************************************************************** -->	<div id="resultSubscribed">			<h2> #i18n{ideation.ideesSubscriber.participate.projects}</h2>				<div class="row row-eq-height">			<#if !projectsParticipate?has_content >				<div class="col-xs-12">					<p class="empty-list">Il semble que vous ne vous soyez pas associé à un projet.</p>				</div>			<#else>				<#list projectsParticipate as idee>					<#assign theme_class = "autre">					<#if idee.codeTheme??>											<#if     idee.codeTheme = "CADRE">											<#assign theme_class = "cadre_vie">						<#elseif idee.codeTheme = "CULTURE">										<#assign theme_class = "culture">						<#elseif idee.codeTheme = "ECO">											<#assign theme_class = "economie_emploi">						<#elseif idee.codeTheme = "EDU">											<#assign theme_class = "education">						<#elseif idee.codeTheme = "ENVIRONNEMENT" || idee.codeTheme = "NAT">		<#assign theme_class = "environnement">						<#elseif idee.codeTheme = "LOGEMENT">										<#assign theme_class = "logement">						<#elseif idee.codeTheme = "PARTICIPATION">									<#assign theme_class = "participation_citoyenne">						<#elseif idee.codeTheme = "PROPRETE">										<#assign theme_class = "proprete">						<#elseif idee.codeTheme = "SOLIDARITE" || idee.codeTheme = "VIVREENSEMBLE">	<#assign theme_class = "solidarite">						<#elseif idee.codeTheme = "SPORT">											<#assign theme_class = "sport">						<#elseif idee.codeTheme = "TRANSPORT">										<#assign theme_class = "transport">						<#elseif idee.codeTheme = "NUMERIQUE">										<#assign theme_class = "ville_numerique">						<#elseif idee.codeTheme = "SANTE">											<#assign theme_class = "sante">						<#elseif idee.codeTheme = "SECURITE">										<#assign theme_class = "prevention_securite">						</#if>					</#if>										<#if idee.codeTheme??>						<#assign campagne_year = "Budget Participatif " + (2014 + "ABCDEFGHIJKLMNOPQRSTUVWXYZ"?index_of(idee.codeCampagne))>					</#if>										<#if (idee.codeTheme)??>						<#assign theme_libelle = (global_static[idee.codeCampagne].themes_map[idee.codeTheme].title)!idee.codeTheme>					</#if>										<#assign url_idee = "jsp/site/Portal.jsp?page=idee&campagne="+idee.codeCampagne+"&idee="+idee.codeIdee>					<#assign url_idee = "jsp/site/Portal.jsp?page=idee&campagne="+idee.codeCampagne+"&idee="+idee.codeIdee>					<div class="col-xs-12 col-sm-4 col-md-3 prop-panel">						<div class="prop-card bordered-4px-theme-${theme_class}">														<#-- Thématique -->							<div class="prop-card-theme bgcolor-theme-${theme_class}">								<img src="images/local/skin/i2_${theme_class}.png">								<span>${theme_libelle}</span>							</div>							<#-- Localisation -->							<div class="prop-card-loc">								<img src="images/local/skin/marker_1.png" class="img-responsive pull-left" alt="" title="">								<#if idee.localisationType == "paris"  >Projet « Tout Paris »<#elseif idee.localisationType == "ardt"  ><#if idee.adress??>Projet d'arrondissement<#else>${(arrondissements_map[idee.localisationArdt])!idee.localisationArdt}</#if></#if>							</div>														<#-- Titre -->							<div class="prop-card-titre">								<h3>${idee.titre!''}</h3>							</div>							<#-- Campagne -->							<div class="prop-card-campagne">								<p class="pull-right">									${campagne_year}								</p>							</div>							<#-- Ligne séparatrice colorée -->							<div class="prop-card-line bgcolor-theme-${theme_class}"></div>							<div class="buttons-wrapper">															<a href="${url_idee}" alt="${idee.titre}" title="${idee.titre}" class="btn btn-12rem btn-black-on-white">Consulter le projet</a>								<#-- Lien vers un éventuel atelier -->								<#assign atelier = AtelierHome.getAtelierByIdee(idee.id)!>								<#if atelier?has_content>									<div class="prop-card-workshop">										<a class="btn btn-12rem btn-black-on-white" href="jsp/site/Portal.jsp?page=atelier&atelier=${atelier.id}" title="Accéder à l'atelier ${atelier.titre!'(atelier sans titre)'}">											#i18n{ideation.ideesSubscriber.button.label.gotoWorkshop}										</a>									</div>								</#if>									<#-- Ne plus s'associer à l'idée -->								<div class="prop-card-unsubscribe">									<a class="btn btn-12rem btn-black-on-white" href="jsp/site/plugins/extend/modules/follow/DoCancelFollow.jsp?idExtendableResource=${idee.id}&extendableResourceType=IDEE">										<i class='fa fa-times-circle'></i> Ne plus m'associer									</a>								</div>							</div>						</div>					</div>				</#list>			</#if>		</div>	</div>	<#-- *********************************************************************************** -->	<#-- * COMMENTES COMMENTES COMMENTES COMMENTES COMMENTES COMMENTES COMMENTES COMMENTES * -->	<#-- * COMMENTES COMMENTES COMMENTES COMMENTES COMMENTES COMMENTES COMMENTES COMMENTES * -->	<#-- *********************************************************************************** -->	<div id="resultCommented">			<h2> #i18n{ideation.ideesSubscriber.commented.projects}</h2>				<div class="row row-eq-height">			<#if !projectsCommented?has_content >				<div class="col-xs-12">					<p class="empty-list">Il semble que vous n'ayez pas commenté de projet.</p>				</div>			<#else>				<#list projectsCommented as idee>					<#assign theme_class = "autre">					<#if idee.codeTheme??>											<#if     idee.codeTheme = "CADRE">											<#assign theme_class = "cadre_vie">						<#elseif idee.codeTheme = "CULTURE">										<#assign theme_class = "culture">						<#elseif idee.codeTheme = "ECO">											<#assign theme_class = "economie_emploi">						<#elseif idee.codeTheme = "EDU">											<#assign theme_class = "education">						<#elseif idee.codeTheme = "ENVIRONNEMENT" || idee.codeTheme = "NAT">		<#assign theme_class = "environnement">						<#elseif idee.codeTheme = "LOGEMENT">										<#assign theme_class = "logement">						<#elseif idee.codeTheme = "PARTICIPATION">									<#assign theme_class = "participation_citoyenne">						<#elseif idee.codeTheme = "PROPRETE">										<#assign theme_class = "proprete">						<#elseif idee.codeTheme = "SOLIDARITE" || idee.codeTheme = "VIVREENSEMBLE">	<#assign theme_class = "solidarite">						<#elseif idee.codeTheme = "SPORT">											<#assign theme_class = "sport">						<#elseif idee.codeTheme = "TRANSPORT">										<#assign theme_class = "transport">						<#elseif idee.codeTheme = "NUMERIQUE">										<#assign theme_class = "ville_numerique">						<#elseif idee.codeTheme = "SANTE">											<#assign theme_class = "sante">						<#elseif idee.codeTheme = "SECURITE">										<#assign theme_class = "prevention_securite">												</#if>					</#if>										<#if idee.codeTheme??>						<#assign campagne_year = "Budget Participatif " + (2014 + "ABCDEFGHIJKLMNOPQRSTUVWXYZ"?index_of(idee.codeCampagne))>					</#if>										<#if (idee.codeTheme)??>						<#assign theme_libelle = (global_static[idee.codeCampagne].themes_map[idee.codeTheme].title)!idee.codeTheme>					</#if>										<#assign url_idee = "jsp/site/Portal.jsp?page=idee&campagne="+idee.codeCampagne+"&idee="+idee.codeIdee>					<#assign url_idee = "jsp/site/Portal.jsp?page=idee&campagne="+idee.codeCampagne+"&idee="+idee.codeIdee>					<div class="col-xs-12 col-sm-4 col-md-3 prop-panel">						<div class="prop-card bordered-4px-theme-${theme_class}">														<#-- Thématique -->							<div class="prop-card-theme bgcolor-theme-${theme_class}">								<img src="images/local/skin/i2_${theme_class}.png">								<span>${theme_libelle}</span>							</div>							<#-- Localisation -->							<div class="prop-card-loc">								<img src="images/local/skin/marker_1.png" class="img-responsive pull-left" alt="" title="">								<#if idee.localisationType == "paris"  >Projet « Tout Paris »<#elseif idee.localisationType == "ardt"  ><#if idee.adress??>Projet d'arrondissement<#else>${(arrondissements_map[idee.localisationArdt])!idee.localisationArdt}</#if></#if>							</div>														<#-- Titre -->							<div class="prop-card-titre">								<h3>${idee.titre!''}</h3>							</div>							<#-- Campagne -->							<div class="prop-card-campagne">								<p class="pull-right">									${campagne_year}								</p>							</div>							<#-- Ligne séparatrice colorée -->							<div class="prop-card-line bgcolor-theme-${theme_class}"></div>							<div class="buttons-wrapper">															<a href="${url_idee}" alt="${idee.titre}" title="${idee.titre}" class="btn btn-12rem btn-black-on-white">Consulter le projet</a>								<#-- Lien vers un éventuel atelier -->								<#assign atelier = AtelierHome.getAtelierByIdee(idee.id)!>								<#if atelier?has_content>									<div class="prop-card-workshop">										<a class="btn btn-12rem btn-black-on-white" href="jsp/site/Portal.jsp?page=atelier&atelier=${atelier.id}" title="Accéder à l'atelier ${atelier.titre!'(atelier sans titre)'}">											#i18n{ideation.ideesSubscriber.button.label.gotoWorkshop}										</a>									</div>								</#if>							</div>						</div>					</div>				</#list>			</#if>		</div>	</div>	</div>

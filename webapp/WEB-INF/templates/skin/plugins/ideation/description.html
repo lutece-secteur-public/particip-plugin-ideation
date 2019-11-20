@@ -1,45 +1,114 @@
+<form onsubmit="return validateForm(this);" action="jsp/site/Portal.jsp"
+	method="post">
+	<input type="hidden" name="page" value="ideation"> <input
+		type="hidden" name="action" value="description">
 
-<form onsubmit="return validateForm(this);" action="jsp/site/Portal.jsp" method="post">
-        <input type="hidden" name="page" value="ideation">
-        <input type="hidden" name="action" value="description">
+	<div class="form-group">
+		#dskey{ideation.site_property.form.description_label.htmlblock}
+		<!-- label for="description_textarea">#dskey{ideation.site_property.form.description_label_text}</label -->
+		<textarea id="description_textarea" name="description"
+			class="form-control" rows="5"
+			maxlength="#dskey{ideation.site_property.form.description.maxLength}">${form_etape_description.description!''}</textarea>
+	</div>
 
-        <div class="row"><div class="col-md-8 col-md-offset-2">#dskey{ideation.site_property.form.description_label.htmlblock}</div></div>
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2 form">
-                <div class="form-group">
-                    <label for="description_textarea">#dskey{ideation.site_property.form.description_label_text}</label>
-                    <textarea id="description_textarea" name="description" class="form-control" rows="5">${form_etape_description.description!''}</textarea>
-                </div>
-            </div>
-        </div>
+	<div class="form-group">
+		<label for="cout">#dskey{ideation.site_property.form.cout_label_text}</label>
+		<input type="text" class="form-control" name="cout"
+			value="${form_etape_description.cout!''}" id="cout"
+			style="width: 100px">
+	</div>
 
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2 form">
-                <div class="form-group">
-                    <label for="cout">#dskey{ideation.site_property.form.cout_label_text}</label>
-                    <input type="text" class="form-control" name="cout" value="${form_etape_description.cout!''}" id="cout">
-                </div>
-            </div>
-        </div>
+	<div class="form-group">
+		#dskey{ideation.site_property.form.handicap_label.htmlblock}
+		<label class="radio-inline"><input type="radio" name="handicap" id="handicap_yes" value="yes" <#if form_etape_description.handicap?? && form_etape_description.handicap == 'yes'>checked</#if>>#dskey{ideation.site_property.form.handicap_yes_label}</label> 
+		<label class="radio-inline"><input type="radio" name="handicap" id="handicap_no"  value="no"  <#if form_etape_description.handicap?? && form_etape_description.handicap == 'no' >checked</#if>>#dskey{ideation.site_property.form.handicap_no_label }</label> 
+		<div id="handicapComplement_div">
+        	<label for="handicapcomplement">#dskey{ideation.site_property.form.handicap_complement_label} :</label>
+        	<p>(#dskey{ideation.site_property.form.handicap_complement.minLength} &agrave; #dskey{ideation.site_property.form.handicap_complement.maxLength} caract&egrave;res)</p>
+    		<input type="text" class="form-control" name="handicapComplement" value="${form_etape_description.handicapComplement!''}" id="handicapComplement"/>
+		</div>
+	</div>
 
-	<br><br>
 
-        <center><button type="submit" value="Continuer" class="btn continue">Continuer <i class="fa fa-arrow-down"></i></button></center>
 
-        <script>
-            function lutece_update_count() {
-                var cnt = $("#description_textarea").val().length;
-                var text = cnt + " caractère";
-                if (cnt >= 2) {
-                    text += "s";
-                }
-                text = "(" + text + ")";
-                $("#cnt").text(text);
-            }
-            $( document ).ready(function () {
-                $("<p id="cnt"></p>").insertBefore("#description_textarea");
-                lutece_update_count();
-            });
-            $("#description_textarea").on("input keyup paste cut", lutece_update_count);
-        </script>
+	<div class="form-group">
+		<p>
+			<strong>#dskey{ideation.site_property.form.operatingbudget.htmlblock}</strong>
+			(#dskey{ideation.site_property.form.operatingbudget.minLength}
+			&agrave;
+			#dskey{ideation.site_property.form.operatingbudget.maxLength}
+			caract&egrave;res)
+		</p>
+		<textarea id="operatingbudget_textarea" name="operatingbudget"
+			class="form-control" rows="2">${form_etape_description.operatingbudget!''}</textarea>
+	</div>
+
+	<div class="form-button text-center">
+		<button
+			onclick="javascript:_paq.push(['trackEvent', 'Ideation', '04_ValidStepDescription']);"
+			type="submit" value="Continuer" class="btn btn-14rem btn-black-on-white">
+			Continuer <i class="fa fa-angle-down"></i>
+		</button>
+	</div>
 </form>
+
+<script>
+
+	function lutece_update_count_description() {
+  		var cnt1 = $.trim($("#description_textarea").val()).length;
+  		var text = cnt1 + " caract&egrave;re";
+  		if (cnt1 >= 2) { text += "s"; }
+  		text = "(" + text + ")";
+  		$("#cnt1").html( text );
+	}
+	$(function(){
+  		$("#description_textarea").after('<p id="cnt1" class="cnt"></p>');
+  		lutece_update_count_description();
+  		$("#description_textarea").on("input keyup paste cut", lutece_update_count_description);
+	});
+
+	function lutece_update_count_operatingbudget() {
+  		var cnt2 = $.trim($("#operatingbudget_textarea").val()).length;
+  		var text = cnt2 + " caract&egrave;re";
+  		if (cnt2 >= 2) { text += "s"; }
+  		text = "(" + text + ")";
+  		$("#cnt2").html( text );
+	}
+	$(function(){
+  		$("#operatingbudget_textarea").after('<p id="cnt2" class="cnt"></p>');
+  		lutece_update_count_operatingbudget();
+  		$("#operatingbudget_textarea").on("input keyup paste cut", lutece_update_count_operatingbudget);
+	});
+
+	function lutece_update_count_handicap() {
+  		var cnt3 = $.trim($("#handicapComplement").val()).length;
+  		var text = cnt3 + " caract&egrave;re";
+  		if (cnt3 >= 2) { text += "s"; }
+  		text = "(" + text + ")";
+  		$("#cnt3").html( text );
+	}
+	$(function(){
+  		$("#handicapComplement").after('<p id="cnt3" class="cnt"></p>');
+  		lutece_update_count_handicap();
+  		$("#handicapComplement").on("input keyup paste cut", lutece_update_count_handicap);
+	});
+
+	$(function(){
+		$('#handicap_yes').on( "click", function(e){ 
+			$('#handicapComplement_div').show(); 
+		} );
+		$('#handicap_no' ).on( "click", function(e){ 
+			$('#handicapComplement_div').hide(); 
+			$('#handicapComplement').val(""); 
+			lutece_update_count_handicap();
+		} );
+		if ($('#handicap_yes').is(":checked")){
+			$('#handicapComplement_div').show();
+		} else{
+			$('#handicapComplement_div').hide();
+			$('#handicapComplement').val("");
+			lutece_update_count_handicap();
+		}
+	});
+
+</script>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><plug-in>
-    <name>ideation</name>
+    <name>participatoryideation</name>
     <class>fr.paris.lutece.plugins.ideation.service.IdeationPlugin</class>
-    <version>2.0.19-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
     <documentation/>
     <installation/>
     <changes/>
@@ -14,7 +14,7 @@
     <db-pool-required>1</db-pool-required>
     
     <core-version-dependency>
-        <min-core-version>4.1.0</min-core-version>
+        <min-core-version>6.1.0</min-core-version>
         <max-core-version/>	
     </core-version-dependency>
 
@@ -64,10 +64,6 @@
             <application-id>myProjects</application-id>
             <application-class>fr.paris.lutece.plugins.ideation.web.IdeeSubscriberXPage</application-class>
         </application>
-        <application>
-            <application-id>atelier</application-id>
-            <application-class>fr.paris.lutece.plugins.ideation.web.IdeeAtelierApp</application-class>
-        </application>
     </applications>
     
     <!-- Page Includes -->
@@ -96,21 +92,4 @@
 		</servlet>
 	</servlets>
 	
-	 <daemons>
-        <daemon>
-            <daemon-id>workflowAtelierDaemon</daemon-id>
-            <daemon-name>
-                ideation.daemon.workflowAtelierDaemon.name
-            </daemon-name>
-            <daemon-description>
-                ideation.daemon.workflowAtelierDaemon.description
-            </daemon-description>
-            <daemon-class>
-               fr.paris.lutece.plugins.ideation.service.WorkflowAtelierDaemon
-            </daemon-class>
-        </daemon>
-    
-    </daemons>
-	
-
 </plug-in>

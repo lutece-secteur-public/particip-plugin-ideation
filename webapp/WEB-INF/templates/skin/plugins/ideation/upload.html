@@ -1,33 +1,52 @@
-
 <#include "/skin/plugins/asynchronousupload/upload_commons.html" />
-<script type="text/javascript" src="jsp/site/plugins/asynchronousupload/GetMainUploadJs.jsp?handler=ideationIdeeUploadHandler" ></script>
+<form onsubmit="return validateForm(this);" class="form" action="jsp/site/Portal.jsp" method="post" enctype="multipart/form-data">
+	
+	<input type="hidden" name="page" value="ideation">
+	<input type="hidden" name="action" value="upload">
+	
+	<div class="alert alert-warning warn">
+		<i class="fa fa-exclamation-circle"></i>
+		&nbsp;Vous pouvez ajouter jusqu'&agrave; 5 pi&egrave;ces jointes, de type PNG / JPEG / PDF, pour un maximum de 2 m&eacute;ga-octets.
+	</div>
+	
+	<div class="row">
+	
+		<div class="col-xs-12 col-sm-6">
+			<p class="form-control-static"><img src="images/local/skin/images.png" title="" alt=""> <strong>#dskey{ideation.site_property.form.image_label_text}</strong></p>
+			<div class="form-group">
+				<@addFileInputAndfilesBox fieldName="imgs" handler=handler listUploadedFiles=imgs inputCssClass='form-control' multiple=false/>
+			</div>
+		</div>
+		
+		<div class="col-xs-12 col-sm-6">
+			<p class="form-control-static"><img src="images/local/skin/doc.png" title="" alt=""> <strong>#dskey{ideation.site_property.form.doc_label_text}</strong></p>
+			<div class="form-group">
+				<@addFileInputAndfilesBox fieldName="docs" handler=handler listUploadedFiles=docs inputCssClass='form-control' multiple=true/>
+			</div>
+		</div>
+		
+	</div>
+	
+	<div class="row">
+		<div class="col-xs-12 col-sm-12">
+			<div class="form-group">
+				<label class="checkbox-inline" for="accept_exploit">
+					<input name="accept_exploit" id="accept_exploit" value ="true" type="checkbox" <#if form_etape_upload.acceptExploit??&&form_etape_upload.acceptExploit=="true">checked="checked"</#if>>#dskey{ideation.site_property.form.image_exploit_label_text}
+				</label>
+			</div>
+		</div>
+	</div>
 
-<form onsubmit="return validateForm(this);" action="jsp/site/Portal.jsp" method="post" enctype="multipart/form-data">
-        <input type="hidden" name="page" value="ideation">
-        <input type="hidden" name="action" value="upload">
-
-        <div class="row">
-            <div class="col-md-4 col-md-offset-2">
-                <div class="form-group">
-                    <label for="file_image">#dskey{ideation.site_property.form.image_label_text}</label>
-                    <@addFileInputAndfilesBox fieldName="imgs" handler=handler listUploadedFiles=imgs inputCssClass='form-control' multiple=true/>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <input name="accept_exploit" value ="true" type="checkbox" <#if form_etape_upload.acceptExploit??&&form_etape_upload.acceptExploit=="true">checked="checked"</#if>>#dskey{ideation.site_property.form.image_exploit_label_text}
-                    </label>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label for="file_doc">#dskey{ideation.site_property.form.doc_label_text}</label>
-                    <@addFileInputAndfilesBox fieldName="docs" handler=handler listUploadedFiles=docs inputCssClass='form-control' multiple=true/>
-                </div>
-            </div>
-        </div>
-
-	<br><br>
-
-        <center><button type="submit" value="Continuer" class="btn continue">Continuer <i class="fa fa-arrow-down"></i></button></center>
+	<div class="row">
+		<div class="col-xs-12 col-sm-12">
+			<div id="confirm" class="form-button text-center">
+				<button onclick="javascript:_paq.push(['trackEvent', 'Ideation', '05_ValidStepUpload']);" type="submit" value="Continuer" class="btn btn-14rem btn-black-on-white">
+					Continuer <i class="fa fa-angle-down"></i>
+				</button>
+			</div>
+		</div>
+	</div>
 
 </form>
+
+<script type="text/javascript" src="jsp/site/plugins/asynchronousupload/GetMainUploadJs.jsp?handler=ideationIdeeUploadHandler" ></script>
