@@ -1,34 +1,39 @@
-<#include "ideation_search_solr_search_results.html">
+<section id="map-result">
+	
+	<#include "ideation_search_solr_search_results.html">
+	
+	<div class="container">
+    	<div id="map" class="clearfix" ></div>
+	</div>
+</section>
 
-    <script type='text/javascript'>
-            var loadresource = document.createElement('link');
-            loadresource.setAttribute("rel", "stylesheet");
-            loadresource.setAttribute("type", "text/css");
-            loadresource.setAttribute("href", "js/plugins/leaflet/leaflet/leaflet.css");
-            document.getElementsByTagName("head")[0].appendChild(loadresource);
+<script type='text/javascript'>
+          var loadresource = document.createElement('link');
+          loadresource.setAttribute("rel", "stylesheet");
+          loadresource.setAttribute("type", "text/css");
+          loadresource.setAttribute("href", "js/plugins/leaflet/leaflet/leaflet.css");
+          document.getElementsByTagName("head")[0].appendChild(loadresource);
 
-            loadresource = document.createElement('link');
-            loadresource.setAttribute("rel", "stylesheet");
-            loadresource.setAttribute("type", "text/css");
-            loadresource.setAttribute("href", "js/plugins/leaflet/leaflet/MarkerCluster.css");
-            document.getElementsByTagName("head")[0].appendChild(loadresource);
+          loadresource = document.createElement('link');
+          loadresource.setAttribute("rel", "stylesheet");
+          loadresource.setAttribute("type", "text/css");
+          loadresource.setAttribute("href", "js/plugins/leaflet/leaflet/MarkerCluster.css");
+          document.getElementsByTagName("head")[0].appendChild(loadresource);
 
-             loadresource = document.createElement('link');
-            loadresource.setAttribute("rel", "stylesheet");
-            loadresource.setAttribute("type", "text/css");
-            loadresource.setAttribute("href", "js/plugins/leaflet/leaflet/MarkerCluster.Default.css");
-            document.getElementsByTagName("head")[0].appendChild(loadresource);
-    </script>
-    <script type="text/javascript" src="js/plugins/leaflet/leaflet/leaflet.js"></script>
-    <script type="text/javascript" src="js/plugins/leaflet/esri/esri-leaflet.js"></script>
-    <script type="text/javascript" src="js/plugins/leaflet/leaflet/leaflet.markercluster.js"></script>
-    <script type="text/javascript" src="js/plugins/leaflet/esri/esri-leaflet-clustered-feature-layer.js"></script>
+           loadresource = document.createElement('link');
+          loadresource.setAttribute("rel", "stylesheet");
+          loadresource.setAttribute("type", "text/css");
+          loadresource.setAttribute("href", "js/plugins/leaflet/leaflet/MarkerCluster.Default.css");
+          document.getElementsByTagName("head")[0].appendChild(loadresource);
+  </script>
+  <script type="text/javascript" src="js/plugins/leaflet/leaflet/leaflet.js"></script>
+  <script type="text/javascript" src="js/plugins/leaflet/esri/esri-leaflet.js"></script>
+  <script type="text/javascript" src="js/plugins/leaflet/leaflet/leaflet.markercluster.js"></script>
+  <script type="text/javascript" src="js/plugins/leaflet/esri/esri-leaflet-clustered-feature-layer.js"></script>
+  <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js'></script>
+  <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css' rel='stylesheet' />
 
-<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-    <div id="map" style="height: 500px; width: 100%"</div>
-</div>
-
-  <script type="text/javascript">
+<script type="text/javascript">
       var arrondissements = {
           "0": {"pos": [48.859085, 2.347403], "cnt": 0, "geoloc_cnt": 0},
           "1": {"pos": [48.862422, 2.337595], "cnt": 0, "geoloc_cnt": 0},
@@ -54,7 +59,7 @@
       };
 
 
-    var map = L.map('map');
+    var map = L.map('map', {fullscreenControl:true} );
 
     var defaultIcon = L.Icon.extend({
         options: {
@@ -104,41 +109,71 @@
     map.removeLayer(layergroup_qpvqva);
 
     var arrondissements_layer_qpv = L.esri.featureLayer({
-        "url": 'http://capgeo.sig.paris.fr/arcgis/rest/services/capgeo_dsti/DSTI_BP2016_QPV_QVA_WGS84/MapServer/0',
+//        "url": 'http://capgeo.sig.paris.fr/arcgis/rest/services/capgeo_dsti/DSTI_BP2016_QPV_QVA_WGS84/MapServer/0',
+//        "url": 'https://services1.arcgis.com/yFAX7hJID4ONeUHP/arcgis/rest/services/SECTEUR_NPQV_WGS84/FeatureServer/0',
+          "url": 'https://services1.arcgis.com/yFAX7hJID4ONeUHP/arcgis/rest/services/QPV_QVA_GPRU/FeatureServer/0',
         "style": {
             "color": "#ffffff",
-            "weight": 1,
+            "weight": 0,
             "opacity": 1,
-            "fillOpacity": 0.4,
-            "fillColor": "#ff3333",
+            "fillOpacity": 0.3,
+            "fillColor": "#33ff33",
         },
         "where": "C_DEP='75' AND C_NAT_QPV='NQPV'"
     });
-    arrondissements_layer_qpv.bindPopup(function (feature) {
-            feature.properties["CodePostal"] = feature.properties["C_CAINSEE"] - 100;
-            return L.Util.template('<p><strong>Quartier Prioritaire de la Ville :</strong></p><p>{CodePostal} - {L_NQPV}<br>', feature.properties);
-    });
+    //To have a popup giving the name (removed but might be added again)
+    //arrondissements_layer_qpv.bindPopup(function (feature) {
+    //        feature.properties["CodePostal"] = feature.properties["C_CAINSEE"] - 100;
+    //        return L.Util.template('<p style="padding-top:10px"><strong>{L_NQPV}</strong><br/>{CodePostal}</p>', feature.properties);
+    //});
     var arrondissements_layer_qva = L.esri.featureLayer( {
-        "url": 'http://capgeo.sig.paris.fr/arcgis/rest/services/capgeo_dsti/DSTI_BP2016_QPV_QVA_WGS84/MapServer/0',
+//        "url": 'http://capgeo.sig.paris.fr/arcgis/rest/services/capgeo_dsti/DSTI_BP2016_QPV_QVA_WGS84/MapServer/0',
+//        "url": 'https://services1.arcgis.com/yFAX7hJID4ONeUHP/arcgis/rest/services/SECTEUR_NPQV_WGS84/FeatureServer/0',
+          "url": 'https://services1.arcgis.com/yFAX7hJID4ONeUHP/arcgis/rest/services/QPV_QVA_GPRU/FeatureServer/0',
         "style": {
             "color": "#ffffff",
-            "weight": 1,
+            "weight": 0,
             "opacity": 1,
-            "fillOpacity": 0.4,
+            "fillOpacity": 0.3,
             "fillColor": "#33ff33",
         },
         "where": "C_DEP='75' AND C_NAT_QPV='QVA'"
     });
-    arrondissements_layer_qva.bindPopup(function (feature) {
-        feature.properties["CodePostal"] = feature.properties["C_CAINSEE"] - 100;
-        return L.Util.template('<p><strong>Quartier de Veille Active :</strong></p><p>{CodePostal} - {L_NQPV}<br>', feature.properties);
+    //To have a popup giving the name (removed but might be added again)
+    //arrondissements_layer_qva.bindPopup(function (feature) {
+    //    feature.properties["CodePostal"] = feature.properties["C_CAINSEE"] - 100;
+    //    return L.Util.template('<p style="padding-top:10px"><strong>{L_NQPV}</strong><br/>{CodePostal}</p>', feature.properties);
+    //});
+    var arrondissements_layer_gpru = L.esri.featureLayer( {
+        "url": 'https://services1.arcgis.com/yFAX7hJID4ONeUHP/arcgis/rest/services/QPV_QVA_GPRU/FeatureServer/0',
+        "style": {
+            "color": "#ffffff",
+            "weight": 0,
+            "opacity": 1,
+            "fillOpacity": 0.3,
+            "fillColor": "#33ff33",
+        },
+        "where": "GPRU_NOM!=''"
+    });
+    var arrondissements_layer_qbp = L.esri.featureLayer( {
+        "url": 'https://services1.arcgis.com/yFAX7hJID4ONeUHP/arcgis/rest/services/QPV_QVA_GPRU/FeatureServer/0',
+        "style": {
+            "color": "#ffffff",
+            "weight": 0,
+            "opacity": 1,
+            "fillOpacity": 0.3,
+            "fillColor": "#33ff33",
+        },
+        "where": "EXT_BP!=''"
     });
     layergroup_qpvqva.addLayer(arrondissements_layer_qpv);
     layergroup_qpvqva.addLayer(arrondissements_layer_qva);
+    layergroup_qpvqva.addLayer(arrondissements_layer_gpru);
+    layergroup_qpvqva.addLayer(arrondissements_layer_qbp);
 
     var points_tmp = [
         <#list points as point>
-        { 
+        {
                 "type": "${point.type}",
                 "code": "${point.code}",
                 "id": "${point.id}",
@@ -201,17 +236,16 @@
         if (arrondissements[i]["cnt"] != 0) {
         var radius = i == 0 ? 40 : 15+Math.floor(5*Math.log(Math.max(1, arrondissements[i]["cnt"])) / Math.LN10);
         var clazz = i == 0 ? "paris-cluster paris-cluster-small" : "ardt-cluster ardt-cluster-small";
-            var icon = new L.DivIcon({
+        var icon = new L.DivIcon({
             className: 'label',
             html: "<div class=\"leaflet-marker-icon " + clazz + "\"><div style=\"width: " + radius + "px; height:" + radius + "px; margin-top:-" + (radius/2) + "px; margin-left:-" + (radius/2) + "px;\"><span style=\"line-height:" + radius + "px\">"+arrondissements[i]["cnt"]+"</span></div></div>"
-            });
-            var circleLabel = L.marker(arrondissements[i]["pos"], {icon:icon});
+        });
+        var circleLabel = L.marker(arrondissements[i]["pos"], {icon:icon});
         layergroup_arrondissements.addLayer(circleLabel);
-        
+
         var strProjet = "projet" + ((arrondissements[i]["geoloc_cnt"] + arrondissements[i]["cnt"]) != 1 ? "s" : "");
-        var strArdtTitle = (i==0) ? "Tout Paris" : (i+ "e arrondissement");
         var strArdtDescription = (i==0) ? "pour Paris" : "dans cet arrondissement";
-        var strPopup = "<p><strong>" + strArdtTitle + " :</strong></p><p>Il y a " +(arrondissements[i]["cnt"] + arrondissements[i]["geoloc_cnt"]) + " " + strProjet + " " + strArdtDescription + ", dont " + arrondissements[i]["cnt"] + " sans adresse précise.</p><p><button type=\"button\" class=\"btn btn-default\" onclick=\"onClickArdtPopup("+i+");\">Voir ces projets</button></p>";
+        var strPopup = "<p>Il y a " +(arrondissements[i]["cnt"] + arrondissements[i]["geoloc_cnt"]) + " " + strProjet + " " + strArdtDescription + ", dont " + arrondissements[i]["cnt"] + " sans adresse précise.</p><p><button type=\"button\" class=\"btn btn-xs btn-lt-bg\" onclick=\"onClickArdtPopup("+i+");\">Voir ces projets</button></p>";
         circleLabel.bindPopup(strPopup);
         }
     }
@@ -253,8 +287,8 @@
         if (points[i]["type"] == "doc") {
             markers_oldprojects.addLayer(marker);
         } else {
-        markers.addLayer(marker);
-    }
+            markers.addLayer(marker);
+        }
     }
 
     var positron = L.tileLayer('http://s.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
@@ -271,10 +305,10 @@
   };
 
   var overlayMaps = {
-      "Campagne 2016" : layergroup_currentcampagne,
+      "Recherche en cours" : layergroup_currentcampagne,
       "Quartiers Populaires" : layergroup_qpvqva,
       "Précédentes Campagnes" : markers_oldprojects
-  };    
+  };
   // paramétrage et ajout du L.control.layers à la carte
   var control =  L.control.layers(baseMaps, overlayMaps, {collapsed:false}).addTo(map);
 
@@ -289,5 +323,16 @@ function onClickArdtPopup(i) {
     searchTri();
     return false;
 }
-  
+
+	// Leaflet Legend
+	var legend = L.control({position: 'bottomleft'});
+	legend.onAdd = function (map) {
+		var div = L.DomUtil.create('div', 'map-legend leaflet-control-layers leaflet-control-layers-expanded');
+		div.innerHTML += '<div class="map-legend-line"><div class="marker"><img src="' +  (L.Icon.Default.imagePath + '/marker-icon.png') + '"></div>Projet localisé</div>';
+		div.innerHTML += '<div class="map-legend-line"><div class="paris-cluster-small paris-cluster"><div><span style="line-height:21px">&nbsp;</span></div></div>Projet parisien non localisé</div>';
+		div.innerHTML += '<div class="map-legend-line"><div class=" ardt-cluster-small  ardt-cluster"><div><span style="line-height:21px">&nbsp;</span></div></div>Projet d\'arrondissement non localisé</div>';
+		return div;
+	};
+	legend.addTo(map);
+	
   </script>

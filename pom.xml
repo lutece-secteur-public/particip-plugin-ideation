@@ -6,12 +6,12 @@
 		<version>4.0.3</version>
 	</parent>
 
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>fr.paris.lutece.plugins</groupId>
-	<artifactId>plugin-ideation</artifactId>
-	<packaging>lutece-plugin</packaging>
-	<version>2.0.19-SNAPSHOT</version>
-	<name>Lutece ideation plugin</name>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>fr.paris.lutece.plugins</groupId>
+    <artifactId>particip-plugin-participatoryideation</artifactId>
+    <packaging>lutece-plugin</packaging>
+    <version>1.0.0-SNAPSHOT</version>
+    <name>Plugin Participatory Ideation</name>
 
 	<repositories>
 		<repository>
@@ -119,15 +119,16 @@
 		</dependency>
 	</dependencies>
 
-	<properties>
-		<componentName>ideation</componentName>
-		<jiraProjectName>PIDEATION</jiraProjectName>
-		<jiraComponentId>12933</jiraComponentId>
-	</properties>
+    <properties>
+        <componentName>participatoryideation</componentName>
+        <jiraProjectName>PARTIDEA</jiraProjectName>
+        <jiraComponentId>15760</jiraComponentId>
+    </properties>
+    
+    <scm>
+        <connection>scm:git:https://github.com/lutece-secteur-public/particip-plugin-participatoryideation.git</connection>
+        <developerConnection>scm:git:https://github.com/lutece-secteur-public/particip-plugin-participatoryideation.git</developerConnection>
+        <url>https://github.com/lutece-secteur-public/particip-plugin-participatoryideation.git</url>
+    </scm>
 
-	<scm>
-		<connection>scm:svn:https://dev.lutece.paris.fr/svn/lutece/applications/ideation/trunk/plugin-ideation</connection>
-		<developerConnection>scm:svn:https://dev.lutece.paris.fr/svn/lutece/applications/ideation/trunk/plugin-ideation/</developerConnection>
-		<url>https://dev.lutece.paris.fr/viewvc/lutece/applications/ideation/trunk/plugin-ideation/</url>
-	</scm>
 </project>

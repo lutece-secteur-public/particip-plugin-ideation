@@ -1,158 +1,1 @@
-<#assign keyword_label = "Mots clés">
-<#assign location_label = "Localisation">
-<#assign list_names = [keyword_label, location_label]>
-
-<#if (((results_keyword_list?size)!0) == 0) && (((results_location_list?size)!0) == 0)>
-<h4><i>Bravo !</i></h4><h4>Il semble que vous soyez le premier à proposer ce projet.</h4>
-<br>
-<#else>
-<div class="row">
-        <div class="col-md-8 col-md-offset-2">
-<p>Parmi les projets déposés, plusieurs semblent se rapprocher de votre proposition. Nous vous invitons à les consulter avant de finaliser votre dépôt</p>
-<#if solr_keyword_query_dbg??><a href="solrserver/solr/select/?${solr_keyword_query_dbg}&debug=true">Voir le debug solr keyword</a></#if>
-<#if solr_location_query_dbg??><a href="solrserver/solr/select/?${solr_location_query_dbg}&debug=true">Voir le debug solr location</a></#if>
-        </div>
-</div>
-        <div class="col-md-8 col-md-offset-2">
-        <#list [results_keyword_list![], results_location_list![]] as results_list>
-        <#if 0 < results_list?size><div class="row"<p>${list_names[results_list_index]}</p>
-        <#list results_list as result>
-		<#assign theme_class = "autre">
-		<#if result.dynamicFields?? && result.dynamicFields.code_theme_string??>
-		<#if result.dynamicFields.code_theme_string = "CADRE"><#assign theme_class = "cadre_vie">
-		<#elseif result.dynamicFields.code_theme_string = "CULTURE"><#assign theme_class = "culture">
-		<#elseif result.dynamicFields.code_theme_string = "ECO"><#assign theme_class = "economie_emploi">
-		<#elseif result.dynamicFields.code_theme_string = "EDU"><#assign theme_class = "education">
-		<#elseif result.dynamicFields.code_theme_string = "ENVIRONNEMENT" || result.dynamicFields.code_theme_string = "NAT"><#assign theme_class = "environnement">
-		<#elseif result.dynamicFields.code_theme_string = "LOGEMENT"><#assign theme_class = "logement">
-		<#elseif result.dynamicFields.code_theme_string = "PARTICIPATION"><#assign theme_class = "participation_citoyenne">
-		<#elseif result.dynamicFields.code_theme_string = "SECURITE"><#assign theme_class = "prevention_securite">
-		<#elseif result.dynamicFields.code_theme_string = "PROPRETE"><#assign theme_class = "proprete">
-		<#elseif result.dynamicFields.code_theme_string = "SOLIDARITE" || result.dynamicFields.code_theme_string = "VIVREENSEMBLE"><#assign theme_class = "solidarite">
-		<#elseif result.dynamicFields.code_theme_string = "SPORT"><#assign theme_class = "sport">
-		<#elseif result.dynamicFields.code_theme_string = "TRANSPORT"><#assign theme_class = "transport">
-		<#elseif result.dynamicFields.code_theme_string = "NUM"><#assign theme_class = "ville_numerique">
-		</#if>
-		</#if>
-
-		<#if (result.dynamicFields.code_theme_string)??>
-		<#assign theme_libelle = (campagne_static.themes_map[result.dynamicFields.code_theme_string].title)!result.dynamicFields.code_theme_string>
-		<#elseif (result.dynamicFields.thematique_text)??>
-		<#assign theme_libelle = result.dynamicFields.thematique_text>
-		</#if>
-						
-        <div class="item" style="margin:10px;"> 
-            <div id="right-item" class="col-xs-12 col-sm-3" style="padding:10px;">
-				<div class="row projectlist_project">
-					
-					<div class="project_ref project_${theme_class}">
-						<#if result.dynamicFields?? && result.dynamicFields.code_projet_long??>
-							PROJET N°${result.dynamicFields.code_projet_long}
-						<#else>PROJET A CORRIGER
-						</#if>
-					</div>
-					
-                    <div class="project_category col-xs-12 hidden-sm hidden-md hidden-lg
-						<#if theme_libelle??>
-							${theme_class}"><img src="images/local/skin/i_${theme_class}.png" alt="${theme_libelle}" title="${theme_libelle}">
-					
-						${theme_libelle}
-						<#else>
-							<#assign theme_class = "notheme">
-							${theme_class}">
-							<img src="images/local/skin/i_notheme.png">
-							PAS DE THEME
-						</#if>
-						
-					</div>
-					<div class="project_category hidden-xs col-sm-12 hidden-md hidden-lg 
-						<#if theme_libelle??>
-							${theme_class}"><img src="images/local/skin/i_${theme_class}.png" alt="${theme_libelle}" title="${theme_libelle}">
-					
-						<#if theme_libelle?length &gt; 9>${theme_libelle?substring(0,9)}...<#else>${theme_libelle}</#if>
-						<#else>
-							<#assign theme_class = "notheme">
-							${theme_class}">
-							<img src="images/local/skin/i_notheme.png">
-							PAS DE THEME
-						</#if>
-					</div>
-					<div class="project_category hidden-xs hidden-sm col-md-12 hidden-lg 
-						<#if theme_libelle??>
-							${theme_class}"><img src="images/local/skin/i_${theme_class}.png" alt="${theme_libelle}" title="${theme_libelle}">
-					
-						<#if theme_libelle?length &gt; 6>${theme_libelle?substring(0,6)}...<#else>${theme_libelle}</#if>
-						<#else>
-							<#assign theme_class = "notheme">
-							${theme_class}">
-							<img src="images/local/skin/i_notheme.png">
-							PAS DE THEME
-						</#if>
-					</div>
-					<div class="project_category hidden-xs hidden-sm hidden-md col-lg-12 
-						<#if theme_libelle??>
-							${theme_class}"><img src="images/local/skin/i_${theme_class}.png" alt="${theme_libelle}" title="${theme_libelle}">
-					
-						<#if theme_libelle?length &gt; 10>${theme_libelle?substring(0,10)}...<#else>${theme_libelle}</#if>
-						<#else>
-							<#assign theme_class = "notheme">
-							${theme_class}">
-							<img src="images/local/skin/i_notheme.png">
-							PAS DE THEME
-						</#if>
-					</div>
-					
-                    <div class="project_title project_title_approx col-xs-12 hidden-sm hidden-md hidden-lg">
-						<a href="${result.url}" target="_blank" alt="${result.title}" title="${result.title}">
-							<#if result.title?length &gt; 65>${result.title?substring(0,65)}...<#else>${result.title}</#if>
-						</a>
-					</div>
-					<div class="project_title hidden-xs col-sm-12 hidden-md hidden-lg">
-						<a href="${result.url}" target="_blank" alt="${result.title}" title="${result.title}">
-							<#if result.title?length &gt; 45>${result.title?substring(0,45)}...<#else>${result.title}</#if>
-						</a>
-					</div>
-					<div class="project_title hidden-xs hidden-sm col-md-12 hidden-lg">
-						<a href="${result.url}" target="_blank" alt="${result.title}" title="${result.title}">
-							<#if result.title?length &gt; 40>${result.title?substring(0,40)}...<#else>${result.title}</#if>
-						</a>
-					</div>
-					<div class="project_title hidden-xs hidden-sm hidden-md col-lg-12">
-						<a href="${result.url}" target="_blank" alt="${result.title}" title="${result.title}">
-							<#if result.title?length &gt; 40>${result.title?substring(0,40)}...<#else>${result.title}</#if>
-						</a>
-					</div>
-					<div>
-						<span class="project_location">
-						<img src="images/local/skin/projet_localisation.png" width="25px" height="25px" alt="Localisation" title="Localisation">
-						<#if result.dynamicFields?? && result.dynamicFields.localisation_text??>
-							<#if result.dynamicFields.localisation_text = "Tout Paris">
-								${result.dynamicFields.localisation_text}
-							<#elseif result.dynamicFields.localisation_text?length &gt; 12>${result.dynamicFields.localisation_text?substring(0,12)?html}<#else>${result.dynamicFields.localisation_text?html}</#if>
-						</#if>
-						</span>
-					</div>
-                </div> 
-            </div> 
-		</div>
-        </#list>
-        </div>
-        </#if>
-        </#list>
-        </div>
-</#if>
-        <div class="row"></div>
-
-	<br><br>
-
-<form onsubmit="return validateForm(this);" action="jsp/site/Portal.jsp" method="post">
-        <input type="hidden" name="page" value="ideation">
-        <form>
-           <p class="text-center">
-              <button type="submit" value="Continuer" name="action_approx" class="btn btn-idee">Continuer <i class="fa fa-angle-down"></i></button>
-            <#if !((((results_keyword_list?size)!0) == 0) && (((results_location_list?size)!0) == 0))>
-              <button type="submit" value="Je ne poursuis pas mon dépôt" name="action_abandon" class="btn btn-idee">Je ne poursuis pas mon dépôt <i class="fa fa-times-circle"></i></button>
-            </#if>
-           </p>
-        </form>
-</form>
+<#assign previous_campaigns_label = "Nous avons identifié des projets déposés lors des précédentes campagnes, semblant se rapprocher du vôtre.<br>Certains ont pu ne pas être retenus pour le vote, vous en trouverez le motif dans les commentaires du projet."><#assign keyword_label            = "Nous avons identifié des projets déposés cette année, contenant des mots-clés présents dans le titre que vous avez indiqué. N'hésitez pas à vous y associer, plutôt que de déposer un projet semblable."><#assign location_label           = "Nous avons identifié des projets déposés cette année, voisins de l'adresse indiquée. N'hésitez pas à vous y associer, plutôt que de déposer un projet semblable."><#assign list_names               = [previous_campaigns_label, keyword_label, location_label] ><#assign current_campagne_code    = campagne_static["campagne"].code!'' ><#if (((results_previous_campaigns_list?size)!0) == 0)  && (((results_keyword_list?size)!0) == 0) && (((results_location_list?size)!0) == 0)>	<h4>Nous n’avons trouvé aucun projet similaire. Il semble que vous soyez le premier à proposer cette idée, bravo !</h4><#else>	<div class="row">		<div class="col-xs-12 col-sm-12">			<#if solr_keyword_query_dbg??><a href="solrserver/solr/select/?${solr_keyword_query_dbg}&debug=true">Voir le debug solr keyword</a></#if>			<#if solr_location_query_dbg??><a href="solrserver/solr/select/?${solr_location_query_dbg}&debug=true">Voir le debug solr location</a></#if>		</div>	</div>	<div class="row">		<div class="col-xs-12 col-sm-12">		<#list [results_previous_campaigns_list![], results_keyword_list![], results_location_list![]] as results_list>			<#if 0 < results_list?size>				<blockquote>					<h4>${list_names[results_list_index]}</h4>					<div class="row row-eq-height">    					<#list results_list as result>						<#assign theme_class = "autre">												<#-- If the result is from a DOCUMENT object -->						<#if result.dynamicFields?? && result.dynamicFields.thematique_text??>							<#if         result.dynamicFields.thematique_text = "Cadre de vie"><#assign theme_class = "cadre_vie">								<#elseif result.dynamicFields.thematique_text = "Culture et patrimoine"><#assign theme_class = "culture">								<#elseif result.dynamicFields.thematique_text = "Économie, emploi et attractivité"><#assign theme_class = "economie_emploi">								<#elseif result.dynamicFields.thematique_text = "Education et jeunesse"><#assign theme_class = "education">								<#elseif result.dynamicFields.thematique_text = "Environnement"><#assign theme_class = "environnement">								<#elseif result.dynamicFields.thematique_text = "Prévention et sécurité"><#assign theme_class = "prevention_securite">								<#elseif result.dynamicFields.thematique_text = "Propreté"><#assign theme_class = "proprete">								<#elseif result.dynamicFields.thematique_text = "Solidarité et cohésion sociale"><#assign theme_class = "solidarite">								<#elseif result.dynamicFields.thematique_text = "Sport"><#assign theme_class = "sport">								<#elseif result.dynamicFields.thematique_text = "Transport et mobilité"><#assign theme_class = "transport">								<#elseif result.dynamicFields.thematique_text = "Ville intelligente et numérique"><#assign theme_class = "ville_numerique">								<#elseif result.dynamicFields.thematique_text = "Santé"><#assign theme_class = "sante">							</#if>						</#if>												<#-- If the result is from a IDEE object -->						<#if result.dynamicFields?? && result.dynamicFields.code_theme_string??>							<#if         result.dynamicFields.code_theme_string = "CADRE"><#assign theme_class = "cadre_vie">								<#elseif result.dynamicFields.code_theme_string = "CULTURE"><#assign theme_class = "culture">								<#elseif result.dynamicFields.code_theme_string = "ECO"><#assign theme_class = "economie_emploi">								<#elseif result.dynamicFields.code_theme_string = "EDU"><#assign theme_class = "education">								<#elseif result.dynamicFields.code_theme_string = "ENVIRONNEMENT" || result.dynamicFields.code_theme_string = "NAT"><#assign theme_class = "environnement">								<#elseif result.dynamicFields.code_theme_string = "SECURITE"><#assign theme_class = "prevention_securite">								<#elseif result.dynamicFields.code_theme_string = "PROPRETE"><#assign theme_class = "proprete">								<#elseif result.dynamicFields.code_theme_string = "SOLIDARITE" || result.dynamicFields.code_theme_string = "VIVREENSEMBLE"><#assign theme_class = "solidarite">								<#elseif result.dynamicFields.code_theme_string = "SPORT"><#assign theme_class = "sport">								<#elseif result.dynamicFields.code_theme_string = "TRANSPORT"><#assign theme_class = "transport">								<#elseif result.dynamicFields.code_theme_string = "NUMERIQUE"><#assign theme_class = "ville_numerique">								<#elseif result.dynamicFields.code_theme_string = "SANTE"><#assign theme_class = "sante">							</#if>						</#if>						<#if (result.dynamicFields.code_theme_string)??>							<#assign theme_libelle = (campagne_static.themes_map[result.dynamicFields.code_theme_string].title)!result.dynamicFields.code_theme_string>						<#elseif (result.dynamicFields.thematique_text)??>							<#assign theme_libelle = result.dynamicFields.thematique_text>						</#if>												<div class="col-panel col-xs-12 col-sm-4 col-md-4">							<div class="panel panel-approx">								<div class="panel-heading bgcolor-theme-${theme_class}">									${theme_libelle}								</div>								<div class="panel-body">									<div class="project-location">									<#if result.dynamicFields?? && result.dynamicFields.localisation_text??>										<#if result.dynamicFields.localisation_text = "Tout Paris">											${result.dynamicFields.localisation_text}										<#else>											${result.dynamicFields.localisation_text?html}										</#if>									</#if>									</div>									<div class="project-approx">										${result.title}									</div>								</div>																								<#-- Informations concernant l'ancien projet (non retenu, lauréat...) identifié -->								<#if result.dynamicFields.campagne_text?string != current_campagne_code >									<div class="panel-footer because text-center">										<#assign statut_project = ""> 										<#if result.dynamicFields?? && result.dynamicFields.statut_publique_project_text??>											<span class="text-danger">												<strong>Non retenu en ${2014 + "ABCDEFGHIJKLMNOPQRSTUVWXYZ"?index_of(result.dynamicFields.campagne_text)}</strong>											</span>										</#if>										<#if result.dynamicFields?? && result.dynamicFields.statut_project_text??>											<span class="text-success"> 												<i class="fa fa-trophy"></i> Gagnant de la campagne <#list result.dynamicFields.campagne_text?split(' ') as x><#if x?matches('[2-9][0-9][0-9][0-9]')>${x}</#if></#list>											</span>										</#if>									</div>								</#if>																								<#-- Highlights -->								<#if result.highlight??>									<div class="panel-footer panel-highlight">										Principaux termes identifi&eacute;s :										<#if result.highlight.map["content"]??>											<#list result.highlight.map["content"] as extrait>												<p>&laquo;&nbsp;...${extrait}...&nbsp;&raquo;</p>											</#list>										</#if>									</div>								</#if>																<div class="panel-footer panel-approx-button">									<a class="btn btn-12rem btn-black-on-white" onclick="javascript:_paq.push(['trackEvent', 'Ideation', '03_ViewProjectApprox_${results_list_index}']);" href="${result.url}" alt="${result.title}" title="${result.title}" target="_blank">										Consulter le projet									</a>								</div>															</div>						</div>					</#list>				</div>				</blockquote>				</#if>		</#list>		</div>	</div></#if><div class="row">  <div class="col-xs-12 col-sm-12">    <form onsubmit="return validateForm(this);" action="jsp/site/Portal.jsp" method="post">      <input type="hidden" name="page" value="ideation">      <div id="approx-btn" class="form-button text-center">          <button onclick="javascript:_paq.push(['trackEvent', 'Ideation', '03_ValidStepApprox']);" type="submit" value="Continuer" name="action_approx" class="btn btn-14rem btn-black-on-white">              Continuer <i class="fa fa-angle-down"></i>          </button>          <#if !((((results_previous_campaigns_list?size)!0) == 0) && (((results_keyword_list?size)!0) == 0) && (((results_location_list?size)!0) == 0))>            <button onclick="javascript:_paq.push(['trackEvent', 'Ideation', '03_CancelStepApprox']);" type="submit" value="Je ne poursuis pas mon dépôt" name="action_abandon" class="btn btn-14rem btn-black-on-white">                Je ne poursuis pas mon d&eacute;p&ocirc;t <i class="fa fa-times-circle"></i>            </button>          </#if>       </div>	  </form>  </div></div><div class="row">  <div class="col-xs-12 col-sm-12">    <br>  </div></div>
