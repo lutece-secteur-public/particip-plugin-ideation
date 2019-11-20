@@ -1,0 +1,60 @@
+<#include "manageideation_tabs.html" />
+<@tabs tab="depositairetype" />
+
+<@rowBox>
+    <@boxHeader i18nTitleKey="ideation.manage_depositairetypes.tableLabel">
+        <@headerButtons>
+
+        
+        <form class="form-inline pull-right" method="post" name="manage_depositairetypes" action="jsp/admin/plugins/ideation/ManageDepositaireTypes.jsp">
+            <!-- Add pull-right to class1 -->
+            <@actionButtons button1Name="view_createDepositaireType" icon1="icon-plus icon-white" i18nValue1Key="ideation.manage_depositairetypes.buttonAdd" />
+        </form>
+        
+    </@headerButtons>
+    </@boxHeader>
+    <@boxBody>    
+    <@messages infos=infos />
+    <@paginationAdmin paginator=paginator combo=1 />
+    
+    <@table>
+        <tr>
+            <input type="hidden" id="id" name="id"/>
+            <th>#i18n{ideation.manage_depositairetypes.columnCode}</th>
+            <th>#i18n{ideation.manage_depositairetypes.columnLibelle}</th>
+            <th>#i18n{ideation.manage_depositairetypes.columnCodeComplementType}</th>
+            <th>#i18n{portal.util.labelActions}</th>
+        </tr>
+        <@tableHeadBodySeparator />
+            <#list depositairetype_list as depositairetype >
+        <tr>
+            <input type="hidden" id="id" name="id"/>
+            <td>
+                ${depositairetype.code}
+            </td>
+            <td>
+                ${depositairetype.libelle}
+            </td>
+            <td>
+                ${depositairetype.codeComplementType}
+            </td>
+        <td>
+            <a href="jsp/admin/plugins/ideation/ManageDepositaireTypes.jsp?view=modifyDepositaireType&id=${depositairetype.id}"
+               class="btn btn-primary btn-small" title="#i18n{portal.util.labelModify}">
+                <i class="fa fa-pencil"></i>
+            </a>
+
+            <a href="jsp/admin/plugins/ideation/ManageDepositaireTypes.jsp?action=confirmRemoveDepositaireType&id=${depositairetype.id}"
+               class="btn btn-danger btn-small" title="#i18n{portal.util.labelDelete}" >
+                <i class="fa fa-trash"></i>
+            </a>
+        </td>
+        </tr>
+        </#list>
+    </@table>
+
+    <@paginationAdmin paginator=paginator />
+
+  </@boxBody>
+</@rowBox>
+

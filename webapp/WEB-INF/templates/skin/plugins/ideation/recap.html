@@ -1,0 +1,25 @@
+
+<form onsubmit="return validateForm(this);" action="jsp/site/Portal.jsp" method="post">
+        <input type="hidden" name="page" value="ideation">
+        <input type="hidden" name="action" value="recap">
+
+<div class="row">
+        <div class="col-md-8 col-md-offset-2">
+<p>Thème : <strong>${recap_theme_libelle!''}</strong></p>
+<p>Localisation : <strong>${recap_localisation_text!''}</strong></p>
+<#if recap_localisation_adress??><p>Lieu précis : <strong>${recap_localisation_adress!''}</strong></p></#if>
+<p>Titre : <strong>${recap_title!''}</strong></p>
+<p>Dépositaire : <strong>${recap_depositaire_type_libelle!''} <#if recap_depositaire_libelle??>(${recap_depositaire_libelle!''})</#if></strong>
+</p>
+<p>Description : <strong>${form_etape_description.description!''} </strong></p>
+<#if recap_cout??><p>Cout : <strong>${form_etape_description.cout} €</strong></p></#if>
+
+</div>
+</div>
+
+	<br><br>
+
+        <center><button type="submit" value="Continuer" class="btn continue">Valider !</button>
+        <a href="jsp/site/Portal.jsp?page=ideation" class="btn continue">modifier</a></center>
+
+</form>

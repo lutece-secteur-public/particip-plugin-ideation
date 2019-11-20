@@ -1,0 +1,14 @@
+<#include "manageideation_tabs.html" />
+<@tabs tab="campagnedepositaire" />
+
+<@rowBoxHeader i18nTitleKey="ideation.modify_campagnedepositaire.pageTitle">
+    <form class="form-horizontal" method="post" name="modify_campagnedepositaire" action="jsp/admin/plugins/ideation/ManageCampagneDepositaires.jsp">
+        <@messages errors=errors />
+        <input type="hidden" id="id" name="id" value="${campagnedepositaire.id}"/>
+        
+        <@fieldInputText i18nLabelKey="ideation.modify_campagnedepositaire.labelCodeCampagne" inputName="code_campagne" mandatory=true value="${campagnedepositaire.codeCampagne}" i18nHelpBlockKey="ideation.modify_campagnedepositaire.labelCodeCampagne.help" />
+        <@fieldInputText i18nLabelKey="ideation.modify_campagnedepositaire.labelCodeDepositaire" inputName="code_depositaire_type" mandatory=true value="${campagnedepositaire.codeDepositaireType}" i18nHelpBlockKey="ideation.modify_campagnedepositaire.labelCodeDepositaire.help" />
+        <@actionButtons button1Name="action_modifyCampagneDepositaire" button2Name="view_manageCampagneDepositaires"/>
+    </form>
+</@rowBoxHeader>
+

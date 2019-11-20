@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?><plug-in>
+    <name>ideation</name>
+    <class>fr.paris.lutece.plugins.ideation.service.IdeationPlugin</class>
+    <version>2.0.19-SNAPSHOT</version>
+    <documentation/>
+    <installation/>
+    <changes/>
+    <user-guide/>
+    <description>ideation.plugin.description</description>
+    <provider>ideation.plugin.provider</provider>
+    <provider-url>http://dev.lutece.paris.fr</provider-url>
+    <icon-url>images/admin/skin/feature_default_icon.png</icon-url>
+    <copyright>Copyright (c) 2015 Mairie de Paris</copyright>
+    <db-pool-required>1</db-pool-required>
+    
+    <core-version-dependency>
+        <min-core-version>4.1.0</min-core-version>
+        <max-core-version/>	
+    </core-version-dependency>
+
+    <!-- Admin features parameters -->
+    <admin-features>
+        <admin-feature>
+            <feature-id>IDEATION_MANAGEMENT</feature-id>
+            <feature-title>ideation.adminFeature.ManageIdeation.name</feature-title>
+            <feature-description>ideation.adminFeature.ManageIdeation.description</feature-description>
+            <feature-level>0</feature-level>
+            <feature-url>jsp/admin/plugins/ideation/ManageIdeationCampagnes.jsp</feature-url>
+            <feature-icon-url/>
+      </admin-feature>
+      <admin-feature>
+          <feature-id>IDEATION_IDEE_MANAGEMENT</feature-id>
+          <feature-title>ideation.adminFeature.ManageIdeationIdees.name</feature-title>
+          <feature-description>ideation.adminFeature.ManageIdeationIdees.description</feature-description>
+          <feature-level>0</feature-level>
+          <feature-url>jsp/admin/plugins/ideation/ManageIdees.jsp</feature-url>
+          <feature-icon-url/>
+      </admin-feature>
+     <admin-feature>
+	     <feature-id>IDEATION_MANAGEMENT_ATELIER</feature-id>
+	     <feature-title>ideation.adminFeature.ManageAtelier.name</feature-title>
+	     <feature-description>ideation.adminFeature.ManageAtelier.description</feature-description>
+	     <feature-level>0</feature-level>
+	     <feature-url>jsp/admin/plugins/ideation/ManageAteliers.jsp</feature-url>
+	     <feature-icon-url/>
+    </admin-feature>	
+    </admin-features>    
+
+    <!-- XPages parameters -->
+    <applications>
+        <application>
+            <application-id>ideation</application-id>
+            <application-class>fr.paris.lutece.plugins.ideation.web.IdeationApp</application-class>
+        </application>
+        <application>
+            <application-id>idee</application-id>
+            <application-class>fr.paris.lutece.plugins.ideation.web.IdeeXPage</application-class>
+        </application>
+         <application>
+            <application-id>mySubscriptions</application-id>
+            <application-class>fr.paris.lutece.plugins.ideation.web.IdeeSubscriptionXPage</application-class>
+        </application>
+         <application>
+            <application-id>myProjects</application-id>
+            <application-class>fr.paris.lutece.plugins.ideation.web.IdeeSubscriberXPage</application-class>
+        </application>
+        <application>
+            <application-id>atelier</application-id>
+            <application-class>fr.paris.lutece.plugins.ideation.web.IdeeAtelierApp</application-class>
+        </application>
+    </applications>
+    
+    <!-- Page Includes -->
+    <!-- page-include-services>
+        	<page-include-service>
+            	<page-include-service-id>headerIdeation</page-include-service-id>
+            	<page-include-service-class>fr.paris.lutece.plugins.ideation.web.include.HeaderInclude</page-include-service-class>
+        </page-include-service> 
+    </page-include-services -->
+
+    <!-- Portlet parameters -->
+    <portlets>
+   </portlets>
+
+    <listeners>
+        <listener>
+            <listener-class>fr.paris.lutece.plugins.ideation.service.IdeationSessionListener</listener-class>
+        </listener>
+    </listeners>
+
+	<servlets>
+		<servlet>
+			<servlet-name>downloadServlet</servlet-name>
+			<url-pattern>/servlet/plugins/ideation/download</url-pattern>
+			<servlet-class>fr.paris.lutece.plugins.ideation.web.DownloadServlet</servlet-class>
+		</servlet>
+	</servlets>
+	
+	 <daemons>
+        <daemon>
+            <daemon-id>workflowAtelierDaemon</daemon-id>
+            <daemon-name>
+                ideation.daemon.workflowAtelierDaemon.name
+            </daemon-name>
+            <daemon-description>
+                ideation.daemon.workflowAtelierDaemon.description
+            </daemon-description>
+            <daemon-class>
+               fr.paris.lutece.plugins.ideation.service.WorkflowAtelierDaemon
+            </daemon-class>
+        </daemon>
+    
+    </daemons>
+	
+
+</plug-in>

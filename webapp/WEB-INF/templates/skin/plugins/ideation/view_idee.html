@@ -1,0 +1,177 @@
+<@messages infos=infos errors=errors /> 
+
+<#setting date_format="dd/MM/yyyy">
+
+<#if idee??>
+
+<div class="clearfix"></div>
+		<#assign theme_class = "autre">
+		<#if idee.codeTheme = "CADRE"><#assign theme_class = "cadre_vie">
+		<#elseif idee.codeTheme = "CULTURE"><#assign theme_class = "culture">
+		<#elseif idee.codeTheme = "ECO"><#assign theme_class = "economie_emploi">
+		<#elseif idee.codeTheme = "EDU"><#assign theme_class = "education">
+		<#elseif idee.codeTheme = "ENVIRONNEMENT" || idee.codeTheme = "NAT"><#assign theme_class = "environnement">
+		<#elseif idee.codeTheme = "LOGEMENT"><#assign theme_class = "logement">
+		<#elseif idee.codeTheme = "PARTICIPATION"><#assign theme_class = "participation_citoyenne">
+		<#elseif idee.codeTheme = "SECURITE"><#assign theme_class = "prevention_securite">
+		<#elseif idee.codeTheme = "PROPRETE"><#assign theme_class = "proprete">
+		<#elseif idee.codeTheme = "SOLIDARITE" || idee.codeTheme = "VIVREENSEMBLE"><#assign theme_class = "solidarite">
+		<#elseif idee.codeTheme = "SPORT"><#assign theme_class = "sport">
+		<#elseif idee.codeTheme = "TRANSPORT"><#assign theme_class = "transport">
+		<#elseif idee.codeTheme = "NUM"><#assign theme_class = "ville_numerique">
+        </#if>
+
+<#if (campagne_static.depositaires_types_map[idee.depositaireType])??>
+    <#assign idee_depositaire_type_object = campagne_static.depositaires_types_map[idee.depositaireType]>
+</#if>
+<#if (idee.depositaireType)??>
+<#assign idee_depositaire_type_libelle = (idee_depositaire_type_object.libelle)!idee.depositaireType>
+</#if>
+
+<#if (idee.depositaire)??>
+<#if (idee_depositaire_type_object.codeComplementType)?? && idee_depositaire_type_object.codeComplementType == "LIST">
+	<#assign idee_depositaire_libelle = (campagne_static.depositaires_types_list_values_map[idee.depositaireType + "-" + idee.depositaire])!idee.depositaire>
+<#else>
+	<#assign idee_depositaire_libelle = idee.depositaire>
+</#if>
+</#if>
+
+<#if (idee.codeTheme)??>
+<#assign idee_theme_libelle = (campagne_static.themes_map[idee.codeTheme].title)!idee.codeTheme>
+</#if>
+
+<div style="background-color: #D7EFF1;">
+<div class="row"  >
+    <div class="col-sm-2 col-sm-offset-1">
+        <img class="img-circle" src="${avatar_url!''}" alt="Avatar" title="Avatar" />
+        <p>
+        Déposé le ${idee.creationTimestamp?date} par ${nickname!''}
+		${idee_depositaire_type_libelle!''}  <#if idee_depositaire_libelle??>(${idee_depositaire_libelle})</#if>
+        </p>
+        <p> <a href="${idee.urlProjet!''}"> <strong> ${idee.titreProjet!''} </strong> </a></p>
+    </div>
+    <div class="col-sm-8">
+        <div class="row">
+            <div class="col-sm-12" style="height:50px; text-transform: uppercase; font-size: 131%; margin: 50px" >
+                ${idee.titre}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6" style="font-weight: bold; font-size: 90%;">
+                    <img src="images/local/skin/projet_localisation.png" width="25px" height="25px" alt="Localisation" title="Localisation">
+                    <#if idee.localisationType == "paris"  >
+                    Tout Paris
+                    <#elseif idee.localisationType == "ardt"  >
+                    ${idee.localisationArdt}
+                    </#if>
+                    <#if idee.adress??>
+                    ${idee.adress?html}
+                    </#if>
+                    <#if idee.libelleQpvQva??><#if idee.typeQpvQva??>${(qpvqva_map[idee.typeQpvQva])!idee.typeQpvQva}: ${idee.libelleQpvQva!}</#if></#if>
+            </div>
+            <div class="col-sm-6">
+                <img style="width:25px; height:25px;"src="images/local/skin/i_${theme_class}.png" alt="${idee_theme_libelle!""}" title="${idee_theme_libelle!""}">
+                ${idee_theme_libelle!""}
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="row" >
+        <div class="col-sm-10 col-sm-offset-1" style="background-color: #FFF;">
+            <div style="margin: 10px">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h3 style="color: grey;">Description</h3>
+                        <p class="idee_description">${idee.description?html}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h3 style="color: grey;">Idées liées</h3>
+                        <p>child: <#list idee.childIdees as child>${child.reference},</#list> parent:  <#list idee.parentIdees as parent>${parent.reference},</#list></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+						<#if idee.cout??>
+						<p>Projet évalué à ${idee.cout!''}€</p>
+						<#else>
+						<p>Le coût n'a pas été estimé.</p>
+						</#if>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="row">
+                            <div class="col">
+                                <#if idee.imgs?size != 0>
+                                <#-- FIXME resize on server ??? -->
+                                <#list idee.imgs as img>
+                                <div class="col-sm-4" style="padding:10px;">
+                                    <img src="image?id=${img.idFile}&resource_type=core_attribute_img" width="100%">
+                                </div>
+                                </#list>
+                                </#if>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <#if !(is_own_idee?? && is_own_idee)>
+                        <#if isExtendInstalled?? && isExtendInstalled>
+                            @Extender[${idee.id},IDEE,rating,{show:"all"}]@
+                        </#if>
+                        </#if>
+                    </div>
+                </div>
+				<div class="row">
+					<div class="col-sm-2">
+						<#if idee.docs?size != 0>
+						<p>
+						<#list idee.docs as doc>
+						<a href="servlet/plugins/ideation/download?id=${doc.idFile}">${doc.title}</a><#if doc_has_next>, </#if>
+						</#list>
+						</p>
+						</#if>
+					</div>
+				</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-1 col-sm-offset-1">
+            <img src="images/logo_paris.png" width="50px" height="50px" alt="logo_paris" title="logo_paris">
+        </div>
+        <div class="col-sm-9">
+            <p>Nous vous remercions pour cette proposition de projet, et invitons chaque internaute à la commenter. N’oubliez pas de participer également à la réunion publique concernant...</p>
+        </div>
+    </div>
+
+	<div class="row">
+		<div class="col-sm-10 col-sm-offset-1">
+			<hr style="border-color: grey;">
+		</div>
+	</div>
+
+    <div class="row">
+        <div class="col-sm-5 col-sm-offset-1" style="padding: 5px;">
+			<#if isExtendInstalled?? && isExtendInstalled>
+					@Extender[${idee.id},IDEE,comment]@
+			</#if>
+        </div>
+        <div class="col-sm-5" style="padding: 5px;">
+			<#if !(is_own_idee?? && is_own_idee)>
+			<#if isExtendInstalled?? && isExtendInstalled>
+					@Extender[${idee.id},IDEE,follow,{show:"all"}]@
+			</#if>
+			</#if>
+        </div>
+    </div>
+ </div> 
+
+ <#else>
+    <div class="row">
+        <div class="col">
+            #dskey{ideation.site_property.view_idee.non_existing.htmlblock}
+        </div>
+    </div>
+ </#if>

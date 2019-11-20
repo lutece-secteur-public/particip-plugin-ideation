@@ -1,0 +1,15 @@
+<#include "manageideation_tabs.html" />
+<@tabs tab="atelierformentry" />
+
+<@rowBoxHeader i18nTitleKey="ideation.modify_atelierformentry.pageTitle">
+    <form class="form-horizontal" method="post" name="modify_atelierformentry" action="jsp/admin/plugins/ideation/ManageAtelierFormEntrys.jsp">
+        <@messages errors=errors />
+        <input type="hidden" id="id" name="id" value="${atelierformentry.id}"/>
+        
+        <@fieldInputText i18nLabelKey="ideation.modify_atelierformentry.labelAlternative1" inputName="alternative1" mandatory=true value="${atelierformentry.alternative1}" i18nHelpBlockKey="ideation.modify_atelierformentry.labelAlternative1.help" />
+        <@fieldInputText i18nLabelKey="ideation.modify_atelierformentry.labelAlternative2" inputName="alternative2"  value="${atelierformentry.alternative2}" i18nHelpBlockKey="ideation.modify_atelierformentry.labelAlternative2.help" />
+        <@fieldInputText i18nLabelKey="ideation.modify_atelierformentry.labelAlternative3" inputName="alternative3"  value="${atelierformentry.alternative3}" i18nHelpBlockKey="ideation.modify_atelierformentry.labelAlternative3.help" />
+        <@actionButtons button1Name="action_modifyAtelierFormEntry" button2Name="view_manageAtelierFormEntrys"/>
+    </form>
+</@rowBoxHeader>
+

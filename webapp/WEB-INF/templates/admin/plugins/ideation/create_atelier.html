@@ -1,0 +1,186 @@
+<#include "manageatelier_tabs.html" />
+<@tabs tab="atelier" />
+
+<@rowBoxHeader i18nTitleKey="ideation.create_atelier.pageTitle">
+    <form class="form-horizontal" method="post" name="create_atelier" action="jsp/admin/plugins/ideation/ManageAteliers.jsp">
+        <@messages errors=errors/>
+        <input type="hidden" id="id" name="id"/>
+        <fieldset>
+        <legend>#i18n{ideation.create_atelier.labelMandatoryFields}</legend>           
+        <@fieldInputText i18nLabelKey="ideation.create_atelier.labelTitre" inputName="titre" mandatory=true value="${atelier.titre!''}" i18nHelpBlockKey="ideation.create_atelier.labelTitre.help" />        
+        <@fieldTextArea i18nLabelKey="ideation.create_atelier.labelDescription" inputName="description" mandatory=true value="${atelier.description!''}" i18nHelpBlockKey="ideation.create_atelier.labelDescription.help" />      
+        <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-3" for="campagne">#i18n{ideation.create_atelier.labelCampagne} * : </label>
+                <div class="col-xs-12 col-sm-9 col-md-9">
+					 <select id="campagne" name="campagne" class="form-control">
+					 		<option value=""></option>					         
+                			<#list listCampagnes as campagne>               
+			                <option value="${campagne.code}" <#if atelier.campagne?? && campagne.code==atelier.campagne> selected="selected"</#if>>${campagne.title}</option>
+			                </#list>
+                	</select>
+					<p class="help-block">#i18n{ideation.create_atelier.labelCampagne.help}</p>
+				</div>               
+        </div>
+        <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-3" for="thematique">#i18n{ideation.create_atelier.labelThematique} * : </label>
+                <div class="col-xs-12 col-sm-9 col-md-9">
+					 <select id="thematique" name="thematique" class="form-control">					       
+					 <option value=""></option>  
+                			<#list campagnetheme_list as campagnetheme >               
+			                <option value="${campagnetheme.code}" <#if atelier.thematique?? && campagnetheme.code==atelier.thematique> selected="selected"</#if>>${campagnetheme.codeCampagne} - ${campagnetheme.title!}</option>
+			                </#list>
+                	</select>
+					<p class="help-block">#i18n{ideation.create_atelier.labelThematique.help}</p>
+				</div>               
+        </div>
+        <div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-3" for="type">#i18n{ideation.create_atelier.labelType} * : </label>
+			<div  class="col-xs-12 col-sm-9 col-md-9">
+				<br />
+				<input type="radio" name="type" value="numerique" <#if atelier.type?? && atelier.type=="numerique">checked="checked"</#if> />&nbsp;#i18n{ideation.create_atelier.labelTypeNumerique}
+				<input type="radio" name="type" value="physique" <#if  atelier.type?? && atelier.type=="physique">checked="checked"</#if> />&nbsp;#i18n{ideation.create_atelier.labelTypePhysique}
+			</div>
+		</div>
+        <@fieldInputText i18nLabelKey="ideation.create_atelier.labelListCodeIdee" inputName="list_code_idee" mandatory=true  value="${atelier.listCodeIdee!''}" i18nHelpBlockKey="ideation.create_atelier.labelListCodeIdee.help" />
+        <div class="input-daterange">
+        <@fieldInputCalendar i18nLabelKey="ideation.create_atelier.labelDateDebutPhase1" inputName="date_debut_phase1" mandatory=true value="${atelier.dateDebutPhase1!''}" i18nHelpBlockKey="ideation.create_atelier.labelDateDebutPhase1.help" cssClass='input-small'/>
+        <@fieldInputCalendar i18nLabelKey="ideation.create_atelier.labelDateFinPhase1" inputName="date_fin_phase1" mandatory=true  value="${atelier.dateFinPhase1!''}" i18nHelpBlockKey="ideation.create_atelier.labelDateFinPhase1.help" cssClass='input-small'/>
+        </div>
+        <div class="input-daterange">
+        <@fieldInputCalendar i18nLabelKey="ideation.create_atelier.labelDateDebutPhase2" inputName="date_debut_phase2" mandatory=true value="${atelier.dateDebutPhase2!''}" i18nHelpBlockKey="ideation.create_atelier.labelDateDebutPhase2.help" cssClass='input-small'/>
+        <@fieldInputCalendar i18nLabelKey="ideation.create_atelier.labelDateFinPhase2" inputName="date_fin_phase2" mandatory=true  value="${atelier.dateFinPhase2!''}" i18nHelpBlockKey="ideation.create_atelier.labelDateFinPhase2.help" cssClass='input-small'/>
+        </div>
+        <div class="input-daterange">
+        <@fieldInputCalendar i18nLabelKey="ideation.create_atelier.labelDateDebutPhase3" inputName="date_debut_phase3" mandatory=true value="${atelier.dateDebutPhase3!''}" i18nHelpBlockKey="ideation.create_atelier.labelDateDebutPhase3.help" cssClass='input-small'/>
+        <@fieldInputCalendar i18nLabelKey="ideation.create_atelier.labelDateFinPhase3" inputName="date_fin_phase3" mandatory=true  value="${atelier.dateFinPhase3!''}" i18nHelpBlockKey="ideation.create_atelier.labelDateFinPhase3.help" cssClass='input-small'/>
+        </div>   
+        <@fieldInputText i18nLabelKey="ideation.create_atelier.labelLieuAtelier" inputName="lieuAtelier" value="${atelier.lieuAtelier!''}" i18nHelpBlockKey="ideation.create_atelier.labelLieuAtelier.help" />        
+        <@fieldInputText i18nLabelKey="ideation.create_atelier.labelDateAtelier" inputName="dateAtelier" value="${atelier.dateAtelier!''}" i18nHelpBlockKey="ideation.create_atelier.labelDateAtelier.help" />        
+        </fieldset>
+        <fieldset>
+        <legend>#i18n{ideation.create_atelier.labelSecondaryFields}</legend> 
+        <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-3" for="localisation_type">#i18n{ideation.create_atelier.labelLocalisationType} : </label>
+                <div class="col-xs-12 col-sm-9 col-md-9">
+					 <select id="localisation_type" name="localisation_type" class="form-control">					       <option value=""></option>     
+                			<#list type_localisation_list as type_localisation>               
+			                <option value="${type_localisation.code}" <#if atelier.localisationType?? && type_localisation.code==atelier.localisationType> selected="selected"</#if>>${type_localisation.name}</option>
+			                </#list>
+                	</select>
+					<p class="help-block">#i18n{ideation.create_atelier.labelLocalisationType.help}</p>
+				</div>               
+        </div>
+        <div class="form-group" id="col_ardt">
+		    <label class="col-xs-12 col-sm-3 col-md-3" >#i18n{ideation.create_atelier.labelLocalisationArdt} : </label>
+		     <div class="col-xs-12 col-sm-9 col-md-9">
+			    <@comboWithParams name="localisation_ardt" items=arrondissements_list default_value="${atelier.localisationArdt!''}"additionalParameters=" class=\"form-control input-sm\" " />
+			    <p class="help-block">#i18n{ideation.create_atelier.labelLocalisationArdt.help}</p>
+			</div>
+		</div>
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-3" for="address">#i18n{ideation.create_atelier.labelAdresse} : </label>
+            <div class="col-xs-12 col-sm-9 col-md-9">
+                <div class="input-group">
+                    <input type="text" class="form-control" name="address" id="address" value="${atelier.address!''}">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" title="effacer" id="button_delete_address"><i class="fa fa-times"></i></button>
+                    </span>
+                </div>
+                <p class="help-block">#i18n{ideation.create_atelier.labelAdresse.help}</p>
+            </div>
+        </div>
+        <input id="geojson" type="hidden" name="geo_json" value="${(atelier.geoJson?html)!''}">
+        <input id="geojson_state" type="hidden">
+            
+ 		<@fieldTextArea i18nLabelKey="ideation.create_atelier.labelTextePhase1" inputName="texte_phase1" mandatory=false value="${atelier.textePhase1!''}" i18nHelpBlockKey="ideation.create_atelier.labelTextePhase1.help"/>
+ 		<@fieldInputText i18nLabelKey="ideation.create_atelier.labelCout" inputName="cout" mandatory=false value="${atelier.cout!''}" maxlength=15 i18nHelpBlockKey="ideation.create_atelier.labelCout.help"/>
+
+        <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-3" for="handicap">#i18n{ideation.create_atelier.labelHandicap} : </label>
+                <div class="col-xs-12 col-sm-9 col-md-9">
+					 <select id="handicap" name="handicap" class="form-control">					       
+               			<#list handicap_list as handicap>               
+		                	<option value="${handicap.code}" <#if atelier.handicap?? && handicap.code==atelier.handicap> selected="selected"</#if>>${handicap.name}</option>
+		                </#list>
+                	</select>
+					<p class="help-block">#i18n{ideation.create_atelier.labelHandicap.help}</p>
+				</div>               
+        </div>
+
+        <@fieldInputText i18nLabelKey="ideation.create_atelier.labelLienFormulairePhase2" inputName="lien_formulaire_phase2"  value="${atelier.lienFormulairePhase2!''}" i18nHelpBlockKey="ideation.create_atelier.labelLienFormulairePhase2.help" />
+        <@fieldInputText i18nLabelKey="ideation.create_atelier.labelJoursDeRappelPhase1" inputName="jours_de_rappel_phase1"  value="${atelier.joursDeRappelPhase1!''}" i18nHelpBlockKey="ideation.create_atelier.labelJoursDeRappelPhase1.help" />
+        <@fieldInputText i18nLabelKey="ideation.create_atelier.labelJoursDeRappelPhase2" inputName="jours_de_rappel_phase2"  value="${atelier.joursDeRappelPhase2!''}" i18nHelpBlockKey="ideation.create_atelier.labelJoursDeRappelPhase2.help" />
+        </fieldset>
+        <@actionButtons button1Name="action_createAtelier" button2Name="view_manageAteliers"/>
+    </form>
+</@rowBoxHeader>
+<@getDatePickerRangeBootstrap language="${language}" />
+
+<script type="text/javascript" src="js/proj4js-combined.js"></script>
+<script type="text/javascript" src="jsp/admin/plugins/address/modules/autocomplete/SetupSuggestPOI.js.jsp"></script>
+<script type="text/javascript" src="js/plugins/address/modules/autocomplete/jQuery.suggestPOI.js"></script>
+
+
+<script type='text/javascript'>
+$(window).load(function() {
+    var sourceSRID = new Proj4js.Proj('EPSG:27561');
+    var destSRID = new Proj4js.Proj('EPSG:4326');
+    var jAdresse = $('#address');
+    jAdresse.suggestPOI();
+    jAdresse.bind($.suggestPOI.EVT_SELECT, function(event) {
+
+        var poi = event.poi;
+        if (poi) {
+            var address = poi.libelleTypo;
+            var lambert_x = poi.x;
+            var lambert_y = poi.y;
+            p = new Proj4js.Point(lambert_x, lambert_y);
+            Proj4js.transform(sourceSRID, destSRID, p);
+
+            var obj = {
+                "type" : "Feature",
+                "properties" : {
+                    "address" : address
+                },
+                "geometry" : {
+                    "type" : "Point",
+                    "coordinates" : [ p.x, p.y ]
+                }
+            };
+            $('#geojson').val(JSON.stringify(obj));
+            $('#geojson_state').val(JSON.stringify(obj));
+        }
+    });
+
+    $("#button_delete_address").on('click', function() {
+        $('#address').val("");
+        //Don't put the empty string to disambiguate with the user
+        //clearing the field, and then pressing the browser back button
+        $('#geojson_state').val("false");
+        $('#geojson').val("");
+    });
+
+    //Try to restore from back/forward browser history buttons
+    var prev_data = $('#geojson_state').val();
+    var prev_value;
+    var user_cleared = false;
+    if (prev_data) {
+        prev_value = JSON.parse(prev_data);
+        if (prev_value) {
+            $('#geojson').val(JSON.stringify(prev_value));
+        } else {
+            user_cleared = true;
+        }
+    } else {
+        var geojson_val = $('#geojson').val();
+        if (geojson_val) {
+            prev_value = JSON.parse(geojson_val);
+        } else {
+            user_cleared = true;
+        }
+    }
+    if (!user_cleared) {
+        $('#address').val(prev_value.properties.address);
+    }
+});
+</script>

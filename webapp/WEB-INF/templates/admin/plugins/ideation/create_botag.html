@@ -1,0 +1,13 @@
+<#include "manageideetags_tabs.html" />
+<@tabs tab="botag" />
+
+<@rowBoxHeader i18nTitleKey="ideation.create_botag.pageTitle">
+    <form class="form-horizontal" method="post" name="create_botag" action="jsp/admin/plugins/ideation/ManageBoTags.jsp">
+        <@messages errors=errors />
+        <input type="hidden" id="id" name="id"/>
+        
+        <@fieldInputText i18nLabelKey="ideation.create_botag.labelValue" inputName="value"  value="${botag.value!''}" i18nHelpBlockKey="ideation.create_botag.labelValue.help" />
+        <@actionButtons button1Name="action_createBoTag" button2Name="view_manageBoTags"/>
+    </form>
+</@rowBoxHeader>
+

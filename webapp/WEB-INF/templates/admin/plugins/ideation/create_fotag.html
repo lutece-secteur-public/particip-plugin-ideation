@@ -1,0 +1,13 @@
+<#include "manageideetags_tabs.html" />
+<@tabs tab="fotag" />
+
+<@rowBoxHeader i18nTitleKey="ideation.create_fotag.pageTitle">
+    <form class="form-horizontal" method="post" name="create_fotag" action="jsp/admin/plugins/ideation/ManageFoTags.jsp">
+        <@messages errors=errors />
+        <input type="hidden" id="id" name="id"/>
+        
+        <@fieldInputText i18nLabelKey="ideation.create_fotag.labelValue" inputName="value"  value="${fotag.value!''}" i18nHelpBlockKey="ideation.create_fotag.labelValue.help" />
+        <@actionButtons button1Name="action_createFoTag" button2Name="view_manageFoTags"/>
+    </form>
+</@rowBoxHeader>
+

@@ -1,0 +1,118 @@
+<#setting date_format="dd/MM/yyyy">
+<#setting locale="fr_FR">
+<script type="text/javascript">
+    function validateForm(form) {
+        var all_ok=true;
+        //From xss filter
+        var forbidden_chars = "<>#&";
+        $(form).find("input[type=text]").each(function(idx, elem) {
+                var error = false;
+                for (var i = 0; i < forbidden_chars.length; i++) {
+                    if (!error && elem.value.indexOf(forbidden_chars.charAt(i)) != -1) {
+                        error = true;
+                        all_ok = false;
+                        var parent = $(elem).parents(".form-group");
+                        parent.addClass("has-error has-feedback");
+                        var helpblock = $(parent).children("p.help-block");
+                        helpblock.children("p").remove();
+                        helpblock.append("<p>Les charactères '" + forbidden_chars + "' sont interdits.</p>");
+                    }
+                }
+        });
+        return all_ok;
+    }
+
+</script>
+
+<#if recap_localisation_type??>
+	<#if  recap_localisation_type == "paris" >
+	<#assign recap_localisation_text = "Tout Paris">
+	<#elseif recap_localisation_type == "ardt" && recap_localisation_ardt??>
+	<#assign recap_localisation_text = (arrondissements_map[recap_localisation_ardt])!recap_localisation_ardt>
+	</#if>
+</#if>
+
+<#if recap_code_theme??>
+<#assign recap_theme_libelle = (campagne_static.themes_map[recap_code_theme].title)!recap_code_theme>
+</#if>
+
+<#if (campagne_static.depositaires_types_map[recap_depositaire_type])??>
+<#assign recap_depositaire_type_object = campagne_static.depositaires_types_map[recap_depositaire_type]>
+</#if>
+
+<#if recap_depositaire_type??>
+<#assign recap_depositaire_type_libelle = (recap_depositaire_type_object.libelle)!recap_depositaire_type>
+</#if>
+
+<#if recap_depositaire??>
+<#if (recap_depositaire_type_object.codeComplementType)?? && recap_depositaire_type_object.codeComplementType == "LIST">
+	<#assign recap_depositaire_libelle = (campagne_static.depositaires_types_list_values_map[recap_depositaire_type + "-" + recap_depositaire])!recap_depositaire>
+<#else>
+	<#assign recap_depositaire_libelle = recap_depositaire>
+</#if>
+</#if>
+
+<#if recap_depositaire_libelle??>
+<#assign step_recap_depositaire = "${recap_depositaire_type_libelle!''} (${recap_depositaire_libelle!''})">
+<#else>
+<#assign step_recap_depositaire = "${recap_depositaire_type_libelle!''}">
+</#if>
+
+<#if recap_description??>
+<#if 20 < recap_description?length >
+<#assign libelle_recap_description = recap_description?substring(0,17) + "...">
+<#else>
+<#assign libelle_recap_description = recap_description>
+</#if>
+</#if>
+
+<#if recap_cout??>
+<#assign formatted_cout = recap_cout?string["###,###"]>
+<#assign steps_recap_description = "${libelle_recap_description!''} (${formatted_cout!''}€)">
+<#else>
+<#assign steps_recap_description = "${libelle_recap_description!''}">
+</#if>
+
+<#assign etapes = [
+    { "title": "Thème et localisation", "link_querystring":  "view=location"           , "recap": "${step_recap_depositaire!}, ${recap_theme_libelle!}, ${recap_localisation_text!''}" },
+    { "title": "Titre du projet", "link_querystring":  "view=title"           , "recap": "${recap_title!}" },
+    { "title": "Projets approchants", "recap": "Projets approchants" },
+    { "title": "Description et coût", "link_querystring":  "view=description"           , "recap": steps_recap_description },
+    { "title": "Images et Documents", "link_querystring":  "view=upload"           , "recap": "${(recap_imgs?size)!''} image(s) et ${(recap_docs?size)!''} document(s) déposé(es)" },
+    { "title": "Résumé et validation", "link_querystring":  "view=recap"           , "recap": "Résumé et validation" },
+    { "title": "Confirmation d'envoi" }
+]>
+
+
+<#list etapes as etape>
+<#if etape_index < cur_etape_index>
+<div class="row step-row steps">
+	<div class="col-xs-12 col-sm-12 col-md-offset-2 col-md-8 col-lg-offset-2 col-lg-8">
+		<span class="step_index_previous">${etape_index+1}</span>
+		<span class="step_title_previous">${etape["recap"]}</span>
+		<#if cur_etape_index<(etapes?size-1)>
+		<#if etape["link_querystring"]??><a href="jsp/site/Portal.jsp?page=ideation&${etape["link_querystring"]}" class="pull-right">Modifier</a></#if>
+		</#if>
+	</div>
+</div>
+<#elseif etape_index == cur_etape_index>
+<div class="row step-row steps">
+	<div class="col-xs-12 col-sm-12 col-md-offset-2 col-md-8 col-lg-offset-2 col-lg-8">
+		<span class="step_index_current">${etape_index+1}</span>
+		<span class="step_title_current">${etape["title"]}</span>
+	</div>
+</div>
+<div class="arrow_box"></div>
+<div id="current_step">
+	<@messages infos=infos errors=errors /> 
+	<#include cur_etape_content>
+</div>
+<#else>
+<div class="row step-row steps">
+	<div class="col-xs-12 col-sm-12 col-md-offset-2 col-md-8 col-lg-offset-2 col-lg-8">
+		<span class="step_index_next">${etape_index+1}</span>
+		<span class="step_title_next">${etape["title"]}</span>
+	</div>
+</div>
+</#if>
+</#list>

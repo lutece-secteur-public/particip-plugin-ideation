@@ -1,0 +1,15 @@
+<#include "manageideation_tabs.html" />
+<@tabs tab="depositairetype" />
+
+<@rowBoxHeader i18nTitleKey="ideation.modify_depositairetype.pageTitle">
+    <form class="form-horizontal" method="post" name="modify_depositairetype" action="jsp/admin/plugins/ideation/ManageDepositaireTypes.jsp">
+        <@messages errors=errors />
+        <input type="hidden" id="id" name="id" value="${depositairetype.id}"/>
+        
+        <@fieldInputText i18nLabelKey="ideation.modify_depositairetype.labelCode" inputName="code" mandatory=true value="${depositairetype.code}" i18nHelpBlockKey="ideation.modify_depositairetype.labelCode.help" />
+        <@fieldInputText i18nLabelKey="ideation.modify_depositairetype.labelLibelle" inputName="libelle" mandatory=true value="${depositairetype.libelle}" i18nHelpBlockKey="ideation.modify_depositairetype.labelLibelle.help" />
+        <@fieldInputText i18nLabelKey="ideation.modify_depositairetype.labelCodeComplementType" inputName="code_complement_type" mandatory=true value="${depositairetype.codeComplementType}" i18nHelpBlockKey="ideation.modify_depositairetype.labelCodeComplementType.help" />
+        <@actionButtons button1Name="action_modifyDepositaireType" button2Name="view_manageDepositaireTypes"/>
+    </form>
+</@rowBoxHeader>
+

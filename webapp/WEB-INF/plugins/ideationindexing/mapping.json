@@ -1,0 +1,96 @@
+{
+    "mappings": {
+      "ideeedataobject": {
+        "properties": {
+          "campagne": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          },
+          "cost": {
+            "type": "long"
+          },
+          "depositaryType": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          },
+          "descriptionSize": {
+            "type": "long"
+          },
+          "geoPoint": {
+            "type": "geo_point"
+          },
+          "isQPop": {
+            "type": "boolean"
+          },
+          "localisationType": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          },
+          "nbChildren": {
+            "type": "long"
+          },
+          "nbPJ": {
+            "type": "long"
+          },
+          "qpopReference": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          },
+          "status": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          },
+          "thematic": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          },
+          "timestamp": {
+            "type": "date",
+            "format": "epoch_millis"
+          },
+          "titleSize": {
+            "type": "long"
+          },
+          "winner": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          }
+        }
+      }
+    }
+  }

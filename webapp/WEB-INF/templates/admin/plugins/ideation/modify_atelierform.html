@@ -1,0 +1,122 @@
+<#include "manageatelier_tabs.html" />
+<@tabs tab="atelierform" />
+
+<@rowBoxHeader i18nTitleKey="ideation.create_atelierform.pageTitle">
+    <form class="form-horizontal" method="post" name="create_atelier" action="jsp/admin/plugins/ideation/ManageAteliers.jsp">
+   		<@messages infos=infos/>
+        <@messages errors=errors />
+       <input type="hidden" id="id" name="id" value="${id_atelier}"/>
+      
+        <div class="form-group">
+			<div class="col-xs-12 col-sm-4">
+			<label class="text-center" for="titre_alternative1">#i18n{ideation.create_atelierformentry.labelTitreAlternative1}* : </label>
+				<textarea class="form-control" id="titre_alternative1" name="titre_alternative1" ><#if choix_titre??>${choix_titre.alternative1!}</#if></textarea>
+				<p class="help-block">#i18n{ideation.create_atelierformentry.labelTitreAlternative1.help}</p>
+			</div>
+			<div class="col-xs-12 col-sm-4">
+			<label class="text-center" for="titre_alternative2">#i18n{ideation.create_atelierformentry.labelTitreAlternative2} : </label>
+				<textarea class="form-control" id="titre_alternative1" name="titre_alternative2"  ><#if choix_titre??>${choix_titre.alternative2!}</#if></textarea>
+				<p class="help-block">#i18n{ideation.create_atelierformentry.labelTitreAlternative2.help}</p>
+			</div>
+			<div class="col-xs-12 col-sm-4">
+			<label class="text-center" for="titre_alternative3">#i18n{ideation.create_atelierformentry.labelTitreAlternative3} : </label>
+				<textarea class="form-control" id="titre_alternative3" name="titre_alternative3"  ><#if choix_titre??>${choix_titre.alternative3!}</#if></textarea>
+				<p class="help-block">#i18n{ideation.create_atelierformentry.labelTitreAlternative3.help}</p>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="col-xs-12 col-sm-4">
+			<label class="text-center" for="description_alternative1">#i18n{ideation.create_atelierformentry.labelDescriptionAlternative1}* : </label>
+				<textarea class="form-control" id="description_alternative1" name="description_alternative1" rows="10"><#if choix_desc??>${choix_desc.alternative1!}</#if></textarea>
+				<p class="help-block">#i18n{ideation.create_atelierformentry.labelDescriptionAlternative1.help}</p>
+			</div>
+			<div class="col-xs-12 col-sm-4">
+			<label class="text-center" for="description_alternative2">#i18n{ideation.create_atelierformentry.labelDescriptionAlternative2} : </label> 
+				<textarea class="form-control" id="description_alternative2" name="description_alternative2" rows="10"><#if choix_desc??>${choix_desc.alternative2!}</#if></textarea>
+				<p class="help-block">#i18n{ideation.create_atelierformentry.labelDescriptionAlternative2.help}</p>
+			</div>
+			<div class="col-xs-12 col-sm-4">
+			<label class="text-center" for="description_alternative3">#i18n{ideation.create_atelierformentry.labelDescriptionAlternative3} : </label>
+				<textarea class="form-control" id="description_alternative3" name="description_alternative3" rows="10"><#if choix_desc??>${choix_desc.alternative3!}</#if></textarea>
+				<p class="help-block">#i18n{ideation.create_atelierformentry.labelDescriptionAlternative3.help}</p>
+			</div>
+		</div>
+		<#if list_desc_comp?? && list_desc_comp?size gt 0> 
+		<#list 0..list_desc_comp?size-1 as i>
+		<div class="form-group">
+			<div class="col-xs-12 col-sm-4">
+			<label class="text-center" for="descComp_${i}_alt1">#i18n{ideation.modify_atelierformentry.labelDescriptionCompleAlternative1}* : </label>
+				<textarea class="form-control" id="descComp_${i}_alt1" name="descComp_${i}_alt1" rows="10"><#if list_desc_comp[i]??>${list_desc_comp[i].alternative1!}</#if></textarea>
+				<p class="help-block">#i18n{ideation.modify_atelierformentry.labelDescriptionCompleAlternative1.help}</p>
+			<#if list_desc_comp[i]??>	
+			 <a href="jsp/admin/plugins/ideation/ManageAteliers.jsp?action=removeAtelierFormEntryComp&idAtelierFormEntryComp=${list_desc_comp[i].id!}&id=${id_atelier}"
+               class="btn btn-danger btn-small" title="#i18n{portal.util.labelDelete}" >
+                <i class="fa fa-trash"></i> 
+            </a> #i18n{ideation.modify_atelierformentry.labelSupprimer}
+            </#if>
+			</div>
+			
+
+			<div class="col-xs-12 col-sm-4">
+			<label class="text-center" for="descComp_${i}_alt2">#i18n{ideation.modify_atelierformentry.labelDescriptionCompleAlternative2} : </label>
+				<textarea class="form-control" id="descComp_${i}_alt2" name="descComp_${i}_alt2" rows="10"><#if list_desc_comp[i]??>${list_desc_comp[i].alternative2!}</#if></textarea>
+				<p class="help-block">#i18n{ideation.modify_atelierformentry.labelDescriptionCompleAlternative2.help}</p>
+			</div>
+			<div class="col-xs-12 col-sm-4">
+			<label class="text-center" for="descComp_${i}_alt3">#i18n{ideation.modify_atelierformentry.labelDescriptionCompleAlternative3} : </label>
+				<textarea class="form-control" id="descComp_${i}_alt3" name="descComp_${i}_alt3" rows="10"><#if list_desc_comp[i]??>${list_desc_comp[i].alternative3!}</#if></textarea>
+				<p class="help-block">#i18n{ideation.modify_atelierformentry.labelDescriptionCompleAlternative3.help}</p>
+			</div>
+			
+		</div>
+		</#list>
+		</#if>
+
+		<i class ="glyphicon glyphicon-plus"></i><input type="button" onclick="addDesc()" value="#i18n{ideation.modify_atelier_form.addDescriptionComplementaire}"> </input> 
+		<input type="hidden" id="desc_comp_isVisible" name="desc_comp_isVisible" />		
+		<div class="form-group" id="desc_complementaire">
+			<div class="col-xs-12 col-sm-4">
+			<label class="text-center" for="descComp_alt1">#i18n{ideation.modify_atelierformentry.labelDescriptionCompleAlternative1}* : </label>
+				<textarea class="form-control" id="descComp_alt1" name="descComp_alt1" rows="10"><#if choix_desc_comp??>${choix_desc_comp.alternative1!}</#if></textarea>
+				<p class="help-block">#i18n{ideation.modify_atelierformentry.labelDescriptionCompleAlternative1.help}</p>
+			</div>
+			<div class="col-xs-12 col-sm-4">
+			<label class="text-center" for="descComp_alt2">#i18n{ideation.modify_atelierformentry.labelDescriptionCompleAlternative2}* : </label>
+				<textarea class="form-control" id="descComp_alt2" name="descComp_alt2" rows="10"><#if choix_desc_comp??>${choix_desc_comp.alternative2!}</#if></textarea>
+				<p class="help-block">#i18n{ideation.modify_atelierformentry.labelDescriptionCompleAlternative2.help}</p>
+			</div>
+			<div class="col-xs-12 col-sm-4">
+			<label class="text-center" for="descComp_alt3">#i18n{ideation.modify_atelierformentry.labelDescriptionCompleAlternative3}* : </label>
+				<textarea class="form-control" id="descComp_alt3" name="descComp_alt3" rows="10"><#if choix_desc_comp??>${choix_desc_comp.alternative3!}</#if></textarea>
+				<p class="help-block">#i18n{ideation.modify_atelierformentry.labelDescriptionCompleAlternative3.help}</p>
+			</div>
+		</div>
+       <div class="form-group">
+	    <div class="col-xs-12 col-sm-offset-3 col-sm-8 col-md-offset-3 col-md-8">
+				<button  class="btn btn-primary" name="action_modifyAtelierForm" type="submit" onclick="getVisible()">
+					<i class="fa fa-check"></i>&nbsp;#i18n{ideation.modify_atelierformentry.buttonSauvegarder}
+				</button>
+				<button class="btn btn-default" name="view_modifyAtelier">
+						<i class="fa fa-close"></i>&nbsp;#i18n{ideation.modify_atelierformentry.buttonSortir}
+				</button>
+	    </div>
+	</div>
+    </form>
+</@rowBoxHeader>
+
+<script type="text/javascript">
+	$(document).ready( function () {
+	    $( "#desc_complementaire" ).hide();
+	  });
+	function addDesc()
+	{
+		$("#desc_complementaire").slideToggle( "slow" );
+	}
+	function getVisible()
+	{
+		var visible = $("#desc_complementaire").is(":visible");
+		
+		$("#desc_comp_isVisible").attr("value", visible);
+	}
+</script>

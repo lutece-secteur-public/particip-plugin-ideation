@@ -1,0 +1,33 @@
+
+<#include "/skin/plugins/asynchronousupload/upload_commons.html" />
+<script type="text/javascript" src="jsp/site/plugins/asynchronousupload/GetMainUploadJs.jsp?handler=ideationIdeeUploadHandler" ></script>
+
+<form onsubmit="return validateForm(this);" action="jsp/site/Portal.jsp" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="page" value="ideation">
+        <input type="hidden" name="action" value="upload">
+
+        <div class="row">
+            <div class="col-md-4 col-md-offset-2">
+                <div class="form-group">
+                    <label for="file_image">#dskey{ideation.site_property.form.image_label_text}</label>
+                    <@addFileInputAndfilesBox fieldName="imgs" handler=handler listUploadedFiles=imgs inputCssClass='form-control' multiple=true/>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input name="accept_exploit" value ="true" type="checkbox" <#if form_etape_upload.acceptExploit??&&form_etape_upload.acceptExploit=="true">checked="checked"</#if>>#dskey{ideation.site_property.form.image_exploit_label_text}
+                    </label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="file_doc">#dskey{ideation.site_property.form.doc_label_text}</label>
+                    <@addFileInputAndfilesBox fieldName="docs" handler=handler listUploadedFiles=docs inputCssClass='form-control' multiple=true/>
+                </div>
+            </div>
+        </div>
+
+	<br><br>
+
+        <center><button type="submit" value="Continuer" class="btn continue">Continuer <i class="fa fa-arrow-down"></i></button></center>
+
+</form>

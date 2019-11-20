@@ -1,0 +1,264 @@
+<#include "manageatelier_tabs.html" />
+<@tabs tab="atelier" />
+
+<@rowBox>
+    <@boxHeader i18nTitleKey="ideation.manage_ateliers.tableLabel">
+        <@headerButtons>
+
+
+        <form class="form-inline pull-right" method="post" name="manage_ateliers" action="jsp/admin/plugins/ideation/ManageAteliers.jsp">
+            <!-- Add pull-right to class1 -->
+            <@actionButtons button1Name="view_createAtelier" icon1="icon-plus icon-white" i18nValue1Key="ideation.manage_ateliers.buttonAdd" />
+            <a href="jsp/admin/plugins/extend/ViewExtenderInfo.jsp?extenderType=comment&idExtendableResource=*&extendableResourceType=ATELIER&from_url=jsp/admin/plugins/ideation/ManageAteliers.jsp"
+               class="btn btn-primary btn-sm" title="#i18n{ideation.manage_idees.viewComments}" >
+                <i class="fa fa-comments">#i18n{ideation.manage_idees.viewAllComments}</i>
+            </a>
+        </form>
+
+    </@headerButtons>
+    </@boxHeader>
+    <@boxBody>
+    <@messages infos=infos />
+
+    <div class="row" >
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="well">
+
+
+    <form method="post" action="jsp/admin/plugins/ideation/ManageAteliers.jsp">
+        <legend>Recherche</legend>
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                 <div class="form-group">
+                    <label for="filter_titre_ou_description">#i18n{ideation.manage_ateliers.searchLabelTitreOuDescription} :</label>
+                    <input type="text" class="form-control input-xs" name="filter_titre_ou_description" value="${filter_titre_ou_description!''}">
+                </div>
+            </div>
+             <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+             <div class="form-group">
+                    <label for="filter_type">#i18n{ideation.manage_ateliers.searchLabelType} :</label>
+                    <select id="filter_type" name="filter_type" class="form-control input-xs">
+                    <option value="" <#if !filter_type_localisation??>selected="selected"</#if>>#i18n{ideation.manage_ateliers.searchLabelAll}</option>
+                     <option value="numerique" <#if filter_type?? && filter_type=="numerique"> selected="selected"</#if>>#i18n{ideation.manage_ateliers.searchLabelTypeNumerique}</option>
+                    <option value="physique" <#if filter_type?? && filter_type=="physique"> selected="selected"</#if>>#i18n{ideation.manage_ateliers.searchLabelTypePhysique}</option>
+                    </select>
+                </div>
+                </div>
+            </div>
+            <div class="row">
+            <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                 <div class="form-group">
+                    <label for="filter_code_campagne">#i18n{ideation.manage_ateliers.columnCampagne} :</label>
+                    <select id="filter_code_campagne" name="filter_code_campagne" class="form-control input-xs">
+                    <option value="" <#if !filter_code_campagne??>selected="selected"</#if>>#i18n{ideation.manage_ateliers.searchLabelAll}</option>
+                    <#list global_static?keys as key>
+                    <#assign campagne = global_static[key].campagne>
+                    <option value="${campagne.code}" <#if filter_code_campagne?? && campagne.code==filter_code_campagne> selected="selected"</#if>>${campagne.title}</option>
+                    </#list>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="filter_code_theme">#i18n{ideation.manage_ateliers.columnThematique}:</label>
+                    <select id="filter_code_theme" name="filter_code_theme" class="form-control input-xs">
+                    <option value="" <#if !filter_code_theme??>selected="selected"</#if>>#i18n{ideation.manage_ateliers.searchLabelAll}</option>
+                    <#list global_static?keys as key>
+                    <#list global_static[key].themes_list as theme>
+                    <option value="${theme.code}" <#if filter_code_theme?? && theme.code==filter_code_theme> selected="selected"</#if>>${theme.title}</option>
+                    </#list>
+                    </#list>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="filter_handicap">#i18n{ideation.manage_ateliers.columnHandicap}:</label>
+                    <select id="filter_handicap" name="filter_handicap" class="form-control input-xs">
+	                    <option value="" <#if !filter_handicap??>selected="selected"</#if>>#i18n{ideation.manage_ateliers.searchLabelAll}</option>
+	                    <#list handicap_list as handicap>
+		                    <option value="${handicap.code}" <#if filter_handicap?? && handicap.code==filter_handicap> selected="selected"</#if>>${handicap.name}</option>
+	                    </#list>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                <div class="form-group">
+                    <label for="filter_type_localisation">#i18n{ideation.manage_ateliers.searchLabelLocalisationType} :</label>
+                    <select id="filter_type_localisation" name="filter_type_localisation" class="form-control input-xs">
+                    <option value="" <#if !filter_type_localisation??>selected="selected"</#if>>#i18n{ideation.manage_ateliers.searchLabelAll}</option>
+                    <#list type_localisation_list as type_localisation >
+                    <option value="${type_localisation.code}" <#if filter_type_localisation?? && type_localisation.code==filter_type_localisation> selected="selected"</#if>>${type_localisation.name}</option>
+                    </#list>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="filter_arrandissement">#i18n{ideation.manage_ateliers.searchLabelLocalisationArd} :</label>
+                    <select id="filter_arrandissement" name="filter_arrandissement" class="form-control input-xs">
+                    <option value="" <#if !filter_arrandissement??>selected="selected"</#if>>#i18n{ideation.manage_ateliers.searchLabelAll}</option>
+                    <#list arrondissements_list as arrandissement >
+                    <#if arrandissement.code !="">
+                    <option value="${arrandissement.code}"
+
+                    <#if filter_arrandissement?? && arrandissement.code==filter_arrandissement> selected="selected"</#if>>${arrandissement.name}</option>
+                    </#if>
+                    </#list>
+                    </select>
+                </div>
+        </div>
+          <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+             <div class="form-group">
+                <label for="sort_column">#i18n{ideation.manage_ateliers.searchLabelColonneTri} :</label>
+                <select id="sort_column" name="sort_column" class="form-control input-xs">
+                <option value="" <#if !sort_column??>selected="selected"</#if><option>
+                <#list [
+                    {"code":"id_atelier", "name": "#i18n{ideation.manage_ateliers.columnId}"},
+                    {"code":"titre", "name": "#i18n{ideation.manage_ateliers.columnTitre}"},
+                    {"code":"campagne", "name": "#i18n{ideation.manage_ateliers.columnCampagne}"},
+                    {"code":"thematique", "name": "#i18n{ideation.manage_ateliers.columnThematique}"},
+                    {"code":"localisationardt", "name": "#i18n{ideation.manage_ateliers.columnArrand}"}
+                ] as column >
+                <option value="${column.code}" <#if sort_column?? && column.code==sort_column> selected="selected"</#if>>${column.name}</option>
+                </#list>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="sort_order">#i18n{ideation.manage_ateliers.searchLabelOrdre} :</label>
+                <select id="sort_order" name="sort_order" class="form-control input-xs">
+                <option value="" <#if !sort_order??>selected="selected"</#if><option>
+                <#list [
+                    {"code":"ASC", "name": "#i18n{ideation.manage_idees.sortOrderAsc}"},
+                    {"code":"DESC", "name": "#i18n{ideation.manage_idees.sortOrderDesc}"}
+                ] as order >
+                <option value="${order.code}" <#if sort_order?? && order.code==sort_order> selected="selected"</#if>>${order.name}</option>
+                </#list>
+                </select>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+            <div class="form-group form-inline">
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+					<input class="btn btn-primary btn-sm" type="submit" name=action_searchAtelier value="Rechercher">
+					<input class="btn btn-primary btn-sm" type="submit" name=action_cancelSearch value="Annuler">
+				</div>
+            </div>
+        </div>
+
+        </form>
+    </div>
+    <@paginationAdmin paginator=paginator combo=1 />
+	<div class="clearfix"></div>
+    <@table>
+        <tr>
+            <input type="hidden" id="id" name="id"/>
+            <th>#i18n{ideation.manage_ateliers.columnId}</th>
+            <th width="15%">#i18n{ideation.manage_ateliers.columnTitre}</th>
+            <th>#i18n{ideation.manage_ateliers.columnPhaseActive}</th>
+            <th>#i18n{ideation.manage_ateliers.columnNombreCommentaires}</th>
+            <th>#i18n{ideation.manage_ateliers.columnNombreVotes}</th>
+            <th>#i18n{ideation.manage_ateliers.columnDateLastAction}</th>
+            <th>#i18n{ideation.manage_ateliers.columnCampagne}</th>
+            <th>#i18n{ideation.manage_ateliers.columnThematique}</th>
+            <th>#i18n{ideation.manage_ateliers.columnArrand}</th>
+            <th>J - ${j_alert!}</th>
+            <th>#i18n{ideation.manage_ateliers.columnType}</th>
+            <th>#i18n{ideation.manage_ateliers.columnStatus}</th>
+            <th width="25%">#i18n{portal.util.labelActions}</th>
+
+        </tr>
+        </tr>
+        <@tableHeadBodySeparator />
+
+        <#assign cpt= atelier_list?size-1>
+            <#list 0..cpt as i >
+            <#if atelier_list[i]??>
+        <tr>
+            <input type="hidden" id="id" name="id"/>
+            <td>
+                ${atelier_list[i].id!}
+            </td>
+            <td>
+                ${atelier_list[i].titre!}
+            </td>
+            <td>
+               ${listPhases[i]!}
+            </td>
+            <td>
+                ${listNbCommentaires[i]!}
+            </td>
+            <td>
+                ${listNbVotes[i]!}
+            </td>
+            <td>
+                <#if listLastActions[i]??>
+                        ${listLastActions[i]?string["dd.MM.yyyy, HH:mm"]}
+                 </#if>   
+            </td>
+            <td>
+                ${atelier_list[i].campagne!}
+            </td>
+            <td>
+                ${atelier_list[i].thematique!}
+            </td>
+            <td>
+                ${atelier_list[i].localisationArdt!}
+            </td>
+            <td>
+            <#if listAlerts[i]?? && listAlerts[i] ><span class="glyphicon glyphicon-alert"></span></#if>
+            </td>
+            <td>
+                ${atelier_list[i].type!}
+            </td>
+            <td>
+                <#if atelier_list[i].getStatusPublic()??>
+                    #i18n{${atelier_list[i].getStatusPublic().getLibelle()!}}
+                </#if>
+            </td>
+        <td>
+            <a href="jsp/admin/plugins/ideation/ManageAteliers.jsp?view=modifyAtelier&id=${atelier_list[i].id!}"
+               class="btn btn-primary btn-sm" title="#i18n{portal.util.labelModify}">
+                <i class="fa fa-pencil"></i>
+            </a>
+            <#if atelier_list[i].getStatusPublic()?? == false || atelier_list[i].getStatusPublic().isPublished() >
+            <a href="jsp/admin/plugins/ideation/ManageAteliers.jsp?action=confirmRemoveAtelier&id=${atelier_list[i].id!}"
+               class="btn btn-danger btn-sm" title="#i18n{portal.util.labelDelete}" >
+                <i class="fa fa-trash"></i>
+            </a>
+            </#if>
+            <a href="jsp/admin/plugins/extend/ViewExtenderInfo.jsp?extenderType=comment&idExtendableResource=${atelier_list[i].id}&extendableResourceType=ATELIER&from_url=jsp/admin/plugins/ideation/ManageAteliers.jsp"
+               class="btn btn-primary btn-sm" title="#i18n{ideation.manage_idees.viewComments}" >
+                <i class="fa fa-comments"></i>
+            </a>
+            <#if atelier_list[i].getStatusPublic()?? == false || atelier_list[i].getStatusPublic().isPublished() >
+            <a href="jsp/admin/plugins/ideation/DoExportCsvAtelierUsers.jsp?id=${atelier_list[i].id}"
+               class="btn btn-primary btn-sm" title="#i18n{ideation.manage_idees.labelExportCSV}">
+                <i class="fa fa-download"></i>
+            </a>
+            </#if>
+             <a href="jsp/admin/plugins/ideation/ManageAteliers.jsp?view=resultsVotes&id=${atelier_list[i].id!}"
+               class="btn btn-primary btn-sm" title="#i18n{ideation.manage_ateliers.labelResultsvotes}">
+                <i class="fa fa-bar-chart"></i>
+            </a>
+            <a href="jsp/admin/plugins/ideation/ManageAteliers.jsp?view=viewAtelierHistory&id=${atelier_list[i].id!}"
+               class="btn btn-primary btn-sm" title="#i18n{ideation.manage_ateliers.labelViewAtelierHistory}">
+                <i class="fa fa-history"></i>
+            </a>
+            <#if atelier_list[i].getStatusPublic()?? == false || atelier_list[i].getStatusPublic().isPublished() >
+            <#if listHasAtelierForm[i]>
+            <a href="jsp/admin/plugins/ideation/ManageAteliers.jsp?view=modifyAtelierForm&id=${atelier_list[i].id!}"
+               class="btn btn-primary btn-sm" title="#i18n{ideation.manage_ateliers.buttonModifyAtelierForm}">
+                <i class="fa fa-file-text-o"></i>
+            </a>
+            </#if>
+            </#if>
+        <#else>
+
+        </td>
+        </tr>
+         </#if>
+        </#list>
+    </@table>
+    <@paginationAdmin paginator=paginator />
+  </@boxBody>
+</@rowBox>

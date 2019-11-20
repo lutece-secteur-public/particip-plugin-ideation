@@ -1,0 +1,37 @@
+<div class="row bg-color6" id="viewMySubscriptions">
+	<div class="col-xs-12 col-sm-offset-2 col-sm-9">
+    	<@messages errors=errors />
+		<@messages infos=infos />
+    	<div class="row">
+        	<div class="col-xs-12 col-sm-12">
+            	<div class="project-list-freetext content-type1" style="border-bottom:0;">
+               	 	#dskey{ideation.site_property.view_my_subscriptions.title.textblock}
+            	</div>
+        		<div class="project-list-freetext content-type1"  style="border-bottom:0;text-align:left;">
+               	 	#dskey{ideation.site_property.view_my_subscriptions.message.textblock}
+            	</div>
+        	</div>
+    	</div>
+    	<div class="row">
+        	<div class="col-xs-12 col-sm-offset-2 col-sm-8">
+		    	<form  action="jsp/site/Portal.jsp" method="post">
+			   		<input type="hidden" name="page" value="mySubscriptions">
+			    	<input type="hidden" name="action" value="saveMySubscriptions">
+					<ul class="list-unstyled">
+						<#list list_subscriptions as subscription>
+							<li>
+								<input type="checkbox" name="select_subscriptions" value="${subscription.code}"<#list list_user_subscriptions as user_subscription><#if subscription.code==user_subscription.subscriptionKey>checked</#if></#list>>
+								${subscription.name}
+							</li>			
+						</#list>
+					</ul>	
+					<div class="form-group">
+						<button id="budgetparticipatif-profile-button" class="btn-block btn-include" type="submit"> 
+							#dskey{ideation.site_property.view_my_subscriptions.buttonSave}
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+    </div>
+</div>

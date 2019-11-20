@@ -1,0 +1,45 @@
+
+<form onsubmit="return validateForm(this);" action="jsp/site/Portal.jsp" method="post">
+        <input type="hidden" name="page" value="ideation">
+        <input type="hidden" name="action" value="description">
+
+        <div class="row"><div class="col-md-8 col-md-offset-2">#dskey{ideation.site_property.form.description_label.htmlblock}</div></div>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 form">
+                <div class="form-group">
+                    <label for="description_textarea">#dskey{ideation.site_property.form.description_label_text}</label>
+                    <textarea id="description_textarea" name="description" class="form-control" rows="5">${form_etape_description.description!''}</textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 form">
+                <div class="form-group">
+                    <label for="cout">#dskey{ideation.site_property.form.cout_label_text}</label>
+                    <input type="text" class="form-control" name="cout" value="${form_etape_description.cout!''}" id="cout">
+                </div>
+            </div>
+        </div>
+
+	<br><br>
+
+        <center><button type="submit" value="Continuer" class="btn continue">Continuer <i class="fa fa-arrow-down"></i></button></center>
+
+        <script>
+            function lutece_update_count() {
+                var cnt = $("#description_textarea").val().length;
+                var text = cnt + " caractère";
+                if (cnt >= 2) {
+                    text += "s";
+                }
+                text = "(" + text + ")";
+                $("#cnt").text(text);
+            }
+            $( document ).ready(function () {
+                $("<p id="cnt"></p>").insertBefore("#description_textarea");
+                lutece_update_count();
+            });
+            $("#description_textarea").on("input keyup paste cut", lutece_update_count);
+        </script>
+</form>

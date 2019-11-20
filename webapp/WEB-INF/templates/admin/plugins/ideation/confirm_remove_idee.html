@@ -1,0 +1,15 @@
+<#include "manageideation_idee_tabs.html" />
+<@tabs tab="idee" />
+
+<@rowBoxHeader i18nTitleKey="ideation.confirm_remove_idee.pageTitle">
+    <form class="form-horizontal" method="post" name="confirm_remove_idee" action="jsp/admin/plugins/ideation/ManageIdees.jsp">
+        <@messages errors=errors />
+        <input type="hidden" id="id" name="id" value="${idee.id}"/>
+        <input type="hidden" id="exportedTag" name="exportedTag" value="${idee.exportedTag!}"/>
+
+        <@fieldInputText i18nLabelKey="ideation.confirm_remove_idee.labelMotifRecev" inputName="motifRecev" mandatory=true value="${idee.motifRecev!}" i18nHelpBlockKey="ideation.confirm_remove_idee.labelMotifRecev.help" />
+
+        <@actionButtons button1Name="action_confirmRemoveIdee" button2Name="view_manageIdees"/>
+    </form>
+</@rowBoxHeader>
+

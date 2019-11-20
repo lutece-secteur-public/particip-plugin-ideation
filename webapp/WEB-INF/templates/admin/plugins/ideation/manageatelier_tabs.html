@@ -1,0 +1,11 @@
+<#macro tabs tab >
+<div>
+    <ul class="nav nav-tabs">
+        <li <#if tab="atelier">class="active"</#if>>
+            <a href="jsp/admin/plugins/ideation/ManageAteliers.jsp">
+                #i18n{ideation.manage_ateliers.pageTitle}
+            </a>
+        </li>
+    </ul>
+</div>
+</#macro>

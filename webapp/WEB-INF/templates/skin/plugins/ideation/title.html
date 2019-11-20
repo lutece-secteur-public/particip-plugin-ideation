@@ -1,0 +1,39 @@
+
+<form onsubmit="return validateForm(this);" action="jsp/site/Portal.jsp" method="post">
+    <input type="hidden" name="page" value="ideation">
+    <input type="hidden" name="action" value="title">
+
+    <div class="row"><div class="col-md-8 col-md-offset-2">#dskey{ideation.site_property.form.titre_label.htmlblock}</div></div>
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2 form">
+            <div class="form-group">
+				<label for="titre">#dskey{ideation.site_property.form.titre_label_text}</label>
+				<input type="text" class="form-control" name="titre" value="${form_etape_title.titre!''}" id="titre">
+			</div>
+        </div>
+    </div>
+    
+    <div class="row"><div class="col-md-8 col-md-offset-2">#dskey{ideation.site_property.form.dejadepose_label.htmlblock}</div></div>
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2 form">
+            <div class="form-group">
+				<label for="dejadepose">#dskey{ideation.site_property.form.dejadepose_label_text}</label>
+				<input type="text" class="form-control" name="dejadepose" value="${form_etape_title.dejadepose!''}" id="dejadepose">
+			</div>
+        </div>
+    </div>
+    
+    <div class="row"><div class="col-md-8 col-md-offset-2">#dskey{ideation.site_property.form.creationmethod_label.htmlblock}</div></div>
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2 form">
+            <div class="form-group">
+				<label for="creationmethod">#dskey{ideation.site_property.form.creationmethod_label_text}</label>
+				<input type="text" class="form-control" name="creationmethod" value="${form_etape_title.creationmethod!''}" id="creationmethod">
+			</div>
+        </div>
+    </div>
+    
+	<br><br>
+
+    <center><button type="submit" value="Continuer" class="btn continue">Continuer <i class="fa fa-arrow-down"></i></button></center>
+</form>

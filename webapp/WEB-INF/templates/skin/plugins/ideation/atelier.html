@@ -1,0 +1,85 @@
+<#setting date_format="dd/MM/yyyy">
+<#assign theme_class = "autre">
+<#if atelier.thematique = "CADRE"><#assign theme_class = "cadre_vie">
+<#elseif atelier.thematique = "CULTURE"><#assign theme_class = "culture">
+<#elseif atelier.thematique = "ECO"><#assign theme_class = "economie_emploi">
+<#elseif atelier.thematique = "EDU"><#assign theme_class = "education">
+<#elseif atelier.thematique = "ENVIRONNEMENT" || atelier.thematique = "NAT"><#assign theme_class = "environnement">
+<#elseif atelier.thematique = "LOGEMENT"><#assign theme_class = "logement">
+<#elseif atelier.thematique = "PARTICIPATION"><#assign theme_class = "participation_citoyenne">
+<#elseif atelier.thematique = "SECURITE"><#assign theme_class = "prevention_securite">
+<#elseif atelier.thematique = "PROPRETE"><#assign theme_class = "proprete">
+<#elseif atelier.thematique = "SOLIDARITE" || atelier.thematique = "VIVREENSEMBLE"><#assign theme_class = "solidarite">
+<#elseif atelier.thematique = "SPORT"><#assign theme_class = "sport">
+<#elseif atelier.thematique = "TRANSPORT"><#assign theme_class = "transport">
+<#elseif atelier.thematique = "NUM"><#assign theme_class = "ville_numerique">
+</#if>
+<div style="background-color: #D7EFF1;">
+    <div class="row"  >
+
+        <div class="col-sm-8">
+            <div class="row">
+                <div class="col-sm-12" style="height:50px; text-transform: uppercase; font-size: 131%; margin: 50px" >
+                    ${atelier.titre}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6" style="font-weight: bold; font-size: 90%;">
+                        <img src="images/local/skin/projet_localisation.png" width="25px" height="25px" alt="Localisation" title="Localisation">
+                        <#if atelier.localisationType == "paris"  >
+                        Tout Paris
+                        <#elseif atelier.localisationType == "ardt"  >
+                        ${atelier.localisationArdt}
+                        </#if>
+                </div>
+                <div class="col-sm-6">
+                    <img style="width:25px; height:25px;"src="images/local/skin/i_${theme_class}.png" alt="${atelier_theme_libelle!""}" title="${atelier_theme_libelle!""}">
+                    ${atelier_theme_libelle!""}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" >
+        <div class="col-sm-10 col-sm-offset-1" style="background-color: #FFF;">
+            <div style="margin: 10px">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h3 style="color: grey;">Description</h3>
+                        <p class="idee_description">${atelier.description?html}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h3 style="color: grey;">Idées liées</h3>
+                        <p>
+                            <ul>
+                                <#list linkedIdeesMap?keys as linkedIdeeId>
+                                    <li><a href="jsp/site/Portal.jsp?page=idee&amp;campagne=${codeCampagne}&amp;idee=${linkedIdeeId}">${linkedIdeesMap[linkedIdeeId]}</a></li>
+                                </#list>
+                            </ul>
+                        <p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" >
+        <ul id="menu-atelier">
+        <#list atelierTabsList as atelierTab>
+            <li>
+                <a href="${atelierTab[0]}">${atelierTab[1]}</a>
+            </li>
+        </#list>
+        </ul>
+    </div>
+    <div class="row">
+        <div class="col-sm-5 col-sm-offset-1" style="padding: 5px;">
+            <#if isExtendInstalled?? && isExtendInstalled>
+                    @Extender[${atelier.id},ATELIER,comment]@
+            </#if>
+        </div>
+    </div>
+</div> 
+ 

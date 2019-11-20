@@ -1,0 +1,377 @@
+<#if conf_user_query??>
+<#assign conf_query = "&amp;conf=${conf_user_query}">
+<#else>
+<#assign conf_query = "">
+</#if>
+
+<#setting url_escaping_charset=encoding>
+<#-- Encode facet queries -->
+<#assign allParisCity = "-localisation_text:Tout Paris"> 
+<#assign allArrParisCity = "localisation_text:"> 
+<#macro EncodeFQ list_fq  optionalParam1="" optionalParam2="">
+    <#assign bCheck = false>
+    <#assign encoded_facets_queries = ""> 
+        <#list list_fq as facet>
+        <#if optionalParam1?has_content && optionalParam2?has_content && facet?starts_with(optionalParam2) >
+            <#assign encoded_facets_queries = encoded_facets_queries+"&fq="+optionalParam1>
+            <#assign bCheck = true>
+        <#else>
+            <#assign encoded_facets_queries = encoded_facets_queries+"&fq="+facet?url>
+            <#if facet?starts_with(optionalParam1)>
+                <#assign bCheck = true>
+            </#if>
+        </#if>
+        </#list>
+        <#if optionalParam1?has_content && optionalParam2?has_content && !bCheck>
+                <#assign encoded_facets_queries = encoded_facets_queries+"&fq="+optionalParam1>
+        </#if>
+${encoded_facets_queries}</#macro>
+
+<#assign sQuery = "">
+
+<#macro EncodeFQArrondissement list_fq >
+    <#assign encoded_facets_queries = "">
+        
+    <#list list_fq as facet>
+    <#if facet?starts_with("localisation_text") || facet?starts_with("type") || facet?starts_with("-localisation_text")>
+            <#assign encoded_facets_queries = encoded_facets_queries+"&fq="+facet?url>
+    </#if>
+    </#list>
+${encoded_facets_queries}
+</#macro>
+
+<#if query?has_content>
+    <#if !query?starts_with("categorie")>
+        <#if !query?starts_with("(")>
+            <#assign sQuery = "${query}">
+        <#else>
+            <#assign sQuery = "${query?split(' AND')?first?substring(1, query?split(' AND')?first?length)}">
+        </#if>
+    </#if>
+   
+</#if>
+ <#assign sQueryUrlSave = sQuery> 
+ <#assign sQuery = sQuery?split(":")?last>
+ <#assign arr= "">
+ <#assign facet_theme= "">
+ <#assign facet_depositaire_type= "">
+ <#assign facet_status="">
+ <#assign monTri ="">
+ <#assign ordre_aleatoire= "true"> 
+ <#assign sQueryUrl= sQuery>
+<#assign cadre_de_vie= 'false'>
+<#assign education_et_jeunesse= 'false'>
+<#assign logement_et_habitat= 'false'>
+<#assign environnement= 'false'>
+<#assign sport= 'false'>
+<#if sQuery?has_content && sQuery?starts_with("(") && sQuery?ends_with(")") >
+    <#assign sQuery = sQuery?remove_beginning("(")>
+    <#assign sQuery = sQuery?remove_ending(")")>
+</#if>
+
+
+<#-- facets -->
+
+ <#assign number_random="${.now?long?string}"?number />
+        
+<div class="row bg-color6" id="project_list_2015">
+
+    <div class="row">
+        <div class="col">
+            <div class="project-list-freetext content-type1">
+                #dskey{sitelabels.site_property.intro_projets.textblock}
+            </div>
+        </div>
+    </div>
+<script type="text/javascript">
+    function validateForm(form) {
+        var all_ok=true;
+        //From xss filter + lucene special characters
+        var forbidden_chars = "<>#&|():~[]\\\"?*{}^+!";
+        $(form).find("input[type=text]").each(function(idx, elem) {
+                var error = false;
+                for (var i = 0; i < forbidden_chars.length; i++) {
+                    if (!error && elem.value.indexOf(forbidden_chars.charAt(i)) != -1) {
+                        error = true;
+                        all_ok = false;
+                        var parent = $(elem).parents(".form-group");
+                        parent.addClass("has-error has-feedback");
+                        var helpblock = $(parent).find(".help-block");
+                        helpblock.after("<p class=\"help-block\">Les caractères '" + forbidden_chars + "' sont interdits.</p>");
+                        helpblock.remove();
+                    }
+                }
+                if (!error) {
+                    var str = elem.value;
+                    var prev_char = " ";
+                    for(var i=0; i<str.length;i++) {
+                        if (str[i] === "-" && prev_char === " ") {
+                            error = true;
+                            all_ok = false;
+                            var parent = $(elem).parents(".form-group");
+                            parent.addClass("has-error has-feedback");
+                            var helpblock = $(parent).find(".help-block");
+                            helpblock.after("<p class=\"help-block\">Le caractère '-' est interdit en début de mot.</p>");
+                            helpblock.remove();
+                            break;
+                        }
+                        prev_char=str[i];
+                    }
+                }
+        });
+        if (!all_ok) {
+            $(form).find("button").removeAttr("disabled");
+        }
+        return all_ok;
+    }
+</script>
+
+
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <form onsubmit="return validateForm(this);" id="searchForm" name="search" method="get" action="jsp/site/Portal.jsp" class="form-solr">
+        <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5 filter_bar filter_bar_padding">
+            <div class="form-group" id="div-form">
+                <input type="hidden" name="page" value="search-solr" />
+                <input id="form_conf_hidden" type="hidden" name="conf" value="${conf_user_query}" />
+            
+                <#if facets_list??>
+                    <#list facets_list as facet>
+                        <!-- <input type="hidden" name="fq" value="${facet}" /> -->
+                        <#if facet?starts_with("localisation_ardt_text:")>
+                            <#assign arr = facet?split(":")?last>
+                        <#elseif facet?starts_with("-localisation_type_string:paris")>
+                            <#assign arr = "all_arr">
+                        <#elseif facet?starts_with("localisation_type_string:paris")>
+                            <#assign arr = "Tout_Paris">
+                        <#elseif facet?starts_with("code_theme_string:")>
+                            <#assign facet_theme = facet?split(":")?last>
+                        <#elseif facet?starts_with("code_depositaire_type_string:")>
+                            <#assign facet_depositaire_type = facet?split(":")?last>
+                         <#elseif facet?starts_with("status_string:")>
+              				<#assign facet_status = facet?split(":")?last>
+                        </#if>
+                    </#list>
+                </#if>
+                <div class="input-group">
+                    <input class="form-control input-sm text" type="text" name="query" value="${sQuery!}" id="solr" />
+                    <span class="input-group-btn validate">
+                        <button class="btn btn-default btn-sm" type="submit" title="Rechercher" onclick ="this.disabled=true; searchTri(); return false;">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </button>
+                    </span>
+                </div>
+                <p class="help-block">#dskey{sitelabels.site_property.recherche.help.textblock}&nbsp;</p>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 filter_bar filter_bar_padding">
+            <div class="form-group">
+                <SELECT name="fq" id="arrondissement" onChange="searchArrond()" class="form-control">
+                    <#if arr=="">
+                        <OPTION value="" selected="selected" >Tous les projets</option>
+                        <OPTION value="localisation_type_string:paris">Projets Tout Paris</option>
+                        <OPTION value="-localisation_type_string:paris">Projets Tous Arrondissements</option>
+                    <#elseif arr=="Tout_Paris">
+                        <OPTION value="">Tous les projets</option>
+                        <OPTION value="localisation_type_string:paris" selected="selected" >Projets Tout Paris</option>
+                        <OPTION value="-localisation_type_string:paris">Projets Tous Arrondissements</option>
+                    <#elseif arr=="all_arr">
+                        <OPTION value="">Tous les projets</option>
+                        <OPTION value="localisation_type_string:paris">Projets Tout Paris</option>
+                        <OPTION value="-localisation_type_string:paris" selected="selected">Projets Tous Arrondissements</option>
+                    <#else>
+                        <OPTION value="">Tous les projets</option>
+                        <OPTION value="localisation_type_string:paris">Projets Tout Paris</option>
+                        <OPTION value="-localisation_type_string:paris">Projets Tous Arrondissements</option>        
+                    </#if>
+                    
+                    <#assign nbArr=20>
+                    <#list 1..nbArr as i>
+                        <#assign full_i=75000+i>
+                        <#if arr==full_i?string>
+                            <OPTION value="localisation_ardt_text:${full_i!}" selected="selected" >Projets du ${i!}e arrdt.
+                        <#else>
+                            <OPTION value="localisation_ardt_text:${full_i!}">Projets du ${i!}e arrdt.</option>
+                        </#if>
+                    </#list>
+                </SELECT>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 filter_bar filter_bar_padding">
+            <div class="form-group">
+                <SELECT name="fq" id="theme" onChange="searchArrond()" class="form-control">
+                    <OPTION value="" <#if facet_theme="">selected="selected"</#if> >Tous les thèmes</option>
+                    <#list campagne_static.themes_list as theme>
+                    <OPTION value="code_theme_string:${theme.code}" <#if facet_theme=theme.code>selected="selected"</#if> >${theme.title}</option>
+                    </#list>
+                </SELECT>
+            </div>
+             <div class="form-group">
+                <label class="select"  for="status">
+                <select id="status" name="fq" class="form-control">
+                <option value=""  <#if facet_status="">selected="selected"</#if> > Rechercher par statut publique</option>
+                <#if status_static_list??>
+                  <#list status_static_list as status_static>
+                  <option value="status_string:${status_static.code}" <#if facet_status=status_static.code> selected="selected"</#if>> ${status_static.name}</option>
+                  </#list>
+               </#if>   
+                </select>
+              </label>
+        </div>
+            <div id="button_map_list_div">
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 filter_bar filter_bar_padding">
+            <div class="form-group">
+                <SELECT name="fq" id="depositaire_type" onChange="searchArrond()" class="form-control">
+                    <OPTION value="" <#if facet_depositaire_type="">selected="selected"</#if> >Tous les types de dépositaires</option>
+                    <#list campagne_static.depositaire_types_list as depositaire_type>
+                    <OPTION value="code_depositaire_type_string:${depositaire_type.code}" <#if facet_depositaire_type=depositaire_type.code>selected="selected"</#if> >${depositaire_type.libelle}</option>
+                    </#list>
+                </SELECT>
+            </div>
+            <a href="${fullUrl}?page=search-solr${conf_query}">Enlever les filtres</a>
+        </div>
+        <#if !(sort_name??)>
+			<#assign sort_name="">
+		</#if>
+
+		<#if !(sort_order??)>
+			<#assign sort_order="">
+		</#if>
+         <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 filter_bar filter_bar_padding">
+         	   <div class="form-group">
+         	  	<#if sort_list??>
+
+                <select name="sort_order" class="form-control" onChange="searchTri()" >
+                    <option value="asc" <#if sort_order?? && sort_order="asc">selected="selected"</#if> >Ascendant</option> 
+                    <option value="desc" <#if sort_order?? && sort_order="desc">selected="selected"</#if>>Descendant</option> 
+                </select>   
+
+				<select name="sort_name" id="sort"   class="form-control" onChange="searchTri()" >
+					<#list sort_list as field>
+					
+					<#if field.enableSort >
+						<#assign monTri = sort_name+"&sort_order="+sort_order>
+						<#if sort_name?ends_with("random") && ordre_aleatoire == "true" >
+							<OPTION value="${number_random}_random" selected="selected" >ordre aléatoire</option> 
+							<#assign ordre_aleatoire= "false"> 
+						<#elseif ordre_aleatoire == "true" >
+							<OPTION value="${number_random}_random">ordre aléatoire</option> >
+							<#assign ordre_aleatoire= "false"> 
+						</#if>
+						<#if monTri==field.solrName+"&sort_order=asc" || monTri==field.solrName+"&sort_order=desc" >
+							<OPTION value="${field.solrName}" selected="selected" >${field.label} </option> 
+						<#else>
+							<OPTION value="${field.solrName}">${field.label} </option> 
+						</#if>
+						
+		  	        </#if>
+			        </#list>
+ 				<#assign monTri="&sort_name="+monTri />
+ 				</select>
+				</#if>
+         	     </div>
+         </div>
+    </div>
+</div>
+
+<#if ((conf.code)!'')=='map_idees'>
+<#assign other_view_code='list_idees'>
+<#assign other_view_text='Voir la liste des idées'>
+<#else>
+<#assign other_view_code='map_idees'>
+<#assign other_view_text='Voir les idées sur une carte'>
+</#if>
+<script>
+  function displayInMap() {
+      $("#form_conf_hidden").attr('value',"${other_view_code}");
+  }
+  $( document ).ready( function( ) {
+          $("#button_map_list_div").html('<button class="btn btn-default" onclick="displayInMap();">${other_view_text}</button>');
+  });
+</script>
+<script>
+$( document ).ready( function(  ) {
+    var type_search = getParameterByName("type_search");
+    var order = getParameterByName("sort_name");
+    
+    if (type_search == '' || type_search == 'simple' || type_search == 'thematique') {
+        $("#type_search").val("simple");
+    } else {
+        $("#type_search").val("avancee");
+    }
+} );
+
+function searchThematique (link) {
+        $("#type_search").val("thematique");
+        $("#thematique").val(link);
+        $("#searchForm").submit();
+}
+function getURLSubmit ()
+{
+    var myquery = "";
+    checkComma();
+    if ($("#solr").val().trim()!="")
+        {
+        myquery = "&query=content:"+$("#solr").val();
+    }
+    var urltest = "${fullUrl}?page=search-solr&items_per_page=${nb_items_per_page}&sort_name="+$("#sort").val()+myquery;
+    urltest += "<@EncodeFQ facets_list allParisCity allArrParisCity />";
+    return urltest;
+}
+
+$("#solr").bind("keypress", function (e) {
+     if (e.keyCode == 13) {
+        searchTri ();
+     }
+ });
+function checkComma()
+ {
+         if ($("#solr").val().trim()!="")
+         {
+                 var idTmp = $("#solr").val().trim();
+                 if (idTmp.length > 2 && idTmp.substr(0,1)!="(" && idTmp.substr(idTmp.length-1)!=")")
+                         $("#solr").val($("#solr").val());
+         }
+ }
+ 
+function voteArrond (){
+    $("#type_search").val("arrondissement");
+    //$("#sort option").val("${number_random}_random&sort_order=random");
+    $("#type_search").val("arrondissement");
+    $("#arrondissement option").val("user_arrondissement")
+    checkComma();
+    $("#searchForm").submit();
+}
+
+function searchArrond () {
+//    $("#div-form").append('<input type="hidden" id="sort" name="sort" value="" />');
+//    $("#div-form").append('<input type="hidden" id="sort_order" name="sort_order" value="" />');F
+        $("#type_search").val("arrondissement");
+    //$("#sort option").val("${number_random}_random&sort_order=random");
+    searchTri();
+}
+function searchBudget (budget) {
+    $("#sort option").val("budget_long&sort_order=asc");
+    $("#budget").val(budget);
+    searchTri();
+}
+
+function searchTri () {
+    $("#searchForm").find("button").attr("disabled", "disabled");
+    if ($("#arrondissement").val() == "all_arr")
+    {
+        window.location.href = getURLSubmit();
+    } else {
+         checkComma();
+    $("#searchForm").submit();
+    }
+}
+function getParameterByName(name) {
+    name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+    return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
+
+</script>

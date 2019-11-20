@@ -1,0 +1,56 @@
+<#include "manageideation_tabs.html" />
+<@tabs tab="campagnedepositaire" />
+
+<@rowBox>
+    <@boxHeader i18nTitleKey="ideation.manage_campagnedepositaires.tableLabel">
+        <@headerButtons>
+
+        
+        <form class="form-inline pull-right" method="post" name="manage_campagnedepositaires" action="jsp/admin/plugins/ideation/ManageCampagneDepositaires.jsp">
+            <!-- Add pull-right to class1 -->
+            <@actionButtons button1Name="view_createCampagneDepositaire" icon1="icon-plus icon-white" i18nValue1Key="ideation.manage_campagnedepositaires.buttonAdd" />
+        </form>
+        
+    </@headerButtons>
+    </@boxHeader>
+    <@boxBody>    
+    <@messages infos=infos />
+    <@paginationAdmin paginator=paginator combo=1 />
+    
+    <@table>
+        <tr>
+            <input type="hidden" id="id" name="id"/>
+            <th>#i18n{ideation.manage_campagnedepositaires.columnCodeCampagne}</th>
+            <th>#i18n{ideation.manage_campagnedepositaires.columnCodeDepositaire}</th>
+            <th>#i18n{portal.util.labelActions}</th>
+        </tr>
+        <@tableHeadBodySeparator />
+            <#list campagnedepositaire_list as campagnedepositaire >
+        <tr>
+            <input type="hidden" id="id" name="id"/>
+            <td>
+                ${campagnedepositaire.codeCampagne}
+            </td>
+            <td>
+                ${campagnedepositaire.codeDepositaireType}
+            </td>
+        <td>
+            <a href="jsp/admin/plugins/ideation/ManageCampagneDepositaires.jsp?view=modifyCampagneDepositaire&id=${campagnedepositaire.id}"
+               class="btn btn-primary btn-small" title="#i18n{portal.util.labelModify}">
+                <i class="fa fa-pencil"></i>
+            </a>
+
+            <a href="jsp/admin/plugins/ideation/ManageCampagneDepositaires.jsp?action=confirmRemoveCampagneDepositaire&id=${campagnedepositaire.id}"
+               class="btn btn-danger btn-small" title="#i18n{portal.util.labelDelete}" >
+                <i class="fa fa-trash"></i>
+            </a>
+        </td>
+        </tr>
+        </#list>
+    </@table>
+
+    <@paginationAdmin paginator=paginator />
+
+  </@boxBody>
+</@rowBox>
+

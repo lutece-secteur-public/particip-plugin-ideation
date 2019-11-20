@@ -1,0 +1,230 @@
+
+
+<form onsubmit="return validateForm(this);" action="jsp/site/Portal.jsp" method="post">
+        <input type="hidden" name="page" value="ideation">
+        <input type="hidden" name="action" value="location">
+
+        <div class="row"><div class="col-md-8 col-md-offset-2">#dskey{ideation.site_property.form.depositaire_label.htmlblock}</div></div>
+        <div id="depositaire_row" class="row">
+            <div class="col-md-4 col-md-offset-2 form">
+                <div class="form-group">
+                    <#list campagne_static.depositaire_types_list as depositaire_type>
+                    <div class="radio">
+                        <label>
+                            <input onclick="clickRadioDepositaire(this);" type="radio" name="depositaire_type" id="radio_depositaire_${depositaire_type["code"]}" value="${depositaire_type["code"]}"<#if form_etape_location.depositaireType??&&depositaire_type["code"] == form_etape_location.depositaireType>checked="checked"</#if>>
+                            ${depositaire_type["libelle"]}
+                        </label>
+                    </div>
+                    </#list>
+                </div>
+            </div>
+            <#list campagne_static.depositaire_types_list as depositaire_type>
+            <div id="complement_${depositaire_type["code"]}" class="col-md-4 depositaire-complement" style="display:none">
+                <div class="form-group">
+                    <#if depositaire_type["codeComplementType"] != "NONE">
+                    <label for="complement_depositaire_${depositaire_type["code"]}">${depositaire_type["libelle"]} :</label>
+                    </#if>
+                    <#if depositaire_type["codeComplementType"] == "LIST">
+                    <select id="complement_depositaire_${depositaire_type["code"]}" name="depositaire" class="form-control input-sm">
+                    <#list depositaire_type["values"] as value>
+                        <option value="${value["code"]}"<#if form_etape_location.depositaireType?? && form_etape_location.depositaireType=depositaire_type["code"]&&form_etape_location.depositaire??&&value.code == form_etape_location.depositaire> selected="selected"</#if>>${value["name"]}</option>
+                    </#list>
+                    </select>
+                    <#elseif depositaire_type["codeComplementType"] == "FREE">
+                    <input type="text" class="form-control input-sm" name="depositaire" <#if form_etape_location.depositaireType?? && form_etape_location.depositaireType=depositaire_type["code"]>value="${form_etape_location["depositaire"]!''}"</#if> id="complement_depositaire_${depositaire_type["code"]}">
+                    </#if>
+                </div>
+            </div>
+            </#list>
+        </div>
+
+        <script type='text/javascript'>
+                function clickRadioDepositaire(elem) {
+                    $('#depositaire_row').find('.depositaire-complement').hide();
+                    $('#complement_' + elem.value).show();
+                    $('#depositaire_row').find('.depositaire-complement').find('input').removeAttr('name');
+                    $('#depositaire_row').find('.depositaire-complement').find('select').removeAttr('name');
+                    $('#complement_depositaire_' + elem.value).attr('name', 'depositaire');
+                }
+                var checked_elem = $('#depositaire_row').find("input[type=radio]:checked")[0];
+                if (typeof(checked_elem) != 'undefined') {
+                    clickRadioDepositaire(checked_elem);
+                }
+        </script>
+
+        <div class="row"><div class="col-md-8 col-md-offset-2">#dskey{ideation.site_property.form.localisation_type_label.htmlblock}</div></div>
+        <div class="row">
+            <div class="col-md-4 col-md-offset-2 form">
+                <div class="radio">
+                    <label>
+                        <input onclick="clickRadioAll();" type="radio" name="localisation_type" id="mode_radio_paris" value="paris" <#if form_etape_location.localisationType??&& form_etape_location.localisationType=='paris'>checked</#if>>
+                        #dskey{ideation.site_property.form.localisation_label_toutparis}
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input onclick="clickRadioArdt();" type="radio" name="localisation_type" id="mode_radio_ardt" value="ardt" <#if form_etape_location.localisationType??&& form_etape_location.localisationType=='ardt'>checked</#if>>
+                        #dskey{ideation.site_property.form.localisation_label_arrondissement}
+                    </label>
+                </div>
+            </div>
+            <div id="col_ardt" class="col-md-6">
+                <div class="form-group">
+                    <label for="localisation_ardt">#dskey{ideation.site_property.form.localisation_label_precis_ardt}</label>
+                    <@comboWithParams name="localisation_ardt" items=arrondissements_list default_value="${form_etape_location.localisationArdt!''}"additionalParameters="class=\"form-control input-sm\"" />
+                </div>
+            </div>
+        </div>
+
+        <script type='text/javascript'>
+                function clickRadioAll() {
+                     $('#col_ardt').hide();
+                }
+
+                function clickRadioArdt() {
+                     $('#col_ardt').addClass('col-md-6');
+                     $('#col_ardt').show();
+                }
+
+                if ($('#mode_radio_paris').is(":checked")) {
+                    clickRadioAll();
+                } else if ($('#mode_radio_ardt').is(":checked")) {
+                    clickRadioArdt();
+                } else {
+                    clickRadioAll();
+                }
+        </script>
+
+        <div class="row"><div class="col-md-8 col-md-offset-2">#dskey{ideation.site_property.form.code_theme_label.htmlblock}</div></div>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 form">
+                <div class="form-group">
+                    <#list campagne_static.themes_list?sort_by("title") as theme>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="code_theme" value="${theme.code}" <#if form_etape_location.codeTheme??&&theme.code == form_etape_location.codeTheme>checked="checked"</#if>>
+                            ${theme["title"]}
+                        </label>
+                    </div>
+                    </#list>
+                </div>
+            </div>
+        </div>
+
+        <div class="row"><div class="col-md-8 col-md-offset-2">#dskey{ideation.site_property.form.adress_label.htmlblock}</div></div>
+        <div class="row">
+            <div id="col_geoloc" class="col-md-6 col-md-offset-3">
+                <div class="form-group">
+                    <label for="adress">#dskey{ideation.site_property.form.localisation_label_precis_adresse}</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control input-sm" name="adress" id="adress" value="${form_etape_location.adress!''}">
+                        <span class="input-group-btn">
+                            <button style="height:40px;" class="btn btn-default" type="button" title="effacer" id="button_delete_adress"><i class="fa fa-times"></i></button>
+                        </span>
+                    </div>
+                    <input id="geojson" type="hidden" name="geojson" value="${(form_etape_location.geojson?html)!''}">
+                    <input id="geojson_state" type="hidden">
+                </div>
+                <div id="map" style="height: 300px; width: 100%"></div>
+            </div>
+        </div>
+        <br><br>
+        <center><button type="submit" value="Continuer" class="btn continue">Continuer <i class="fa fa-arrow-down"></i></button></center>
+</form>
+    
+    <script type='text/javascript'>
+            var loadresource = document.createElement('link');
+            loadresource.setAttribute("rel", "stylesheet");
+            loadresource.setAttribute("type", "text/css");
+            loadresource.setAttribute("href", "js/plugins/leaflet/leaflet/leaflet.css");
+            document.getElementsByTagName("head")[0].appendChild(loadresource);
+            loadresource = document.createElement('link');
+            loadresource.setAttribute("rel", "stylesheet");
+            loadresource.setAttribute("type", "text/css");
+            loadresource.setAttribute("href", "js/jquery/plugins/ui/css/jquery-ui.css");
+            document.getElementsByTagName("head")[0].appendChild(loadresource);
+    </script>
+
+            <script type="text/javascript" src="js/proj4js-combined.js"></script>
+            <script type="text/javascript" src="jsp/site/plugins/address/modules/autocomplete/SetupSuggestPOI.js.jsp"></script>
+            <script type="text/javascript" src="js/plugins/address/modules/autocomplete/jQuery.suggestPOI.js"></script>
+            <!--<script type="text/javascript" src="js/jquery/plugins/ui/jquery.ui.custom-autocomplete.min.js"></script>-->
+            <script type="text/javascript" src="js/plugins/leaflet/leaflet/leaflet.js"></script>
+            <script type="text/javascript" src="js/plugins/leaflet/esri/esri-leaflet.js"></script>
+
+    <script type='text/javascript'>
+            $(window).load(function() {
+                var map = L.map('map').setView([48.85632, 2.33272], 12);
+                var markers_layer = L.featureGroup().addTo(map);
+                var esri_streets = L.esri.basemapLayer('Streets').addTo(map);
+                if (!Proj4js.defs["EPSG:27561"]){
+                    Proj4js.defs["EPSG:27561"]="+title=NTF (Paris) / Lambert Nord France +proj=lcc +lat_1=49.50000000000001 +lat_0=49.50000000000001 +lon_0=0 +k_0=0.999877341 +x_0=600000 +y_0=200000 +a=6378249.2 +b=6356515 +towgs84=-168,-60,320,0,0,0,0 +pm=paris +units=m +no_defs ";
+                }
+                var sourceSRID = new Proj4js.Proj('EPSG:27561');    
+                var destSRID = new Proj4js.Proj('EPSG:4326');
+                var jAdresse = $('#adress');
+                jAdresse.suggestPOI();
+                jAdresse.bind($.suggestPOI.EVT_SELECT, function(event) {
+                    var poi = event.poi;
+                    if (poi) {
+                        var address = poi.libelleTypo;
+                        var lambert_x = poi.x;
+                        var lambert_y = poi.y;
+                        p = new Proj4js.Point(lambert_x, lambert_y);
+                        Proj4js.transform(sourceSRID, destSRID, p);
+                        
+                        markers_layer.clearLayers();
+                        var marker = L.marker([p.y, p.x]).addTo(markers_layer);
+                        map.fitBounds(markers_layer.getBounds());
+                        var obj= {
+                            "type": "Feature",
+                            "properties": {
+                                "address": address
+                            },
+                            "geometry": {
+                                "type": "Point",
+                                "coordinates": [p.x, p.y]
+                            }
+                        };
+                        $('#geojson').val(JSON.stringify(obj));
+                        $('#geojson_state').val(JSON.stringify(obj));
+                        }
+                });
+
+                $("#button_delete_adress").on('click', function () {
+                        $('#adress').val("");
+                        //Don't put the empty string to disambiguate with the user
+                        //clearing the field, and then pressing the browser back button
+                        $('#geojson_state').val("false");
+                        $('#geojson').val("");
+                        map.setView([48.85632, 2.33272], 12);
+                        markers_layer.clearLayers();
+                });
+
+                //Try to restore from back/forward browser history buttons
+                var prev_data = $('#geojson_state').val();
+                var prev_value;
+                var user_cleared = false;
+                if (prev_data) {
+                    prev_value=JSON.parse(prev_data);
+                    if (prev_value) {
+                        $('#geojson').val(JSON.stringify(prev_value));
+                    } else {
+                        user_cleared = true;
+                    }
+                } else {
+                    var geojson_val = $('#geojson').val();
+                    if (geojson_val) {
+                        prev_value=JSON.parse(geojson_val);
+                    } else {
+                        user_cleared = true;
+                    }
+                }
+                if (!user_cleared) {
+                    $('#adress').val(prev_value.properties.address);
+                    markers_layer.clearLayers();
+                    var marker = L.marker([prev_value.geometry.coordinates[1],prev_value.geometry.coordinates[0]]).addTo(markers_layer);
+                    map.fitBounds(markers_layer.getBounds());
+                }
+            });
+    </script>
