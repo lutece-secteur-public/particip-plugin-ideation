@@ -1,19 +1,16 @@
 package fr.paris.lutece.plugins.ideation.service;
 
 import java.util.List;
-
-
 import java.util.Locale;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
-import fr.paris.lutece.plugins.campagnebp.service.CampagnesService;
 import fr.paris.lutece.plugins.extend.modules.comment.service.ICommentListener;
 import fr.paris.lutece.plugins.ideation.business.Idee;
 import fr.paris.lutece.plugins.ideation.business.IdeeHome;
 import fr.paris.lutece.plugins.ideation.utils.constants.IdeationConstants;
-import fr.paris.lutece.plugins.profanityfilter.utils.ProfanityResult;
+import fr.paris.lutece.plugins.participatorybudget.service.campaign.CampagnesService;
 import fr.paris.lutece.portal.service.datastore.DatastoreService;
 import fr.paris.lutece.portal.service.i18n.I18nService;
 import fr.paris.lutece.portal.service.security.LuteceUser;
@@ -26,7 +23,6 @@ public class IdeeCommentListener implements ICommentListener{
      * {@inheritDoc}
      */
 	private static final String MESSAGE_CAMPAGNE_IDEATION_CLOSED_COMMENT = "ideation.messages.campagne.ideation.closed.comment";
-	private static final String MESSAGE_VALIDATION_COMMENT = "ideation.validation.idee.comment.profanity";
 	private static final String PROPERTY_ACTIVATION_COMMENTAIRES= "ideation.site_property.form.forcer_activation_commentaires" ;
 
     @Override
@@ -92,19 +88,7 @@ public class IdeeCommentListener implements ICommentListener{
 		}
 		else
 		{
-			ProfanityResult _pfResult = IdeationProfanityFilter.getInstance().scanString(comment ,"COMMENT" , uidUser); 
-			//	ProfanityResult _pfResult =IdeationProfanityFilter.getInstance().scanString(comment , ProfanityFilter.TITLE_RESOURCE_TYPE, uidUser);
-			Set<String> words=_pfResult.getSwearWords();
-			if( words != null && !words.isEmpty( ) )
-			{
-				sbError.append(I18nService.getLocalizedString( MESSAGE_VALIDATION_COMMENT, new Locale("fr","FR")));
-			}
-			
-			for( String wrd: words )
-			{
-				sbError.append(wrd);
-				sbError.append(", ");
-			}
+			// Should check here.
 		}
 		//remove last ,
     	if(sbError.length()!=0)
@@ -141,18 +125,7 @@ public class IdeeCommentListener implements ICommentListener{
         }
         else
         {
-            ProfanityResult _pfResult = IdeationProfanityFilter.getInstance( ).scanString( comment, "COMMENT", uidUser );
-            Set<String> words = _pfResult.getSwearWords( );
-            if ( words != null && !words.isEmpty( ) )
-            {
-                sbError.append(I18nService.getLocalizedString( MESSAGE_VALIDATION_COMMENT, new Locale( "fr", "FR" ) ) );
-            }
-
-            for ( String wrd : words )
-            {
-                sbError.append( wrd );
-                sbError.append( ", " );
-            }
+			// Should check here.
         }
         // remove last ,
         if ( sbError.length( ) != 0 )

@@ -6,7 +6,7 @@ import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 
-import fr.paris.lutece.plugins.campagnebp.service.IMyInfosListener;
+import fr.paris.lutece.plugins.participatorybudget.service.IMyInfosListener;
 import fr.paris.lutece.plugins.extend.modules.comment.business.Comment;
 import fr.paris.lutece.plugins.extend.modules.comment.business.CommentFilter;
 import fr.paris.lutece.plugins.extend.modules.comment.business.ICommentDAO;

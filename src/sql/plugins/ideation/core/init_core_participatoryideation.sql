@@ -91,16 +91,3 @@ INSERT INTO `core_datastore` VALUES ('ideation.site_property.form.approx.previou
 INSERT INTO `core_datastore` VALUES ('ideation.site_property.view_idee.site_properties.contact_message_not_accept','Impossible d''envoyer de message au dépositaire');
 
 
---
--- Data for table core_admin_right
---
-DELETE FROM core_admin_right WHERE id_right = 'IDEATION_MANAGEMENT_ATELIER';
-INSERT INTO core_admin_right (id_right,name,level_right,admin_url,description,is_updatable,plugin_name,id_feature_group,icon_url,documentation_url, id_order ) VALUES 
-('IDEATION_MANAGEMENT_ATELIER','ideation.adminFeature.ManageAtelier.name',1,'jsp/admin/plugins/ideation/ManageAteliers.jsp','ideation.adminFeature.ManageAtelier.description',0,'ideation',NULL,NULL,NULL,4);
-
-
---
--- Data for table core_user_right
---
-DELETE FROM core_user_right WHERE id_right = 'IDEATION_MANAGEMENT_ATELIER';
-INSERT INTO core_user_right (id_right,id_user) VALUES ('IDEATION_MANAGEMENT_ATELIER',1);

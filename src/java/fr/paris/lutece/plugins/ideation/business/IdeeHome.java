@@ -157,19 +157,6 @@ public final class IdeeHome
     }
     
     /**
-     * Create an instance of the idee class
-     * @param idee The instance of the Idee which contains the informations to store
-     * @param atelier The instance of the Atelier object from which the Idee was generated
-     * @return The instance of idee which has been created with its primary key.
-     */
-    public static Idee createIdeeFromAtelier( Idee idee, Atelier atelier )
-    {
-        _dao.insertIdeeFromAtelier( idee, atelier, _plugin );
-
-        return idee;
-    }
-
-    /**
      * Check if the idee has a parent
      * @param nIdIdee The identifier of the idee
      * @return The identifier of the parent idee, or 0

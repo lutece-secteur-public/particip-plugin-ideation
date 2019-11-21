@@ -952,24 +952,6 @@ public final class IdeeDAO implements IIdeeDAO
      * {@inheritDoc }
      */
     @Override
-    public void insertIdeeFromAtelier( Idee idee, Atelier atelier, Plugin plugin )
-    {
-        insert( idee, plugin );
-        Collection<Integer> childIdList = AtelierHome.getIdeeIdsListByAtelier( atelier.getId( ) );
-
-        if ( childIdList != null )
-        {
-            for ( Integer childId : childIdList )
-            {
-                insertLink( idee.getId( ), childId, plugin );
-            }
-        }
-    }
-
-    /**
-     * {@inheritDoc }
-     */
-    @Override
     public void deleteLinkByParent( int nParentIdeeId, Plugin plugin )
     {
         DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE_LINK_BY_PARENT, plugin );

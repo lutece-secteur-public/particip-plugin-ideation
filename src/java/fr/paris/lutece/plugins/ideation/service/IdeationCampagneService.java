@@ -4,15 +4,15 @@ import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Collection;
 
-import fr.paris.lutece.plugins.campagnebp.business.Campagne;
-import fr.paris.lutece.plugins.campagnebp.business.CampagneHome;
-import fr.paris.lutece.plugins.campagnebp.business.CampagnePhase;
-import fr.paris.lutece.plugins.campagnebp.business.CampagnePhaseHome;
-import fr.paris.lutece.plugins.campagnebp.business.CampagneTheme;
-import fr.paris.lutece.plugins.campagnebp.business.CampagneThemeHome;
-import fr.paris.lutece.plugins.campagnebp.service.CampagnesService;
 import fr.paris.lutece.plugins.ideation.business.CampagneDepositaire;
 import fr.paris.lutece.plugins.ideation.business.CampagneDepositaireHome;
+import fr.paris.lutece.plugins.participatorybudget.business.campaign.Campagne;
+import fr.paris.lutece.plugins.participatorybudget.business.campaign.CampagneHome;
+import fr.paris.lutece.plugins.participatorybudget.business.campaign.CampagnePhase;
+import fr.paris.lutece.plugins.participatorybudget.business.campaign.CampagnePhaseHome;
+import fr.paris.lutece.plugins.participatorybudget.business.campaign.CampagneTheme;
+import fr.paris.lutece.plugins.participatorybudget.business.campaign.CampagneThemeHome;
+import fr.paris.lutece.plugins.participatorybudget.service.campaign.CampagnesService;
 import fr.paris.lutece.portal.service.spring.SpringContextService;
 
 public class IdeationCampagneService implements IIdeationCampagneService {

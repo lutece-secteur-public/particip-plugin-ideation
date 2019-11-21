@@ -26,7 +26,6 @@ public class CsvUtils
     private static final String PARAMETER_SPLIT_CSV = ",";
     private static final String PARAMETER_FIELD_CSV = ".champs";
     public static final String IDEEUSERS_PREFIX_CSV = "IDEEUSERS";
-    public static final String ATELIERUSERS_PREFIX_CSV = "ATELIERUSERS";
     public static final String PARAMETER_ID_USER_FIELD_CSV = "id_user";
     
     private static ArrayList<String> _exportKeyList;

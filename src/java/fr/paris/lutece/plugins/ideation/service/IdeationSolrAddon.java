@@ -8,10 +8,10 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import fr.paris.lutece.plugins.campagnebp.business.Campagne;
-import fr.paris.lutece.plugins.campagnebp.business.CampagneHome;
 import fr.paris.lutece.plugins.leaflet.business.GeolocItem;
 import fr.paris.lutece.plugins.leaflet.service.IconService;
+import fr.paris.lutece.plugins.participatorybudget.business.campaign.Campagne;
+import fr.paris.lutece.plugins.participatorybudget.business.campaign.CampagneHome;
 import fr.paris.lutece.plugins.search.solr.business.SolrSearchEngine;
 import fr.paris.lutece.plugins.search.solr.business.SolrSearchResult;
 import fr.paris.lutece.plugins.search.solr.indexer.SolrItem;

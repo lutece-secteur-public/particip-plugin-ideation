@@ -34,7 +34,6 @@
  
 package fr.paris.lutece.plugins.ideation.business;
 
-import fr.paris.lutece.plugins.campagnebp.business.CampagneTheme;
 import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.portal.service.plugin.PluginService;
 import fr.paris.lutece.portal.service.spring.SpringContextService;

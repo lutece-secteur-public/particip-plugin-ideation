@@ -116,14 +116,6 @@ public interface IIdeeDAO
     Collection<Integer> selectIdIdeesList( Plugin plugin );
     
     /**
-     * Insert a new record in the table.
-     * @param idee The instance of the Idee object to insert
-     * @param atelier The instance of the Atelier object from which the Idee was generated
-     * @param plugin the Plugin
-     */
-    void insertIdeeFromAtelier( Idee idee, Atelier atelier, Plugin plugin );
-    
-    /**
      * Check if the idee has a parent
      * @param nIdIdee The identifier of the idee
      * @param plugin The Plugin

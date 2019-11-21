@@ -36,14 +36,6 @@
           <feature-url>jsp/admin/plugins/ideation/ManageIdees.jsp</feature-url>
           <feature-icon-url/>
       </admin-feature>
-     <admin-feature>
-	     <feature-id>IDEATION_MANAGEMENT_ATELIER</feature-id>
-	     <feature-title>ideation.adminFeature.ManageAtelier.name</feature-title>
-	     <feature-description>ideation.adminFeature.ManageAtelier.description</feature-description>
-	     <feature-level>0</feature-level>
-	     <feature-url>jsp/admin/plugins/ideation/ManageAteliers.jsp</feature-url>
-	     <feature-icon-url/>
-    </admin-feature>	
     </admin-features>    
 
     <!-- XPages parameters -->

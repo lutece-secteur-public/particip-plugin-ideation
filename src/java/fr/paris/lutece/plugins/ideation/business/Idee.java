@@ -42,8 +42,8 @@ import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 
-import fr.paris.lutece.plugins.campagnebp.service.CampagnesService;
-import fr.paris.lutece.plugins.campagnebp.utils.Constants;
+import fr.paris.lutece.plugins.participatorybudget.service.campaign.CampagnesService;
+import fr.paris.lutece.plugins.participatorybudget.util.Constants;
 import fr.paris.lutece.portal.business.file.File;
 import fr.paris.lutece.portal.service.prefs.UserPreferencesService;
 import fr.paris.lutece.portal.service.resource.IExtendableResource;

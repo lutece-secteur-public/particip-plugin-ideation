@@ -195,16 +195,6 @@ public class IdeeUsersService implements IIdeeUsersService {
     }
     
     /**
-     * Retrieve the users of an 'atelier'
-     * @param nId_Idee
-     * @return
-     */
-    public static List<ArrayList<String>> getExportAtelierUsersList( List<Integer> ideesIdList )
-    {
-    	return getExportInfosList( ideesIdList, CsvUtils.ATELIERUSERS_PREFIX_CSV );
-    }
-    
-    /**
      * Check if a user is a follower of an idee
      * @param strId_Idee
      * @param userId

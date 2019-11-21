@@ -36,7 +36,6 @@
 package fr.paris.lutece.plugins.ideation.web;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -44,9 +43,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
 
-import fr.paris.lutece.plugins.campagnebp.business.Campagne;
-import fr.paris.lutece.plugins.campagnebp.business.CampagneHome;
-import fr.paris.lutece.plugins.ideation.business.AtelierSearcher;
 import fr.paris.lutece.plugins.ideation.business.Idee;
 import fr.paris.lutece.plugins.ideation.business.IdeeHome;
 import fr.paris.lutece.plugins.ideation.business.Link;
@@ -125,8 +121,6 @@ public class IdeeLinksJspBean extends ManageIdeeLinksJspBean
 
     // Messages
     private static final String MESSAGE_CONFIRM_REMOVE_LINK                    = "ideation.message.confirmRemoveLink";
-    private static final String MESSAGE_ERROR_NO_SUCH_PARENT                   = "ideation.validation.link.parentId.noSuchParent";
-    private static final String MESSAGE_ERROR_NO_SUCH_CHILD                    = "ideation.validation.link.childId.noSuchChild";
     private static final String MESSAGE_ERROR_CHILD_CODES_IDEES_MANDATORY      = "ideation.validation.link.parentId.childCodesIdeesMandatory";
 //    private static final String MESSAGE_ERROR_NOT_AN_INTEGER                   = "ideation.validation.link.parentId.notAnInteger";
 

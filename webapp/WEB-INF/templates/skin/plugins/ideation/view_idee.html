@@ -67,7 +67,7 @@
 				<#assign status_text = "">
 				<#assign status_icon = "">
 				<#if     idee.statusPublic = "STATUS_DEPOSE">            <#assign status_text = "Projet déposé">                  <#assign status_icon = "prop-statut-ok-${theme_class}.png">
-				<#elseif idee.statusPublic = "STATUS_EN_CO_CONSTRUCTION"><#assign status_text = "En atelier de co-construction">  <#assign status_icon = "prop-statut-ok-${theme_class}.png">
+				<#elseif idee.statusPublic = "STATUS_EN_CO_CONSTRUCTION"><#assign status_text = "En phase de co-construction">    <#assign status_icon = "prop-statut-ok-${theme_class}.png">
 				<#elseif idee.statusPublic = "STATUS_REGROUPE">          <#assign status_text = "Regroupé avec d'autres projets"> <#assign status_icon = "prop-statut-ok-${theme_class}.png">
 				<#elseif idee.statusPublic = "STATUS_A_ETUDE">           <#assign status_text = "Projet en cours d'étude">        <#assign status_icon = "prop-statut-ok-${theme_class}.png">
 				<#elseif idee.statusPublic = "STATUS_RETENU">            <#assign status_text = "Projet retenu">                  <#assign status_icon = "prop-statut-ok-${theme_class}.png">
@@ -337,17 +337,6 @@
 								<#if isExtendInstalled?? && isExtendInstalled>
 									@Extender[${idee.id},IDEE,follow,{show:"statusButton"}]@
 								</#if>
-							</div>
-						</#if>
-
-						<#-- Bouton d'action ATELIER -->
-						<#if ( atelier?? ) >
-							<div id="action-workshop" class="separator-horiz-4px">
-								<div class="btn-workshop">
-									 <a class="btn btn btn-14rem btn-black-on-white" href="jsp/site/Portal.jsp?page=atelier&atelier=${atelier.id}">
-										 #i18n{ideation.ideesSubscriber.button.label.gotoWorkshop}
-									 </a>
-								</div>
 							</div>
 						</#if>
 

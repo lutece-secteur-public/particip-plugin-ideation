@@ -15,8 +15,6 @@ import fr.paris.lutece.plugins.extend.business.extender.history.ResourceExtender
 import fr.paris.lutece.plugins.extend.business.extender.history.ResourceExtenderHistoryFilter;
 import fr.paris.lutece.plugins.extend.modules.follow.service.extender.FollowResourceExtender;
 import fr.paris.lutece.plugins.extend.service.extender.history.IResourceExtenderHistoryService;
-import fr.paris.lutece.plugins.ideation.business.Atelier;
-import fr.paris.lutece.plugins.ideation.business.AtelierHome;
 import fr.paris.lutece.plugins.ideation.business.Idee;
 import fr.paris.lutece.plugins.ideation.business.IdeeHome;
 import fr.paris.lutece.plugins.ideation.business.IdeeSearcher;
@@ -163,31 +161,12 @@ public class IdeeService implements IIdeeService {
 		_solrIdeeIndexer.writeIdee( idee );
 	}
 
-	//Don't forget to use InnoDB tables for the following tables!
-    //core_file, core_physical_file, ideation_idees, ideation_idees_files
-    //Check with:
-    //sql> show table status ;
-    @Transactional( BEAN_TRANSACTION_MANAGER )
-    public synchronized void createIdeeDBFromAtelier( Idee idee, Atelier atelier ) throws IdeationErrorException
-    {
-        createFiles( idee, Idee.ATTACHED_FILE_TYPE_DOC, idee.getDocs( ) );
-        createFiles( idee, Idee.ATTACHED_FILE_TYPE_IMG, idee.getImgs( ) );
-        IdeeHome.createIdeeFromAtelier( idee, atelier );
-    }
-
-    public void createIdeeFromAtelier( Idee idee, Atelier atelier ) throws IdeationErrorException
-    {
-        _singleton.createIdeeDBFromAtelier( idee, atelier );
-        _solrIdeeIndexer.writeIdee( idee );
-    }
-
 	public void removeIdeeCommon(Idee idee)
 	{
         idee.setExportedTag(2);
         IdeeHome.updateBO(idee);
         IdeeHome.removeLinkByChild( idee.getId( ) );
         IdeeHome.removeLinkByParent( idee.getId( ) );
-        AtelierHome.removeAssociationsByIdIdee( idee.getId( ) );
     }
 	public void removeIdee(Idee idee)
 	{

@@ -42,7 +42,7 @@
 					            <input type="hidden" id="id" name="id" />
 					            <td>${ideationcampagne.id!'?'}</td>
 					            <td>${ideationcampagne.code!'?)'}</td>
-					            <td><a href="jsp/admin/plugins/campagnebp/ManageCampagnebp.jsp?view=modifyCampagne&id=${ideationcampagne.id!'?'}">${ideationcampagne.title!'?'}</a></td>
+					            <td><a href="jsp/admin/plugins/participatorybudget/ManageCampagnebp.jsp?view=modifyCampagne&id=${ideationcampagne.id!'?'}">${ideationcampagne.title!'?'}</a></td>
 					            <td>${ideationcampagne.active?string!'?'}</td>
 					            <td style="text-align:right">
 					            	<div class="row" style="margin:0;text-align:center">
@@ -64,7 +64,7 @@
 										<#assign rightLimitFraction = ((phase.end?long   - phaseYearBeginMS) / yearDurationMS) >
 
 										<div style="width:100%; border-bottom:1px solid rgba(100,100,100,0.1); white-space:nowrap; background:linear-gradient(90deg, #e8e8e8 calc(100% * ${leftLimitFraction?c}), #ffc871 calc(100% * ${leftLimitFraction?c}) calc(100% * ${rightLimitFraction?c}), #e8e8e8 calc(100% * ${rightLimitFraction?c})); position:relative;">
-											<a href="jsp/admin/plugins/campagnebp/ManageCampagnePhases.jsp?view=modifyCampagnePhase&id=${phase.id}">${phase.codePhaseType}</a> <span style="color:darkred">(${phase.start?string["dd.MM.yy, HH:mm"]} &rArr; ${phase.end?string["dd.MM.yy, HH:mm"]})</span>
+											<a href="jsp/admin/plugins/participatorybudget/ManageCampagnePhases.jsp?view=modifyCampagnePhase&id=${phase.id}">${phase.codePhaseType}</a> <span style="color:darkred">(${phase.start?string["dd.MM.yy, HH:mm"]} &rArr; ${phase.end?string["dd.MM.yy, HH:mm"]})</span>
 							            	<#list 1..11 as m>
 												<div style="border-left:1px solid rgba(100,100,100,0.5); position:absolute; left:calc(100% * (${m}/12)); bottom:0px; top:0px"></div>
 											</#list>

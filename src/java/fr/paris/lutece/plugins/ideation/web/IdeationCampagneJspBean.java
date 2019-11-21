@@ -44,15 +44,15 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import fr.paris.lutece.plugins.campagnebp.business.Campagne;
-import fr.paris.lutece.plugins.campagnebp.business.CampagneHome;
-import fr.paris.lutece.plugins.campagnebp.business.CampagnePhase;
-import fr.paris.lutece.plugins.campagnebp.business.CampagnePhaseHome;
-import fr.paris.lutece.plugins.campagnebp.business.CampagneTheme;
-import fr.paris.lutece.plugins.campagnebp.business.CampagneThemeHome;
 import fr.paris.lutece.plugins.ideation.business.CampagneDepositaire;
 import fr.paris.lutece.plugins.ideation.business.CampagneDepositaireHome;
 import fr.paris.lutece.plugins.ideation.service.IdeationCampagneService;
+import fr.paris.lutece.plugins.participatorybudget.business.campaign.Campagne;
+import fr.paris.lutece.plugins.participatorybudget.business.campaign.CampagneHome;
+import fr.paris.lutece.plugins.participatorybudget.business.campaign.CampagnePhase;
+import fr.paris.lutece.plugins.participatorybudget.business.campaign.CampagnePhaseHome;
+import fr.paris.lutece.plugins.participatorybudget.business.campaign.CampagneTheme;
+import fr.paris.lutece.plugins.participatorybudget.business.campaign.CampagneThemeHome;
 import fr.paris.lutece.portal.service.i18n.I18nService;
 import fr.paris.lutece.portal.service.message.AdminMessage;
 import fr.paris.lutece.portal.service.message.AdminMessageService;

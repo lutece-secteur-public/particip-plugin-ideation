@@ -42,14 +42,12 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.lang.StringUtils;
 
 import fr.paris.lutece.plugins.avatar.service.AvatarService;
-import fr.paris.lutece.plugins.campagnebp.service.MyInfosService;
-import fr.paris.lutece.plugins.campagnebp.web.MyInfosXPage;
+import fr.paris.lutece.plugins.participatorybudget.service.MyInfosService;
+import fr.paris.lutece.plugins.participatorybudget.web.MyInfosXPage;
 import fr.paris.lutece.plugins.extend.business.extender.history.ResourceExtenderHistory;
 import fr.paris.lutece.plugins.extend.modules.comment.service.extender.CommentResourceExtender;
 import fr.paris.lutece.plugins.extend.service.extender.history.IResourceExtenderHistoryService;
 import fr.paris.lutece.plugins.extend.service.extender.history.ResourceExtenderHistoryService;
-import fr.paris.lutece.plugins.ideation.business.Atelier;
-import fr.paris.lutece.plugins.ideation.business.AtelierHome;
 import fr.paris.lutece.plugins.ideation.business.Idee;
 import fr.paris.lutece.plugins.ideation.business.IdeeHome;
 import fr.paris.lutece.plugins.ideation.service.IIdeeWSService;
@@ -108,7 +106,6 @@ public class IdeeXPage extends MVCApplication
     
     // Markers
     private static final String MARK_IDEE = "idee";
-    private static final String MARK_ATELIER = "atelier";
     private static final String MARK_NICKNAME = "nickname";
     private static final String MARK_NICKNAME_USER = "nicknameUser";
     private static final String MARK_IS_OWN_IDEE = "is_own_idee";
@@ -213,11 +210,6 @@ public class IdeeXPage extends MVCApplication
                     	model.put( MARK_EMAIL_USER, strEmail);
                     }
                     
-                    if ( _idee.getLuteceUserName().equals(user.getName())|| IdeeUsersService.isFollower( _idee.getId(), user.getName() ) )
-                    {
-                    	model.put(MARK_ATELIER, AtelierHome.getAtelierByIdee(_idee.getId()));
-                     }
-                
                 }
                 
             }

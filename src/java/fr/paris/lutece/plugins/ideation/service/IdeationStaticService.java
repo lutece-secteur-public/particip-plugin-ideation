@@ -7,17 +7,13 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import fr.paris.lutece.plugins.campagnebp.business.Campagne;
-import fr.paris.lutece.plugins.campagnebp.business.CampagneHome;
-import fr.paris.lutece.plugins.campagnebp.business.CampagneTheme;
-import fr.paris.lutece.plugins.campagnebp.business.CampagneThemeHome;
-import fr.paris.lutece.plugins.ideation.business.BoTag;
-import fr.paris.lutece.plugins.ideation.business.BoTagHome;
 import fr.paris.lutece.plugins.ideation.business.DepositaireType;
 import fr.paris.lutece.plugins.ideation.business.DepositaireTypeHome;
-import fr.paris.lutece.plugins.ideation.business.FoTag;
-import fr.paris.lutece.plugins.ideation.business.FoTagHome;
 import fr.paris.lutece.plugins.ideation.business.Idee;
+import fr.paris.lutece.plugins.participatorybudget.business.campaign.Campagne;
+import fr.paris.lutece.plugins.participatorybudget.business.campaign.CampagneHome;
+import fr.paris.lutece.plugins.participatorybudget.business.campaign.CampagneTheme;
+import fr.paris.lutece.plugins.participatorybudget.business.campaign.CampagneThemeHome;
 import fr.paris.lutece.portal.service.cache.AbstractCacheableService;
 import fr.paris.lutece.portal.service.i18n.I18nService;
 import fr.paris.lutece.portal.service.spring.SpringContextService;
@@ -77,14 +73,6 @@ public class IdeationStaticService extends AbstractCacheableService implements I
         model.put( MARK_HANDICAP_LIST, IdeeService.getInstance().getHandicapCodesList());
         model.put( MARK_LOCALISATION_TYPE_LIST, IdeeService.getInstance().getTypeLocalisationList());
         model.put( MARK_LOCALISATION_TYPE_MAP, IdeeService.getInstance().getTypeLocalisationMap());
-        Collection<BoTag> listBoTag = BoTagHome.getBoTagsList();
-        ReferenceList refListBoTag = buildBoTagReferenceList(listBoTag);
-        model.put( MARK_BO_TAGS_LIST, refListBoTag ); //TODO cache this?
-        model.put( MARK_BO_TAGS_MAP, refListBoTag.toMap() ); //TODO cache this?
-        Collection<FoTag> listFoTag = FoTagHome.getFoTagsList();
-        ReferenceList refListFoTag = buildFoTagReferenceList(listFoTag);
-        model.put( MARK_FO_TAGS_LIST, refListFoTag ); //TODO cache this?
-        model.put( MARK_FO_TAGS_MAP, refListFoTag.toMap() ); //TODO cache this?
         
         if ( WorkflowService.getInstance(  ).isAvailable( ) ) 
         {
@@ -115,14 +103,6 @@ public class IdeationStaticService extends AbstractCacheableService implements I
         model.put( MARK_HANDICAP_MAP , IdeeService.getInstance().getHandicapCodesMap());
         model.put( MARK_LOCALISATION_TYPE_LIST, IdeeService.getInstance().getTypeLocalisationList());
         model.put( MARK_LOCALISATION_TYPE_MAP, IdeeService.getInstance().getTypeLocalisationMap());
-        Collection<BoTag> listBoTag = BoTagHome.getBoTagsList();
-        ReferenceList refListBoTag = buildBoTagReferenceList(listBoTag);
-        model.put( MARK_BO_TAGS_LIST, refListBoTag ); //TODO cache this?
-        model.put( MARK_BO_TAGS_MAP, refListBoTag.toMap() ); //TODO cache this?
-        Collection<FoTag> listFoTag = FoTagHome.getFoTagsList();
-        ReferenceList refListFoTag = buildFoTagReferenceList(listFoTag);
-        model.put( MARK_FO_TAGS_LIST, refListFoTag ); //TODO cache this?
-        model.put( MARK_FO_TAGS_MAP, refListFoTag.toMap() ); //TODO cache this?
         
     }
 
@@ -184,21 +164,4 @@ public class IdeationStaticService extends AbstractCacheableService implements I
         return SERVICE_NAME;
     }
 
-    public ReferenceList buildBoTagReferenceList( Collection<BoTag> listBoTag ) {
-        ReferenceList referenceList = new ReferenceList(listBoTag.size());
-        referenceList.addItem("","");
-        for (BoTag boTag: listBoTag) {
-            referenceList.addItem(Integer.toString(boTag.getId()), boTag.getValue());
-        }
-        return referenceList;
-    }
-
-    public ReferenceList buildFoTagReferenceList( Collection<FoTag> listFoTag ) {
-        ReferenceList referenceList = new ReferenceList(listFoTag.size());
-        referenceList.addItem("","");
-        for (FoTag boTag: listFoTag) {
-            referenceList.addItem(Integer.toString(boTag.getId()), boTag.getValue());
-        }
-        return referenceList;
-    }
 }

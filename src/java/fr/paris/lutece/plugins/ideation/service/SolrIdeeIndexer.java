@@ -52,8 +52,6 @@ import org.apache.solr.common.SolrInputDocument;
 
 import fr.paris.lutece.plugins.extend.modules.rating.business.Rating;
 import fr.paris.lutece.plugins.extend.modules.rating.service.IRatingService;
-import fr.paris.lutece.plugins.ideation.business.FoTag;
-import fr.paris.lutece.plugins.ideation.business.FoTagHome;
 import fr.paris.lutece.plugins.ideation.business.Idee;
 import fr.paris.lutece.plugins.ideation.business.IdeeHome;
 import fr.paris.lutece.plugins.ideation.business.IdeeSearcher;
@@ -201,23 +199,6 @@ public class SolrIdeeIndexer implements SolrIndexer
         }
 
 
-        List<String> listFoTags = null;
-        if (idee.getIdFoTags() != null) {
-            listFoTags = new ArrayList<String>();
-            Collection<FoTag> listDbFoTag = FoTagHome.getFoTagsList();//TODO cache this?
-            ReferenceList refListFoTag = new ReferenceList(listDbFoTag.size());
-            for (FoTag foTag: listDbFoTag) {
-                refListFoTag.addItem(Integer.toString(foTag.getId()), foTag.getValue());
-            }
-            Map<String,String> mapFoTag = refListFoTag.toMap();
-            for (int idFoTag: idee.getIdFoTags()) {
-                String foTag = mapFoTag.get(Integer.toString(idFoTag));
-                if (foTag != null && !"".equals(foTag)) {
-                    listFoTags.add(foTag);
-                }
-            }
-        }
-
         item.setXmlContent("");
         UrlItem url = new UrlItem( SolrIndexerService.getBaseUrl(  ) );
         url.addParameter( PARAMETER_XPAGE, XPAGE_IDEE );
@@ -247,24 +228,6 @@ public class SolrIdeeIndexer implements SolrIndexer
         }
 
         sb.append( " " + idee.getReference() );
-
-        if (listFoTags != null) {
-            StringBuilder facetFoTagsb = new StringBuilder();
-            for (int i = 0; i<listFoTags.size(); i++) {
-                String foTag = listFoTags.get(i);
-                sb.append( " " + foTag );
-                facetFoTagsb.append(foTag);
-                if (i!=(listFoTags.size()-1)) {
-                    facetFoTagsb.append("|");
-                }
-            }
-
-            //multivalued fields would have been nicer, but our SolrItem API doesn't allow to have them
-            //So instead, use a single field and a tokenizer on a character that doesn't occur
-            if (listFoTags.size() > 0) {
-                item.addDynamicField("tag_fotag", facetFoTagsb.toString());
-            }
-        }
 
         item.setContent( sb.toString() );
 

@@ -17,11 +17,8 @@ import org.hibernate.validator.constraints.NotEmpty;
 import fr.paris.lutece.plugins.ideation.business.DepositaireType;
 import fr.paris.lutece.plugins.ideation.business.DepositaireTypeHome;
 import fr.paris.lutece.plugins.ideation.business.Idee;
-import fr.paris.lutece.plugins.ideation.business.ProfanityFilter;
-import fr.paris.lutece.plugins.ideation.service.IdeationProfanityFilter;
 import fr.paris.lutece.plugins.ideation.service.IdeeService;
 import fr.paris.lutece.plugins.leaflet.business.GeolocItem;
-import fr.paris.lutece.plugins.profanityfilter.utils.ProfanityResult;
 import fr.paris.lutece.portal.service.i18n.I18nService;
 import fr.paris.lutece.portal.service.security.LuteceUser;
 import fr.paris.lutece.portal.service.security.SecurityService;
@@ -37,7 +34,6 @@ public class FormEtapeLocation extends  AbstractFormEtape  {
 	private static final String I18N_ERROR_ADRESS_ARDT_MISMATCH="ideation.validation.idee.FormEtapeLocation.ArdtMismatch";
 	   
 	private static final String I18N_ERROR_COMPLEMENT_EMPTY="ideation.validation.idee.FormEtapeLocation.depositaire_complement.notEmpty";
-	private static final String I18N_ERROR_COMPLEMENT_PROFANITY="ideation.validation.idee.FormEtapeLocation.depositaire_complement.profanity";
 	
 	@NotEmpty( message = "#i18n{ideation.validation.idee.FormEtapeLocation.CodeTheme.notEmpty}" )
     @Size( max = 50 , message = "#i18n{ideation.validation.idee.FormEtapeLocation.CodeTheme.size}" ) 
@@ -164,13 +160,7 @@ public class FormEtapeLocation extends  AbstractFormEtape  {
         	LuteceUser user = SecurityService.getInstance().getRegisteredUser(request);
             userUid= user.getName( );
         }
-        
-        
-        ProfanityResult profanityResult = IdeationProfanityFilter.getInstance().scanString(getDepositaire( ), ProfanityFilter.DEPOSITAIRE_RESOURCE_TYPE, userUid);
-        Set<String> swearWords = profanityResult.getSwearWords();
-        if (!swearWords.isEmpty()) {
-            listErrors.add(I18nService.getLocalizedString(I18N_ERROR_COMPLEMENT_PROFANITY, locale) + StringUtils.join(swearWords.iterator(), ','));
-        }
+
         return listErrors;
     }
 	

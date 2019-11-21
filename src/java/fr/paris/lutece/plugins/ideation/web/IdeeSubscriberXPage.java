@@ -43,8 +43,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
 
-import fr.paris.lutece.plugins.campagnebp.service.CampagnesService;
-import fr.paris.lutece.plugins.campagnebp.utils.Constants;
 import fr.paris.lutece.plugins.extend.business.extender.history.ResourceExtenderHistory;
 import fr.paris.lutece.plugins.extend.business.extender.history.ResourceExtenderHistoryFilter;
 import fr.paris.lutece.plugins.extend.modules.comment.business.Comment;
@@ -54,13 +52,13 @@ import fr.paris.lutece.plugins.extend.modules.comment.service.ICommentService;
 import fr.paris.lutece.plugins.extend.modules.follow.service.extender.FollowResourceExtender;
 import fr.paris.lutece.plugins.extend.service.extender.history.IResourceExtenderHistoryService;
 import fr.paris.lutece.plugins.extend.service.extender.history.ResourceExtenderHistoryService;
-import fr.paris.lutece.plugins.ideation.business.Atelier;
-import fr.paris.lutece.plugins.ideation.business.AtelierHome;
 import fr.paris.lutece.plugins.ideation.business.Idee;
 import fr.paris.lutece.plugins.ideation.business.IdeeHome;
 import fr.paris.lutece.plugins.ideation.business.IdeeSearcher;
 import fr.paris.lutece.plugins.ideation.service.IdeationStaticService;
 import fr.paris.lutece.plugins.ideation.service.IdeeService;
+import fr.paris.lutece.plugins.participatorybudget.service.campaign.CampagnesService;
+import fr.paris.lutece.plugins.participatorybudget.util.Constants;
 import fr.paris.lutece.portal.service.message.SiteMessage;
 import fr.paris.lutece.portal.service.message.SiteMessageException;
 import fr.paris.lutece.portal.service.message.SiteMessageService;
@@ -68,7 +66,6 @@ import fr.paris.lutece.portal.service.security.LuteceUser;
 import fr.paris.lutece.portal.service.security.SecurityService;
 import fr.paris.lutece.portal.service.security.UserNotSignedException;
 import fr.paris.lutece.portal.service.spring.SpringContextService;
-import fr.paris.lutece.portal.service.util.AppLogService;
 import fr.paris.lutece.portal.service.util.AppPathService;
 import fr.paris.lutece.portal.util.mvc.commons.annotations.Action;
 import fr.paris.lutece.portal.util.mvc.commons.annotations.View;
@@ -77,8 +74,6 @@ import fr.paris.lutece.portal.util.mvc.xpage.MVCApplication;
 import fr.paris.lutece.portal.util.mvc.xpage.annotations.Controller;
 import fr.paris.lutece.portal.web.xpages.XPage;
 import freemarker.ext.beans.BeansWrapper;
-import freemarker.template.TemplateHashModel;
-import freemarker.template.TemplateModelException;
 
 /**
  * This class provides the user interface to view Idee xpages
@@ -105,12 +100,9 @@ public class IdeeSubscriberXPage extends MVCApplication
     //private static final String PARAMETER_CONF = "conf";
 
     // Markers
-  
-    private static final String MARK_ATELIERS_SUBMITTED = "ateliers_submitted";
     private static final String MARK_PROJECTS_SUBMITTED = "projectsSubmitted";
     private static final String MARK_PROJECTS_PARTICIPATE = "projectsParticipate";
     private static final String MARK_PROJECTS_COMMENTED = "projectsCommented";
-    private static final String MARK_ATELIER_HOME = "AtelierHome";
   
     // Properties
     
@@ -153,20 +145,6 @@ public class IdeeSubscriberXPage extends MVCApplication
     	
     	Collection<Idee> ideesSubmitted=IdeeHome.getIdeesListSearch(_ideeSearcher);
     	
-    	List<Atelier> atelierSubmittedList = new ArrayList<Atelier>();
-    	List<Integer> idAtelierSubmittedList = new ArrayList<Integer>();
-    	for (Idee ideeSubmitted : ideesSubmitted)
-    	{
-
-    		Atelier atelier = AtelierHome.getAtelierByIdee( ideeSubmitted.getId() );
-
-    		if (atelier != null && !idAtelierSubmittedList.contains(atelier.getId()))
-    		{
-    			atelierSubmittedList.add(atelier);
-    			idAtelierSubmittedList.add(atelier.getId());
-    		}
-    	}
-    	
     	CommentFilter _commentFilter= new CommentFilter();
     	_commentFilter.setLuteceUserName(strLuteceUserName);
 
@@ -185,24 +163,11 @@ public class IdeeSubscriberXPage extends MVCApplication
          
     	Map<String, Object> model = getModel(  );
     	
-    	model.put( MARK_ATELIERS_SUBMITTED, atelierSubmittedList );
     	model.put( MARK_PROJECTS_SUBMITTED, ideesSubmitted );
     	model.put( MARK_PROJECTS_PARTICIPATE, ideesParticipate );
     	model.put( MARK_PROJECTS_COMMENTED, ideesCommented);
     	
     	BeansWrapper wrapper = BeansWrapper.getDefaultInstance();
-    	TemplateHashModel staticModels = wrapper.getStaticModels();
-    	try
-        {
-            TemplateHashModel fileStatics =
-                (TemplateHashModel) staticModels.get("fr.paris.lutece.plugins.ideation.business.AtelierHome");
-            model.put( MARK_ATELIER_HOME, fileStatics );
-        }
-        catch ( TemplateModelException e )
-        {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
 
     	IdeationStaticService.getInstance(  ).fillAllStaticContent( model );
     		

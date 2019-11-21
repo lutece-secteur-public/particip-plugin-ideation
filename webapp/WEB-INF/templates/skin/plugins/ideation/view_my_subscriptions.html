@@ -76,20 +76,6 @@
 					<br/>
 				</div>
 				<div class="form-group">
-					<p class="lead">Organisation des ateliers</p>
-					<#list list_subscriptions as subscription>
-						<#if subscription.code?starts_with("atelierOrganisation") || subscription.code?starts_with("participantsActions") >
-						<div class="checkbox">
-							<label for="select_subscriptions_${subscription.code}">
-								<input type="checkbox" name="select_subscriptions" id="select_subscriptions_${subscription.code}" value="${subscription.code}" <#list list_user_subscriptions as user_subscription><#if subscription.code==user_subscription.subscriptionKey>checked</#if></#list>>
-								<span class="lead">${subscription.name}</span>
-							</label>
-						</div>
-						</#if>
-					</#list>
-					<br/>
-				</div>
-				<div class="form-group">
 					<button id="budgetparticipatif-profile-button" class="btn btn-18rem btn-black-on-white" type="submit">
 						#dskey{ideation.site_property.view_my_subscriptions.buttonSave}
 					</button>

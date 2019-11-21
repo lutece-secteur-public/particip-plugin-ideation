@@ -33,8 +33,6 @@
  */
 package fr.paris.lutece.plugins.ideation.utils.constants;
 
-import fr.paris.lutece.portal.service.util.AppPropertiesService;
-
 /**
  *
  * IdeationConstants
@@ -45,9 +43,7 @@ public final class IdeationConstants
 
     // Properties
     public static final String PROPERTY_WORKFLOW_ID = "ideation.idWorkflow";
-    public static final String PROPERTY_WORKFLOW_ID_ATELIER = "ideation.idWorkflowAtelier";
     public static final String PROPERTY_WORKFLOW_ACTION_NAME_CREATE_COMMENT = "ideation.workFlowActionNameCreateComment";
-    public static final String PROPERTY_WORKFLOW_ACTION_NAME_CREATE_COMMENT_ATELIER = "ideation.workFlowActionNameCreateCommentAtelier";
     
     public static final String PROPERTY_WORKFLOW_ACTION_NAME_FOLLOW = "ideation.workFlowActionNameFollow";
     public static final String PROPERTY_WORKFLOW_ACTION_NAME_CANCEL_FOLLOW = "ideation.workFlowActionNameCancelFollow";
@@ -56,36 +52,10 @@ public final class IdeationConstants
     public static final String PROPERTY_WORKFLOW_ACTION_NAME_DELETE_IDEE = "ideation.workFlowActionNameDeleteIdee";
     public static final String PROPERTY_WORKFLOW_ACTION_NAME_DELETE_IDEE_BY_MDP = "ideation.workFlowActionNameDeleteIdeeByMdp";
     
-    public static final String PROPERTY_WORKFLOW_ATELIER_STATE_NAME_EN_ATTENTE_PHASE_1= "ideation.workFlowAtelierStateEnAttentePhase1";
-    public static final String PROPERTY_WORKFLOW_ATELIER_STATE_NAME_PHASE_1= "ideation.workFlowAtelierStatePhase1";
-    public static final String PROPERTY_WORKFLOW_ATELIER_STATE_NAME_EN_ATTENTE_PHASE_2= "ideation.workFlowAtelierStateEnAttentePhase2";
-    public static final String PROPERTY_WORKFLOW_ATELIER_STATE_NAME_PHASE_2= "ideation.workFlowAtelierStatePhase2";
-    public static final String PROPERTY_WORKFLOW_ATELIER_STATE_NAME_EN_ATTENTE_PHASE_3= "ideation.workFlowAtelierStateEnAttentePhase3";
-    public static final String PROPERTY_WORKFLOW_ATELIER_STATE_NAME_PHASE_3= "ideation.workFlowAtelierStatePhase3";
-    public static final String PROPERTY_WORKFLOW_ATELIER_STATE_NAME_CLOS= "ideation.workFlowAtelierStateClos";
-
-    public static final String PROPERTY_WORKFLOW_ATELIER_ACTION_DEBUT_PHASE_1= "ideation.workFlowAtelierActionDebutPhase1";
-    public static final String PROPERTY_WORKFLOW_ATELIER_ACTION_DEBUT_PHASE_2= "ideation.workFlowAtelierActionDebutPhase2";
-    public static final String PROPERTY_WORKFLOW_ATELIER_ACTION_DEBUT_PHASE_3= "ideation.workFlowAtelierActionDebutPhase3";
-    
-    public static final String PROPERTY_WORKFLOW_ATELIER_ACTION_FIN_PHASE_1= "ideation.workFlowAtelierActionFinPhase1";
-    public static final String PROPERTY_WORKFLOW_ATELIER_ACTION_FIN_PHASE_2= "ideation.workFlowAtelierActionFinPhase2";
-    public static final String PROPERTY_WORKFLOW_ATELIER_ACTION_FIN_PHASE_3= "ideation.workFlowAtelierActionFinPhase3";
-    public static final String PROPERTY_WORKFLOW_ATELIER_ACTION_DEBUT_PHASE_3_ATELIER_PHYSIQUE= "ideation.workFlowAtelierActionDebutPhase3AtelierPhysique";
-    public static final String PROPERTY_WORKFLOW_ATELIER_ACTION_FIN_PHASE_3_ATELIER_PHYSIQUE= "ideation.workFlowAtelierActionFinPhase3AtelierPhysique";
-    
-    public static final String PROPERTY_WORKFLOW_ATELIER_ACTION_RAPPEL_FIN_PHASE_1= "ideation.workFlowAtelierActionRappelFinPhase1"; 
-    public static final String PROPERTY_WORKFLOW_ATELIER_ACTION_RAPPEL_FIN_PHASE_2= "ideation.workFlowAtelierActionRappelFinPhase2"; 
-    public static final String PROPERTY_WORKFLOW_ATELIER_ACTION_GENERATION_IDEE = "ideation.workFlowAtelierActionGenerationIdee"; 
-
     public static final String PROPERTY_GENERATE_IDEE_DEPOSITAIRE_TYPE = "ideation.atelier.generateIdee.depositaire_type";
     public static final String PROPERTY_GENERATE_IDEE_DEPOSITAIRE = "ideation.atelier.generateIdee.depositaire";
     public static final String PROPERTY_GENERATE_IDEE_LUTECE_USER_NAME = "ideation.atelier.generateIdee.luteceUserName";
-      
-
-    public static final String ATELIER_TYPE_NUMERIQUE="numerique";
-    public static final String ATELIER_TYPE_PHYSIQUE="physique";
-
+ 
     /**
      * Private constructor
      */

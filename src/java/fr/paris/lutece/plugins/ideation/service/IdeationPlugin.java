@@ -33,15 +33,14 @@
  */
 package fr.paris.lutece.plugins.ideation.service;
 
-import fr.paris.lutece.plugins.campagnebp.service.MyInfosListenerService;
 import fr.paris.lutece.plugins.extend.modules.comment.service.CommentListenerService;
+import fr.paris.lutece.plugins.extend.modules.extendablecomment.business.ExtendableComment;
 import fr.paris.lutece.plugins.extend.modules.follow.service.FollowListenerService;
 import fr.paris.lutece.plugins.extend.modules.rating.service.RatingListenerService;
-import fr.paris.lutece.plugins.ideation.business.Atelier;
 import fr.paris.lutece.plugins.ideation.business.Idee;
 import fr.paris.lutece.plugins.ideation.service.fileimage.IdeationFileImageService;
+import fr.paris.lutece.plugins.participatorybudget.service.MyInfosListenerService;
 import fr.paris.lutece.portal.service.plugin.Plugin;
-import fr.paris.lutece.plugins.extend.modules.extendablecomment.business.ExtendableComment;
 /**
  *  IdeePlugin
  */
@@ -55,7 +54,6 @@ public class IdeationPlugin extends Plugin
     public void init(  )
     {
     	CommentListenerService.registerListener(Idee.PROPERTY_RESOURCE_TYPE, new IdeeCommentListener());
-        CommentListenerService.registerListener( Atelier.PROPERTY_RESOURCE_TYPE, new AtelierCommentListener( ) );
         RatingListenerService.registerListener( ExtendableComment.RESOURCE_TYPE,
                 new ExtendableCommentRatingListener( ) );
     	RatingListenerService.registerListener(Idee.PROPERTY_RESOURCE_TYPE, new IdeeRatingListener());

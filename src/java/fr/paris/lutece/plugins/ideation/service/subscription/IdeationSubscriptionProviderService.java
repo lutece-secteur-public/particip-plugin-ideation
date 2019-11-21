@@ -65,9 +65,6 @@ public class IdeationSubscriptionProviderService implements ISubscriptionProvide
     public static final String SUBSCRIPTION_NEW_STATE_ON_PARTICIPATE_PROPOSAL  = "newStateOnParticipateProposal";
     public static final String SUBSCRIPTION_NEW_STATE_ON_MY_PROPOSAL  = "newStateOnMyProposal";
     public static final String SUBSCRIPTION_NEW_PARTICIPATION_ON_MY_PROPOSAL  = "newParticipationOnMyProposal";
-    public static final String SUBSCRIPTION_ATELIER_ORGANISATION_SUBMITTED_PROJECTS = "atelierOrganisationSubmittedProjects";
-    public static final String SUBSCRIPTION_ATELIER_ORGANISATION_FOLLOWED_PROJECTS = "atelierOrganisationFollowedProjects";
-    public static final String SUBSCRIPTION_PARTICIPANTS_ACTIONS_ON_ATELIERS  = "participantsActionsOnAteliers";
     public static final String SUBSCRIPTION_UPDATE_ON_REALIZATION  = "updateOnRealization";
     
     public static final String[] TAB_SUBSCRIPTIONS = new String[]
@@ -77,9 +74,6 @@ public class IdeationSubscriptionProviderService implements ISubscriptionProvide
     			SUBSCRIPTION_NEW_STATE_ON_PARTICIPATE_PROPOSAL,
     			SUBSCRIPTION_NEW_STATE_ON_MY_PROPOSAL,
     			SUBSCRIPTION_NEW_PARTICIPATION_ON_MY_PROPOSAL,
-    			SUBSCRIPTION_ATELIER_ORGANISATION_SUBMITTED_PROJECTS,
-    			SUBSCRIPTION_ATELIER_ORGANISATION_FOLLOWED_PROJECTS,
-    			SUBSCRIPTION_PARTICIPANTS_ACTIONS_ON_ATELIERS,
     			SUBSCRIPTION_UPDATE_ON_REALIZATION
     		};
     

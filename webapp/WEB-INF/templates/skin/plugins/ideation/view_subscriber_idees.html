@@ -88,16 +88,6 @@
 							
 								<a href="${url_idee}" alt="${idee.titre}" title="${idee.titre}" class="btn btn-12rem btn-black-on-white">Consulter le projet</a>
 	
-								<#-- Lien vers un éventuel atelier -->
-								<#assign atelier = AtelierHome.getAtelierByIdee(idee.id)!>
-								<#if atelier?has_content>
-									<div class="prop-card-workshop">
-										<a class="btn btn-12rem btn-black-on-white" href="jsp/site/Portal.jsp?page=atelier&atelier=${atelier.id}" title="Accéder à l'atelier ${atelier.titre!'(atelier sans titre)'}">
-											#i18n{ideation.ideesSubscriber.button.label.gotoWorkshop}
-										</a>
-									</div>
-								</#if>
-								
 								<#if idee.canDelete()>
 									<div class="prop-card-delete">
 										 <a class="btn btn-12rem btn-black-on-white" href="jsp/site/Portal.jsp?page=myProjects&action=actionDeleteIdee&idee_id=${idee.id}">
@@ -197,16 +187,6 @@
 							
 								<a href="${url_idee}" alt="${idee.titre}" title="${idee.titre}" class="btn btn-12rem btn-black-on-white">Consulter le projet</a>
 
-								<#-- Lien vers un éventuel atelier -->
-								<#assign atelier = AtelierHome.getAtelierByIdee(idee.id)!>
-								<#if atelier?has_content>
-									<div class="prop-card-workshop">
-										<a class="btn btn-12rem btn-black-on-white" href="jsp/site/Portal.jsp?page=atelier&atelier=${atelier.id}" title="Accéder à l'atelier ${atelier.titre!'(atelier sans titre)'}">
-											#i18n{ideation.ideesSubscriber.button.label.gotoWorkshop}
-										</a>
-									</div>
-								</#if>
-	
 								<#-- Ne plus s'associer à l'idée -->
 								<div class="prop-card-unsubscribe">
 									<a class="btn btn-12rem btn-black-on-white" href="jsp/site/plugins/extend/modules/follow/DoCancelFollow.jsp?idExtendableResource=${idee.id}&extendableResourceType=IDEE">
@@ -305,16 +285,6 @@
 							<div class="buttons-wrapper">
 							
 								<a href="${url_idee}" alt="${idee.titre}" title="${idee.titre}" class="btn btn-12rem btn-black-on-white">Consulter le projet</a>
-
-								<#-- Lien vers un éventuel atelier -->
-								<#assign atelier = AtelierHome.getAtelierByIdee(idee.id)!>
-								<#if atelier?has_content>
-									<div class="prop-card-workshop">
-										<a class="btn btn-12rem btn-black-on-white" href="jsp/site/Portal.jsp?page=atelier&atelier=${atelier.id}" title="Accéder à l'atelier ${atelier.titre!'(atelier sans titre)'}">
-											#i18n{ideation.ideesSubscriber.button.label.gotoWorkshop}
-										</a>
-									</div>
-								</#if>
 
 							</div>
 

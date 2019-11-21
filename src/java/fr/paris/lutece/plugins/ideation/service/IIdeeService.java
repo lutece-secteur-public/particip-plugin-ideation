@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import fr.paris.lutece.plugins.ideation.business.Atelier;
 import fr.paris.lutece.plugins.ideation.business.Idee;
 import fr.paris.lutece.plugins.ideation.business.IdeeHome;
 import fr.paris.lutece.portal.service.util.AppLogService;
@@ -16,10 +15,6 @@ public interface IIdeeService {
 	void createIdeeDB(Idee idee) throws IdeationErrorException;
 
 	void createIdee(Idee idee) throws IdeationErrorException;
-
-	void createIdeeDBFromAtelier(Idee idee, Atelier atelier) throws IdeationErrorException;
-
-	void createIdeeFromAtelier(Idee idee, Atelier atelier) throws IdeationErrorException;
 
 	void removeIdee(Idee idee);
 

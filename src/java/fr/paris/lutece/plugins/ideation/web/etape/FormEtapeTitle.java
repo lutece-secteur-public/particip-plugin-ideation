@@ -3,17 +3,12 @@ package fr.paris.lutece.plugins.ideation.web.etape;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.Size;
 
-import org.apache.commons.lang.StringUtils;
-import org.hibernate.validator.constraints.NotEmpty;
+import org.apache.commons.lang.StringUtils;import org.hibernate.validator.constraints.NotEmpty;
 
-import fr.paris.lutece.plugins.ideation.business.ProfanityFilter;
-import fr.paris.lutece.plugins.ideation.service.IdeationProfanityFilter;
-import fr.paris.lutece.plugins.profanityfilter.utils.ProfanityResult;
 import fr.paris.lutece.portal.service.datastore.DatastoreService;
 import fr.paris.lutece.portal.service.i18n.I18nService;
 import fr.paris.lutece.portal.service.security.LuteceUser;
@@ -23,7 +18,6 @@ import fr.paris.lutece.portal.service.util.AppLogService;
 
 public class FormEtapeTitle extends  AbstractFormEtape  {
 
-	private static final String I18N_ERROR_TITLE_PROFANITY="ideation.validation.idee.FormEtapeTitle.title.profanity";
 	private static final String I18N_ERROR_TITRE_MIN_LENGTH="ideation.validation.idee.Titre.sizeMin";
 	private static final String I18N_ERROR_TITRE_MAX_LENGTH="ideation.validation.idee.Titre.sizeMax";
 	
@@ -85,13 +79,7 @@ public class FormEtapeTitle extends  AbstractFormEtape  {
         {
         	userUid= user.getName( );
         }
-        
-        ProfanityResult profanityResult = IdeationProfanityFilter.getInstance().scanString(getTitre() , ProfanityFilter.TITLE_RESOURCE_TYPE, userUid); 
-        Set<String> swearWords = profanityResult.getSwearWords();
-        if (!swearWords.isEmpty()) {
-            listErrors.add(I18nService.getLocalizedString(I18N_ERROR_TITLE_PROFANITY, locale) + StringUtils.join(swearWords.iterator(), ','));
-        }
-
+ 
         String strMax = DatastoreService.getDataValue(DSKEY_TITRE_MAX_LENGTH,"");
         if (!"".equals(strMax)) {
             try {
