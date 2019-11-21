@@ -1,0 +1,99 @@
+
+<#include "/admin/util/editor/editor.html" />
+
+<fieldset>
+     <legend> #i18n{module.workflow.ideation.task_notify_ideation_config.title}</legend>
+
+		<div class="form-group">
+            <label class="control-label col-xs-12 col-sm-12 col-md-3 col-lg-3" for="sender_name">#i18n{module.workflow.ideation.task_notify_ideation_config.label_sender_name} * </label>
+                <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
+                <#if config?exists && config.senderName?has_content>
+                    <input type="text" name="sender_name" id="" class="form-control input-sm" value="${config.senderName}" maxlength="255">
+                <#else>
+                    <input type="text" name="sender_name" id="" class="form-control input-sm" value="${default_sender_name}" maxlength="255">
+				</#if>
+                <span class="help-block">#i18n{module.workflow.ideation.task_notify_ideation_config.label_sender_name_comment}</span>
+            </div>
+        </div>
+		<div class="form-group">
+            <label class="control-label col-xs-12 col-sm-12 col-md-3 col-lg-3" for="sender_email">#i18n{module.workflow.ideation.task_notify_ideation_config.label_sender_email} * </label>
+                <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
+                <#if config?exists && config.senderEmail?has_content>
+                    <input type="text" name="sender_email" id="" class="form-control input-sm" value="${config.senderEmail}" maxlength="255">
+                <#else>
+                    <input type="text" name="sender_email" id="" class="form-control input-sm" value="${default_sender_email}" maxlength="255">
+				</#if>
+                <span class="help-block">#i18n{module.workflow.ideation.task_notify_ideation_config.label_sender_email_comment}</span>
+            </div>
+        </div>
+		<div class="form-group">
+            <label class="control-label col-xs-12 col-sm-12 col-md-3 col-lg-3" for="recipients_cc">#i18n{module.workflow.ideation.task_notify_ideation_config.label_recipients_cc}</label>
+			<div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
+                <#if config?exists && config.recipientsCc?has_content>
+                    <input type="text" name="recipients_cc" id="" class="form-control input-sm" value="${config.recipientsCc}"  maxlength="255">
+                <#else>
+					<input type="text" name="recipients_cc" id="" class="form-control input-sm" value="" maxlength="255">
+                </#if>
+                <span class="help-block">#i18n{module.workflow.ideation.task_notify_ideation_config.label_recipients_cc_comment}</span>
+             </div>
+        </div>
+        <div class="form-group">
+			<label class="control-label col-xs-12 col-sm-12 col-md-3 col-lg-3" for="recipients_bcc">#i18n{module.workflow.ideation.task_notify_ideation_config.label_recipients_bcc}</label>
+            <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
+				<#if config?exists && config.recipientsBcc?has_content>
+                    <input type="text" name="recipients_bcc" id="" class="form-control input-sm" value="${config.recipientsBcc}"  maxlength="255">
+                <#else>
+                    <input type="text" name="recipients_bcc" id="" class="form-control input-sm" value="" maxlength="255">
+                </#if>
+                <span class="help-block">#i18n{module.workflow.ideation.task_notify_ideation_config.label_recipients_bcc_comment}</span>
+            </div>
+        </div>
+        <#assign depositaireChecked= config?? && config.depositaire>
+        <#assign followersChecked= config?? && config.followers>
+        
+        <div class="form-group">
+			<label class="control-label col-xs-12 col-sm-12 col-md-3 col-lg-3" for="depositaire">#i18n{module.workflow.ideation.task_notify_ideation_config.label_depositaire} </label>
+			<div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
+				<input style="-webkit-appearance: checkbox;" type="checkbox" name="depositaire" value="true" class="form-control" <#if depositaireChecked> checked="checked"</#if>/>
+			</div>
+		</div>
+		
+		 <div class="form-group">
+			<label class="control-label col-xs-12 col-sm-12 col-md-3 col-lg-3" for="followers">#i18n{module.workflow.ideation.task_notify_ideation_config.label_followers} </label>
+			<div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
+				<input style="-webkit-appearance: checkbox;" type="checkbox" name="followers" value="true" class="form-control" <#if followersChecked> checked="checked"</#if>/>
+			</div>
+		</div>		
+					
+					
+					
+        <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-12 col-md-3 col-lg-3" for="suject">#i18n{module.workflow.ideation.task_notify_ideation_config.label_subject} * </label>
+            <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
+                <#if config?exists && config.subject?has_content>
+					<input type="text" name="subject" id="" class="form-control input-sm" value="${config.subject}" maxlength="255">
+                <#else>
+                    <input type="text" name="subject" id="" class="form-control input-sm" value="" maxlength="255">
+                </#if>
+                <span class="help-block">#i18n{module.workflow.ideation.task_notify_ideation_config.label_subject_comment}</span>
+            </div>
+        </div>
+		
+		<div class="form-group">
+            <label class="control-label col-xs-12 col-sm-12 col-md-3 col-lg-3" for="message">#i18n{module.workflow.ideation.task_notify_ideation_config.label_message} * </label>
+            <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
+                <#if config?exists  && config.message?has_content>
+                    <textarea name="message" id="message" rows="20" cols="90" class="richtext">${config.message}</textarea>
+                <#else>
+					<textarea name="message" id="message" rows="20" cols="90" class="richtext"></textarea>
+                </#if>
+                <span class="help-block">#i18n{module.workflow.ideation.task_notify_ideation_config.label_message_comment}</span>
+            </div>
+        </div>
+
+</fieldset>
+
+
+<pre>TODO document freemarker model</pre>
+
+<@initEditor />

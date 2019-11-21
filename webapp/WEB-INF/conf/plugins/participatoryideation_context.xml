@@ -69,4 +69,69 @@
 	<!-- Components -->
 	<bean id="ideation.followAddon" class="fr.paris.lutece.plugins.ideation.service.FollowAddService" />
 
+
+
+
+
+
+	<bean id="taskNotifyIdeationConfigDAO" class="fr.paris.lutece.plugins.workflow.modules.ideation.business.TaskNotifyIdeationConfigDAO"/>
+	
+	<!-- TaskInfoProvider -->
+	<bean id="workflow-ideation.notifyIdeationTaskInfoProvider" class="fr.paris.lutece.plugins.workflow.modules.ideation.service.taskinfo.NotifyIdeationTaskInfoProvider"
+		p:taskType-ref="workflow-ideation.taskTypeNotifyIdeation" />
+
+		
+     <!-- Task -->
+     <bean id="workflow-ideation.taskTypeNotifyIdeation" class="fr.paris.lutece.plugins.workflowcore.business.task.TaskType"
+         p:key="taskNotifyIdeation"
+         p:titleI18nKey="module.workflow.ideation.task_notify_ideation_title"
+         p:beanName="workflow-ideation.taskNotifyIdeation"
+         p:configRequired="true"
+         p:configBeanName="workflow-ideation.taskNotifyIdeationConfig"
+         p:taskForAutomaticAction="true" />
+         
+      <bean id="workflow-ideation.taskTypeNotifyIdeationAtelier" class="fr.paris.lutece.plugins.workflowcore.business.task.TaskType"
+         p:key="taskNotifyIdeationAtelier"
+         p:titleI18nKey="module.workflow.ideation.task_notify_ideation_atelier_title"
+         p:beanName="workflow-ideation.taskNotifyIdeationAtelier"
+         p:configRequired="true"
+         p:configBeanName="workflow-ideation.taskNotifyIdeationConfig"
+         p:taskForAutomaticAction="true" />    
+
+    <bean id="workflow-ideation.notifyIdeationTaskComponent" class="fr.paris.lutece.plugins.workflow.modules.ideation.web.NotifyIdeationTaskComponent"
+   		p:taskType-ref="workflow-ideation.taskTypeNotifyIdeation"
+   		p:taskConfigService-ref="workflow-ideation.taskNotifyIdeationConfigService" />
+
+
+   	<bean id="workflow-ideation.taskNotifyIdeationConfigService" class="fr.paris.lutece.plugins.workflow.modules.ideation.service.TaskNotifyIdeationConfigService"
+   		p:taskConfigDAO-ref="taskNotifyIdeationConfigDAO" />
+     <bean id="workflow-ideation.taskNotifyIdeation" class="fr.paris.lutece.plugins.workflow.modules.ideation.service.TaskNotifyIdeation" scope="prototype" />
+ 	 <bean id="workflow-ideation.taskNotifyIdeationConfig" class="fr.paris.lutece.plugins.workflow.modules.ideation.business.TaskNotifyIdeationConfig" scope="prototype" />
+     <bean id="workflow-ideation.taskNotifyIdeationAtelier" class="fr.paris.lutece.plugins.workflow.modules.ideation.service.TaskNotifyIdeationAtelier" scope="prototype" />
+     
+     <bean id="workflow-ideation.notifyIdeationAtelierTaskComponent" class="fr.paris.lutece.plugins.workflow.modules.ideation.web.NotifyIdeationTaskComponent"
+        p:taskType-ref="workflow-ideation.taskTypeNotifyIdeationAtelier"
+        p:taskConfigService-ref="workflow-ideation.taskNotifyIdeationConfigService" />
+   	
+     <!-- Task Change idee status-->
+    <bean id="workflow-ideation.taskChangeIdeeStatusConfigDAO" class="fr.paris.lutece.plugins.workflow.modules.ideation.business.TaskChangeIdeeStatusConfigDAO"/>
+    
+	<bean id="workflow-ideation.taskChangeIdeeStatus" class="fr.paris.lutece.plugins.workflow.modules.ideation.service.TaskChangeIdeeStatus" scope="prototype" />
+ 	<bean id="workflow-ideation.taskChangeIdeeStatusConfig" class="fr.paris.lutece.plugins.workflow.modules.ideation.business.TaskChangeIdeeStatusConfig" scope="prototype" />
+	<bean id="workflow-ideation.taskChangeIdeeStatusConfigService"    class="fr.paris.lutece.plugins.workflow.modules.ideation.service.TaskNotifyIdeationConfigService"
+		p:taskConfigDAO-ref="workflow-ideation.taskChangeIdeeStatusConfigDAO" />
+
+ <!-- Task -->
+     <bean id="workflow-ideation.taskTypeChangeIdeeStatus" class="fr.paris.lutece.plugins.workflowcore.business.task.TaskType"
+         p:key="taskChangeIdeeStatus"
+         p:titleI18nKey="module.workflow.ideation.task_change_idee_status.title"
+         p:beanName="workflow-ideation.taskChangeIdeeStatus"
+         p:configRequired="true"
+         p:configBeanName="workflow-ideation.taskChangeIdeeStatusConfig"
+         p:taskForAutomaticAction="true" />
+
+
+ 	<bean id="workflow-ideation.changeIdeeStatusTaskComponent" class="fr.paris.lutece.plugins.workflow.modules.ideation.web.ChangeIdeeStatusTaskComponent"
+		p:taskType-ref="workflow-ideation.taskTypeChangeIdeeStatus"
+		p:taskConfigService-ref="workflow-ideation.taskChangeIdeeStatusConfigService" />
 </beans>

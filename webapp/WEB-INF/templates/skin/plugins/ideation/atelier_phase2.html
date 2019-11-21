@@ -1,1 +1,249 @@
-<#setting date_format="dd/MM/yyyy"><section class="container" id="atelier">    <div class="row">        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">            <#if atelier??>                <#assign theme_class = "autre">                <#if atelier.thematique = "CADRE"><#assign theme_class = "cadre_vie">                <#elseif atelier.thematique = "CULTURE"><#assign theme_class = "culture">                <#elseif atelier.thematique = "ECO"><#assign theme_class = "economie_emploi">                <#elseif atelier.thematique = "EDU"><#assign theme_class = "education">                <#elseif atelier.thematique = "ENVIRONNEMENT" || atelier.thematique = "NAT"><#assign theme_class = "environnement">                <#elseif atelier.thematique = "LOGEMENT"><#assign theme_class = "logement">                <#elseif atelier.thematique = "PARTICIPATION"><#assign theme_class = "participation_citoyenne">                <#elseif atelier.thematique = "SECURITE"><#assign theme_class = "prevention_securite">                <#elseif atelier.thematique = "PROPRETE"><#assign theme_class = "proprete">                <#elseif atelier.thematique = "SOLIDARITE" || atelier.thematique = "VIVREENSEMBLE"><#assign theme_class = "solidarite">                <#elseif atelier.thematique = "SPORT"><#assign theme_class = "sport">                <#elseif atelier.thematique = "TRANSPORT"><#assign theme_class = "transport">                <#elseif atelier.thematique = "NUMERIQUE"><#assign theme_class = "ville_numerique">                <#elseif atelier.thematique = "SANTE"><#assign theme_class = "sante">            </#if>            <#if (atelier.thematique)??>                <#assign atelier_theme_libelle = (campagne_static.themes_map[atelier.thematique].title)!atelier.thematique>            </#if>            <h1>				${atelier.titre}			</h1>			<#if atelier.type?? && atelier.type='physique'>				<div class="atelierDateLieu">					<p>Date(s) : <strong><#if atelier.dateAtelier?? && atelier.dateAtelier?has_content>${atelier.dateAtelier!}<#else>non précisée(s)</#if></strong></p>					<p>Lieu : <strong><#if atelier.lieuAtelier?? && atelier.lieuAtelier?has_content>${atelier.lieuAtelier!}<#else>non précisé</#if></strong></p>				</div>			</#if>			<p class="atelierDescription">${atelier.description}</p>			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="atelierInfo">				<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">					<h2>Cet atelier porte sur les projets suivants</h2>					<ul>						<#list linkedIdeesMap?keys as linkedIdeeId>						<li><a href="jsp/site/Portal.jsp?page=idee&amp;campagne=${codeCampagne}&amp;idee=${linkedIdeeId}" target="_blank">${linkedIdeesMap[linkedIdeeId]}</a></li>						</#list>					</ul>				</div>				<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">					<div>						<div>							<div>								<img src="images/local/skin/marker_1.png" alt="" title="" >							</div>							<div>								<#if atelier.localisationType == "paris"  >Projet "Tout Paris"<#elseif atelier.localisationType == "ardt"  >Projet du ${(arrondissements_map[atelier.localisationArdt])!atelier.localisationArdt}</#if>							</div>						</div>						<div>							<div>								<img class="img-responsive pull-left" src="images/local/skin/i_${theme_class}_1.png" alt="" title="">							</div>							<div>								${atelier_theme_libelle!""}							</div>						</div>					</div>				</div>			</div>			<div id="atelierTabs">            <#if atelierTabsList??>            <ul class="nav nav-tabs">                <#list atelierTabsList as curTab>                    <li class="col-xs-12 col-sm-4 col-md-4 col-lg-4 <#if selectedAtelierTab?has_content && selectedAtelierTab == curTab[1]>active</#if>">                        <a href="${curTab[0]}">							<p>${curTab[1]?substring(32)}</p>							<p>								<#if curTab[1]?substring(32) == "1">Description initiale								<#elseif curTab[1]?substring(32) == "2">Description alternative								<#elseif curTab[1]?substring(32) == "3">Description finale								</#if>							</p>								<p>                                <#if atelier.type == "numerique">                                    Du ${curTab[2]} au ${curTab[3]}                                <#else>                                    &nbsp;                                </#if>                            </p>						</a>                    </li>                </#list>            </ul>            </#if>            <#if atelierStepNotStarted?has_content>                <div class="row">                    <div class="col-xs-12 col-sm-12">                        <div class="jumbotron text-center">                            <h2>#i18n{${atelierStepNotStarted}}</h2>                        </div>                    </div>                </div>            <#elseif atelierPresentielCannotAccess?has_content>                <div class="row">                    <div class="col-xs-12 col-sm-12">                        <div class="jumbotron text-center">                            <h2>${atelierPresentielCannotAccess}</h2>                        </div>                    </div>                </div>            <#else>                    <!-- Vote form -->                    <#if atelierFormEntryList?has_content>                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 atelierContent">                            <@messages errors=errors />														<#if atelierFormCannotSubmit?has_content>								<#if atelierCheckedEntryMap?has_content>									<p class="vote-info">Votre vote a bien été soumis. Nous vous remercions de votre participation !</p>								<#else>									<p style="font-size:150%;">La phase 2 de l'atelier est désormais clôturée !</p>								</#if>							</#if>							<form class="form-horizontal" method="post" name="atelier_vote_for" action="jsp/site/Portal.jsp?page=atelier">                                <input type="hidden" name="atelier" value="${atelier.id}">                                <#assign currentEntry = 0>                                <#list atelierFormEntryList as atelierFormEntry>                                    <#assign checkedAlternative = 0>                                    <#if atelierCheckedEntryMap?has_content && atelierCheckedEntryMap[atelierFormEntry.id?string]?? >                                        <#assign checkedAlternative = atelierCheckedEntryMap[atelierFormEntry.id?string]?number!0 >                                    </#if>                                    <div class="form-group">                                        <#if atelierFormEntry.alternative1?has_content>                                                <#if currentEntry = 0>													<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">														<h2>Titre</h2>													</div>                                               <#elseif currentEntry = 1>                                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">														<h2>Description</h2>													</div>                                                </#if>                                        </#if>                                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">                                         <div class="atelierEntries">                                        <div data-toggle="buttons">											<#if atelierFormEntry.alternative1?has_content>                                                <#if atelierFormEntry.alternative2?has_content || atelierFormEntry.alternative3?has_content>													<label class="btn btn-primary <#if atelierFormEntry.alternative3?has_content>threecols<#else>twocols</#if> <#if currentEntry = 0>ideeTitle</#if> <#if checkedAlternative == 1>active</#if>" <#if checkedAlternative == 1 && atelierFormCannotSubmit?has_content || atelierFormCannotSubmit?has_content>style="pointer-events:none;" disabled</#if>>														<input type="radio" name="alternative_${atelierFormEntry.id}" value="1" <#if atelierFormCannotSubmit?has_content>disabled</#if> <#if checkedAlternative == 1>checked</#if>>														${atelierFormEntry.alternative1}														<span class="check"><i class="fa fa-check"></i></span>													</label>													<label class="tableSpacer"></label>	                                            <#else>													<label class="btn btn-primary <#if atelierFormEntry.alternative3?has_content>threecols<#else>twocols</#if> <#if currentEntry = 0>ideeTitle</#if> active" style="pointer-events:none;" disabled>													${atelierFormEntry.alternative1}													</label>												</#if>											</#if>                                            <#if atelierFormEntry.alternative2?has_content>											<label class="btn btn-primary <#if atelierFormEntry.alternative3?has_content>threecols<#else>twocols</#if> <#if currentEntry = 0>ideeTitle</#if> <#if checkedAlternative == 2>active</#if>" <#if checkedAlternative == 2 && atelierFormCannotSubmit?has_content || atelierFormCannotSubmit?has_content>style="pointer-events:none;" disabled</#if>>                                               <input type="radio" name="alternative_${atelierFormEntry.id}" value="2" <#if atelierFormCannotSubmit?has_content>disabled</#if> <#if checkedAlternative == 2>checked</#if>>                                                ${atelierFormEntry.alternative2}												<span class="check"><i class="fa fa-check"></i></span>											</label>                                            </#if>                                            <#if atelierFormEntry.alternative3?has_content>											<label class="tableSpacer"></label>											<label class="btn btn-primary threecols <#if checkedAlternative == 3>active</#if>">                                                <input type="radio" name="alternative_${atelierFormEntry.id}" value="3" <#if atelierFormCannotSubmit?has_content>disabled</#if> <#if checkedAlternative == 3>checked</#if> <#if checkedAlternative == 3>active</#if> <#if checkedAlternative == 3 && atelierFormCannotSubmit?has_content || atelierFormCannotSubmit?has_content>style="pointer-events:none;" disabled</#if>>                                                ${atelierFormEntry.alternative3}												<span class="check"><i class="fa fa-check"></i></span>											</label>                                            </#if>                                        </div>                                        </div>                                        </div>                                    </div>									<hr/>                                    <#assign currentEntry = currentEntry + 1>                                </#list>                                <#if atelierFormCannotSubmit?has_content == false>                                <div class="form-group text-center">                                    <button type="button" data-toggle="modal" data-target="#modalVoteFor" class="btn btn-lg btn-lt-bg">Voter <i class="fa fa-check"></i></button>									                                    <button type="reset" id="reset_button" value="Reset" class="btn btn-lg btn-lt-bg">                                        Annuler <i class="fa fa-undo"></i>                                    </button>                               </div>                                </#if>								<div id="modalVoteFor" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">								  <div class="modal-dialog" role="document">									<div class="modal-content">									  <div class="modal-header">										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>										<h4 class="modal-title" id="gridSystemModalLabel">Confirmation de vote</h4>									  </div>									  <div class="modal-body">										<div class="row">										  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">Après validation, vous ne pourrez plus modifier ces choix. Voulez-vous vraiment valider ?</div>										</div>									  </div>									  <div class="modal-footer">										<button type="button" class="btn btn-lg btn-lt-bg" data-dismiss="modal">Fermer</button>										<button type="submit" name="action_votefor" value="Vote" class="btn btn-lg btn-lt-bg">											Voter <i class="fa fa-check"></i>										</button>									  </div>									</div><!-- /.modal-content -->								  </div><!-- /.modal-dialog -->								</div><!-- /.modal -->                            </form>                        </div>                    </#if>            </#if>        </div>        <#if isExtendInstalled?? && isExtendInstalled>            <div class="row">                <div id="project-sharing-buttons" class="col-xs-12 col-sm-12 text-center hidden-print">                        @Extender[${atelier.id},ATELIER,opengraph,{show:"all"}]@                        <h2>Je Partage !</h2>                        <a href="http://www.facebook.com" data-action="facebook" data-title="${atelier.titre!}" class="share" title="Partager sur Facebook">                            <img src="images/local/skin/projet_logo_facebook.png" alt="Partager sur Facebook" title="Partager sur Facebook"/>                        </a>&#160;&#160;                        <a href="http://www.twitter.com" data-action="twitter" data-title="${atelier.titre!}" class="share" title="Partager sur Twitter" target="_blank">                            <img src="images/local/skin/projet_logo_twitter.png" alt="Partager sur Twitter" title="Partager sur Twitter"/>                        </a>&#160;&#160;                    </div>            </div>        </#if>        <#else>            <div class="row">                <div class="col-xs-12 col-sm-offset-2 col-sm-8">                    <br>                    <div class="alert alert-warning">                        <h3 class="text-center text-warning"> <i class="fa fa-warning"></i> Attention !</h3>                        #dskey{ideation.site_property.view_idee.non_existing.htmlblock}                    </div>                </div>            </div>        </#if>    </div></section><script>    $("#reset_button").click(function() {		$("label").removeClass("active");    });</script>
+<#setting date_format="dd/MM/yyyy">
+<section class="container" id="atelier">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <#if atelier??>
+                <#assign theme_class = "autre">
+                <#if atelier.thematique = "CADRE"><#assign theme_class = "cadre_vie">
+                <#elseif atelier.thematique = "CULTURE"><#assign theme_class = "culture">
+                <#elseif atelier.thematique = "ECO"><#assign theme_class = "economie_emploi">
+                <#elseif atelier.thematique = "EDU"><#assign theme_class = "education">
+                <#elseif atelier.thematique = "ENVIRONNEMENT" || atelier.thematique = "NAT"><#assign theme_class = "environnement">
+                <#elseif atelier.thematique = "LOGEMENT"><#assign theme_class = "logement">
+                <#elseif atelier.thematique = "PARTICIPATION"><#assign theme_class = "participation_citoyenne">
+                <#elseif atelier.thematique = "SECURITE"><#assign theme_class = "prevention_securite">
+                <#elseif atelier.thematique = "PROPRETE"><#assign theme_class = "proprete">
+                <#elseif atelier.thematique = "SOLIDARITE" || atelier.thematique = "VIVREENSEMBLE"><#assign theme_class = "solidarite">
+                <#elseif atelier.thematique = "SPORT"><#assign theme_class = "sport">
+                <#elseif atelier.thematique = "TRANSPORT"><#assign theme_class = "transport">
+                <#elseif atelier.thematique = "NUMERIQUE"><#assign theme_class = "ville_numerique">
+                <#elseif atelier.thematique = "SANTE"><#assign theme_class = "sante">
+            </#if>
+
+            <#if (atelier.thematique)??>
+                <#assign atelier_theme_libelle = (campagne_static.themes_map[atelier.thematique].title)!atelier.thematique>
+            </#if>
+            <h1>
+				${atelier.titre}
+			</h1>
+
+			<#if atelier.type?? && atelier.type='physique'>
+				<div class="atelierDateLieu">
+					<p>Date(s) : <strong><#if atelier.dateAtelier?? && atelier.dateAtelier?has_content>${atelier.dateAtelier!}<#else>non précisée(s)</#if></strong></p>
+					<p>Lieu : <strong><#if atelier.lieuAtelier?? && atelier.lieuAtelier?has_content>${atelier.lieuAtelier!}<#else>non précisé</#if></strong></p>
+				</div>
+			</#if>
+
+			<p class="atelierDescription">${atelier.description}</p>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="atelierInfo">
+				<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
+					<h2>Cet atelier porte sur les projets suivants</h2>
+					<ul>
+						<#list linkedIdeesMap?keys as linkedIdeeId>
+						<li><a href="jsp/site/Portal.jsp?page=idee&amp;campagne=${codeCampagne}&amp;idee=${linkedIdeeId}" target="_blank">${linkedIdeesMap[linkedIdeeId]}</a></li>
+						</#list>
+					</ul>
+				</div>
+				<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+					<div>
+						<div>
+							<div>
+								<img src="images/local/skin/marker_1.png" alt="" title="" >
+							</div>
+							<div>
+								<#if atelier.localisationType == "paris"  >Projet "Tout Paris"<#elseif atelier.localisationType == "ardt"  >Projet du ${(arrondissements_map[atelier.localisationArdt])!atelier.localisationArdt}</#if>
+							</div>
+						</div>
+						<div>
+							<div>
+								<img class="img-responsive pull-left" src="images/local/skin/i_${theme_class}_1.png" alt="" title="">
+							</div>
+							<div>
+								${atelier_theme_libelle!""}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="atelierTabs">
+            <#if atelierTabsList??>
+            <ul class="nav nav-tabs">
+                <#list atelierTabsList as curTab>
+                    <li class="col-xs-12 col-sm-4 col-md-4 col-lg-4 <#if selectedAtelierTab?has_content && selectedAtelierTab == curTab[1]>active</#if>">
+                        <a href="${curTab[0]}">
+							<p>${curTab[1]?substring(32)}</p>
+							<p>
+								<#if curTab[1]?substring(32) == "1">Description initiale
+								<#elseif curTab[1]?substring(32) == "2">Description alternative
+								<#elseif curTab[1]?substring(32) == "3">Description finale
+								</#if>
+							</p>	
+							<p>
+                                <#if atelier.type == "numerique">
+                                    Du ${curTab[2]} au ${curTab[3]}
+                                <#else>
+                                    &nbsp;
+                                </#if>
+                            </p>
+						</a>
+                    </li>
+                </#list>
+            </ul>
+            </#if>
+            <#if atelierStepNotStarted?has_content>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12">
+                        <div class="jumbotron text-center">
+                            <h2>#i18n{${atelierStepNotStarted}}</h2>
+                        </div>
+                    </div>
+                </div>
+            <#elseif atelierPresentielCannotAccess?has_content>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12">
+                        <div class="jumbotron text-center">
+                            <h2>${atelierPresentielCannotAccess}</h2>
+                        </div>
+                    </div>
+                </div>
+            <#else>
+                    <!-- Vote form -->
+                    <#if atelierFormEntryList?has_content>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 atelierContent">
+                            <@messages errors=errors />
+							
+							<#if atelierFormCannotSubmit?has_content>
+								<#if atelierCheckedEntryMap?has_content>
+									<p class="vote-info">Votre vote a bien été soumis. Nous vous remercions de votre participation !</p>
+								<#else>
+									<p style="font-size:150%;">La phase 2 de l'atelier est désormais clôturée !</p>
+								</#if>
+							</#if>
+							<form class="form-horizontal" method="post" name="atelier_vote_for" action="jsp/site/Portal.jsp?page=atelier">
+                                <input type="hidden" name="atelier" value="${atelier.id}">
+                                <#assign currentEntry = 0>
+                                <#list atelierFormEntryList as atelierFormEntry>
+                                    <#assign checkedAlternative = 0>
+                                    <#if atelierCheckedEntryMap?has_content && atelierCheckedEntryMap[atelierFormEntry.id?string]?? >
+                                        <#assign checkedAlternative = atelierCheckedEntryMap[atelierFormEntry.id?string]?number!0 >
+                                    </#if>
+                                    <div class="form-group">
+                                        <#if atelierFormEntry.alternative1?has_content>
+                                                <#if currentEntry = 0>
+													<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+														<h2>Titre</h2>
+													</div>
+                                               <#elseif currentEntry = 1>
+                                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+														<h2>Description</h2>
+													</div>
+                                                </#if>
+                                        </#if>
+                                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"> 
+                                        <div class="atelierEntries">
+                                        <div data-toggle="buttons">
+											<#if atelierFormEntry.alternative1?has_content>
+                                                <#if atelierFormEntry.alternative2?has_content || atelierFormEntry.alternative3?has_content>
+													<label class="btn btn-primary <#if atelierFormEntry.alternative3?has_content>threecols<#else>twocols</#if> <#if currentEntry = 0>ideeTitle</#if> <#if checkedAlternative == 1>active</#if>" <#if checkedAlternative == 1 && atelierFormCannotSubmit?has_content || atelierFormCannotSubmit?has_content>style="pointer-events:none;" disabled</#if>>
+														<input type="radio" name="alternative_${atelierFormEntry.id}" value="1" <#if atelierFormCannotSubmit?has_content>disabled</#if> <#if checkedAlternative == 1>checked</#if>>
+														${atelierFormEntry.alternative1}
+														<span class="check"><i class="fa fa-check"></i></span>
+													</label>
+													<label class="tableSpacer"></label>
+	                                            <#else>
+													<label class="btn btn-primary <#if atelierFormEntry.alternative3?has_content>threecols<#else>twocols</#if> <#if currentEntry = 0>ideeTitle</#if> active" style="pointer-events:none;" disabled>
+													${atelierFormEntry.alternative1}
+													</label>
+												</#if>
+											</#if>
+                                            <#if atelierFormEntry.alternative2?has_content>
+											<label class="btn btn-primary <#if atelierFormEntry.alternative3?has_content>threecols<#else>twocols</#if> <#if currentEntry = 0>ideeTitle</#if> <#if checkedAlternative == 2>active</#if>" <#if checkedAlternative == 2 && atelierFormCannotSubmit?has_content || atelierFormCannotSubmit?has_content>style="pointer-events:none;" disabled</#if>>
+                                               <input type="radio" name="alternative_${atelierFormEntry.id}" value="2" <#if atelierFormCannotSubmit?has_content>disabled</#if> <#if checkedAlternative == 2>checked</#if>>
+                                                ${atelierFormEntry.alternative2}
+												<span class="check"><i class="fa fa-check"></i></span>
+											</label>
+                                            </#if>
+                                            <#if atelierFormEntry.alternative3?has_content>
+											<label class="tableSpacer"></label>
+											<label class="btn btn-primary threecols <#if checkedAlternative == 3>active</#if>">
+                                                <input type="radio" name="alternative_${atelierFormEntry.id}" value="3" <#if atelierFormCannotSubmit?has_content>disabled</#if> <#if checkedAlternative == 3>checked</#if> <#if checkedAlternative == 3>active</#if> <#if checkedAlternative == 3 && atelierFormCannotSubmit?has_content || atelierFormCannotSubmit?has_content>style="pointer-events:none;" disabled</#if>>
+                                                ${atelierFormEntry.alternative3}
+												<span class="check"><i class="fa fa-check"></i></span>
+											</label>
+                                            </#if>
+                                        </div>
+                                        </div>
+                                        </div>
+                                    </div>
+									<hr/>
+                                    <#assign currentEntry = currentEntry + 1>
+                                </#list>
+                                <#if atelierFormCannotSubmit?has_content == false>
+                                <div class="form-group text-center">
+                                    <button type="button" data-toggle="modal" data-target="#modalVoteFor" class="btn btn-lg btn-lt-bg">Voter <i class="fa fa-check"></i></button>
+									
+                                    <button type="reset" id="reset_button" value="Reset" class="btn btn-lg btn-lt-bg">
+                                        Annuler <i class="fa fa-undo"></i>
+                                    </button>
+                               </div>
+                                </#if>
+								<div id="modalVoteFor" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
+								  <div class="modal-dialog" role="document">
+									<div class="modal-content">
+									  <div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+										<h4 class="modal-title" id="gridSystemModalLabel">Confirmation de vote</h4>
+									  </div>
+									  <div class="modal-body">
+										<div class="row">
+										  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">Après validation, vous ne pourrez plus modifier ces choix. Voulez-vous vraiment valider ?</div>
+										</div>
+									  </div>
+									  <div class="modal-footer">
+										<button type="button" class="btn btn-lg btn-lt-bg" data-dismiss="modal">Fermer</button>
+										<button type="submit" name="action_votefor" value="Vote" class="btn btn-lg btn-lt-bg">
+											Voter <i class="fa fa-check"></i>
+										</button>
+									  </div>
+									</div><!-- /.modal-content -->
+								  </div><!-- /.modal-dialog -->
+								</div><!-- /.modal -->
+                            </form>
+                        </div>
+                    </#if>
+            </#if>
+        </div>
+        <#if isExtendInstalled?? && isExtendInstalled>
+            <div class="row">
+                <div id="project-sharing-buttons" class="col-xs-12 col-sm-12 text-center hidden-print">
+                        @Extender[${atelier.id},ATELIER,opengraph,{show:"all"}]@
+                        <h2>Je Partage !</h2>
+                        <a href="http://www.facebook.com" data-action="facebook" data-title="${atelier.titre!}" class="share" title="Partager sur Facebook">
+                            <img src="images/local/skin/projet_logo_facebook.png" alt="Partager sur Facebook" title="Partager sur Facebook"/>
+                        </a>&#160;&#160;
+                        <a href="http://www.twitter.com" data-action="twitter" data-title="${atelier.titre!}" class="share" title="Partager sur Twitter" target="_blank">
+                            <img src="images/local/skin/projet_logo_twitter.png" alt="Partager sur Twitter" title="Partager sur Twitter"/>
+                        </a>&#160;&#160;
+                    </div>
+            </div>
+        </#if>
+        <#else>
+            <div class="row">
+                <div class="col-xs-12 col-sm-offset-2 col-sm-8">
+                    <br>
+                    <div class="alert alert-warning">
+                        <h3 class="text-center text-warning"> <i class="fa fa-warning"></i> Attention !</h3>
+                        #dskey{ideation.site_property.view_idee.non_existing.htmlblock}
+                    </div>
+                </div>
+            </div>
+        </#if>
+    </div>
+</section>
+
+
+<script>
+    $("#reset_button").click(function() {
+		$("label").removeClass("active");
+    });
+</script>

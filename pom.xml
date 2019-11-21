@@ -8,7 +8,7 @@
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>fr.paris.lutece.plugins</groupId>
-    <artifactId>particip-plugin-participatoryideation</artifactId>
+    <artifactId>plugin-participatoryideation</artifactId>
     <packaging>lutece-plugin</packaging>
     <version>1.0.0-SNAPSHOT</version>
     <name>Plugin Participatory Ideation</name>
@@ -26,7 +26,7 @@
 		<dependency>
 			<groupId>fr.paris.lutece</groupId>
 			<artifactId>lutece-core</artifactId>
-			<version>[6.1.0,)</version>
+            <version>[7.0.0-SNAPSHOT,)</version> 
 			<type>lutece-core</type>
 		</dependency>
 
@@ -36,6 +36,12 @@
 			<version>[1.0.5,)</version>
 			<type>lutece-plugin</type>
 		</dependency>
+        <dependency>
+            <groupId>fr.paris.lutece.plugins</groupId>
+            <artifactId>plugin-workflow</artifactId>
+            <version>[4.3.8,)</version>
+            <type>lutece-plugin</type>
+        </dependency>
 		<dependency>
 			<groupId>fr.paris.lutece.plugins</groupId>
 			<artifactId>plugin-leaflet</artifactId>
@@ -51,7 +57,7 @@
 		<dependency>
 			<groupId>fr.paris.lutece.plugins</groupId>
 			<artifactId>plugin-asynchronousupload</artifactId>
-			<version>[1.0.5,)</version>
+			<version>[1.1.0-SNAPSHOT,)</version>
 			<type>lutece-plugin</type>
 		</dependency>
 		<dependency>
@@ -92,25 +98,9 @@
 		</dependency>
 		<dependency>
 			<groupId>fr.paris.lutece.plugins</groupId>
-			<artifactId>plugin-profanity-filter</artifactId>
-			<version>[1.0.0,)</version>
-			<type>lutece-plugin</type>
-		</dependency>
-
-
-		<dependency>
-			<groupId>fr.paris.lutece.plugins</groupId>
 			<artifactId>library-httpaccess</artifactId>
 			<version>[2.5.0,)</version>
 		</dependency>
-
-		<dependency>
-			<groupId>fr.paris.lutece.plugins</groupId>
-			<artifactId>plugin-campagnebp</artifactId>
-			<version>[2.0.9-SNAPSHOT,)</version>
-			<type>lutece-plugin</type>
-		</dependency>
-
 		<dependency>
 			<groupId>fr.paris.lutece.plugins</groupId>
 			<artifactId>plugin-document</artifactId>

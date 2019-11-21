@@ -1,1 +1,631 @@
-<@messages infos=infos errors=errors /> <#setting date_format="dd/MM/yyyy"><section class="bg-color6">	<div class="container">		<#if (idee?? && (idee.statusPublic = "STATUS_NON_RETENU"))>			<div id="prop-card" class="prop-perdant">		<#else>			<div id="prop-card">		</#if>					<#-- Si l'idée n'est pas identifiée, un message spécifique d'erreur est affiché. -->			<#if !(idee??) >				<div class="row">					<div class="col-xs-12 col-sm-offset-2 col-sm-8">						<br>						<div class="alert alert-warning">							<h3 class="text-center text-warning"> <i class="fa fa-warning"></i> Attention !</h3>							#dskey{ideation.site_property.view_idee.non_existing.htmlblock}						</div>					</div>				</div>							<#else>								<#-- On calcule au préalable quelques variables. -->								<#assign theme_class = "autre">				<#if            (idee?? && (idee.statusPublic = "STATUS_NON_RETENU")) >				<#assign theme_class = "nonretenu">					<#elseif 	idee.codeTheme = "CADRE">											<#assign theme_class = "cadre_vie">					<#elseif	idee.codeTheme = "CULTURE">											<#assign theme_class = "culture">					<#elseif	idee.codeTheme = "ECO">												<#assign theme_class = "economie_emploi">					<#elseif	idee.codeTheme = "EDU">												<#assign theme_class = "education">					<#elseif	idee.codeTheme = "ENVIRONNEMENT" || idee.codeTheme = "NAT">			<#assign theme_class = "environnement">					<#elseif	idee.codeTheme = "LOGEMENT">										<#assign theme_class = "logement">					<#elseif	idee.codeTheme = "SECURITE">										<#assign theme_class = "prevention_securite">					<#elseif	idee.codeTheme = "PROPRETE">										<#assign theme_class = "proprete">					<#elseif	idee.codeTheme = "SOLIDARITE" || idee.codeTheme = "VIVREENSEMBLE">	<#assign theme_class = "solidarite">					<#elseif	idee.codeTheme = "SPORT">											<#assign theme_class = "sport">					<#elseif	idee.codeTheme = "TRANSPORT">										<#assign theme_class = "transport">					<#elseif	idee.codeTheme = "NUMERIQUE">										<#assign theme_class = "ville_numerique">					<#elseif	idee.codeTheme = "SANTE">											<#assign theme_class = "sante">				</#if>								<#if (idee.codeTheme)??>					<#assign idee_theme_libelle = (campagne_static.themes_map[idee.codeTheme].title)!idee.codeTheme>				</#if>								<#if (campagne_static.depositaires_types_map[idee.depositaireType])??>					<#assign idee_depositaire_type_object = campagne_static.depositaires_types_map[idee.depositaireType]>				</#if>								<#if (idee.depositaireType)??>					<#assign idee_depositaire_type_libelle = (idee_depositaire_type_object.libelle)!idee.depositaireType>				</#if>								<#if (idee.depositaire)??>					<#if (idee_depositaire_type_object.codeComplementType)?? && idee_depositaire_type_object.codeComplementType == "LIST">						<#assign idee_depositaire_libelle = (campagne_static.depositaires_types_list_values_map[idee.depositaireType + "-" + idee.depositaire])!idee.depositaire>					<#else>						<#assign idee_depositaire_libelle = idee.depositaire>					</#if>				</#if>				<#assign status_text = "">				<#assign status_icon = "">				<#if     idee.statusPublic = "STATUS_DEPOSE">            <#assign status_text = "Projet déposé">                  <#assign status_icon = "prop-statut-ok-${theme_class}.png">				<#elseif idee.statusPublic = "STATUS_EN_CO_CONSTRUCTION"><#assign status_text = "En atelier de co-construction">  <#assign status_icon = "prop-statut-ok-${theme_class}.png">				<#elseif idee.statusPublic = "STATUS_REGROUPE">          <#assign status_text = "Regroupé avec d'autres projets"> <#assign status_icon = "prop-statut-ok-${theme_class}.png">				<#elseif idee.statusPublic = "STATUS_A_ETUDE">           <#assign status_text = "Projet en cours d'étude">        <#assign status_icon = "prop-statut-ok-${theme_class}.png">				<#elseif idee.statusPublic = "STATUS_RETENU">            <#assign status_text = "Projet retenu">                  <#assign status_icon = "prop-statut-ok-${theme_class}.png">				<#elseif idee.statusPublic = "STATUS_NON_RETENU">        <#assign status_text = "Projet non retenu">              <#assign status_icon = "prop-statut-ko-${theme_class}.png">				</#if>				<#assign campagne_year = "&#160;">				<#if idee.codeCampagne??>					<#assign campagne_year = "Budget Participatif " + (2014 + "ABCDEFGHIJKLMNOPQRSTUVWXYZ"?index_of(idee.codeCampagne))>				</#if>				<#-- *********************************************************************************** -->				<#-- * HEADER HEADER HEADER HEADER HEADER HEADER HEADER HEADER HEADER HEADER HEADER HE * -->				<#-- * HEADER HEADER HEADER HEADER HEADER HEADER HEADER HEADER HEADER HEADER HEADER HE * -->				<#-- *********************************************************************************** -->								<#if idee.urlProjet?has_content && status_text != "non retenu">									<#if idee.winnerProjet?? && idee.winnerProjet == "WINNER">						<#-- Idée GAGNANTE -->						<div id="prop-vote-result" class="winner">							<div class="msg">								<#if idee.parentIdees?has_content>									<p>Ce projet, regroupé avec d'autres projets similaires,<br>est <strong>lauréat</strong> du <strong>${campagne_year}</strong> !</p>								<#else>									<p>Ce projet est <strong>lauréat</strong> du <strong>${campagne_year}</strong> !</p>								</#if>							</div>														<div class="link">								<a href="${idee.urlProjet!''}"  class="btn btn-18rem btn-black-on-white">									Consulter le projet lauréat								</a>							</div>							<#-- <div class="crown"><img src="images/local/skin/idea_crown.png" alt=""/></div> -->						</div>											<#elseif idee.winnerProjet?? && idee.winnerProjet == "LOOSER">						<div id="prop-vote-result" class="looser">							<div class="msg">								<#if idee.parentIdees?has_content>									<p>Ce projet, regroupé avec d'autres projets similaires,<br>a été soumis au vote du ${campagne_year}, mais n'a pas été lauréat.</p>								<#else>									<p>Ce projet a été soumis au vote du ${campagne_year}, mais n'a pas été lauréat.</p>								</#if>							</div>														<div class="link">								<a href="${idee.urlProjet!''}"  class="btn btn-18rem btn-black-on-white">									Consulter le projet								</a>							</div>							<#-- <div class="crown"><img src="images/local/skin/idea_crown.png" alt=""/></div> -->						</div>					<#else>						<#-- Idée SOUMISE -->						<div id="prop-vote-result" class="winner">							<div class="msg">								<#if idee.parentIdees?has_content>									<p>Ce projet, regroupé avec d'autres projets similaires,<br>est <strong>soumis</strong> au vote du <strong>${campagne_year}</strong>.</p>								<#else>									<p>Ce projet est <strong>soumis</strong> au vote du <strong>${campagne_year}</strong>.</p>								</#if>							</div>														<div class="link">								<a href="${idee.urlProjet!''}"  class="btn btn-18rem btn-black-on-white">									Consulter le projet soumis								</a>							</div>						</div>					</#if>				</#if>				<div id="prop-header" class="row bgcolor-theme-${theme_class}">					<span>${idee_theme_libelle!""}</span>								<#if isExtendInstalled?? && isExtendInstalled>						<div class="prop-header-share">							<a href="http://www.facebook.com" data-action="facebook" data-title="${idee.titre!}" class="share" title="Partager sur Facebook">							  <img src="images/local/skin/pastille-fb.png" alt="Partager sur Facebook" title="Partager sur Facebook"/>							</a>							<a href="http://www.twitter.com" data-action="twitter-idea" data-title="${idee.titre!}" class="share" title="Partager sur Twitter" target="_blank">							  <img src="images/local/skin/pastille-tw.png" alt="Partager sur Twitter" title="Partager sur Twitter"/>							</a>						</div>					</#if>				</div>				<div id="prop-body" class="row bg-color0 bordered-4px-theme-${theme_class}">									<#-- *********************************************************************************** -->					<#-- * DESC DESC DESC DESC DESC DESC DESC DESC DESC DESC DESC DESC DESC DESC DESC DESC * -->					<#-- * DESC DESC DESC DESC DESC DESC DESC DESC DESC DESC DESC DESC DESC DESC DESC DESC * -->					<#-- *********************************************************************************** -->					<div id="prop-desc" class="col-xs-12 col-sm-8 bg-color0">											<#-- Localisation -->						<div class="prop-desc-localisation">							<img src="images/local/skin/marker-${theme_class}.png" alt="Localisation" title="Localisation" />							<div class="prop-desc-localisation-addr">								<#if idee.adress?? && idee.adress != '' >${idee.adress?html}<br></#if>								<#if idee.localisationType == "paris">Projet « Tout Paris »<#elseif idee.localisationType == "ardt">Projet du ${(arrondissements_map[idee.localisationArdt])!idee.localisationArdt}</#if>							</div>						</div>						<#-- Titre -->						<div class="prop-desc-titre">							<h1><p class="color-theme-${theme_class}">${idee.titre}</p></h1>						</div>						<#-- Description -->						<h2 class="visuallyhidden">Description de la proposition</h2>						<div class="prop-desc-txt">${idee.description?html}</div>			            <p class="prop-desc-cout">							<#if idee.cout?? && (idee.cout != -1)>								<span class="color-theme-${theme_class}">${nickname!''}</span> a &eacute;valu&eacute; son projet &agrave; ${idee.cout?string.number!''} &euro;							<#else>								Le co&ucirc;t n'a pas &eacute;t&eacute; &eacute;valu&eacute;.							</#if>						</p>						<#-- Pièces jointes -->						<#if ((idee.imgs?size != 0) || (idee.docs?size != 0))>							<div class="prop-desc-pj">								<div class="row">																	<#-- Images (FIXME resize on server ???) -->									<#if idee.imgs?size != 0>										<#list idee.imgs as img>											<#if img??>												<a href="image?id=${img.idFile}&resource_type=ideation_file_img" target="_blank">													<div class="col-xs-4 col-sm-3">														<div class="prop-desc-pj-img" style="background-image:url('image?id=${img.idFile}&resource_type=ideation_file_img');"></div>													</div>												</a>											</#if>										</#list>									</#if>									<#-- Documents -->									<#if idee.docs?size != 0>										<#list idee.docs as doc>											<#if doc??>												<a href="servlet/plugins/ideation/download?id=${doc.idFile}">													<div class="col-xs-4 col-sm-3">														<div class="prop-desc-pj-doc">															${doc.title}															<img src="images/local/skin/download.png" class="img-responsive" alt="" title=""/>														</div>													</div>												</a>											</#if>										</#list>									</#if>								</div>							</div>						</#if>						<#-- Commentaires et lien vert d'association au projet -->						<div id="comments">							<#-- Liste des commentaires -->							<#if isExtendInstalled?? && isExtendInstalled>								@Extender[${idee.id},IDEE,comment]@							</#if>						</div>											</div>					<#-- *********************************************************************************** -->					<#-- * DATA DATA DATA DATA DATA DATA DATA DATA DATA DATA DATA DATA DATA DATA DATA DATA * -->					<#-- * DATA DATA DATA DATA DATA DATA DATA DATA DATA DATA DATA DATA DATA DATA DATA DATA * -->					<#-- *********************************************************************************** -->					<div id="prop-data" class="col-xs-12 col-sm-4 bg-color0">						<#-- Séparation en mode XS -->						<div class="prop-data-sep visible-xs"></div>												<div id="prop-data-header">													<#-- Pastilles QPOP et RATP -->							<div id="prop-data-pastilles">								<#if idee.typeQpvQva == "NQPV" || idee.typeQpvQva == "QVA" || idee.typeQpvQva == "GPRU" || idee.typeQpvQva == "QBP" >									<img class="img-qp" src="images/local/skin/quartier-populaire.png" alt="Projet en quartier populaire" />								</#if>								<#if idee.idFoTags?? >									<#list idee.idFoTags as idFoTag>										<#if idFoTag == 4>											<img class="img-responsive img-ratp" src="images/local/skin/ratp_color.png" alt="Projet RATP" />										</#if>									</#list>								</#if>							</div>														<#-- Boutons d'action -->							<div id="prop-data-actions">								<#if isExtendInstalled?? && isExtendInstalled>									<#if !(is_own_idee?? && is_own_idee)>										@Extender[${idee.id},IDEE,rating,{show:"all"}]@									<#else>										@Extender[${idee.id},IDEE,rating,{show:"vote"}]@									</#if>									@Extender[${idee.id},IDEE,follow,{show:"count"}]@								</#if>							</div>						</div>												<#-- Quelques données sur la proposition -->						<h2>Le projet</h2>						<div class="prop-data-kv">							<div class="prop-data-key">								<img title="Campagne" alt="Campagne" src="images/local/skin/logo_paris_bp_ultramini-${theme_class}.png">							</div>							<div class="prop-data-value">								${campagne_year!"&#160;"}							</div>						</div>												<div class="prop-data-kv">							<div class="prop-data-key">								<img src="images/local/skin/${status_icon}" alt="Statut" title="Statut"/>							</div>							<div class="prop-data-value">								${status_text!""}							</div>						</div>						<div class="prop-data-kv last">							<div class="prop-data-key">								<img src="images/local/skin/money-${theme_class}.png" alt="Coût estimé" title="Coût estimé" />							</div>							<div class="prop-data-value">								<#if idee.cout?? && (idee.cout != -1)>									&Eacute;valu&eacute; &agrave; ${idee.cout?string.number!''} &euro;								<#else>									Le co&ucirc;t n'a pas &eacute;t&eacute; &eacute;valu&eacute;								</#if>							</div>						</div>						<#if idee.handicap?? && idee.handicap == "yes">							<div id="prop-data-handicap">								Les questions du handicap et de l'accessibilit&eacute; sont prises en compte dans le cadre de cette proposition.  							</div>						</#if>							<#-- Cartographie du projet -->						<#if idee.latitude?? && idee.longitude??>							<#if idee.latitude != 0 && idee.longitude != 0>								<div id="carto" class="prop-data-carto">&nbsp;</div>							</#if>						</#if>						<#-- Bouton d'action FOLLOW -->						<#if !(is_own_idee?? && is_own_idee)>							<div id="action-follow">								<#if isExtendInstalled?? && isExtendInstalled>									@Extender[${idee.id},IDEE,follow,{show:"statusButton"}]@								</#if>							</div>						</#if>						<#-- Bouton d'action ATELIER -->						<#if ( atelier?? ) >							<div id="action-workshop" class="separator-horiz-4px">								<div class="btn-workshop">									 <a class="btn btn btn-14rem btn-black-on-white" href="jsp/site/Portal.jsp?page=atelier&atelier=${atelier.id}">										 #i18n{ideation.ideesSubscriber.button.label.gotoWorkshop}									 </a>								</div>							</div>						</#if>						<#-- L'auteur de la proposition -->						<div id="prop-data-author" class="separator-horiz-4px">							<h2>L'auteur</h2>							<p class="prop-data-author-type">								<img src="images/local/skin/author-type-${theme_class}.png" alt="" title="" />								${idee_depositaire_type_libelle!''}							</p>							<#if idee_depositaire_libelle??>								<img src="images/local/skin/trophy-empty.png" alt="" title="" />								(${idee_depositaire_libelle})							</#if>						</div>												<#-- Son avatar -->						<div id="prop-data-avatar">							<a href="${avatar_url!''}" target="_blank" title="Voir l'avatar de ${nickname!''} (nouvel onglet)"><div class="prop-data-avatar-img pull-left" style="background-image:url(${avatar_url!''});"></div></a>							D&eacute;pos&eacute; le ${idee.creationTimestamp?date?string.long}<br/>par							<a href="jsp/site/Portal.jsp?page=search-solr&conf=list_idees&query=(pseudo_string:&quot;${(nickname!'')?url('UTF-8')}&quot;)" class="color-theme-${theme_class}" target="_blank" title="Voir les propositions déposées par ${nickname!''} (nouvel onglet)">								${nickname!''}							</a>						</div>												<#-- Le bouton pour le contacter -->						<#if is_own_idee?? && is_own_idee == false>							<div id="prop-data-contact">								<p>									<#if idee.acceptContact == true >										<a class="btn btn-14rem btn-black-on-white" href="jsp/site/Portal.jsp?page=idee&view=viewIdee&idee=${idee.codeIdee!}&campagne=${idee.codeCampagne!}&showContact=true" title="Contacter le dépositaire">Contacter</a>									<#else>										<span class="btn btn-14rem btn-black-on-white btn-unactive" title="${message_not_accept!}">Contacter</span>									</#if>								</p>							</div>						</#if>						<#-- Quelques données sur la proposition, ainsi que les regroupements -->						<#if idee.childIdees?has_content || idee.parentIdees?has_content>							<div id="prop-data-regroup" class="separator-horiz-4px">								<h2>Co-construction</h2>								<#if idee.childIdees?has_content>									<#if idee.childIdees?size &gt; 0 >										<p><span>Projet issu<br/>du ou des projets suivants :</span></p>										<#list idee.childIdees as childIdee>											<p><a href="jsp/site/Portal.jsp?page=idee&amp;campagne=${idee.codeCampagne}&amp;idee=${childIdee.codeIdee}">${childIdee.titre?lower_case?cap_first}</a></p>										</#list>									</#if>								</#if>								<#if idee.parentIdees?has_content>									<p><span>Projet regroupé<br/>au sein du projet suivant :</span></p>									<#list idee.parentIdees as parentIdee>										<p><a href="jsp/site/Portal.jsp?page=idee&amp;campagne=${idee.codeCampagne}&amp;idee=${parentIdee.codeIdee}">${parentIdee.titre?lower_case?cap_first}</a></p>									</#list>								</#if>							</div>						</#if>					</div>						</div>			</#if>						</div>	</div></section><#-- *********************************************************************************** --><#-- * FOLLOW FOLLOW FOLLOW FOLLOW FOLLOW FOLLOW FOLLOW FOLLOW FOLLOW FOLLOW FOLLOW FO * --><#-- * FOLLOW FOLLOW FOLLOW FOLLOW FOLLOW FOLLOW FOLLOW FOLLOW FOLLOW FOLLOW FOLLOW FO * --><#-- *********************************************************************************** --><#-- Modal d'association à une proposition --><#if !(is_own_idee?? && is_own_idee)>	<div class="modal fade" id="modalConfirmFollow" tabindex="-1" role="dialog" aria-labelledby="modalConfirmFollowLabel" aria-hidden="true">		<div class="modal-dialog" role="document">			<div class="modal-content">				<div class="modal-header">					<button type="button" class="close" data-dismiss="modal" aria-label="Close">						<span aria-hidden="true">×</span>					</button>					<h3 class="modal-title" id="modalConfirmFollowLabel"><strong>S'associer au projet déposé par ${nickname!''}</strong></h3>				</div>				<#if isExtendInstalled?? && isExtendInstalled>					@Extender[${idee.id},IDEE,follow,{show:"all"}]@				</#if>			</div>		</div>	</div></#if><#-- *********************************************************************************** --><#-- * CONTACT CONTACT CONTACT CONTACT CONTACT CONTACT CONTACT CONTACT CONTACT CONTACT * --><#-- * CONTACT CONTACT CONTACT CONTACT CONTACT CONTACT CONTACT CONTACT CONTACT CONTACT * --><#-- *********************************************************************************** --><#-- Modal de contact entre usagers --><div class="modal fade" id="modalContactDepositaire" tabindex="-1" role="dialog" aria-labelledby="modalContactDepositaireLabel" aria-hidden="true">	<div class="modal-dialog" role="document">		<div class="modal-content">			<#if idee??>				<form id="idForm" action="jsp/site/Portal.jsp?page=idee" method="post">				<input type="hidden" name="campagne" id="campagne" value="${idee.codeCampagne!}">				<input type="hidden" name="idee" id="idee" value="${idee.codeIdee!}">				<div class="modal-header">					<button type="button" class="close" data-dismiss="modal" aria-label="Close">						<span aria-hidden="true">&times;</span>					</button>					<h3 class="modal-title" id="modalContactDepositaireLabel"><strong>Contacter ${nickname!''}</strong></h3>				</div>				<div class="modal-body">					<div>Votre message sera envoyé par courriel. Votre adresse électronique sera donc transmise à ${nickname!''}.</div><br>					<div class="form-group">						<label for="last_name_usager">Votre pseudo</label>						<input type="text" name="last_name_usager" id="last_name_usager" class="form-control" maxlength="50" value="${nicknameUser!}" readonly >					</div>					<div class="form-group">						<label for="email_usager">Votre adresse email</label>						<input type="text" name="email_usager" id="email_usager" class="form-control" maxlength="80" value="${emailUser!}" readonly >					</div>					<div class="form-group">						<label for="question_usager">Votre message</label>						<textarea name="question_usager" id="question_usager" rows="5" cols="80" class="form-control"></textarea>					</div>				</div>				<div class="modal-footer">					<button type="submit" class="btn btn-14rem btn-black-on-white" name="action_contacterDepositaire">Envoyer</button>					<button type="button" class="btn btn-14rem btn-black-on-white" data-dismiss="modal">Annuler</button>				</div>				</form>			</#if>		</div>	</div></div><#-- Modal de contact entre usagers désactivé --><div class="modal fade" id="modalContactDepositaireDesactive" tabindex="-1" role="dialog" aria-labelledby="modalContactDepositaireLabel" aria-hidden="true">	<div class="modal-dialog" role="document">		<div class="modal-content">			<div class="modal-body">				<div style="font-size:18px">${message_not_accept!}</div>			</div>		</div>	</div></div><#-- *********************************************************************************** --><#-- * JS JS JS JS JS JS JS JS JS JS JS JS JS JS JS JS JS JS JS JS JS JS JS JS JS JS J * --><#-- * JS JS JS JS JS JS JS JS JS JS JS JS JS JS JS JS JS JS JS JS JS JS JS JS JS JS J * --><#-- *********************************************************************************** --><#-- Affichage ou non de la ligne de bouton pour association à une proposition --><#if (is_own_idee?? && is_own_idee)>	<script type="text/javascript">		$( function(){			$("#istayup").toggle();		});	</script><#else>	<script type="text/javascript">		$( function(){			if( $("#nomore").size() > 0 ){				var newButton='<a href=' + $("#nomore").attr("href") + '><i class="fa fa-times-circle"></i> ' + $("#nomore").text() + '</a>';				$("#istayup").after( newButton );				$("#istayup").remove();			}		});	</script></#if><#-- Affichage de la popin de contact entre usagers --><script type="text/javascript">	<#if show_contact?? && show_contact=="true">		$(window).load(function(){			$('#modalContactDepositaire').modal('show');		});	</#if></script><script src="js/jquery/jquery.validate.min.js"></script><script>	$(function() {	  $("#idForm").validate({		rules: {			question_usager: {			required: true,			minlength: 0		  }		},		messages: {			question_usager: {			required: "Ce champ est obligatoire",			minlength: ""		  }		}	  });	});</script><#-- Gestion de la cartographie Leaflet --><#if idee?? && idee.latitude?? && idee.longitude??>	<script type='text/javascript'>		var loadresource = document.createElement('link');		loadresource.setAttribute("rel", "stylesheet");		loadresource.setAttribute("type", "text/css");		loadresource.setAttribute("href", "js/plugins/leaflet/leaflet/leaflet.css");		document.getElementsByTagName("head")[0].appendChild(loadresource);	</script>	<script type="text/javascript" src="js/plugins/leaflet/leaflet/leaflet.js"></script>	<script type="text/javascript" src="js/plugins/leaflet/esri/esri-leaflet.js"></script>	<script type="text/javascript" src="js/plugins/leaflet/leaflet/leaflet.markercluster.js"></script>	<script type="text/javascript" src="js/plugins/leaflet/esri/esri-leaflet-clustered-feature-layer.js"></script>	<script type='text/javascript'>		// Cartographie Leaflet		$( function(){			var x = ${idee.latitude?replace(",",".")};			var y = ${idee.longitude?replace(",",".")};					var map = L.map('carto').setView([ x , y ], 12);			var esri_streets = L.esri.basemapLayer('Streets').addTo(map);						L.marker([x, y]).addTo(map);						var layergroup_qpvqva = L.layerGroup();			var arrondissements_layer_qpv = L.esri.featureLayer({				"url": 'https://services1.arcgis.com/yFAX7hJID4ONeUHP/arcgis/rest/services/QPV_QVA_GPRU/FeatureServer/0',				"style": { "color": "#ffffff", "weight": 0, "opacity": 1, "fillOpacity": 0.3, "fillColor": "#33ff33", },				"where": "C_DEP='75' AND C_NAT_QPV='NQPV'"			});			var arrondissements_layer_qva = L.esri.featureLayer( {				"url": 'https://services1.arcgis.com/yFAX7hJID4ONeUHP/arcgis/rest/services/QPV_QVA_GPRU/FeatureServer/0',				"style": { "color": "#ffffff", "weight": 0, "opacity": 1, "fillOpacity": 0.3, "fillColor": "#33ff33", },				"where": "C_DEP='75' AND C_NAT_QPV='QVA'"			});			var arrondissements_layer_gpru = L.esri.featureLayer( {				"url": 'https://services1.arcgis.com/yFAX7hJID4ONeUHP/arcgis/rest/services/QPV_QVA_GPRU/FeatureServer/0',				"style": { "color": "#ffffff", "weight": 0, "opacity": 1, "fillOpacity": 0.3, "fillColor": "#33ff33", },				"where": "GPRU_NOM!=''"			});					var arrondissements_layer_qbp = L.esri.featureLayer( {				"url": 'https://services1.arcgis.com/yFAX7hJID4ONeUHP/arcgis/rest/services/QPV_QVA_GPRU/FeatureServer/0',				"style": { "color": "#ffffff", "weight": 0, "opacity": 1, "fillOpacity": 0.3, "fillColor": "#33ff33", },				"where": "EXT_BP!=''"			});			layergroup_qpvqva.addLayer(arrondissements_layer_qpv);			layergroup_qpvqva.addLayer(arrondissements_layer_qva);			layergroup_qpvqva.addLayer(arrondissements_layer_gpru);			layergroup_qpvqva.addLayer(arrondissements_layer_qbp);						map.addLayer(layergroup_qpvqva);		});	</script></#if>	<#-- *********************************************************************************** --><#-- * ANCIEN_CODE   ANCIEN_CODE   ANCIEN_CODE   ANCIEN_CODE   ANCIEN_CODE   ANCIEN_CO * --><#-- * ANCIEN_CODE   ANCIEN_CODE   ANCIEN_CODE   ANCIEN_CODE   ANCIEN_CODE   ANCIEN_CO * --><#-- *********************************************************************************** --><#-- 	@Extender[${idee.id},IDEE,opengraph,{show:"all"}]@-->
+
+<@messages infos=infos errors=errors /> 
+
+<#setting date_format="dd/MM/yyyy">
+
+<section class="bg-color6">
+	<div class="container">
+		<#if (idee?? && (idee.statusPublic = "STATUS_NON_RETENU"))>
+			<div id="prop-card" class="prop-perdant">
+		<#else>
+			<div id="prop-card">
+		</#if>
+		
+			<#-- Si l'idée n'est pas identifiée, un message spécifique d'erreur est affiché. -->
+			<#if !(idee??) >
+				<div class="row">
+					<div class="col-xs-12 col-sm-offset-2 col-sm-8">
+						<br>
+						<div class="alert alert-warning">
+							<h3 class="text-center text-warning"> <i class="fa fa-warning"></i> Attention !</h3>
+							#dskey{ideation.site_property.view_idee.non_existing.htmlblock}
+						</div>
+					</div>
+				</div>
+				
+			<#else>
+				
+				<#-- On calcule au préalable quelques variables. -->
+				
+				<#assign theme_class = "autre">
+				<#if            (idee?? && (idee.statusPublic = "STATUS_NON_RETENU")) >				<#assign theme_class = "nonretenu">
+					<#elseif 	idee.codeTheme = "CADRE">											<#assign theme_class = "cadre_vie">
+					<#elseif	idee.codeTheme = "CULTURE">											<#assign theme_class = "culture">
+					<#elseif	idee.codeTheme = "ECO">												<#assign theme_class = "economie_emploi">
+					<#elseif	idee.codeTheme = "EDU">												<#assign theme_class = "education">
+					<#elseif	idee.codeTheme = "ENVIRONNEMENT" || idee.codeTheme = "NAT">			<#assign theme_class = "environnement">
+					<#elseif	idee.codeTheme = "LOGEMENT">										<#assign theme_class = "logement">
+					<#elseif	idee.codeTheme = "SECURITE">										<#assign theme_class = "prevention_securite">
+					<#elseif	idee.codeTheme = "PROPRETE">										<#assign theme_class = "proprete">
+					<#elseif	idee.codeTheme = "SOLIDARITE" || idee.codeTheme = "VIVREENSEMBLE">	<#assign theme_class = "solidarite">
+					<#elseif	idee.codeTheme = "SPORT">											<#assign theme_class = "sport">
+					<#elseif	idee.codeTheme = "TRANSPORT">										<#assign theme_class = "transport">
+					<#elseif	idee.codeTheme = "NUMERIQUE">										<#assign theme_class = "ville_numerique">
+					<#elseif	idee.codeTheme = "SANTE">											<#assign theme_class = "sante">
+				</#if>
+				
+				<#if (idee.codeTheme)??>
+					<#assign idee_theme_libelle = (campagne_static.themes_map[idee.codeTheme].title)!idee.codeTheme>
+				</#if>
+				
+				<#if (campagne_static.depositaires_types_map[idee.depositaireType])??>
+					<#assign idee_depositaire_type_object = campagne_static.depositaires_types_map[idee.depositaireType]>
+				</#if>
+				
+				<#if (idee.depositaireType)??>
+					<#assign idee_depositaire_type_libelle = (idee_depositaire_type_object.libelle)!idee.depositaireType>
+				</#if>
+				
+				<#if (idee.depositaire)??>
+					<#if (idee_depositaire_type_object.codeComplementType)?? && idee_depositaire_type_object.codeComplementType == "LIST">
+						<#assign idee_depositaire_libelle = (campagne_static.depositaires_types_list_values_map[idee.depositaireType + "-" + idee.depositaire])!idee.depositaire>
+					<#else>
+						<#assign idee_depositaire_libelle = idee.depositaire>
+					</#if>
+				</#if>
+
+				<#assign status_text = "">
+				<#assign status_icon = "">
+				<#if     idee.statusPublic = "STATUS_DEPOSE">            <#assign status_text = "Projet déposé">                  <#assign status_icon = "prop-statut-ok-${theme_class}.png">
+				<#elseif idee.statusPublic = "STATUS_EN_CO_CONSTRUCTION"><#assign status_text = "En atelier de co-construction">  <#assign status_icon = "prop-statut-ok-${theme_class}.png">
+				<#elseif idee.statusPublic = "STATUS_REGROUPE">          <#assign status_text = "Regroupé avec d'autres projets"> <#assign status_icon = "prop-statut-ok-${theme_class}.png">
+				<#elseif idee.statusPublic = "STATUS_A_ETUDE">           <#assign status_text = "Projet en cours d'étude">        <#assign status_icon = "prop-statut-ok-${theme_class}.png">
+				<#elseif idee.statusPublic = "STATUS_RETENU">            <#assign status_text = "Projet retenu">                  <#assign status_icon = "prop-statut-ok-${theme_class}.png">
+				<#elseif idee.statusPublic = "STATUS_NON_RETENU">        <#assign status_text = "Projet non retenu">              <#assign status_icon = "prop-statut-ko-${theme_class}.png">
+				</#if>
+
+				<#assign campagne_year = "&#160;">
+				<#if idee.codeCampagne??>
+					<#assign campagne_year = "Budget Participatif " + (2014 + "ABCDEFGHIJKLMNOPQRSTUVWXYZ"?index_of(idee.codeCampagne))>
+				</#if>
+
+				<#-- *********************************************************************************** -->
+				<#-- * HEADER HEADER HEADER HEADER HEADER HEADER HEADER HEADER HEADER HEADER HEADER HE * -->
+				<#-- * HEADER HEADER HEADER HEADER HEADER HEADER HEADER HEADER HEADER HEADER HEADER HE * -->
+				<#-- *********************************************************************************** -->
+				
+				<#if idee.urlProjet?has_content && status_text != "non retenu">
+				
+					<#if idee.winnerProjet?? && idee.winnerProjet == "WINNER">
+
+						<#-- Idée GAGNANTE -->
+						<div id="prop-vote-result" class="winner">
+							<div class="msg">
+								<#if idee.parentIdees?has_content>
+									<p>Ce projet, regroupé avec d'autres projets similaires,<br>est <strong>lauréat</strong> du <strong>${campagne_year}</strong> !</p>
+								<#else>
+									<p>Ce projet est <strong>lauréat</strong> du <strong>${campagne_year}</strong> !</p>
+								</#if>
+							</div>
+							
+							<div class="link">
+								<a href="${idee.urlProjet!''}"  class="btn btn-18rem btn-black-on-white">
+									Consulter le projet lauréat
+								</a>
+							</div>
+
+							<#-- <div class="crown"><img src="images/local/skin/idea_crown.png" alt=""/></div> -->
+						</div>
+						
+					<#elseif idee.winnerProjet?? && idee.winnerProjet == "LOOSER">
+
+						<div id="prop-vote-result" class="looser">
+							<div class="msg">
+								<#if idee.parentIdees?has_content>
+									<p>Ce projet, regroupé avec d'autres projets similaires,<br>a été soumis au vote du ${campagne_year}, mais n'a pas été lauréat.</p>
+								<#else>
+									<p>Ce projet a été soumis au vote du ${campagne_year}, mais n'a pas été lauréat.</p>
+								</#if>
+							</div>
+							
+							<div class="link">
+								<a href="${idee.urlProjet!''}"  class="btn btn-18rem btn-black-on-white">
+									Consulter le projet
+								</a>
+							</div>
+
+							<#-- <div class="crown"><img src="images/local/skin/idea_crown.png" alt=""/></div> -->
+						</div>
+
+					<#else>
+
+						<#-- Idée SOUMISE -->
+						<div id="prop-vote-result" class="winner">
+							<div class="msg">
+								<#if idee.parentIdees?has_content>
+									<p>Ce projet, regroupé avec d'autres projets similaires,<br>est <strong>soumis</strong> au vote du <strong>${campagne_year}</strong>.</p>
+								<#else>
+									<p>Ce projet est <strong>soumis</strong> au vote du <strong>${campagne_year}</strong>.</p>
+								</#if>
+							</div>
+							
+							<div class="link">
+								<a href="${idee.urlProjet!''}"  class="btn btn-18rem btn-black-on-white">
+									Consulter le projet soumis
+								</a>
+							</div>
+
+						</div>
+
+					</#if>
+				</#if>
+
+				<div id="prop-header" class="row bgcolor-theme-${theme_class}">
+					<span>${idee_theme_libelle!""}</span>
+			
+					<#if isExtendInstalled?? && isExtendInstalled>
+						<div class="prop-header-share">
+							<a href="http://www.facebook.com" data-action="facebook" data-title="${idee.titre!}" class="share" title="Partager sur Facebook">
+							  <img src="images/local/skin/pastille-fb.png" alt="Partager sur Facebook" title="Partager sur Facebook"/>
+							</a>
+							<a href="http://www.twitter.com" data-action="twitter-idea" data-title="${idee.titre!}" class="share" title="Partager sur Twitter" target="_blank">
+							  <img src="images/local/skin/pastille-tw.png" alt="Partager sur Twitter" title="Partager sur Twitter"/>
+							</a>
+						</div>
+					</#if>
+				</div>
+
+				<div id="prop-body" class="row bg-color0 bordered-4px-theme-${theme_class}">
+				
+					<#-- *********************************************************************************** -->
+					<#-- * DESC DESC DESC DESC DESC DESC DESC DESC DESC DESC DESC DESC DESC DESC DESC DESC * -->
+					<#-- * DESC DESC DESC DESC DESC DESC DESC DESC DESC DESC DESC DESC DESC DESC DESC DESC * -->
+					<#-- *********************************************************************************** -->
+					<div id="prop-desc" class="col-xs-12 col-sm-8 bg-color0">
+					
+						<#-- Localisation -->
+						<div class="prop-desc-localisation">
+							<img src="images/local/skin/marker-${theme_class}.png" alt="Localisation" title="Localisation" />
+							<div class="prop-desc-localisation-addr">
+								<#if idee.adress?? && idee.adress != '' >${idee.adress?html}<br></#if>
+								<#if idee.localisationType == "paris">Projet « Tout Paris »<#elseif idee.localisationType == "ardt">Projet du ${(arrondissements_map[idee.localisationArdt])!idee.localisationArdt}</#if>
+							</div>
+						</div>
+
+						<#-- Titre -->
+						<div class="prop-desc-titre">
+							<h1><p class="color-theme-${theme_class}">${idee.titre}</p></h1>
+						</div>
+
+						<#-- Description -->
+						<h2 class="visuallyhidden">Description de la proposition</h2>
+						<div class="prop-desc-txt">${idee.description?html}</div>
+			            <p class="prop-desc-cout">
+							<#if idee.cout?? && (idee.cout != -1)>
+								<span class="color-theme-${theme_class}">${nickname!''}</span> a &eacute;valu&eacute; son projet &agrave; ${idee.cout?string.number!''} &euro;
+							<#else>
+								Le co&ucirc;t n'a pas &eacute;t&eacute; &eacute;valu&eacute;.
+							</#if>
+						</p>
+
+						<#-- Pièces jointes -->
+						<#if ((idee.imgs?size != 0) || (idee.docs?size != 0))>
+							<div class="prop-desc-pj">
+								<div class="row">
+								
+									<#-- Images (FIXME resize on server ???) -->
+									<#if idee.imgs?size != 0>
+										<#list idee.imgs as img>
+											<#if img??>
+												<a href="image?id=${img.idFile}&resource_type=ideation_file_img" target="_blank">
+													<div class="col-xs-4 col-sm-3">
+														<div class="prop-desc-pj-img" style="background-image:url('image?id=${img.idFile}&resource_type=ideation_file_img');"></div>
+													</div>
+												</a>
+											</#if>
+										</#list>
+									</#if>
+
+									<#-- Documents -->
+									<#if idee.docs?size != 0>
+										<#list idee.docs as doc>
+											<#if doc??>
+												<a href="servlet/plugins/ideation/download?id=${doc.idFile}">
+													<div class="col-xs-4 col-sm-3">
+														<div class="prop-desc-pj-doc">
+															${doc.title}
+															<img src="images/local/skin/download.png" class="img-responsive" alt="" title=""/>
+														</div>
+													</div>
+												</a>
+											</#if>
+										</#list>
+									</#if>
+								</div>
+							</div>
+						</#if>
+
+						<#-- Commentaires et lien vert d'association au projet -->
+						<div id="comments">
+							<#-- Liste des commentaires -->
+							<#if isExtendInstalled?? && isExtendInstalled>
+								@Extender[${idee.id},IDEE,comment]@
+							</#if>
+						</div>
+						
+					</div>
+
+					<#-- *********************************************************************************** -->
+					<#-- * DATA DATA DATA DATA DATA DATA DATA DATA DATA DATA DATA DATA DATA DATA DATA DATA * -->
+					<#-- * DATA DATA DATA DATA DATA DATA DATA DATA DATA DATA DATA DATA DATA DATA DATA DATA * -->
+					<#-- *********************************************************************************** -->
+					<div id="prop-data" class="col-xs-12 col-sm-4 bg-color0">
+
+						<#-- Séparation en mode XS -->
+						<div class="prop-data-sep visible-xs"></div>
+						
+						<div id="prop-data-header">
+						
+							<#-- Pastilles QPOP et RATP -->
+							<div id="prop-data-pastilles">
+								<#if idee.typeQpvQva == "NQPV" || idee.typeQpvQva == "QVA" || idee.typeQpvQva == "GPRU" || idee.typeQpvQva == "QBP" >
+									<img class="img-qp" src="images/local/skin/quartier-populaire.png" alt="Projet en quartier populaire" />
+								</#if>
+								<#if idee.idFoTags?? >
+									<#list idee.idFoTags as idFoTag>
+										<#if idFoTag == 4>
+											<img class="img-responsive img-ratp" src="images/local/skin/ratp_color.png" alt="Projet RATP" />
+										</#if>
+									</#list>
+								</#if>
+							</div>
+							
+							<#-- Boutons d'action -->
+							<div id="prop-data-actions">
+								<#if isExtendInstalled?? && isExtendInstalled>
+									<#if !(is_own_idee?? && is_own_idee)>
+										@Extender[${idee.id},IDEE,rating,{show:"all"}]@
+									<#else>
+										@Extender[${idee.id},IDEE,rating,{show:"vote"}]@
+									</#if>
+									@Extender[${idee.id},IDEE,follow,{show:"count"}]@
+								</#if>
+							</div>
+
+						</div>
+						
+						<#-- Quelques données sur la proposition -->
+						<h2>Le projet</h2>
+
+						<div class="prop-data-kv">
+							<div class="prop-data-key">
+								<img title="Campagne" alt="Campagne" src="images/local/skin/logo_paris_bp_ultramini-${theme_class}.png">
+							</div>
+							<div class="prop-data-value">
+								${campagne_year!"&#160;"}
+							</div>
+						</div>
+						
+						<div class="prop-data-kv">
+							<div class="prop-data-key">
+								<img src="images/local/skin/${status_icon}" alt="Statut" title="Statut"/>
+							</div>
+							<div class="prop-data-value">
+								${status_text!""}
+							</div>
+						</div>
+
+						<div class="prop-data-kv last">
+							<div class="prop-data-key">
+								<img src="images/local/skin/money-${theme_class}.png" alt="Coût estimé" title="Coût estimé" />
+							</div>
+							<div class="prop-data-value">
+								<#if idee.cout?? && (idee.cout != -1)>
+									&Eacute;valu&eacute; &agrave; ${idee.cout?string.number!''} &euro;
+								<#else>
+									Le co&ucirc;t n'a pas &eacute;t&eacute; &eacute;valu&eacute;
+								</#if>
+							</div>
+						</div>
+
+						<#if idee.handicap?? && idee.handicap == "yes">
+							<div id="prop-data-handicap">
+								Les questions du handicap et de l'accessibilit&eacute; sont prises en compte dans le cadre de cette proposition.  
+							</div>
+						</#if>
+	
+						<#-- Cartographie du projet -->
+						<#if idee.latitude?? && idee.longitude??>
+							<#if idee.latitude != 0 && idee.longitude != 0>
+								<div id="carto" class="prop-data-carto">&nbsp;</div>
+							</#if>
+						</#if>
+
+						<#-- Bouton d'action FOLLOW -->
+						<#if !(is_own_idee?? && is_own_idee)>
+							<div id="action-follow">
+								<#if isExtendInstalled?? && isExtendInstalled>
+									@Extender[${idee.id},IDEE,follow,{show:"statusButton"}]@
+								</#if>
+							</div>
+						</#if>
+
+						<#-- Bouton d'action ATELIER -->
+						<#if ( atelier?? ) >
+							<div id="action-workshop" class="separator-horiz-4px">
+								<div class="btn-workshop">
+									 <a class="btn btn btn-14rem btn-black-on-white" href="jsp/site/Portal.jsp?page=atelier&atelier=${atelier.id}">
+										 #i18n{ideation.ideesSubscriber.button.label.gotoWorkshop}
+									 </a>
+								</div>
+							</div>
+						</#if>
+
+						<#-- L'auteur de la proposition -->
+						<div id="prop-data-author" class="separator-horiz-4px">
+							<h2>L'auteur</h2>
+							<p class="prop-data-author-type">
+								<img src="images/local/skin/author-type-${theme_class}.png" alt="" title="" />
+								${idee_depositaire_type_libelle!''}
+							</p>
+							<#if idee_depositaire_libelle??>
+								<img src="images/local/skin/trophy-empty.png" alt="" title="" />
+								(${idee_depositaire_libelle})
+							</#if>
+						</div>
+						
+						<#-- Son avatar -->
+						<div id="prop-data-avatar">
+							<a href="${avatar_url!''}" target="_blank" title="Voir l'avatar de ${nickname!''} (nouvel onglet)"><div class="prop-data-avatar-img pull-left" style="background-image:url(${avatar_url!''});"></div></a>
+							D&eacute;pos&eacute; le ${idee.creationTimestamp?date?string.long}<br/>par
+							<a href="jsp/site/Portal.jsp?page=search-solr&conf=list_idees&query=(pseudo_string:&quot;${(nickname!'')?url('UTF-8')}&quot;)" class="color-theme-${theme_class}" target="_blank" title="Voir les propositions déposées par ${nickname!''} (nouvel onglet)">
+								${nickname!''}
+							</a>
+						</div>
+						
+						<#-- Le bouton pour le contacter -->
+						<#if is_own_idee?? && is_own_idee == false>
+							<div id="prop-data-contact">
+								<p>
+									<#if idee.acceptContact == true >
+										<a class="btn btn-14rem btn-black-on-white" href="jsp/site/Portal.jsp?page=idee&view=viewIdee&idee=${idee.codeIdee!}&campagne=${idee.codeCampagne!}&showContact=true" title="Contacter le dépositaire">Contacter</a>
+									<#else>
+										<span class="btn btn-14rem btn-black-on-white btn-unactive" title="${message_not_accept!}">Contacter</span>
+									</#if>
+								</p>
+							</div>
+						</#if>
+
+						<#-- Quelques données sur la proposition, ainsi que les regroupements -->
+						<#if idee.childIdees?has_content || idee.parentIdees?has_content>
+							<div id="prop-data-regroup" class="separator-horiz-4px">
+								<h2>Co-construction</h2>
+								<#if idee.childIdees?has_content>
+									<#if idee.childIdees?size &gt; 0 >
+										<p><span>Projet issu<br/>du ou des projets suivants :</span></p>
+										<#list idee.childIdees as childIdee>
+											<p><a href="jsp/site/Portal.jsp?page=idee&amp;campagne=${idee.codeCampagne}&amp;idee=${childIdee.codeIdee}">${childIdee.titre?lower_case?cap_first}</a></p>
+										</#list>
+									</#if>
+								</#if>
+								<#if idee.parentIdees?has_content>
+									<p><span>Projet regroupé<br/>au sein du projet suivant :</span></p>
+									<#list idee.parentIdees as parentIdee>
+										<p><a href="jsp/site/Portal.jsp?page=idee&amp;campagne=${idee.codeCampagne}&amp;idee=${parentIdee.codeIdee}">${parentIdee.titre?lower_case?cap_first}</a></p>
+									</#list>
+								</#if>
+							</div>
+						</#if>
+
+					</div>
+		
+				</div>
+
+			</#if>
+				
+		</div>
+	</div>
+</section>
+
+<#-- *********************************************************************************** -->
+<#-- * FOLLOW FOLLOW FOLLOW FOLLOW FOLLOW FOLLOW FOLLOW FOLLOW FOLLOW FOLLOW FOLLOW FO * -->
+<#-- * FOLLOW FOLLOW FOLLOW FOLLOW FOLLOW FOLLOW FOLLOW FOLLOW FOLLOW FOLLOW FOLLOW FO * -->
+<#-- *********************************************************************************** -->
+
+<#-- Modal d'association à une proposition -->
+
+<#if !(is_own_idee?? && is_own_idee)>
+	<div class="modal fade" id="modalConfirmFollow" tabindex="-1" role="dialog" aria-labelledby="modalConfirmFollowLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+					<h3 class="modal-title" id="modalConfirmFollowLabel"><strong>S'associer au projet déposé par ${nickname!''}</strong></h3>
+				</div>
+
+				<#if isExtendInstalled?? && isExtendInstalled>
+					@Extender[${idee.id},IDEE,follow,{show:"all"}]@
+				</#if>
+			</div>
+		</div>
+	</div>
+</#if>
+
+<#-- *********************************************************************************** -->
+<#-- * CONTACT CONTACT CONTACT CONTACT CONTACT CONTACT CONTACT CONTACT CONTACT CONTACT * -->
+<#-- * CONTACT CONTACT CONTACT CONTACT CONTACT CONTACT CONTACT CONTACT CONTACT CONTACT * -->
+<#-- *********************************************************************************** -->
+
+<#-- Modal de contact entre usagers -->
+
+<div class="modal fade" id="modalContactDepositaire" tabindex="-1" role="dialog" aria-labelledby="modalContactDepositaireLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<#if idee??>
+				<form id="idForm" action="jsp/site/Portal.jsp?page=idee" method="post">
+				<input type="hidden" name="campagne" id="campagne" value="${idee.codeCampagne!}">
+				<input type="hidden" name="idee" id="idee" value="${idee.codeIdee!}">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h3 class="modal-title" id="modalContactDepositaireLabel"><strong>Contacter ${nickname!''}</strong></h3>
+				</div>
+				<div class="modal-body">
+					<div>Votre message sera envoyé par courriel. Votre adresse électronique sera donc transmise à ${nickname!''}.</div><br>
+					<div class="form-group">
+						<label for="last_name_usager">Votre pseudo</label>
+						<input type="text" name="last_name_usager" id="last_name_usager" class="form-control" maxlength="50" value="${nicknameUser!}" readonly >
+					</div>
+					<div class="form-group">
+						<label for="email_usager">Votre adresse email</label>
+						<input type="text" name="email_usager" id="email_usager" class="form-control" maxlength="80" value="${emailUser!}" readonly >
+					</div>
+					<div class="form-group">
+						<label for="question_usager">Votre message</label>
+						<textarea name="question_usager" id="question_usager" rows="5" cols="80" class="form-control"></textarea>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-14rem btn-black-on-white" name="action_contacterDepositaire">Envoyer</button>
+					<button type="button" class="btn btn-14rem btn-black-on-white" data-dismiss="modal">Annuler</button>
+				</div>
+				</form>
+			</#if>
+		</div>
+	</div>
+</div>
+
+<#-- Modal de contact entre usagers désactivé -->
+
+<div class="modal fade" id="modalContactDepositaireDesactive" tabindex="-1" role="dialog" aria-labelledby="modalContactDepositaireLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-body">
+				<div style="font-size:18px">${message_not_accept!}</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<#-- *********************************************************************************** -->
+<#-- * JS JS JS JS JS JS JS JS JS JS JS JS JS JS JS JS JS JS JS JS JS JS JS JS JS JS J * -->
+<#-- * JS JS JS JS JS JS JS JS JS JS JS JS JS JS JS JS JS JS JS JS JS JS JS JS JS JS J * -->
+<#-- *********************************************************************************** -->
+
+<#-- Affichage ou non de la ligne de bouton pour association à une proposition -->
+
+<#if (is_own_idee?? && is_own_idee)>
+	<script type="text/javascript">
+		$( function(){
+			$("#istayup").toggle();
+		});
+	</script>
+<#else>
+	<script type="text/javascript">
+		$( function(){
+			if( $("#nomore").size() > 0 ){
+				var newButton='<a href=' + $("#nomore").attr("href") + '><i class="fa fa-times-circle"></i> ' + $("#nomore").text() + '</a>';
+				$("#istayup").after( newButton );
+				$("#istayup").remove();
+			}
+		});
+	</script>
+</#if>
+
+<#-- Affichage de la popin de contact entre usagers -->
+
+<script type="text/javascript">
+	<#if show_contact?? && show_contact=="true">
+		$(window).load(function(){
+			$('#modalContactDepositaire').modal('show');
+		});
+	</#if>
+</script>
+
+<script src="js/jquery/jquery.validate.min.js"></script>
+
+<script>
+	$(function() {
+	  $("#idForm").validate({
+		rules: {
+			question_usager: {
+			required: true,
+			minlength: 0
+		  }
+		},
+		messages: {
+			question_usager: {
+			required: "Ce champ est obligatoire",
+			minlength: ""
+		  }
+		}
+	  });
+	});
+</script>
+
+<#-- Gestion de la cartographie Leaflet -->
+<#if idee?? && idee.latitude?? && idee.longitude??>
+	<script type='text/javascript'>
+		var loadresource = document.createElement('link');
+		loadresource.setAttribute("rel", "stylesheet");
+		loadresource.setAttribute("type", "text/css");
+		loadresource.setAttribute("href", "js/plugins/leaflet/leaflet/leaflet.css");
+		document.getElementsByTagName("head")[0].appendChild(loadresource);
+	</script>
+
+	<script type="text/javascript" src="js/plugins/leaflet/leaflet/leaflet.js"></script>
+	<script type="text/javascript" src="js/plugins/leaflet/esri/esri-leaflet.js"></script>
+	<script type="text/javascript" src="js/plugins/leaflet/leaflet/leaflet.markercluster.js"></script>
+	<script type="text/javascript" src="js/plugins/leaflet/esri/esri-leaflet-clustered-feature-layer.js"></script>
+
+	<script type='text/javascript'>
+		// Cartographie Leaflet
+		$( function(){
+			var x = ${idee.latitude?replace(",",".")};
+			var y = ${idee.longitude?replace(",",".")};
+		
+			var map = L.map('carto').setView([ x , y ], 12);
+
+			var esri_streets = L.esri.basemapLayer('Streets').addTo(map);
+			
+			L.marker([x, y]).addTo(map);
+			
+			var layergroup_qpvqva = L.layerGroup();
+
+			var arrondissements_layer_qpv = L.esri.featureLayer({
+				"url": 'https://services1.arcgis.com/yFAX7hJID4ONeUHP/arcgis/rest/services/QPV_QVA_GPRU/FeatureServer/0',
+				"style": { "color": "#ffffff", "weight": 0, "opacity": 1, "fillOpacity": 0.3, "fillColor": "#33ff33", },
+				"where": "C_DEP='75' AND C_NAT_QPV='NQPV'"
+			});
+
+			var arrondissements_layer_qva = L.esri.featureLayer( {
+				"url": 'https://services1.arcgis.com/yFAX7hJID4ONeUHP/arcgis/rest/services/QPV_QVA_GPRU/FeatureServer/0',
+				"style": { "color": "#ffffff", "weight": 0, "opacity": 1, "fillOpacity": 0.3, "fillColor": "#33ff33", },
+				"where": "C_DEP='75' AND C_NAT_QPV='QVA'"
+			});
+
+			var arrondissements_layer_gpru = L.esri.featureLayer( {
+				"url": 'https://services1.arcgis.com/yFAX7hJID4ONeUHP/arcgis/rest/services/QPV_QVA_GPRU/FeatureServer/0',
+				"style": { "color": "#ffffff", "weight": 0, "opacity": 1, "fillOpacity": 0.3, "fillColor": "#33ff33", },
+				"where": "GPRU_NOM!=''"
+			});
+		
+			var arrondissements_layer_qbp = L.esri.featureLayer( {
+				"url": 'https://services1.arcgis.com/yFAX7hJID4ONeUHP/arcgis/rest/services/QPV_QVA_GPRU/FeatureServer/0',
+				"style": { "color": "#ffffff", "weight": 0, "opacity": 1, "fillOpacity": 0.3, "fillColor": "#33ff33", },
+				"where": "EXT_BP!=''"
+			});
+
+			layergroup_qpvqva.addLayer(arrondissements_layer_qpv);
+			layergroup_qpvqva.addLayer(arrondissements_layer_qva);
+			layergroup_qpvqva.addLayer(arrondissements_layer_gpru);
+			layergroup_qpvqva.addLayer(arrondissements_layer_qbp);
+			
+			map.addLayer(layergroup_qpvqva);
+
+		});
+	</script>
+</#if>
+	
+<#-- *********************************************************************************** -->
+<#-- * ANCIEN_CODE   ANCIEN_CODE   ANCIEN_CODE   ANCIEN_CODE   ANCIEN_CODE   ANCIEN_CO * -->
+<#-- * ANCIEN_CODE   ANCIEN_CODE   ANCIEN_CODE   ANCIEN_CODE   ANCIEN_CODE   ANCIEN_CO * -->
+<#-- *********************************************************************************** -->
+
+<#-- 
+	@Extender[${idee.id},IDEE,opengraph,{show:"all"}]@
+-->
+
