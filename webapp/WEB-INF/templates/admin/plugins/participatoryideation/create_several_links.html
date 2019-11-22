@@ -1,0 +1,49 @@
+<#include "manageideelinks_tabs.html" />
+<@tabs tab="link" />
+
+<@rowBoxHeader i18nTitleKey="ideation.create_several_links.pageTitle">
+
+    <form class="form-horizontal" method="post" name="create_several_links" action="jsp/admin/plugins/participatoryideation/ManageIdeeLinks.jsp">
+
+        <@messages errors=errors />
+        
+        <input type="hidden" id="id" name="id"/>
+
+        <div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-3" for="parentCodeCampagne">#i18n{ideation.create_several_links.labelParentCodeCampagne} * : </label>
+			<div class="col-xs-12 col-sm-9 col-md-9">
+ 				<select id="parentCodeCampagne" name="parentCodeCampagne" class="form-control">
+					<option value=""></option>					         
+					<#list global_static?keys as key>
+						<#assign campagne = global_static[key].campagne>
+						<option value="${campagne.code}" <#if severalLinksParentCodeCampain?? && campagne.code == severalLinksParentCodeCampain> selected="selected"</#if>>${campagne.title}</option>
+					</#list>
+           		</select>
+				<p class="help-block">#i18n{ideation.create_several_links.labelParentCodeCampagne.help}</p>
+			</div>               
+        </div>
+
+		<@fieldInputText i18nLabelKey="ideation.create_several_links.labelParentCodeIdee" inputName="parentCodeIdee" value="${severalLinksParentCodeIdee!}" i18nHelpBlockKey='ideation.create_several_links.labelParentCodeIdee.help' />
+
+        <div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-3" for="childCodeCampagne">#i18n{ideation.create_several_links.labelChildCodeCampagne} * : </label>
+			<div class="col-xs-12 col-sm-9 col-md-9">
+ 				<select id="childCodeCampagne" name="childCodeCampagne" class="form-control">
+					<option value=""></option>					         
+					<#list global_static?keys as key>
+						<#assign campagne = global_static[key].campagne>
+              			<option value="${campagne.code}" <#if severalLinksChildCodeCampain?? && campagne.code == severalLinksChildCodeCampain> selected="selected"</#if>>${campagne.title}</option>
+					</#list>
+           		</select>
+				<p class="help-block">#i18n{ideation.create_several_links.labelChildCodeCampagne.help}</p>
+			</div>               
+        </div>
+
+		<@fieldInputText i18nLabelKey="ideation.create_several_links.labelChildCodeIdee" inputName="childCodesIdees" value="${severalLinksChildCodesIdees!}" i18nHelpBlockKey='ideation.create_several_links.labelChildCodeIdee.help' />
+
+        <@actionButtons button1Name="action_createSeveralLinks" button2Name="view_manageLinks"/>
+
+    </form>
+
+</@rowBoxHeader>
+

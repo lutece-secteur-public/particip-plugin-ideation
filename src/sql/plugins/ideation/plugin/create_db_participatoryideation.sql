@@ -23,7 +23,6 @@ CREATE TABLE IF NOT EXISTS `ideation_idees` (
   `id_nqpv_qva` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   `libelle_nqpv_qva` mediumtext COLLATE utf8_unicode_ci,
   `creation_timestamp` datetime NOT NULL,
-  `backoffice_id_bo_tag` int(6) DEFAULT NULL,
   `eudonet_exported_tag` int(6) DEFAULT '0',
   `status_public` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `status_eudonet` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -40,8 +39,6 @@ CREATE TABLE IF NOT EXISTS `ideation_idees` (
   `handicap_complement` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id_idee`),
   UNIQUE KEY `code_campagne` (`code_campagne`,`code_idee`),
-  KEY `fk_ideation_idees_bo_tag` (`backoffice_id_bo_tag`),
-  CONSTRAINT `fk_ideation_idees_bo_tag` FOREIGN KEY (`backoffice_id_bo_tag`) REFERENCES `ideation_bo_tags` (`id_bo_tag`),
   CONSTRAINT `fk_ideation_idees_campagne` FOREIGN KEY (`code_campagne`) REFERENCES `ideation_campagnes` (`code_campagne`)
 );
 

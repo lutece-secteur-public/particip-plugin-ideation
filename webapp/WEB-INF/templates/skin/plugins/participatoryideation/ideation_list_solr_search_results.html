@@ -1,0 +1,239 @@
+<div id="prop-list-container">
+
+	<h2 class="visuallyhidden">Barre de recherche</h2>
+	<#include "ideation_search_solr_search_results.html">
+
+	<div class="container">
+
+		<h2 class="visuallyhidden">Liste des résultats de la recherche</h2>
+		<div id="prop-list" class="row">
+
+			<#assign theme_class   = "autre">
+			<#assign campagne_year = "&#160;">
+			
+			<#-- On boucle sur les projets à afficher -->
+			<#list results_list as result>
+			
+				<#assign id_document = "${(result.id?split('Lutece_')?last)?split('_')?first}">
+				<#assign result_detail_idx = ((paginator.pageCurrent-1)*paginator.itemsPerPage)+1+result_index>
+				
+				<#if result.dynamicFields.status_string?? && (result.dynamicFields.status_string = "NONRETENU")>
+					<#assign status_class = "prop-perdant">
+				<#else>
+					<#assign status_class = "">
+				</#if>
+				
+				<#if result.dynamicFields?? && result.dynamicFields.code_theme_string??>
+				
+					<#if     result.dynamicFields.code_theme_string = "CADRE">																	<#assign theme_class = "cadre_vie">
+					<#elseif result.dynamicFields.code_theme_string = "CULTURE">																<#assign theme_class = "culture">
+					<#elseif result.dynamicFields.code_theme_string = "ECO">																	<#assign theme_class = "economie_emploi">
+					<#elseif result.dynamicFields.code_theme_string = "EDU">																	<#assign theme_class = "education">
+					<#elseif result.dynamicFields.code_theme_string = "ENVIRONNEMENT" || result.dynamicFields.code_theme_string = "NAT">		<#assign theme_class = "environnement">
+					<#elseif result.dynamicFields.code_theme_string = "LOGEMENT">																<#assign theme_class = "logement">
+					<#elseif result.dynamicFields.code_theme_string = "PARTICIPATION">															<#assign theme_class = "participation_citoyenne">
+					<#elseif result.dynamicFields.code_theme_string = "SECURITE">																<#assign theme_class = "prevention_securite">
+					<#elseif result.dynamicFields.code_theme_string = "PROPRETE">																<#assign theme_class = "proprete">
+					<#elseif result.dynamicFields.code_theme_string = "SOLIDARITE" || result.dynamicFields.code_theme_string = "VIVREENSEMBLE">	<#assign theme_class = "solidarite">
+					<#elseif result.dynamicFields.code_theme_string = "SPORT">																	<#assign theme_class = "sport">
+					<#elseif result.dynamicFields.code_theme_string = "TRANSPORT">																<#assign theme_class = "transport">
+					<#elseif result.dynamicFields.code_theme_string = "NUMERIQUE">																<#assign theme_class = "ville_numerique">
+					<#elseif result.dynamicFields.code_theme_string = "SANTE">																	<#assign theme_class = "sante">
+					</#if>
+				</#if>
+				
+				<#if result.dynamicFields?? && result.dynamicFields.campagne_text??>
+					<#assign campagne_year = "Budget Participatif " + (2014 + "ABCDEFGHIJKLMNOPQRSTUVWXYZ"?index_of(result.dynamicFields.campagne_text))>
+				</#if>
+				
+				<#if (result.dynamicFields.code_theme_string)??>
+					<#assign theme_libelle = (campagne_static.themes_map[result.dynamicFields.code_theme_string].title)!result.dynamicFields.code_theme_string >
+				</#if>
+
+			
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					
+					<div class="prop-panel bordered-4px-theme-${theme_class} ${status_class}">
+
+						<div class="prop-card">
+							
+							<a id="title-${id_document}" href="${result.url}" alt="${result.title}" title="">
+
+								<#-- Thématique -->
+								<div class="prop-card-theme bgcolor-theme-${theme_class}">
+									<img src="images/local/skin/i2_${theme_class}.png">
+									<span>${theme_libelle}</span>
+								</div>
+	
+								<#-- Localisation -->
+								<div class="prop-card-loc">
+									<#if result.dynamicFields.status_string?? && (result.dynamicFields.status_string = "NONRETENU")>
+										<img src="images/local/skin/marker.png" class="img-responsive pull-left" alt="" title="">
+									<#else>
+										<img src="images/local/skin/marker-${theme_class}.png" class="img-responsive pull-left" alt="" title="">
+									</#if>
+									<#if result.dynamicFields?? ><p>&#160;${result.dynamicFields.localisation_text!''}</p></#if>
+								</div>
+								
+								<#-- Titre -->
+								<div class="prop-card-titre">
+									<h3>
+										<span>${result.title!''}</span>
+									</h3>
+								</div>
+	
+								<#-- Campagne -->
+								<div class="prop-card-campagne">
+									<p class="pull-right">
+										${campagne_year}
+									</p>
+								</div>
+	
+								<#-- Ligne séparatrice colorée -->
+								<div class="prop-card-line bgcolor-theme-${theme_class}"></div>
+	
+								<#-- Entrevue du descriptif / Dépend de l'affichage ou non des pastilles -->
+								<div class="prop-card-txt ">
+									<p>${result.summary!''}</p>
+									
+									<#-- Partie supprimée à la demande de la MBP -->
+									<#--
+									<#if result.dynamicFields.status_string?? && (result.dynamicFields.status_string = "NONRETENU")>
+										<div class="pastille-non-retenue">
+											<div><span>non recevable</span><br></div>
+										</div>
+									</#if>
+									-->
+									
+								</div>
+	
+								<div class="prop-card-link">
+									<span class="btn btn-14rem btn-black-on-white">
+										découvrir le projet
+									</span>
+								</div>
+								
+							</a>
+
+							<#-- Pastilles et dépositaire -->
+							<div class="prop-card-footer">
+								<#if result.dynamicFields.type_qpvqva_string == "NQPV" || result.dynamicFields.type_qpvqva_string == "QVA" || result.dynamicFields.type_qpvqva_string == "GPRU" || result.dynamicFields.type_qpvqva_string == "QBP" >
+									<div class="pastilles">
+										<#if result.dynamicFields.type_qpvqva_string == "NQPV" || result.dynamicFields.type_qpvqva_string == "QVA" || result.dynamicFields.type_qpvqva_string == "GPRU" || result.dynamicFields.type_qpvqva_string == "QBP"  >
+											<img src="images/local/skin/quartier-populaire.png" class="img-qp" alt="Projet en quartier populaire" title="Projet en quartier populaire">
+										</#if>
+									</div>
+								</#if>
+								
+								<div class="deposit">
+									<#if result.dynamicFields?? && result.dynamicFields.pseudo_string?? >
+										<span>Déposée par</span><br>
+										<span>
+											<a href="jsp/site/Portal.jsp?page=search-solr&conf=list_idees&query=(pseudo_string:&quot;${result.dynamicFields.pseudo_string?html!''}&quot;)" title="Voir les propositions déposées par ${result.dynamicFields.pseudo_string?html!''} (nouvel onglet)">
+												${result.dynamicFields.pseudo_string?html} 
+												<#if result.dynamicFields?? && result.dynamicFields.code_depositaire_type_string??>
+													<#if     result.dynamicFields.code_depositaire_type_string = 'CONSEIL'> (Conseil de quartier)
+													<#elseif result.dynamicFields.code_depositaire_type_string = 'ASSO'   > (Association)
+													</#if>
+												</#if>
+											</a>
+										</span>
+									</#if>
+								</div>
+
+							</div>
+						</div>
+					
+					</div>
+
+				</div>
+						
+			</#list>
+		
+		</div>
+		
+		<div id="paginator" class="solr-paginator bg-color6">
+			<@paginationSolr paginator=paginator />
+		</div>
+	</div>
+
+</div>
+	
+	
+	
+  
+<#-- Freemarker macros -->
+
+<#function min a b>
+	<#if a gt b>
+		<#return b />
+	<#else>
+		<#return a />
+	</#if>
+</#function>
+
+<#function max a b>
+	<#if a gt b>
+		<#return a />
+	<#else>
+		<#return b />
+	</#if>
+</#function>
+
+<#-- Number of items per page selector - Combo Box implementation -->
+<#macro NbItemsPerPageSelectorCombo nb_items_per_page>
+    <select name="items_per_page">
+        <#list [ "10" , "20" , "50" , "100" ] as nb>
+            <#if nb_items_per_page = nb >
+                <option selected="selected" value="${nb}">${nb}</option>
+            <#else>
+                <option value="${nb}">${nb}</option>
+            </#if>
+        </#list>
+    </select>
+</#macro>
+
+<#-- Number of items per page selector - Radio List implementation -->
+<#macro NbItemsPerPageSelectorRadioList nb_items_per_page>
+    <#list [ 5 , 10 , 20 , 50 ] as nb>
+		<#if nb = nb_items_per_page >
+			<input value="${nb}" id="items_per_page${nb}" name="items_per_page" class="radio" type="radio" checked /><label for="items_per_page${nb}">${nb}</label>
+		<#else>
+			<input value="${nb}" id="items_per_page${nb}" name="items_per_page" class="radio" type="radio" /><label for="items_per_page${nb}">${nb}</label>
+		</#if>
+    </#list>
+</#macro>
+
+<#macro paginationSolr paginator >
+
+	<#assign nbLinkPages = 5 />
+	<#assign offsetPrev = 2 />
+	<#assign offsetNext = 2 />
+  
+	<#if (paginator.pagesCount > 1) >
+	
+		<#if paginator.pageCurrent &gt; nbLinkPages-offsetPrev >
+			<a class="paginator-navi-page" href="${paginator.firstPageLink?xhtml}${monTri}" alt="Premi&egrave;re page" title="Premi&egrave;re page">
+				<span class="show-xs"></span><i class="fa fa-angle-double-left"></i>
+			</a>
+		</#if>
+		
+		<#list paginator.pagesLinks as link>
+			<#if ( link.index == paginator.pageCurrent )>
+				<span class="paginator-current-page">${link.name}</span> <!-- <span class="paginator-sep-page">|</span> -->
+			<#else>
+				<#if (( link.index >= paginator.pageCurrent - offsetPrev ) && ( link.index <= paginator.pageCurrent + offsetNext )) >
+					<a class="paginator-num-page" href="${link.url?xhtml}${monTri}" title="Aller à la page ${link.name}">${link.name}</a> <!-- <span class="paginator-sep-page">|</span> -->
+				</#if>
+			</#if>
+		</#list>
+		
+		<#if paginator.pageCurrent &lt; paginator.pagesCount - (nbLinkPages-offsetNext) + 1>
+			<a class="paginator-navi-page" href="${paginator.lastPageLink?xhtml}${monTri}" title="Derni&egrave;re page">
+				<span class="show-xs"></span><i class="fa fa-angle-double-right"></i>
+			</a>
+		</#if>
+		
+	</#if>
+	
+</#macro>

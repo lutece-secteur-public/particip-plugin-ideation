@@ -4,7 +4,7 @@
 --
 DELETE FROM core_admin_right WHERE id_right = 'IDEATION_MANAGEMENT';
 INSERT INTO core_admin_right (id_right,name,level_right,admin_url,description,is_updatable,plugin_name,id_feature_group,icon_url,documentation_url, id_order ) VALUES 
-('IDEATION_MANAGEMENT','ideation.adminFeature.ManageIdeation.name',1,'jsp/admin/plugins/ideation/ManageCampagneDepositaires.jsp','ideation.adminFeature.ManageIdeation.description',0,'ideation',NULL,NULL,NULL,4);
+('IDEATION_MANAGEMENT','ideation.adminFeature.ManageIdeation.name',1,'jsp/admin/plugins/participatoryideation/ManageCampagneDepositaires.jsp','ideation.adminFeature.ManageIdeation.description',0,'ideation',NULL,NULL,NULL,4);
 
 
 --
@@ -20,7 +20,7 @@ INSERT INTO core_user_right (id_right,id_user) VALUES ('IDEATION_MANAGEMENT',1);
 --
 DELETE FROM core_admin_right WHERE id_right = 'IDEATION_IDEES_MANAGEMENT';
 INSERT INTO core_admin_right (id_right,name,level_right,admin_url,description,is_updatable,plugin_name,id_feature_group,icon_url,documentation_url, id_order ) VALUES 
-('IDEATION_IDEES_MANAGEMENT','ideation.adminFeature.ManageIdeationIdees.name',1,'jsp/admin/plugins/ideation/ManageCampagneDepositaires.jsp','ideation.adminFeature.ManageIdeationIdees.description',0,'ideation',NULL,NULL,NULL,4);
+('IDEATION_IDEES_MANAGEMENT','ideation.adminFeature.ManageIdeationIdees.name',1,'jsp/admin/plugins/participatoryideation/ManageCampagneDepositaires.jsp','ideation.adminFeature.ManageIdeationIdees.description',0,'ideation',NULL,NULL,NULL,4);
 
 
 --
@@ -29,29 +29,15 @@ INSERT INTO core_admin_right (id_right,name,level_right,admin_url,description,is
 DELETE FROM core_user_right WHERE id_right = 'IDEATION_IDEES_MANAGEMENT';
 INSERT INTO core_user_right (id_right,id_user) VALUES ('IDEATION_IDEES_MANAGEMENT',1);
 
-
---
--- Data for table core_admin_right
---
-DELETE FROM core_admin_right WHERE id_right = 'IDEATION_TAGS_MANAGEMENT';
-INSERT INTO core_admin_right (id_right,name,level_right,admin_url,description,is_updatable,plugin_name,id_feature_group,icon_url,documentation_url, id_order ) VALUES 
-('IDEATION_TAGS_MANAGEMENT','ideation.adminFeature.ManageIdeeTags.name',1,'jsp/admin/plugins/ideation/ManageBoTags.jsp','ideation.adminFeature.ManageIdeeTags.description',0,'ideation',NULL,NULL,NULL,4);
-
 --
 -- Data for table core_admin_right
 --
 DELETE FROM core_admin_right WHERE id_right = 'IDEATION_LINKS_MANAGEMENT';
 INSERT INTO core_admin_right (id_right,name,level_right,admin_url,description,is_updatable,plugin_name,id_feature_group,icon_url,documentation_url, id_order ) VALUES 
-('IDEATION_LINKS_MANAGEMENT','ideation.adminFeature.ManageIdeeLinks.name',1,'jsp/admin/plugins/ideation/ManageIdeeLinks.jsp','ideation.adminFeature.ManageIdeeLinks.description',0,'ideation',NULL,NULL,NULL,4);
+('IDEATION_LINKS_MANAGEMENT','ideation.adminFeature.ManageIdeeLinks.name',1,'jsp/admin/plugins/participatoryideation/ManageIdeeLinks.jsp','ideation.adminFeature.ManageIdeeLinks.description',0,'ideation',NULL,NULL,NULL,4);
 
 
 --
--- Data for table core_user_right
---
-DELETE FROM core_user_right WHERE id_right = 'IDEATION_TAGS_MANAGEMENT';
-INSERT INTO core_user_right (id_right,id_user) VALUES ('IDEATION_TAGS_MANAGEMENT',1);
-
-
 -- Default labels --
 INSERT INTO `core_datastore` VALUES ('ideation.site_property.form.code_theme_label.htmlblock','<p>Choisissez le <strong>th&egrave;me *</strong> de votre projet</p>');
 INSERT INTO `core_datastore` VALUES ('ideation.site_property.form.image_exploit_label_text','J\'authorise la Mairie de Paris à exploiter cette image (...).');
