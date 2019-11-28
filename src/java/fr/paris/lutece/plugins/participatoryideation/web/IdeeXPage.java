@@ -92,9 +92,9 @@ public class IdeeXPage extends MVCApplication
     private static final String TEMPLATE_VIEW_IDEE="/skin/plugins/participatoryideation/view_idee.html";
     
     // Parameters
-    private static final String PARAM_BP_EMAIL = "budgetparticipatif.email" ;
-    //private static final String PARAM_BP_FIRST_NAME = "budgetparticipatif.firstname" ;
-    //private static final String PARAM_BP_LASTE_NAME = "budgetparticipatif.lastname" ;
+    private static final String PARAM_BP_EMAIL = "participatorybudget.email" ;
+    //private static final String PARAM_BP_FIRST_NAME = "participatorybudget.firstname" ;
+    //private static final String PARAM_BP_LASTE_NAME = "participatorybudget.lastname" ;
     private static final String PARAM_BP_NICKNAME = "portal.nickname" ;
     private static final String PARAMETER_CODE_IDEE="idee";
     private static final String PARAMETER_CODE_CAMPAGNE="campagne";

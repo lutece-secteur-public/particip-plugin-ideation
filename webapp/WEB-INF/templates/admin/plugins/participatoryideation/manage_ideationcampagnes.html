@@ -36,8 +36,10 @@
 				
 			            <#list ideationcampagne_list as ideationcampagne >
 			            
-							<#assign phaseYearBeginMS = (ideationcampagne.title?keep_after("Budget Participatif ") + "-01-01T00:00:00.000Z")?datetime.iso?long>
-										
+			            	<#-- TODO : REFACTOR TO DISPLAY ALL CAMPAIGN PERIOD !!! -->
+
+							<#assign phaseYearBeginMS = (ideationcampagne.title?keep_after("Participatory Budget ") + "-01-01T00:00:00.000Z")?datetime.iso?long>
+
 					        <tr>
 					            <input type="hidden" id="id" name="id" />
 					            <td>${ideationcampagne.id!'?'}</td>

@@ -82,7 +82,7 @@ public class TaskNotifyIdeation extends SimpleTask
 	public static final String CONFIG_SERVICE_BEAN_NAME = "participatoryideation.taskNotifyIdeationConfigService";
 	
     // PARAMETERS
-    private static final String PARAM_BP_EMAIL = "budgetparticipatif.email" ;
+    private static final String PARAM_BP_EMAIL = "participatorybudget.email" ;
     private static final String PARAM_COMMENT = "comment";
     private static final String PARAM_NAME = "name";
     private static final String PARAM_FROM_URL= "from_url";

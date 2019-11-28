@@ -1,6 +1,76 @@
---
--- Structure for table ideation_idees
---
+-- --------------------------------------------------------
+-- Hôte :                        127.0.0.1
+-- Version du serveur:           5.7.15-log - MySQL Community Server (GPL)
+-- SE du serveur:                Win64
+-- HeidiSQL Version:             9.3.0.4984
+-- --------------------------------------------------------
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET NAMES utf8mb4 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+
+-- Export de la structure de table pb. ideation_campagnes_depositaires
+DROP TABLE IF EXISTS `ideation_campagnes_depositaires`;
+CREATE TABLE IF NOT EXISTS `ideation_campagnes_depositaires` (
+  `id_campagne_depositaire` int(6) NOT NULL,
+  `code_campagne` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `code_depositaire_type` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id_campagne_depositaire`),
+  KEY `fk_ideation_campagnes_depositaires_campagne` (`code_campagne`),
+  KEY `fk_ideation_campagnes_depositaires_depositaire` (`code_depositaire_type`),
+  CONSTRAINT `fk_ideation_campagnes_depositaires_campagne` FOREIGN KEY (`code_campagne`) REFERENCES `participatorybudget_campaign` (`code_campagne`),
+  CONSTRAINT `fk_ideation_campagnes_depositaires_depositaire` FOREIGN KEY (`code_depositaire_type`) REFERENCES `ideation_depositaire_types` (`code_depositaire_type`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- L'exportation de données n'était pas sélectionnée.
+
+
+-- Export de la structure de table pb. ideation_depositaire_complement_types
+DROP TABLE IF EXISTS `ideation_depositaire_complement_types`;
+CREATE TABLE IF NOT EXISTS `ideation_depositaire_complement_types` (
+  `id_depositaire_complement_type` int(6) NOT NULL,
+  `code_depositaire_complement_type` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `libelle` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id_depositaire_complement_type`),
+  UNIQUE KEY `code_depositaire_complement_type` (`code_depositaire_complement_type`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- L'exportation de données n'était pas sélectionnée.
+
+
+-- Export de la structure de table pb. ideation_depositaire_types
+DROP TABLE IF EXISTS `ideation_depositaire_types`;
+CREATE TABLE IF NOT EXISTS `ideation_depositaire_types` (
+  `id_depositaire_type` int(6) NOT NULL,
+  `code_depositaire_type` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `libelle` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `code_complement_type` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id_depositaire_type`),
+  UNIQUE KEY `code_depositaire_type` (`code_depositaire_type`),
+  KEY `fk_ideation_depositaire_types_complement` (`code_complement_type`),
+  CONSTRAINT `fk_ideation_depositaire_types_complement` FOREIGN KEY (`code_complement_type`) REFERENCES `ideation_depositaire_complement_types` (`code_depositaire_complement_type`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- L'exportation de données n'était pas sélectionnée.
+
+
+-- Export de la structure de table pb. ideation_depositaire_types_values
+DROP TABLE IF EXISTS `ideation_depositaire_types_values`;
+CREATE TABLE IF NOT EXISTS `ideation_depositaire_types_values` (
+  `id_depositaire_type_value` int(6) NOT NULL,
+  `code_depositaire_type` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `code` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `libelle` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id_depositaire_type_value`),
+  UNIQUE KEY `code_depositaire_type` (`code_depositaire_type`,`code`),
+  CONSTRAINT `fk_ideation_depositaire_type_values_depositaire` FOREIGN KEY (`code_depositaire_type`) REFERENCES `ideation_depositaire_types` (`code_depositaire_type`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- L'exportation de données n'était pas sélectionnée.
+
+
+-- Export de la structure de table pb. ideation_idees
 DROP TABLE IF EXISTS `ideation_idees`;
 CREATE TABLE IF NOT EXISTS `ideation_idees` (
   `id_idee` int(6) NOT NULL,
@@ -38,13 +108,13 @@ CREATE TABLE IF NOT EXISTS `ideation_idees` (
   `handicap` varchar(3) COLLATE utf8_unicode_ci NOT NULL,
   `handicap_complement` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id_idee`),
-  UNIQUE KEY `code_campagne` (`code_campagne`,`code_idee`),
-  CONSTRAINT `fk_ideation_idees_campagne` FOREIGN KEY (`code_campagne`) REFERENCES `ideation_campagnes` (`code_campagne`)
-);
+  UNIQUE KEY `code_campagne` (`code_campagne`,`code_idee`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Structure for table ideation_idees_files
---
+-- L'exportation de données n'était pas sélectionnée.
+
+
+-- Export de la structure de table pb. ideation_idees_files
 DROP TABLE IF EXISTS `ideation_idees_files`;
 CREATE TABLE IF NOT EXISTS `ideation_idees_files` (
   `id_idee_file` int(6) NOT NULL,
@@ -56,11 +126,12 @@ CREATE TABLE IF NOT EXISTS `ideation_idees_files` (
   KEY `id_file` (`id_file`),
   CONSTRAINT `ideation_idees_files_file` FOREIGN KEY (`id_file`) REFERENCES `core_file` (`id_file`),
   CONSTRAINT `ideation_idees_files_idee` FOREIGN KEY (`id_idee`) REFERENCES `ideation_idees` (`id_idee`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Structure for table ideation_idees_links
---
+-- L'exportation de données n'était pas sélectionnée.
+
+
+-- Export de la structure de table pb. ideation_idees_links
 DROP TABLE IF EXISTS `ideation_idees_links`;
 CREATE TABLE IF NOT EXISTS `ideation_idees_links` (
   `id_idee_link` int(6) NOT NULL,
@@ -69,43 +140,38 @@ CREATE TABLE IF NOT EXISTS `ideation_idees_links` (
   PRIMARY KEY (`id_idee_link`),
   UNIQUE KEY `id_idee_child` (`id_idee_child`,`id_idee_parent`),
   KEY `id_idee_parent` (`id_idee_parent`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Structure for table ideation_phase_types
---
-DROP TABLE IF EXISTS `ideation_phase_types`;
-CREATE TABLE IF NOT EXISTS `ideation_phase_types` (
-  `id_phase_type` int(6) NOT NULL,
-  `code_phase_type` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `libelle` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`id_phase_type`),
-  UNIQUE KEY `code_phase_type` (`code_phase_type`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+-- L'exportation de données n'était pas sélectionnée.
 
---
--- Structure for table task_notify_ideation_cf
---
-DROP TABLE IF EXISTS task_notify_ideation_cf;
-CREATE TABLE task_notify_ideation_cf(
-  id_task INT NOT NULL,
-  sender_name VARCHAR(255) DEFAULT NULL, 
-  sender_email VARCHAR(255) DEFAULT NULL,
-  subject VARCHAR(255) DEFAULT NULL, 
-  message long VARCHAR DEFAULT NULL,
-  recipients_cc VARCHAR(255) DEFAULT '' NOT NULL,
-  recipients_bcc VARCHAR(255) DEFAULT '' NOT NULL,
-  isFollowers SMALLINT NOT NULL,
-  isDepositaire SMALLINT NOT NULL,
-  PRIMARY KEY  (id_task)
-  );
 
---
--- Structure for table task_change_idee_status_cf
---
-DROP TABLE IF EXISTS task_change_idee_status_cf;
-CREATE TABLE task_change_idee_status_cf(
-  id_task INT NOT NULL,
-  idee_status VARCHAR(255) DEFAULT NULL, 
-  PRIMARY KEY  (id_task)
-  );
+-- Export de la structure de table pb. task_change_idee_status_cf
+DROP TABLE IF EXISTS `task_change_idee_status_cf`;
+CREATE TABLE IF NOT EXISTS `task_change_idee_status_cf` (
+  `id_task` int(11) NOT NULL,
+  `idee_status` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id_task`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- L'exportation de données n'était pas sélectionnée.
+
+
+-- Export de la structure de table pb. task_notify_ideation_cf
+DROP TABLE IF EXISTS `task_notify_ideation_cf`;
+CREATE TABLE IF NOT EXISTS `task_notify_ideation_cf` (
+  `id_task` int(11) NOT NULL,
+  `sender_name` varchar(255) DEFAULT NULL,
+  `sender_email` varchar(255) DEFAULT NULL,
+  `subject` varchar(255) DEFAULT NULL,
+  `message` mediumtext,
+  `recipients_cc` varchar(255) NOT NULL DEFAULT '',
+  `recipients_bcc` varchar(255) NOT NULL DEFAULT '',
+  `isFollowers` smallint(6) NOT NULL,
+  `isDepositaire` smallint(6) NOT NULL,
+  PRIMARY KEY (`id_task`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- L'exportation de données n'était pas sélectionnée.
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
