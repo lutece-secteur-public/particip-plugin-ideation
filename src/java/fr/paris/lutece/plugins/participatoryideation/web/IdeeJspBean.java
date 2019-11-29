@@ -118,10 +118,10 @@ public class IdeeJspBean extends ManageIdeationIdeesJspBean
     private static final String PARAMETER_PLUGIN_NAME = "plugin_name";
 
     // Properties for page titles
-    private static final String PROPERTY_PAGE_TITLE_MANAGE_IDEES = "ideation.manage_idees.pageTitle";
-    private static final String PROPERTY_PAGE_TITLE_CREATE_IDEE = "ideation.create_idee.pageTitle";
-    private static final String PROPERTY_PAGE_TITLE_MODIFY_IDEE = "ideation.modify_idee.pageTitle";
-    private static final String PROPERTY_PAGE_TITLE_CONFIRM_REMOVE_IDEE = "ideation.confirm_remove_idee.pageTitle";
+    private static final String PROPERTY_PAGE_TITLE_MANAGE_IDEES = "participatoryideation.manage_idees.pageTitle";
+    private static final String PROPERTY_PAGE_TITLE_CREATE_IDEE = "participatoryideation.create_idee.pageTitle";
+    private static final String PROPERTY_PAGE_TITLE_MODIFY_IDEE = "participatoryideation.modify_idee.pageTitle";
+    private static final String PROPERTY_PAGE_TITLE_CONFIRM_REMOVE_IDEE = "participatoryideation.confirm_remove_idee.pageTitle";
 
     // Markers
     private static final String MARK_ARRONDISSEMENTS_LIST = "arrondissements_list";
@@ -149,18 +149,18 @@ public class IdeeJspBean extends ManageIdeationIdeesJspBean
     private static final String JSP_MANAGE_IDEES = "jsp/admin/plugins/participatoryideation/ManageIdees.jsp";
 
     // Properties
-    private static final String MESSAGE_ERROR_IDEE_REMOVED = "ideation.message.error.idee.removed";
+    private static final String MESSAGE_ERROR_IDEE_REMOVED = "participatoryideation.message.error.idee.removed";
     
-    private static final String MESSAGE_ERROR_ARRONDISSEMENT_EMPTY = "ideation.validation.idee.Arrondissement.notEmpty";
-    private static final String MESSAGE_ERROR_ADDRESS_FORMAT = "ideation.validation.idee.Address.Format";
-    private static final String MESSAGE_ERROR_ADDRESS_NOT_VALID = "ideation.validation.idee.Address.NotValid";
-    private static final String MESSAGE_ERROR_ADDRESS_ARDT_MISMATCH = "ideation.validation.idee.Address.ArdtMismatch";
-    private static final String MESSAGE_ERROR_ADDRESS_LOCALISATION_TYPE_EMPTY = "ideation.validation.idee.LocalisationType.NotEmpty";
+    private static final String MESSAGE_ERROR_ARRONDISSEMENT_EMPTY = "participatoryideation.validation.idee.Arrondissement.notEmpty";
+    private static final String MESSAGE_ERROR_ADDRESS_FORMAT = "participatoryideation.validation.idee.Address.Format";
+    private static final String MESSAGE_ERROR_ADDRESS_NOT_VALID = "participatoryideation.validation.idee.Address.NotValid";
+    private static final String MESSAGE_ERROR_ADDRESS_ARDT_MISMATCH = "participatoryideation.validation.idee.Address.ArdtMismatch";
+    private static final String MESSAGE_ERROR_ADDRESS_LOCALISATION_TYPE_EMPTY = "participatoryideation.validation.idee.LocalisationType.NotEmpty";
 
-    private static final String VALIDATION_ATTRIBUTES_PREFIX = "ideation.model.entity.idee.attribute.";
+    private static final String VALIDATION_ATTRIBUTES_PREFIX = "participatoryideation.model.entity.idee.attribute.";
 
-    private static final String PROPERTY_CSV_EXTENSION = "ideation.csv.extension";
-    private static final String PROPERTY_CSV_FILE_NAME = "ideation.csv.file.name";
+    private static final String PROPERTY_CSV_EXTENSION = "participatoryideation.csv.extension";
+    private static final String PROPERTY_CSV_FILE_NAME = "participatoryideation.csv.file.name";
     
     // Views
     private static final String VIEW_MANAGE_IDEES = "manageIdees";
@@ -176,11 +176,11 @@ public class IdeeJspBean extends ManageIdeationIdeesJspBean
     private static final String ACTION_CONFIRM_REMOVE_IDEE = "confirmRemoveIdee";
 
     // Infos
-    private static final String INFO_IDEE_CREATED = "ideation.info.idee.created";
-    private static final String INFO_IDEE_UPDATED = "ideation.info.idee.updated";
-    private static final String INFO_IDEE_REMOVED = "ideation.info.idee.removed";
+    private static final String INFO_IDEE_CREATED = "participatoryideation.info.idee.created";
+    private static final String INFO_IDEE_UPDATED = "participatoryideation.info.idee.updated";
+    private static final String INFO_IDEE_REMOVED = "participatoryideation.info.idee.removed";
 
-    private static SolrIdeeIndexer _solrIdeeIndexer  = SpringContextService.getBean( "ideation.solrIdeeIndexer" );
+    private static SolrIdeeIndexer _solrIdeeIndexer  = SpringContextService.getBean( "participatoryideation.solrIdeeIndexer" );
     
     private static final java.util.regex.Pattern _patternAdresseArrondissement = java.util.regex.Pattern.compile( ", 75[0-1]([0-2][0-9]) PARIS" );
     
@@ -653,7 +653,7 @@ public class IdeeJspBean extends ManageIdeationIdeesJspBean
         {
             UrlItem url = new UrlItem( JSP_MANAGE_IDEES );
             Map<String, Object> requestParameters = new HashMap<String, Object>(  );
-            requestParameters.put( PARAMETER_PLUGIN_NAME, "ideation" );
+            requestParameters.put( PARAMETER_PLUGIN_NAME, "participatoryideation" );
 
             String strMessageUrl = AdminMessageService.getMessageUrl( request, MESSAGE_ERROR_IDEE_REMOVED,
                     JSP_MANAGE_IDEES, AdminMessage.TYPE_ERROR, requestParameters );
@@ -685,7 +685,7 @@ public class IdeeJspBean extends ManageIdeationIdeesJspBean
         if ( _idee.getStatusIsRemoved(  ) )
         {
             Map<String, Object> requestParameters = new HashMap<String, Object>(  );
-            requestParameters.put( PARAMETER_PLUGIN_NAME, "ideation" );
+            requestParameters.put( PARAMETER_PLUGIN_NAME, "participatoryideation" );
 
             String strMessageUrl = AdminMessageService.getMessageUrl( request, MESSAGE_ERROR_IDEE_REMOVED,
                     JSP_MANAGE_IDEES, AdminMessage.TYPE_ERROR, requestParameters );

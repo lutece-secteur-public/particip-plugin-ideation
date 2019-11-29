@@ -79,7 +79,7 @@ import freemarker.ext.beans.BeansWrapper;
  * This class provides the user interface to view Idee xpages
  */
  
-@Controller( xpageName = "myProjects" , pageTitleI18nKey = "ideation.xpage.ideeSubscriber.pageTitle" , pagePathI18nKey = "ideation.xpage.ideeSubscriber.pagePathLabel" )
+@Controller( xpageName = "myProjects" , pageTitleI18nKey = "participatoryideation.xpage.ideeSubscriber.pageTitle" , pagePathI18nKey = "participatoryideation.xpage.ideeSubscriber.pagePathLabel" )
 public class IdeeSubscriberXPage extends MVCApplication
 {
     /**
@@ -106,10 +106,10 @@ public class IdeeSubscriberXPage extends MVCApplication
   
     // Properties
     
-    private static final String PROPERTY_CONFIRM_REMOVE_IDEE = "ideation.messages.confirmRemoveIdee";
-    private static final String MESSAGE_INFO_IDEE_REMOVED = "ideation.message.removed.succes";
-    private static final String MESSAGE_NOT_AUTHORIZED = "ideation.messages.not.authorized";
-    private static final String MESSAGE_CAMPAGNE_IDEATION_CLOSED_DELETE = "ideation.messages.campagne.ideation.closed.delete";
+    private static final String PROPERTY_CONFIRM_REMOVE_IDEE = "participatoryideation.messages.confirmRemoveIdee";
+    private static final String MESSAGE_INFO_IDEE_REMOVED = "participatoryideation.message.removed.succes";
+    private static final String MESSAGE_NOT_AUTHORIZED = "participatoryideation.messages.not.authorized";
+    private static final String MESSAGE_CAMPAGNE_IDEATION_CLOSED_DELETE = "participatoryideation.messages.campagne.ideation.closed.delete";
 
     // Views
   

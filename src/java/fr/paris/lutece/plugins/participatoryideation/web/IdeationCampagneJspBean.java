@@ -76,7 +76,7 @@ public class IdeationCampagneJspBean extends ManageIdeationJspBean
     private static final String TEMPLATE_MANAGE_IDEATIONCAMPAGNES = "/admin/plugins/participatoryideation/manage_ideationcampagnes.html";
 
     // Properties for page titles
-    private static final String PROPERTY_PAGE_TITLE_MANAGE_IDEATIONCAMPAGNES = "ideation.manage_ideationcampagnes.pageTitle";
+    private static final String PROPERTY_PAGE_TITLE_MANAGE_IDEATIONCAMPAGNES = "participatoryideation.manage_ideationcampagnes.pageTitle";
 
     // Markers
     private static final String MARK_IDEATIONCAMPAGNE_LIST = "ideationcampagne_list";
@@ -87,7 +87,7 @@ public class IdeationCampagneJspBean extends ManageIdeationJspBean
     private static final String JSP_MANAGE_IDEATIONCAMPAGNES = "jsp/admin/plugins/participatoryideation/ManageIdeationCampagnes.jsp";
 
     // Properties
-    private static final String MESSAGE_CONFIRM_GENERATE_IDEATIONCAMPAGNE = "ideation.message.confirmGenerateIdeationCampagne";
+    private static final String MESSAGE_CONFIRM_GENERATE_IDEATIONCAMPAGNE = "participatoryideation.message.confirmGenerateIdeationCampagne";
 
     // Views
     private static final String VIEW_MANAGE_IDEATIONCAMPAGNES          = "manageIdeationCampagnes";
@@ -97,7 +97,7 @@ public class IdeationCampagneJspBean extends ManageIdeationJspBean
     private static final String ACTION_GENERATE_IDEATIONCAMPAGNE = "generateIdeationCampagne";
 
     // Infos
-    private static final String INFO_IDEATIONCAMPAGNE_GENERATED = "ideation.info.ideationcampagne.generated";
+    private static final String INFO_IDEATIONCAMPAGNE_GENERATED = "participatoryideation.info.ideationcampagne.generated";
     
     /**
      * Build the Manage View

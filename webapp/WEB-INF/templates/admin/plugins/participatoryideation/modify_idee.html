@@ -1,16 +1,16 @@
 <#include "manageideation_idee_tabs.html" />
 <@tabs tab="idee" />
 
-<@rowBoxHeader i18nTitleKey="ideation.modify_idee.pageTitle">
+<@rowBoxHeader i18nTitleKey="participatoryideation.modify_idee.pageTitle">
     <form class="form-horizontal" method="post" name="modify_idee" action="jsp/admin/plugins/participatoryideation/ManageIdees.jsp">
         <@messages errors=errors />
         <input type="hidden" id="id" name="id" value="${idee.id}"/>
         <input type="hidden" id="exportedTag" name="exportedTag" value="${idee.exportedTag!}"/>
         <input type="hidden" id="motifRecev" name="motifRecev" value="${idee.motifRecev!}"/>
         
-        <@fieldInputText i18nLabelKey="ideation.modify_idee.labelTitre"       inputName="titre"       value="${idee.titre!}"       i18nHelpBlockKey='ideation.modify_idee.labelTitre.help'       />
-        <@fieldTextArea  i18nLabelKey="ideation.modify_idee.labelDescription" inputName="description" value="${idee.description!}" i18nHelpBlockKey='ideation.modify_idee.labelDescription.help' />
-        <@fieldInputText i18nLabelKey="ideation.modify_idee.labelCout"        inputName="cout"        value="${idee.cout !}"       i18nHelpBlockKey='ideation.modify_idee.labelCout.help'        />
+        <@fieldInputText i18nLabelKey="participatoryideation.modify_idee.labelTitre"       inputName="titre"       value="${idee.titre!}"       i18nHelpBlockKey='ideation.modify_idee.labelTitre.help'       />
+        <@fieldTextArea  i18nLabelKey="participatoryideation.modify_idee.labelDescription" inputName="description" value="${idee.description!}" i18nHelpBlockKey='ideation.modify_idee.labelDescription.help' />
+        <@fieldInputText i18nLabelKey="participatoryideation.modify_idee.labelCout"        inputName="cout"        value="${idee.cout !}"       i18nHelpBlockKey='ideation.modify_idee.labelCout.help'        />
 
 		<div class="form-group">
 			<label class="col-xs-12 col-sm-3" for="cout">#i18n{ideation.modify_idee.labelLocalisationType} :</label>
@@ -20,7 +20,7 @@
 			</div>
 		</div>
 
-        <@fieldInputText i18nLabelKey="ideation.modify_idee.labelLocalisationArdt" inputName="localisationArdt" value="${idee.localisationArdt!}" i18nHelpBlockKey='ideation.modify_idee.labelLocalisationArdt.help' />
+        <@fieldInputText i18nLabelKey="participatoryideation.modify_idee.labelLocalisationArdt" inputName="localisationArdt" value="${idee.localisationArdt!}" i18nHelpBlockKey='ideation.modify_idee.labelLocalisationArdt.help' />
 
 		<div class="form-group">
 			<label class="col-xs-12 col-sm-3" for="cout">#i18n{ideation.modify_idee.labelStatusPublic} :</label>
@@ -120,21 +120,21 @@
 			</div>
 		</div>
 
-        <@fieldInputCombo i18nLabelKey="ideation.modify_idee.labelTypeQpvQva" inputName="type_qpv_qva" items=qpvqva_list value="${idee.typeQpvQva!}" i18nHelpBlockKey="ideation.modify_idee.labelTypeQpvQva.help" />
+        <@fieldInputCombo i18nLabelKey="participatoryideation.modify_idee.labelTypeQpvQva" inputName="type_qpv_qva" items=qpvqva_list value="${idee.typeQpvQva!}" i18nHelpBlockKey="participatoryideation.modify_idee.labelTypeQpvQva.help" />
 
-        <@fieldInputText i18nLabelKey="ideation.modify_idee.labelIdQpvQva" inputName="id_qpv_qva" value="${idee.idQpvQva!}" i18nHelpBlockKey='ideation.modify_idee.labelIdQpvQva.help' />
+        <@fieldInputText i18nLabelKey="participatoryideation.modify_idee.labelIdQpvQva" inputName="id_qpv_qva" value="${idee.idQpvQva!}" i18nHelpBlockKey='ideation.modify_idee.labelIdQpvQva.help' />
 
-        <@fieldInputText i18nLabelKey="ideation.modify_idee.labelLibelleQpvQva" inputName="libelle_qpv_qva" value="${idee.libelleQpvQva!}" i18nHelpBlockKey='ideation.modify_idee.labelLibelleQpvQva.help' />
+        <@fieldInputText i18nLabelKey="participatoryideation.modify_idee.labelLibelleQpvQva" inputName="libelle_qpv_qva" value="${idee.libelleQpvQva!}" i18nHelpBlockKey='ideation.modify_idee.labelLibelleQpvQva.help' />
 		
-        <@fieldInputCombo i18nLabelKey="ideation.modify_idee.labelHandicap" inputName="handicap" items=handicap_list value="${idee.handicap!'no'}" i18nHelpBlockKey="ideation.modify_idee.labelHandicap.help" />
+        <@fieldInputCombo i18nLabelKey="participatoryideation.modify_idee.labelHandicap" inputName="handicap" items=handicap_list value="${idee.handicap!'no'}" i18nHelpBlockKey="participatoryideation.modify_idee.labelHandicap.help" />
 
-		<@fieldInputText i18nLabelKey="ideation.modify_idee.idProjet" inputName="idProjet" value="${idee.idProjet!''}" i18nHelpBlockKey='ideation.modify_idee.idProjet.help' />
+		<@fieldInputText i18nLabelKey="participatoryideation.modify_idee.idProjet" inputName="idProjet" value="${idee.idProjet!''}" i18nHelpBlockKey='ideation.modify_idee.idProjet.help' />
 
-		<@fieldInputText i18nLabelKey="ideation.modify_idee.titreProjet" inputName="titreProjet" value="${idee.titreProjet!''}" i18nHelpBlockKey='ideation.modify_idee.titreProjet.help' />
+		<@fieldInputText i18nLabelKey="participatoryideation.modify_idee.titreProjet" inputName="titreProjet" value="${idee.titreProjet!''}" i18nHelpBlockKey='ideation.modify_idee.titreProjet.help' />
 
-		<@fieldInputText i18nLabelKey="ideation.modify_idee.urlProjet" inputName="urlProjet" value="${idee.urlProjet!''}" i18nHelpBlockKey='ideation.modify_idee.urlProjet.help' />
+		<@fieldInputText i18nLabelKey="participatoryideation.modify_idee.urlProjet" inputName="urlProjet" value="${idee.urlProjet!''}" i18nHelpBlockKey='ideation.modify_idee.urlProjet.help' />
 		 
-		<@fieldInputText i18nLabelKey="ideation.modify_idee.winnerProjet" inputName="winnerProjet" value="${idee.winnerProjet!''}" i18nHelpBlockKey='ideation.modify_idee.winnerProjet.help' />
+		<@fieldInputText i18nLabelKey="participatoryideation.modify_idee.winnerProjet" inputName="winnerProjet" value="${idee.winnerProjet!''}" i18nHelpBlockKey='ideation.modify_idee.winnerProjet.help' />
 		 
         <@actionButtons button1Name="action_modifyIdee" button2Name="view_manageIdees"/>
     </form>

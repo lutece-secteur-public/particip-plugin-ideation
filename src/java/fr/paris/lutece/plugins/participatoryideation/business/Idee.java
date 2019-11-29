@@ -116,14 +116,14 @@ public class Idee implements Serializable,IExtendableResource {
      */
      public enum Status {
     	
-    	STATUS_DEPOSE ("DEPOSE", 	"ideation.message.labelStatusDepose",true),
-    	STATUS_EN_CO_CONSTRUCTION("ENCOCONSTRUCTION", 	"ideation.message.labelStatusEnCoConstruction",true ),
-    	STATUS_REGROUPE("REGROUPE", 	"ideation.message.labelStatusRegroupe",true ),
-    	STATUS_A_ETUDE("AETUDE", 	"ideation.message.labelAEtude",true ),
-    	STATUS_RETENU("RETENU", 	"ideation.message.labelRetenu",true ),
-    	STATUS_NON_RETENU("NONRETENU", 	"ideation.message.labelNonRetenu",true ),
-      	STATUS_SUPPRIME_PAR_USAGER("SUPPRIMEPARUSAGER", 	"ideation.message.labelSupprimeParUsager",false ),
-      	STATUS_SUPPRIME_PAR_MDP("SUPPRIMEPARMDP", 	"ideation.message.labelSupprimeParMdp",false );
+    	STATUS_DEPOSE ("DEPOSE", 	"participatoryideation.message.labelStatusDepose",true),
+    	STATUS_EN_CO_CONSTRUCTION("ENCOCONSTRUCTION", 	"participatoryideation.message.labelStatusEnCoConstruction",true ),
+    	STATUS_REGROUPE("REGROUPE", 	"participatoryideation.message.labelStatusRegroupe",true ),
+    	STATUS_A_ETUDE("AETUDE", 	"participatoryideation.message.labelAEtude",true ),
+    	STATUS_RETENU("RETENU", 	"participatoryideation.message.labelRetenu",true ),
+    	STATUS_NON_RETENU("NONRETENU", 	"participatoryideation.message.labelNonRetenu",true ),
+      	STATUS_SUPPRIME_PAR_USAGER("SUPPRIMEPARUSAGER", 	"participatoryideation.message.labelSupprimeParUsager",false ),
+      	STATUS_SUPPRIME_PAR_MDP("SUPPRIMEPARMDP", 	"participatoryideation.message.labelSupprimeParMdp",false );
     	
     	 private static final Map<String, Status> valueMap;
     	 private static final List<Status> listStatusPublished=new ArrayList<>();

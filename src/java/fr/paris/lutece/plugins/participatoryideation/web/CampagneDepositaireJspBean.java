@@ -71,9 +71,9 @@ public class CampagneDepositaireJspBean extends ManageIdeationJspBean
     private static final String PARAMETER_ID_CAMPAGNEDEPOSITAIRE = "id";
 
     // Properties for page titles
-    private static final String PROPERTY_PAGE_TITLE_MANAGE_CAMPAGNEDEPOSITAIRES = "ideation.manage_campagnedepositaires.pageTitle";
-    private static final String PROPERTY_PAGE_TITLE_MODIFY_CAMPAGNEDEPOSITAIRE = "ideation.modify_campagnedepositaire.pageTitle";
-    private static final String PROPERTY_PAGE_TITLE_CREATE_CAMPAGNEDEPOSITAIRE = "ideation.create_campagnedepositaire.pageTitle";
+    private static final String PROPERTY_PAGE_TITLE_MANAGE_CAMPAGNEDEPOSITAIRES = "participatoryideation.manage_campagnedepositaires.pageTitle";
+    private static final String PROPERTY_PAGE_TITLE_MODIFY_CAMPAGNEDEPOSITAIRE = "participatoryideation.modify_campagnedepositaire.pageTitle";
+    private static final String PROPERTY_PAGE_TITLE_CREATE_CAMPAGNEDEPOSITAIRE = "participatoryideation.create_campagnedepositaire.pageTitle";
 
     // Markers
     private static final String MARK_CAMPAGNEDEPOSITAIRE_LIST = "campagnedepositaire_list";
@@ -82,10 +82,10 @@ public class CampagneDepositaireJspBean extends ManageIdeationJspBean
     private static final String JSP_MANAGE_CAMPAGNEDEPOSITAIRES = "jsp/admin/plugins/participatoryideation/ManageCampagneDepositaires.jsp";
 
     // Properties
-    private static final String MESSAGE_CONFIRM_REMOVE_CAMPAGNEDEPOSITAIRE = "ideation.message.confirmRemoveCampagneDepositaire";
-    private static final String PROPERTY_DEFAULT_LIST_CAMPAGNEDEPOSITAIRE_PER_PAGE = "ideation.listCampagneDepositaires.itemsPerPage";
+    private static final String MESSAGE_CONFIRM_REMOVE_CAMPAGNEDEPOSITAIRE = "participatoryideation.message.confirmRemoveCampagneDepositaire";
+    private static final String PROPERTY_DEFAULT_LIST_CAMPAGNEDEPOSITAIRE_PER_PAGE = "participatoryideation.listCampagneDepositaires.itemsPerPage";
  
-    private static final String VALIDATION_ATTRIBUTES_PREFIX = "ideation.model.entity.campagnedepositaire.attribute.";
+    private static final String VALIDATION_ATTRIBUTES_PREFIX = "participatoryideation.model.entity.campagnedepositaire.attribute.";
 
     // Views
     private static final String VIEW_MANAGE_CAMPAGNEDEPOSITAIRES = "manageCampagneDepositaires";
@@ -99,9 +99,9 @@ public class CampagneDepositaireJspBean extends ManageIdeationJspBean
     private static final String ACTION_CONFIRM_REMOVE_CAMPAGNEDEPOSITAIRE = "confirmRemoveCampagneDepositaire";
 
     // Infos
-    private static final String INFO_CAMPAGNEDEPOSITAIRE_CREATED = "ideation.info.campagnedepositaire.created";
-    private static final String INFO_CAMPAGNEDEPOSITAIRE_UPDATED = "ideation.info.campagnedepositaire.updated";
-    private static final String INFO_CAMPAGNEDEPOSITAIRE_REMOVED = "ideation.info.campagnedepositaire.removed";
+    private static final String INFO_CAMPAGNEDEPOSITAIRE_CREATED = "participatoryideation.info.campagnedepositaire.created";
+    private static final String INFO_CAMPAGNEDEPOSITAIRE_UPDATED = "participatoryideation.info.campagnedepositaire.updated";
+    private static final String INFO_CAMPAGNEDEPOSITAIRE_REMOVED = "participatoryideation.info.campagnedepositaire.removed";
     
     // Session variable to store working values
     private CampagneDepositaire _campagnedepositaire;

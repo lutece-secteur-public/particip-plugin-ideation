@@ -17,7 +17,7 @@ import fr.paris.lutece.portal.service.spring.SpringContextService;
 
 public class IdeationCampagneService implements IIdeationCampagneService {
 	
-	private static final String BEAN_IDEATIONCAMPAGNE_SERVICE = "ideation.ideationCampagneService";
+	private static final String BEAN_IDEATIONCAMPAGNE_SERVICE = "participatoryideation.ideationCampagneService";
 	
 	private static IIdeationCampagneService _singleton;
 	

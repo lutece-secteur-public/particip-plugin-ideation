@@ -22,8 +22,8 @@ public class IdeeCommentListener implements ICommentListener{
 	 /**
      * {@inheritDoc}
      */
-	private static final String MESSAGE_CAMPAGNE_IDEATION_CLOSED_COMMENT = "ideation.messages.campagne.ideation.closed.comment";
-	private static final String PROPERTY_ACTIVATION_COMMENTAIRES= "ideation.site_property.form.forcer_activation_commentaires" ;
+	private static final String MESSAGE_CAMPAGNE_IDEATION_CLOSED_COMMENT = "participatoryideation.messages.campagne.ideation.closed.comment";
+	private static final String PROPERTY_ACTIVATION_COMMENTAIRES= "participatoryideation.site_property.form.forcer_activation_commentaires" ;
 
     @Override
 	public void createComment(String strIdExtendableResource, boolean bPublished) {

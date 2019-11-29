@@ -47,8 +47,8 @@ public final class CampagneDepositaireHome
 {
     // Static variable pointed at the DAO instance
 
-    private static ICampagneDepositaireDAO _dao = SpringContextService.getBean( "ideation.campagneDepositaireDAO" );
-    private static Plugin _plugin = PluginService.getPlugin( "ideation" );
+    private static ICampagneDepositaireDAO _dao = SpringContextService.getBean( "participatoryideation.campagneDepositaireDAO" );
+    private static Plugin _plugin = PluginService.getPlugin( "participatoryideation" );
 
     /**
      * Private constructor - this class need not be instantiated

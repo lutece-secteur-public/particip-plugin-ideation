@@ -116,19 +116,19 @@ ${encoded_facets_queries}
 				    <div class="form-group">
 					<SELECT name="fq" id="arrondissement" onChange="searchArrond()" class="form-control">
 					    <#if arr=="">
-						<OPTION value="type:Projet 2015" selected="selected" >Tous les projets </option>
+						<OPTION value="type:PB Project" selected="selected" >Tous les projets </option>
 						<OPTION value="localisation_text:Tout Paris">Projets Tout Paris</option>
 						<OPTION value="-localisation_text:Tout Paris">Projets Tous Arrondissements</option>
 					    <#elseif arr=="Tout Paris">
-						<OPTION value="type:Projet 2015">Tous les projets </option>
+						<OPTION value="type:PB Project">Tous les projets </option>
 						<OPTION value="localisation_text:Tout Paris" selected="selected" >Projets Tout Paris</option>
 						<OPTION value="-localisation_text:paris">Projets Tous Arrondissements</option>
 					    <#elseif arr=="all_arr">
-						<OPTION value="type:Projet 2015">Tous les projets </option>
+						<OPTION value="type:PB Project">Tous les projets </option>
 						<OPTION value="localisation_text:Tout Paris">Projets Tout Paris</option>
 						<OPTION value="-localisation_text:Tout Paris" selected="selected">Projets Tous Arrondissements</option>
 					    <#else>
-						<OPTION value="type:Projet 2015">Tous les projets </option>
+						<OPTION value="type:PB Project">Tous les projets </option>
 						<OPTION value="localisation_text:Tout Paris">Projets Tout Paris</option>
 						<OPTION value="-localisation_text:Tout Paris">Projets Tous Arrondissements</option>        
 					    </#if>
@@ -155,7 +155,7 @@ ${encoded_facets_queries}
 						<#if facet.values??>
 
 						<#if solr_fields[facet.name].label?? && solr_fields[facet.name].label= "Thematique">	
-							    <OPTION value="type:Projet 2015" <#if facet_theme='tout_theme'>selected="selected"</#if> >Rechercher par thème</option>
+							    <OPTION value="type:PB Project" <#if facet_theme='tout_theme'>selected="selected"</#if> >Rechercher par thème</option>
 							<#list facet.values?sort as count>
 							    <OPTION value="thematique_text:${count.name}" <#if facet_theme=count.name>selected="selected"</#if> >${count.name}</option>
 							</#list>

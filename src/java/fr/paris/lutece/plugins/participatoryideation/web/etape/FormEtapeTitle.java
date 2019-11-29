@@ -18,23 +18,23 @@ import fr.paris.lutece.portal.service.util.AppLogService;
 
 public class FormEtapeTitle extends  AbstractFormEtape  {
 
-	private static final String I18N_ERROR_TITRE_MIN_LENGTH="ideation.validation.idee.Titre.sizeMin";
-	private static final String I18N_ERROR_TITRE_MAX_LENGTH="ideation.validation.idee.Titre.sizeMax";
+	private static final String I18N_ERROR_TITRE_MIN_LENGTH="participatoryideation.validation.idee.Titre.sizeMin";
+	private static final String I18N_ERROR_TITRE_MAX_LENGTH="participatoryideation.validation.idee.Titre.sizeMax";
 	
-	private static final String I18N_ERROR_DEJADEPOSE_MIN_LENGTH="ideation.validation.idee.Dejadepose.sizeMin";
-	private static final String I18N_ERROR_DEJADEPOSE_MAX_LENGTH="ideation.validation.idee.Dejadepose.sizeMax";
+	private static final String I18N_ERROR_DEJADEPOSE_MIN_LENGTH="participatoryideation.validation.idee.Dejadepose.sizeMin";
+	private static final String I18N_ERROR_DEJADEPOSE_MAX_LENGTH="participatoryideation.validation.idee.Dejadepose.sizeMax";
 	
-	private static final String I18N_ERROR_CREATIONMETHOD_MIN_LENGTH="ideation.validation.idee.Creationmethod.sizeMin";
-	private static final String I18N_ERROR_CREATIONMETHOD_MAX_LENGTH="ideation.validation.idee.Creationmethod.sizeMax";
+	private static final String I18N_ERROR_CREATIONMETHOD_MIN_LENGTH="participatoryideation.validation.idee.Creationmethod.sizeMin";
+	private static final String I18N_ERROR_CREATIONMETHOD_MAX_LENGTH="participatoryideation.validation.idee.Creationmethod.sizeMax";
 	
-	private static final String DSKEY_TITRE_MIN_LENGTH="ideation.site_property.form.titre.minLength";
-	private static final String DSKEY_TITRE_MAX_LENGTH="ideation.site_property.form.titre.maxLength";
+	private static final String DSKEY_TITRE_MIN_LENGTH="participatoryideation.site_property.form.titre.minLength";
+	private static final String DSKEY_TITRE_MAX_LENGTH="participatoryideation.site_property.form.titre.maxLength";
 	
-	private static final String DSKEY_DEJADEPOSE_MIN_LENGTH="ideation.site_property.form.dejadepose.minLength";
-	private static final String DSKEY_DEJADEPOSE_MAX_LENGTH="ideation.site_property.form.dejadepose.maxLength";
+	private static final String DSKEY_DEJADEPOSE_MIN_LENGTH="participatoryideation.site_property.form.dejadepose.minLength";
+	private static final String DSKEY_DEJADEPOSE_MAX_LENGTH="participatoryideation.site_property.form.dejadepose.maxLength";
 	
-	private static final String DSKEY_CREATIONMETHOD_MIN_LENGTH="ideation.site_property.form.creationmethod.minLength";
-	private static final String DSKEY_CREATIONMETHOD_MAX_LENGTH="ideation.site_property.form.creationmethod.maxLength";
+	private static final String DSKEY_CREATIONMETHOD_MIN_LENGTH="participatoryideation.site_property.form.creationmethod.minLength";
+	private static final String DSKEY_CREATIONMETHOD_MAX_LENGTH="participatoryideation.site_property.form.creationmethod.maxLength";
 	
 	@NotEmpty( message = "#i18n{ideation.validation.idee.Titre.notEmpty}" )
     @Size( max = 255 , message = "#i18n{ideation.validation.idee.Titre.size}" ) 

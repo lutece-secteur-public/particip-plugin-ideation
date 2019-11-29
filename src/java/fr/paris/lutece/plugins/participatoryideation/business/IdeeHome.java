@@ -52,8 +52,8 @@ public final class IdeeHome
 {
     // Static variable pointed at the DAO instance
 
-    private static IIdeeDAO _dao = SpringContextService.getBean( "ideation.ideeDAO" );
-    private static Plugin _plugin = PluginService.getPlugin( "ideation" );
+    private static IIdeeDAO _dao = SpringContextService.getBean( "participatoryideation.ideeDAO" );
+    private static Plugin _plugin = PluginService.getPlugin( "participatoryideation" );
 
     /**
      * Private constructor - this class need not be instantiated

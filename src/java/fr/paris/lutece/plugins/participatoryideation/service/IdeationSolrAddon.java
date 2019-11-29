@@ -33,9 +33,9 @@ public class IdeationSolrAddon implements ISolrSearchAppAddOn {
 
     private static final String PARAMETER_CONF_MAP = "map_idees";
     private static final String SOLR_QUERY_ALL = "*:*";
-    private static final String PROPERTY_OLDPROJECTS_FQ = "ideation.oldprojects.fq";
+    private static final String PROPERTY_OLDPROJECTS_FQ = "participatoryideation.oldprojects.fq";
     private static final String[] SOLR_FQ_OLDPROJECTS = { AppPropertiesService.getProperty(
-            PROPERTY_OLDPROJECTS_FQ, "type:Projet 2015") };
+            PROPERTY_OLDPROJECTS_FQ, "type:PB Project") };
     private static final String MARK_OLDPROJECTS_POINTS = "oldprojects_points";
 
 	@Override

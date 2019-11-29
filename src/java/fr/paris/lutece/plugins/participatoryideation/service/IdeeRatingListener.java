@@ -9,7 +9,7 @@ import fr.paris.lutece.portal.service.spring.SpringContextService;
 
 public class IdeeRatingListener implements IRatingListener
 {
-	private static SolrIdeeIndexer _solrIdeeIndexer  = SpringContextService.getBean( "ideation.solrIdeeIndexer" );
+	private static SolrIdeeIndexer _solrIdeeIndexer  = SpringContextService.getBean( "participatoryideation.solrIdeeIndexer" );
 	
 	@Override
 	public void createVote( String strIdExtendableResource ) 

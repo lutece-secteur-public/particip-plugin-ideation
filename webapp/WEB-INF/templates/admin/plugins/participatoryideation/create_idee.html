@@ -1,7 +1,7 @@
 <#include "manageideation_idee_tabs.html" />
 <@tabs tab="idee" />
 
-<@rowBoxHeader i18nTitleKey="ideation.create_idee.pageTitle">
+<@rowBoxHeader i18nTitleKey="participatoryideation.create_idee.pageTitle">
 
 	<#-- *********************************************************************************** -->
 	<#-- * FORM FORM FORM FORM FORM FORM FORM FORM FORM FORM FORM FORM FORM FORM FORM FORM * -->
@@ -12,15 +12,15 @@
 		<@messages errors=errors />
 		<input type="hidden" id="id" name="id"/>
 
-		<@fieldInputText i18nLabelKey="ideation.create_idee.labelTitre"       mandatory=true inputName="titre"       value="${idee.titre!}"       i18nHelpBlockKey='ideation.create_idee.labelTitre.help'       />
+		<@fieldInputText i18nLabelKey="participatoryideation.create_idee.labelTitre"       mandatory=true inputName="titre"       value="${idee.titre!}"       i18nHelpBlockKey='ideation.create_idee.labelTitre.help'       />
 
-		<@fieldTextArea  i18nLabelKey="ideation.create_idee.labelDescription" mandatory=true inputName="description" value="${idee.description!}" i18nHelpBlockKey='ideation.create_idee.labelDescription.help' />
+		<@fieldTextArea  i18nLabelKey="participatoryideation.create_idee.labelDescription" mandatory=true inputName="description" value="${idee.description!}" i18nHelpBlockKey='ideation.create_idee.labelDescription.help' />
 
-		<@fieldInputText i18nLabelKey="ideation.create_idee.labelCout"        inputName="cout"        value="${idee.cout!}"       i18nHelpBlockKey='ideation.create_idee.labelCout.help'        />
+		<@fieldInputText i18nLabelKey="participatoryideation.create_idee.labelCout"        inputName="cout"        value="${idee.cout!}"       i18nHelpBlockKey='ideation.create_idee.labelCout.help'        />
 
-		<@fieldInputCombo i18nLabelKey="ideation.create_idee.labelLocalisationType" inputName="localisationType" items=type_localisation_list value="${(idee.localisationType)!}" i18nHelpBlockKey="ideation.create_idee.labelLocalisationType.help" />
+		<@fieldInputCombo i18nLabelKey="participatoryideation.create_idee.labelLocalisationType" inputName="localisationType" items=type_localisation_list value="${(idee.localisationType)!}" i18nHelpBlockKey="participatoryideation.create_idee.labelLocalisationType.help" />
 
-		<@fieldInputCombo i18nLabelKey="ideation.create_idee.labelLocalisationArdt" inputName="localisationArdt" items=arrondissements_list value="${(idee.localisationArdt)!}" i18nHelpBlockKey="ideation.create_idee.labelLocalisationArdt.help" />
+		<@fieldInputCombo i18nLabelKey="participatoryideation.create_idee.labelLocalisationArdt" inputName="localisationArdt" items=arrondissements_list value="${(idee.localisationArdt)!}" i18nHelpBlockKey="participatoryideation.create_idee.labelLocalisationArdt.help" />
 
 		<div class="form-group">
 			<label class="col-xs-12 col-sm-3 col-md-3" for="thematique">#i18n{ideation.create_idee.labelCodeTheme} : </label>

@@ -61,7 +61,7 @@ import fr.paris.lutece.util.httpaccess.HttpAccess;
 
 public class QpvQvaService {
 
-    private static final String PROPERTY_CAPGEO_QPV_QVA_URL = "ideation.capgeo.qpvqva";
+    private static final String PROPERTY_CAPGEO_QPV_QVA_URL = "participatoryideation.capgeo.qpvqva";
     private static final String CAPGEO_QPV_QVA_URL = AppPropertiesService.getProperty(
             PROPERTY_CAPGEO_QPV_QVA_URL, "http://services1.arcgis.com/yFAX7hJID4ONeUHP/arcgis/rest/services/QPV_QVA_GPRU/FeatureServer/0/query" );
 

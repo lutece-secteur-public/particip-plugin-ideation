@@ -1,7 +1,7 @@
 <#include "manageideelinks_tabs.html" />
 <@tabs tab="link" />
 
-<@rowBoxHeader i18nTitleKey="ideation.create_link.pageTitle">
+<@rowBoxHeader i18nTitleKey="participatoryideation.create_link.pageTitle">
 
     <form class="form-horizontal" method="post" name="create_link" action="jsp/admin/plugins/participatoryideation/ManageIdeeLinks.jsp">
 
@@ -23,7 +23,7 @@
 			</div>               
         </div>
 
-		<@fieldInputText i18nLabelKey="ideation.create_link.labelParentCodeIdee" inputName="parentCodeIdee" value="${link.parentCodeIdee!}" i18nHelpBlockKey='ideation.create_link.labelParentCodeIdee.help' />
+		<@fieldInputText i18nLabelKey="participatoryideation.create_link.labelParentCodeIdee" inputName="parentCodeIdee" value="${link.parentCodeIdee!}" i18nHelpBlockKey='ideation.create_link.labelParentCodeIdee.help' />
 
         <div class="form-group">
 			<label class="col-xs-12 col-sm-3 col-md-3" for="childCodeCampagne">#i18n{ideation.create_link.labelChildCodeCampagne} * : </label>
@@ -39,7 +39,7 @@
 			</div>               
         </div>
 
-		<@fieldInputText i18nLabelKey="ideation.create_link.labelChildCodeIdee" inputName="childCodeIdee" value="${link.childCodeIdee!}" i18nHelpBlockKey='ideation.create_link.labelChildCodeIdee.help' />
+		<@fieldInputText i18nLabelKey="participatoryideation.create_link.labelChildCodeIdee" inputName="childCodeIdee" value="${link.childCodeIdee!}" i18nHelpBlockKey='ideation.create_link.labelChildCodeIdee.help' />
 
         <@actionButtons button1Name="action_createLink" button2Name="view_manageLinks"/>
 

@@ -19,19 +19,19 @@ import fr.paris.lutece.portal.service.util.AppLogService;
 
 public class FormEtapeDescription extends  AbstractFormEtape {
 
-	private static final String I18N_ERROR_DESCRIPTION_MIN_LENGTH         = "ideation.validation.idee.Description.sizeMin";
-	private static final String I18N_ERROR_DESCRIPTION_MAX_LENGTH         = "ideation.validation.idee.Description.sizeMax";
-	private static final String I18N_ERROR_HANDICAP_COMPLEMENT_MIN_LENGTH = "ideation.validation.idee.HandicapComplement.sizeMin";
-	private static final String I18N_ERROR_HANDICAP_COMPLEMENT_MAX_LENGTH = "ideation.validation.idee.HandicapComplement.sizeMax";
-	private static final String I18N_ERROR_OPERATINGBUDGET_MIN_LENGTH     = "ideation.validation.idee.Operatingbudget.sizeMin";
-	private static final String I18N_ERROR_OPERATINGBUDGET_MAX_LENGTH     = "ideation.validation.idee.Operatingbudget.sizeMax";
+	private static final String I18N_ERROR_DESCRIPTION_MIN_LENGTH         = "participatoryideation.validation.idee.Description.sizeMin";
+	private static final String I18N_ERROR_DESCRIPTION_MAX_LENGTH         = "participatoryideation.validation.idee.Description.sizeMax";
+	private static final String I18N_ERROR_HANDICAP_COMPLEMENT_MIN_LENGTH = "participatoryideation.validation.idee.HandicapComplement.sizeMin";
+	private static final String I18N_ERROR_HANDICAP_COMPLEMENT_MAX_LENGTH = "participatoryideation.validation.idee.HandicapComplement.sizeMax";
+	private static final String I18N_ERROR_OPERATINGBUDGET_MIN_LENGTH     = "participatoryideation.validation.idee.Operatingbudget.sizeMin";
+	private static final String I18N_ERROR_OPERATINGBUDGET_MAX_LENGTH     = "participatoryideation.validation.idee.Operatingbudget.sizeMax";
 	
-	private static final String DSKEY_DESCRIPTION_MIN_LENGTH         = "ideation.site_property.form.description.minLength";
-	private static final String DSKEY_DESCRIPTION_MAX_LENGTH         = "ideation.site_property.form.description.maxLength";
-	private static final String DSKEY_HANDICAP_COMPLEMENT_MIN_LENGTH = "ideation.site_property.form.handicap_complement.minLength";
-	private static final String DSKEY_HANDICAP_COMPLEMENT_MAX_LENGTH = "ideation.site_property.form.handicap_complement.maxLength";
-	private static final String DSKEY_OPERATINGBUDGET_MIN_LENGTH     = "ideation.site_property.form.operatingbudget.minLength";
-	private static final String DSKEY_OPERATINGBUDGET_MAX_LENGTH     = "ideation.site_property.form.operatingbudget.maxLength";
+	private static final String DSKEY_DESCRIPTION_MIN_LENGTH         = "participatoryideation.site_property.form.description.minLength";
+	private static final String DSKEY_DESCRIPTION_MAX_LENGTH         = "participatoryideation.site_property.form.description.maxLength";
+	private static final String DSKEY_HANDICAP_COMPLEMENT_MIN_LENGTH = "participatoryideation.site_property.form.handicap_complement.minLength";
+	private static final String DSKEY_HANDICAP_COMPLEMENT_MAX_LENGTH = "participatoryideation.site_property.form.handicap_complement.maxLength";
+	private static final String DSKEY_OPERATINGBUDGET_MIN_LENGTH     = "participatoryideation.site_property.form.operatingbudget.minLength";
+	private static final String DSKEY_OPERATINGBUDGET_MAX_LENGTH     = "participatoryideation.site_property.form.operatingbudget.maxLength";
 	
 	@NotEmpty( message = "#i18n{ideation.validation.idee.FormEtapeDescription.description.notEmpty}" )
 	@Size( max = 10000 , message = "#i18n{ideation.validation.idee.Description.size}" )

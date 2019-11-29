@@ -21,21 +21,21 @@ import fr.paris.lutece.util.filesystem.UploadUtil;
 
 public class IdeationUploadHandler extends AbstractAsynchronousUploadHandler
 {
-    public static final String BEAN_NAME = "ideation.IdeeAsynchronousHandler";
+    public static final String BEAN_NAME = "participatoryideation.IdeeAsynchronousHandler";
     
     private static final String HANDLER_NAME = "ideationIdeeUploadHandler";
 
     // Error messages
-    private static final String ERROR_MESSAGE_UPLOAD_PJS_MAX_SIZE= "ideation.upload.message.uploadPjsMaxSize";
-    private static final String ERROR_MESSAGE_UPLOAD_NB_PJS_MAX= "ideation.upload.message.uploadNbPjsMax";
-    private static final String ERROR_MESSAGE_IMAGE_MIME_TYPE_AUTORIZED= "ideation.upload.message.imageMimeTypeAuthorized";
-    private static final String ERROR_MESSAGE_DOC_MIME_TYPE_AUTORIZED= "ideation.upload.message.docMimeTypeAuthorized";
+    private static final String ERROR_MESSAGE_UPLOAD_PJS_MAX_SIZE= "participatoryideation.upload.message.uploadPjsMaxSize";
+    private static final String ERROR_MESSAGE_UPLOAD_NB_PJS_MAX= "participatoryideation.upload.message.uploadNbPjsMax";
+    private static final String ERROR_MESSAGE_IMAGE_MIME_TYPE_AUTORIZED= "participatoryideation.upload.message.imageMimeTypeAuthorized";
+    private static final String ERROR_MESSAGE_DOC_MIME_TYPE_AUTORIZED= "participatoryideation.upload.message.docMimeTypeAuthorized";
    //PROPERTIES
-    private static final String PROPERTY_UPLOAD_PJS_MAX_SIZE= "ideation.uploadPjsMaxSize";
-    private static final String PROPERTY_UPLOAD_NB_PJS_MAX= "ideation.uploadNbPjsMax";
+    private static final String PROPERTY_UPLOAD_PJS_MAX_SIZE= "participatoryideation.uploadPjsMaxSize";
+    private static final String PROPERTY_UPLOAD_NB_PJS_MAX= "participatoryideation.uploadNbPjsMax";
     
-    private static final String PROPERTY_UPLOAD_IMAGE_MIME_TYPE_AUTORIZED= "ideation.uploadImageMimeTypeAuthorized";
-    private static final String PROPERTY_UPLOAD_DOC_MIME_TYPE_AUTORIZED= "ideation.uploadDocMimeTypeAuthorized";
+    private static final String PROPERTY_UPLOAD_IMAGE_MIME_TYPE_AUTORIZED= "participatoryideation.uploadImageMimeTypeAuthorized";
+    private static final String PROPERTY_UPLOAD_DOC_MIME_TYPE_AUTORIZED= "participatoryideation.uploadDocMimeTypeAuthorized";
     //PARAMETERS
     private static final String PARAMETER_IMGS= "imgs";
     private static final String PARAMETER_DOCS= "docs";

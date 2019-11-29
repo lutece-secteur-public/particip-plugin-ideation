@@ -31,14 +31,14 @@ public class FormEtapeUpload extends  AbstractFormEtape {
 	
 	public List<FileItem> getImgs(HttpServletRequest request) {
 		if (_ideationUploadHandler == null) {
-			_ideationUploadHandler = SpringContextService.getBean("ideation.IdeeAsynchronousHandler");
+			_ideationUploadHandler = SpringContextService.getBean("participatoryideation.IdeeAsynchronousHandler");
 		}
 		return _ideationUploadHandler.getListUploadedFiles( FIELD_ATTACHED_IMG, request.getSession(  ) );
 	}
 
 	public List<FileItem> getDocs(HttpServletRequest request) {
 		if (_ideationUploadHandler == null) {
-			_ideationUploadHandler = SpringContextService.getBean("ideation.IdeeAsynchronousHandler");
+			_ideationUploadHandler = SpringContextService.getBean("participatoryideation.IdeeAsynchronousHandler");
 		}
 		return _ideationUploadHandler.getListUploadedFiles( FIELD_ATTACHED_DOC, request.getSession(  ) );
 	}
@@ -46,7 +46,7 @@ public class FormEtapeUpload extends  AbstractFormEtape {
 	public void reInitFormSession(HttpServletRequest request)
 	{
 		if (_ideationUploadHandler == null) {
-			_ideationUploadHandler = SpringContextService.getBean("ideation.IdeeAsynchronousHandler");
+			_ideationUploadHandler = SpringContextService.getBean("participatoryideation.IdeeAsynchronousHandler");
 		}
 		_ideationUploadHandler.removeSessionFiles( request.getSession(  ).getId(  ) );
 	}
@@ -59,7 +59,7 @@ public class FormEtapeUpload extends  AbstractFormEtape {
      */
     public boolean populateSynchronousUpload( HttpServletRequest request ) {
         if (_ideationUploadHandler == null) {
-            _ideationUploadHandler = SpringContextService.getBean("ideation.IdeeAsynchronousHandler");
+            _ideationUploadHandler = SpringContextService.getBean("participatoryideation.IdeeAsynchronousHandler");
         }
 
         // Files are only removed if a given flag is in the request

@@ -24,7 +24,7 @@ import fr.paris.lutece.util.ReferenceList;
 
 public class IdeationMyInfosListener implements IMyInfosListener {
 
-	private static final String BEAN_SOLR_IDEE_INDEXER="ideation.solrIdeeIndexer";
+	private static final String BEAN_SOLR_IDEE_INDEXER="participatoryideation.solrIdeeIndexer";
 	private static final String BEAN_COMMENT_DAO="extend-comment.commentDAO";
 	
 	private ICommentService _commentService = SpringContextService.getBean( CommentService.BEAN_SERVICE );

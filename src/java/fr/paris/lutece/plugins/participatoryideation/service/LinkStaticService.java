@@ -12,7 +12,7 @@ import fr.paris.lutece.portal.service.spring.SpringContextService;
 public class LinkStaticService extends AbstractCacheableService implements ILinkStaticService {
 
     private static ILinkStaticService _singleton;
-    private static final String BEAN_IDEATION_STATIC_SERVICE = "ideation.linkStaticService";
+    private static final String BEAN_IDEATION_STATIC_SERVICE = "participatoryideation.linkStaticService";
 
     private static final String SERVICE_NAME = "Link Static Cache";
 

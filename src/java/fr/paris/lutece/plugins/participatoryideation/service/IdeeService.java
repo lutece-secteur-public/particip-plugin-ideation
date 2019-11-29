@@ -30,20 +30,20 @@ import fr.paris.lutece.util.ReferenceList;
 
 public class IdeeService implements IIdeeService {
 	
-	private static final String PROPERTY_ARRONDISSEMENT = "ideation.arrondissement.";
-    private static final String PROPERTY_ARRONDISSEMENT_EMPTY = "ideation.arrondissementEmpty";
-    private static final String PROPERTY_LABEL_NQPV = "ideation.qpvqva.nqpv.label";
-    private static final String PROPERTY_LABEL_QVA = "ideation.qpvqva.qva.label";
-    private static final String PROPERTY_LABEL_GPRU = "ideation.qpvqva.gpru.label";
-    private static final String PROPERTY_LABEL_QBP = "ideation.qpvqva.qbp.label";
-    private static final String PROPERTY_LABEL_ERR = "ideation.qpvqva.err.label";
-    private static final String PROPERTY_LABEL_NON = "ideation.qpvqva.non.label";
-    private static final String PROPERTY_LABEL_UNK = "ideation.qpvqva.unk.label";
-    private static final String PROPERTY_LABEL_ARDT = "ideation.localisation_type.ardt.label";
-    private static final String PROPERTY_LABEL_PARIS = "ideation.localisation_type.paris.label";
+	private static final String PROPERTY_ARRONDISSEMENT = "participatoryideation.arrondissement.";
+    private static final String PROPERTY_ARRONDISSEMENT_EMPTY = "participatoryideation.arrondissementEmpty";
+    private static final String PROPERTY_LABEL_NQPV = "participatoryideation.qpvqva.nqpv.label";
+    private static final String PROPERTY_LABEL_QVA = "participatoryideation.qpvqva.qva.label";
+    private static final String PROPERTY_LABEL_GPRU = "participatoryideation.qpvqva.gpru.label";
+    private static final String PROPERTY_LABEL_QBP = "participatoryideation.qpvqva.qbp.label";
+    private static final String PROPERTY_LABEL_ERR = "participatoryideation.qpvqva.err.label";
+    private static final String PROPERTY_LABEL_NON = "participatoryideation.qpvqva.non.label";
+    private static final String PROPERTY_LABEL_UNK = "participatoryideation.qpvqva.unk.label";
+    private static final String PROPERTY_LABEL_ARDT = "participatoryideation.localisation_type.ardt.label";
+    private static final String PROPERTY_LABEL_PARIS = "participatoryideation.localisation_type.paris.label";
 
-    private static final String PROPERTY_HANDICAP_LABEL_YES = "ideation.handicap.yes.label";
-    private static final String PROPERTY_HANDICAP_LABEL_NO  = "ideation.handicap.no.label";
+    private static final String PROPERTY_HANDICAP_LABEL_YES = "participatoryideation.handicap.yes.label";
+    private static final String PROPERTY_HANDICAP_LABEL_NO  = "participatoryideation.handicap.no.label";
   
 	private static volatile ReferenceList _listArrondissements;
 	private static volatile Map<String, String> _mapArrondissements;
@@ -59,9 +59,9 @@ public class IdeeService implements IIdeeService {
 	
 	private static IIdeeService _singleton;
 	private static SolrIdeeIndexer _solrIdeeIndexer;
-	private static final String BEAN_IDEE_SERVICE="ideation.ideeService";
-	private static final String BEAN_TRANSACTION_MANAGER="ideation.ideeServiceTransactionManager";
-	private static final String BEAN_SOLR_IDEE_INDEXER="ideation.solrIdeeIndexer";
+	private static final String BEAN_IDEE_SERVICE="participatoryideation.ideeService";
+	private static final String BEAN_TRANSACTION_MANAGER="participatoryideation.ideeServiceTransactionManager";
+	private static final String BEAN_SOLR_IDEE_INDEXER="participatoryideation.solrIdeeIndexer";
 	private static final Double[] _parisLatLon = { 48.859085, 2.347403 };
 	private static final Double[][] _arrondissementLatLons = {
         { 48.862422, 2.337595 },

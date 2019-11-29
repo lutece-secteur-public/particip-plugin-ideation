@@ -2,13 +2,13 @@
 <@tabs tab="idee" />
 
 <@rowBox>
-    <@boxHeader i18nTitleKey="ideation.manage_idees.tableLabel">
+    <@boxHeader i18nTitleKey="participatoryideation.manage_idees.tableLabel">
         <@headerButtons>
 
         
         <form class="form-inline pull-right" method="post" name="manage_idees" action="jsp/admin/plugins/participatoryideation/ManageIdees.jsp">
             <!-- Add pull-right to class1 -->
-            <@actionButtons button1Name="view_createIdee" icon1="icon-plus icon-white" i18nValue1Key="ideation.manage_idees.buttonAdd" />
+            <@actionButtons button1Name="view_createIdee" icon1="icon-plus icon-white" i18nValue1Key="participatoryideation.manage_idees.buttonAdd" />
        		  <a href="jsp/admin/plugins/extend/ViewExtenderInfo.jsp?extenderType=comment&idExtendableResource=*&extendableResourceType=IDEE&from_url=jsp/admin/plugins/participatoryideation/ManageIdees.jsp"
                class="btn btn-primary btn-small" title="#i18n{ideation.manage_idees.viewComments}" >
                 <i class="fa fa-comments">#i18n{ideation.manage_idees.viewAllComments}</i>

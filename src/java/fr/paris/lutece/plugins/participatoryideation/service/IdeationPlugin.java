@@ -46,7 +46,7 @@ import fr.paris.lutece.portal.service.plugin.Plugin;
  */
 public class IdeationPlugin extends Plugin
 {
-	public static final String PLUGIN_NAME = "ideation";
+	public static final String PLUGIN_NAME = "participatoryideation";
 	/**
      * {@inheritDoc}
      */
