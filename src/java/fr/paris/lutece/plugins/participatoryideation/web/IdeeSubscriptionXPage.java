@@ -57,7 +57,7 @@ import fr.paris.lutece.util.ReferenceList;
  * This class provides the user interface to view Idee xpages
  */
  
-@Controller( xpageName = "mySubscriptions" , pageTitleI18nKey = "ideation.xpage.mySubscriptions.pageTitle" , pagePathI18nKey = "ideation.xpage.mySubscriptions.pagePathLabel" )
+@Controller( xpageName = "mySubscriptions" , pageTitleI18nKey = "participatoryideation.xpage.mySubscriptions.pageTitle" , pagePathI18nKey = "participatoryideation.xpage.mySubscriptions.pagePathLabel" )
 public class IdeeSubscriptionXPage extends MVCApplication
 {
 
@@ -78,7 +78,7 @@ public class IdeeSubscriptionXPage extends MVCApplication
     // Actions
     private static final String SAVE_MY_SUBSCRIPTIONS = "saveMySubscriptions";
     //Messages
-    private static final String MESSAGE_SAVE_SUBSCRIPTIONS_SUCCESS="ideation.message.saveSubscriptionsSuccess";
+    private static final String MESSAGE_SAVE_SUBSCRIPTIONS_SUCCESS="participatoryideation.message.saveSubscriptionsSuccess";
     
     
     /**

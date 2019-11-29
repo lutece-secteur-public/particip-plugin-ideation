@@ -35,8 +35,8 @@ public class CsvUtils
     static
     {
         PROPERTY_RESOURCES_LIBRARY_CSV_PROPERTIES = AppPropertiesService
-                .getProperty( "ideation.csv.configuration.path" );
-        PROPERTY_SEPARATEUR_CSV = AppPropertiesService.getProperty( "ideation.csv.separator", ";" ).charAt( 0 );
+                .getProperty( "participatoryideation.csv.configuration.path" );
+        PROPERTY_SEPARATEUR_CSV = AppPropertiesService.getProperty( "participatoryideation.csv.separator", ";" ).charAt( 0 );
     }
 
     private static void getValuesFromCsv( String key )

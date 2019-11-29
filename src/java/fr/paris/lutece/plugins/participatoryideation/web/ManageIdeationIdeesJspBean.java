@@ -60,7 +60,7 @@ public abstract class ManageIdeationIdeesJspBean extends MVCAdminJspBean
     // Right
     public static final String RIGHT_MANAGE_IDEATION_IDEES = "IDEATION_IDEES_MANAGEMENT";
     
-    private static final String PROPERTY_DEFAULT_LIST_ITEM_PER_PAGE = "ideation.listItems.itemsPerPage";
+    private static final String PROPERTY_DEFAULT_LIST_ITEM_PER_PAGE = "participatoryideation.listItems.itemsPerPage";
     private static final String PARAMETER_PAGE_INDEX = "page_index";
     private static final String MARK_PAGINATOR = "paginator";
     private static final String MARK_NB_ITEMS_PER_PAGE = "nb_items_per_page";

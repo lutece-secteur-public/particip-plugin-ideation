@@ -115,7 +115,7 @@
 								</#if>
 								
 								<div class="panel-footer panel-approx-button">
-									<a class="btn btn-12rem btn-black-on-white" onclick="javascript:_paq.push(['trackEvent', 'Ideation', '03_ViewProjectApprox_${results_list_index}']);" href="${result.url}" alt="${result.title}" title="${result.title}" target="_blank">
+									<a class="btn btn-12rem btn-black-on-white" href="${result.url}" alt="${result.title}" title="${result.title}" target="_blank">
 										Consulter le projet
 									</a>
 								</div>								
@@ -135,11 +135,11 @@
     <form onsubmit="return validateForm(this);" action="jsp/site/Portal.jsp" method="post">
       <input type="hidden" name="page" value="ideation">
       <div id="approx-btn" class="form-button text-center">
-          <button onclick="javascript:_paq.push(['trackEvent', 'Ideation', '03_ValidStepApprox']);" type="submit" value="Continuer" name="action_approx" class="btn btn-14rem btn-black-on-white">
+          <button type="submit" value="Continuer" name="action_approx" class="btn btn-14rem btn-black-on-white">
               Continuer <i class="fa fa-angle-down"></i>
           </button>
           <#if !((((results_previous_campaigns_list?size)!0) == 0) && (((results_keyword_list?size)!0) == 0) && (((results_location_list?size)!0) == 0))>
-            <button onclick="javascript:_paq.push(['trackEvent', 'Ideation', '03_CancelStepApprox']);" type="submit" value="Je ne poursuis pas mon dépôt" name="action_abandon" class="btn btn-14rem btn-black-on-white">
+            <button type="submit" value="Je ne poursuis pas mon dépôt" name="action_abandon" class="btn btn-14rem btn-black-on-white">
                 Je ne poursuis pas mon d&eacute;p&ocirc;t <i class="fa fa-times-circle"></i>
             </button>
           </#if>

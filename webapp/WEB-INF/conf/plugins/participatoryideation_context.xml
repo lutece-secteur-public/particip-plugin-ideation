@@ -15,24 +15,24 @@
 ">
 
 
-    <bean id="ideation.depositaireTypeDAO"  class="fr.paris.lutece.plugins.participatoryideation.business.DepositaireTypeDAO" />  
-    <bean id="ideation.campagneDepositaireDAO"  class="fr.paris.lutece.plugins.participatoryideation.business.CampagneDepositaireDAO" />  
-    <bean id="ideation.ideeDAO"  class="fr.paris.lutece.plugins.participatoryideation.business.IdeeDAO" />  
-    <bean id="ideation.linkDAO"  class="fr.paris.lutece.plugins.participatoryideation.business.LinkDAO" />  
-	<bean id="ideation.solrIdeeIndexer" class="fr.paris.lutece.plugins.participatoryideation.service.SolrIdeeIndexer" />
-	<bean id="ideation.ideationCampagneService"  class="fr.paris.lutece.plugins.participatoryideation.service.IdeationCampagneService" />  
-	<bean id="ideation.ideeService"  class="fr.paris.lutece.plugins.participatoryideation.service.IdeeService" />  
-	<bean id="ideation.ideationStaticService"  class="fr.paris.lutece.plugins.participatoryideation.service.IdeationStaticService" />
-	<bean id="ideation.linkStaticService"  class="fr.paris.lutece.plugins.participatoryideation.service.LinkStaticService" />
-	<bean id="ideation.ideeWSService"  class="fr.paris.lutece.plugins.participatoryideation.service.IdeeWSService" /> 
+    <bean id="participatoryideation.depositaireTypeDAO"  class="fr.paris.lutece.plugins.participatoryideation.business.DepositaireTypeDAO" />  
+    <bean id="participatoryideation.campagneDepositaireDAO"  class="fr.paris.lutece.plugins.participatoryideation.business.CampagneDepositaireDAO" />  
+    <bean id="participatoryideation.ideeDAO"  class="fr.paris.lutece.plugins.participatoryideation.business.IdeeDAO" />  
+    <bean id="participatoryideation.linkDAO"  class="fr.paris.lutece.plugins.participatoryideation.business.LinkDAO" />  
+	<bean id="participatoryideation.solrIdeeIndexer" class="fr.paris.lutece.plugins.participatoryideation.service.SolrIdeeIndexer" />
+	<bean id="participatoryideation.ideationCampagneService"  class="fr.paris.lutece.plugins.participatoryideation.service.IdeationCampagneService" />  
+	<bean id="participatoryideation.ideeService"  class="fr.paris.lutece.plugins.participatoryideation.service.IdeeService" />  
+	<bean id="participatoryideation.ideationStaticService"  class="fr.paris.lutece.plugins.participatoryideation.service.IdeationStaticService" />
+	<bean id="participatoryideation.linkStaticService"  class="fr.paris.lutece.plugins.participatoryideation.service.LinkStaticService" />
+	<bean id="participatoryideation.ideeWSService"  class="fr.paris.lutece.plugins.participatoryideation.service.IdeeWSService" /> 
 
     <!-- Site properties -->
-    <bean id="ideation.FormSitePropertiesGroup" class="fr.paris.lutece.portal.service.site.properties.SitePropertiesGroup" >
+    <bean id="participatoryideation.FormSitePropertiesGroup" class="fr.paris.lutece.portal.service.site.properties.SitePropertiesGroup" >
         <property name="nameKey"><value>ideation.form.site_properties.name</value></property>
         <property name="descriptionKey"><value>ideation.form.site_properties.description</value></property>
         <property name="keysPrefix"><value>ideation.site_property.form</value></property>
     </bean>
-    <bean id="ideation.IdeeSitePropertiesGroup" class="fr.paris.lutece.portal.service.site.properties.SitePropertiesGroup" >
+    <bean id="participatoryideation.IdeeSitePropertiesGroup" class="fr.paris.lutece.portal.service.site.properties.SitePropertiesGroup" >
         <property name="nameKey"><value>ideation.view_idee.site_properties.name</value></property>
         <property name="descriptionKey"><value>ideation.view_idee.site_properties.description</value></property>
         <property name="keysPrefix"><value>ideation.site_property.view_idee</value></property>
@@ -43,18 +43,18 @@
 	<bean id="leaflet-rest-popup-provider-idee" class="fr.paris.lutece.plugins.participatoryideation.service.IdeePopupContentProvider" />
 
     <!-- AsynchronousUpload -->
-	<bean id="ideation.IdeeAsynchronousHandler" class="fr.paris.lutece.plugins.participatoryideation.service.IdeationUploadHandler" />
+	<bean id="participatoryideation.IdeeAsynchronousHandler" class="fr.paris.lutece.plugins.participatoryideation.service.IdeationUploadHandler" />
 
-	<bean id="ideation.IdeationSolrAddon" class="fr.paris.lutece.plugins.participatoryideation.service.IdeationSolrAddon" />
+	<bean id="participatoryideation.IdeationSolrAddon" class="fr.paris.lutece.plugins.participatoryideation.service.IdeationSolrAddon" />
 
     <!-- SQL Transactions -->
     <tx:annotation-driven/>
-    <bean id="ideation.ideeServiceTransactionManager" class="fr.paris.lutece.portal.service.database.DAOUtilTransactionManager"><property name="pluginName" value="ideation"/></bean>
-	 <bean id="ideation.ideeExtendableResourceService" class="fr.paris.lutece.plugins.participatoryideation.service.IdeeExtendableResourceService" />
-	 <bean id="ideation.ideationSubscriptionProviderService" class="fr.paris.lutece.plugins.participatoryideation.service.subscription.IdeationSubscriptionProviderService"/>
+    <bean id="participatoryideation.ideeServiceTransactionManager" class="fr.paris.lutece.portal.service.database.DAOUtilTransactionManager"><property name="pluginName" value="participatoryideation"/></bean>
+	 <bean id="participatoryideation.ideeExtendableResourceService" class="fr.paris.lutece.plugins.participatoryideation.service.IdeeExtendableResourceService" />
+	 <bean id="participatoryideation.ideationSubscriptionProviderService" class="fr.paris.lutece.plugins.participatoryideation.service.subscription.IdeationSubscriptionProviderService"/>
 
 	<!-- Components -->
-	<bean id="ideation.followAddon" class="fr.paris.lutece.plugins.participatoryideation.service.FollowAddService" />
+	<bean id="participatoryideation.followAddon" class="fr.paris.lutece.plugins.participatoryideation.service.FollowAddService" />
 
 
 

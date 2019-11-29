@@ -28,12 +28,12 @@ import fr.paris.lutece.portal.service.util.AppLogService;
 public class FormEtapeLocation extends  AbstractFormEtape  {
 
 	private static final java.util.regex.Pattern patternAdresseArrondissement = java.util.regex.Pattern.compile(", 75[0-1]([0-2][0-9]) PARIS");
-	private static final String I18N_ERROR_ARRONDISSEMENT_EMPTY="ideation.validation.idee.FormEtapeLocation.Arrondissement.notEmpty";
-	private static final String I18N_ERROR_ADRESS_FORMAT="ideation.validation.idee.FormEtapeLocation.AdressFormat";
-	private static final String I18N_ERROR_ADRESS_NOT_VALID="ideation.validation.idee.FormEtapeLocation.AdressNotValid";
-	private static final String I18N_ERROR_ADRESS_ARDT_MISMATCH="ideation.validation.idee.FormEtapeLocation.ArdtMismatch";
+	private static final String I18N_ERROR_ARRONDISSEMENT_EMPTY="participatoryideation.validation.idee.FormEtapeLocation.Arrondissement.notEmpty";
+	private static final String I18N_ERROR_ADRESS_FORMAT="participatoryideation.validation.idee.FormEtapeLocation.AdressFormat";
+	private static final String I18N_ERROR_ADRESS_NOT_VALID="participatoryideation.validation.idee.FormEtapeLocation.AdressNotValid";
+	private static final String I18N_ERROR_ADRESS_ARDT_MISMATCH="participatoryideation.validation.idee.FormEtapeLocation.ArdtMismatch";
 	   
-	private static final String I18N_ERROR_COMPLEMENT_EMPTY="ideation.validation.idee.FormEtapeLocation.depositaire_complement.notEmpty";
+	private static final String I18N_ERROR_COMPLEMENT_EMPTY="participatoryideation.validation.idee.FormEtapeLocation.depositaire_complement.notEmpty";
 	
 	@NotEmpty( message = "#i18n{ideation.validation.idee.FormEtapeLocation.CodeTheme.notEmpty}" )
     @Size( max = 50 , message = "#i18n{ideation.validation.idee.FormEtapeLocation.CodeTheme.size}" ) 

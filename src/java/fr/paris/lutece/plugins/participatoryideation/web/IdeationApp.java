@@ -107,7 +107,7 @@ import fr.paris.lutece.util.filesystem.FileSystemUtil;
  * This class provides a simple implementation of an XPage
  */
 
-@Controller( xpageName = "ideation" , pageTitleI18nKey = "ideation.xpage.ideation.pageTitle" , pagePathI18nKey = "ideation.xpage.ideation.pagePathLabel" )
+@Controller( xpageName = "participatoryideation" , pageTitleI18nKey = "participatoryideation.xpage.ideation.pageTitle" , pagePathI18nKey = "participatoryideation.xpage.ideation.pagePathLabel" )
 public class IdeationApp extends MVCApplication
 {
 
@@ -184,11 +184,11 @@ public class IdeationApp extends MVCApplication
     public static final String HANDICAP_LABEL_YES = "yes";
     public static final String HANDICAP_LABEL_NO  = "no" ;
 
-    private static final String PROPERTY_NEWPROJECTS_GEOLOC_FIELD = "ideation.approx.newprojects.geoloc_field";
-    private static final String PROPERTY_NEWPROJECTS_ARDT_FIELD = "ideation.approx.newprojects.ardt_field";
-    private static final String PROPERTY_OLDPROJECTS_ARDT_FIELD = "ideation.approx.oldprojects.ardt_field";
-    private static final String PROPERTY_NEWPROJECTS_TYPE = "ideation.approx.newprojects.type";
-    private static final String MESSAGE_CAMPAGNE_IDEATION_CLOSED_SUBMIT = "ideation.messages.campagne.ideation.closed.submit";
+    private static final String PROPERTY_NEWPROJECTS_GEOLOC_FIELD = "participatoryideation.approx.newprojects.geoloc_field";
+    private static final String PROPERTY_NEWPROJECTS_ARDT_FIELD = "participatoryideation.approx.newprojects.ardt_field";
+    private static final String PROPERTY_OLDPROJECTS_ARDT_FIELD = "participatoryideation.approx.oldprojects.ardt_field";
+    private static final String PROPERTY_NEWPROJECTS_TYPE = "participatoryideation.approx.newprojects.type";
+    private static final String MESSAGE_CAMPAGNE_IDEATION_CLOSED_SUBMIT = "participatoryideation.messages.campagne.ideation.closed.submit";
 
     private static final String SOLR_NEWPROJECTS_GEOLOC_FIELD = AppPropertiesService.getProperty(
             PROPERTY_NEWPROJECTS_GEOLOC_FIELD, "idee_geoloc");
@@ -201,15 +201,15 @@ public class IdeationApp extends MVCApplication
     
     private static final String SOLR_PREVIOUS_CAMPAIGNS = "("
     		+ "(type:idee AND statut_publique_project_text:\"NONRETENU\") "
-    		+ "OR (type:\"Projet 2015\" AND statut_project_text:\"SUIVI\")"
+    		+ "OR (type:\"PB Project\" AND statut_project_text:\"SUIVI\")"
     		+ ")";
     //private static final String SOLR_PREVIOUS_PROJECTS = "(type:\"Projets 2015\" AND statut_project_text:\"SUIVI\")";
 
-    private static final String DSKEY_APPROX_SCORE_RATIO_LIMIT="ideation.site_property.form.approx.scoreRatioLimit";
-    private static final String DSKEY_APPROX_DISTANCE_LIMIT="ideation.site_property.form.approx.distanceLimit";
-    private static final String DSKEY_APPROX_KEYWORD_RESULTS_COUNT="ideation.site_property.form.approx.keywordResultsCount";
-    private static final String DSKEY_APPROX_LOCATION_RESULTS_COUNT="ideation.site_property.form.approx.locationResultsCount";
-    private static final String DSKEY_APPROX_PREVIOUS_CAMPAIGNS_RESULTS_COUNT="ideation.site_property.form.approx.previousCampaignsResultsCount";
+    private static final String DSKEY_APPROX_SCORE_RATIO_LIMIT="participatoryideation.site_property.form.approx.scoreRatioLimit";
+    private static final String DSKEY_APPROX_DISTANCE_LIMIT="participatoryideation.site_property.form.approx.distanceLimit";
+    private static final String DSKEY_APPROX_KEYWORD_RESULTS_COUNT="participatoryideation.site_property.form.approx.keywordResultsCount";
+    private static final String DSKEY_APPROX_LOCATION_RESULTS_COUNT="participatoryideation.site_property.form.approx.locationResultsCount";
+    private static final String DSKEY_APPROX_PREVIOUS_CAMPAIGNS_RESULTS_COUNT="participatoryideation.site_property.form.approx.previousCampaignsResultsCount";
 
 
     //To accumulate the results of the form. These represent user input.
@@ -526,7 +526,7 @@ public class IdeationApp extends MVCApplication
             // Boost according to different fields depending on the type of the document..
             query.set( "boost",
                     "product(if(termfreq(type,'idee'), recip(geodist(idee_geoloc," + solrLatLon
-                   + "),0.25,1,0.75), 1),if(termfreq(type,'Projet 2015'), recip(geodist(localisation_precise_geoloc,"
+                   + "),0.25,1,0.75), 1),if(termfreq(type,'PB Project'), recip(geodist(localisation_precise_geoloc,"
                    + solrLatLon + "),0.25,1,0.75), 1))");
         }
         query.setIncludeScore(true);

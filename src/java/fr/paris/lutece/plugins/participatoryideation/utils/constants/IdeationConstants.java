@@ -42,19 +42,19 @@ public final class IdeationConstants
 {
 
     // Properties
-    public static final String PROPERTY_WORKFLOW_ID = "ideation.idWorkflow";
-    public static final String PROPERTY_WORKFLOW_ACTION_NAME_CREATE_COMMENT = "ideation.workFlowActionNameCreateComment";
+    public static final String PROPERTY_WORKFLOW_ID = "participatoryideation.idWorkflow";
+    public static final String PROPERTY_WORKFLOW_ACTION_NAME_CREATE_COMMENT = "participatoryideation.workFlowActionNameCreateComment";
     
-    public static final String PROPERTY_WORKFLOW_ACTION_NAME_FOLLOW = "ideation.workFlowActionNameFollow";
-    public static final String PROPERTY_WORKFLOW_ACTION_NAME_CANCEL_FOLLOW = "ideation.workFlowActionNameCancelFollow";
+    public static final String PROPERTY_WORKFLOW_ACTION_NAME_FOLLOW = "participatoryideation.workFlowActionNameFollow";
+    public static final String PROPERTY_WORKFLOW_ACTION_NAME_CANCEL_FOLLOW = "participatoryideation.workFlowActionNameCancelFollow";
     
-    public static final String PROPERTY_WORKFLOW_ACTION_NAME_CREATE_IDEE = "ideation.workFlowActionNameCreateIdee";
-    public static final String PROPERTY_WORKFLOW_ACTION_NAME_DELETE_IDEE = "ideation.workFlowActionNameDeleteIdee";
-    public static final String PROPERTY_WORKFLOW_ACTION_NAME_DELETE_IDEE_BY_MDP = "ideation.workFlowActionNameDeleteIdeeByMdp";
+    public static final String PROPERTY_WORKFLOW_ACTION_NAME_CREATE_IDEE = "participatoryideation.workFlowActionNameCreateIdee";
+    public static final String PROPERTY_WORKFLOW_ACTION_NAME_DELETE_IDEE = "participatoryideation.workFlowActionNameDeleteIdee";
+    public static final String PROPERTY_WORKFLOW_ACTION_NAME_DELETE_IDEE_BY_MDP = "participatoryideation.workFlowActionNameDeleteIdeeByMdp";
     
-    public static final String PROPERTY_GENERATE_IDEE_DEPOSITAIRE_TYPE = "ideation.atelier.generateIdee.depositaire_type";
-    public static final String PROPERTY_GENERATE_IDEE_DEPOSITAIRE = "ideation.atelier.generateIdee.depositaire";
-    public static final String PROPERTY_GENERATE_IDEE_LUTECE_USER_NAME = "ideation.atelier.generateIdee.luteceUserName";
+    public static final String PROPERTY_GENERATE_IDEE_DEPOSITAIRE_TYPE = "participatoryideation.atelier.generateIdee.depositaire_type";
+    public static final String PROPERTY_GENERATE_IDEE_DEPOSITAIRE = "participatoryideation.atelier.generateIdee.depositaire";
+    public static final String PROPERTY_GENERATE_IDEE_LUTECE_USER_NAME = "participatoryideation.atelier.generateIdee.luteceUserName";
  
     /**
      * Private constructor

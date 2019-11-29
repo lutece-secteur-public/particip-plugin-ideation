@@ -66,7 +66,7 @@ public class TaskChangeIdeeStatus extends SimpleTask
      */
     public static final String CONFIG_SERVICE_BEAN_NAME = "participatoryideation.taskChangeIdeeStatusConfigService";
     // From plugin-ideation
-    private static final String BEAN_SOLR_IDEE_INDEXER="ideation.solrIdeeIndexer";
+    private static final String BEAN_SOLR_IDEE_INDEXER="participatoryideation.solrIdeeIndexer";
 
     // Messages
     private static final String MESSAGE_UNPUBLISHED_IDEE = "module.workflow.ideation.task_change_idee_status.labelUnpublishedIdee";

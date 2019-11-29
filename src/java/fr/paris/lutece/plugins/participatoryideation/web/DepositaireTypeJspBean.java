@@ -71,9 +71,9 @@ public class DepositaireTypeJspBean extends ManageIdeationJspBean
     private static final String PARAMETER_ID_DEPOSITAIRE = "id";
 
     // Properties for page titles
-    private static final String PROPERTY_PAGE_TITLE_MANAGE_DEPOSITAIRES = "ideation.manage_depositairetypes.pageTitle";
-    private static final String PROPERTY_PAGE_TITLE_MODIFY_DEPOSITAIRE = "ideation.modify_depositairetype.pageTitle";
-    private static final String PROPERTY_PAGE_TITLE_CREATE_DEPOSITAIRE = "ideation.create_depositairetype.pageTitle";
+    private static final String PROPERTY_PAGE_TITLE_MANAGE_DEPOSITAIRES = "participatoryideation.manage_depositairetypes.pageTitle";
+    private static final String PROPERTY_PAGE_TITLE_MODIFY_DEPOSITAIRE = "participatoryideation.modify_depositairetype.pageTitle";
+    private static final String PROPERTY_PAGE_TITLE_CREATE_DEPOSITAIRE = "participatoryideation.create_depositairetype.pageTitle";
 
     // Markers
     private static final String MARK_DEPOSITAIRE_LIST = "depositairetype_list";
@@ -82,10 +82,10 @@ public class DepositaireTypeJspBean extends ManageIdeationJspBean
     private static final String JSP_MANAGE_DEPOSITAIRES = "jsp/admin/plugins/participatoryideation/ManageDepositaireTypes.jsp";
 
     // Properties
-    private static final String MESSAGE_CONFIRM_REMOVE_DEPOSITAIRE = "ideation.message.confirmRemoveDepositaireType";
-    private static final String PROPERTY_DEFAULT_LIST_DEPOSITAIRE_PER_PAGE = "ideation.listDepositaireTypes.itemsPerPage";
+    private static final String MESSAGE_CONFIRM_REMOVE_DEPOSITAIRE = "participatoryideation.message.confirmRemoveDepositaireType";
+    private static final String PROPERTY_DEFAULT_LIST_DEPOSITAIRE_PER_PAGE = "participatoryideation.listDepositaireTypes.itemsPerPage";
  
-    private static final String VALIDATION_ATTRIBUTES_PREFIX = "ideation.model.entity.depositairetype.attribute.";
+    private static final String VALIDATION_ATTRIBUTES_PREFIX = "participatoryideation.model.entity.depositairetype.attribute.";
 
     // Views
     private static final String VIEW_MANAGE_DEPOSITAIRES = "manageDepositaireTypes";
@@ -99,9 +99,9 @@ public class DepositaireTypeJspBean extends ManageIdeationJspBean
     private static final String ACTION_CONFIRM_REMOVE_DEPOSITAIRE = "confirmRemoveDepositaireType";
 
     // Infos
-    private static final String INFO_DEPOSITAIRE_CREATED = "ideation.info.depositairetype.created";
-    private static final String INFO_DEPOSITAIRE_UPDATED = "ideation.info.depositairetype.updated";
-    private static final String INFO_DEPOSITAIRE_REMOVED = "ideation.info.depositairetype.removed";
+    private static final String INFO_DEPOSITAIRE_CREATED = "participatoryideation.info.depositairetype.created";
+    private static final String INFO_DEPOSITAIRE_UPDATED = "participatoryideation.info.depositairetype.updated";
+    private static final String INFO_DEPOSITAIRE_REMOVED = "participatoryideation.info.depositairetype.removed";
     
     // Session variable to store working values
     private DepositaireType _depositairetype;

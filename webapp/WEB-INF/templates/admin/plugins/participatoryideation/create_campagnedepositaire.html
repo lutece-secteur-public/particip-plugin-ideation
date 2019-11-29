@@ -1,13 +1,13 @@
 <#include "manageideation_tabs.html" />
 <@tabs tab="campagnedepositaire" />
 
-<@rowBoxHeader i18nTitleKey="ideation.create_campagnedepositaire.pageTitle">
+<@rowBoxHeader i18nTitleKey="participatoryideation.create_campagnedepositaire.pageTitle">
     <form class="form-horizontal" method="post" name="create_campagnedepositaire" action="jsp/admin/plugins/participatoryideation/ManageCampagneDepositaires.jsp">
         <@messages errors=errors />
         <input type="hidden" id="id" name="id"/>
         
-        <@fieldInputText i18nLabelKey="ideation.create_campagnedepositaire.labelCodeCampagne" inputName="code_campagne" mandatory=true value="${campagnedepositaire.codeCampagne!''}" i18nHelpBlockKey="ideation.create_campagnedepositaire.labelCodeCampagne.help" />
-        <@fieldInputText i18nLabelKey="ideation.create_campagnedepositaire.labelCodeDepositaire" inputName="code_depositaire_type" mandatory=true value="${campagnedepositaire.codeDepositaireType!''}" i18nHelpBlockKey="ideation.create_campagnedepositaire.labelCodeDepositaire.help" />
+        <@fieldInputText i18nLabelKey="participatoryideation.create_campagnedepositaire.labelCodeCampagne" inputName="code_campagne" mandatory=true value="${campagnedepositaire.codeCampagne!''}" i18nHelpBlockKey="participatoryideation.create_campagnedepositaire.labelCodeCampagne.help" />
+        <@fieldInputText i18nLabelKey="participatoryideation.create_campagnedepositaire.labelCodeDepositaire" inputName="code_depositaire_type" mandatory=true value="${campagnedepositaire.codeDepositaireType!''}" i18nHelpBlockKey="participatoryideation.create_campagnedepositaire.labelCodeDepositaire.help" />
         <@actionButtons button1Name="action_createCampagneDepositaire" button2Name="view_manageCampagneDepositaires"/>
     </form>
 </@rowBoxHeader>

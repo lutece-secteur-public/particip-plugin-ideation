@@ -24,7 +24,7 @@ import fr.paris.lutece.util.ReferenceList;
 public class IdeationStaticService extends AbstractCacheableService implements IIdeationStaticService {
 
     private static IIdeationStaticService _singleton;
-    private static final String BEAN_IDEATION_STATIC_SERVICE="ideation.ideationStaticService";
+    private static final String BEAN_IDEATION_STATIC_SERVICE="participatoryideation.ideationStaticService";
 
     private static final String SERVICE_NAME = "Ideation Static Cache";
 

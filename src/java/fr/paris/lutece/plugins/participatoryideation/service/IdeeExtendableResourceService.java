@@ -54,7 +54,7 @@ import fr.paris.lutece.util.url.UrlItem;
  */
 public class IdeeExtendableResourceService implements IExtendableResourceService
 {
-    private static final String MESSAGE_IDEE_RESOURCE_TYPE_DESCRIPTION = "ideation.resource.resourceTypeDescription";
+    private static final String MESSAGE_IDEE_RESOURCE_TYPE_DESCRIPTION = "participatoryideation.resource.resourceTypeDescription";
     private static final String PARAMETER_IDEE_ID = "id";
    
 

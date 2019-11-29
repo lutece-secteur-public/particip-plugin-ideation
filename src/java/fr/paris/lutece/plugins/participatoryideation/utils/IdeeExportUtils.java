@@ -4,7 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class IdeeExportUtils {
-    public static final String ERROR_NOTHING_TO_EXPORT = "ideation.message.csv.error.nothingToExport";
+    public static final String ERROR_NOTHING_TO_EXPORT = "participatoryideation.message.csv.error.nothingToExport";
     private static final String CSV = "csv";
     private static final String APPLICATION_CSV = "application/csv";
     private static final String CONTENT_DISPOSITION = "Content-Disposition";

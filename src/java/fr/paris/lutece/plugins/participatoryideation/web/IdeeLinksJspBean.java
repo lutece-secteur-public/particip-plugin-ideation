@@ -82,10 +82,10 @@ public class IdeeLinksJspBean extends ManageIdeeLinksJspBean
     private static final String PARAMETER_FILTER_TITLE         = "filter_title";
 
     // Properties for page titles
-    private static final String PROPERTY_PAGE_TITLE_MANAGE_LINKS          = "ideation.manage_links.pageTitle";
-    private static final String PROPERTY_PAGE_TITLE_MODIFY_LINK           = "ideation.modify_link.pageTitle";
-    private static final String PROPERTY_PAGE_TITLE_CREATE_LINK           = "ideation.create_link.pageTitle";
-    private static final String PROPERTY_PAGE_TITLE_CREATE_SEVERAL_LINKS  = "ideation.create_several_links.pageTitle";
+    private static final String PROPERTY_PAGE_TITLE_MANAGE_LINKS          = "participatoryideation.manage_links.pageTitle";
+    private static final String PROPERTY_PAGE_TITLE_MODIFY_LINK           = "participatoryideation.modify_link.pageTitle";
+    private static final String PROPERTY_PAGE_TITLE_CREATE_LINK           = "participatoryideation.create_link.pageTitle";
+    private static final String PROPERTY_PAGE_TITLE_CREATE_SEVERAL_LINKS  = "participatoryideation.create_several_links.pageTitle";
 
     // Markers
     private static final String MARK_LINKS_LIST     = "links_list";
@@ -102,7 +102,7 @@ public class IdeeLinksJspBean extends ManageIdeeLinksJspBean
 
     private static final String JSP_MANAGE_LINKS = "jsp/admin/plugins/participatoryideation/ManageIdeeLinks.jsp";
 
-    private static final String VALIDATION_ATTRIBUTES_PREFIX = "ideation.model.entity.link.attribute.";
+    private static final String VALIDATION_ATTRIBUTES_PREFIX = "participatoryideation.model.entity.link.attribute.";
 
     // Views
     private static final String VIEW_MANAGE_LINKS          = "manageLinks";
@@ -120,15 +120,15 @@ public class IdeeLinksJspBean extends ManageIdeeLinksJspBean
     private static final String ACTION_CANCEL_SEARCH        = "cancelSearch";
 
     // Messages
-    private static final String MESSAGE_CONFIRM_REMOVE_LINK                    = "ideation.message.confirmRemoveLink";
-    private static final String MESSAGE_ERROR_CHILD_CODES_IDEES_MANDATORY      = "ideation.validation.link.parentId.childCodesIdeesMandatory";
-//    private static final String MESSAGE_ERROR_NOT_AN_INTEGER                   = "ideation.validation.link.parentId.notAnInteger";
+    private static final String MESSAGE_CONFIRM_REMOVE_LINK                    = "participatoryideation.message.confirmRemoveLink";
+    private static final String MESSAGE_ERROR_CHILD_CODES_IDEES_MANDATORY      = "participatoryideation.validation.link.parentId.childCodesIdeesMandatory";
+//    private static final String MESSAGE_ERROR_NOT_AN_INTEGER                   = "participatoryideation.validation.link.parentId.notAnInteger";
 
     // Infos
-    private static final String INFO_LINK_CREATED          = "ideation.info.link.created";
-    private static final String INFO_SEVERAL_LINKS_CREATED = "ideation.info.several.links.created";
-    private static final String INFO_LINK_UPDATED          = "ideation.info.link.updated";
-    private static final String INFO_LINK_REMOVED          = "ideation.info.link.removed";
+    private static final String INFO_LINK_CREATED          = "participatoryideation.info.link.created";
+    private static final String INFO_SEVERAL_LINKS_CREATED = "participatoryideation.info.several.links.created";
+    private static final String INFO_LINK_UPDATED          = "participatoryideation.info.link.updated";
+    private static final String INFO_LINK_REMOVED          = "participatoryideation.info.link.removed";
     
     // Session variable to store working values
     private Link _link;

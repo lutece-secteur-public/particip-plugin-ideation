@@ -80,7 +80,7 @@ import fr.paris.lutece.util.html.HtmlTemplate;
  * This class provides the user interface to view Idee xpages
  */
  
-@Controller( xpageName = "idee" , pageTitleI18nKey = "ideation.xpage.idee.pageTitle" , pagePathI18nKey = "ideation.xpage.idee.pagePathLabel" )
+@Controller( xpageName = "idee" , pageTitleI18nKey = "participatoryideation.xpage.idee.pageTitle" , pagePathI18nKey = "participatoryideation.xpage.idee.pagePathLabel" )
 public class IdeeXPage extends MVCApplication
 {
     /**
@@ -125,12 +125,12 @@ public class IdeeXPage extends MVCApplication
     private static final String MARK_SHOW_CONTACT="show_contact";
     private static final String MARK_MESSAGE_NOT_ACCEPT="message_not_accept";
     // Properties
-    private static final String PROPERTY_CONTACT_SUBJECT="ideation.site_property.view_idee.site_properties.contact_subject";
-    private static final String PROPERTY_CONTACT_MESSAGE_CONTENT="ideation.site_property.view_idee.site_properties.contact_message_content.textblock";
-    private static final String PROPERTY_CONTACT_MESSAGE_NOT_ACCEPT="ideation.site_property.view_idee.site_properties.contact_message_not_accept";
+    private static final String PROPERTY_CONTACT_SUBJECT="participatoryideation.site_property.view_idee.site_properties.contact_subject";
+    private static final String PROPERTY_CONTACT_MESSAGE_CONTENT="participatoryideation.site_property.view_idee.site_properties.contact_message_content.textblock";
+    private static final String PROPERTY_CONTACT_MESSAGE_NOT_ACCEPT="participatoryideation.site_property.view_idee.site_properties.contact_message_not_accept";
     
-    private static final String INFO_MESSAGE_SEND="ideation.site_property.view_idee.site_properties.info_message_send";
-    private static final String ERROR_MESSAGE_SEND="ideation.site_property.view_idee.site_properties.error_message_send";
+    private static final String INFO_MESSAGE_SEND="participatoryideation.site_property.view_idee.site_properties.info_message_send";
+    private static final String ERROR_MESSAGE_SEND="participatoryideation.site_property.view_idee.site_properties.error_message_send";
     
     // Views
     private static final String VIEW_VIEW_IDEE = "viewIdee";

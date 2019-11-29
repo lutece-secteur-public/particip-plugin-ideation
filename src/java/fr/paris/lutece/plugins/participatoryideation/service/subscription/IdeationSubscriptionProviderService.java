@@ -59,7 +59,7 @@ public class IdeationSubscriptionProviderService implements ISubscriptionProvide
     /**
      * Name of the bean of the DigglikeSubscriptionProviderService
      */
-    public static final String BEAN_NAME = "ideation.ideationSubscriptionProviderService";
+    public static final String BEAN_NAME = "participatoryideation.ideationSubscriptionProviderService";
     public static final String SUBSCRIPTION_NEW_COMMENT_ON_MY_PROPOSAL = "newCommentOnMyProposal";
     public static final String SUBSCRIPTION_NEW_COMMENT_ON_PARTICIPATE_PROPOSAL = "newCommentOnParticipateProposal";
     public static final String SUBSCRIPTION_NEW_STATE_ON_PARTICIPATE_PROPOSAL  = "newStateOnParticipateProposal";
@@ -79,8 +79,8 @@ public class IdeationSubscriptionProviderService implements ISubscriptionProvide
     
    
     
-    private static final String SUBSCRIPTION_PROVIDER_NAME = "ideation.subscriptionProviderName";
-    private static final String MESSAGE_SUBSCRIBED_PREFIX= "ideation.message.subscriptions.";
+    private static final String SUBSCRIPTION_PROVIDER_NAME = "participatoryideation.subscriptionProviderName";
+    private static final String MESSAGE_SUBSCRIBED_PREFIX= "participatoryideation.message.subscriptions.";
     private static final String ID_ALL = "*";
     private static IdeationSubscriptionProviderService _instance;
     private static ReferenceList _refListIdeationSubscription;

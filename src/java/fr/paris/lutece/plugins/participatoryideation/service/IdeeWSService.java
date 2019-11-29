@@ -40,10 +40,10 @@ import fr.paris.lutece.util.http.SecurityUtil;
 
 public class IdeeWSService implements IIdeeWSService {
 	
-	private static final String BEAN_IDEE_WEB_SERVICE_SERVICE="ideation.ideeWSService";
+	private static final String BEAN_IDEE_WEB_SERVICE_SERVICE="participatoryideation.ideeWSService";
 	private static IIdeeWSService _singleton;
 	private static SolrIdeeIndexer _solrIdeeIndexer;
-	private static final String BEAN_SOLR_IDEE_INDEXER="ideation.solrIdeeIndexer";
+	private static final String BEAN_SOLR_IDEE_INDEXER="participatoryideation.solrIdeeIndexer";
 	private static ICommentService _commentService;
 	private static IResourceExtenderHistoryService _resourceHistoryService;
 	
