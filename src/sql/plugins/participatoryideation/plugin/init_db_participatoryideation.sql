@@ -196,7 +196,7 @@ INSERT INTO `task_change_idee_status_cf` (`id_task`, `idee_status`) VALUES
 	(57, 'SUPPRIMEPARUSAGER');
 /*!40000 ALTER TABLE `task_change_idee_status_cf` ENABLE KEYS */;
 
--- Export de données de la table pb.task_notify_ideation_cf : ~37 rows (environ)
+-- Export de données de la table pb.task_notify_ideation_cf : ~33 rows (environ)
 /*!40000 ALTER TABLE `task_notify_ideation_cf` DISABLE KEYS */;
 INSERT INTO `task_notify_ideation_cf` (`id_task`, `sender_name`, `sender_email`, `subject`, `message`, `recipients_cc`, `recipients_bcc`, `isFollowers`, `isDepositaire`) VALUES
 	(2, 'Mairie de Paris', 'no-reply@paris.fr', 'Budget participatif - Dépôt d\'une idée', '<p>Cher { $pseudo },</p>\r\n<p>&nbsp;</p>\r\n<p>Votre id&eacute;e a bien &eacute;t&eacute; prise en compte, elle apparaitra tr&egrave;s prochainement sur le site.</p>\r\n<p>&nbsp;</p>\r\n<p>Merci pour votre contribution,</p>\r\n<p>L\'&eacute;quipe du Budget Participatif</p>', '', 'ddct-mpc-site-bp@paris.fr', 0, 0),

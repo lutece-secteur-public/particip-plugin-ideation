@@ -14,7 +14,6 @@
            http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
 ">
 
-
     <bean id="participatoryideation.depositaireTypeDAO"  class="fr.paris.lutece.plugins.participatoryideation.business.DepositaireTypeDAO" />  
     <bean id="participatoryideation.campagneDepositaireDAO"  class="fr.paris.lutece.plugins.participatoryideation.business.CampagneDepositaireDAO" />  
     <bean id="participatoryideation.ideeDAO"  class="fr.paris.lutece.plugins.participatoryideation.business.IdeeDAO" />  
@@ -56,10 +55,21 @@
 	<!-- Components -->
 	<bean id="participatoryideation.followAddon" class="fr.paris.lutece.plugins.participatoryideation.service.FollowAddService" />
 
+    <!-- WS REST -->
+    <bean id='participatoryideation.hashService' class='fr.paris.lutece.util.signrequest.security.Sha1HashService' />
+    <bean id='participatoryideation.requestAuthentication' class='fr.paris.lutece.util.signrequest.HeaderHashAuthenticator' >
+          <property name='hashService' ref='participatoryideation.hashService' />
+          <property name='signatureElements'>
+              <list>
+                  <!-- <value>campaign_data</value> -->
+              </list>
+          </property>
+          <property name='privateKey'>
+               <value>change me</value>
+          </property>
+     </bean>
 
-
-
-
+	<bean id="participatoryideation.webServiceCaller" class="fr.paris.lutece.plugins.participatoryideation.utils.http.WebServiceCaller" />
 
 	<bean id="taskNotifyIdeationConfigDAO" class="fr.paris.lutece.plugins.participatoryideation.business.notify.TaskNotifyIdeationConfigDAO"/>
 	
