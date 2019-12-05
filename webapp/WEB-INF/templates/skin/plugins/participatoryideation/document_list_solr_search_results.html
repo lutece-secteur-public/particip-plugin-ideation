@@ -120,7 +120,7 @@
 						<span class="project_location">
 						<img src="images/local/skin/projet_localisation.png" width="25px" height="25px" alt="" title="">
 						<#if result.dynamicFields?? && result.dynamicFields.localisation_text??>
-							<#if result.dynamicFields.localisation_text = "Tout Paris">
+							<#if result.dynamicFields.localisation_text = "whole_city">
 								${result.dynamicFields.localisation_text}
 							<#elseif result.dynamicFields.localisation_text?length &gt; 3>${result.dynamicFields.localisation_text?substring(0,3)}<#else>${result.dynamicFields.localisation_text}</#if>
 						</#if>

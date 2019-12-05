@@ -12,7 +12,7 @@
 
 <#setting url_escaping_charset=encoding>
 <#-- Encode facet queries -->
-<#assign allParisCity = "-localisation_text:Tout Paris"> 
+<#assign allParisCity = "-localisation_text:whole_city"> 
 <#assign allArrParisCity = "localisation_text:"> 
 <#macro EncodeFQ list_fq  optionalParam1="" optionalParam2="">
 	<#assign bCheck = false>
@@ -92,10 +92,10 @@ ${encoded_facets_queries}
 				        <!-- <input type="hidden" name="fq" value="${facet}" /> -->
 				        <#if facet?starts_with("localisation_text:")>
 				            <#assign arr = facet?split(":")?last>
-				        <#elseif facet?starts_with("-localisation_text:Tout Paris")>
+				        <#elseif facet?starts_with("-localisation_text:whole_city")>
 				            <#assign arr = "all_arr">
-				        <#elseif facet?starts_with("localisation_text:Tout Paris")>
-				            <#assign arr = "Tout_Paris">
+				        <#elseif facet?starts_with("localisation_text:whole_city")>
+				            <#assign arr = "whole_city">
 					<#elseif facet?starts_with("thematique_text:")>
 					    <#assign facet_theme = facet?split(":")?last>
 				        </#if>
@@ -117,20 +117,20 @@ ${encoded_facets_queries}
 					<SELECT name="fq" id="arrondissement" onChange="searchArrond()" class="form-control">
 					    <#if arr=="">
 						<OPTION value="type:PB Project" selected="selected" >Tous les projets </option>
-						<OPTION value="localisation_text:Tout Paris">Projets Tout Paris</option>
-						<OPTION value="-localisation_text:Tout Paris">Projets Tous Arrondissements</option>
-					    <#elseif arr=="Tout Paris">
+						<OPTION value="localisation_text:whole_city">Projets Tout Paris</option>
+						<OPTION value="-localisation_text:whole_city">Projets Tous Arrondissements</option>
+					    <#elseif arr=="whole_city">
 						<OPTION value="type:PB Project">Tous les projets </option>
-						<OPTION value="localisation_text:Tout Paris" selected="selected" >Projets Tout Paris</option>
+						<OPTION value="localisation_text:whole_city" selected="selected" >Projets Tout Paris</option>
 						<OPTION value="-localisation_text:paris">Projets Tous Arrondissements</option>
 					    <#elseif arr=="all_arr">
 						<OPTION value="type:PB Project">Tous les projets </option>
-						<OPTION value="localisation_text:Tout Paris">Projets Tout Paris</option>
-						<OPTION value="-localisation_text:Tout Paris" selected="selected">Projets Tous Arrondissements</option>
+						<OPTION value="localisation_text:whole_city">Projets Tout Paris</option>
+						<OPTION value="-localisation_text:whole_city" selected="selected">Projets Tous Arrondissements</option>
 					    <#else>
 						<OPTION value="type:PB Project">Tous les projets </option>
-						<OPTION value="localisation_text:Tout Paris">Projets Tout Paris</option>
-						<OPTION value="-localisation_text:Tout Paris">Projets Tous Arrondissements</option>        
+						<OPTION value="localisation_text:whole_city">Projets Tout Paris</option>
+						<OPTION value="-localisation_text:whole_city">Projets Tous Arrondissements</option>        
 					    </#if>
 					    
 

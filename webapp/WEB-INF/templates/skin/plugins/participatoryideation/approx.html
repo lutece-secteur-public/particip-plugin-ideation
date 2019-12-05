@@ -72,7 +72,7 @@
 								<div class="panel-body">
 									<div class="project-location">
 									<#if result.dynamicFields?? && result.dynamicFields.localisation_text??>
-										<#if result.dynamicFields.localisation_text = "Tout Paris">
+										<#if result.dynamicFields.localisation_text = "whole_city">
 											${result.dynamicFields.localisation_text}
 										<#else>
 											${result.dynamicFields.localisation_text?html}

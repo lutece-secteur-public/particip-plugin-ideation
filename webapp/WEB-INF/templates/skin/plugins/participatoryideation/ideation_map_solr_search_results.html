@@ -84,7 +84,7 @@
     };
 
     var arr = "${arr!""}";
-    if ((arr == "") || (arr == "Tout_Paris") || (arr == "all_arr")) {
+    if ((arr == "") || (arr == "whole_city") || (arr == "all_arr")) {
         map.setView([48.85632, 2.33272], 12);
     } else {
         map.setView(arrondissements[parseInt(arr) - 75000]["pos"], 14);
@@ -315,7 +315,7 @@
 // !This depends on the text inside the select!
 function onClickArdtPopup(i) {
     if (i==0) {
-        $("#arrondissement option:contains('Tout Paris')").prop({selected: true});
+        $("#arrondissement option:contains('whole_city')").prop({selected: true});
     } else {
         $("#arrondissement option:contains(' " + i + "e')").prop({selected: true});
     }

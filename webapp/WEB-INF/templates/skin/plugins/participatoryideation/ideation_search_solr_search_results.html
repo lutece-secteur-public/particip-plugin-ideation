@@ -81,7 +81,7 @@ ${encoded_facets_queries}
 			<!-- <input type="hidden" name="fq" value="${facet}" /> -->
 			<#if     facet?starts_with("localisation_ardt_text:")>			<#assign arr = facet?split(":")?last>
 			<#elseif facet?starts_with("-localisation_type_string:paris")>	<#assign arr = "all_arr">
-			<#elseif facet?starts_with("localisation_type_string:paris")>	<#assign arr = "Tout_Paris">
+			<#elseif facet?starts_with("localisation_type_string:paris")>	<#assign arr = "whole_city">
 			<#elseif facet?starts_with("code_theme_string:")>				<#assign facet_theme = facet?split(":")?last>
 			<#elseif facet?starts_with("campagne_text:")>					<#assign facet_campagne = facet?split(":")?last>
 			<#elseif facet?starts_with("handicap_string")>					<#assign facet_handicap = facet?split(":")?last>
@@ -136,7 +136,7 @@ ${encoded_facets_queries}
 										<option value="" selected="selected" >Rechercher par localisation </option>
 										<option value="localisation_type_string:paris">Projets Tout Paris</option>
 										<option value="-localisation_type_string:paris">Projets Tous Arrondissements</option>
-									<#elseif arr=="Tout_Paris">
+									<#elseif arr=="whole_city">
 										<option value="">Rechercher par localisation </option>
 										<option value="localisation_type_string:paris" selected="selected" >Projets Tout Paris</option>
 										<option value="-localisation_type_string:paris">Projets Tous Arrondissements</option>
