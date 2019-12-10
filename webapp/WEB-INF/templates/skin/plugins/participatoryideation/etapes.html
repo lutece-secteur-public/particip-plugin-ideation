@@ -51,20 +51,20 @@
 </#if>
 
 <#assign etapes = [
-    { "title": "Th&egrave;me et localisation", "link_querystring": "view=location", "recap": "${step_recap_depositaire!}, ${recap_theme_libelle!}, ${recap_localisation_text!''}" },
-    { "title": "Titre du projet", "link_querystring":  "view=title", "recap": "${recap_title!}" },
-    { "title": "Projets approchants", "recap": "Projets approchants" },
-    { "title": "Description et co&#251;t", "link_querystring":  "view=description" , "recap": steps_recap_description },
-    { "title": "Images et Documents", "link_querystring":  "view=upload" , "recap": "${(recap_imgs?size)!''} image(s) et ${(recap_docs?size)!''} document(s) d&eacute;pos&eacute;(es)" },
-    { "title": "R&eacute;sum&eacute; et validation", "link_querystring": "view=recap" , "recap": "Résumé et validation" },
-    { "title": "Confirmation d'envoi" }
+    { "title": "#i18n{participatoryideation.submit_project.steps.location.title}", "link_querystring": "view=location", "recap": "${step_recap_depositaire!}, ${recap_theme_libelle!}, ${recap_localisation_text!''}" },
+    { "title": "#i18n{participatoryideation.submit_project.steps.title.title}", "link_querystring":  "view=title", "recap": "${recap_title!}" },
+    { "title": "#i18n{participatoryideation.submit_project.steps.approx.title}", "recap": "#i18n{participatoryideation.submit_project.steps.approx.title}" },
+    { "title": "#i18n{participatoryideation.submit_project.steps.description.title}", "link_querystring":  "view=description" , "recap": steps_recap_description },
+    { "title": "#i18n{participatoryideation.submit_project.steps.upload.title}", "link_querystring":  "view=upload" , "recap": i18n("participatoryideation.submit_project.steps.upload.recap", (recap_imgs?size)!'', (recap_docs?size)!'') },
+    { "title": "#i18n{participatoryideation.submit_project.steps.recap.title}", "link_querystring": "view=recap" , "recap": "#i18n{participatoryideation.submit_project.steps.recap.title}" },
+    { "title": "#i18n{participatoryideation.submit_project.steps.confirmation.title}" }
 ]>
 
 <section>
 <div class="row">
   <div class="col-xs-12 col-sm-12">
     <header>
-      <h1 id="step-intro" class="text-center">Je d&eacutepose un projet</h1>
+      <h1 id="step-intro" class="text-center">#i18n{participatoryideation.submit_project.pageTitle}</h1>
     </header>
   </div>
 </div>

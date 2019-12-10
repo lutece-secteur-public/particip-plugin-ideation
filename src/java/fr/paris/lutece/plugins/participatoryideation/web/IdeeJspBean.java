@@ -863,11 +863,11 @@ public class IdeeJspBean extends ManageIdeationIdeesJspBean
                 addError( MESSAGE_ERROR_ADDRESS_LOCALISATION_TYPE_EMPTY, request.getLocale( ) );
                 bIsValid = false;
             }
-            if ( StringUtils.isEmpty( _idee.getGeoJson( ) ) )
-            {
-                addError( MESSAGE_ERROR_ADDRESS_NOT_VALID + " - Unable to identity GeoJSON for address '" + _idee.getAdress( ) + "'", request.getLocale( ) );
-                bIsValid = false;
-            }
+//            if ( StringUtils.isEmpty( _idee.getGeoJson( ) ) )
+//            {
+//                addError( MESSAGE_ERROR_ADDRESS_NOT_VALID + " - Unable to identity GeoJSON for address '" + _idee.getAdress( ) + "'", request.getLocale( ) );
+//                bIsValid = false;
+//            }
         }
         else
         {

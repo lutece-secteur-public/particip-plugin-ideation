@@ -6,20 +6,20 @@
 	
 	<div class="alert alert-warning warn">
 		<i class="fa fa-exclamation-circle"></i>
-		&nbsp;Vous pouvez ajouter jusqu'&agrave; 5 pi&egrave;ces jointes, de type PNG / JPEG / PDF, pour un maximum de 2 m&eacute;ga-octets.
+		#i18n{participatoryideation.submit_project.steps.upload.warning}
 	</div>
 	
 	<div class="row">
 	
 		<div class="col-xs-12 col-sm-6">
-			<p class="form-control-static"><img src="images/local/skin/images.png" title="" alt=""> <strong>#dskey{ideation.site_property.form.image_label_text}</strong></p>
+			<p class="form-control-static"><img src="images/local/skin/images.png" title="" alt=""> <strong>#i18n{participatoryideation.submit_project.steps.upload.image_label}</strong></p>
 			<div class="form-group">
 				<@addFileInputAndfilesBox fieldName="imgs" handler=handler listUploadedFiles=imgs inputCssClass='form-control' multiple=false/>
 			</div>
 		</div>
 		
 		<div class="col-xs-12 col-sm-6">
-			<p class="form-control-static"><img src="images/local/skin/doc.png" title="" alt=""> <strong>#dskey{ideation.site_property.form.doc_label_text}</strong></p>
+			<p class="form-control-static"><img src="images/local/skin/doc.png" title="" alt=""> <strong>#i18n{participatoryideation.submit_project.steps.upload.doc_label}</strong></p>
 			<div class="form-group">
 				<@addFileInputAndfilesBox fieldName="docs" handler=handler listUploadedFiles=docs inputCssClass='form-control' multiple=true/>
 			</div>
@@ -31,7 +31,7 @@
 		<div class="col-xs-12 col-sm-12">
 			<div class="form-group">
 				<label class="checkbox-inline" for="accept_exploit">
-					<input name="accept_exploit" id="accept_exploit" value ="true" type="checkbox" <#if form_etape_upload.acceptExploit??&&form_etape_upload.acceptExploit=="true">checked="checked"</#if>>#dskey{ideation.site_property.form.image_exploit_label_text}
+					<input name="accept_exploit" id="accept_exploit" value ="true" type="checkbox" <#if form_etape_upload.acceptExploit??&&form_etape_upload.acceptExploit=="true">checked="checked"</#if>>#i18n{participatoryideation.submit_project.steps.upload.accept_exploit}
 				</label>
 			</div>
 		</div>
@@ -41,7 +41,8 @@
 		<div class="col-xs-12 col-sm-12">
 			<div id="confirm" class="form-button text-center">
 				<button type="submit" value="Continuer" class="btn btn-14rem btn-black-on-white">
-					Continuer <i class="fa fa-angle-down"></i>
+							#i18n{participatoryideation.submit_project.steps.upload.submit}
+							<i class="fa fa-angle-down"></i>
 				</button>
 			</div>
 		</div>

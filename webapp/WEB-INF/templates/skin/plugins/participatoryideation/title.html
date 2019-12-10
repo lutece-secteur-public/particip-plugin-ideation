@@ -3,23 +3,23 @@
 	<input type="hidden" name="action" value="title">
 
 	<div class="form-group">
-		#dskey{ideation.site_property.form.titre_label.htmlblock}
-		<input type="text" class="form-control" name="titre" value="${form_etape_title.titre!''}" id="titre" maxlength="#dskey{ideation.site_property.form.titre.maxLength}">
+		<p>#i18n{participatoryideation.submit_project.steps.title.title_label}</p>
+		<input type="text" class="form-control" name="titre" value="${form_etape_title.titre!''}" id="titre" maxlength="#dskey{participatoryideation.site_property.form.titre.maxLength}">
 	</div>
 	
 	<div class="form-group">
-		<p><strong>#dskey{ideation.site_property.form.dejadepose_label_text}</strong> (#dskey{ideation.site_property.form.dejadepose.minLength} &agrave; #dskey{ideation.site_property.form.dejadepose.maxLength} caract&egrave;res)</p>
+		<p>#i18n{participatoryideation.submit_project.steps.title.text1}</strong> (${i18n("participatoryideation.submit_project.steps.title.text1_validation", 0, 200)})</p>
 		<input type="text" class="form-control" name="dejadepose" value="${form_etape_title.dejadepose!''}" id="dejadepose">
 	</div>
 	 
 	<div class="form-group">
-		<p>#dskey{ideation.site_property.form.creationmethod.htmlblock} (#dskey{ideation.site_property.form.creationmethod.minLength} &agrave; #dskey{ideation.site_property.form.creationmethod.maxLength} caract&egrave;res)</p>
+		<p>#i18n{participatoryideation.submit_project.steps.title.text2} (${i18n("participatoryideation.submit_project.steps.title.text2_validation", 0, 200)})</p>
 		<textarea id="creationmethod" name="creationmethod" class="form-control" rows="2">${form_etape_title.creationmethod!''}</textarea>
 	</div>
 	
   <div class="form-button text-center">
     <button type="submit" value="Continuer" class="btn btn-14rem btn-black-on-white">
-      Continuer <i class="fa fa-angle-down"></i>
+      #i18n{participatoryideation.submit_project.steps.title.submit} <i class="fa fa-angle-down"></i>
     </button>
   </div>
 </form>

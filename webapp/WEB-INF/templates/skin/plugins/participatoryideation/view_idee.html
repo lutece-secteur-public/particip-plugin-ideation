@@ -11,7 +11,7 @@
 			<div id="prop-card">
 		</#if>
 		
-			<#-- Si l'idée n'est pas identifiée, un message spécifique d'erreur est affiché. -->
+			<#-- If the idea is not identified, a specific error message is displayed. -->
 			<#if !(idee??) >
 				<div class="row">
 					<div class="col-xs-12 col-sm-offset-2 col-sm-8">
@@ -25,7 +25,7 @@
 				
 			<#else>
 				
-				<#-- On calcule au préalable quelques variables. -->
+				<#-- A few variables are calculated beforehand. -->
 				
 				<#assign theme_class = "autre">
 				<#if            (idee?? && (idee.statusPublic = "STATUS_NON_RETENU")) >				<#assign theme_class = "nonretenu">
@@ -88,7 +88,7 @@
 				
 					<#if idee.winnerProjet?? && idee.winnerProjet == "WINNER">
 
-						<#-- Idée GAGNANTE -->
+						<#-- WINNING Idea -->
 						<div id="prop-vote-result" class="winner">
 							<div class="msg">
 								<#if idee.parentIdees?has_content>
@@ -155,11 +155,11 @@
 			
 					<#if isExtendInstalled?? && isExtendInstalled>
 						<div class="prop-header-share">
-							<a href="http://www.facebook.com" data-action="facebook" data-title="${idee.titre!}" class="share" title="Partager sur Facebook">
-							  <img src="images/local/skin/pastille-fb.png" alt="Partager sur Facebook" title="Partager sur Facebook"/>
+							<a href="http://www.facebook.com" data-action="facebook" data-title="${idee.titre!}" class="share" title="#i18n{participatoryideation.view_idea.header.share_facebook}">
+							  <img src="images/local/skin/pastille-fb.png" alt="#i18n{participatoryideation.view_idea.header.share_facebook}" title="#i18n{participatoryideation.view_idea.header.share_facebook}"/>
 							</a>
-							<a href="http://www.twitter.com" data-action="twitter-idea" data-title="${idee.titre!}" class="share" title="Partager sur Twitter" target="_blank">
-							  <img src="images/local/skin/pastille-tw.png" alt="Partager sur Twitter" title="Partager sur Twitter"/>
+							<a href="http://www.twitter.com" data-action="twitter-idea" data-title="${idee.titre!}" class="share" title="#i18n{participatoryideation.view_idea.header.share_twitter}" target="_blank">
+							  <img src="images/local/skin/pastille-tw.png" alt="#i18n{participatoryideation.view_idea.header.share_twitter}" title="#i18n{participatoryideation.view_idea.header.share_twitter}"/>
 							</a>
 						</div>
 					</#if>
@@ -173,16 +173,16 @@
 					<#-- *********************************************************************************** -->
 					<div id="prop-desc" class="col-xs-12 col-sm-8 bg-color0">
 					
-						<#-- Localisation -->
+						<#-- Location -->
 						<div class="prop-desc-localisation">
-							<img src="images/local/skin/marker-${theme_class}.png" alt="Localisation" title="Localisation" />
+							<img src="images/local/skin/marker-${theme_class}.png" alt="#i18n{participatoryideation.view_idea.desc.location}" title="#i18n{participatoryideation.view_idea.desc.location}" />
 							<div class="prop-desc-localisation-addr">
 								<#if idee.adress?? && idee.adress != '' >${idee.adress?html}<br></#if>
-								<#if idee.localisationType == "paris">Projet « Tout Paris »<#elseif idee.localisationType == "ardt">Projet du ${(arrondissements_map[idee.localisationArdt])!idee.localisationArdt}</#if>
+								<#if idee.localisationType == "paris">#i18n{participatoryideation.view_idea.desc.location.city}<#elseif idee.localisationType == "ardt">${i18n("participatoryideation.view_idea.desc.location.area", (arrondissements_map[idee.localisationArdt])!idee.localisationArdt)}</#if>
 							</div>
 						</div>
 
-						<#-- Titre -->
+						<#-- Title -->
 						<div class="prop-desc-titre">
 							<h1><p class="color-theme-${theme_class}">${idee.titre}</p></h1>
 						</div>
@@ -192,13 +192,13 @@
 						<div class="prop-desc-txt">${idee.description?html}</div>
 			            <p class="prop-desc-cout">
 							<#if idee.cout?? && (idee.cout != -1)>
-								<span class="color-theme-${theme_class}">${nickname!''}</span> a &eacute;valu&eacute; son projet &agrave; ${idee.cout?string.number!''} &euro;
+								<span class="color-theme-${theme_class}">${nickname!''}</span> ${i18n("participatoryideation.view_idea.desc.cost.estimated", idee.cout?string.number!'')}
 							<#else>
-								Le co&ucirc;t n'a pas &eacute;t&eacute; &eacute;valu&eacute;.
+								#i18n{participatoryideation.view_idea.desc.cost.not_estimated}
 							</#if>
 						</p>
 
-						<#-- Pièces jointes -->
+						<#-- Attachments -->
 						<#if ((idee.imgs?size != 0) || (idee.docs?size != 0))>
 							<div class="prop-desc-pj">
 								<div class="row">
@@ -278,11 +278,11 @@
 						</div>
 						
 						<#-- Quelques données sur la proposition -->
-						<h2>Le projet</h2>
+						<h2>#i18n{participatoryideation.view_idea.data.project}</h2>
 
 						<div class="prop-data-kv">
 							<div class="prop-data-key">
-								<img title="Campagne" alt="Campagne" src="images/local/skin/logo_paris_bp_ultramini-${theme_class}.png">
+								<img title="#i18n{participatoryideation.view_idea.data.campain}" alt="#i18n{participatoryideation.view_idea.data.campain}" src="images/local/skin/logo_paris_bp_ultramini-${theme_class}.png">
 							</div>
 							<div class="prop-data-value">
 								${campagne_year!"&#160;"}
@@ -291,7 +291,7 @@
 						
 						<div class="prop-data-kv">
 							<div class="prop-data-key">
-								<img src="images/local/skin/${status_icon}" alt="Statut" title="Statut"/>
+								<img src="images/local/skin/${status_icon}" alt="#i18n{participatoryideation.view_idea.data.status}" title="#i18n{participatoryideation.view_idea.data.status}"/>
 							</div>
 							<div class="prop-data-value">
 								${status_text!""}
@@ -300,20 +300,20 @@
 
 						<div class="prop-data-kv last">
 							<div class="prop-data-key">
-								<img src="images/local/skin/money-${theme_class}.png" alt="Coût estimé" title="Coût estimé" />
+								<img src="images/local/skin/money-${theme_class}.png" alt="#i18n{participatoryideation.view_idea.data.cost.title}" title="#i18n{participatoryideation.view_idea.data.cost.title}" />
 							</div>
 							<div class="prop-data-value">
 								<#if idee.cout?? && (idee.cout != -1)>
-									&Eacute;valu&eacute; &agrave; ${idee.cout?string.number!''} &euro;
+								${i18n("participatoryideation.view_idea.data.cost.estimated", idee.cout?string.number!'')}
 								<#else>
-									Le co&ucirc;t n'a pas &eacute;t&eacute; &eacute;valu&eacute;
+								#i18n{participatoryideation.view_idea.data.cost.not_estimated}
 								</#if>
 							</div>
 						</div>
 
 						<#if idee.handicap?? && idee.handicap == "yes">
 							<div id="prop-data-handicap">
-								Les questions du handicap et de l'accessibilit&eacute; sont prises en compte dans le cadre de cette proposition.  
+								#i18n{participatoryideation.view_idea.data.handicap} 
 							</div>
 						</#if>
 	
@@ -335,7 +335,7 @@
 
 						<#-- L'auteur de la proposition -->
 						<div id="prop-data-author" class="separator-horiz-4px">
-							<h2>L'auteur</h2>
+							<h2>#i18n{participatoryideation.view_idea.data.author}</h2>
 							<p class="prop-data-author-type">
 								<img src="images/local/skin/author-type-${theme_class}.png" alt="" title="" />
 								${idee_depositaire_type_libelle!''}

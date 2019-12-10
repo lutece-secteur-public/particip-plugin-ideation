@@ -35,20 +35,20 @@ public class FormEtapeLocation extends  AbstractFormEtape  {
 	   
 	private static final String I18N_ERROR_COMPLEMENT_EMPTY="participatoryideation.validation.idee.FormEtapeLocation.depositaire_complement.notEmpty";
 	
-	@NotEmpty( message = "#i18n{ideation.validation.idee.FormEtapeLocation.CodeTheme.notEmpty}" )
-    @Size( max = 50 , message = "#i18n{ideation.validation.idee.FormEtapeLocation.CodeTheme.size}" ) 
+	@NotEmpty( message = "#i18n{participatoryideation.validation.idee.FormEtapeLocation.CodeTheme.notEmpty}" )
+    @Size( max = 50 , message = "#i18n{participatoryideation.validation.idee.FormEtapeLocation.CodeTheme.size}" ) 
     private String _strCodeTheme;
-	@NotEmpty( message = "#i18n{ideation.validation.idee.FormEtapeLocation.localisationTypeNotEmpty}" )
+	@NotEmpty( message = "#i18n{participatoryideation.validation.idee.FormEtapeLocation.localisationTypeNotEmpty}" )
 	private String _strLocalisationType;
-	@Pattern( regexp = "^$|(7500[1-9])|(7501[0-9])|(75020)", message = "#i18n{ideation.validation.idee.localisationArdt.pattern}" )
+	@Pattern( regexp = "^$|(7500[1-9])|(7501[0-9])|(75020)", message = "#i18n{participatoryideation.validation.idee.localisationArdt.pattern}" )
 	private String _strLocalisationArdt;
 	    
 	private String _strGeojson;
 	private String _strAdress;
 	
-	@NotEmpty( message = "#i18n{ideation.validation.idee.FormEtapeLocation.depositaireType.notEmpty}" )
+	@NotEmpty( message = "#i18n{participatoryideation.validation.idee.FormEtapeLocation.depositaireType.notEmpty}" )
 	private String _strDepositaireType;
-	@Size( max = 50 , message = "#i18n{ideation.validation.idee.Depositaire.size}" )
+	@Size( max = 50 , message = "#i18n{participatoryideation.validation.idee.Depositaire.size}" )
 	private String _strDepositaire;
 	
 
@@ -119,9 +119,9 @@ public class FormEtapeLocation extends  AbstractFormEtape  {
     	  if (getLocalisationType().equals(Idee.LOCALISATION_TYPE_ARDT) && StringUtils.isEmpty( getLocalisationArdt())) {
     		  listErrors.add(I18N_ERROR_ARRONDISSEMENT_EMPTY);
     	  }
-    	  if (StringUtils.isNotBlank(getAdress()) && StringUtils.isEmpty(getGeojson())) {
-    		  listErrors.add(I18N_ERROR_ADRESS_NOT_VALID);
-    	  }
+//    	  if (StringUtils.isNotBlank(getAdress()) && StringUtils.isEmpty(getGeojson())) {
+//    		  listErrors.add(I18N_ERROR_ADRESS_NOT_VALID);
+//    	  }
     	  if (StringUtils.isNotEmpty(getGeojson())) {
                   GeolocItem geolocItem = null;
               

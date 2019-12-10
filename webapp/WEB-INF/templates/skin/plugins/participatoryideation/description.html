@@ -4,27 +4,26 @@
 		type="hidden" name="action" value="description">
 
 	<div class="form-group">
-		#dskey{ideation.site_property.form.description_label.htmlblock}
-		<!-- label for="description_textarea">#dskey{ideation.site_property.form.description_label_text}</label -->
+		#i18n{participatoryideation.submit_project.steps.description.description_label}
 		<textarea id="description_textarea" name="description"
 			class="form-control" rows="5"
-			maxlength="#dskey{ideation.site_property.form.description.maxLength}">${form_etape_description.description!''}</textarea>
+			maxlength=2000>${form_etape_description.description!''}</textarea>
 	</div>
 
 	<div class="form-group">
-		<label for="cout">#dskey{ideation.site_property.form.cout_label_text}</label>
+		<label for="cout">#i18n{participatoryideation.submit_project.steps.description.cost_label}</label>
 		<input type="text" class="form-control" name="cout"
 			value="${form_etape_description.cout!''}" id="cout"
 			style="width: 100px">
 	</div>
 
 	<div class="form-group">
-		#dskey{ideation.site_property.form.handicap_label.htmlblock}
-		<label class="radio-inline"><input type="radio" name="handicap" id="handicap_yes" value="yes" <#if form_etape_description.handicap?? && form_etape_description.handicap == 'yes'>checked</#if>>#dskey{ideation.site_property.form.handicap_yes_label}</label> 
-		<label class="radio-inline"><input type="radio" name="handicap" id="handicap_no"  value="no"  <#if form_etape_description.handicap?? && form_etape_description.handicap == 'no' >checked</#if>>#dskey{ideation.site_property.form.handicap_no_label }</label> 
+		#i18n{participatoryideation.submit_project.steps.description.text1}
+		<label class="radio-inline"><input type="radio" name="handicap" id="handicap_yes" value="yes" <#if form_etape_description.handicap?? && form_etape_description.handicap == 'yes'>checked</#if>>Yes</label> 
+		<label class="radio-inline"><input type="radio" name="handicap" id="handicap_no"  value="no"  <#if form_etape_description.handicap?? && form_etape_description.handicap == 'no' >checked</#if>>No</label> 
 		<div id="handicapComplement_div">
-        	<label for="handicapcomplement">#dskey{ideation.site_property.form.handicap_complement_label} :</label>
-        	<p>(#dskey{ideation.site_property.form.handicap_complement.minLength} &agrave; #dskey{ideation.site_property.form.handicap_complement.maxLength} caract&egrave;res)</p>
+        	<label for="handicapcomplement">#i18n{participatoryideation.submit_project.steps.description.text1_complement}</label>
+        	<p>(${i18n("participatoryideation.submit_project.steps.description.text1_validation", 0, 100)})</p>
     		<input type="text" class="form-control" name="handicapComplement" value="${form_etape_description.handicapComplement!''}" id="handicapComplement"/>
 		</div>
 	</div>
@@ -33,11 +32,8 @@
 
 	<div class="form-group">
 		<p>
-			<strong>#dskey{ideation.site_property.form.operatingbudget.htmlblock}</strong>
-			(#dskey{ideation.site_property.form.operatingbudget.minLength}
-			&agrave;
-			#dskey{ideation.site_property.form.operatingbudget.maxLength}
-			caract&egrave;res)
+			#i18n{participatoryideation.submit_project.steps.description.text2}
+			(${i18n("participatoryideation.submit_project.steps.description.text2_validation", 0, 200)})
 		</p>
 		<textarea id="operatingbudget_textarea" name="operatingbudget"
 			class="form-control" rows="2">${form_etape_description.operatingbudget!''}</textarea>
@@ -46,7 +42,7 @@
 	<div class="form-button text-center">
 		<button
 			type="submit" value="Continuer" class="btn btn-14rem btn-black-on-white">
-			Continuer <i class="fa fa-angle-down"></i>
+			#i18n{participatoryideation.submit_project.steps.description.submit} <i class="fa fa-angle-down"></i>
 		</button>
 	</div>
 </form>
