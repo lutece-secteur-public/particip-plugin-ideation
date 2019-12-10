@@ -8,7 +8,7 @@
 	<#-- * THEME THEME THEME THEME THEME THEME THEME THEME THEME THEME THEME THEME THEME T * -->
 	<#-- *********************************************************************************** -->
 	<div class="form-group">
-		#dskey{ideation.site_property.form.code_theme_label.htmlblock}
+		<p>#i18n{participatoryideation.submit_project.steps.location.code_theme_label}</p>
 		<div class="row">
 			<#assign nIndex=0>
 			<#assign nMaxIndex=campagne_static.themes_list?size - 1>
@@ -30,26 +30,12 @@
 		</div>
 	</div>
 
-	<div id="msg_theme_CADRE" class="modal fade" tabindex="-1" role="dialog">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-body">
-					<p>Attention, nous vous rappelons que <strong>les nouveaux projets de r&eacute;am&eacute;nagement de l&rsquo;espace public</strong> (am&eacute;nagement de places ou de rues, cr&eacute;ation de pistes cyclables, &eacute;largissement de trottoirs, pi&eacute;tonisations, zones de rencontre&hellip;) <strong>ne sont pas accept&eacute;s</strong> en 2019.</p>
-					<div class="msg_theme_CADRE_buttons">
-						<a href="jsp/site/Portal.jsp?page_id=2" class="btn btn-14rem btn-black-on-white btn-lt-bg-unactive">Revoir les conditions de dépôt</a>
-						<button type="button" class="btn btn-14rem btn-black-on-white" data-dismiss="modal">J'ai compris</button>
-					</div>
-				</div>
-			</div><!-- /.modal-content -->
-		</div><!-- /.modal-dialog -->
-	</div><!-- /.modal -->
-
 	<#-- *********************************************************************************** -->
 	<#-- * DEPOSITAIRE DEPOSITAIRE DEPOSITAIRE DEPOSITAIRE DEPOSITAIRE DEPOSITAIRE DEPOSIT * -->
 	<#-- * DEPOSITAIRE DEPOSITAIRE DEPOSITAIRE DEPOSITAIRE DEPOSITAIRE DEPOSITAIRE DEPOSIT * -->
 	<#-- *********************************************************************************** -->
 	<div id="depositaire_row" class="form-group">
-		#dskey{ideation.site_property.form.depositaire_label.htmlblock}
+		<p>#i18n{participatoryideation.submit_project.steps.location.depositary_label}</p>
 		<#assign autre = 0> <#-- L'option 'Autre' sera insérée en fin de liste -->
 		<#list campagne_static.depositaire_types_list?sort_by("id") as depositaire_type>
 			<#if depositaire_type["libelle"] = 'Autre'>
@@ -90,14 +76,14 @@
   </div>
   
   <div class="form-group">
-    #dskey{ideation.site_property.form.localisation_type_label.htmlblock}
+	<p>#i18n{participatoryideation.submit_project.steps.location.location_type_label}</p>
     <label class="radio-inline">
       <input type="radio" name="localisation_type" id="mode_radio_paris" value="paris" <#if form_etape_location.localisationType??&& form_etape_location.localisationType=='paris'>checked</#if>>
-      #dskey{ideation.site_property.form.localisation_label_toutparis}
+		#i18n{participatoryideation.submit_project.steps.location.location_label_city}
     </label>
     <label class="radio-inline">
         <input type="radio" name="localisation_type" id="mode_radio_ardt" value="ardt" <#if form_etape_location.localisationType??&& form_etape_location.localisationType=='ardt'>checked</#if>>
-        #dskey{ideation.site_property.form.localisation_label_arrondissement}
+		#i18n{participatoryideation.submit_project.steps.location.location_label_area}
     </label>
   <div id="col_ardt">
     <label class="sr-only"></label>
@@ -106,10 +92,9 @@
   </div>
 
   <div id="col_geoloc" class="form-group">
-    #dskey{ideation.site_property.form.adress_label.htmlblock}
-    <!-- label for="adress">#dskey{ideation.site_property.form.localisation_label_precis_adresse}</label -->
+	<p>#i18n{participatoryideation.submit_project.steps.location.address_label}</p>
     <div class="input-group">
-      <input type="text" class="form-control input-sm" name="adress" id="adress" value="${form_etape_location.adress!''}">
+      	<input type="text" class="form-control input-sm" name="adress" id="adress" value="${form_etape_location.adress!''}">
       <span class="input-group-btn">
         <button class="btn btn-default btn-xs" type="button" title="effacer" id="button_delete_adress"><i class="fa fa-times"></i></button>
       </span>
@@ -121,7 +106,7 @@
   </div>
   
   <div class="form-button text-center">
-    <button type="submit" value="Continuer" class="btn btn-14rem btn-black-on-white">Continuer <i class="fa fa-angle-down"></i></button>
+    <button type="submit" value="Continuer" class="btn btn-14rem btn-black-on-white">#i18n{participatoryideation.submit_project.steps.location.submit} <i class="fa fa-angle-down"></i></button>
   </div>
 
   </form>
@@ -208,9 +193,10 @@ $(window).load(function() {
   }
   var sourceSRID = new Proj4js.Proj('EPSG:27561');
   var destSRID = new Proj4js.Proj('EPSG:4326');
-  var jAdresse = $('#adress');
-  jAdresse.suggestPOI();
-  jAdresse.bind($.suggestPOI.EVT_SELECT, function(event) {
+  
+   var jAdresse = $('#adress');
+   /* jAdresse.suggestPOI();
+   jAdresse.bind($.suggestPOI.EVT_SELECT, function(event) {
                    var poi = event.poi;
                    if (poi) {
                        var address = poi.libelleTypo;
@@ -236,7 +222,7 @@ $(window).load(function() {
                        $('#geojson_state').val(JSON.stringify(obj));
                        }
                });
-
+ 
                $("#button_delete_adress").on('click', function () {
                        $('#adress').val("");
                        //Don't put the empty string to disambiguate with the user
@@ -271,6 +257,6 @@ $(window).load(function() {
    markers_layer.clearLayers();
    var marker = L.marker([prev_value.geometry.coordinates[1],prev_value.geometry.coordinates[0]]).addTo(markers_layer);
    map.fitBounds(markers_layer.getBounds());
-   }
+   } */
 });
 </script>

@@ -1,11 +1,11 @@
-<#assign previous_campaigns_label = "Nous avons identifié des projets déposés lors des précédentes campagnes, semblant se rapprocher du vôtre.<br>Certains ont pu ne pas être retenus pour le vote, vous en trouverez le motif dans les commentaires du projet.">
-<#assign keyword_label            = "Nous avons identifié des projets déposés cette année, contenant des mots-clés présents dans le titre que vous avez indiqué. N'hésitez pas à vous y associer, plutôt que de déposer un projet semblable.">
-<#assign location_label           = "Nous avons identifié des projets déposés cette année, voisins de l'adresse indiquée. N'hésitez pas à vous y associer, plutôt que de déposer un projet semblable.">
+<#assign previous_campaigns_label = "#i18n{participatoryideation.submit_project.steps.approx.previous_campaigns_label}">
+<#assign keyword_label            = "#i18n{participatoryideation.submit_project.steps.approx.keyword_label}">
+<#assign location_label           = "#i18n{participatoryideation.submit_project.steps.approx.location_label}">
 <#assign list_names               = [previous_campaigns_label, keyword_label, location_label] >
 <#assign current_campagne_code    = campagne_static["campagne"].code!'' >
 
 <#if (((results_previous_campaigns_list?size)!0) == 0)  && (((results_keyword_list?size)!0) == 0) && (((results_location_list?size)!0) == 0)>
-	<h4>Nous n’avons trouvé aucun projet similaire. Il semble que vous soyez le premier à proposer cette idée, bravo !</h4>
+	<h4>#i18n{participatoryideation.submit_project.steps.approx.notfound}</h4>
 <#else>
 	<div class="row">
 		<div class="col-xs-12 col-sm-12">
@@ -91,12 +91,12 @@
 										<#assign statut_project = ""> 
 										<#if result.dynamicFields?? && result.dynamicFields.statut_publique_project_text??>
 											<span class="text-danger">
-												<strong>Non retenu en ${2014 + "ABCDEFGHIJKLMNOPQRSTUVWXYZ"?index_of(result.dynamicFields.campagne_text)}</strong>
+												<strong>${i18n("participatoryideation.submit_project.steps.approx.not_selected", 2014 + "ABCDEFGHIJKLMNOPQRSTUVWXYZ"?index_of(result.dynamicFields.campagne_text))} </strong>
 											</span>
 										</#if>
 										<#if result.dynamicFields?? && result.dynamicFields.statut_project_text??>
 											<span class="text-success"> 
-												<i class="fa fa-trophy"></i> Gagnant de la campagne <#list result.dynamicFields.campagne_text?split(' ') as x><#if x?matches('[2-9][0-9][0-9][0-9]')>${x}</#if></#list>
+												<i class="fa fa-trophy"></i> #i18n{participatoryideation.submit_project.steps.approx.winning} <#list result.dynamicFields.campagne_text?split(' ') as x><#if x?matches('[2-9][0-9][0-9][0-9]')>${x}</#if></#list>
 											</span>
 										</#if>
 									</div>
@@ -105,7 +105,7 @@
 								<#-- Highlights -->
 								<#if result.highlight??>
 									<div class="panel-footer panel-highlight">
-										Principaux termes identifi&eacute;s :
+										#i18n{participatoryideation.submit_project.steps.approx.results_highlight}
 										<#if result.highlight.map["content"]??>
 											<#list result.highlight.map["content"] as extrait>
 												<p>&laquo;&nbsp;...${extrait}...&nbsp;&raquo;</p>
@@ -116,7 +116,7 @@
 								
 								<div class="panel-footer panel-approx-button">
 									<a class="btn btn-12rem btn-black-on-white" href="${result.url}" alt="${result.title}" title="${result.title}" target="_blank">
-										Consulter le projet
+										#i18n{participatoryideation.submit_project.steps.approx.consult_project}
 									</a>
 								</div>								
 
@@ -135,12 +135,11 @@
     <form onsubmit="return validateForm(this);" action="jsp/site/Portal.jsp" method="post">
       <input type="hidden" name="page" value="ideation">
       <div id="approx-btn" class="form-button text-center">
-          <button type="submit" value="Continuer" name="action_approx" class="btn btn-14rem btn-black-on-white">
-              Continuer <i class="fa fa-angle-down"></i>
+          <button type="submit" value="Continuer" name="action_approx" class="btn btn-14rem btn-black-on-white">#i18n{participatoryideation.submit_project.steps.approx.submit} <i class="fa fa-angle-down"></i>
           </button>
           <#if !((((results_previous_campaigns_list?size)!0) == 0) && (((results_keyword_list?size)!0) == 0) && (((results_location_list?size)!0) == 0))>
-            <button type="submit" value="Je ne poursuis pas mon dépôt" name="action_abandon" class="btn btn-14rem btn-black-on-white">
-                Je ne poursuis pas mon d&eacute;p&ocirc;t <i class="fa fa-times-circle"></i>
+            <button type="submit" value="#i18n{participatoryideation.submit_project.steps.approx.abandon}" name="action_abandon" class="btn btn-14rem btn-black-on-white">
+                #i18n{participatoryideation.submit_project.steps.approx.abandon} <i class="fa fa-times-circle"></i>
             </button>
           </#if>
        </div>

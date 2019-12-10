@@ -107,7 +107,7 @@ import fr.paris.lutece.util.filesystem.FileSystemUtil;
  * This class provides a simple implementation of an XPage
  */
 
-@Controller( xpageName = "participatoryideation" , pageTitleI18nKey = "participatoryideation.xpage.ideation.pageTitle" , pagePathI18nKey = "participatoryideation.xpage.ideation.pagePathLabel" )
+@Controller( xpageName = "ideation" , pageTitleI18nKey = "participatoryideation.xpage.ideation.pageTitle" , pagePathI18nKey = "participatoryideation.xpage.ideation.pagePathLabel" )
 public class IdeationApp extends MVCApplication
 {
 
