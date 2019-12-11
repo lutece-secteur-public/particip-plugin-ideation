@@ -66,17 +66,17 @@
 
 				<#assign status_text = "">
 				<#assign status_icon = "">
-				<#if     idee.statusPublic = "STATUS_DEPOSE">            <#assign status_text = "Projet déposé">                  <#assign status_icon = "prop-statut-ok-${theme_class}.png">
-				<#elseif idee.statusPublic = "STATUS_EN_CO_CONSTRUCTION"><#assign status_text = "En phase de co-construction">    <#assign status_icon = "prop-statut-ok-${theme_class}.png">
-				<#elseif idee.statusPublic = "STATUS_REGROUPE">          <#assign status_text = "Regroupé avec d'autres projets"> <#assign status_icon = "prop-statut-ok-${theme_class}.png">
-				<#elseif idee.statusPublic = "STATUS_A_ETUDE">           <#assign status_text = "Projet en cours d'étude">        <#assign status_icon = "prop-statut-ok-${theme_class}.png">
-				<#elseif idee.statusPublic = "STATUS_RETENU">            <#assign status_text = "Projet retenu">                  <#assign status_icon = "prop-statut-ok-${theme_class}.png">
-				<#elseif idee.statusPublic = "STATUS_NON_RETENU">        <#assign status_text = "Projet non retenu">              <#assign status_icon = "prop-statut-ko-${theme_class}.png">
+				<#if     idee.statusPublic = "STATUS_DEPOSE">            <#assign status_text = i18n("participatoryideation.message.labelStatusPublished")>        <#assign status_icon = "prop-statut-ok.png">
+				<#elseif idee.statusPublic = "STATUS_EN_CO_CONSTRUCTION"><#assign status_text = i18n("participatoryideation.message.labelStatusEnCoConstruction")> <#assign status_icon = "prop-statut-ok.png">
+				<#elseif idee.statusPublic = "STATUS_REGROUPE">          <#assign status_text = i18n("participatoryideation.message.labelStatusRegroupe")>         <#assign status_icon = "prop-statut-ok.png">
+				<#elseif idee.statusPublic = "STATUS_A_ETUDE">           <#assign status_text = i18n("participatoryideation.message.labelAEtude")>                 <#assign status_icon = "prop-statut-ok.png">
+				<#elseif idee.statusPublic = "STATUS_RETENU">            <#assign status_text = i18n("participatoryideation.message.labelRetenu")>                 <#assign status_icon = "prop-statut-ok.png">
+				<#elseif idee.statusPublic = "STATUS_NON_RETENU">        <#assign status_text = i18n("participatoryideation.message.labelNonRetenu")>              <#assign status_icon = "prop-statut-ko.png">
 				</#if>
 
 				<#assign campagne_year = "&#160;">
 				<#if idee.codeCampagne??>
-					<#assign campagne_year = "Budget Participatif " + (2014 + "ABCDEFGHIJKLMNOPQRSTUVWXYZ"?index_of(idee.codeCampagne))>
+					<#assign campagne_year = idee.codeCampagne>
 				</#if>
 
 				<#-- *********************************************************************************** -->
@@ -175,7 +175,7 @@
 					
 						<#-- Location -->
 						<div class="prop-desc-localisation">
-							<img src="images/local/skin/marker-${theme_class}.png" alt="#i18n{participatoryideation.view_idea.desc.location}" title="#i18n{participatoryideation.view_idea.desc.location}" />
+							<img src="images/local/skin/marker.png" alt="#i18n{participatoryideation.view_idea.desc.location}" title="#i18n{participatoryideation.view_idea.desc.location}" />
 							<div class="prop-desc-localisation-addr">
 								<#if idee.adress?? && idee.adress != '' >${idee.adress?html}<br></#if>
 								<#if idee.localisationType == "paris">#i18n{participatoryideation.view_idea.desc.location.city}<#elseif idee.localisationType == "ardt">${i18n("participatoryideation.view_idea.desc.location.area", (arrondissements_map[idee.localisationArdt])!idee.localisationArdt)}</#if>
@@ -249,6 +249,7 @@
 					<#-- * DATA DATA DATA DATA DATA DATA DATA DATA DATA DATA DATA DATA DATA DATA DATA DATA * -->
 					<#-- * DATA DATA DATA DATA DATA DATA DATA DATA DATA DATA DATA DATA DATA DATA DATA DATA * -->
 					<#-- *********************************************************************************** -->
+					
 					<div id="prop-data" class="col-xs-12 col-sm-4 bg-color0">
 
 						<#-- Séparation en mode XS -->
@@ -282,10 +283,9 @@
 
 						<div class="prop-data-kv">
 							<div class="prop-data-key">
-								<img title="#i18n{participatoryideation.view_idea.data.campain}" alt="#i18n{participatoryideation.view_idea.data.campain}" src="images/local/skin/logo_paris_bp_ultramini-${theme_class}.png">
 							</div>
 							<div class="prop-data-value">
-								${campagne_year!"&#160;"}
+								#i18n{participatoryideation.view_idea.data.campain} ${campagne_year!"&#160;"}
 							</div>
 						</div>
 						
@@ -300,13 +300,13 @@
 
 						<div class="prop-data-kv last">
 							<div class="prop-data-key">
-								<img src="images/local/skin/money-${theme_class}.png" alt="#i18n{participatoryideation.view_idea.data.cost.title}" title="#i18n{participatoryideation.view_idea.data.cost.title}" />
+								<img src="images/local/skin/money.png" alt="#i18n{participatoryideation.view_idea.data.cost.title}" title="#i18n{participatoryideation.view_idea.data.cost.title}" />
 							</div>
 							<div class="prop-data-value">
 								<#if idee.cout?? && (idee.cout != -1)>
-								${i18n("participatoryideation.view_idea.data.cost.estimated", idee.cout?string.number!'')}
+									${i18n("participatoryideation.view_idea.data.cost.estimated", idee.cout?string.number!'')}
 								<#else>
-								#i18n{participatoryideation.view_idea.data.cost.not_estimated}
+									#i18n{participatoryideation.view_idea.data.cost.not_estimated}
 								</#if>
 							</div>
 						</div>
@@ -349,7 +349,7 @@
 						<#-- Son avatar -->
 						<div id="prop-data-avatar">
 							<a href="${avatar_url!''}" target="_blank" title="Voir l'avatar de ${nickname!''} (nouvel onglet)"><div class="prop-data-avatar-img pull-left" style="background-image:url(${avatar_url!''});"></div></a>
-							D&eacute;pos&eacute; le ${idee.creationTimestamp?date?string.long}<br/>par
+							#i18n{participatoryideation.message.labelStatusPublished} ${idee.creationTimestamp?date?string.long}<br/>
 							<a href="jsp/site/Portal.jsp?page=search-solr&conf=list_idees&query=(pseudo_string:&quot;${(nickname!'')?url('UTF-8')}&quot;)" class="color-theme-${theme_class}" target="_blank" title="Voir les propositions déposées par ${nickname!''} (nouvel onglet)">
 								${nickname!''}
 							</a>
