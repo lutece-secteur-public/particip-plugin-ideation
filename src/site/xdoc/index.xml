@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document>
     <properties>
-        <title>Plugin ideation</title>
+        <title>Plugin participatory ideation</title>
     </properties>
     <body>
-        <section name="Plugin ideation">
+        <section name="Plugin participatory ideation">
             <!--
             <p>
                 <img src="images/ideation.png" />
             </p>
             -->
             <subsection name="Introduction">
-                <p></p>
+                <p>This plugin offers a step-by-step form to submit a proposal in a citizen participation process.</p>
+                <p>This plugin is used by <a href="https://github.com/lutece-secteur-public/particip-site-participatorybudget">OpenPB</a> site.</p>
             </subsection>
             <subsection name="Configuration">
-                <p></p>
+                <p>To do</p>
             </subsection>
             <subsection name="Usage">
-                <p></p>
+                <p>To do</p>
             </subsection>
         </section>
     </body>

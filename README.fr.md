@@ -3,21 +3,19 @@
 [![Line of code](https://dev.lutece.paris.fr/sonar/api/project_badges/measure?project=fr.paris.lutece.plugins%3Aplugin-participatoryideation&metric=ncloc)](https://dev.lutece.paris.fr/sonar/dashboard?id=fr.paris.lutece.plugins%3Aplugin-participatoryideation)
 [![Coverage](https://dev.lutece.paris.fr/sonar/api/project_badges/measure?project=fr.paris.lutece.plugins%3Aplugin-participatoryideation&metric=coverage)](https://dev.lutece.paris.fr/sonar/dashboard?id=fr.paris.lutece.plugins%3Aplugin-participatoryideation)
 
-# Plugin participatory ideation
+# Plugin ideation
 
 ## Introduction
 
-This plugin offers a step-by-step form to submit a proposal in a citizen participation process.
 
-This plugin is used by [OpenPB](https://github.com/lutece-secteur-public/particip-site-participatorybudget) site.
 
 ## Configuration
 
-To do
+
 
 ## Usage
 
-To do
+
 
 
 [Maven documentation and reports](https://dev.lutece.paris.fr/plugins/plugin-participatoryideation/)

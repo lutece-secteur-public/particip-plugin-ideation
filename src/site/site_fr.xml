@@ -5,13 +5,13 @@
             <item name="EN" href="../index.html" />
         </links>
         
-        <menu name="Plugin ideation">
+        <menu name="Plugin participatory ideation">
             <item name="Accueil" href="index.html"/>
         </menu>
         
         <menu name="Téléchargements" inherit="bottom" >
-            <item name="Versions stables" href="../../../stable_builds/plugins/plugin-ideation/"/>
-            <item name="Nightly builds" href="../../../nightly_builds/plugins/plugin-ideation/" />
+            <item name="Versions stables" href="../../../stable_builds/plugins/plugin-participatoryideation/"/>
+            <item name="Nightly builds" href="../../../nightly_builds/plugins/plugin-participatoryideation/" />
         </menu>
 
     <!--
