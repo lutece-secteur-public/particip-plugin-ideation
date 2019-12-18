@@ -47,6 +47,7 @@ import fr.paris.lutece.plugins.participatorybudget.web.MyInfosXPage;
 import fr.paris.lutece.plugins.participatoryideation.business.Idee;
 import fr.paris.lutece.plugins.participatoryideation.business.IdeeHome;
 import fr.paris.lutece.plugins.participatoryideation.service.IIdeeWSService;
+import fr.paris.lutece.plugins.participatoryideation.service.IdeationCampagneService;
 import fr.paris.lutece.plugins.participatoryideation.service.IdeationErrorException;
 import fr.paris.lutece.plugins.participatoryideation.service.IdeationStaticService;
 import fr.paris.lutece.plugins.participatoryideation.service.IdeeService;
@@ -114,7 +115,8 @@ public class IdeeXPage extends MVCApplication
     
     private static final String MARK_CODE_IDEE="idee";
     private static final String MARK_CODE_CAMPAGNE="campagne";
-    
+    private static final String MARK_WHOLE_AREA="whole_name";
+
     private static final String MARK_LASTNAME_USER="lastNameUser";
     private static final String MARK_FIRSTNAME_USER="firstNameUser";
     private static final String MARK_EMAIL_USER="emailUser";
@@ -184,6 +186,7 @@ public class IdeeXPage extends MVCApplication
         
         model.put( MARK_SHOW_CONTACT, strShowContact );
         model.put( MARK_MESSAGE_NOT_ACCEPT, strContactMessageNotAccept );
+        model.put( MARK_WHOLE_AREA, IdeationCampagneService.getInstance().getCampaignWholeArea() );
         
         
         if (_idee == null || !IdeeService.getInstance().isPublished(_idee)) {
@@ -348,7 +351,7 @@ public class IdeeXPage extends MVCApplication
         return false;
 
     }
-    
+
     private void contactDepHistory( Idee idee, String strLuteceUserName )
     {
     	IResourceExtenderHistoryService resourceHistoryService = SpringContextService.getBean( ResourceExtenderHistoryService.BEAN_SERVICE );

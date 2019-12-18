@@ -61,7 +61,7 @@
           <property name='hashService' ref='participatoryideation.hashService' />
           <property name='signatureElements'>
               <list>
-                  <!-- <value>campaign_data</value> -->
+                  <!-- <value>change me</value> -->
               </list>
           </property>
           <property name='privateKey'>
