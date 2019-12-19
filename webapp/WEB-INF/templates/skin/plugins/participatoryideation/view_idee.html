@@ -178,7 +178,7 @@
 							<img src="images/local/skin/marker.png" alt="#i18n{participatoryideation.view_idea.desc.location}" title="#i18n{participatoryideation.view_idea.desc.location}" />
 							<div class="prop-desc-localisation-addr">
 								<#if idee.adress?? && idee.adress != '' >${idee.adress?html}<br></#if>
-								<#if idee.localisationType == "paris">#i18n{participatoryideation.view_idea.desc.location.city}<#elseif idee.localisationType == "ardt">${i18n("participatoryideation.view_idea.desc.location.area", (arrondissements_map[idee.localisationArdt])!idee.localisationArdt)}</#if>
+								<#if idee.localisationType == "whole">${whole_name}<#elseif idee.localisationType == "ardt">${i18n("participatoryideation.view_idea.desc.location.area", (arrondissements_map[idee.localisationArdt])!idee.localisationArdt)}</#if>
 							</div>
 						</div>
 

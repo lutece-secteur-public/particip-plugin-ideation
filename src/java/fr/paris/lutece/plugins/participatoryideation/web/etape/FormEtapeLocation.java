@@ -1,3 +1,4 @@
+
 /*
  * Copyright (c) 2002-2019, Mairie de Paris
  * All rights reserved.
@@ -65,27 +66,23 @@ public class FormEtapeLocation extends  AbstractFormEtape  {
 	private static final String I18N_ERROR_ADRESS_FORMAT="participatoryideation.validation.idee.FormEtapeLocation.AdressFormat";
 	private static final String I18N_ERROR_ADRESS_NOT_VALID="participatoryideation.validation.idee.FormEtapeLocation.AdressNotValid";
 	private static final String I18N_ERROR_ADRESS_ARDT_MISMATCH="participatoryideation.validation.idee.FormEtapeLocation.ArdtMismatch";
-	   
 	private static final String I18N_ERROR_COMPLEMENT_EMPTY="participatoryideation.validation.idee.FormEtapeLocation.depositaire_complement.notEmpty";
-	
+
 	@NotEmpty( message = "#i18n{participatoryideation.validation.idee.FormEtapeLocation.CodeTheme.notEmpty}" )
-    @Size( max = 50 , message = "#i18n{participatoryideation.validation.idee.FormEtapeLocation.CodeTheme.size}" ) 
+    @Size( max = 50 , message = "#i18n{participatoryideation.validation.idee.FormEtapeLocation.CodeTheme.size}" )
     private String _strCodeTheme;
 	@NotEmpty( message = "#i18n{participatoryideation.validation.idee.FormEtapeLocation.localisationTypeNotEmpty}" )
 	private String _strLocalisationType;
-	@Pattern( regexp = "^$|(7500[1-9])|(7501[0-9])|(75020)", message = "#i18n{participatoryideation.validation.idee.localisationArdt.pattern}" )
 	private String _strLocalisationArdt;
-	    
+
 	private String _strGeojson;
 	private String _strAdress;
-	
+
 	@NotEmpty( message = "#i18n{participatoryideation.validation.idee.FormEtapeLocation.depositaireType.notEmpty}" )
 	private String _strDepositaireType;
 	@Size( max = 50 , message = "#i18n{participatoryideation.validation.idee.Depositaire.size}" )
 	private String _strDepositaire;
-	
 
-	
 	/**
      * Returns the LocalisationArdt
      * @return The LocalisationArdt
@@ -98,20 +95,20 @@ public class FormEtapeLocation extends  AbstractFormEtape  {
     /**
      * Sets the LocalisationArdt
      * @param strLocalisationArdt The LocalisationArdt
-     */ 
+     */
     public void setLocalisationArdt( String strLocalisationArdt )
     {
-    	_strLocalisationArdt = strLocalisationArdt;
+        _strLocalisationArdt = strLocalisationArdt;
     }
 
 	public String getLocalisationType() {
 		return _strLocalisationType;
 	}
 
-	public void setLocalisationType(String _strLocalisationType) {
-		this._strLocalisationType = _strLocalisationType;
+	public void setLocalisationType(String strLocalisationType) {
+		this._strLocalisationType = strLocalisationType;
 	}
-	
+
 	 /**
      * Returns the CodeTheme
      * @return The CodeTheme
@@ -124,13 +121,12 @@ public class FormEtapeLocation extends  AbstractFormEtape  {
     /**
      * Sets the CodeTheme
      * @param strCodeTheme The CodeTheme
-     */ 
+     */
     public void setCodeTheme( String strCodeTheme )
     {
         _strCodeTheme = strCodeTheme;
     }
-    
-	
+
 	 public String getGeojson() {
 		return _strGeojson;
 	}
@@ -138,8 +134,7 @@ public class FormEtapeLocation extends  AbstractFormEtape  {
 	public void setGeojson(String _strGeojson) {
 		this._strGeojson = _strGeojson;
 	}
-	
-	
+
       public List<String> checkValidationErrors(HttpServletRequest request)
       {
 
@@ -148,7 +143,7 @@ public class FormEtapeLocation extends  AbstractFormEtape  {
           if (!DepositaireType.CODE_COMPLEMENT_TYPE_NONE.equals(strComplementType) && StringUtils.isBlank( getDepositaire())) {
               listErrors.add(I18N_ERROR_COMPLEMENT_EMPTY);
           }
-    	  
+
     	  if (getLocalisationType().equals(Idee.LOCALISATION_TYPE_ARDT) && StringUtils.isEmpty( getLocalisationArdt())) {
     		  listErrors.add(I18N_ERROR_ARRONDISSEMENT_EMPTY);
     	  }
@@ -174,15 +169,12 @@ public class FormEtapeLocation extends  AbstractFormEtape  {
                           setLocalisationArdt(strArdt);
                       }
                   } catch (IOException e) {
-                      
-                	  listErrors.add(I18N_ERROR_ADRESS_FORMAT);
+                      listErrors.add(I18N_ERROR_ADRESS_FORMAT);
                       AppLogService.error ( "IdeationApp: malformed data from client: address = " + getGeojson() + "; exeception " + e );
                   }
-                 
               }
-    	  
-    	    return listErrors;
-    	 }
+             return listErrors;
+         }
 
     public List<String> checkValidationErrorsLocalized(HttpServletRequest request, Locale locale)
     {
@@ -190,13 +182,13 @@ public class FormEtapeLocation extends  AbstractFormEtape  {
         String userUid= "guid";
         if(SecurityService.getInstance().getRegisteredUser(request)!=null)
         {
-        	LuteceUser user = SecurityService.getInstance().getRegisteredUser(request);
+            LuteceUser user = SecurityService.getInstance().getRegisteredUser(request);
             userUid= user.getName( );
         }
 
         return listErrors;
     }
-	
+
 
 	public String getAdress() {
 		return _strAdress;
@@ -205,7 +197,7 @@ public class FormEtapeLocation extends  AbstractFormEtape  {
 	public void setAdress(String _strAdress) {
 		this._strAdress = _strAdress;
 	}
-    	  		
+
 	public String getDepositaireType() {
 		return _strDepositaireType;
 	}
@@ -220,7 +212,7 @@ public class FormEtapeLocation extends  AbstractFormEtape  {
 
 	public void setDepositaire(String _strConseilQuartier) {
 		this._strDepositaire = _strConseilQuartier;
-	}  	
+	}
 
 	public boolean mustCopyDepositaire() {
 		String strComplementType = DepositaireTypeHome.findByCode(getDepositaireType()).getCodeComplementType();

@@ -61,6 +61,7 @@ import fr.paris.lutece.plugins.participatorybudget.util.Constants;
 import fr.paris.lutece.plugins.participatorybudget.web.MyInfosXPage;
 import fr.paris.lutece.plugins.participatoryideation.business.Idee;
 import fr.paris.lutece.plugins.participatoryideation.business.capgeo.QpvQva;
+import fr.paris.lutece.plugins.participatoryideation.service.IdeationCampagneService;
 import fr.paris.lutece.plugins.participatoryideation.service.IdeationErrorException;
 import fr.paris.lutece.plugins.participatoryideation.service.IdeationStaticService;
 import fr.paris.lutece.plugins.participatoryideation.service.IdeationUploadHandler;
@@ -173,6 +174,9 @@ public class IdeationApp extends MVCApplication
     private static final String MARK_RECAP_IDEE_CREATED_CODE= "idee_created_code";
     private static final String MARK_RECAP_IDEE_CREATED_CAMPAGNE = "idee_created_campagne";
     private static final String MARK_RECAP_IDEE_CREATED_REFERENCE = "idee_created_reference";
+    private static final String MARK_WHOLE = "whole_name";
+    private static final String MARK_NUMBER_AREAS = "number_arrondissements";
+    private static final String MARK_AREAS = "areas";
 
     public static final String QPV_QVA_QPV = "NQPV";
     public static final String QPV_QVA_QVA = "QVA";
@@ -254,6 +258,9 @@ public class IdeationApp extends MVCApplication
         Map<String, Object> model = getModel( request );
         model.put( MARK_STEPS_INDEX, STEPS.LOCATION_INDEX.ordinal(  ) );
         model.put( MARK_STEPS_CONTENT, TEMPLATE_LOCATION );
+        model.put( MARK_NUMBER_AREAS, IdeationCampagneService.getInstance().getCampaignNumberAreas() );
+        model.put( MARK_AREAS, IdeationCampagneService.getInstance().getCampaignAreas() );
+        model.put( MARK_WHOLE, IdeationCampagneService.getInstance().getCampaignWholeArea() );
         return getXPage( TEMPLATE_ETAPES, request.getLocale(  ), model );
     }
 
@@ -588,7 +595,8 @@ public class IdeationApp extends MVCApplication
     private String getOldArdtText(String strLocalisationArdt) {
         // 7500X -> "Xe arrondissement"
         // 750XX -> "XXe arrondissement"
-        return (Integer.parseInt(strLocalisationArdt) - 75000) + "e arrondissement" ;
+        //return (Integer.parseInt(strLocalisationArdt) - 75000) + "e arrondissement" ;
+        return strLocalisationArdt;
     }
     
     /**
@@ -991,7 +999,6 @@ public class IdeationApp extends MVCApplication
                 throw new UserNotSignedException();
             }
             return MyInfosService.loadUserInfos(user).getIsValid();
-            	
         }
         return false;
 

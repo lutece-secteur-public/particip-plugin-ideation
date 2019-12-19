@@ -1,16 +1,13 @@
+DROP TABLE IF EXISTS `task_notify_ideation_cf`;
+DROP TABLE IF EXISTS `task_change_idee_status_cf`;
+DROP TABLE IF EXISTS `ideation_idees_links`;
+DROP TABLE IF EXISTS `ideation_idees_files`;
+DROP TABLE IF EXISTS `ideation_idees`;
 DROP TABLE IF EXISTS `ideation_campagnes_depositaires`;
-CREATE TABLE IF NOT EXISTS `ideation_campagnes_depositaires` (
-  `id_campagne_depositaire` int(6) NOT NULL,
-  `code_campagne` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `code_depositaire_type` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`id_campagne_depositaire`),
-  KEY `fk_ideation_campagnes_depositaires_campagne` (`code_campagne`),
-  KEY `fk_ideation_campagnes_depositaires_depositaire` (`code_depositaire_type`),
-  CONSTRAINT `fk_ideation_campagnes_depositaires_campagne` FOREIGN KEY (`code_campagne`) REFERENCES `participatorybudget_campaign` (`code_campagne`),
-  CONSTRAINT `fk_ideation_campagnes_depositaires_depositaire` FOREIGN KEY (`code_depositaire_type`) REFERENCES `ideation_depositaire_types` (`code_depositaire_type`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
+DROP TABLE IF EXISTS `ideation_depositaire_types_values`;
+DROP TABLE IF EXISTS `ideation_depositaire_types`;
 DROP TABLE IF EXISTS `ideation_depositaire_complement_types`;
+
 CREATE TABLE IF NOT EXISTS `ideation_depositaire_complement_types` (
   `id_depositaire_complement_type` int(6) NOT NULL,
   `code_depositaire_complement_type` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
@@ -19,7 +16,6 @@ CREATE TABLE IF NOT EXISTS `ideation_depositaire_complement_types` (
   UNIQUE KEY `code_depositaire_complement_type` (`code_depositaire_complement_type`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-DROP TABLE IF EXISTS `ideation_depositaire_types`;
 CREATE TABLE IF NOT EXISTS `ideation_depositaire_types` (
   `id_depositaire_type` int(6) NOT NULL,
   `code_depositaire_type` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
@@ -31,7 +27,6 @@ CREATE TABLE IF NOT EXISTS `ideation_depositaire_types` (
   CONSTRAINT `fk_ideation_depositaire_types_complement` FOREIGN KEY (`code_complement_type`) REFERENCES `ideation_depositaire_complement_types` (`code_depositaire_complement_type`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-DROP TABLE IF EXISTS `ideation_depositaire_types_values`;
 CREATE TABLE IF NOT EXISTS `ideation_depositaire_types_values` (
   `id_depositaire_type_value` int(6) NOT NULL,
   `code_depositaire_type` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
@@ -42,7 +37,16 @@ CREATE TABLE IF NOT EXISTS `ideation_depositaire_types_values` (
   CONSTRAINT `fk_ideation_depositaire_type_values_depositaire` FOREIGN KEY (`code_depositaire_type`) REFERENCES `ideation_depositaire_types` (`code_depositaire_type`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-DROP TABLE IF EXISTS `ideation_idees`;
+CREATE TABLE IF NOT EXISTS `ideation_campagnes_depositaires` (
+  `id_campagne_depositaire` int(6) NOT NULL,
+  `code_campagne` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `code_depositaire_type` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id_campagne_depositaire`),
+  KEY `fk_ideation_campagnes_depositaires_campagne` (`code_campagne`),
+  KEY `fk_ideation_campagnes_depositaires_depositaire` (`code_depositaire_type`),
+  CONSTRAINT `fk_ideation_campagnes_depositaires_depositaire` FOREIGN KEY (`code_depositaire_type`) REFERENCES `ideation_depositaire_types` (`code_depositaire_type`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
 CREATE TABLE IF NOT EXISTS `ideation_idees` (
   `id_idee` int(6) NOT NULL,
   `lutece_user_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -82,7 +86,6 @@ CREATE TABLE IF NOT EXISTS `ideation_idees` (
   UNIQUE KEY `code_campagne` (`code_campagne`,`code_idee`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-DROP TABLE IF EXISTS `ideation_idees_files`;
 CREATE TABLE IF NOT EXISTS `ideation_idees_files` (
   `id_idee_file` int(6) NOT NULL,
   `id_file` int(11) NOT NULL,
@@ -91,11 +94,9 @@ CREATE TABLE IF NOT EXISTS `ideation_idees_files` (
   PRIMARY KEY (`id_idee_file`),
   KEY `id_idee` (`id_idee`,`type`,`id_file`),
   KEY `id_file` (`id_file`),
-  CONSTRAINT `ideation_idees_files_file` FOREIGN KEY (`id_file`) REFERENCES `core_file` (`id_file`),
   CONSTRAINT `ideation_idees_files_idee` FOREIGN KEY (`id_idee`) REFERENCES `ideation_idees` (`id_idee`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-DROP TABLE IF EXISTS `ideation_idees_links`;
 CREATE TABLE IF NOT EXISTS `ideation_idees_links` (
   `id_idee_link` int(6) NOT NULL,
   `id_idee_parent` int(6) NOT NULL,
@@ -105,14 +106,12 @@ CREATE TABLE IF NOT EXISTS `ideation_idees_links` (
   KEY `id_idee_parent` (`id_idee_parent`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-DROP TABLE IF EXISTS `task_change_idee_status_cf`;
 CREATE TABLE IF NOT EXISTS `task_change_idee_status_cf` (
   `id_task` int(11) NOT NULL,
   `idee_status` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id_task`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
-DROP TABLE IF EXISTS `task_notify_ideation_cf`;
 CREATE TABLE IF NOT EXISTS `task_notify_ideation_cf` (
   `id_task` int(11) NOT NULL,
   `sender_name` varchar(255) DEFAULT NULL,

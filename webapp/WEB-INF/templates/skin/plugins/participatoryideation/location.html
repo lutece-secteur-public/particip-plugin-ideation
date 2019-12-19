@@ -78,17 +78,21 @@
   <div class="form-group">
 	<p>#i18n{participatoryideation.submit_project.steps.location.location_type_label}</p>
     <label class="radio-inline">
-      <input type="radio" name="localisation_type" id="mode_radio_paris" value="paris" <#if form_etape_location.localisationType??&& form_etape_location.localisationType=='paris'>checked</#if>>
-		#i18n{participatoryideation.submit_project.steps.location.location_label_city}
+    <#if whole_name != "">
+      <input type="radio" name="localisation_type" id="mode_radio_paris" value="whole" <#if form_etape_location.localisationType??&& form_etape_location.localisationType=='whole'>checked</#if>>
+		${whole_name}
     </label>
+    </#if>
+    <#if number_arrondissements != 0>
     <label class="radio-inline">
         <input type="radio" name="localisation_type" id="mode_radio_ardt" value="ardt" <#if form_etape_location.localisationType??&& form_etape_location.localisationType=='ardt'>checked</#if>>
 		#i18n{participatoryideation.submit_project.steps.location.location_label_area}
     </label>
-  <div id="col_ardt">
-    <label class="sr-only"></label>
-    <@comboWithParams name="localisation_ardt" items=arrondissements_list default_value="${form_etape_location.localisationArdt!''}"additionalParameters=" class=\"form-control input-sm\" " />
-  </div>
+    <div id="col_ardt">
+        <label class="sr-only"></label>
+        <@comboWithParams name="localisation_ardt" items=areas default_value="${form_etape_location.localisationArdt!''}"additionalParameters=" class=\"form-control input-sm\" " />
+    </div>
+    </#if>
   </div>
 
   <div id="col_geoloc" class="form-group">
