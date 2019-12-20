@@ -9,7 +9,7 @@
 
 This plugin offers a step-by-step form to submit a proposal in a citizen participation process.
 
-This plugin is used by [OpenPB](https://github.com/lutece-secteur-public/particip-site-participatorybudget) site.
+This plugin can be used in a participatory site, so citizen can submit their proposals.
 
 ## Configuration
 
@@ -18,6 +18,10 @@ To do
 ## Usage
 
 To do
+
+# Project Information
+
+ [Issue Tracking](http://dev.lutece.paris.fr/jira/browse/PARTIDEA) : this is a link to the issue management system for this project. Issues (bugs, features, change requests) can be created and queried using this link.
 
 
 [Maven documentation and reports](https://dev.lutece.paris.fr/plugins/plugin-participatoryideation/)
