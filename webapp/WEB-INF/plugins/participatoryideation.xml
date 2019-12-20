@@ -38,6 +38,11 @@
       </admin-feature>
     </admin-features>    
 
+    <css-stylesheets>
+        <css-stylesheets-scope>portal</css-stylesheets-scope>
+        <css-stylesheet>participatoryideation/participatoryideation.css</css-stylesheet>
+    </css-stylesheets>
+
     <!-- XPages parameters -->
     <applications>
         <application>

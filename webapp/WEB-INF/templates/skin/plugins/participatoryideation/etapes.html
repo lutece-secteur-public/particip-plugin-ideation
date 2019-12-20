@@ -60,70 +60,74 @@
     { "title": "#i18n{participatoryideation.submit_project.steps.confirmation.title}" }
 ]>
 
-<section>
-<div class="row">
-  <div class="col-xs-12 col-sm-12">
-    <header>
-      <h1 id="step-intro" class="text-center">#i18n{participatoryideation.submit_project.pageTitle}</h1>
-    </header>
-  </div>
+<div class="ideation-form">
+
+	<section>
+		<div class="row">
+		  	<div class="col-xs-12 col-sm-12">
+		    	<header>
+		      		<h1 id="step-intro" class="text-center">#i18n{participatoryideation.submit_project.pageTitle}</h1>
+		    	</header>
+		  	</div>
+		</div>
+	</section>
+	
+	<section id="steps">
+	  	<div class="row">
+	    	<div class="col-xs-12 col-sm-12">
+			    <#list etapes as etape>
+			   		<#if etape_index < cur_etape_index>
+			        	<div class="step-row steps previous">
+			        		<span class="step_index">${etape_index+1}</span>
+			            	<span class="step_title">${etape["recap"]}</span>
+		        			<#if cur_etape_index<(etapes?size-1)>
+		        		  		<#if etape["link_querystring"]??>	
+		                			<a class="btn-step-mod" href="jsp/site/Portal.jsp?page=ideation&${etape["link_querystring"]}">Modifier</a>
+		              			</#if>
+		        			</#if>
+			      		</div>
+			      	<#elseif etape_index == cur_etape_index>
+			        	<div class="step-row steps current">
+			        		<span class="step_index current">${etape_index+1}</span>
+			        		<span class="step_title current">${etape["title"]}</span>
+			        	</div>
+			        	<div class="arrow_box"></div>
+			        	<div id="current_step">
+			        		<@messages infos=infos errors=errors />
+			        		<#include cur_etape_content>
+			        	</div>
+			    	<#else>
+			        	<div class="step-row steps next">
+			        		<span class="step_index">${etape_index+1}</span>
+			        		<span class="step_title">${etape["title"]}</span>
+			        	</div>
+	    	  		</#if>
+			    </#list>
+	    	</div>
+	  	</div>
+	</section>
+
 </div>
-</section>
-<section id="steps" class="container">
-  <div class="row">
-    <div class="col-xs-12 col-sm-12">
-    <#list etapes as etape>
-      <#if etape_index < cur_etape_index>
-        <div class="step-row steps previous">
-        		<span class="step_index">${etape_index+1}</span>
-            <span class="step_title">${etape["recap"]}</span>
-        			<#if cur_etape_index<(etapes?size-1)>
-        			  <#if etape["link_querystring"]??>
-                	<a class="btn btn-12rem btn-black-on-white btn-step-mod" href="jsp/site/Portal.jsp?page=ideation&${etape["link_querystring"]}">
-                	 Modifier
-              	  </a>
-              	</#if>
-        			</#if>
-      	  </div>
-      	<#elseif etape_index == cur_etape_index>
-        	<div class="step-row steps current">
-        		<span class="step_index current">${etape_index+1}</span>
-        		<span class="step_title current">${etape["title"]}</span>
-        	</div>
-        	<div class="arrow_box"></div>
-        	<div id="current_step">
-        		<@messages infos=infos errors=errors />
-        		<#include cur_etape_content>
-        	</div>
-    	  <#else>
-        	<div class="step-row steps next">
-        		<span class="step_index">${etape_index+1}</span>
-        		<span class="step_title">${etape["title"]}</span>
-        	</div>
-    	  </#if>
-    	</#list>
-    </div>
-  </div>
-</section>
+
 <script type="text/javascript">
-function validateForm(form) {
-var all_ok=true;
-//From xss filter
-var forbidden_chars = "<>#&";
-$(form).find("input[type=text]").each(function(idx, elem) {
-  var error = false;
-  for (var i = 0; i < forbidden_chars.length; i++) {
-    if (!error && elem.value.indexOf(forbidden_chars.charAt(i)) != -1) {
-      error = true;
-      all_ok = false;
-      var parent = $(elem).parents(".form-group");
-      parent.addClass("has-error has-feedback");
-      var helpblock = $(parent).children("p.help-block");
-      helpblock.children("p").remove();
-      helpblock.append("<p>Les charactères '" + forbidden_chars + "' sont interdits.</p>");
-      }
-    }
-  });
-  return all_ok;
-}
+	function validateForm(form) {
+	var all_ok=true;
+	//From xss filter
+	var forbidden_chars = "<>#&";
+	$(form).find("input[type=text]").each(function(idx, elem) {
+	  var error = false;
+	  for (var i = 0; i < forbidden_chars.length; i++) {
+	    if (!error && elem.value.indexOf(forbidden_chars.charAt(i)) != -1) {
+	      error = true;
+	      all_ok = false;
+	      var parent = $(elem).parents(".form-group");
+	      parent.addClass("has-error has-feedback");
+	      var helpblock = $(parent).children("p.help-block");
+	      helpblock.children("p").remove();
+	      helpblock.append("<p>Les charactères '" + forbidden_chars + "' sont interdits.</p>");
+	      }
+	    }
+	  });
+	  return all_ok;
+	}
 </script>
