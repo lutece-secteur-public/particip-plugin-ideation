@@ -299,15 +299,15 @@
     });
 
   var baseMaps = {
-      "Fond de plan standard": esri_streets,
-      "Fond de plan grisé": positron,
-      "Vue Satellite" : esri_imagery
+      "#i18n{participatoryideation.view.map.legend.map_type.standard}": esri_streets,
+      "#i18n{participatoryideation.view.map.legend.map_type.monochromatic}": positron,
+      "#i18n{participatoryideation.view.map.legend.map_type.satellite}" : esri_imagery
   };
 
   var overlayMaps = {
-      "Recherche en cours" : layergroup_currentcampagne,
-      "Quartiers Populaires" : layergroup_qpvqva,
-      "Précédentes Campagnes" : markers_oldprojects
+      "#i18n{participatoryideation.view.map.legend.map_layer.currentSearch}" : layergroup_currentcampagne,
+      "#i18n{participatoryideation.view.map.legend.map_layer.previousCampaigns}" : layergroup_qpvqva,
+      "#i18n{participatoryideation.view.map.legend.map_layer.popularDistricts}" : markers_oldprojects
   };
   // paramétrage et ajout du L.control.layers à la carte
   var control =  L.control.layers(baseMaps, overlayMaps, {collapsed:false}).addTo(map);
@@ -328,11 +328,11 @@ function onClickArdtPopup(i) {
 	var legend = L.control({position: 'bottomleft'});
 	legend.onAdd = function (map) {
 		var div = L.DomUtil.create('div', 'map-legend leaflet-control-layers leaflet-control-layers-expanded');
-		div.innerHTML += '<div class="map-legend-line"><div class="marker"><img src="' +  (L.Icon.Default.imagePath + '/marker-icon.png') + '"></div>Projet localisé</div>';
-		div.innerHTML += '<div class="map-legend-line"><div class="paris-cluster-small paris-cluster"><div><span style="line-height:21px">&nbsp;</span></div></div>Projet parisien non localisé</div>';
-		div.innerHTML += '<div class="map-legend-line"><div class=" ardt-cluster-small  ardt-cluster"><div><span style="line-height:21px">&nbsp;</span></div></div>Projet d\'arrondissement non localisé</div>';
+		div.innerHTML += '<div class="map-legend-line"><div class="marker"><img src="' +  (L.Icon.Default.imagePath + '/marker-icon.png') + '"></div>#i18n{participatoryideation.view.map.legend.withLocation}</div>';
+		div.innerHTML += '<div class="map-legend-line"><div class="paris-cluster-small paris-cluster"><div><span style="line-height:21px">&nbsp;</span></div></div>#i18n{participatoryideation.view.map.legend.wholeWithoutLocation}</div>';
+		div.innerHTML += '<div class="map-legend-line"><div class=" ardt-cluster-small  ardt-cluster"><div><span style="line-height:21px">&nbsp;</span></div></div>#i18n{participatoryideation.view.map.legend.areaWithoutLocation}</div>';
 		return div;
 	};
 	legend.addTo(map);
-	
+
   </script>
