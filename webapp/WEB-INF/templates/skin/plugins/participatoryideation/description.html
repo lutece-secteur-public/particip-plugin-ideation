@@ -51,7 +51,7 @@
 
 	function lutece_update_count_description() {
   		var cnt1 = $.trim($("#description_textarea").val()).length;
-  		var text = cnt1 + " caract&egrave;re";
+  		var text = cnt1 + " #i18n{participatoryideation.submit_project.nbChars}";
   		if (cnt1 >= 2) { text += "s"; }
   		text = "(" + text + ")";
   		$("#cnt1").html( text );
@@ -64,7 +64,7 @@
 
 	function lutece_update_count_operatingbudget() {
   		var cnt2 = $.trim($("#operatingbudget_textarea").val()).length;
-  		var text = cnt2 + " caract&egrave;re";
+  		var text = cnt2 + " #i18n{participatoryideation.submit_project.nbChars}";
   		if (cnt2 >= 2) { text += "s"; }
   		text = "(" + text + ")";
   		$("#cnt2").html( text );
@@ -77,7 +77,7 @@
 
 	function lutece_update_count_handicap() {
   		var cnt3 = $.trim($("#handicapComplement").val()).length;
-  		var text = cnt3 + " caract&egrave;re";
+  		var text = cnt3 + " #i18n{participatoryideation.submit_project.nbChars}";
   		if (cnt3 >= 2) { text += "s"; }
   		text = "(" + text + ")";
   		$("#cnt3").html( text );
