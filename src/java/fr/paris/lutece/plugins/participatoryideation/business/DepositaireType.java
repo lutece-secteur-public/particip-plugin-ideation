@@ -57,15 +57,15 @@ public class DepositaireType implements Serializable
     // Variables declarations 
     private int _nId;
     
-    @NotEmpty( message = "#i18n{ideation.validation.depositaire.Code.notEmpty}" )
-    @Size( max = 50 , message = "#i18n{ideation.validation.depositaire.Code.size}" ) 
+    @NotEmpty( message = "#i18n{participatoryideation.validation.depositaire.Code.notEmpty}" )
+    @Size( max = 50 , message = "#i18n{participatoryideation.validation.depositaire.Code.size}" ) 
     private String _strCode;
     
-    @NotEmpty( message = "#i18n{ideation.validation.depositaire.Libelle.notEmpty}" )
-    @Size( max = 50 , message = "#i18n{ideation.validation.depositaire.Libelle.size}" ) 
+    @NotEmpty( message = "#i18n{participatoryideation.validation.depositaire.Libelle.notEmpty}" )
+    @Size( max = 50 , message = "#i18n{participatoryideation.validation.depositaire.Libelle.size}" ) 
     private String _strLibelle;
     
-    @NotEmpty( message = "#i18n{ideation.validation.depositaire.CodeComplementType.notEmpty}" )
+    @NotEmpty( message = "#i18n{participatoryideation.validation.depositaire.CodeComplementType.notEmpty}" )
     private String _strCodeComplementType;
 
     //Non null when codeComplementType is "LIST"

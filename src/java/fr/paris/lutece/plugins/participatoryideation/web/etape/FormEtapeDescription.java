@@ -66,10 +66,10 @@ public class FormEtapeDescription extends  AbstractFormEtape {
 	private static final String DSKEY_OPERATINGBUDGET_MIN_LENGTH     = "participatoryideation.site_property.form.operatingbudget.minLength";
 	private static final String DSKEY_OPERATINGBUDGET_MAX_LENGTH     = "participatoryideation.site_property.form.operatingbudget.maxLength";
 	
-	@NotEmpty( message = "#i18n{ideation.validation.idee.FormEtapeDescription.description.notEmpty}" )
-	@Size( max = 10000 , message = "#i18n{ideation.validation.idee.Description.size}" )
+	@NotEmpty( message = "#i18n{participatoryideation.validation.idee.FormEtapeDescription.description.notEmpty}" )
+	@Size( max = 10000 , message = "#i18n{participatoryideation.validation.idee.Description.size}" )
 	private String _strDescription;
-	@Pattern( regexp = "(\\d|\\s){0,20}", message = "#i18n{ideation.validation.idee.FormEtapeDescription.cout.pattern}" )
+	@Pattern( regexp = "(\\d|\\s){0,20}", message = "#i18n{participatoryideation.validation.idee.FormEtapeDescription.cout.pattern}" )
 	private String _strCout;
 
 	// ------------------------------------------------------------
@@ -97,7 +97,7 @@ public class FormEtapeDescription extends  AbstractFormEtape {
 	
 	// ------------------------------------------------------------
 
-	@NotEmpty( message = "#i18n{ideation.validation.idee.FormEtapeDescription.handicap.notEmpty}" )
+	@NotEmpty( message = "#i18n{participatoryideation.validation.idee.FormEtapeDescription.handicap.notEmpty}" )
 	private String _strHandicap;
 
     public String getHandicap() {

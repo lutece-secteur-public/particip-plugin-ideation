@@ -69,8 +69,8 @@ public class FormEtapeTitle extends  AbstractFormEtape  {
 	private static final String DSKEY_CREATIONMETHOD_MIN_LENGTH="participatoryideation.site_property.form.creationmethod.minLength";
 	private static final String DSKEY_CREATIONMETHOD_MAX_LENGTH="participatoryideation.site_property.form.creationmethod.maxLength";
 	
-	@NotEmpty( message = "#i18n{ideation.validation.idee.Titre.notEmpty}" )
-    @Size( max = 255 , message = "#i18n{ideation.validation.idee.Titre.size}" ) 
+	@NotEmpty( message = "#i18n{participatoryideation.validation.idee.Titre.notEmpty}" )
+    @Size( max = 255 , message = "#i18n{participatoryideation.validation.idee.Titre.size}" ) 
     private String _strTitre;
 	
 	private String _strDejadepose;

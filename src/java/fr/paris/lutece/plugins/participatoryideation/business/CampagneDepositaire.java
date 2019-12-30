@@ -49,12 +49,12 @@ public class CampagneDepositaire implements Serializable
     // Variables declarations 
     private int _nId;
     
-    @NotEmpty( message = "#i18n{ideation.validation.campagnedepositaire.CodeCampagne.notEmpty}" )
-    @Size( max = 50 , message = "#i18n{ideation.validation.campagnedepositaire.CodeCampagne.size}" ) 
+    @NotEmpty( message = "#i18n{participatoryideation.validation.campagnedepositaire.CodeCampagne.notEmpty}" )
+    @Size( max = 50 , message = "#i18n{participatoryideation.validation.campagnedepositaire.CodeCampagne.size}" ) 
     private String _strCodeCampagne;
     
-    @NotEmpty( message = "#i18n{ideation.validation.campagnedepositaire.CodeDepositaireType.notEmpty}" )
-    @Size( max = 50 , message = "#i18n{ideation.validation.campagnedepositaire.CodeDepositaireType.size}" ) 
+    @NotEmpty( message = "#i18n{participatoryideation.validation.campagnedepositaire.CodeDepositaireType.notEmpty}" )
+    @Size( max = 50 , message = "#i18n{participatoryideation.validation.campagnedepositaire.CodeDepositaireType.size}" ) 
     private String _strCodeDepositaireType;
 
     /**
