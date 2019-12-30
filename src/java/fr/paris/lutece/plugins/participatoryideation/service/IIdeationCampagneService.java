@@ -47,10 +47,19 @@ public interface IIdeationCampagneService {
     public String getCampaignWholeArea( String codeCampaign );
     public ReferenceList getCampaignAreas( String codeCampaign );
     public int getCampaignNumberAreas( String codeCampaign );
+    public boolean isBeforeBeginning ( String codeCampaign, String phase );
+    public boolean isAfterBeginning ( String codeCampaign, String phase );
+    public boolean isDuring ( String codeCampaign, String phase );
+    public boolean isBeforeEnd ( String codeCampaign, String phase );
+    public boolean isAfterEnd ( String codeCampaign, String phase );
 
     // Same as precedent, for last campagne
     public String getCampaignWholeArea( );
     public ReferenceList getCampaignAreas( );
     public int getCampaignNumberAreas( );
-
+    public boolean isBeforeBeginning ( String phase );
+    public boolean isAfterBeginning ( String phase );
+    public boolean isDuring ( String phase );
+    public boolean isBeforeEnd ( String phase );
+    public boolean isAfterEnd ( String phase );
 }

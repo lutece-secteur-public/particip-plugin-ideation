@@ -40,7 +40,6 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 
 import fr.paris.lutece.plugins.extend.modules.comment.service.ICommentListener;
-import fr.paris.lutece.plugins.participatorybudget.service.campaign.CampagnesService;
 import fr.paris.lutece.plugins.participatoryideation.business.Idee;
 import fr.paris.lutece.plugins.participatoryideation.business.IdeeHome;
 import fr.paris.lutece.plugins.participatoryideation.utils.constants.IdeationConstants;
@@ -114,7 +113,7 @@ public class IdeeCommentListener implements ICommentListener{
 		StringBuilder sbError = new StringBuilder( );
 		String strDataStoreValue = DatastoreService.getDataValue( PROPERTY_ACTIVATION_COMMENTAIRES, "0" );
 		
-		if ( !CampagnesService.getInstance().isDuring("IDEATION")  && strDataStoreValue.equals("0") ) 
+		if ( !IdeationCampagneService.getInstance().isDuring("IDEATION")  && strDataStoreValue.equals("0") )
 		{			
 			sbError.append( I18nService.getLocalizedString( MESSAGE_CAMPAGNE_IDEATION_CLOSED_COMMENT, new Locale("fr","FR") ) );
 			sbError.append(", ");
@@ -151,7 +150,7 @@ public class IdeeCommentListener implements ICommentListener{
         Idee idee = IdeeHome.findByPrimaryKey( nId_Idee );
         String strDataStoreValue = DatastoreService.getDataValue( PROPERTY_ACTIVATION_COMMENTAIRES, "0");
         
-        if ( idee != null && !CampagnesService.getInstance().isDuring(idee.getCodeCampagne(), "IDEATION") && strDataStoreValue.equals("0") )
+        if ( idee != null && !IdeationCampagneService.getInstance().isDuring(idee.getCodeCampagne(), "IDEATION") && strDataStoreValue.equals("0") )
         {
             sbError.append( I18nService.getLocalizedString( MESSAGE_CAMPAGNE_IDEATION_CLOSED_COMMENT, new Locale( "fr", "FR" ) ) );
             sbError.append( ", " );
@@ -178,7 +177,7 @@ public class IdeeCommentListener implements ICommentListener{
         Idee idee = IdeeHome.findByPrimaryKey( nIdIdee );
         String strDataStoreValue = DatastoreService.getDataValue( PROPERTY_ACTIVATION_COMMENTAIRES, "0");
         
-        if ( idee != null && !CampagnesService.getInstance().isDuring(idee.getCodeCampagne(), "IDEATION") && strDataStoreValue.equals("0") )
+        if ( idee != null && !IdeationCampagneService.getInstance().isDuring(idee.getCodeCampagne(), "IDEATION") && strDataStoreValue.equals("0") )
         {
             return false;
         }

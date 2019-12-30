@@ -238,7 +238,7 @@ public class IdeationApp extends MVCApplication
      */
     private void checkIdeationPhase( HttpServletRequest request ) throws SiteMessageException
     {
-        if ( !CampagnesService.getInstance().isDuring(Constants.IDEATION) )
+        if ( !IdeationCampagneService.getInstance().isDuring(Constants.IDEATION) )
         {
             Map<String, Object> requestParameters = new HashMap<String, Object>(  );
             requestParameters.put( PARAMETER_PAGE, "search-solr" );
