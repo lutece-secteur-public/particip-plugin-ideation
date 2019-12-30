@@ -16,7 +16,7 @@
 					<div class="col-xs-12 col-sm-offset-2 col-sm-8">
 						<br>
 						<div class="alert alert-warning">
-							<h3 class="text-center text-warning"> <i class="fa fa-warning"></i> Attention !</h3>
+							<h3 class="text-center text-warning"> <i class="fa fa-warning"></i> Warn !</h3>
 							#dskey{ideation.site_property.view_idee.non_existing.htmlblock}
 						</div>
 					</div>
@@ -78,15 +78,15 @@
 						<div id="prop-vote-result" class="winner">
 							<div class="msg">
 								<#if idee.parentIdees?has_content>
-									<p>Ce projet, regroupé avec d'autres projets similaires,<br>est <strong>lauréat</strong> du <strong>${campagne_year}</strong> !</p>
+									<p>This proposal, grouped with other ones, is a winner of <strong>${campagne_year}</strong> !</p>
 								<#else>
-									<p>Ce projet est <strong>lauréat</strong> du <strong>${campagne_year}</strong> !</p>
+									<p>This proposal is a winner of <strong>${campagne_year}</strong> !</p>
 								</#if>
 							</div>
 							
 							<div class="link">
 								<a href="${idee.urlProjet!''}"  class="btn btn-18rem btn-black-on-white">
-									Consulter le projet lauréat
+									Go to the winner project
 								</a>
 							</div>
 
@@ -98,15 +98,15 @@
 						<div id="prop-vote-result" class="looser">
 							<div class="msg">
 								<#if idee.parentIdees?has_content>
-									<p>Ce projet, regroupé avec d'autres projets similaires,<br>a été soumis au vote du ${campagne_year}, mais n'a pas été lauréat.</p>
+									<p>This proposal, grouped with other ones, is not a winner of <strong>${campagne_year}</strong>.</p>
 								<#else>
-									<p>Ce projet a été soumis au vote du ${campagne_year}, mais n'a pas été lauréat.</p>
+									<p>This proposal is not a winner of <strong>${campagne_year}</strong>.</p>
 								</#if>
 							</div>
 							
 							<div class="link">
 								<a href="${idee.urlProjet!''}"  class="btn btn-18rem btn-black-on-white">
-									Consulter le projet
+									Go to the project
 								</a>
 							</div>
 
@@ -119,15 +119,15 @@
 						<div id="prop-vote-result" class="winner">
 							<div class="msg">
 								<#if idee.parentIdees?has_content>
-									<p>Ce projet, regroupé avec d'autres projets similaires,<br>est <strong>soumis</strong> au vote du <strong>${campagne_year}</strong>.</p>
+									<p>This proposal, grouped with other ones, takes part in <strong>${campagne_year}</strong>.</p>
 								<#else>
-									<p>Ce projet est <strong>soumis</strong> au vote du <strong>${campagne_year}</strong>.</p>
+									<p>This proposal takes part in <strong>${campagne_year}</strong>.</p>
 								</#if>
 							</div>
 							
 							<div class="link">
 								<a href="${idee.urlProjet!''}"  class="btn btn-18rem btn-black-on-white">
-									Consulter le projet soumis
+									Go to the project
 								</a>
 							</div>
 
@@ -174,7 +174,7 @@
 						</div>
 
 						<#-- Description -->
-						<h2 class="visuallyhidden">Description de la proposition</h2>
+						<h2 class="visuallyhidden">Description</h2>
 						<div class="prop-desc-txt">${idee.description?html}</div>
 			            <p class="prop-desc-cout">
 							<#if idee.cout?? && (idee.cout != -1)>
@@ -346,9 +346,9 @@
 							<div id="prop-data-contact">
 								<p>
 									<#if idee.acceptContact == true >
-										<a class="btn btn-14rem btn-black-on-white" href="jsp/site/Portal.jsp?page=idee&view=viewIdee&idee=${idee.codeIdee!}&campagne=${idee.codeCampagne!}&showContact=true" title="Contacter le dépositaire">Contacter</a>
+										<a class="btn btn-14rem btn-black-on-white" href="jsp/site/Portal.jsp?page=idee&view=viewIdee&idee=${idee.codeIdee!}&campagne=${idee.codeCampagne!}&showContact=true" title="Contact the submitter">Contact</a>
 									<#else>
-										<span class="btn btn-14rem btn-black-on-white btn-unactive" title="${message_not_accept!}">Contacter</span>
+										<span class="btn btn-14rem btn-black-on-white btn-unactive" title="${message_not_accept!}">Contact</span>
 									</#if>
 								</p>
 							</div>
@@ -357,17 +357,17 @@
 						<#-- Quelques données sur la proposition, ainsi que les regroupements -->
 						<#if idee.childIdees?has_content || idee.parentIdees?has_content>
 							<div id="prop-data-regroup" class="separator-horiz-4px">
-								<h2>Co-construction</h2>
+								<h2>Co-building</h2>
 								<#if idee.childIdees?has_content>
 									<#if idee.childIdees?size &gt; 0 >
-										<p><span>Projet issu<br/>du ou des projets suivants :</span></p>
+										<p><span>Proposal built from :</span></p>
 										<#list idee.childIdees as childIdee>
 											<p><a href="jsp/site/Portal.jsp?page=idee&amp;campagne=${idee.codeCampagne}&amp;idee=${childIdee.codeIdee}">${childIdee.titre?lower_case?cap_first}</a></p>
 										</#list>
 									</#if>
 								</#if>
 								<#if idee.parentIdees?has_content>
-									<p><span>Projet regroupé<br/>au sein du projet suivant :</span></p>
+									<p><span>Project grouped into :</span></p>
 									<#list idee.parentIdees as parentIdee>
 										<p><a href="jsp/site/Portal.jsp?page=idee&amp;campagne=${idee.codeCampagne}&amp;idee=${parentIdee.codeIdee}">${parentIdee.titre?lower_case?cap_first}</a></p>
 									</#list>
@@ -400,7 +400,7 @@
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">×</span>
 					</button>
-					<h3 class="modal-title" id="modalConfirmFollowLabel"><strong>S'associer au projet déposé par ${nickname!''}</strong></h3>
+					<h3 class="modal-title" id="modalConfirmFollowLabel"><strong>Link to this proposal submitted by ${nickname!''}</strong></h3>
 				</div>
 
 				<#if isExtendInstalled?? && isExtendInstalled>
@@ -432,7 +432,7 @@
 					<h3 class="modal-title" id="modalContactDepositaireLabel"><strong>Contacter ${nickname!''}</strong></h3>
 				</div>
 				<div class="modal-body">
-					<div>Votre message sera envoyé par courriel. Votre adresse électronique sera donc transmise à ${nickname!''}.</div><br>
+					<div>Your message will be sent by email. So y our email address will be known to ${nickname!''}.</div><br>
 					<div class="form-group">
 						<label for="last_name_usager">Votre pseudo</label>
 						<input type="text" name="last_name_usager" id="last_name_usager" class="form-control" maxlength="50" value="${nicknameUser!}" readonly >
@@ -447,8 +447,8 @@
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button type="submit" class="btn btn-14rem btn-black-on-white" name="action_contacterDepositaire">Envoyer</button>
-					<button type="button" class="btn btn-14rem btn-black-on-white" data-dismiss="modal">Annuler</button>
+					<button type="submit" class="btn btn-14rem btn-black-on-white" name="action_contacterDepositaire">Send the message</button>
+					<button type="button" class="btn btn-14rem btn-black-on-white" data-dismiss="modal">Cancel</button>
 				</div>
 				</form>
 			</#if>

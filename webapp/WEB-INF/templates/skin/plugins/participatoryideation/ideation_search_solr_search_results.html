@@ -99,7 +99,7 @@ ${encoded_facets_queries}
 			
 		<div id="search-form">
 
-			<h1>Projets déposés</h1>
+			<h1>#i18n{participatoryideation.search.header.title}</h1>
 	
 			<div id="search-prj-fields" class="container form">
 				<div class="row">
@@ -107,11 +107,11 @@ ${encoded_facets_queries}
 					<div class="col-md-12">
 						<#-- recherche par mot clé -->
 						<div class="form-group">
-							<label class="sr-only" for="query">Rechercher par mots cl&eacute;</label>
+							<label class="sr-only" for="query">#i18n{participatoryideation.search.form.field.keyword.label}</label>
 							<div class="input-group">
-								<input class="form-control" type="text" name="query" value="${sQuery!}" placeholder="Rechercher par mots cl&eacute;" id="solr"/>
+								<input class="form-control" type="text" name="query" value="${sQuery!}" placeholder="Search by keywords" id="solr"/>
 								<span class="input-group-btn">
-									<button id="btn-search" class="btn btn-search form-control" type="submit" title="Rechercher" onclick="this.disabled=true; searchTri(); return false;">
+									<button id="btn-search" class="btn btn-search form-control" type="submit" title="Search" onclick="this.disabled=true; searchTri(); return false;">
 										<i class="fa fa-search"></i>
 									</button>
 								</span>
@@ -122,7 +122,7 @@ ${encoded_facets_queries}
 					
 				</div>
 
-				<a class="searchParametersButton visible-xs" href="#searchParameters" data-toggle="collapse">Recherche avancée</a>
+				<a class="searchParametersButton visible-xs" href="#searchParameters" data-toggle="collapse">#i18n{participatoryideation.search.form.advanced.title}</a>
 			
 				<div id="searchParameters" class="collapse dont-collapse-sm">
 			
@@ -133,21 +133,21 @@ ${encoded_facets_queries}
 							<label class="select" for="arrondissement">
 								<select name="fq" id="arrondissement" onChange="searchArrond()" class="form-control">
 									<#if arr=="">
-										<option value="" selected="selected" >Rechercher par localisation </option>
-										<option value="localisation_type_string:paris">Projets Tout Paris</option>
-										<option value="-localisation_type_string:paris">Projets Tous Arrondissements</option>
+										<option value="" selected="selected" >#i18n{participatoryideation.search.form.field.location.label} </option>
+										<option value="localisation_type_string:paris">#i18n{participatoryideation.search.form.field.location.wholeScoped}</option>
+										<option value="-localisation_type_string:paris">#i18n{participatoryideation.search.form.field.location.areaScoped}</option>
 									<#elseif arr=="whole_city">
-										<option value="">Rechercher par localisation </option>
-										<option value="localisation_type_string:paris" selected="selected" >Projets Tout Paris</option>
-										<option value="-localisation_type_string:paris">Projets Tous Arrondissements</option>
+										<option value="">#i18n{participatoryideation.search.form.field.location.label} </option>
+										<option value="localisation_type_string:paris" selected="selected" >#i18n{participatoryideation.search.form.field.location.wholeScoped}</option>
+										<option value="-localisation_type_string:paris">#i18n{participatoryideation.search.form.field.location.areaScoped}</option>
 									<#elseif arr=="all_arr">
-										<option value="">Rechercher par localisation </option>
-										<option value="localisation_type_string:paris">Projets Tout Paris</option>
-										<option value="-localisation_type_string:paris" selected="selected">Projets Tous Arrondissements</option>
+										<option value="">#i18n{participatoryideation.search.form.field.location.label} </option>
+										<option value="localisation_type_string:paris">#i18n{participatoryideation.search.form.field.location.wholeScoped}</option>
+										<option value="-localisation_type_string:paris" selected="selected">#i18n{participatoryideation.search.form.field.location.areaScoped}</option>
 									<#else>
-										<option value="">Rechercher par localisation </option>
-										<option value="localisation_type_string:paris">Projets Tout Paris</option>
-										<option value="-localisation_type_string:paris">Projets Tous Arrondissements</option>
+										<option value="">#i18n{participatoryideation.search.form.field.location.label} </option>
+										<option value="localisation_type_string:paris">#i18n{participatoryideation.search.form.field.location.wholeScoped}</option>
+										<option value="-localisation_type_string:paris">#i18n{participatoryideation.search.form.field.location.areaScoped}</option>
 									</#if>
 									<#assign nbArr=20>
 									<#list 1..nbArr as i>
@@ -167,9 +167,9 @@ ${encoded_facets_queries}
 							<label class="select" for="theme">
 								<select name="fq" id="theme" onChange="searchArrond()" class="form-control">
 									<#if facet_theme="">
-										<option value="" selected="selected">Rechercher par th&egrave;mes</option>
+										<option value="" selected="selected">#i18n{participatoryideation.search.form.field.theme.label}</option>
 									<#else>
-										<option value="">Tous les th&egrave;mes</option>
+										<option value="">#i18n{participatoryideation.search.form.field.location.all}</option>
 									</#if>
 									<#list campagne_static.themes_list?sort_by("title")?reverse  as theme>
 										<option value="code_theme_string:${theme.code}" <#if facet_theme=theme.code>selected="selected"</#if> >${theme.title}</option>
@@ -183,9 +183,9 @@ ${encoded_facets_queries}
 							<label class="select" for="campagne">
 								<select name="fq" id="campagne" onChange="searchArrond()" class="form-control">
 									<#if facet_campagne="">
-										<option value="" selected="selected">Rechercher par ann&eacute;e</option>
+										<option value="" selected="selected">#i18n{participatoryideation.search.form.field.campaign.label}</option>
 									<#else>
-										<option value="" >Toutes les ann&eacute;es</option>
+										<option value="" >#i18n{participatoryideation.search.form.field.campaign.all}</option>
 									</#if>
 									<#list list_campagne?sort_by("title") as campagne>
 										<option value="campagne_text:${campagne.code}" <#if facet_campagne=campagne.code>selected="selected"</#if> >${campagne.title}</option>
@@ -198,7 +198,7 @@ ${encoded_facets_queries}
 							<#-- Recherche par type de dépositaire -->
 							<label class="select" for="depositaire_type">
 								<select name="fq" id="depositaire_type" onChange="searchArrond()" class="form-control">
-									<option value="" <#if facet_depositaire_type="">selected="selected"</#if> >Rech. par type de dépositaire</option>
+									<option value="" <#if facet_depositaire_type="">selected="selected"</#if> >#i18n{participatoryideation.search.form.field.submitter_type.label}</option>
 									<#list campagne_static.depositaire_types_list as depositaire_type>
 										<option value="code_depositaire_type_string:${depositaire_type.code}" <#if facet_depositaire_type=depositaire_type.code>selected="selected"</#if> >${depositaire_type.libelle}</option>
 									</#list>
@@ -214,7 +214,7 @@ ${encoded_facets_queries}
 							<#-- Recherche par statut -->
 							<label class="select" for="status">
 								<select name="fq" id="status" onChange="searchArrond()" class="form-control">
-									<option value=""  <#if facet_status="">selected="selected"</#if> > Rechercher par statut</option>
+									<option value=""  <#if facet_status="">selected="selected"</#if> >#i18n{participatoryideation.search.form.field.status.label}</option>
 									<#if status_static_list??>
 										<#list status_static_list as status_static>
 											<option value="status_string:${status_static.code}" <#if facet_status=status_static.code> selected="selected"</#if>> ${status_static.name}</option>
@@ -229,7 +229,7 @@ ${encoded_facets_queries}
 							<div class="checkbox form-control">
 								<label for="qpop">
 									<input type="checkbox" name="fq" id="qpop" value="-type_qpvqva_string:NON" <#if facet_qpop!="">checked</#if> onChange="searchArrond()"/>
-		       						Quartier populaire
+		       						#i18n{participatoryideation.search.form.field.qpop.label}
 		       					</label>
 		       				</div>
 						</div>
@@ -239,7 +239,7 @@ ${encoded_facets_queries}
 							<div class="checkbox form-control">
 		       					<label for="handicap">
 		       						<input type="checkbox" name="fq" id="handicap" value="handicap_string:yes" <#if facet_handicap!="">checked</#if> onChange="searchArrond()"/>
-		       						Volet handicap/accessibilité
+		       						#i18n{participatoryideation.search.form.field.handicap.label}
 								</label>
 		       				</div>
 						</div>
@@ -267,7 +267,7 @@ ${encoded_facets_queries}
 
 							<#-- if sort_list?? -->
 								<div class="form-group">
-									Trier par :
+									#i18n{participatoryideation.search.form.sort.title}
 									<label class="select" for="sort_name">
 										<select name="sort_name" id="sort_name" class="form-control" onChange="searchTri()" >
 											<#list sort_list as field>
@@ -275,10 +275,10 @@ ${encoded_facets_queries}
 													<#assign monTri = sort_name+"&sort_order="+sort_order>
 													
 													<#if sort_name?ends_with("random") && ordre_aleatoire == "true" >
-														<option value="${number_random}_random" selected="selected" >Ordre al&eacute;atoire</option>
+														<option value="${number_random}_random" selected="selected" >#i18n{participatoryideation.search.form.sort.random.label}</option>
 														<#assign ordre_aleatoire= "false">
 													<#elseif ordre_aleatoire == "true" >
-														<option value="${number_random}_random">Ordre al&eacute;atoire</option> >
+														<option value="${number_random}_random">#i18n{participatoryideation.search.form.sort.random.label}</option> >
 														<#assign ordre_aleatoire= "false">
 													</#if>
 													
@@ -295,8 +295,8 @@ ${encoded_facets_queries}
 
 									<label class="select" for="sort_order">
 										<select name="sort_order" id="sort_order" class="form-control" onChange="searchTri()" >
-											<option value="asc" <#if sort_order?? && sort_order="asc">selected="selected"</#if> >Ascendant</option>
-											<option value="desc" <#if sort_order?? && sort_order="desc">selected="selected"</#if>>Descendant</option>
+											<option value="asc" <#if sort_order?? && sort_order="asc">selected="selected"</#if> >#i18n{participatoryideation.search.form.sort.random.asc}</option>
+											<option value="desc" <#if sort_order?? && sort_order="desc">selected="selected"</#if>>#i18n{participatoryideation.search.form.sort.random.desc}</option>
 										</select>
 									</label>
 								</div>
@@ -309,22 +309,22 @@ ${encoded_facets_queries}
 				<div id="sub-search-right-panel" class="col-xs-6 col-sm-6 col-md-6">
 					<#if conf_user_query = "list_idees">
 						<div id="sub-search-nbitems" class="">
-							${paginator.itemsCount} projet(s) trouv&eacute;(s)
+							${i18n('participatoryideation.search.form.result.number', paginator.itemsCount)}
 						</div>
 						<div id="sub-search-switch">
 								<div class="form-group" >
-									<button id="button_map_list" class="btn btn-map-active" type="submit" alt="Voir la cartographie des projets"><p>carte</p></button>
+									<button id="button_map_list" class="btn btn-map-active" type="submit" alt="View map"><p>#i18n{participatoryideation.search.form.view.map}</p></button>
 									<button class="btn btn-list-unactive " disabled/>
 								</div>
 						</div>
 					<#else>
 						<div id="sub-search-nbitems" class="">
-							${paginator.itemsCount} projet(s) trouv&eacute;(s)
+							${i18n('participatoryideation.search.form.result.number', paginator.itemsCount)}
 						</div>
 						<div id="sub-search-switch">
 								<div class="form-group" >
 									<button class="btn btn-map-unactive " disabled/>
-									<button id="button_list" class="btn btn-list-active" type="submit" alt="Voir la liste des vignettes des projets"><p>liste</p></button>
+									<button id="button_list" class="btn btn-list-active" type="submit" alt="View list"><p>#i18n{participatoryideation.search.form.view.list}</p></button>
 								</div>
 						</div>
 					</#if>
@@ -365,7 +365,7 @@ ${encoded_facets_queries}
                         var parent = $(elem).parents(".form-group");
                         parent.addClass("has-error has-feedback");
                         var helpblock = $(parent).find(".help-txt");
-                        helpblock.after("<p class=\"help-block\"><i class=\"fa fa-warning\"></i> Les caract&egrave;res " + forbidden_chars + " sont interdits.</p>");
+                        helpblock.after("<p class=\"help-block\"><i class=\"fa fa-warning\"></i> Forbidden characters : " + forbidden_chars + "</p>");
                         helpblock.remove();
                     }
                 }
@@ -379,7 +379,7 @@ ${encoded_facets_queries}
                             var parent = $(elem).parents(".form-group");
                             parent.addClass("has-error has-feedback");
                             var helpblock = $(parent).find(".help-txt");
-                            helpblock.after("<p class=\"help-block\"><i class=\"fa fa-warning\"></i> Les caract&egrave;res " + forbidden_chars + " sont interdits.</p>");
+                            helpblock.after("<p class=\"help-block\"><i class=\"fa fa-warning\"></i> Forbidden characters : " + forbidden_chars + "</p>");
                             helpblock.remove();
                             break;
                         }
