@@ -57,6 +57,176 @@ public class IdeationCampagneService implements IIdeationCampagneService {
         return _singleton;
     }
 
+	/**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isBeforeBeginning( String phase ) {
+    	try {
+        	JSONObject json =  new JSONObject(IdeationClientProcessor.getProcess(
+    			      AppPropertiesService.getProperty("participatoryideation.campaign.rest.webapp.url")
+    	  			    + AppPropertiesService.getProperty("participatoryideation.campaign.rest.demand.base_url")
+    	  			    + phase + "/before-beginning"));
+        	return json.getBoolean("result"); }
+    	catch (Exception e) {
+        	AppLogService.error( e.getMessage() , e );
+			return false;
+		}    
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isBeforeBeginning( String codeCampaign, String phase ) {
+    	try {
+        	JSONObject json =  new JSONObject(IdeationClientProcessor.getProcess(
+    			      AppPropertiesService.getProperty("participatoryideation.campaign.rest.webapp.url")
+    	  			    + AppPropertiesService.getProperty("participatoryideation.campaign.rest.demand.base_url")
+    	  			    + codeCampaign + "/" + phase + "/before-beginning"));
+        	return json.getBoolean("result"); }
+    	catch (Exception e) {
+        	AppLogService.error( e.getMessage() , e );
+			return false;
+		}    
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isAfterBeginning( String phase ) {
+    	try {
+        	JSONObject json =  new JSONObject(IdeationClientProcessor.getProcess(
+    			      AppPropertiesService.getProperty("participatoryideation.campaign.rest.webapp.url")
+    	  			    + AppPropertiesService.getProperty("participatoryideation.campaign.rest.demand.base_url")
+    	  			    + phase + "/after-beginning"));
+        	return json.getBoolean("result"); }
+    	catch (Exception e) {
+        	AppLogService.error( e.getMessage() , e );
+			return false;
+		}    
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isAfterBeginning( String codeCampaign, String phase ) {
+    	try {
+        	JSONObject json =  new JSONObject(IdeationClientProcessor.getProcess(
+    			      AppPropertiesService.getProperty("participatoryideation.campaign.rest.webapp.url")
+    	  			    + AppPropertiesService.getProperty("participatoryideation.campaign.rest.demand.base_url")
+    	  			    + codeCampaign + "/" + phase + "/after-beginning"));
+        	return json.getBoolean("result"); }
+    	catch (Exception e) {
+        	AppLogService.error( e.getMessage() , e );
+			return false;
+		}    
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isDuring( String phase ) {
+    	try {
+        	JSONObject json =  new JSONObject(IdeationClientProcessor.getProcess(
+    			      AppPropertiesService.getProperty("participatoryideation.campaign.rest.webapp.url")
+    	  			    + AppPropertiesService.getProperty("participatoryideation.campaign.rest.demand.base_url")
+    	  			    + phase + "/during"));
+        	return json.getBoolean("result"); }
+    	catch (Exception e) {
+        	AppLogService.error( e.getMessage() , e );
+			return false;
+		}    
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isDuring( String codeCampaign, String phase ) {
+    	try {
+        	JSONObject json =  new JSONObject(IdeationClientProcessor.getProcess(
+    			      AppPropertiesService.getProperty("participatoryideation.campaign.rest.webapp.url")
+    	  			    + AppPropertiesService.getProperty("participatoryideation.campaign.rest.demand.base_url")
+    	  			    + codeCampaign + "/" + phase + "/during"));
+        	return json.getBoolean("result"); }
+    	catch (Exception e) {
+        	AppLogService.error( e.getMessage() , e );
+			return false;
+		}    
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isBeforeEnd( String phase ) {
+    	try {
+        	JSONObject json =  new JSONObject(IdeationClientProcessor.getProcess(
+    			      AppPropertiesService.getProperty("participatoryideation.campaign.rest.webapp.url")
+    	  			    + AppPropertiesService.getProperty("participatoryideation.campaign.rest.demand.base_url")
+    	  			    + phase + "/before-end"));
+        	return json.getBoolean("result"); }
+    	catch (Exception e) {
+        	AppLogService.error( e.getMessage() , e );
+			return false;
+		}    
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isBeforeEnd( String codeCampaign, String phase ) {
+    	try {
+        	JSONObject json =  new JSONObject(IdeationClientProcessor.getProcess(
+    			      AppPropertiesService.getProperty("participatoryideation.campaign.rest.webapp.url")
+    	  			    + AppPropertiesService.getProperty("participatoryideation.campaign.rest.demand.base_url")
+    	  			    + codeCampaign + "/" + phase + "/before-end"));
+        	return json.getBoolean("result"); }
+    	catch (Exception e) {
+        	AppLogService.error( e.getMessage() , e );
+			return false;
+		}    
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isAfterEnd( String phase ) {
+    	try {
+        	JSONObject json =  new JSONObject(IdeationClientProcessor.getProcess(
+    			      AppPropertiesService.getProperty("participatoryideation.campaign.rest.webapp.url")
+    	  			    + AppPropertiesService.getProperty("participatoryideation.campaign.rest.demand.base_url")
+    	  			    + phase + "/after-end"));
+        	return json.getBoolean("result"); }
+    	catch (Exception e) {
+        	AppLogService.error( e.getMessage() , e );
+			return false;
+		}    
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isAfterEnd( String codeCampaign, String phase ) {
+    	try {
+        	JSONObject json =  new JSONObject(IdeationClientProcessor.getProcess(
+    			      AppPropertiesService.getProperty("participatoryideation.campaign.rest.webapp.url")
+    	  			    + AppPropertiesService.getProperty("participatoryideation.campaign.rest.demand.base_url")
+    	  			    + codeCampaign + "/" + phase + "/after-end"));
+        	return json.getBoolean("result"); }
+    	catch (Exception e) {
+        	AppLogService.error( e.getMessage() , e );
+			return false;
+		}    
+    }
+
     /**
      * {@inheritDoc}
      */

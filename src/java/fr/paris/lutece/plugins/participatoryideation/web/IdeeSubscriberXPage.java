@@ -52,11 +52,11 @@ import fr.paris.lutece.plugins.extend.modules.comment.service.ICommentService;
 import fr.paris.lutece.plugins.extend.modules.follow.service.extender.FollowResourceExtender;
 import fr.paris.lutece.plugins.extend.service.extender.history.IResourceExtenderHistoryService;
 import fr.paris.lutece.plugins.extend.service.extender.history.ResourceExtenderHistoryService;
-import fr.paris.lutece.plugins.participatorybudget.service.campaign.CampagnesService;
 import fr.paris.lutece.plugins.participatorybudget.util.Constants;
 import fr.paris.lutece.plugins.participatoryideation.business.Idee;
 import fr.paris.lutece.plugins.participatoryideation.business.IdeeHome;
 import fr.paris.lutece.plugins.participatoryideation.business.IdeeSearcher;
+import fr.paris.lutece.plugins.participatoryideation.service.IdeationCampagneService;
 import fr.paris.lutece.plugins.participatoryideation.service.IdeationStaticService;
 import fr.paris.lutece.plugins.participatoryideation.service.IdeeService;
 import fr.paris.lutece.portal.service.message.SiteMessage;
@@ -195,7 +195,7 @@ public class IdeeSubscriberXPage extends MVCApplication
     	
     	Idee idee = IdeeHome.findByPrimaryKey( nIdIdee );
 
-    	if ( !CampagnesService.getInstance().isDuring( idee.getCodeCampagne(), Constants.IDEATION ) )
+        if ( !IdeationCampagneService.getInstance().isDuring( idee.getCodeCampagne(), Constants.IDEATION ) )
         {
             SiteMessageService.setMessage( request, MESSAGE_CAMPAGNE_IDEATION_CLOSED_DELETE, SiteMessage.TYPE_ERROR );
         }
