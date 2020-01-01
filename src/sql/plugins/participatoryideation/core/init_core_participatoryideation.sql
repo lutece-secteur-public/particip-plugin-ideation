@@ -7,7 +7,7 @@ INSERT INTO core_user_right (id_right,id_user) VALUES ('IDEATION_MANAGEMENT',1);
 
 DELETE FROM core_admin_right WHERE id_right = 'IDEATION_IDEES_MANAGEMENT';
 INSERT INTO core_admin_right (id_right,name,level_right,admin_url,description,is_updatable,plugin_name,id_feature_group,icon_url,documentation_url, id_order ) VALUES 
-('IDEATION_IDEES_MANAGEMENT','participatoryideation.adminFeature.ManageIdeationIdees.name',1,'jsp/admin/plugins/participatoryideation/ManageCampagneDepositaires.jsp','participatoryideation.adminFeature.ManageIdeationIdees.description',0,'ideation',NULL,NULL,NULL,4);
+('IDEATION_IDEES_MANAGEMENT','participatoryideation.adminFeature.ManageIdeationIdees.name',1,'jsp/admin/plugins/participatoryideation/ManageIdees.jsp','participatoryideation.adminFeature.ManageIdeationIdees.description',0,'ideation',NULL,NULL,NULL,4);
 
 DELETE FROM core_user_right WHERE id_right = 'IDEATION_IDEES_MANAGEMENT';
 INSERT INTO core_user_right (id_right,id_user) VALUES ('IDEATION_IDEES_MANAGEMENT',1);
