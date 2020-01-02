@@ -96,7 +96,7 @@ public class IdeationStaticService extends AbstractCacheableService implements I
         if ( listCampagne!=null && listCampagne.size() > 0 )
         {
         	model.put( MARK_LIST_CAMPAGNE, listCampagne );
-        }	id
+        }	
         model.put( MARK_CAMPAGNE_STATIC, cached.get(strCampagneCode) );
         model.put( MARK_ARRONDISSEMENTS_LIST, IdeeService.getInstance().getArrondissements() );
         model.put( MARK_ARRONDISSEMENTS_MAP, IdeeService.getInstance().getArrondissementsMap() );

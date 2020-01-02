@@ -55,7 +55,7 @@ public class Idee implements Serializable,IExtendableResource {
 	
 	public static final String PROPERTY_RESOURCE_TYPE = "IDEE";
 	public static final String WORKFLOW_RESOURCE_TYPE = "IDEATION_IDEE";
-	public static final String LOCALISATION_TYPE_ARDT = "ardt";
+	public static final String LOCALISATION_TYPE_ARDT = "localized";
 	public static final String LOCALISATION_TYPE_PARIS = "whole";
 
 	public static final String ATTACHED_FILE_TYPE_DOC = "doc";

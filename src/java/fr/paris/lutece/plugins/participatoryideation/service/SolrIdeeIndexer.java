@@ -157,7 +157,7 @@ public class SolrIdeeIndexer implements SolrIndexer
                 	idee.getAdress() :
                 	(Idee.LOCALISATION_TYPE_ARDT.equals(idee.getLocalisationType().trim()) ? 
                 		idee.getLocalisationArdt() : 
-                		"whole_city" 
+                		"whole city" // TODO : Must get this string from campaign area service
                 	)
                 );
         item.addDynamicFieldNotAnalysed("localisation_type", idee.getLocalisationType());

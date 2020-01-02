@@ -6,7 +6,7 @@
 
 <#setting url_escaping_charset=encoding>
 <#-- Encode facet queries -->
-<#assign allParisCity = "-localisation_text:paris">
+<#assign allParisCity = "-localisation_text:whole">
 <#assign allArrParisCity = "localisation_text:">
 
 <#macro EncodeFQ list_fq  optionalParam1="" optionalParam2="">
@@ -79,9 +79,7 @@ ${encoded_facets_queries}
 	<#if facets_list??>
 		<#list facets_list as facet>
 			<!-- <input type="hidden" name="fq" value="${facet}" /> -->
-			<#if     facet?starts_with("localisation_ardt_text:")>			<#assign arr = facet?split(":")?last>
-			<#elseif facet?starts_with("-localisation_type_string:paris")>	<#assign arr = "all_arr">
-			<#elseif facet?starts_with("localisation_type_string:paris")>	<#assign arr = "whole_city">
+			<#if     facet?starts_with("localisation_text:")>				<#assign arr = facet?split(":")?last>
 			<#elseif facet?starts_with("code_theme_string:")>				<#assign facet_theme = facet?split(":")?last>
 			<#elseif facet?starts_with("campagne_text:")>					<#assign facet_campagne = facet?split(":")?last>
 			<#elseif facet?starts_with("handicap_string")>					<#assign facet_handicap = facet?split(":")?last>
@@ -127,37 +125,35 @@ ${encoded_facets_queries}
 				<div id="searchParameters" class="collapse dont-collapse-sm">
 			
 					<div class="row">
-	
 						<div class="col-md-3 col-xs-12">
-							<#-- Recherche par localisation -->
+							<#-- Search by location -->
 							<label class="select" for="arrondissement">
-								<select name="fq" id="arrondissement" onChange="searchArrond()" class="form-control">
+								<select name="fq" id="arrondissement" onChange="searchArrond()" class="form-control <#if arr != "">selected</#if>">
+									
 									<#if arr=="">
-										<option value="" selected="selected" >#i18n{participatoryideation.search.form.field.location.label} </option>
-										<option value="localisation_type_string:paris">#i18n{participatoryideation.search.form.field.location.wholeScoped}</option>
-										<option value="-localisation_type_string:paris">#i18n{participatoryideation.search.form.field.location.areaScoped}</option>
-									<#elseif arr=="whole_city">
-										<option value="">#i18n{participatoryideation.search.form.field.location.label} </option>
-										<option value="localisation_type_string:paris" selected="selected" >#i18n{participatoryideation.search.form.field.location.wholeScoped}</option>
-										<option value="-localisation_type_string:paris">#i18n{participatoryideation.search.form.field.location.areaScoped}</option>
-									<#elseif arr=="all_arr">
-										<option value="">#i18n{participatoryideation.search.form.field.location.label} </option>
-										<option value="localisation_type_string:paris">#i18n{participatoryideation.search.form.field.location.wholeScoped}</option>
-										<option value="-localisation_type_string:paris" selected="selected">#i18n{participatoryideation.search.form.field.location.areaScoped}</option>
+										<option value="" selected="selected">#i18n{participatoryideation.search.form.field.location.label} </option>
 									<#else>
-										<option value="">#i18n{participatoryideation.search.form.field.location.label} </option>
-										<option value="localisation_type_string:paris">#i18n{participatoryideation.search.form.field.location.wholeScoped}</option>
-										<option value="-localisation_type_string:paris">#i18n{participatoryideation.search.form.field.location.areaScoped}</option>
+										<option value="" >#i18n{participatoryideation.search.form.field.location.label} </option>
 									</#if>
-									<#assign nbArr=20>
-									<#list 1..nbArr as i>
-										<#assign full_i=75000+i>
-										<#if arr==full_i?string>
-											<option value="localisation_ardt_text:${full_i!}" selected="selected" >Projet du ${i!}e arrondissement
-										<#else>
-											<option value="localisation_ardt_text:${full_i!}">Projet du ${i!}e arrondissement</option>
-										</#if>
-									</#list>
+									
+									<option disabled="disabled">----</option>
+									
+									<#if facets??>
+										<#list facets as facet>
+											<#if facet.name == "localisation_text">
+												<#list facet.values?sort as value>
+													<#if value.count != 0>
+														<#if arr == value.name>
+															<option value="localisation_text:${(value.name)!''}" selected="selected" >${(value.name)!''} (${(value.count)!''})</option>
+														<#else>
+															<option value="localisation_text:${(value.name)!''}" >${(value.name)!''} (${(value.count)!''})</option>
+														</#if>
+													</#if>
+												</#list>
+											</#if>
+										</#list>
+									</#if>
+									
 								</select>
 							</label>
 						</div>
