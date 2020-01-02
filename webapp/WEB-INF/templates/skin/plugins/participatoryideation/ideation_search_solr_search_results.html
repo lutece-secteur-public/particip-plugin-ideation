@@ -169,9 +169,9 @@ ${encoded_facets_queries}
 									<#if facet_theme="">
 										<option value="" selected="selected">#i18n{participatoryideation.search.form.field.theme.label}</option>
 									<#else>
-										<option value="">#i18n{participatoryideation.search.form.field.location.all}</option>
+										<option value="">#i18n{participatoryideation.search.form.field.theme.label}</option>
 									</#if>
-									<#list campagne_static.themes_list?sort_by("title")?reverse  as theme>
+									<#list campagne_static.themes_list?sort_by("title")  as theme>
 										<option value="code_theme_string:${theme.code}" <#if facet_theme=theme.code>selected="selected"</#if> >${theme.title}</option>
 									</#list>
 								</select>
