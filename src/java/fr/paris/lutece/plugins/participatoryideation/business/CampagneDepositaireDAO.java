@@ -62,18 +62,17 @@ public final class CampagneDepositaireDAO implements ICampagneDepositaireDAO
      */
     public int newPrimaryKey( Plugin plugin)
     {
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_NEW_PK , plugin  );
-        daoUtil.executeQuery( );
-
         int nKey = 1;
 
-        if( daoUtil.next( ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_NEW_PK , plugin  ) ) 
         {
-                nKey = daoUtil.getInt( 1 ) + 1;
+	        daoUtil.executeQuery( );
+	        if( daoUtil.next( ) )
+	        {
+	                nKey = daoUtil.getInt( 1 ) + 1;
+	        }
         }
-
-        daoUtil.free();
-
+        
         return nKey;
     }
 
@@ -83,16 +82,16 @@ public final class CampagneDepositaireDAO implements ICampagneDepositaireDAO
     @Override
     public void insert( CampagneDepositaire campagneDepositaire, Plugin plugin )
     {
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT, plugin );
-
-        campagneDepositaire.setId( newPrimaryKey( plugin ) );
-
-        daoUtil.setInt( 1, campagneDepositaire.getId( ) );
-        daoUtil.setString( 2, campagneDepositaire.getCodeCampagne( ) );
-        daoUtil.setString( 3, campagneDepositaire.getCodeDepositaireType( ) );
-
-        daoUtil.executeUpdate( );
-        daoUtil.free( );
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT, plugin ) ) 
+        {
+	        campagneDepositaire.setId( newPrimaryKey( plugin ) );
+	
+	        daoUtil.setInt( 1, campagneDepositaire.getId( ) );
+	        daoUtil.setString( 2, campagneDepositaire.getCodeCampagne( ) );
+	        daoUtil.setString( 3, campagneDepositaire.getCodeDepositaireType( ) );
+	
+	        daoUtil.executeUpdate( );
+        }
     }
 
     /**
@@ -101,21 +100,22 @@ public final class CampagneDepositaireDAO implements ICampagneDepositaireDAO
     @Override
     public CampagneDepositaire load( int nKey, Plugin plugin )
     {
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT, plugin );
-        daoUtil.setInt( 1 , nKey );
-        daoUtil.executeQuery( );
-
         CampagneDepositaire campagneDepositaire = null;
-
-        if ( daoUtil.next( ) )
+    	
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT, plugin ) )
         {
-            campagneDepositaire = new CampagneDepositaire();
-            campagneDepositaire.setId( daoUtil.getInt( 1 ) );
-            campagneDepositaire.setCodeCampagne( daoUtil.getString( 2 ) );
-            campagneDepositaire.setCodeDepositaireType( daoUtil.getString( 3 ) );
+	        daoUtil.setInt( 1 , nKey );
+	        daoUtil.executeQuery( );
+	
+	        if ( daoUtil.next( ) )
+	        {
+	            campagneDepositaire = new CampagneDepositaire();
+	            campagneDepositaire.setId( daoUtil.getInt( 1 ) );
+	            campagneDepositaire.setCodeCampagne( daoUtil.getString( 2 ) );
+	            campagneDepositaire.setCodeDepositaireType( daoUtil.getString( 3 ) );
+	        }
         }
-
-        daoUtil.free( );
+        
         return campagneDepositaire;
     }
 
