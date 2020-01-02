@@ -99,7 +99,7 @@ public final class CampagneDepositaireHome
      */
     public static CampagneDepositaire findByPrimaryKey( int nKey )
     {
-        return _dao.load( nKey, _plugin);
+        return _dao.load( nKey, _plugin );
     }
 
     /**

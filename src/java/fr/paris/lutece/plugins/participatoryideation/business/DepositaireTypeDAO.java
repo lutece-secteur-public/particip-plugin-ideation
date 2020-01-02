@@ -47,7 +47,8 @@ import fr.paris.lutece.util.sql.DAOUtil;
  * This class provides Data Access methods for DepositaireType objects
  */
 
-public final class DepositaireTypeDAO implements IDepositaireTypeDAO {
+public final class DepositaireTypeDAO implements IDepositaireTypeDAO 
+{
     // Constants
     private static final String SQL_QUERY_NEW_PK = "SELECT max( id_depositaire_type ) FROM ideation_depositaire_types";
     private static final String SQL_QUERY_SELECT = "SELECT id_depositaire_type, code_depositaire_type, libelle, code_complement_type FROM ideation_depositaire_types WHERE id_depositaire_type = ?";
@@ -70,7 +71,7 @@ public final class DepositaireTypeDAO implements IDepositaireTypeDAO {
      * @param plugin The Plugin
      * @return The new primary key
      */
-    public int newPrimaryKey( Plugin plugin)
+    public int newPrimaryKey( Plugin plugin )
     {
         int nKey = 1;
 
@@ -78,9 +79,9 @@ public final class DepositaireTypeDAO implements IDepositaireTypeDAO {
         {
 	        daoUtil.executeQuery( );
 	
-	        if( daoUtil.next( ) )
+	        if ( daoUtil.next( ) )
 	        {
-	                nKey = daoUtil.getInt( 1 ) + 1;
+	        	nKey = daoUtil.getInt( 1 ) + 1;
 	        }
         }
 
@@ -191,7 +192,7 @@ public final class DepositaireTypeDAO implements IDepositaireTypeDAO {
     @Override
     public Collection<DepositaireType> selectDepositaireTypesList( Plugin plugin )
     {
-        Collection<DepositaireType> depositaireList = new ArrayList<DepositaireType>(  );
+        Collection<DepositaireType> depositaireList = new ArrayList<>(  );
       
         try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL, plugin ) )
         {
@@ -219,7 +220,7 @@ public final class DepositaireTypeDAO implements IDepositaireTypeDAO {
     @Override
     public Collection<Integer> selectIdDepositaireTypesList( Plugin plugin )
     {
-        Collection<Integer> depositaireList = new ArrayList<Integer>( );
+        Collection<Integer> depositaireList = new ArrayList<>( );
         
         try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL_ID, plugin ) )
         {
@@ -240,7 +241,7 @@ public final class DepositaireTypeDAO implements IDepositaireTypeDAO {
     @Override
     public Collection<DepositaireType> selectDepositaireTypesListByCampagne( String strCampagneCode, Plugin plugin )
     {
-        List<DepositaireType> depositaireList = new ArrayList<DepositaireType>(  );
+        List<DepositaireType> depositaireList = new ArrayList<>(  );
         
         try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL_BY_CAMPAGNE, plugin ) )
         {
@@ -259,8 +260,8 @@ public final class DepositaireTypeDAO implements IDepositaireTypeDAO {
         return depositaireList;
     }
 
-    private DepositaireType getRow( DAOUtil daoUtil ) {
-
+    private DepositaireType getRow( DAOUtil daoUtil ) 
+    {
         DepositaireType depositaireType = new DepositaireType(  );
 
         depositaireType.setId( daoUtil.getInt( 1 ) );
@@ -278,14 +279,20 @@ public final class DepositaireTypeDAO implements IDepositaireTypeDAO {
 
     private void loadValues( String strCampagneCode, List<DepositaireType> listDepositaireTypes, Plugin plugin )
     {
-        HashMap<String, ReferenceList> depositaireMap = new HashMap<String, ReferenceList>(  );
+        HashMap<String, ReferenceList> depositaireMap = new HashMap<>(  );
+        
         DAOUtil daoUtil;
-        if (strCampagneCode != null) {
+        
+        if ( strCampagneCode != null ) 
+        {
             daoUtil = new DAOUtil( SQL_QUERY_SELECTALL_VALUES_BY_CAMPAGNE, plugin );
             daoUtil.setString( 1, strCampagneCode );
-        } else {
+        } 
+        else 
+        {
             daoUtil = new DAOUtil( SQL_QUERY_SELECTALL_DISTINCT_VALUES, plugin );
         }
+        
         daoUtil.executeQuery(  );
 
         while ( daoUtil.next(  ) )

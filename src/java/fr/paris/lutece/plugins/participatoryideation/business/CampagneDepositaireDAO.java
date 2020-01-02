@@ -60,14 +60,14 @@ public final class CampagneDepositaireDAO implements ICampagneDepositaireDAO
      * @param plugin The Plugin
      * @return The new primary key
      */
-    public int newPrimaryKey( Plugin plugin)
+    public int newPrimaryKey( Plugin plugin )
     {
         int nKey = 1;
 
         try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_NEW_PK , plugin  ) ) 
         {
 	        daoUtil.executeQuery( );
-	        if( daoUtil.next( ) )
+	        if ( daoUtil.next( ) )
 	        {
 	                nKey = daoUtil.getInt( 1 ) + 1;
 	        }
@@ -155,7 +155,7 @@ public final class CampagneDepositaireDAO implements ICampagneDepositaireDAO
     @Override
     public Collection<CampagneDepositaire> selectCampagneDepositairesList( Plugin plugin )
     {
-        Collection<CampagneDepositaire> campagneDepositaireList = new ArrayList<CampagneDepositaire>(  );
+        Collection<CampagneDepositaire> campagneDepositaireList = new ArrayList<>();
         
         try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL, plugin ) )
         {
@@ -175,9 +175,9 @@ public final class CampagneDepositaireDAO implements ICampagneDepositaireDAO
      * {@inheritDoc }
      */
     @Override
-	public Collection<CampagneDepositaire> selectCampagneDepositaireListByCampagne(String codeCampagne, Plugin plugin) 
+	public Collection<CampagneDepositaire> selectCampagneDepositaireListByCampagne( String codeCampagne, Plugin plugin ) 
     {
-        Collection<CampagneDepositaire> campagneDepositaireList = new ArrayList<CampagneDepositaire>(  );
+        Collection<CampagneDepositaire> campagneDepositaireList = new ArrayList<>();
     
         try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL_BY_CAMPAGNE, plugin ) )
         {
@@ -222,13 +222,13 @@ public final class CampagneDepositaireDAO implements ICampagneDepositaireDAO
     
     private CampagneDepositaire getRow( DAOUtil daoUtil )
     {
-    	int nCpt=1;
+    	int nCpt = 1;
         
     	CampagneDepositaire campagneDepositaire = new CampagneDepositaire(  );
         
         campagneDepositaire.setId                  ( daoUtil.getInt   ( nCpt++ ) );
         campagneDepositaire.setCodeCampagne        ( daoUtil.getString( nCpt++ ) );
-        campagneDepositaire.setCodeDepositaireType ( daoUtil.getString( nCpt++ ) );
+        campagneDepositaire.setCodeDepositaireType ( daoUtil.getString( nCpt   ) );
 
         return campagneDepositaire;
     }

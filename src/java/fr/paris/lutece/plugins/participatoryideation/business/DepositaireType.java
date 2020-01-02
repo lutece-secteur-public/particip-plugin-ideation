@@ -34,7 +34,6 @@
 package fr.paris.lutece.plugins.participatoryideation.business;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.validation.constraints.Size;
 
@@ -144,14 +143,16 @@ public class DepositaireType implements Serializable
     /**
      * @return the values
      */
-    public ReferenceList getValues() {
+    public ReferenceList getValues() 
+    {
         return _listValues;
     }
 
     /**
      * @param values the values to set
      */
-    public void setValues(ReferenceList values) {
+    public void setValues( ReferenceList values ) 
+    {
         _listValues = values;
     }
 }
