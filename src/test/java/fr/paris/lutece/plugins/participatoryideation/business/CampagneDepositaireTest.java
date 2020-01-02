@@ -52,7 +52,7 @@ public class CampagneDepositaireTest extends LuteceTestCase
     	CampagneDepositaire instance = new CampagneDepositaire();
     	instance.setCodeCampagne        ( CODE_CAMPAIGN );
     	instance.setCodeDepositaireType ( CODE_DEPOSITAIRE_TYPE );
-
+    	
         // Create test
     	CampagneDepositaireHome.create( instance );
     	int id = instance.getId();

@@ -94,18 +94,18 @@ public final class IdeeDAO implements IIdeeDAO
      */
     public int newPrimaryKey( Plugin plugin)
     {
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_NEW_PK , plugin  );
-        daoUtil.executeQuery( );
-
-        int nKey = 1;
-
-        if( daoUtil.next( ) )
+	    int nKey = 1;
+		
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_NEW_PK , plugin  ) )
         {
-                nKey = daoUtil.getInt( 1 ) + 1;
+		    daoUtil.executeQuery( );
+		
+		    if( daoUtil.next( ) )
+		    {
+		            nKey = daoUtil.getInt( 1 ) + 1;
+		    }
         }
-
-        daoUtil.free();
-
+        
         return nKey;
     }
 
@@ -116,19 +116,19 @@ public final class IdeeDAO implements IIdeeDAO
      */
     public int newCodeIdee( String strCodeCampagne, Plugin plugin)
     {
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_NEW_CODE_IDEE , plugin  );
-        daoUtil.setString( 1, strCodeCampagne );
-        daoUtil.executeQuery( );
-
         int nKey = 1;
 
-        if( daoUtil.next( ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_NEW_CODE_IDEE , plugin  ) )
         {
-                nKey = daoUtil.getInt( 1 ) + 1;
+	        daoUtil.setString( 1, strCodeCampagne );
+	        daoUtil.executeQuery( );
+	
+	        if( daoUtil.next( ) )
+	        {
+	                nKey = daoUtil.getInt( 1 ) + 1;
+	        }
         }
-
-        daoUtil.free();
-
+        
         return nKey;
     }
 
@@ -138,83 +138,87 @@ public final class IdeeDAO implements IIdeeDAO
     @Override
     public void insert( Idee idee, Plugin plugin )
     {
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT, plugin );
-        
-         int nCpt=1;
-        idee.setId( newPrimaryKey( plugin ) );
-        idee.setCodeIdee( newCodeIdee( idee.getCodeCampagne(  ), plugin ) );
-
-        daoUtil.setInt( nCpt++, idee.getId( ) );
-        daoUtil.setString( nCpt++, idee.getLuteceUserName() );
-        daoUtil.setString( nCpt++, idee.getTitre() );
-        daoUtil.setString( nCpt++, idee.getDejadepose() );
-        
-        daoUtil.setString( nCpt++, idee.getDescription() );
-        if(idee.getCout()!=null)
-        {
-                daoUtil.setLong(nCpt++, idee.getCout());
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT, plugin ) )
+        {        
+	        int nCpt=1;
+	        
+	        idee.setId( newPrimaryKey( plugin ) );
+	        idee.setCodeIdee( newCodeIdee( idee.getCodeCampagne(  ), plugin ) );
+	
+	        daoUtil.setInt   ( nCpt++, idee.getId( ) );
+	        daoUtil.setString( nCpt++, idee.getLuteceUserName() );
+	        daoUtil.setString( nCpt++, idee.getTitre() );
+	        daoUtil.setString( nCpt++, idee.getDejadepose() );
+	        daoUtil.setString( nCpt++, idee.getDescription() );
+	        
+	        if ( idee.getCout() != null )
+	        {
+	                daoUtil.setLong( nCpt++, idee.getCout() );
+	        }
+	        else
+	        {
+	                daoUtil.setLongNull( nCpt++ );    
+	        }
+	        
+	        daoUtil.setString ( nCpt++, idee.getCodeTheme() );
+	        daoUtil.setString ( nCpt++, idee.getLocalisationType() );
+	        daoUtil.setString ( nCpt++, idee.getLocalisationArdt() );
+	        daoUtil.setString ( nCpt++, idee.getDepositaireType());
+	        daoUtil.setString ( nCpt++, idee.getDepositaire());
+	        daoUtil.setBoolean( nCpt++, idee.isAcceptExploit());
+	        daoUtil.setBoolean( nCpt++, idee.isAcceptContact());
+	        daoUtil.setString ( nCpt++, idee.getAdress());
+	        
+	        if ( idee.getLongitude() != null ) 
+	        {
+	            daoUtil.setDouble( nCpt++, idee.getLongitude(  ) );
+	        } 
+	        else 
+	        {
+	            daoUtil.setDoubleNull( nCpt++ );
+	        }
+	        
+	        if ( idee.getLatitude() != null ) 
+	        {
+	            daoUtil.setDouble( nCpt++, idee.getLatitude(  ) );
+	        } 
+	        else 
+	        {
+	            daoUtil.setDoubleNull( nCpt++ );
+	        }
+	        
+	        daoUtil.setTimestamp( nCpt++, idee.getCreationTimestamp() );
+	        daoUtil.setString   ( nCpt++, idee.getCodeCampagne() );
+	        daoUtil.setInt      ( nCpt++, idee.getCodeIdee() );
+	        daoUtil.setString   ( nCpt++, idee.getTypeQpvQva() );
+	        daoUtil.setString   ( nCpt++, idee.getIdQpvQva() );
+	        daoUtil.setString   ( nCpt++, idee.getLibelleQpvQva() );
+	        daoUtil.setString   ( nCpt++, idee.getStatusPublic().getValeur() );
+	        daoUtil.setString   ( nCpt++, ( idee.getStatusEudonet() == null) ? null : idee.getStatusEudonet().getValeur() );
+	        daoUtil.setString   ( nCpt++, idee.getMotifRecev() );
+	        daoUtil.setString   ( nCpt++, idee.getIdProjet( ) );
+	        daoUtil.setString   ( nCpt++, idee.getTitreProjet( ) );
+	        daoUtil.setString   ( nCpt++, idee.getUrlProjet( ) );
+	        daoUtil.setString   ( nCpt++, idee.getWinnerProjet( ) );
+	        daoUtil.setString   ( nCpt++, idee.getCreationmethod() );
+	        daoUtil.setString   ( nCpt++, idee.getOperatingbudget() );
+	        daoUtil.setString   ( nCpt++, idee.getHandicap() );
+	        daoUtil.setString   ( nCpt++, ( idee.getHandicapComplement() == null ? "" : idee.getHandicapComplement() ) );
+	
+	        daoUtil.executeUpdate( );
         }
-        else
-        {
-                daoUtil.setLongNull(nCpt++);    
         
-        }
-        daoUtil.setString( nCpt++, idee.getCodeTheme() );
-        daoUtil.setString( nCpt++, idee.getLocalisationType() );
-        daoUtil.setString( nCpt++, idee.getLocalisationArdt() );
-        daoUtil.setString(nCpt++, idee.getDepositaireType());
-        daoUtil.setString(nCpt++, idee.getDepositaire());
-        daoUtil.setBoolean(nCpt++, idee.isAcceptExploit());
-        daoUtil.setBoolean(nCpt++, idee.isAcceptContact());
-        daoUtil.setString(nCpt++, idee.getAdress());
-        if ( idee.getLongitude() != null ) {
-            daoUtil.setDouble(nCpt++, idee.getLongitude(  ) );
-        } else {
-            daoUtil.setDoubleNull(nCpt++);
-        }
-        if ( idee.getLatitude() != null ) {
-            daoUtil.setDouble(nCpt++, idee.getLatitude(  ) );
-        } else {
-            daoUtil.setDoubleNull(nCpt++);
-        }
-        daoUtil.setTimestamp(nCpt++, idee.getCreationTimestamp());
-        daoUtil.setString(nCpt++, idee.getCodeCampagne());
-        daoUtil.setInt(nCpt++, idee.getCodeIdee());
-        daoUtil.setString(nCpt++, idee.getTypeQpvQva());
-        daoUtil.setString(nCpt++, idee.getIdQpvQva());
-        daoUtil.setString(nCpt++, idee.getLibelleQpvQva());
-        daoUtil.setString(nCpt++, idee.getStatusPublic().getValeur());
-        if(idee.getStatusEudonet()!=null){
-     	   daoUtil.setString( nCpt++, idee.getStatusEudonet().getValeur() );
-        }else{
-     	   daoUtil.setString( nCpt++, null );
-        }
-       
-        daoUtil.setString(nCpt++, idee.getMotifRecev());
-        daoUtil.setString(nCpt++, idee.getIdProjet( ) );
-        daoUtil.setString(nCpt++, idee.getTitreProjet( ) );
-        daoUtil.setString(nCpt++, idee.getUrlProjet( ) );
-        daoUtil.setString(nCpt++, idee.getWinnerProjet( ) );
-        
-        daoUtil.setString(nCpt++, idee.getCreationmethod() );
-        
-        daoUtil.setString(nCpt++, idee.getOperatingbudget() );
-        
-        daoUtil.setString(nCpt++, idee.getHandicap() );
-        daoUtil.setString(nCpt++, ( idee.getHandicapComplement() == null ? "" : idee.getHandicapComplement() ));
-       
-        daoUtil.executeUpdate( );
-        daoUtil.free( );
-
         insertFiles(idee, plugin);
     }
 
     private void insertFiles(Idee idee, Plugin plugin) {
-        for ( File file : idee.getImgs(  ) ) {
+        for ( File file : idee.getImgs(  ) ) 
+        {
             int id = file.getIdFile();
             insertFile(Idee.ATTACHED_FILE_TYPE_IMG, id, idee.getId(), plugin);
         }
-        for ( File file : idee.getDocs (  ) ) {
+        for ( File file : idee.getDocs (  ) ) 
+        {
             int id = file.getIdFile();
             insertFile(Idee.ATTACHED_FILE_TYPE_DOC, id, idee.getId(), plugin);
         }
@@ -227,29 +231,31 @@ public final class IdeeDAO implements IIdeeDAO
      */
     public int newPrimaryKeyFile( Plugin plugin)
     {
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_NEW_PK_FILE , plugin  );
-        daoUtil.executeQuery( );
-
         int nKey = 1;
 
-        if( daoUtil.next( ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_NEW_PK_FILE , plugin  ) )
         {
-                nKey = daoUtil.getInt( 1 ) + 1;
+	        daoUtil.executeQuery( );
+	
+	        if( daoUtil.next( ) )
+	        {
+	                nKey = daoUtil.getInt( 1 ) + 1;
+	        }
         }
-
-        daoUtil.free();
-
+        
         return nKey;
     }
 
     private void insertFile(String string, int id, int id2, Plugin plugin) {
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT_FILE , plugin);
-        daoUtil.setInt( 1, newPrimaryKeyFile( plugin ) );
-        daoUtil.setInt( 2, id );
-        daoUtil.setInt( 3, id2 );
-        daoUtil.setString( 4, string );
-        daoUtil.executeUpdate( );
-        daoUtil.free( );
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT_FILE , plugin) )
+        {
+	        daoUtil.setInt   ( 1, newPrimaryKeyFile( plugin ) );
+	        daoUtil.setInt   ( 2, id );
+	        daoUtil.setInt   ( 3, id2 );
+	        daoUtil.setString( 4, string );
+	        
+	        daoUtil.executeUpdate( );
+        }
     }
 
     /**
@@ -258,23 +264,25 @@ public final class IdeeDAO implements IIdeeDAO
     @Override
     public Idee load( int nKey, Plugin plugin )
     {
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT, plugin );
-        daoUtil.setInt( 1 , nKey );
-        daoUtil.executeQuery( );
-
         Idee idee = null;
 
-        if ( daoUtil.next( ) )
-        {   
-            idee = getRow(daoUtil);
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT, plugin ) )
+        {
+	        daoUtil.setInt( 1 , nKey );
+	        daoUtil.executeQuery( );
+	
+	        if ( daoUtil.next( ) )
+	        {   
+	            idee = getRow(daoUtil);
+	        }
         }
-
-        daoUtil.free( );
         
-        if (idee != null) {
-            loadFileIds(idee, plugin);
+        if ( idee != null ) 
+        {
+            loadFileIds    (idee, plugin);
             loadLinkedIdees(idee, plugin);
         }
+        
         return idee;
     }
 
@@ -284,69 +292,72 @@ public final class IdeeDAO implements IIdeeDAO
     @Override
     public Idee loadByCodes( String strCodeCampagne, int nCodeIdee, Plugin plugin )
     {
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT_BY_CODES, plugin );
-        daoUtil.setString( 1 , strCodeCampagne );
-        daoUtil.setInt( 2 , nCodeIdee );
-        daoUtil.executeQuery( );
-
         Idee idee = null;
 
-        if ( daoUtil.next( ) )
-        {   
-            idee = getRow(daoUtil);
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT_BY_CODES, plugin ) )
+        {
+	        daoUtil.setString( 1 , strCodeCampagne );
+	        daoUtil.setInt   ( 2 , nCodeIdee );
+	        daoUtil.executeQuery( );
+	
+	        if ( daoUtil.next( ) )
+	        {   
+	            idee = getRow(daoUtil);
+	        }
         }
-
-        daoUtil.free( );
         
-        if (idee != null) {
-            loadFileIds(idee, plugin);
+        if ( idee != null ) 
+        {
+            loadFileIds    (idee, plugin);
             loadLinkedIdees(idee, plugin);
         }
+        
         return idee;
     }
 
     private void loadFileIds(Idee idee, Plugin plugin) {
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT_FILE , plugin );
-        daoUtil.setInt( 1 , idee.getId(  ) );
-        daoUtil.executeQuery( );
-
-        List<File> listDocs = new ArrayList<File>();
-        List<File> listImgs = new ArrayList<File>();
-        while ( daoUtil.next( ) )
+        try (DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT_FILE , plugin ) )
         {
-            int fileId = daoUtil.getInt(1);
-            int ideeId = daoUtil.getInt(2);
-            String type = daoUtil.getString(3);
-            if (Idee.ATTACHED_FILE_TYPE_DOC.equals(daoUtil.getString(3))) {
-                listDocs.add(FileHome.findByPrimaryKey(fileId));
-            } else if (Idee.ATTACHED_FILE_TYPE_IMG.equals(daoUtil.getString(3))) {
-                listImgs.add(FileHome.findByPrimaryKey(fileId));
-            } else {
-                AppLogService.info("Ideation, unknown attached file type " + fileId + "," + ideeId + "," + type );
-            }
+	        daoUtil.setInt( 1 , idee.getId(  ) );
+	        daoUtil.executeQuery( );
+	
+	        List<File> listDocs = new ArrayList<File>();
+	        List<File> listImgs = new ArrayList<File>();
+	        while ( daoUtil.next( ) )
+	        {
+	            int fileId = daoUtil.getInt(1);
+	            int ideeId = daoUtil.getInt(2);
+	            String type = daoUtil.getString(3);
+	            if (Idee.ATTACHED_FILE_TYPE_DOC.equals(daoUtil.getString(3))) {
+	                listDocs.add(FileHome.findByPrimaryKey(fileId));
+	            } else if (Idee.ATTACHED_FILE_TYPE_IMG.equals(daoUtil.getString(3))) {
+	                listImgs.add(FileHome.findByPrimaryKey(fileId));
+	            } else {
+	                AppLogService.info("Ideation, unknown attached file type " + fileId + "," + ideeId + "," + type );
+	            }
+	        }
+	
+	        idee.setDocs(listDocs);
+	        idee.setImgs(listImgs);
         }
-
-        idee.setDocs(listDocs);
-        idee.setImgs(listImgs);
-
-        daoUtil.free( );
-
     }
 
     private void loadLinkedIdees(Idee idee, Plugin plugin) {
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT_CHILD_IDEES , plugin );
-        daoUtil.setInt( 1 , idee.getId(  ) );
-        daoUtil.executeQuery( );
-        List<Idee> listIdees = getLinkedIdees(daoUtil);
-        idee.setChildIdees(listIdees);
-        daoUtil.free();
-
-        daoUtil = new DAOUtil( SQL_QUERY_SELECT_PARENT_IDEES , plugin );
-        daoUtil.setInt( 1 , idee.getId(  ) );
-        daoUtil.executeQuery( );
-        listIdees = getLinkedIdees(daoUtil);
-        idee.setParentIdees(listIdees);
-        daoUtil.free();
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT_CHILD_IDEES , plugin ) )
+        {
+	        daoUtil.setInt( 1 , idee.getId(  ) );
+	        daoUtil.executeQuery( );
+	        List<Idee> listIdees = getLinkedIdees(daoUtil);
+	        idee.setChildIdees(listIdees);
+        }
+	
+	     try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT_PARENT_IDEES , plugin ) )
+	     {
+	        daoUtil.setInt( 1 , idee.getId(  ) );
+	        daoUtil.executeQuery( );
+	        List<Idee> listIdees = getLinkedIdees(daoUtil);
+	        idee.setParentIdees(listIdees);
+        }
     }
 
     private List<Idee> getLinkedIdees(DAOUtil daoUtil) {
@@ -382,14 +393,16 @@ public final class IdeeDAO implements IIdeeDAO
     @Override
     public int hasParent( int nIdIdee, Plugin plugin )
     {
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT_PARENT_IDEES, plugin );
-        daoUtil.setInt( 1, nIdIdee );
-        daoUtil.executeQuery( );
-        while ( daoUtil.next( ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT_PARENT_IDEES, plugin ) )
         {
-            return daoUtil.getInt( 1 );
+	        daoUtil.setInt( 1, nIdIdee );
+	        daoUtil.executeQuery( );
+	        while ( daoUtil.next( ) )
+	        {
+	            return daoUtil.getInt( 1 );
+	        }
         }
-        daoUtil.free( );
+        
         return 0;
     }
     /**
@@ -398,51 +411,50 @@ public final class IdeeDAO implements IIdeeDAO
     @Override
     public void storeBO( Idee idee, Plugin plugin )
     {
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE, plugin );
-        
-       int nCpt=1;
-       
-       daoUtil.setInt( nCpt++, idee.getExportedTag( ) );
-       daoUtil.setString( nCpt++, idee.getStatusPublic().getValeur( ) );
-       if(idee.getStatusEudonet()!=null){
-    	   daoUtil.setString( nCpt++, idee.getStatusEudonet().getValeur() );
-       }else{
-    	   daoUtil.setString( nCpt++, null );
-       }
-       daoUtil.setString( nCpt++, idee.getMotifRecev());
-
-       daoUtil.setString( nCpt++, idee.getTypeQpvQva());
-       daoUtil.setString( nCpt++, idee.getIdQpvQva());
-       daoUtil.setString( nCpt++, idee.getLibelleQpvQva());
-       daoUtil.setString(nCpt++, idee.getIdProjet( ) );
-       daoUtil.setString(nCpt++, idee.getTitreProjet( ) );
-       daoUtil.setString( nCpt++, idee.getUrlProjet( ) );
-       daoUtil.setString( nCpt++, idee.getWinnerProjet( ) );
-
-       daoUtil.setString( nCpt++, idee.getTitre() );
-       daoUtil.setString( nCpt++, idee.getDescription() );
-       
-       if(idee.getCout()!=null)
-       {
-               daoUtil.setLong(nCpt++, idee.getCout());
-       }
-       else
-       {
-               daoUtil.setLongNull(nCpt++);    
-       
-       }
-       
-       daoUtil.setString( nCpt++, idee.getLocalisationType() );
-       daoUtil.setString( nCpt++, idee.getLocalisationArdt() );
-             
-       daoUtil.setString( nCpt++, idee.getHandicap() );
-       daoUtil.setString( nCpt++, idee.getHandicapComplement() );
-
-       daoUtil.setInt( nCpt++, idee.getId( ) );
-
-       daoUtil.executeUpdate( );
-       daoUtil.free( );
-
+    	try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE, plugin ) )
+    	{
+	       int nCpt=1;
+	       
+	       daoUtil.setInt( nCpt++, idee.getExportedTag( ) );
+	       daoUtil.setString( nCpt++, idee.getStatusPublic().getValeur( ) );
+	       if(idee.getStatusEudonet()!=null){
+	    	   daoUtil.setString( nCpt++, idee.getStatusEudonet().getValeur() );
+	       }else{
+	    	   daoUtil.setString( nCpt++, null );
+	       }
+	       daoUtil.setString( nCpt++, idee.getMotifRecev());
+	
+	       daoUtil.setString( nCpt++, idee.getTypeQpvQva());
+	       daoUtil.setString( nCpt++, idee.getIdQpvQva());
+	       daoUtil.setString( nCpt++, idee.getLibelleQpvQva());
+	       daoUtil.setString(nCpt++, idee.getIdProjet( ) );
+	       daoUtil.setString(nCpt++, idee.getTitreProjet( ) );
+	       daoUtil.setString( nCpt++, idee.getUrlProjet( ) );
+	       daoUtil.setString( nCpt++, idee.getWinnerProjet( ) );
+	
+	       daoUtil.setString( nCpt++, idee.getTitre() );
+	       daoUtil.setString( nCpt++, idee.getDescription() );
+	       
+	       if(idee.getCout()!=null)
+	       {
+	               daoUtil.setLong(nCpt++, idee.getCout());
+	       }
+	       else
+	       {
+	               daoUtil.setLongNull(nCpt++);    
+	       
+	       }
+	       
+	       daoUtil.setString( nCpt++, idee.getLocalisationType() );
+	       daoUtil.setString( nCpt++, idee.getLocalisationArdt() );
+	             
+	       daoUtil.setString( nCpt++, idee.getHandicap() );
+	       daoUtil.setString( nCpt++, idee.getHandicapComplement() );
+	
+		   daoUtil.setInt( nCpt++, idee.getId( ) );
+		
+		   daoUtil.executeUpdate( );
+       	}
     }
 
     /**
@@ -549,17 +561,19 @@ public final class IdeeDAO implements IIdeeDAO
     @Override
     public Collection<Integer> selectIdIdeesList( Plugin plugin )
     {
-            Collection<Integer> ideeList = new ArrayList<Integer>( );
-            DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL_ID, plugin );
-            daoUtil.executeQuery(  );
+        Collection<Integer> ideeList = new ArrayList<Integer>( );
+        
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL_ID, plugin ) )
+        {
+	        daoUtil.executeQuery(  );
+	
+	        while ( daoUtil.next(  ) )
+	        {
+	            ideeList.add( daoUtil.getInt( 1 ) );
+	        }
+        }
 
-            while ( daoUtil.next(  ) )
-            {
-                ideeList.add( daoUtil.getInt( 1 ) );
-            }
-
-            daoUtil.free( );
-            return ideeList;
+        return ideeList;
     }
     
     private Idee getRow( DAOUtil daoUtil)
@@ -812,29 +826,30 @@ public final class IdeeDAO implements IIdeeDAO
      */
     public int newPrimaryKeyIdeeLink( Plugin plugin )
     {
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_NEW_PK_IDEE_LINK, plugin );
-        daoUtil.executeQuery( );
-
         int nKey = 1;
 
-        if ( daoUtil.next( ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_NEW_PK_IDEE_LINK, plugin ) )
         {
-            nKey = daoUtil.getInt( 1 ) + 1;
+	        daoUtil.executeQuery( );
+	
+	        if ( daoUtil.next( ) )
+	        {
+	            nKey = daoUtil.getInt( 1 ) + 1;
+	        }
         }
-
-        daoUtil.free( );
-
+        
         return nKey;
     }
 
     private void insertLink( int nIdParentIdee, int nIdChildIdee, Plugin plugin )
     {
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT_LINK, plugin );
-        daoUtil.setInt( 1, newPrimaryKeyIdeeLink( plugin ) );
-        daoUtil.setInt( 2, nIdParentIdee );
-        daoUtil.setInt( 3, nIdChildIdee );
-        daoUtil.executeUpdate( );
-        daoUtil.free( );
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT_LINK, plugin ) )
+        {
+	        daoUtil.setInt( 1, newPrimaryKeyIdeeLink( plugin ) );
+	        daoUtil.setInt( 2, nIdParentIdee );
+	        daoUtil.setInt( 3, nIdChildIdee );
+	        daoUtil.executeUpdate( );
+        }
     }
     
     /**
@@ -843,10 +858,11 @@ public final class IdeeDAO implements IIdeeDAO
     @Override
     public void deleteLinkByParent( int nParentIdeeId, Plugin plugin )
     {
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE_LINK_BY_PARENT, plugin );
-        daoUtil.setInt( 1 , nParentIdeeId );
-        daoUtil.executeUpdate( );
-        daoUtil.free( );
+    	try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE_LINK_BY_PARENT, plugin ))
+        {
+	        daoUtil.setInt( 1 , nParentIdeeId );
+	        daoUtil.executeUpdate( );
+        }
     }
 
     /**
@@ -855,9 +871,10 @@ public final class IdeeDAO implements IIdeeDAO
     @Override
     public void deleteLinkByChild( int nChildIdeeId, Plugin plugin )
     {
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE_LINK_BY_CHILD, plugin );
-        daoUtil.setInt( 1 , nChildIdeeId );
-        daoUtil.executeUpdate( );
-        daoUtil.free( );
+    	try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE_LINK_BY_CHILD, plugin ))
+        {
+	        daoUtil.setInt( 1 , nChildIdeeId );
+	        daoUtil.executeUpdate( );
+        }
     }
 }
