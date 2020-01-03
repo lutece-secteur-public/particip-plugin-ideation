@@ -7,17 +7,76 @@
 
 ## Introduction
 
-This plugin offers a step-by-step form to submit a proposal in a citizen participation process.
+This plugin handles citizen-oriented ideation on the web.
 
-This plugin can be used in a participatory site, so citizen can submit their proposals.
+It provides :
+
+ 
+* A step-by-step form to submit a proposal
+* A SOLR-based search page with thumbnails
+* For each proposal, a sheet with all informations
+* A back-office to manage proposals
+
+ **The [OpenPB](https://github.com/lutece-secteur-public/particip-site-participatorybudget) demo site uses this plugin, so you can see it in action !** 
+
+Please keep in mind that this plugin :
+
+ 
+* is in alpha version and is under development ; some features could not work properly :-/
+* currently needs plugin-participatorybudget plugin to work (in medium term, the plugin will be independant, and may be connected to other plugins using mediator modules)
 
 ## Configuration
 
-To do
+To use the plugin into your Lutece site, first add the following code to your pom.xml
+
+```
+
+<dependency>
+	<groupId>fr.paris.lutece.plugins</groupId>
+	<artifactId>plugin-participatoryideation</artifactId>
+	<version>[1.0.0-SNAPSHOT,)</version>
+	<type>lutece-plugin</type>
+</dependency>
+                
+```
+
+Then override the participatoryideation properties file to specify the URL of REST services from plugin-participatorybudget. For example :
+
+```
+
+participatoryideation.campaign.rest.webapp.url=http://localhost:8080/site-test
+                
+```
+
+SQL init files of both plugins create following sample data :
+
+ 
+* A basic campaign with somes phases, themes and areas (see Manage Campaign back-office page)
+* Data about submitters (see ManageIdeation back-office page)
+
+To create these database data, please refer to the [Lutece Maven process](https://fr.lutece.paris.fr/fr/jsp/site/Portal.jsp?page=wiki&view=page&page_name=maven#H3_Initialize_database) .
 
 ## Usage
 
-To do
+Before accessing the SOLR search page, you must index the pre-created proposals : go to the Solr Indexing back-office page, and click on 'Start indexing' button.
+
+Now you can access to the search page :
+
+```
+
+http://localhost:8080/pb/jsp/site/Portal.jsp?page=search-solr&conf=list_idees
+                
+```
+
+To submit a new proposal, you have to verify that dates of 'ideation' phase are right (see 'Manage campaign' back-office page).
+
+Then access to the following page :
+
+```
+
+http://localhost:8080/pb/jsp/site/Portal.jsp?page=ideation
+                
+```
 
 # Project Information
 
