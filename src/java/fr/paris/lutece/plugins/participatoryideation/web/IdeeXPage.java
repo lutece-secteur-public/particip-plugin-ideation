@@ -49,9 +49,9 @@ import fr.paris.lutece.plugins.participatorybudget.service.MyInfosService;
 import fr.paris.lutece.plugins.participatorybudget.web.MyInfosXPage;
 import fr.paris.lutece.plugins.participatoryideation.business.Idee;
 import fr.paris.lutece.plugins.participatoryideation.business.IdeeHome;
-import fr.paris.lutece.plugins.participatoryideation.service.IdeationCampagneService;
 import fr.paris.lutece.plugins.participatoryideation.service.IdeationStaticService;
 import fr.paris.lutece.plugins.participatoryideation.service.IdeeService;
+import fr.paris.lutece.plugins.participatoryideation.service.campaign.IdeationCampaignService;
 import fr.paris.lutece.portal.service.datastore.DatastoreService;
 import fr.paris.lutece.portal.service.mail.MailService;
 import fr.paris.lutece.portal.service.message.SiteMessageException;
@@ -109,7 +109,7 @@ public class IdeeXPage extends MVCApplication
     
     private static final String MARK_CODE_IDEE="idee";
     private static final String MARK_CODE_CAMPAGNE="campagne";
-    private static final String MARK_WHOLE_AREA="whole_name";
+    private static final String MARK_WHOLE_AREA="whole_area";
 
     private static final String MARK_LASTNAME_USER="lastNameUser";
     private static final String MARK_FIRSTNAME_USER="firstNameUser";
@@ -185,7 +185,7 @@ public class IdeeXPage extends MVCApplication
         
         model.put( MARK_SHOW_CONTACT      , strShowContact );
         model.put( MARK_MESSAGE_NOT_ACCEPT, strContactMessageNotAccept );
-        model.put( MARK_WHOLE_AREA        , IdeationCampagneService.getInstance().getCampaignWholeArea() );
+        model.put( MARK_WHOLE_AREA        , IdeationCampaignService.getInstance().getCampaignWholeArea() );
         
         
         if ( _idee == null || !IdeeService.getInstance().isPublished(_idee) ) 

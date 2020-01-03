@@ -57,18 +57,17 @@ import fr.paris.lutece.plugins.leaflet.business.GeolocItem;
 import fr.paris.lutece.plugins.participatorybudget.business.campaign.CampagneHome;
 import fr.paris.lutece.plugins.participatorybudget.service.MyInfosService;
 import fr.paris.lutece.plugins.participatorybudget.service.campaign.CampagnesService;
-import fr.paris.lutece.plugins.participatorybudget.util.Constants;
 import fr.paris.lutece.plugins.participatorybudget.web.MyInfosXPage;
 import fr.paris.lutece.plugins.participatoryideation.business.Idee;
 import fr.paris.lutece.plugins.participatoryideation.business.capgeo.QpvQva;
-import fr.paris.lutece.plugins.participatoryideation.service.IdeationCampagneService;
 import fr.paris.lutece.plugins.participatoryideation.service.IdeationErrorException;
 import fr.paris.lutece.plugins.participatoryideation.service.IdeationStaticService;
 import fr.paris.lutece.plugins.participatoryideation.service.IdeationUploadHandler;
 import fr.paris.lutece.plugins.participatoryideation.service.IdeeService;
 import fr.paris.lutece.plugins.participatoryideation.service.IdeeWSService;
+import fr.paris.lutece.plugins.participatoryideation.service.campaign.IdeationCampaignService;
 import fr.paris.lutece.plugins.participatoryideation.service.capgeo.QpvQvaService;
-import fr.paris.lutece.plugins.participatoryideation.utils.constants.IdeationConstants;
+import fr.paris.lutece.plugins.participatoryideation.util.Constants;
 import fr.paris.lutece.plugins.participatoryideation.web.etape.FormEtapeApprox;
 import fr.paris.lutece.plugins.participatoryideation.web.etape.FormEtapeDescription;
 import fr.paris.lutece.plugins.participatoryideation.web.etape.FormEtapeLocation;
@@ -174,16 +173,17 @@ public class IdeationApp extends MVCApplication
     private static final String MARK_RECAP_IDEE_CREATED_CODE= "idee_created_code";
     private static final String MARK_RECAP_IDEE_CREATED_CAMPAGNE = "idee_created_campagne";
     private static final String MARK_RECAP_IDEE_CREATED_REFERENCE = "idee_created_reference";
-    private static final String MARK_WHOLE = "whole_name";
-    private static final String MARK_NUMBER_AREAS = "number_arrondissements";
-    private static final String MARK_AREAS = "areas";
 
-    public static final String QPV_QVA_QPV = "NQPV";
-    public static final String QPV_QVA_QVA = "QVA";
-    public static final String QPV_QVA_NO = "NON";
-    public static final String QPV_QVA_ERR = "ERR";
+    private static final String MARK_WHOLE_AREA             =            "whole_area" ;
+    private static final String MARK_NUMBER_LOCALIZED_AREAS = "number_localized_areas";
+    private static final String MARK_LOCALIZED_AREAS        =        "localized_areas";
+
+    public static final String QPV_QVA_QPV  = "NQPV";
+    public static final String QPV_QVA_QVA  = "QVA";
+    public static final String QPV_QVA_NO   = "NON";
+    public static final String QPV_QVA_ERR  = "ERR";
     public static final String QPV_QVA_GPRU = "GPRU";
-    public static final String QPV_QVA_QBP = "QBP";
+    public static final String QPV_QVA_QBP  = "QBP";
 
     public static final String HANDICAP_LABEL_YES = "yes";
     public static final String HANDICAP_LABEL_NO  = "no" ;
@@ -194,14 +194,10 @@ public class IdeationApp extends MVCApplication
     private static final String PROPERTY_NEWPROJECTS_TYPE = "participatoryideation.approx.newprojects.type";
     private static final String MESSAGE_CAMPAGNE_IDEATION_CLOSED_SUBMIT = "participatoryideation.messages.campagne.ideation.closed.submit";
 
-    private static final String SOLR_NEWPROJECTS_GEOLOC_FIELD = AppPropertiesService.getProperty(
-            PROPERTY_NEWPROJECTS_GEOLOC_FIELD, "idee_geoloc");
-    private static final String SOLR_NEWPROJECTS_ARDT_FIELD = AppPropertiesService.getProperty(
-            PROPERTY_NEWPROJECTS_ARDT_FIELD, "localisation_ardt_text");
-    private static final String SOLR_OLDPROJECTS_ARDT_FIELD = AppPropertiesService.getProperty(
-            PROPERTY_OLDPROJECTS_ARDT_FIELD, "localisation_text");
-    private static final String SOLR_NEWPROJECTS_TYPE = AppPropertiesService.getProperty(
-            PROPERTY_NEWPROJECTS_TYPE, "idee");
+    private static final String SOLR_NEWPROJECTS_GEOLOC_FIELD = AppPropertiesService.getProperty( PROPERTY_NEWPROJECTS_GEOLOC_FIELD, "idee_geoloc" );
+    private static final String SOLR_NEWPROJECTS_ARDT_FIELD   = AppPropertiesService.getProperty( PROPERTY_NEWPROJECTS_ARDT_FIELD  , "localisation_ardt_text" );
+    private static final String SOLR_OLDPROJECTS_ARDT_FIELD   = AppPropertiesService.getProperty( PROPERTY_OLDPROJECTS_ARDT_FIELD  , "localisation_text" );
+    private static final String SOLR_NEWPROJECTS_TYPE         = AppPropertiesService.getProperty( PROPERTY_NEWPROJECTS_TYPE        , "idee" );
     
     private static final String SOLR_PREVIOUS_CAMPAIGNS = "("
     		+ "(type:idee AND statut_publique_project_text:\"NONRETENU\") "
@@ -238,7 +234,7 @@ public class IdeationApp extends MVCApplication
      */
     private void checkIdeationPhase( HttpServletRequest request ) throws SiteMessageException
     {
-        if ( !IdeationCampagneService.getInstance().isDuring(Constants.IDEATION) )
+        if ( !IdeationCampaignService.getInstance().isDuring(Constants.IDEATION) )
         {
             Map<String, Object> requestParameters = new HashMap<String, Object>(  );
             requestParameters.put( PARAMETER_PAGE, "search-solr" );
@@ -256,11 +252,13 @@ public class IdeationApp extends MVCApplication
     public XPage viewLocation( HttpServletRequest request )
     {
         Map<String, Object> model = getModel( request );
-        model.put( MARK_STEPS_INDEX, STEPS.LOCATION_INDEX.ordinal(  ) );
+        
+        model.put( MARK_STEPS_INDEX  , STEPS.LOCATION_INDEX.ordinal(  ) );
         model.put( MARK_STEPS_CONTENT, TEMPLATE_LOCATION );
-        model.put( MARK_NUMBER_AREAS, IdeationCampagneService.getInstance().getCampaignNumberAreas() );
-        model.put( MARK_AREAS, IdeationCampagneService.getInstance().getCampaignAreas() );
-        model.put( MARK_WHOLE, IdeationCampagneService.getInstance().getCampaignWholeArea() );
+        model.put( MARK_NUMBER_LOCALIZED_AREAS , IdeationCampaignService.getInstance().getCampaignNumberLocalizedAreas() );
+        model.put( MARK_LOCALIZED_AREAS        , IdeationCampaignService.getInstance().getCampaignLocalizedAreas() );
+        model.put( MARK_WHOLE_AREA             , IdeationCampaignService.getInstance().getCampaignWholeArea() );
+        
         return getXPage( TEMPLATE_ETAPES, request.getLocale(  ), model );
     }
 
@@ -827,8 +825,8 @@ public class IdeationApp extends MVCApplication
      */
     private void createWorkflowResource( Idee idee, HttpServletRequest request ) {
 
-         int idWorkflow = AppPropertiesService.getPropertyInt( IdeationConstants.PROPERTY_WORKFLOW_ID, -1 );
-         String strWorkflowActionNameCreateIdee=AppPropertiesService.getProperty(IdeationConstants.PROPERTY_WORKFLOW_ACTION_NAME_CREATE_IDEE);
+         int idWorkflow = AppPropertiesService.getPropertyInt( Constants.PROPERTY_WORKFLOW_ID, -1 );
+         String strWorkflowActionNameCreateIdee=AppPropertiesService.getProperty( Constants.PROPERTY_WORKFLOW_ACTION_NAME_CREATE_IDEE );
      	
 
          if ( idWorkflow != -1 )

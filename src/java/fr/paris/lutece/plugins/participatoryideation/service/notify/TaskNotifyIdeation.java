@@ -41,7 +41,7 @@ import fr.paris.lutece.plugins.participatoryideation.business.Idee;
 import fr.paris.lutece.plugins.participatoryideation.business.IdeeHome;
 import fr.paris.lutece.plugins.participatoryideation.business.notify.TaskNotifyIdeationConfig;
 import fr.paris.lutece.plugins.participatoryideation.service.subscription.IdeationSubscriptionProviderService;
-import fr.paris.lutece.plugins.participatoryideation.utils.constants.IdeationConstants;
+import fr.paris.lutece.plugins.participatoryideation.util.Constants;
 import fr.paris.lutece.plugins.subscribe.business.Subscription;
 import fr.paris.lutece.plugins.subscribe.business.SubscriptionFilter;
 import fr.paris.lutece.plugins.subscribe.service.SubscriptionService;
@@ -101,10 +101,10 @@ public class TaskNotifyIdeation extends SimpleTask
     private static final String HTML_BR = "<br/>";
     private static final String HTML_R = "\r";
     private static final String ID_ALL = "*";
-    private static final String ACTION_NAME_CREATE_IDEE= AppPropertiesService.getProperty(IdeationConstants.PROPERTY_WORKFLOW_ACTION_NAME_CREATE_IDEE);
-    private static final String ACTION_NAME_CREATE_COMMENT= AppPropertiesService.getProperty(IdeationConstants.PROPERTY_WORKFLOW_ACTION_NAME_CREATE_COMMENT);
-    private static final String ACTION_NAME_FOLLOW= AppPropertiesService.getProperty(IdeationConstants.PROPERTY_WORKFLOW_ACTION_NAME_FOLLOW);
-    private static final String ACTION_NAME_CANCEL_FOLLOW= AppPropertiesService.getProperty(IdeationConstants.PROPERTY_WORKFLOW_ACTION_NAME_CANCEL_FOLLOW);
+    private static final String ACTION_NAME_CREATE_IDEE= AppPropertiesService.getProperty(Constants.PROPERTY_WORKFLOW_ACTION_NAME_CREATE_IDEE);
+    private static final String ACTION_NAME_CREATE_COMMENT= AppPropertiesService.getProperty(Constants.PROPERTY_WORKFLOW_ACTION_NAME_CREATE_COMMENT);
+    private static final String ACTION_NAME_FOLLOW= AppPropertiesService.getProperty(Constants.PROPERTY_WORKFLOW_ACTION_NAME_FOLLOW);
+    private static final String ACTION_NAME_CANCEL_FOLLOW= AppPropertiesService.getProperty(Constants.PROPERTY_WORKFLOW_ACTION_NAME_CANCEL_FOLLOW);
   
 
     

@@ -63,9 +63,9 @@ import fr.paris.lutece.plugins.participatoryideation.service.IdeeService;
 import fr.paris.lutece.plugins.participatoryideation.service.IdeeUsersService;
 import fr.paris.lutece.plugins.participatoryideation.service.SolrIdeeIndexer;
 import fr.paris.lutece.plugins.participatoryideation.service.capgeo.QpvQvaService;
-import fr.paris.lutece.plugins.participatoryideation.utils.CsvUtils;
-import fr.paris.lutece.plugins.participatoryideation.utils.IdeeExportUtils;
-import fr.paris.lutece.plugins.participatoryideation.utils.constants.IdeationConstants;
+import fr.paris.lutece.plugins.participatoryideation.util.Constants;
+import fr.paris.lutece.plugins.participatoryideation.util.CsvUtils;
+import fr.paris.lutece.plugins.participatoryideation.util.IdeeExportUtils;
 import fr.paris.lutece.portal.business.file.File;
 import fr.paris.lutece.portal.service.admin.AccessDeniedException;
 import fr.paris.lutece.portal.service.i18n.I18nService;
@@ -446,9 +446,9 @@ public class IdeeJspBean extends ManageIdeationIdeesJspBean
         
         _idee.setCodeIdee          ( 0 );
         _idee.setCodeCampagne      ( CampagneHome.getLastCampagne().getCode() );
-        _idee.setDepositaireType   ( AppPropertiesService.getProperty( IdeationConstants.PROPERTY_GENERATE_IDEE_DEPOSITAIRE_TYPE ) );
-        _idee.setDepositaire       ( AppPropertiesService.getProperty( IdeationConstants.PROPERTY_GENERATE_IDEE_DEPOSITAIRE ) );
-        _idee.setLuteceUserName    ( AppPropertiesService.getProperty( IdeationConstants.PROPERTY_GENERATE_IDEE_LUTECE_USER_NAME )  );
+        _idee.setDepositaireType   ( AppPropertiesService.getProperty( Constants.PROPERTY_GENERATE_IDEE_DEPOSITAIRE_TYPE ) );
+        _idee.setDepositaire       ( AppPropertiesService.getProperty( Constants.PROPERTY_GENERATE_IDEE_DEPOSITAIRE ) );
+        _idee.setLuteceUserName    ( AppPropertiesService.getProperty( Constants.PROPERTY_GENERATE_IDEE_LUTECE_USER_NAME )  );
         _idee.setCreationTimestamp ( new java.sql.Timestamp( ( new java.util.Date( ) ).getTime( ) ) );
         _idee.setStatusPublic      ( Idee.Status.STATUS_DEPOSE );
         _idee.setTypeQpvQva        ( IdeationApp.QPV_QVA_NO );
@@ -561,7 +561,7 @@ public class IdeeJspBean extends ManageIdeationIdeesJspBean
         }
 
         if (WorkflowService.getInstance(  ).isAvailable()) {
-            int idWorkflow = AppPropertiesService.getPropertyInt( IdeationConstants.PROPERTY_WORKFLOW_ID, -1 );
+            int idWorkflow = AppPropertiesService.getPropertyInt( Constants.PROPERTY_WORKFLOW_ID, -1 );
             model.put( MARK_RESOURCE_HISTORY, WorkflowService.getInstance(  )
                            .getDisplayDocumentHistory( _idee.getId(), Idee.WORKFLOW_RESOURCE_TYPE, idWorkflow, request,
                 getLocale(  ) ) );

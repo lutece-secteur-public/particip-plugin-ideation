@@ -57,7 +57,7 @@ import fr.paris.lutece.plugins.extend.service.extender.history.ResourceExtenderH
 import fr.paris.lutece.plugins.participatoryideation.business.Idee;
 import fr.paris.lutece.plugins.participatoryideation.business.IdeeHome;
 import fr.paris.lutece.plugins.participatoryideation.business.IdeeSearcher;
-import fr.paris.lutece.plugins.participatoryideation.utils.constants.IdeationConstants;
+import fr.paris.lutece.plugins.participatoryideation.util.Constants;
 import fr.paris.lutece.plugins.workflowcore.business.action.Action;
 import fr.paris.lutece.plugins.workflowcore.business.state.State;
 import fr.paris.lutece.plugins.workflowcore.service.workflow.IWorkflowService;
@@ -219,14 +219,14 @@ public class IdeeWSService implements IIdeeWSService {
         history.setIdExtendableResource( "" + idee.getId() );
         history.setExtendableResourceType( Idee.PROPERTY_RESOURCE_TYPE );
         history.setIpAddress( StringUtils.EMPTY );
-        history.setUserGuid( AppPropertiesService.getProperty( IdeationConstants.PROPERTY_GENERATE_IDEE_LUTECE_USER_NAME )  ); // Le commentaire est déposé par l'équipe du Budget Participatif.
+        history.setUserGuid( AppPropertiesService.getProperty( Constants.PROPERTY_GENERATE_IDEE_LUTECE_USER_NAME )  ); // Le commentaire est déposé par l'équipe du Budget Participatif.
         _resourceHistoryService.create( history );
 	}
 
 	private void processAction (String ideeStatut, Idee idee, boolean notify, HttpServletRequest request) {
 		
 		boolean       foundAction = false;
-		int           nIdWorkflow = AppPropertiesService.getPropertyInt( IdeationConstants.PROPERTY_WORKFLOW_ID, -1 );
+		int           nIdWorkflow = AppPropertiesService.getPropertyInt( Constants.PROPERTY_WORKFLOW_ID, -1 );
     	String  ideeStatutLibelle = removeAccent(I18nService.getLocalizedString((Idee.Status.getByValue(ideeStatut).getLibelle( )), new Locale("fr","FR"))) + ( notify ? " (avec notification)" : " (sans notification)" ) ;
 
         if ( nIdWorkflow != -1 )
@@ -261,7 +261,7 @@ public class IdeeWSService implements IIdeeWSService {
 	{
 		
 		
-		int nIdWorkflow = AppPropertiesService.getPropertyInt( IdeationConstants.PROPERTY_WORKFLOW_ID, -1 );
+		int nIdWorkflow = AppPropertiesService.getPropertyInt( Constants.PROPERTY_WORKFLOW_ID, -1 );
     	 
         if ( nIdWorkflow != -1 && WorkflowService.getInstance(  ).isAvailable() && !StringUtils.isEmpty(strWorkflowIdeeActionName))
          {
@@ -285,7 +285,7 @@ public class IdeeWSService implements IIdeeWSService {
 	{
 		
 		
-		int nIdWorkflow = AppPropertiesService.getPropertyInt( IdeationConstants.PROPERTY_WORKFLOW_ID, -1 );
+		int nIdWorkflow = AppPropertiesService.getPropertyInt( Constants.PROPERTY_WORKFLOW_ID, -1 );
     	 
         if ( nIdWorkflow != -1 && WorkflowService.getInstance(  ).isAvailable() && !StringUtils.isEmpty(strWorkflowIdeeActionName))
          {

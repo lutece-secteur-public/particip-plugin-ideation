@@ -31,35 +31,39 @@
  *
  * License 1.0
  */
-package fr.paris.lutece.plugins.participatoryideation.utils.constants;
+package fr.paris.lutece.plugins.participatoryideation.util;
 
 /**
- *
- * IdeationConstants
- *
+ * This class provides constants.
  */
-public final class IdeationConstants
+public final class Constants
 {
 
+	// Campaign phases
+	public static final String  PRE_IDEATION =  "PRE_IDEATION";
+	public static final String      IDEATION =      "IDEATION";
+    public static final String POST_IDEATION = "POST_IDEATION";
+    
     // Properties
     public static final String PROPERTY_WORKFLOW_ID = "participatoryideation.idWorkflow";
+    
     public static final String PROPERTY_WORKFLOW_ACTION_NAME_CREATE_COMMENT = "participatoryideation.workFlowActionNameCreateComment";
     
-    public static final String PROPERTY_WORKFLOW_ACTION_NAME_FOLLOW = "participatoryideation.workFlowActionNameFollow";
+    public static final String PROPERTY_WORKFLOW_ACTION_NAME_FOLLOW        = "participatoryideation.workFlowActionNameFollow";
     public static final String PROPERTY_WORKFLOW_ACTION_NAME_CANCEL_FOLLOW = "participatoryideation.workFlowActionNameCancelFollow";
     
-    public static final String PROPERTY_WORKFLOW_ACTION_NAME_CREATE_IDEE = "participatoryideation.workFlowActionNameCreateIdee";
-    public static final String PROPERTY_WORKFLOW_ACTION_NAME_DELETE_IDEE = "participatoryideation.workFlowActionNameDeleteIdee";
+    public static final String PROPERTY_WORKFLOW_ACTION_NAME_CREATE_IDEE        = "participatoryideation.workFlowActionNameCreateIdee";
+    public static final String PROPERTY_WORKFLOW_ACTION_NAME_DELETE_IDEE        = "participatoryideation.workFlowActionNameDeleteIdee";
     public static final String PROPERTY_WORKFLOW_ACTION_NAME_DELETE_IDEE_BY_MDP = "participatoryideation.workFlowActionNameDeleteIdeeByMdp";
     
     public static final String PROPERTY_GENERATE_IDEE_DEPOSITAIRE_TYPE = "participatoryideation.atelier.generateIdee.depositaire_type";
-    public static final String PROPERTY_GENERATE_IDEE_DEPOSITAIRE = "participatoryideation.atelier.generateIdee.depositaire";
+    public static final String PROPERTY_GENERATE_IDEE_DEPOSITAIRE      = "participatoryideation.atelier.generateIdee.depositaire";
     public static final String PROPERTY_GENERATE_IDEE_LUTECE_USER_NAME = "participatoryideation.atelier.generateIdee.luteceUserName";
- 
-    /**
-     * Private constructor
-     */
-    private IdeationConstants(  )
+
+    // Constructor
+    public Constants() 
     {
-    }
+    	throw new RuntimeException( "This class must not be instanciated !" );
+	}
+
 }

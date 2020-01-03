@@ -31,7 +31,7 @@
  *
  * License 1.0
  */
-package fr.paris.lutece.plugins.participatoryideation.utils;
+package fr.paris.lutece.plugins.participatoryideation.util;
 
 import java.io.IOException;
 import java.io.InputStream;

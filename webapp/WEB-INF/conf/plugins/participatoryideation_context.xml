@@ -14,49 +14,69 @@
            http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
 ">
 
-    <bean id="participatoryideation.depositaireTypeDAO"  class="fr.paris.lutece.plugins.participatoryideation.business.DepositaireTypeDAO" />  
-    <bean id="participatoryideation.campagneDepositaireDAO"  class="fr.paris.lutece.plugins.participatoryideation.business.CampagneDepositaireDAO" />  
-    <bean id="participatoryideation.ideeDAO"  class="fr.paris.lutece.plugins.participatoryideation.business.IdeeDAO" />  
-    <bean id="participatoryideation.linkDAO"  class="fr.paris.lutece.plugins.participatoryideation.business.LinkDAO" />  
-	<bean id="participatoryideation.solrIdeeIndexer" class="fr.paris.lutece.plugins.participatoryideation.service.SolrIdeeIndexer" />
-	<bean id="participatoryideation.ideationCampagneService"  class="fr.paris.lutece.plugins.participatoryideation.service.IdeationCampagneService" />  
-	<bean id="participatoryideation.ideeService"  class="fr.paris.lutece.plugins.participatoryideation.service.IdeeService" />  
-	<bean id="participatoryideation.ideationStaticService"  class="fr.paris.lutece.plugins.participatoryideation.service.IdeationStaticService" />
-	<bean id="participatoryideation.linkStaticService"  class="fr.paris.lutece.plugins.participatoryideation.service.LinkStaticService" />
-	<bean id="participatoryideation.ideeWSService"  class="fr.paris.lutece.plugins.participatoryideation.service.IdeeWSService" /> 
+	<!-- DAO beans -->
+
+    <bean id="participatoryideation.depositaireTypeDAO"       class="fr.paris.lutece.plugins.participatoryideation.business.DepositaireTypeDAO" />  
+    <bean id="participatoryideation.campagneDepositaireDAO"   class="fr.paris.lutece.plugins.participatoryideation.business.CampagneDepositaireDAO" />  
+    <bean id="participatoryideation.ideeDAO"                  class="fr.paris.lutece.plugins.participatoryideation.business.IdeeDAO" />  
+    <bean id="participatoryideation.linkDAO"                  class="fr.paris.lutece.plugins.participatoryideation.business.LinkDAO" />  
+    
+	<!-- Services beans -->
+
+	<bean id="participatoryideation.solrIdeeIndexer"          class="fr.paris.lutece.plugins.participatoryideation.service.SolrIdeeIndexer" />
+
+	<bean id="participatoryideation.ideationCampaignService"  class="fr.paris.lutece.plugins.participatoryideation.service.campaign.IdeationCampaignService" />
+	<!-- <bean id="participatoryideation.ideationCampaignService"  class="fr.paris.lutece.plugins.participatoryideation.service.campaign.IdeationCampaignFromParticipatoryBudgetService" /> -->
+	
+	<bean id="participatoryideation.ideeService"              class="fr.paris.lutece.plugins.participatoryideation.service.IdeeService" />  
+	<bean id="participatoryideation.ideationStaticService"    class="fr.paris.lutece.plugins.participatoryideation.service.IdeationStaticService" />
+	<bean id="participatoryideation.linkStaticService"        class="fr.paris.lutece.plugins.participatoryideation.service.LinkStaticService" />
+	<bean id="participatoryideation.ideeWSService"            class="fr.paris.lutece.plugins.participatoryideation.service.IdeeWSService" /> 
 
     <!-- Site properties -->
+    
     <bean id="participatoryideation.FormSitePropertiesGroup" class="fr.paris.lutece.portal.service.site.properties.SitePropertiesGroup" >
         <property name="nameKey"><value>ideation.form.site_properties.name</value></property>
         <property name="descriptionKey"><value>ideation.form.site_properties.description</value></property>
         <property name="keysPrefix"><value>ideation.site_property.form</value></property>
     </bean>
+    
     <bean id="participatoryideation.IdeeSitePropertiesGroup" class="fr.paris.lutece.portal.service.site.properties.SitePropertiesGroup" >
         <property name="nameKey"><value>ideation.view_idee.site_properties.name</value></property>
         <property name="descriptionKey"><value>ideation.view_idee.site_properties.description</value></property>
         <property name="keysPrefix"><value>ideation.site_property.view_idee</value></property>
     </bean>
 
-    <!-- leaflet maps -->
+    <!-- Leaflet maps -->
+    
 	<bean id="leaflet-icon-provider-idee" class="fr.paris.lutece.plugins.participatoryideation.service.IdeeIconProvider" />
 	<bean id="leaflet-rest-popup-provider-idee" class="fr.paris.lutece.plugins.participatoryideation.service.IdeePopupContentProvider" />
 
     <!-- AsynchronousUpload -->
+    
 	<bean id="participatoryideation.IdeeAsynchronousHandler" class="fr.paris.lutece.plugins.participatoryideation.service.IdeationUploadHandler" />
 
 	<bean id="participatoryideation.IdeationSolrAddon" class="fr.paris.lutece.plugins.participatoryideation.service.IdeationSolrAddon" />
 
     <!-- SQL Transactions -->
+    
     <tx:annotation-driven/>
-    <bean id="participatoryideation.ideeServiceTransactionManager" class="fr.paris.lutece.portal.service.database.DAOUtilTransactionManager"><property name="pluginName" value="participatoryideation"/></bean>
-	 <bean id="participatoryideation.ideeExtendableResourceService" class="fr.paris.lutece.plugins.participatoryideation.service.IdeeExtendableResourceService" />
-	 <bean id="participatoryideation.ideationSubscriptionProviderService" class="fr.paris.lutece.plugins.participatoryideation.service.subscription.IdeationSubscriptionProviderService"/>
+    
+    <bean id="participatoryideation.ideeServiceTransactionManager" class="fr.paris.lutece.portal.service.database.DAOUtilTransactionManager">
+    	<property name="pluginName" value="participatoryideation"/>
+    </bean>
+    
+	<bean id="participatoryideation.ideeExtendableResourceService"       class="fr.paris.lutece.plugins.participatoryideation.service.IdeeExtendableResourceService" />
+	<bean id="participatoryideation.ideationSubscriptionProviderService" class="fr.paris.lutece.plugins.participatoryideation.service.subscription.IdeationSubscriptionProviderService"/>
 
 	<!-- Components -->
+	
 	<bean id="participatoryideation.followAddon" class="fr.paris.lutece.plugins.participatoryideation.service.FollowAddService" />
 
     <!-- WS REST -->
+    
     <bean id='participatoryideation.hashService' class='fr.paris.lutece.util.signrequest.security.Sha1HashService' />
+    
     <bean id='participatoryideation.requestAuthentication' class='fr.paris.lutece.util.signrequest.HeaderHashAuthenticator' >
           <property name='hashService' ref='participatoryideation.hashService' />
           <property name='signatureElements'>
@@ -71,7 +91,7 @@
 
 	<bean id="participatoryideation.webServiceCaller" class="fr.paris.lutece.plugins.participatoryideation.utils.http.WebServiceCaller" />
 
-	<bean id="taskNotifyIdeationConfigDAO" class="fr.paris.lutece.plugins.participatoryideation.business.notify.TaskNotifyIdeationConfigDAO"/>
+	<bean id="taskNotifyIdeationConfigDAO" class="fr.paris.lutece.plugins.participatoryideation.business.notify.TaskNotifyIdeationConfigDAO" />
 	
 	<!-- TaskInfoProvider -->
 	<bean id="participatoryideation.notifyIdeationTaskInfoProvider" class="fr.paris.lutece.plugins.participatoryideation.service.notify.NotifyIdeationTaskInfoProvider"

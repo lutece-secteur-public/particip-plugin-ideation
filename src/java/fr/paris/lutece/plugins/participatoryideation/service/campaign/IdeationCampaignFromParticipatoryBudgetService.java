@@ -31,7 +31,7 @@
  *
  * License 1.0
  */
-package fr.paris.lutece.plugins.participatoryideation.service;
+package fr.paris.lutece.plugins.participatoryideation.service.campaign;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -42,20 +42,11 @@ import fr.paris.lutece.portal.service.util.AppLogService;
 import fr.paris.lutece.portal.service.util.AppPropertiesService;
 import fr.paris.lutece.util.ReferenceList;
 
-public class IdeationCampagneService implements IIdeationCampagneService {
-	
-	private static final String BEAN_IDEATIONCAMPAGNE_SERVICE = "participatoryideation.ideationCampagneService";
-	
-	private static IIdeationCampagneService _singleton;
-	
-	public static IIdeationCampagneService getInstance(  )
-    {
-        if ( _singleton == null )
-        {
-            _singleton = SpringContextService.getBean( BEAN_IDEATIONCAMPAGNE_SERVICE );
-        }
-        return _singleton;
-    }
+/**
+ * This class provides campaign services and informations from plugin-participatorybudget. It uses the REST API of the plugin. 
+ */
+public class IdeationCampaignFromParticipatoryBudgetService implements IIdeationCampaignService 
+{
 
 	/**
      * {@inheritDoc}
@@ -231,12 +222,12 @@ public class IdeationCampagneService implements IIdeationCampagneService {
      * {@inheritDoc}
      */
     @Override
-    public int getCampaignNumberAreas(String codeCampaign) {
+    public int getCampaignNumberLocalizedAreas(String codeCampaign) {
     	try {
         	JSONObject areasJson =  new JSONObject(IdeationClientProcessor.getProcess(
     			      AppPropertiesService.getProperty("participatoryideation.campaign.rest.webapp.url")
     	  			    + AppPropertiesService.getProperty("participatoryideation.campaign.rest.demand.base_url")
-    	  			    + codeCampaign + "/areas"));
+    	  			    + codeCampaign + "/localized-areas"));
         	if (areasJson.getString("status").equals("OK")) {
             	JSONArray jsonArray = areasJson.getJSONArray("result");
             	return jsonArray.length();
@@ -253,12 +244,12 @@ public class IdeationCampagneService implements IIdeationCampagneService {
      * {@inheritDoc}
      */
     @Override
-    public int getCampaignNumberAreas() {
+    public int getCampaignNumberLocalizedAreas() {
     	try {
         	JSONObject areasJson =  new JSONObject(IdeationClientProcessor.getProcess(
     			      AppPropertiesService.getProperty("participatoryideation.campaign.rest.webapp.url")
     	  			    + AppPropertiesService.getProperty("participatoryideation.campaign.rest.demand.base_url")
-    	  			    + "areas"));
+    	  			    + "localized-areas"));
         	if (areasJson.getString("status").equals("OK")) {
             	JSONArray jsonArray = areasJson.getJSONArray("result");
             	return jsonArray.length();
@@ -275,13 +266,13 @@ public class IdeationCampagneService implements IIdeationCampagneService {
      * {@inheritDoc}
      */
     @Override
-    public ReferenceList getCampaignAreas(String codeCampaign) {
+    public ReferenceList getCampaignAllAreas(String codeCampaign) {
         ReferenceList listAreas = new ReferenceList();
     	try {
         	JSONObject areasJson =  new JSONObject(IdeationClientProcessor.getProcess(
     			      AppPropertiesService.getProperty("participatoryideation.campaign.rest.webapp.url")
     	  			    + AppPropertiesService.getProperty("participatoryideation.campaign.rest.demand.base_url")
-    	  			    + codeCampaign + "/areas"));
+    	  			    + codeCampaign + "/all-areas"));
         	if (areasJson.getString("status").equals("OK")) {
             	JSONArray jsonArray = areasJson.getJSONArray("result");
 
@@ -304,13 +295,71 @@ public class IdeationCampagneService implements IIdeationCampagneService {
      * {@inheritDoc}
      */
     @Override
-    public ReferenceList getCampaignAreas() {
+    public ReferenceList getCampaignAllAreas() {
         ReferenceList listAreas = new ReferenceList();
     	try {
         	JSONObject areasJson =  new JSONObject(IdeationClientProcessor.getProcess(
     			      AppPropertiesService.getProperty("participatoryideation.campaign.rest.webapp.url")
     	  			    + AppPropertiesService.getProperty("participatoryideation.campaign.rest.demand.base_url")
-    	  			    + "areas"));
+    	  			    + "all-areas"));
+        	if (areasJson.getString("status").equals("OK")) {
+            	JSONArray jsonArray = areasJson.getJSONArray("result");
+
+            	if (jsonArray != null) { 
+            	   int len = jsonArray.length();
+            	   for ( int i = 0; i < len; i++ ) { 
+						listAreas.addItem(jsonArray.get(i).toString(), jsonArray.get(i).toString());
+            	   }
+            	}
+        	}
+        	
+        	return listAreas;
+        } catch (Exception e) {
+        	AppLogService.error( e.getMessage() , e );
+			return listAreas;
+		}
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public ReferenceList getCampaignLocalizedAreas(String codeCampaign) {
+        ReferenceList listAreas = new ReferenceList();
+    	try {
+        	JSONObject areasJson =  new JSONObject(IdeationClientProcessor.getProcess(
+    			      AppPropertiesService.getProperty("participatoryideation.campaign.rest.webapp.url")
+    	  			    + AppPropertiesService.getProperty("participatoryideation.campaign.rest.demand.base_url")
+    	  			    + codeCampaign + "/localized-areas"));
+        	if (areasJson.getString("status").equals("OK")) {
+            	JSONArray jsonArray = areasJson.getJSONArray("result");
+
+            	if (jsonArray != null) { 
+            	   int len = jsonArray.length();
+            	   for ( int i = 0; i < len; i++ ) { 
+						listAreas.addItem(jsonArray.get(i).toString(), jsonArray.get(i).toString());
+            	   }
+            	}
+        	}
+        	
+        	return listAreas;
+        } catch (Exception e) {
+        	AppLogService.error( e.getMessage() , e );
+			return listAreas;
+		}
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public ReferenceList getCampaignLocalizedAreas() {
+        ReferenceList listAreas = new ReferenceList();
+    	try {
+        	JSONObject areasJson =  new JSONObject(IdeationClientProcessor.getProcess(
+    			      AppPropertiesService.getProperty("participatoryideation.campaign.rest.webapp.url")
+    	  			    + AppPropertiesService.getProperty("participatoryideation.campaign.rest.demand.base_url")
+    	  			    + "localized-areas"));
         	if (areasJson.getString("status").equals("OK")) {
             	JSONArray jsonArray = areasJson.getJSONArray("result");
 
@@ -338,7 +387,7 @@ public class IdeationCampagneService implements IIdeationCampagneService {
         	JSONObject wholeJson =  new JSONObject(IdeationClientProcessor.getProcess(
     			      AppPropertiesService.getProperty("participatoryideation.campaign.rest.webapp.url")
     	  			    + AppPropertiesService.getProperty("participatoryideation.campaign.rest.demand.base_url")
-    	  			  + codeCampaign + "/whole"));
+    	  			  + codeCampaign + "/whole-area"));
         	return wholeJson.getString("result");
         } catch (Exception e) {
         	AppLogService.error( e.getMessage() , e );
@@ -355,11 +404,12 @@ public class IdeationCampagneService implements IIdeationCampagneService {
         	JSONObject wholeJson =  new JSONObject(IdeationClientProcessor.getProcess(
     			      AppPropertiesService.getProperty("participatoryideation.campaign.rest.webapp.url")
     	  			    + AppPropertiesService.getProperty("participatoryideation.campaign.rest.demand.base_url")
-    	  			    + "whole"));
+    	  			    + "whole-area"));
         	return wholeJson.getString("result");
         } catch (Exception e) {
         	AppLogService.error( e.getMessage() , e );
 			return "";
 		}
     }
+
 }

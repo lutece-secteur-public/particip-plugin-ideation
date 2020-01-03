@@ -35,14 +35,14 @@ package fr.paris.lutece.plugins.participatoryideation.service;
 
 import java.util.List;
 import java.util.Locale;
-import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
 import fr.paris.lutece.plugins.extend.modules.comment.service.ICommentListener;
 import fr.paris.lutece.plugins.participatoryideation.business.Idee;
 import fr.paris.lutece.plugins.participatoryideation.business.IdeeHome;
-import fr.paris.lutece.plugins.participatoryideation.utils.constants.IdeationConstants;
+import fr.paris.lutece.plugins.participatoryideation.service.campaign.IdeationCampaignService;
+import fr.paris.lutece.plugins.participatoryideation.util.Constants;
 import fr.paris.lutece.portal.service.datastore.DatastoreService;
 import fr.paris.lutece.portal.service.i18n.I18nService;
 import fr.paris.lutece.portal.service.security.LuteceUser;
@@ -66,7 +66,7 @@ public class IdeeCommentListener implements ICommentListener{
     		 idee.setExportedTag(2);
     		 IdeeHome.updateBO(idee);
     	 }
-    	// String strWorkflowActionNameCreateComment=AppPropertiesService.getProperty(IdeationConstants.PROPERTY_WORKFLOW_ACTION_NAME_CREATE_COMMENT);
+    	// String strWorkflowActionNameCreateComment=AppPropertiesService.getProperty(Constants.PROPERTY_WORKFLOW_ACTION_NAME_CREATE_COMMENT);
     	// IdeeWSService.getInstance().processActionByName(strWorkflowActionNameCreateComment, Integer.parseInt(strIdExtendableResource) );
     	 
     	
@@ -87,7 +87,7 @@ public class IdeeCommentListener implements ICommentListener{
     		 IdeeHome.updateBO(idee);
     	 }
     	 
-    	 String strWorkflowActionNameCreateComment=AppPropertiesService.getProperty(IdeationConstants.PROPERTY_WORKFLOW_ACTION_NAME_CREATE_COMMENT);
+    	 String strWorkflowActionNameCreateComment=AppPropertiesService.getProperty(Constants.PROPERTY_WORKFLOW_ACTION_NAME_CREATE_COMMENT);
     	 IdeeWSService.getInstance().processActionByName(strWorkflowActionNameCreateComment, Integer.parseInt(strIdExtendableResource), request );
     	 
     	
@@ -98,35 +98,36 @@ public class IdeeCommentListener implements ICommentListener{
      * {@inheritDoc}
      */
     @Override
-	public void publishComment(String strIdExtendableResource,
-			boolean bPublished) {
-	
-    	
+	public void publishComment( String strIdExtendableResource, boolean bPublished ) 
+    {
+		// Nothing	
 	}
+    
     /**
      * {@inheritDoc}
      */
 	@Override
-	public String checkComment(String comment, String uidUser) {
-
+	public String checkComment( String comment, String uidUser )
+	{
+		StringBuilder sbError           = new StringBuilder( );
+		String        strDataStoreValue = DatastoreService.getDataValue( PROPERTY_ACTIVATION_COMMENTAIRES, "0" );
 		
-		StringBuilder sbError = new StringBuilder( );
-		String strDataStoreValue = DatastoreService.getDataValue( PROPERTY_ACTIVATION_COMMENTAIRES, "0" );
-		
-		if ( !IdeationCampagneService.getInstance().isDuring("IDEATION")  && strDataStoreValue.equals("0") )
+		if ( !IdeationCampaignService.getInstance().isDuring( Constants.IDEATION )  && strDataStoreValue.equals("0") )
 		{			
 			sbError.append( I18nService.getLocalizedString( MESSAGE_CAMPAGNE_IDEATION_CLOSED_COMMENT, new Locale("fr","FR") ) );
-			sbError.append(", ");
+			sbError.append( ", " );
 		}
 		else
 		{
 			// Should check here.
 		}
-		//remove last ,
-    	if(sbError.length()!=0)
+		
+		// Remove last 
+    	if ( sbError.length() != 0 )
     	{
     		sbError.setLength( sbError.length(  ) - 2 );
     	}
+    	
 		return sbError.toString( );
 	}
 
@@ -145,12 +146,12 @@ public class IdeeCommentListener implements ICommentListener{
     @Override
     public String checkComment( String comment, String uidUser, String strResourceType, String strResourceId )
     {
-        StringBuilder sbError = new StringBuilder( );
-        int nId_Idee = Integer.parseInt( strResourceId );
-        Idee idee = IdeeHome.findByPrimaryKey( nId_Idee );
-        String strDataStoreValue = DatastoreService.getDataValue( PROPERTY_ACTIVATION_COMMENTAIRES, "0");
+        StringBuilder sbError           = new StringBuilder( );
+        int           nId_Idee          = Integer.parseInt( strResourceId );
+        Idee          idee              = IdeeHome.findByPrimaryKey( nId_Idee );
+        String        strDataStoreValue = DatastoreService.getDataValue( PROPERTY_ACTIVATION_COMMENTAIRES, "0");
         
-        if ( idee != null && !IdeationCampagneService.getInstance().isDuring(idee.getCodeCampagne(), "IDEATION") && strDataStoreValue.equals("0") )
+        if ( idee != null && !IdeationCampaignService.getInstance().isDuring( idee.getCodeCampagne(), Constants.IDEATION ) && strDataStoreValue.equals( "0" ) )
         {
             sbError.append( I18nService.getLocalizedString( MESSAGE_CAMPAGNE_IDEATION_CLOSED_COMMENT, new Locale( "fr", "FR" ) ) );
             sbError.append( ", " );
@@ -173,11 +174,11 @@ public class IdeeCommentListener implements ICommentListener{
     @Override
     public boolean canComment( LuteceUser user, String strIdExtendableResource, String strExtendableResourceType )
     {
-        int nIdIdee = Integer.parseInt( strIdExtendableResource );
-        Idee idee = IdeeHome.findByPrimaryKey( nIdIdee );
+        int    nIdIdee           = Integer.parseInt( strIdExtendableResource );
+        Idee   idee              = IdeeHome.findByPrimaryKey( nIdIdee );
         String strDataStoreValue = DatastoreService.getDataValue( PROPERTY_ACTIVATION_COMMENTAIRES, "0");
         
-        if ( idee != null && !IdeationCampagneService.getInstance().isDuring(idee.getCodeCampagne(), "IDEATION") && strDataStoreValue.equals("0") )
+        if ( idee != null && !IdeationCampaignService.getInstance().isDuring( idee.getCodeCampagne(), Constants.IDEATION ) && strDataStoreValue.equals( "0" ) )
         {
             return false;
         }

@@ -51,7 +51,7 @@ import fr.paris.lutece.plugins.extend.service.extender.history.IResourceExtender
 import fr.paris.lutece.plugins.participatoryideation.business.Idee;
 import fr.paris.lutece.plugins.participatoryideation.business.IdeeHome;
 import fr.paris.lutece.plugins.participatoryideation.business.IdeeSearcher;
-import fr.paris.lutece.plugins.participatoryideation.utils.constants.IdeationConstants;
+import fr.paris.lutece.plugins.participatoryideation.util.Constants;
 import fr.paris.lutece.plugins.participatoryideation.web.IdeationApp;
 import fr.paris.lutece.portal.business.file.File;
 import fr.paris.lutece.portal.business.file.FileHome;
@@ -204,7 +204,7 @@ public class IdeeService implements IIdeeService {
 	public void removeIdee(Idee idee)
 	{
 		removeIdeeCommon(idee);
-        String strWorkflowActionNameDeleteIdee=AppPropertiesService.getProperty(IdeationConstants.PROPERTY_WORKFLOW_ACTION_NAME_DELETE_IDEE);
+        String strWorkflowActionNameDeleteIdee=AppPropertiesService.getProperty(Constants.PROPERTY_WORKFLOW_ACTION_NAME_DELETE_IDEE);
         IdeeWSService.getInstance().processActionByName(strWorkflowActionNameDeleteIdee, idee.getId());
 	}
 	
@@ -212,7 +212,7 @@ public class IdeeService implements IIdeeService {
 	public void removeIdeeByMdp(Idee idee)
 	{
         removeIdeeCommon(idee);
-        String strWorkflowActionNameDeleteIdeeByMdp=AppPropertiesService.getProperty(IdeationConstants.PROPERTY_WORKFLOW_ACTION_NAME_DELETE_IDEE_BY_MDP);
+        String strWorkflowActionNameDeleteIdeeByMdp=AppPropertiesService.getProperty(Constants.PROPERTY_WORKFLOW_ACTION_NAME_DELETE_IDEE_BY_MDP);
         IdeeWSService.getInstance().processActionByName(strWorkflowActionNameDeleteIdeeByMdp, idee.getId());
 	}
    

@@ -34,9 +34,7 @@
 package fr.paris.lutece.plugins.participatoryideation.service;
 
 import fr.paris.lutece.plugins.extend.modules.rating.service.IRatingListener;
-import fr.paris.lutece.plugins.participatoryideation.business.Idee;
 import fr.paris.lutece.plugins.participatoryideation.business.IdeeHome;
-import fr.paris.lutece.plugins.participatoryideation.utils.constants.IdeationConstants;
 import fr.paris.lutece.portal.service.security.LuteceUser;
 import fr.paris.lutece.portal.service.spring.SpringContextService;
 

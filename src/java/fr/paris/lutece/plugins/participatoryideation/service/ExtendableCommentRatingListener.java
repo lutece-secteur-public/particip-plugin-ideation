@@ -37,9 +37,10 @@ import fr.paris.lutece.plugins.extend.modules.comment.business.Comment;
 import fr.paris.lutece.plugins.extend.modules.comment.service.CommentService;
 import fr.paris.lutece.plugins.extend.modules.comment.service.ICommentService;
 import fr.paris.lutece.plugins.extend.modules.rating.service.IRatingListener;
-import fr.paris.lutece.plugins.participatorybudget.util.Constants;
 import fr.paris.lutece.plugins.participatoryideation.business.Idee;
 import fr.paris.lutece.plugins.participatoryideation.business.IdeeHome;
+import fr.paris.lutece.plugins.participatoryideation.service.campaign.IdeationCampaignService;
+import fr.paris.lutece.plugins.participatoryideation.util.Constants;
 import fr.paris.lutece.portal.service.security.LuteceUser;
 import fr.paris.lutece.portal.service.spring.SpringContextService;
 
@@ -88,7 +89,7 @@ public class ExtendableCommentRatingListener implements IRatingListener
                 Idee idee = IdeeHome.findByPrimaryKey( Integer.parseInt( comment.getIdExtendableResource( ) ) );
 
                 // Can not rate an idee if not during its ideation campagne
-                if ( idee == null || !IdeationCampagneService.getInstance().isDuring( idee.getCodeCampagne( ), Constants.IDEATION ) )
+                if ( idee == null || !IdeationCampaignService.getInstance().isDuring( idee.getCodeCampagne( ), Constants.IDEATION ) )
                 {
                     return false;
                 }
