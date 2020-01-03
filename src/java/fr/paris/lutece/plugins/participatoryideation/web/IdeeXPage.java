@@ -146,72 +146,84 @@ public class IdeeXPage extends MVCApplication
      * @return The HTML form to update info
      */
     @View( value = VIEW_VIEW_IDEE, defaultView = true )
-    public XPage getViewIdee( HttpServletRequest request )throws UserNotSignedException, SiteMessageException 
+    public XPage getViewIdee( HttpServletRequest request ) throws UserNotSignedException, SiteMessageException 
     {
         String strCodeCampagne = request.getParameter( PARAMETER_CODE_CAMPAGNE );
         Integer nCodeIdee;
-        try {
+        try 
+        {
             nCodeIdee = Integer.parseInt( request.getParameter( PARAMETER_CODE_IDEE ) );
-        } catch (NumberFormatException nfe) {
+        } 
+        catch ( NumberFormatException nfe ) 
+        {
             nCodeIdee = null;
         }
         
         Idee _idee;
-        if (strCodeCampagne != null && nCodeIdee != null) {
+        if ( strCodeCampagne != null && nCodeIdee != null ) 
+        {
             _idee = IdeeHome.findByCodes( strCodeCampagne, nCodeIdee );
-        } else {
+        } 
+        else 
+        {
             _idee = null;
         }
         
-        String strContactMessageNotAccept = DatastoreService.getDataValue(
-    			PROPERTY_CONTACT_MESSAGE_NOT_ACCEPT, "");
+        String strContactMessageNotAccept = DatastoreService.getDataValue( PROPERTY_CONTACT_MESSAGE_NOT_ACCEPT, "" );
 
         Map<String, Object> model = getModel(  );
         
         String strShowContact = request.getParameter( PARAMETER_SHOW_CONTACT );
         
-        if(strShowContact != null && strShowContact.equals("true"))
+        if ( strShowContact != null && strShowContact.equals("true") )
         {
-        	if(!checkUserAuthorized(request))
+        	if ( !checkUserAuthorized( request ) )
             {
-            	return redirect(request, AppPathService.getProdUrl(request)+MyInfosXPage.getUrlMyInfos());
+            	return redirect( request, AppPathService.getProdUrl( request ) + MyInfosXPage.getUrlMyInfos() );
             }
         }
         
-        model.put( MARK_SHOW_CONTACT, strShowContact );
+        model.put( MARK_SHOW_CONTACT      , strShowContact );
         model.put( MARK_MESSAGE_NOT_ACCEPT, strContactMessageNotAccept );
-        model.put( MARK_WHOLE_AREA, IdeationCampagneService.getInstance().getCampaignWholeArea() );
+        model.put( MARK_WHOLE_AREA        , IdeationCampagneService.getInstance().getCampaignWholeArea() );
         
         
-        if (_idee == null || !IdeeService.getInstance().isPublished(_idee)) {
+        if ( _idee == null || !IdeeService.getInstance().isPublished(_idee) ) 
+        {
             return getXPage( TEMPLATE_VIEW_IDEE, request.getLocale(  ), model );
         }
-        IdeeHome.loadMissingLinkedIdees(_idee);
+        
+        IdeeHome.loadMissingLinkedIdees( _idee );
         model.put( MARK_IDEE, _idee );
-        if (_idee.getLuteceUserName() != null) {
-            model.put(MARK_AVATAR_URL,AvatarService.getAvatarUrl(_idee.getLuteceUserName()));
-            model.put(MARK_NICKNAME,UserPreferencesService.instance(  ).getNickname(_idee.getLuteceUserName()));
-            if (SecurityService.isAuthenticationEnable()) {
-                LuteceUser user = SecurityService.getInstance().getRegisteredUser(request);
-                if (user != null && user.getName() != null) {
-                	
-                	model.put(MARK_IS_OWN_IDEE, _idee.getLuteceUserName().equals(user.getName()));
-                	model.put( MARK_NICKNAME_USER, UserPreferencesService.instance(  ).getNickname( user.getName()));
-                    model.put( MARK_LASTNAME_USER, user.getUserInfos().get("user.name.given"));
-                    model.put( MARK_FIRSTNAME_USER, user.getUserInfos().get("user.name.family"));
-                    model.put( MARK_EMAIL_USER, user.getUserInfos().get("user.business-info.online.email"));
+        
+        if ( _idee.getLuteceUserName() != null ) 
+        {
+            model.put( MARK_AVATAR_URL,AvatarService.getAvatarUrl( _idee.getLuteceUserName() ) );
+            model.put( MARK_NICKNAME  ,UserPreferencesService.instance(  ).getNickname( _idee.getLuteceUserName() )) ;
+        
+            if ( SecurityService.isAuthenticationEnable() ) 
+            {
+                LuteceUser user = SecurityService.getInstance().getRegisteredUser( request );
+                
+                if ( user != null && user.getName() != null ) 
+                {
+                	model.put( MARK_IS_OWN_IDEE, _idee.getLuteceUserName().equals(user.getName()) );
+                	model.put( MARK_NICKNAME_USER, UserPreferencesService.instance(  ).getNickname( user.getName()) );
+                    model.put( MARK_LASTNAME_USER, user.getUserInfos().get("user.name.given") );
+                    model.put( MARK_FIRSTNAME_USER, user.getUserInfos().get("user.name.family") );
+                    model.put( MARK_EMAIL_USER, user.getUserInfos().get("user.business-info.online.email") );
                     
-                    String strEmail = UserPreferencesService.instance( ).get( user.getName(), PARAM_BP_EMAIL, StringUtils.EMPTY);
-                    if(strEmail != null && !strEmail.isEmpty())
+                    String strEmail = UserPreferencesService.instance( ).get( user.getName(), PARAM_BP_EMAIL, StringUtils.EMPTY );
+                    if ( strEmail != null && !strEmail.isEmpty() )
                     {
-                    	model.put( MARK_EMAIL_USER, strEmail);
+                    	model.put( MARK_EMAIL_USER, strEmail );
                     }
                     
                 }
                 
             }
         }
-        model.put( MARK_IS_EXTEND_INSTALLED, PortalService.isExtendActivated(  ) );
+        model.put( MARK_IS_EXTEND_INSTALLED, PortalService.isExtendActivated( ) );
         IdeationStaticService.getInstance(  ).fillCampagneStaticContent( model, _idee.getCodeCampagne(  ) );
         
         
@@ -222,36 +234,42 @@ public class IdeeXPage extends MVCApplication
     }
     
     @Action(value = ACTION_CONTACTER_DEPOSITAIRE )
-    public XPage doContacterDepositaire(HttpServletRequest request) 
+    public XPage doContacterDepositaire( HttpServletRequest request ) 
     {	
     	String strCodeCampagne = request.getParameter( PARAMETER_CODE_CAMPAGNE );
     	
     	Integer nCodeIdee;
-        try {
+        try 
+        {
             nCodeIdee = Integer.parseInt( request.getParameter( PARAMETER_CODE_IDEE ) );
-        } catch (NumberFormatException nfe) {
+        } 
+        catch (NumberFormatException nfe) 
+        {
             nCodeIdee = null;
         }
         
         Idee _idee;
-        if (strCodeCampagne != null && nCodeIdee != null) {
+        if ( strCodeCampagne != null && nCodeIdee != null ) 
+        {
             _idee = IdeeHome.findByCodes( strCodeCampagne, nCodeIdee );
-        } else {
+        } 
+        else 
+        {
             _idee = null;
         }
         
         Map<String, String> viewModel = new HashMap<String, String> ();
-    	viewModel.put( MARK_CODE_CAMPAGNE, strCodeCampagne);
-    	viewModel.put( MARK_CODE_IDEE, "" + nCodeIdee);
+    	viewModel.put( MARK_CODE_CAMPAGNE, strCodeCampagne );
+    	viewModel.put( MARK_CODE_IDEE, "" + nCodeIdee );
         
         String strEmailDepositaire = "";
         String strNomDepositaire = "";
-        if(_idee!=null)
+        if ( _idee!=null )
         {
-        	String strEmail = UserPreferencesService.instance( ).get( _idee.getLuteceUserName(), PARAM_BP_EMAIL, StringUtils.EMPTY);
-            //String strFirstName = UserPreferencesService.instance( ).get( _idee.getLuteceUserName() ,PARAM_BP_FIRST_NAME, StringUtils.EMPTY);
-            //String strLastName = UserPreferencesService.instance( ).get( _idee.getLuteceUserName() ,PARAM_BP_LASTE_NAME, StringUtils.EMPTY);
-            String strNickname = UserPreferencesService.instance( ).get( _idee.getLuteceUserName() ,PARAM_BP_NICKNAME, StringUtils.EMPTY);
+        	String strEmail = UserPreferencesService.instance( ).get( _idee.getLuteceUserName(), PARAM_BP_EMAIL, StringUtils.EMPTY );
+            //String strFirstName = UserPreferencesService.instance( ).get( _idee.getLuteceUserName() ,PARAM_BP_FIRST_NAME, StringUtils.EMPTY );
+            //String strLastName = UserPreferencesService.instance( ).get( _idee.getLuteceUserName() ,PARAM_BP_LASTE_NAME, StringUtils.EMPTY );
+            String strNickname = UserPreferencesService.instance( ).get( _idee.getLuteceUserName() ,PARAM_BP_NICKNAME, StringUtils.EMPTY );
             
         	strEmailDepositaire = strEmail;
         	//strNomDepositaire = strFirstName + " " + strLastName;
@@ -259,36 +277,32 @@ public class IdeeXPage extends MVCApplication
         }
     	
     	String strLastNameUsager = request.getParameter( PARAMETER_LAST_NAME_USAGER );
-    	LuteceUser user=null;
-    	if (SecurityService.isAuthenticationEnable()) {
-            user = SecurityService.getInstance().getRegisteredUser(request);
+    	LuteceUser user = null;
+    	if ( SecurityService.isAuthenticationEnable() ) 
+    	{
+            user = SecurityService.getInstance().getRegisteredUser( request );
     	}
         
             
-    	String strEmailUsager = user!=null ?UserPreferencesService.instance( ).get( user.getName( ), PARAM_BP_EMAIL, StringUtils.EMPTY):"";
+    	String strEmailUsager    = (user != null) ? UserPreferencesService.instance( ).get( user.getName( ), PARAM_BP_EMAIL, StringUtils.EMPTY ) : "";
     	String strQuestionUsager = request.getParameter( PARAMETER_QUESTION_USAGER );
-    	
-    	String strEmailContent = StringUtils.EMPTY;
-   
-    	
-        
-        String strSubject = DatastoreService.getDataValue(
-        		PROPERTY_CONTACT_SUBJECT, "");
-        
-    	String strContactMessage = DatastoreService.getDataValue(
-    			PROPERTY_CONTACT_MESSAGE_CONTENT, "");
+    	String strEmailContent   = StringUtils.EMPTY;
+        String strSubject        = DatastoreService.getDataValue( PROPERTY_CONTACT_SUBJECT, "" );
+    	String strContactMessage = DatastoreService.getDataValue( PROPERTY_CONTACT_MESSAGE_CONTENT, "" );
     	
     	
     	
     	Map<String, String> model = new HashMap<String, String> ();
     	String strLuteceUserName = "";
-    	if (SecurityService.isAuthenticationEnable()) {
-    	    user = SecurityService.getInstance().getRegisteredUser(request);
-            if (user != null && user.getName() != null) {
+    	if ( SecurityService.isAuthenticationEnable() ) 
+    	{
+    	    user = SecurityService.getInstance().getRegisteredUser( request );
+            if ( user != null && user.getName() != null ) 
+            {
             	strLuteceUserName = user.getName();
-                model.put( MARK_LASTNAME_USER, user.getUserInfos().get("user.name.given"));
-                model.put( MARK_FIRSTNAME_USER, user.getUserInfos().get("user.name.family"));
-                model.put( MARK_EMAIL_USER, user.getUserInfos().get("user.business-info.online.email"));
+                model.put( MARK_LASTNAME_USER, user.getUserInfos().get("user.name.given") );
+                model.put( MARK_FIRSTNAME_USER, user.getUserInfos().get("user.name.family") );
+                model.put( MARK_EMAIL_USER, user.getUserInfos().get("user.business-info.online.email") );
             }
         }
     	
@@ -310,13 +324,13 @@ public class IdeeXPage extends MVCApplication
                 AppLogService.error( "Erreur template freemarker: " + e + ": " + e.getMessage(  ),e );
                 String strErrorMessageSend = DatastoreService.getDataValue( ERROR_MESSAGE_SEND, "");
             	addError( strErrorMessageSend );
-            	return redirect( request, VIEW_VIEW_IDEE, viewModel);
+            	return redirect( request, VIEW_VIEW_IDEE, viewModel );
             }
     	}
         
-        if(!strEmailDepositaire.isEmpty() && !strEmailUsager.isEmpty() && !strEmailContent.isEmpty())
+        if ( !strEmailDepositaire.isEmpty() && !strEmailUsager.isEmpty() && !strEmailContent.isEmpty() )
         {
-        	String strInfoMessageSend = DatastoreService.getDataValue(INFO_MESSAGE_SEND, "");
+        	String strInfoMessageSend = DatastoreService.getDataValue( INFO_MESSAGE_SEND, "" );
         	MailService.sendMailHtml( strEmailDepositaire, "", "", "", strEmailUsager, strSubject, strEmailContent );
         	contactDepHistory( _idee, strLuteceUserName );
         	addInfo( strInfoMessageSend );
@@ -330,16 +344,17 @@ public class IdeeXPage extends MVCApplication
     	return redirect( request, VIEW_VIEW_IDEE, viewModel);
     }
     
-    private boolean checkUserAuthorized(HttpServletRequest request)throws UserNotSignedException
+    private boolean checkUserAuthorized( HttpServletRequest request ) throws UserNotSignedException
     {
-        LuteceUser user=null;
-        if (SecurityService.isAuthenticationEnable()) {
-            user=SecurityService.getInstance().getRemoteUser(request);
-            if(user==null)
+        LuteceUser user = null;
+        if ( SecurityService.isAuthenticationEnable() ) 
+        {
+            user = SecurityService.getInstance().getRemoteUser( request );
+            if ( user == null )
             {
                 throw new UserNotSignedException();
             }
-            return MyInfosService.loadUserInfos(user).getIsValid();
+            return MyInfosService.loadUserInfos( user ).getIsValid();
             	
         }
         return false;
@@ -350,12 +365,14 @@ public class IdeeXPage extends MVCApplication
     {
     	IResourceExtenderHistoryService resourceHistoryService = SpringContextService.getBean( ResourceExtenderHistoryService.BEAN_SERVICE );
     	ResourceExtenderHistory history = new ResourceExtenderHistory(  );
+    	
         history.setExtenderType( CONSTANT_CONTACT_EXTENDER_TYPE );
-        //history.setIdExtendableResource( idee.getCodeCampagne() + "-" + String.format("%06d", idee.getCodeIdee()));
-        history.setIdExtendableResource( "" + idee.getId( ) );
+        // history.setIdExtendableResource( idee.getCodeCampagne() + "-" + String.format("%06d", idee.getCodeIdee()));
+        history.setIdExtendableResource( ( idee != null ) ? ( "" + idee.getId( ) ) : "proposal is null" );
         history.setExtendableResourceType( Idee.PROPERTY_RESOURCE_TYPE );
         history.setIpAddress( StringUtils.EMPTY );
         history.setUserGuid( strLuteceUserName );
+        
         resourceHistoryService.create( history );
     }
     

@@ -51,20 +51,19 @@ import fr.paris.lutece.portal.service.resource.IExtendableResource;
 /**
  * This is the business class for the object Idee.
  */
-public class Idee implements Serializable,IExtendableResource {
-	
+public class Idee implements Serializable, IExtendableResource {
+
 	public static final String PROPERTY_RESOURCE_TYPE = "IDEE";
 	public static final String WORKFLOW_RESOURCE_TYPE = "IDEATION_IDEE";
+
 	public static final String LOCALISATION_TYPE_ARDT = "localized";
 	public static final String LOCALISATION_TYPE_PARIS = "whole";
 
 	public static final String ATTACHED_FILE_TYPE_DOC = "doc";
 	public static final String ATTACHED_FILE_TYPE_IMG = "img";
 
-	private static final String READABLE_CAMPAGNE_PREFIX = "Budget Participatif";
-
 	private static final String SEPARATOR_REFERENCE = "-";
-	
+
 	private static final long serialVersionUID = 1L;
 	// Variables declarations
 	private int _nId;
@@ -80,7 +79,7 @@ public class Idee implements Serializable,IExtendableResource {
 	private String _strCodeTheme;
 	private String _strLocalisationType;
 	private String _strLocalisationArdt;
-    private String _strGeoJson;
+	private String _strGeoJson;
 	private Double _dLongitude;
 	private Double _dLatitude;
 	private String _strAdress;
@@ -93,7 +92,6 @@ public class Idee implements Serializable,IExtendableResource {
 	private List<File> _listDocs;
 	private Timestamp _creationTimestamp;
 	private String _strCodeCampagne;
-	private String _strReadableCampagne;
 	private int _nExportedTag;
 	private int _nCodeIdee;
 	private String _strTypeQpvQva;
@@ -101,8 +99,8 @@ public class Idee implements Serializable,IExtendableResource {
 	private String _strLibelleQpvQva;
 	private Status _statusEudonet;
 	private String _strMotifRecev;
-	
-	//Idees that are sometimes only partially loaded for performance
+
+	// Idees that are sometimes only partially loaded for performance
 	private List<Idee> _listChildIdees;
 	private List<Idee> _listParentIdees;
 
@@ -110,103 +108,124 @@ public class Idee implements Serializable,IExtendableResource {
 	private String _strTitreProjet;
 	private String _strUrlProjet;
 	private String _strWinnerProjet;
-	
+
 	/**
-     * Status of idee
-     */
-     public enum Status {
-    	
-    	STATUS_DEPOSE ("DEPOSE", 	"participatoryideation.message.labelStatusDepose",true),
-    	STATUS_EN_CO_CONSTRUCTION("ENCOCONSTRUCTION", 	"participatoryideation.message.labelStatusEnCoConstruction",true ),
-    	STATUS_REGROUPE("REGROUPE", 	"participatoryideation.message.labelStatusRegroupe",true ),
-    	STATUS_A_ETUDE("AETUDE", 	"participatoryideation.message.labelAEtude",true ),
-    	STATUS_RETENU("RETENU", 	"participatoryideation.message.labelRetenu",true ),
-    	STATUS_NON_RETENU("NONRETENU", 	"participatoryideation.message.labelNonRetenu",true ),
-      	STATUS_SUPPRIME_PAR_USAGER("SUPPRIMEPARUSAGER", 	"participatoryideation.message.labelSupprimeParUsager",false ),
-      	STATUS_SUPPRIME_PAR_MDP("SUPPRIMEPARMDP", 	"participatoryideation.message.labelSupprimeParMdp",false );
-    	
-    	 private static final Map<String, Status> valueMap;
-    	 private static final List<Status> listStatusPublished=new ArrayList<>();
-    	 private static final List<Status> listStatusUnPublished=new ArrayList<>();
-    	 
-    	 
-         static {
-        	 valueMap = new HashMap<String, Status>();
-             for (Status s : Status.values()) {
-            	 valueMap.put(s.strValue, s);
-            	 if(s.isPublished())
-            	 {
-            		 listStatusPublished.add(s);
-            	 }
-            	 else
-            	 {
-            		 listStatusUnPublished.add(s);
-            	 }
-            	 }
-             }
-         
-        
-         public static Status getByValue(String strEtape) {
-             return valueMap.get(strEtape);
-         }
-         public static List<Status> getAllStatusPublished() {
-             return listStatusPublished;
-         }
-         public static List<Status> getAllStatusUnPublished() {
-             return listStatusUnPublished;
-         }
-    	
-    	private final String strValue;
-        private final String strLibelle;
-        private final boolean bPublished;
-        
-        
-        Status (String strValue, String strMessage,boolean bPublished)
-        {
-        	this.strValue = strValue;
-        	this.strLibelle = strMessage;
-        	this.bPublished=bPublished;
-        }
-        
-        public String getValeur(){ return this.strValue; }
-        public String getLibelle(){ return this.strLibelle; }
-        public boolean isPublished(){ return this.bPublished; }
-    }
-	
-     /**
-      * Returns the reference of idea, formatted as "X-001234".
-      */
-     public static String constructsReference(String strCodeCampagne, int intCodeIdee) {
-    	 if ( StringUtils.isBlank(strCodeCampagne) ) {
-    		 return "?" + SEPARATOR_REFERENCE + String.format("%06d", intCodeIdee);
-    	 } else {
-    		 return strCodeCampagne + SEPARATOR_REFERENCE + String.format("%06d", intCodeIdee);
-    	 }
-     }
-	
-     /**
-      * Returns the GeoJson
-      * @return The GeoJson
-      */
-     public String getGeoJson()
-     {
-         return _strGeoJson;
-     }
+	 * Status of idee
+	 */
+	public enum Status {
 
-     /**
-      * Sets the GeoJson
-      * @param The GeoJson
-      */
-     public void setGeoJson( String strGeoJson )
-     {
-         _strGeoJson = strGeoJson;
-     }
+		STATUS_DEPOSE             ( "DEPOSE", "participatoryideation.message.labelStatusDepose", true ),
+		STATUS_EN_CO_CONSTRUCTION ( "ENCOCONSTRUCTION", "participatoryideation.message.labelStatusEnCoConstruction", true ),
+		STATUS_REGROUPE           ( "REGROUPE", "participatoryideation.message.labelStatusRegroupe", true ),
+		STATUS_A_ETUDE            ( "AETUDE", "participatoryideation.message.labelAEtude", true ),
+		STATUS_RETENU             ( "RETENU", "participatoryideation.message.labelRetenu", true ),
+		STATUS_NON_RETENU         ( "NONRETENU", "participatoryideation.message.labelNonRetenu", true ),
+		STATUS_SUPPRIME_PAR_USAGER( "SUPPRIMEPARUSAGER", "participatoryideation.message.labelSupprimeParUsager", false ),
+		STATUS_SUPPRIME_PAR_MDP   ( "SUPPRIMEPARMDP", "participatoryideation.message.labelSupprimeParMdp", false );
 
-	public Double getLatitude() {
+		private static final Map<String, Status> valueMap;
+		private static final List<Status>        listStatusPublished   = new ArrayList<>();
+		private static final List<Status>        listStatusUnPublished = new ArrayList<>();
+
+		static {
+			valueMap = new HashMap<>();
+			for ( Status s : Status.values() ) 
+			{
+				valueMap.put( s.strValue, s );
+				if ( s.isPublished() ) 
+				{
+					listStatusPublished.add( s );
+				} 
+				else 
+				{
+					listStatusUnPublished.add( s );
+				}
+			}
+		}
+
+		public static Status getByValue( String strEtape ) 
+		{
+			return valueMap.get( strEtape );
+		}
+
+		public static List<Status> getAllStatusPublished() 
+		{
+			return listStatusPublished;
+		}
+
+		public static List<Status> getAllStatusUnPublished() 
+		{
+			return listStatusUnPublished;
+		}
+
+		private final String  strValue;
+		private final String  strLibelle;
+		private final boolean bPublished;
+
+		Status( String strValue, String strMessage, boolean bPublished ) {
+			this.strValue   = strValue;
+			this.strLibelle = strMessage;
+			this.bPublished = bPublished;
+		}
+
+		public String getValeur() 
+		{
+			return this.strValue;
+		}
+
+		public String getLibelle() 
+		{
+			return this.strLibelle;
+		}
+
+		public boolean isPublished() 
+		{
+			return this.bPublished;
+		}
+	}
+
+	/**
+	 * Returns the reference of idea, formatted as "X-001234".
+	 */
+	public static String constructsReference( String strCodeCampagne, int intCodeIdee ) 
+	{
+		if ( StringUtils.isBlank(strCodeCampagne) ) 
+		{
+			return "?" + SEPARATOR_REFERENCE + String.format( "%06d", intCodeIdee );
+		} 
+		else 
+		{
+			return strCodeCampagne + SEPARATOR_REFERENCE + String.format( "%06d", intCodeIdee );
+		}
+	}
+
+	/**
+	 * Returns the GeoJson
+	 * 
+	 * @return The GeoJson
+	 */
+	public String getGeoJson() 
+	{
+		return _strGeoJson;
+	}
+
+	/**
+	 * Sets the GeoJson
+	 * 
+	 * @param The GeoJson
+	 */
+	public void setGeoJson( String strGeoJson ) 
+	{
+		_strGeoJson = strGeoJson;
+	}
+
+	public Double getLatitude() 
+	{
 		return _dLatitude;
 	}
 
-	public void setLatitude(Double _dLatitude) {
+	public void setLatitude( Double _dLatitude ) 
+	{
 		this._dLatitude = _dLatitude;
 	}
 
@@ -215,17 +234,18 @@ public class Idee implements Serializable,IExtendableResource {
 	 * 
 	 * @return The Id
 	 */
-	public int getId() {
+	public int getId() 
+	{
 		return _nId;
 	}
 
 	/**
 	 * Sets the Id
 	 * 
-	 * @param nId
-	 *            The Id
+	 * @param nId The Id
 	 */
-	public void setId(int nId) {
+	public void setId( int nId ) 
+	{
 		_nId = nId;
 	}
 
@@ -234,82 +254,88 @@ public class Idee implements Serializable,IExtendableResource {
 	 * 
 	 * @return The Titre
 	 */
-	public String getTitre() {
+	public String getTitre() 
+	{
 		return _strTitre;
 	}
 
 	/**
 	 * Sets the Titre
 	 * 
-	 * @param strTitre
-	 *            The Titre
+	 * @param strTitre The Titre
 	 */
-	public void setTitre(String strTitre) {
+	public void setTitre( String strTitre ) 
+	{
 		_strTitre = strTitre;
 	}
-	
+
 	/**
 	 * Returns the Dejadepose
 	 * 
 	 * @return The Dejadepose
 	 */
-	public String getDejadepose() {
+	public String getDejadepose() 
+	{
 		return _strDejadepose;
 	}
 
 	/**
 	 * Sets the Dejadepose
 	 * 
-	 * @param strDejadepose
-	 *            The Dejadepose
+	 * @param strDejadepose The Dejadepose
 	 */
-	public void setDejadepose(String strDejadepose) {
+	public void setDejadepose( String strDejadepose ) 
+	{
 		_strDejadepose = strDejadepose;
 	}
 
 	/**
 	 * Sets the Creationmethod
 	 * 
-	 * @param strCreationmethod
-	 *            The Creationmethod
+	 * @param strCreationmethod The Creationmethod
 	 */
-	public void setCreationmethod(String strCreationmethod) {
+	public void setCreationmethod( String strCreationmethod ) 
+	{
 		_strCreationmethod = strCreationmethod;
 	}
 
-	
 	/**
 	 * Returns the Creationmethod
 	 * 
 	 * @return The Creationmethod
 	 */
-	public String getCreationmethod() {
+	public String getCreationmethod() 
+	{
 		return _strCreationmethod;
 	}
 
-	public String getHandicap() {
+	public String getHandicap() 
+	{
 		return _strHandicap;
 	}
 
-	public void setHandicap(String _strHandicap) {
+	public void setHandicap( String _strHandicap ) 
+	{
 		this._strHandicap = _strHandicap;
 	}
 
-	public String getHandicapComplement() {
+	public String getHandicapComplement() 
+	{
 		return _strHandicapComplement;
 	}
 
-	public void setHandicapComplement(String _strHandicapComplement) {
+	public void setHandicapComplement( String _strHandicapComplement ) 
+	{
 		this._strHandicapComplement = _strHandicapComplement;
 	}
 
 	/**
 	 * Sets the Operatingbudget
 	 * 
-	 * @param strOperatingbudget
-	 *            The Operatingbudget
+	 * @param strOperatingbudget The Operatingbudget
 	 */
-	public void setOperatingbudget(String strOperatingbudget) {
+	public void setOperatingbudget( String strOperatingbudget ) 
+	{
 		_strOperatingbudget = strOperatingbudget;
 	}
 
@@ -318,7 +344,8 @@ public class Idee implements Serializable,IExtendableResource {
 	 * 
 	 * @return The Operatingbudget
 	 */
-	public String getOperatingbudget() {
+	public String getOperatingbudget()
+	{
 		return _strOperatingbudget;
 	}
 
@@ -327,17 +354,18 @@ public class Idee implements Serializable,IExtendableResource {
 	 * 
 	 * @return The Description
 	 */
-	public String getDescription() {
+	public String getDescription() 
+	{
 		return _strDescription;
 	}
 
 	/**
 	 * Sets the Description
 	 * 
-	 * @param strDescription
-	 *            The Description
+	 * @param strDescription The Description
 	 */
-	public void setDescription(String strDescription) {
+	public void setDescription( String strDescription ) 
+	{
 		_strDescription = strDescription;
 	}
 
@@ -346,17 +374,18 @@ public class Idee implements Serializable,IExtendableResource {
 	 * 
 	 * @return The CodeTheme
 	 */
-	public String getCodeTheme() {
+	public String getCodeTheme() 
+	{
 		return _strCodeTheme;
 	}
 
 	/**
 	 * Sets the CodeTheme
 	 * 
-	 * @param strCodeTheme
-	 *            The CodeTheme
+	 * @param strCodeTheme The CodeTheme
 	 */
-	public void setCodeTheme(String strCodeTheme) {
+	public void setCodeTheme( String strCodeTheme ) 
+	{
 		_strCodeTheme = strCodeTheme;
 	}
 
@@ -364,148 +393,173 @@ public class Idee implements Serializable,IExtendableResource {
 	 * 
 	 * @return the lutece User Name
 	 */
-	public String getLuteceUserName() {
+	public String getLuteceUserName() 
+	{
 		return _strLuteceUserName;
 	}
 
 	/**
 	 * set Lutece User Name
 	 * 
-	 * @param _strLuteceUserName
-	 *            the lutece User Name
+	 * @param _strLuteceUserName the lutece User Name
 	 */
-	public void setLuteceUserName(String strLuteceUserName) {
+	public void setLuteceUserName( String strLuteceUserName ) 
+	{
 		this._strLuteceUserName = strLuteceUserName;
 	}
-	
-	
 
 	/**
 	 * 
 	 * @return cout
 	 */
-	public Long getCout() {
+	public Long getCout()  
+	{
 		return _nCout;
 	}
 
 	/**
 	 * set Cout
 	 * 
-	 * @param _nCout
-	 *            cout
+	 * @param _nCout cout
 	 */
-	public void setCout(Long _nCout) {
+	public void setCout( Long _nCout ) 
+	{
 		this._nCout = _nCout;
 	}
 
-	public String getLocalisationType() {
+	public String getLocalisationType() 
+	{
 		return _strLocalisationType;
 	}
 
-	public void setLocalisationType(String _strLocalisationType) {
+	public void setLocalisationType( String _strLocalisationType ) 
+	{
 		this._strLocalisationType = _strLocalisationType;
 	}
 
-	public String getAdress() {
+	public String getAdress() 
+	{
 		return _strAdress;
 	}
 
-	public void setAdress(String _strAdress) {
+	public void setAdress( String _strAdress ) 
+	{
 		this._strAdress = _strAdress;
 	}
 
-	public String getLocalisationArdt() {
+	public String getLocalisationArdt() 
+	{
 		return _strLocalisationArdt;
 	}
 
-	public void setLocalisationArdt(String _strLocalisationArdt) {
+	public void setLocalisationArdt( String _strLocalisationArdt ) 
+	{
 		this._strLocalisationArdt = _strLocalisationArdt;
 	}
-	
-	public String getDepositaireType() {
+
+	public String getDepositaireType() 
+	{
 		return _strDepositaireType;
 	}
 
-	public void setDepositaireType(String _strDepositaireType) {
+	public void setDepositaireType( String _strDepositaireType ) 
+	{
 		this._strDepositaireType = _strDepositaireType;
 	}
 
-	public Double getLongitude() {
+	public Double getLongitude() 
+	{
 		return _dLongitude;
 	}
 
-	public void setLongitude(Double _dLongitude) {
+	public void setLongitude( Double _dLongitude ) 
+	{
 		this._dLongitude = _dLongitude;
 	}
 
-	public boolean isAcceptExploit() {
+	public boolean isAcceptExploit() 
+	{
 		return _bAcceptExploit;
 	}
 
-	public void setAcceptExploit(boolean _bAcceptExploit) {
+	public void setAcceptExploit( boolean _bAcceptExploit ) 
+	{
 		this._bAcceptExploit = _bAcceptExploit;
 	}
-	
-	public boolean isAcceptContact() {
+
+	public boolean isAcceptContact() 
+	{
 		return _bAcceptContact;
 	}
 
-	public void setAcceptContact(boolean bAcceptContact) {
+	public void setAcceptContact( boolean bAcceptContact ) 
+	{
 		this._bAcceptContact = bAcceptContact;
 	}
 
-	public String getDepositaire() {
+	public String getDepositaire() 
+	{
 		return _strDepositaire;
 	}
 
-	public void setDepositaire(String _strDepositaire) {
+	public void setDepositaire( String _strDepositaire ) 
+	{
 		this._strDepositaire = _strDepositaire;
 	}
-	
-    /**
-     * GET IdProjet the id project
-     * @return IdProjet the id project
-     */
-	public String getIdProjet( )
+
+	/**
+	 * GET IdProjet the id project
+	 * 
+	 * @return IdProjet the id project
+	 */
+	public String getIdProjet() 
 	{
 		return _strIdProjet;
 	}
-	
+
 	/**
 	 * SET IdProjet
+	 * 
 	 * @param strIDProjet the Id project
 	 */
-	public void setIdProjet( String strIDProjet )
+	public void setIdProjet( String strIDProjet ) 
 	{
 		this._strIdProjet = strIDProjet;
 	}
-	
+
 	/**
 	 * GET the title project
+	 * 
 	 * @return TitreProjet the title project
 	 */
-	public String getTitreProjet( )
+	public String getTitreProjet() 
 	{
 		return _strTitreProjet;
 	}
+
 	/**
-	 * SET the title project 
+	 * SET the title project
+	 * 
 	 * @param strTitreProjet the title project
 	 */
 	public void setTitreProjet( String strTitreProjet ) 
 	{
 		this._strTitreProjet = strTitreProjet;
 	}
-    /**
-     * Get the url project
-     * @return the url project
-     */
-	public String getUrlProjet( ) 
+
+	/**
+	 * Get the url project
+	 * 
+	 * @return the url project
+	 */
+	public String getUrlProjet() 
 	{
 		return _strUrlProjet;
 	}
+
 	/**
 	 * Set the url project
+	 * 
 	 * @param strUrlProjet the url project
 	 */
 	public void setUrlProjet( String strUrlProjet ) 
@@ -513,16 +567,19 @@ public class Idee implements Serializable,IExtendableResource {
 		_strUrlProjet = strUrlProjet;
 	}
 
-    /**
-     * Get winner projet value
-     * @return the winner projet value
-     */
-	public String getWinnerProjet( ) 
+	/**
+	 * Get winner projet value
+	 * 
+	 * @return the winner projet value
+	 */
+	public String getWinnerProjet() 
 	{
 		return _strWinnerProjet;
 	}
+
 	/**
 	 * Set winner projet value
+	 * 
 	 * @param strUrlProjet the winner projet value
 	 */
 	public void setWinnerProjet( String strWinnerProjet ) 
@@ -533,74 +590,83 @@ public class Idee implements Serializable,IExtendableResource {
 	/**
 	 * @return the listImgs
 	 */
-	public List<File> getImgs() {
+	public List<File> getImgs() 
+	{
 		return _listImgs;
 	}
 
 	/**
 	 * @param listImgs the listImgs to set
 	 */
-	public void setImgs(List<File> listImgs) {
+	public void setImgs( List<File> listImgs ) 
+	{
 		this._listImgs = listImgs;
 	}
 
 	/**
 	 * @return the listDocs
 	 */
-	public List<File> getDocs() {
+	public List<File> getDocs() 
+	{
 		return _listDocs;
 	}
 
 	/**
 	 * @param listDocs the listDocs to set
 	 */
-	public void setDocs(List<File> listDocs) {
+	public void setDocs( List<File> listDocs ) 
+	{
 		this._listDocs = listDocs;
 	}
 
-
 	@Override
-	public String getIdExtendableResource() {
+	public String getIdExtendableResource() 
+	{
 		// TODO Auto-generated method stub
-		return Integer.toString( _nId);
+		return Integer.toString( _nId );
 	}
 
 	@Override
-	public String getExtendableResourceType() {
+	public String getExtendableResourceType() 
+	{
 		// TODO Auto-generated method stub
 		return PROPERTY_RESOURCE_TYPE;
 	}
 
 	@Override
-	public String getExtendableResourceName() {
+	public String getExtendableResourceName() 
+	{
 		// TODO Auto-generated method stub
 		return _strTitre;
 	}
 
 	@Override
-	public String getExtendableResourceDescription() {
+	public String getExtendableResourceDescription() 
+	{
 		// TODO Auto-generated method stub
 		return _strDescription;
 	}
 
 	@Override
-	public String getExtendableResourceImageUrl() {
+	public String getExtendableResourceImageUrl() 
+	{
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-
 	/**
 	 * @return the _creationTimestamp
 	 */
-	public Timestamp getCreationTimestamp() {
+	public Timestamp getCreationTimestamp() 
+	{
 		return _creationTimestamp;
 	}
 
 	/**
 	 * @param _creationTimestamp the _creationTimestamp to set
 	 */
-	public void setCreationTimestamp(Timestamp _creationTimestamp) {
+	public void setCreationTimestamp( Timestamp _creationTimestamp ) 
+	{
 		this._creationTimestamp = _creationTimestamp;
 	}
 
@@ -609,7 +675,8 @@ public class Idee implements Serializable,IExtendableResource {
 	 * 
 	 * @return The exported Tag
 	 */
-	public int getExportedTag() {
+	public int getExportedTag() 
+	{
 		return _nExportedTag;
 	}
 
@@ -617,181 +684,186 @@ public class Idee implements Serializable,IExtendableResource {
 	 * Sets the _nExportedTag
 	 * 
 	 * @param The Exported Tagd
-	 *            
+	 * 
 	 */
-	public void setExportedTag(int nExportedTag) {
+	public void setExportedTag( int nExportedTag ) 
+	{
 		_nExportedTag = nExportedTag;
 	}
 
 	/**
 	 * @return the CodeIdee
 	 */
-	public int getCodeIdee() {
+	public int getCodeIdee() 
+	{
 		return _nCodeIdee;
 	}
 
 	/**
 	 * @param CodeIdee the CodeIdee to set
 	 */
-	public void setCodeIdee(int CodeIdee) {
+	public void setCodeIdee( int CodeIdee ) 
+	{
 		this._nCodeIdee = CodeIdee;
 	}
 
 	/**
 	 * @return the TypeQpvQva
 	 */
-	public String getTypeQpvQva() {
+	public String getTypeQpvQva() 
+	{
 		return _strTypeQpvQva;
 	}
 
 	/**
 	 * @param strTypeQpvQva the TypeQpvQva to set
 	 */
-	public void setTypeQpvQva(String strTypeQpvQva) {
+	public void setTypeQpvQva( String strTypeQpvQva )
+	{
 		this._strTypeQpvQva = strTypeQpvQva;
 	}
 
 	/**
 	 * @return the IdQpvQva
 	 */
-	public String getIdQpvQva() {
+	public String getIdQpvQva() 
+	{
 		return _strIdQpvQva;
 	}
 
 	/**
 	 * @param strIdQpvQva the IdQpvQva to set
 	 */
-	public void setIdQpvQva(String strIdQpvQva) {
+	public void setIdQpvQva( String strIdQpvQva ) 
+	{
 		this._strIdQpvQva = strIdQpvQva;
 	}
 
 	/**
 	 * @return the LibelleQpvQva
 	 */
-	public String getLibelleQpvQva() {
+	public String getLibelleQpvQva() 
+	{
 		return _strLibelleQpvQva;
 	}
 
 	/**
 	 * @param strLibelleQpvQva the LibelleQpvQva to set
 	 */
-	public void setLibelleQpvQva(String strLibelleQpvQva) {
+	public void setLibelleQpvQva( String strLibelleQpvQva ) 
+	{
 		this._strLibelleQpvQva = strLibelleQpvQva;
 	}
 
-	public String getReference() {
-		return constructsReference(getCodeCampagne(), getCodeIdee());
+	public String getReference() 
+	{
+		return constructsReference( getCodeCampagne(), getCodeIdee() );
 	}
-	
-	public Status getStatusPublic() {
+
+	public Status getStatusPublic() 
+	{
 		return _statusPublic;
 	}
 
-	public void setStatusPublic(Status statusPublic) {
+	public void setStatusPublic( Status statusPublic )  
+	{
 		this._statusPublic = statusPublic;
 	}
-	
-	public Status getStatusEudonet() {
+
+	public Status getStatusEudonet() 
+	{
 		return _statusEudonet;
 	}
 
-	public void setStatusEudonet(Status statusEudonet) {
+	public void setStatusEudonet( Status statusEudonet ) 
+	{
 		this._statusEudonet = statusEudonet;
 	}
-	
-	public String getMotifRecev() {
+
+	public String getMotifRecev()  
+	{
 		return _strMotifRecev;
 	}
 
-	public void setMotifRecev(String _strMotifRecev) {
+	public void setMotifRecev( String _strMotifRecev ) 
+	{
 		this._strMotifRecev = _strMotifRecev;
 	}
 
 	/**
 	 * @return the listChildIdees
 	 */
-	public List<Idee> getChildIdees() {
+	public List<Idee> getChildIdees() 
+	{
 		return _listChildIdees;
 	}
 
 	/**
 	 * @param listChildIdees the listChildIdees to set
 	 */
-	public void setChildIdees(List<Idee> listChildIdees) {
+	public void setChildIdees( List<Idee> listChildIdees ) 
+	{
 		this._listChildIdees = listChildIdees;
 	}
 
 	/**
 	 * @return the listParentIdees
 	 */
-	public List<Idee> getParentIdees() {
+	public List<Idee> getParentIdees() 
+	{
 		return _listParentIdees;
 	}
 
 	/**
 	 * @param listParentIdees the listParentIdees to set
 	 */
-	public void setParentIdees(List<Idee> listParentIdees) {
+	public void setParentIdees( List<Idee> listParentIdees ) 
+	{
 		this._listParentIdees = listParentIdees;
 	}
-	
+
 	/**
-	 * Retourne true si l'idee peut  etre supprimee par l'usager. 
-	 * Une idee ne peut etre supprimee que si la phase de SA campagne est ouverte. 
+	 * Retourne true si l'idee peut etre supprimee par l'usager. Une idee ne peut
+	 * etre supprimee que si la phase de SA campagne est ouverte.
 	 */
-	public boolean canDelete(  )
+	public boolean canDelete() 
 	{
-	    return IdeationCampagneService.getInstance().isDuring( _strCodeCampagne, Constants.IDEATION );
+		return IdeationCampagneService.getInstance().isDuring( _strCodeCampagne, Constants.IDEATION );
 	}
+
 	/**
 	 * 
 	 * @return boolean
 	 */
-	public boolean getStatusIsRemoved(  )
+	public boolean getStatusIsRemoved() 
 	{
-	    return ( _statusPublic.getValeur(  ).equals( Status.STATUS_SUPPRIME_PAR_MDP.getValeur(  ) ) 
-	            || _statusPublic.getValeur(  ).equals( Status.STATUS_SUPPRIME_PAR_USAGER.getValeur(  ) ) );
+		return ( 
+			   _statusPublic.getValeur().equals(Status.STATUS_SUPPRIME_PAR_MDP.getValeur()) 
+			|| _statusPublic.getValeur().equals(Status.STATUS_SUPPRIME_PAR_USAGER.getValeur()) 
+		);
 	}
 
-	/* *********************************************************************************** */
-	/* * CAMPAGNE CAMPAGNE CAMPAGNE CAMPAGNE CAMPAGNE CAMPAGNE CAMPAGNE CAMPAGNE CAMPAGN * */
-	/* * CAMPAGNE CAMPAGNE CAMPAGNE CAMPAGNE CAMPAGNE CAMPAGNE CAMPAGNE CAMPAGNE CAMPAGN * */
-	/* *********************************************************************************** */
-	/* Each campaign is represented by a character : A = 2014, B = 2015, etc.              */
-	/* *********************************************************************************** */
+	/* ********************************************************************************************* */
+	/* * CAMPAGNE CAMPAGNE CAMPAGNE CAMPAGNE CAMPAGNE CAMPAGNE CAMPAGNE CAMPAGNE CAMPAGNE CAMPAGNE * */
+	/* * CAMPAGNE CAMPAGNE CAMPAGNE CAMPAGNE CAMPAGNE CAMPAGNE CAMPAGNE CAMPAGNE CAMPAGNE CAMPAGNE * */
+	/* ********************************************************************************************* */
+	/* * Each campaign is represented by a character : A = 2014, B = 2015, etc.                    * */
+	/* ********************************************************************************************* */
 
 	/**
 	 * @return the CodeCampagne
 	 */
-	public String getCodeCampagne() {
+	public String getCodeCampagne() 
+	{
 		return _strCodeCampagne;
 	}
 
 	/**
 	 * @param _strCodeCampagne the CodeCampagne to set
 	 */
-	public void setCodeCampagne(String _strCodeCampagne) {
+	public void setCodeCampagne( String _strCodeCampagne ) 
+	{
 		this._strCodeCampagne = _strCodeCampagne;
-		setReadableCampagne( _strCodeCampagne );
-	}
-	
-	/**
-	 * @return the campaign as humanized string :
-	 * 		A --> Budget Participatif 2014
-	 * 		B --> Budget Participatif 2015
-	 * 		C --> Budget Participatif 2016
-	 */
-	public String getReadableCampagne() {
-		if ( _strReadableCampagne == null )
-		{
-			setReadableCampagne( getCodeCampagne() );
-		}
-		return _strReadableCampagne;
 	}
 
-	private void setReadableCampagne(String _strCodeCampagne) {
-		int year = 2014 + Character.toUpperCase(_strCodeCampagne.charAt(0)) - 'A';
-		this._strReadableCampagne = READABLE_CAMPAGNE_PREFIX + " " + year;
-	}
-	
 }

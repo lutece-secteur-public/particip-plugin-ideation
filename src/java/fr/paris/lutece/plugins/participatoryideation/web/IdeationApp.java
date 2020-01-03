@@ -1041,7 +1041,7 @@ public class IdeationApp extends MVCApplication
 
     boolean isAllEtapeValidated()
     {
-        return _formEtapeLocation.isValidated()&&_formEtapeTitle.isValidated()&&_formEtapeTitle.isValidated()&&_formEtapeDescription.isValidated()&&_formEtapeUpload.isValidated()&&_formEtapeRecap.isValidated();
+        return _formEtapeLocation.isValidated() && _formEtapeTitle.isValidated() && _formEtapeDescription.isValidated() && _formEtapeUpload.isValidated() && _formEtapeRecap.isValidated();
 
     }
 

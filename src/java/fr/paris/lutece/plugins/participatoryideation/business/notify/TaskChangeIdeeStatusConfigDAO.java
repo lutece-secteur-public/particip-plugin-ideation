@@ -57,15 +57,15 @@ public class TaskChangeIdeeStatusConfigDAO implements ITaskChangeIdeeStatusConfi
     public synchronized void insert( TaskChangeIdeeStatusConfig config )
     {
         //FIXME use the plugin in all DAOUtil constructions
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT );
-
-        int nPos = 0;
-
-        daoUtil.setInt( ++nPos, config.getIdTask(  ) );
-        daoUtil.setString( ++nPos, config.getIdeeStatus(  ) );
-
-        daoUtil.executeUpdate(  );
-        daoUtil.free(  );
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT ) )
+        {
+	        int nPos = 0;
+	
+	        daoUtil.setInt( ++nPos, config.getIdTask(  ) );
+	        daoUtil.setString( ++nPos, config.getIdeeStatus(  ) );
+	
+	        daoUtil.executeUpdate(  );
+        }
     }
 
     /**
@@ -74,16 +74,16 @@ public class TaskChangeIdeeStatusConfigDAO implements ITaskChangeIdeeStatusConfi
     @Override
     public void store( TaskChangeIdeeStatusConfig config )
     {
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE );
-
-        int nPos = 0;
-
-        daoUtil.setInt( ++nPos, config.getIdTask(  ) );
-        daoUtil.setString( ++nPos, config.getIdeeStatus(  ) );
-
-        daoUtil.setInt( ++nPos, config.getIdTask(  ) );
-        daoUtil.executeUpdate(  );
-        daoUtil.free(  );
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE ) )
+        {
+	        int nPos = 0;
+	
+	        daoUtil.setInt( ++nPos, config.getIdTask(  ) );
+	        daoUtil.setString( ++nPos, config.getIdeeStatus(  ) );
+	
+	        daoUtil.setInt( ++nPos, config.getIdTask(  ) );
+	        daoUtil.executeUpdate(  );
+        }
     }
 
     /**
@@ -93,23 +93,23 @@ public class TaskChangeIdeeStatusConfigDAO implements ITaskChangeIdeeStatusConfi
     public TaskChangeIdeeStatusConfig load( int nIdTask )
     {
         TaskChangeIdeeStatusConfig config = null;
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_FIND_BY_PRIMARY_KEY );
-
-        daoUtil.setInt( 1, nIdTask );
-
-        daoUtil.executeQuery(  );
-
-        int nPos = 0;
-
-        if ( daoUtil.next(  ) )
+        
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_FIND_BY_PRIMARY_KEY ) )
         {
-            config = new TaskChangeIdeeStatusConfig(  );
-            config.setIdTask( daoUtil.getInt( ++nPos ) );
-            config.setIdeeStatus( daoUtil.getString( ++nPos ) );
+	        daoUtil.setInt( 1, nIdTask );
+	
+	        daoUtil.executeQuery(  );
+	
+	        int nPos = 0;
+	
+	        if ( daoUtil.next(  ) )
+	        {
+	            config = new TaskChangeIdeeStatusConfig(  );
+	            config.setIdTask( daoUtil.getInt( ++nPos ) );
+	            config.setIdeeStatus( daoUtil.getString( ++nPos ) );
+	        }
         }
-
-        daoUtil.free(  );
-
+        
         return config;
     }
 
@@ -119,10 +119,10 @@ public class TaskChangeIdeeStatusConfigDAO implements ITaskChangeIdeeStatusConfi
     @Override
     public void delete( int nIdState )
     {
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE );
-
-        daoUtil.setInt( 1, nIdState );
-        daoUtil.executeUpdate(  );
-        daoUtil.free(  );
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE ) )
+        {
+	        daoUtil.setInt( 1, nIdState );
+	        daoUtil.executeUpdate(  );
+        }
     }
 }

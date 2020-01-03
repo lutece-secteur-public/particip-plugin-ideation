@@ -281,41 +281,41 @@ public final class DepositaireTypeDAO implements IDepositaireTypeDAO
     {
         HashMap<String, ReferenceList> depositaireMap = new HashMap<>(  );
         
-        DAOUtil daoUtil;
+        String queryStr = ( strCampagneCode != null ) ? SQL_QUERY_SELECTALL_VALUES_BY_CAMPAGNE : SQL_QUERY_SELECTALL_DISTINCT_VALUES;
         
-        if ( strCampagneCode != null ) 
+        try ( DAOUtil daoUtil = new DAOUtil( queryStr, plugin ) )
         {
-            daoUtil = new DAOUtil( SQL_QUERY_SELECTALL_VALUES_BY_CAMPAGNE, plugin );
-            daoUtil.setString( 1, strCampagneCode );
-        } 
-        else 
-        {
-            daoUtil = new DAOUtil( SQL_QUERY_SELECTALL_DISTINCT_VALUES, plugin );
+	        if ( strCampagneCode != null ) 
+	        {
+	            daoUtil.setString( 1, strCampagneCode );
+	        } 
+	        
+	        daoUtil.executeQuery(  );
+	
+	        while ( daoUtil.next(  ) )
+	        {
+	            String codeDepositaireType = daoUtil.getString( 1 );
+	            String codeValue = daoUtil.getString( 2 );
+	            String libelleValue = daoUtil.getString( 3 );
+	
+	            ReferenceList referenceList = depositaireMap.get( codeDepositaireType );
+	            if ( referenceList == null ) 
+	            {
+	                referenceList = new ReferenceList();
+	                depositaireMap.put( codeDepositaireType, referenceList );
+	            }
+	
+	            referenceList.addItem( codeValue, libelleValue );
+	        }
         }
         
-        daoUtil.executeQuery(  );
-
-        while ( daoUtil.next(  ) )
+        for ( DepositaireType depositaireType: listDepositaireTypes ) 
         {
-            String codeDepositaireType = daoUtil.getString( 1 );
-            String codeValue = daoUtil.getString( 2 );
-            String libelleValue = daoUtil.getString( 3 );
-
-            ReferenceList referenceList = depositaireMap.get( codeDepositaireType );
-            if ( referenceList == null ) {
-                referenceList = new ReferenceList();
-                depositaireMap.put( codeDepositaireType, referenceList );
-            }
-
-            referenceList.addItem( codeValue, libelleValue );
-        }
-
-        daoUtil.free( );
-
-        for (DepositaireType depositaireType: listDepositaireTypes) {
-            if (DepositaireType.CODE_COMPLEMENT_TYPE_LIST.equals(depositaireType.getCodeComplementType())) {
+            if ( DepositaireType.CODE_COMPLEMENT_TYPE_LIST.equals( depositaireType.getCodeComplementType() ) )
+            {
                 ReferenceList values = depositaireMap.get( depositaireType.getCode() );
-                if (values == null) {
+                if ( values == null ) 
+                {
                     values = new ReferenceList();
                 }
                 depositaireType.setValues(values);
@@ -330,13 +330,13 @@ public final class DepositaireTypeDAO implements IDepositaireTypeDAO
     @Override
     public Map<String, List<DepositaireType>> selectDepositaireTypesMapByCampagne( Plugin plugin )
     {
-        Map<String, List<DepositaireType>> depositaireTypeMap = new HashMap<String, List<DepositaireType>>(  );
+        Map<String, List<DepositaireType>> depositaireTypeMap = new HashMap<>(  );
         
         try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL_JOIN_CAMPAGNE, plugin ) )
         {
 	        daoUtil.executeQuery(  );
 	
-	        List<DepositaireType> listAllDepositaireType = new ArrayList<DepositaireType>(  );
+	        List<DepositaireType> listAllDepositaireType = new ArrayList<>(  );
 	     
 	        while ( daoUtil.next(  ) )
 	        {
@@ -344,7 +344,8 @@ public final class DepositaireTypeDAO implements IDepositaireTypeDAO
 	            String strCodeCampagne = daoUtil.getString( 5 );
 	
 	            List<DepositaireType> depositaireTypeList = depositaireTypeMap.get( strCodeCampagne );
-	            if (depositaireTypeList == null) {
+	            if ( depositaireTypeList == null ) 
+	            {
 	                depositaireTypeList = new ArrayList<DepositaireType>();
 	                depositaireTypeMap.put( strCodeCampagne, depositaireTypeList );
 	            }

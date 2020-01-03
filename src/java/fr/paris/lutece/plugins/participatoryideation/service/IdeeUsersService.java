@@ -146,13 +146,11 @@ public class IdeeUsersService implements IIdeeUsersService {
      * @param prefKeysList
      * @param extenderType
      */
-    public static void getValuesFromUsers( List<ArrayList<String>> infosList,
-            							   Idee idee,
-                                           List<String> usersList, 
-                                           List<String> prefKeysList,
-                                           String extenderType )
+    public static List<ArrayList<String>> getValuesFromUsers( Idee idee, List<String> usersList, List<String> prefKeysList, String extenderType )
     {
-        Set<String> usersNoDuplicatesList = new HashSet<>( usersList );
+    	List<ArrayList<String>> infosList = new ArrayList<>();
+    	
+    	Set<String> usersNoDuplicatesList = new HashSet<>( usersList );
         int nKeys = prefKeysList.size();
         
         for ( String strUserId : usersNoDuplicatesList )
@@ -178,10 +176,15 @@ public class IdeeUsersService implements IIdeeUsersService {
                 
                 valuesList.add( value );
             }
-            valuesList.add( idee.getReference() );
+
+            if ( idee != null) {
+            	valuesList.add( idee.getReference() );
+            }
             
             infosList.add( valuesList );
         }
+        
+        return infosList;
     }
     
     /**
@@ -205,13 +208,13 @@ public class IdeeUsersService implements IIdeeUsersService {
 	        {
 	            usersList.add( idee.getLuteceUserName(  ) );
 	        }
-	        getValuesFromUsers( infosList, idee, usersList, prefKeysList, EXTENDER_VALUE_DEPOSITAIRE_CSV );
+	        infosList.addAll( getValuesFromUsers( idee, usersList, prefKeysList, EXTENDER_VALUE_DEPOSITAIRE_CSV ) );
 	        
 	        usersList = getCommentators( ideeId );
-	        getValuesFromUsers( infosList, idee, usersList, prefKeysList, CommentResourceExtender.EXTENDER_TYPE_COMMENT );
+	        infosList.addAll( getValuesFromUsers( idee, usersList, prefKeysList, CommentResourceExtender.EXTENDER_TYPE_COMMENT ) );
 	        
 	        usersList = getFollowers( ideeId );
-	        getValuesFromUsers( infosList, idee, usersList, prefKeysList, FollowResourceExtender.RESOURCE_EXTENDER );
+	        infosList.addAll( getValuesFromUsers( idee, usersList, prefKeysList, FollowResourceExtender.RESOURCE_EXTENDER ) );
         }
         
         return infosList;

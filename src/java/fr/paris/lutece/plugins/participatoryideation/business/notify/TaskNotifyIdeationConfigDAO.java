@@ -59,22 +59,22 @@ public class TaskNotifyIdeationConfigDAO implements ITaskNotifyIdeationConfigDAO
     public synchronized void insert( TaskNotifyIdeationConfig config )
     {
         //FIXME use the plugin in all DAOUtil constructions
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT );
-
-        int nPos = 0;
-
-        daoUtil.setInt( ++nPos, config.getIdTask(  ) );
-        daoUtil.setString( ++nPos, config.getSenderName(  ) );
-        daoUtil.setString( ++nPos, config.getSenderEmail(  ) );
-        daoUtil.setString( ++nPos, config.getSubject(  ) );
-        daoUtil.setString( ++nPos, config.getMessage(  ) );
-        daoUtil.setString( ++nPos, config.getRecipientsCc(  ) );
-        daoUtil.setString( ++nPos, config.getRecipientsBcc(  ) );
-        daoUtil.setBoolean( ++nPos, config.isFollowers(  ) );
-        daoUtil.setBoolean( ++nPos, config.isDepositaire(  ) );
-
-        daoUtil.executeUpdate(  );
-        daoUtil.free(  );
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT ) )
+        {
+	        int nPos = 0;
+	
+	        daoUtil.setInt( ++nPos, config.getIdTask(  ) );
+	        daoUtil.setString( ++nPos, config.getSenderName(  ) );
+	        daoUtil.setString( ++nPos, config.getSenderEmail(  ) );
+	        daoUtil.setString( ++nPos, config.getSubject(  ) );
+	        daoUtil.setString( ++nPos, config.getMessage(  ) );
+	        daoUtil.setString( ++nPos, config.getRecipientsCc(  ) );
+	        daoUtil.setString( ++nPos, config.getRecipientsBcc(  ) );
+	        daoUtil.setBoolean( ++nPos, config.isFollowers(  ) );
+	        daoUtil.setBoolean( ++nPos, config.isDepositaire(  ) );
+	
+	        daoUtil.executeUpdate(  );
+        }
     }
 
     /**
@@ -83,23 +83,23 @@ public class TaskNotifyIdeationConfigDAO implements ITaskNotifyIdeationConfigDAO
     @Override
     public void store( TaskNotifyIdeationConfig config )
     {
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE );
-
-        int nPos = 0;
-
-        daoUtil.setInt( ++nPos, config.getIdTask(  ) );
-        daoUtil.setString( ++nPos, config.getSenderName(  ) );
-        daoUtil.setString( ++nPos, config.getSenderEmail(  ) );
-        daoUtil.setString( ++nPos, config.getSubject(  ) );
-        daoUtil.setString( ++nPos, config.getMessage(  ) );
-        daoUtil.setString( ++nPos, config.getRecipientsCc(  ) );
-        daoUtil.setString( ++nPos, config.getRecipientsBcc(  ) );
-        daoUtil.setBoolean( ++nPos, config.isFollowers(  ) );
-        daoUtil.setBoolean( ++nPos, config.isDepositaire(  ) );
-
-        daoUtil.setInt( ++nPos, config.getIdTask(  ) );
-        daoUtil.executeUpdate(  );
-        daoUtil.free(  );
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE ) )
+        {
+	        int nPos = 0;
+	
+	        daoUtil.setInt( ++nPos, config.getIdTask(  ) );
+	        daoUtil.setString( ++nPos, config.getSenderName(  ) );
+	        daoUtil.setString( ++nPos, config.getSenderEmail(  ) );
+	        daoUtil.setString( ++nPos, config.getSubject(  ) );
+	        daoUtil.setString( ++nPos, config.getMessage(  ) );
+	        daoUtil.setString( ++nPos, config.getRecipientsCc(  ) );
+	        daoUtil.setString( ++nPos, config.getRecipientsBcc(  ) );
+	        daoUtil.setBoolean( ++nPos, config.isFollowers(  ) );
+	        daoUtil.setBoolean( ++nPos, config.isDepositaire(  ) );
+	
+	        daoUtil.setInt( ++nPos, config.getIdTask(  ) );
+	        daoUtil.executeUpdate(  );
+        }
     }
 
     /**
@@ -109,29 +109,29 @@ public class TaskNotifyIdeationConfigDAO implements ITaskNotifyIdeationConfigDAO
     public TaskNotifyIdeationConfig load( int nIdTask )
     {
         TaskNotifyIdeationConfig config = null;
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_FIND_BY_PRIMARY_KEY );
-
-        daoUtil.setInt( 1, nIdTask );
-
-        daoUtil.executeQuery(  );
-
-        int nPos = 0;
-
-        if ( daoUtil.next(  ) )
+        
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_FIND_BY_PRIMARY_KEY ) )
         {
-            config = new TaskNotifyIdeationConfig(  );
-            config.setIdTask( daoUtil.getInt( ++nPos ) );
-            config.setSenderName( daoUtil.getString( ++nPos ) );
-            config.setSenderEmail( daoUtil.getString( ++nPos ) );
-            config.setSubject( daoUtil.getString( ++nPos ) );
-            config.setMessage( daoUtil.getString( ++nPos ) );
-            config.setRecipientsCc( daoUtil.getString( ++nPos ) );
-            config.setRecipientsBcc( daoUtil.getString( ++nPos ) );
-            config.setFollowers( daoUtil.getBoolean( ++nPos ) );
-            config.setDepositaire( daoUtil.getBoolean( ++nPos ) );
+	        daoUtil.setInt( 1, nIdTask );
+	
+	        daoUtil.executeQuery(  );
+	
+	        int nPos = 0;
+	
+	        if ( daoUtil.next(  ) )
+	        {
+	            config = new TaskNotifyIdeationConfig(  );
+	            config.setIdTask( daoUtil.getInt( ++nPos ) );
+	            config.setSenderName( daoUtil.getString( ++nPos ) );
+	            config.setSenderEmail( daoUtil.getString( ++nPos ) );
+	            config.setSubject( daoUtil.getString( ++nPos ) );
+	            config.setMessage( daoUtil.getString( ++nPos ) );
+	            config.setRecipientsCc( daoUtil.getString( ++nPos ) );
+	            config.setRecipientsBcc( daoUtil.getString( ++nPos ) );
+	            config.setFollowers( daoUtil.getBoolean( ++nPos ) );
+	            config.setDepositaire( daoUtil.getBoolean( ++nPos ) );
+	        }
         }
-
-        daoUtil.free(  );
 
         return config;
     }
@@ -142,10 +142,10 @@ public class TaskNotifyIdeationConfigDAO implements ITaskNotifyIdeationConfigDAO
     @Override
     public void delete( int nIdState )
     {
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE );
-
-        daoUtil.setInt( 1, nIdState );
-        daoUtil.executeUpdate(  );
-        daoUtil.free(  );
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE ) )
+        {
+	        daoUtil.setInt( 1, nIdState );
+	        daoUtil.executeUpdate(  );
+        }
     }
 }

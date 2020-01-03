@@ -401,13 +401,13 @@ public class SolrIdeeIndexer implements SolrIndexer
 	            sbLogs.append( " : " );
 	            sbLogs.append( exception.getCause(  ).getMessage(  ) );
 	        }
+	        AppLogService.error( exception.getMessage(  ), exception );
         }
         else
         {
         	sbLogs.append( "'exception' param is null !" );
         }
         
-        AppLogService.error( exception.getMessage(  ), exception );
     }
 
 

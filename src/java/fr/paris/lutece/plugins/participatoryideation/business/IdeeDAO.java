@@ -472,26 +472,25 @@ public final class IdeeDAO implements IIdeeDAO
     public Collection<Idee> selectIdeesListSearch( Plugin plugin, IdeeSearcher ideeSearcher )
     {
         Map<Integer, Idee> ideeMap = new LinkedHashMap<Integer, Idee>(  );
-        DAOUtil daoUtil;
-        if (ideeSearcher != null) {
-            daoUtil = new DAOUtil( appendFilters( SQL_QUERY_SELECTALL, ideeSearcher ), plugin );
-            setFilterValues( daoUtil, ideeSearcher );
-        } else {
-            daoUtil = new DAOUtil( SQL_QUERY_SELECTALL, plugin );
-        }
-        daoUtil.executeQuery(  );
-
-        while ( daoUtil.next(  ) )
+        
+        String queryStr = ( ideeSearcher != null ) ? appendFilters( SQL_QUERY_SELECTALL, ideeSearcher ) : SQL_QUERY_SELECTALL;
+        try ( DAOUtil daoUtil = new DAOUtil( queryStr, plugin ) )
         {
-            Idee idee = getRow(daoUtil);
-            ideeMap.put( idee.getId(), idee );
-            idee.setDocs(new ArrayList<File>());
-            idee.setImgs(new ArrayList<File>());
-            idee.setChildIdees(new ArrayList<Idee>());
-            idee.setParentIdees(new ArrayList<Idee>());
+	        if (ideeSearcher != null) {
+	            setFilterValues( daoUtil, ideeSearcher );
+	        } 
+	        daoUtil.executeQuery(  );
+	
+	        while ( daoUtil.next(  ) )
+	        {
+	            Idee idee = getRow(daoUtil);
+	            ideeMap.put( idee.getId(), idee );
+	            idee.setDocs(new ArrayList<File>());
+	            idee.setImgs(new ArrayList<File>());
+	            idee.setChildIdees(new ArrayList<Idee>());
+	            idee.setParentIdees(new ArrayList<Idee>());
+	        }
         }
-
-        daoUtil.free( );
 
         //Use workflow services instead of joining into the workflow tables
         if ( ideeSearcher != null && ideeSearcher.getIdWorkflowState() != null ) {
@@ -509,47 +508,59 @@ public final class IdeeDAO implements IIdeeDAO
         }
 
         //TODO do we need to filter these ?
-        daoUtil = new DAOUtil( SQL_QUERY_SELECTALL_FILES, plugin );
-        daoUtil.executeQuery(  );
-        while ( daoUtil.next(  ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL_FILES, plugin ) )
         {
-            int ideeId = daoUtil.getInt(2);
-            int fileId = daoUtil.getInt(1);
-            String type = daoUtil.getString(3);
-            Idee idee = ideeMap.get(ideeId);
-            if ( idee != null ) {
-                if (Idee.ATTACHED_FILE_TYPE_DOC.equals(type)) {
-                    idee.getDocs(  ).add(FileHome.findByPrimaryKey(fileId));
-                } else if (Idee.ATTACHED_FILE_TYPE_IMG.equals(type)) {
-                    idee.getImgs(  ).add(FileHome.findByPrimaryKey(fileId));
-                } else {
-                    AppLogService.info("Ideation, unknown attached file type " + fileId + "," + ideeId + "," + type );
-                }
-            }
+	        daoUtil.executeQuery(  );
+	        while ( daoUtil.next(  ) )
+	        {
+	            int ideeId  = daoUtil.getInt( 2 );
+	            int fileId  = daoUtil.getInt( 1 );
+	            String type = daoUtil.getString( 3);
+	            
+	            Idee idee   = ideeMap.get( ideeId ); 
+	            if ( idee != null ) 
+	            {
+	                if ( Idee.ATTACHED_FILE_TYPE_DOC.equals(type) ) 
+	                {
+	                    idee.getDocs(  ).add( FileHome.findByPrimaryKey( fileId ) );
+	                } 
+	                else if ( Idee.ATTACHED_FILE_TYPE_IMG.equals(type) ) 
+	                {
+	                    idee.getImgs(  ).add( FileHome.findByPrimaryKey( fileId ) );
+	                } 
+	                else 
+	                {
+	                    AppLogService.info( "Ideation, unknown attached file type " + fileId + "," + ideeId + "," + type );
+	                }
+	            }
+	        }
         }
-        daoUtil.free( );
 
         //TODO do we need to filter these ?
-        daoUtil = new DAOUtil( SQL_QUERY_SELECTALL_LINKS, plugin );
-        daoUtil.executeQuery(  );
-        while ( daoUtil.next(  ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL_LINKS, plugin ) )
         {
-            int idIdeeChild = daoUtil.getInt(1);
-            int idIdeeParent = daoUtil.getInt(4);
-            Idee mapIdeeParent = ideeMap.get(idIdeeParent);
-            Idee mapIdeeChild = ideeMap.get(idIdeeChild);
-
-            Idee ideeParent = (mapIdeeParent == null) ? getParentIdeeRow(daoUtil) : mapIdeeParent;
-            Idee ideeChild = (mapIdeeChild == null) ? getChildIdeeRow(daoUtil) : mapIdeeChild;
-
-            if (mapIdeeParent != null) {
-                mapIdeeParent.getChildIdees().add(ideeChild);
-            }
-            if (mapIdeeChild != null) {
-                mapIdeeChild.getParentIdees().add(ideeParent);
-            }
+	        daoUtil.executeQuery(  );
+	        while ( daoUtil.next(  ) )
+	        {
+	            int idIdeeChild    = daoUtil.getInt( 1 );
+	            int idIdeeParent   = daoUtil.getInt( 4 );
+	            Idee mapIdeeParent = ideeMap.get( idIdeeParent );
+	            Idee mapIdeeChild  = ideeMap.get( idIdeeChild );
+	
+	            Idee ideeParent = ( mapIdeeParent == null ) ? getParentIdeeRow( daoUtil ) : mapIdeeParent;
+	            Idee ideeChild  = ( mapIdeeChild  == null ) ? getChildIdeeRow ( daoUtil ) : mapIdeeChild;
+	
+	            if ( mapIdeeParent != null ) 
+	            {
+	                mapIdeeParent.getChildIdees().add( ideeChild );
+	            }
+	            
+	            if ( mapIdeeChild != null ) 
+	            {
+	                mapIdeeChild.getParentIdees().add( ideeParent );
+	            }
+	        }
         }
-        daoUtil.free( );
 
         ArrayList<Idee> result = new ArrayList<Idee>(ideeMap.values());
         return result;
@@ -576,10 +587,10 @@ public final class IdeeDAO implements IIdeeDAO
         return ideeList;
     }
     
-    private Idee getRow( DAOUtil daoUtil)
+    private Idee getRow( DAOUtil daoUtil )
     {
+        int nCpt = 1;
         
-        int nCpt=1;
         Idee idee = new Idee();
         idee.setId( daoUtil.getInt( nCpt++ ) );
         idee.setLuteceUserName( daoUtil.getString( nCpt++ ));
@@ -595,14 +606,19 @@ public final class IdeeDAO implements IIdeeDAO
         idee.setAcceptExploit(daoUtil.getBoolean( nCpt++ )) ;  
         idee.setAcceptContact(daoUtil.getBoolean( nCpt++ )) ;  
         idee.setAdress(daoUtil.getString( nCpt++ ));
-        Float fLongitude = ((Float) daoUtil.getObject( nCpt++ ));
-        if (fLongitude != null) {
-            idee.setLongitude(fLongitude.doubleValue());
+        
+        Float fLongitude = ( (Float) daoUtil.getObject( nCpt++ ) );
+        if ( fLongitude != null ) 
+        {
+            idee.setLongitude( fLongitude.doubleValue() );
         }
-        Float fLatitude = ((Float) daoUtil.getObject( nCpt++ ));
-        if (fLatitude != null) {
-            idee.setLatitude(fLatitude.doubleValue());
+        
+        Float fLatitude = ( (Float) daoUtil.getObject( nCpt++ ) );
+        if ( fLatitude != null ) 
+        {
+            idee.setLatitude( fLatitude.doubleValue() );
         }
+        
         idee.setCreationTimestamp(daoUtil.getTimestamp( nCpt++ ));
         idee.setCodeCampagne(daoUtil.getString( nCpt++ ));
         idee.setCodeIdee(daoUtil.getInt( nCpt++ ));

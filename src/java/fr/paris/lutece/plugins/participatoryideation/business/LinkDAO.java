@@ -33,13 +33,13 @@
  */
 package fr.paris.lutece.plugins.participatoryideation.business;
 
-import fr.paris.lutece.portal.service.plugin.Plugin;
-import fr.paris.lutece.util.sql.DAOUtil;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
+
+import fr.paris.lutece.portal.service.plugin.Plugin;
+import fr.paris.lutece.util.sql.DAOUtil;
 
 /**
  * This class provides Data Access methods for link objects
@@ -48,22 +48,22 @@ import java.util.Map;
 public final class LinkDAO implements ILinkDAO
 {
     // Constants
-    private static final String SQL_QUERY_NEW_PK = "SELECT max( id_idee_link ) FROM ideation_idees_links";
+    private static final String SQL_QUERY_NEW_PK       = "SELECT max( id_idee_link ) FROM ideation_idees_links";
     
     private static final String SQL_QUERY_SELECTALL    = "SELECT  l.id_idee_link, l.id_idee_parent, l.id_idee_child, ip.code_campagne, ic.code_campagne, ip.code_idee, ic.code_idee, ip.titre, ic.titre FROM ideation_idees_links AS l INNER JOIN ideation_idees AS ip ON ip.id_idee = l.id_idee_parent INNER JOIN ideation_idees AS ic ON ic.id_idee = l.id_idee_child";
     private static final String SQL_QUERY_SELECT       = SQL_QUERY_SELECTALL + " WHERE id_idee_link = ?";
     private static final String SQL_QUERY_SELECTALL_ID = "SELECT id_idee_link FROM ideation_idees_links";
     
-    private static final String SQL_QUERY_INSERT = "INSERT INTO ideation_idees_links ( id_idee_link, id_idee_parent, id_idee_child ) VALUES ( ?, ?, ? ) ";
-    private static final String SQL_QUERY_DELETE = "DELETE FROM ideation_idees_links WHERE id_idee_link = ? ";
-    private static final String SQL_QUERY_UPDATE = "UPDATE ideation_idees_links SET id_idee_link = ?, id_idee_parent = ?, id_idee_child = ? WHERE id_idee_link = ?";
+    private static final String SQL_QUERY_INSERT       = "INSERT INTO ideation_idees_links ( id_idee_link, id_idee_parent, id_idee_child ) VALUES ( ?, ?, ? ) ";
+    private static final String SQL_QUERY_DELETE       = "DELETE FROM ideation_idees_links WHERE id_idee_link = ? ";
+    private static final String SQL_QUERY_UPDATE       = "UPDATE ideation_idees_links SET id_idee_link = ?, id_idee_parent = ?, id_idee_child = ? WHERE id_idee_link = ?";
 
     /**
      * Generates a new primary key
      * @param plugin The Plugin
      * @return The new primary key
      */
-    public int newPrimaryKey( Plugin plugin)
+    public int newPrimaryKey( Plugin plugin )
     {
         int nKey = 1;
 
@@ -71,7 +71,7 @@ public final class LinkDAO implements ILinkDAO
         {
 	        daoUtil.executeQuery( );
 	
-	        if( daoUtil.next( ) )
+	        if ( daoUtil.next( ) )
 	        {
 	                nKey = daoUtil.getInt( 1 ) + 1;
 	        }
@@ -113,7 +113,7 @@ public final class LinkDAO implements ILinkDAO
 	
 	        if ( daoUtil.next( ) )
 	        {
-	        	link = getRow(daoUtil);
+	        	link = getRow( daoUtil );
 	        }
         }
         
@@ -156,7 +156,7 @@ public final class LinkDAO implements ILinkDAO
     @Override
     public Collection<Link> selectLinksList( Plugin plugin )
     {
-        Collection<Link> linkList = new ArrayList<Link>(  );
+        Collection<Link> linkList = new ArrayList<>(  );
      
         try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL, plugin ) )
         {
@@ -178,7 +178,7 @@ public final class LinkDAO implements ILinkDAO
     @Override
     public Collection<Integer> selectIdLinksList( Plugin plugin )
     {
-        Collection<Integer> linkList = new ArrayList<Integer>( );
+        Collection<Integer> linkList = new ArrayList<>( );
         
         try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL_ID, plugin ) )
         {
@@ -193,9 +193,8 @@ public final class LinkDAO implements ILinkDAO
         return linkList;
     }
     
-    private Link getRow( DAOUtil daoUtil)
+    private Link getRow( DAOUtil daoUtil )
     {
-        
         int nCpt=1;
         
     	Link link = new Link(  );
@@ -219,28 +218,27 @@ public final class LinkDAO implements ILinkDAO
        *********************************************************************************** */
 
 	@Override
-	public Collection<Link> selectLinksListSearch(LinkSearcher linkSearcher, Plugin plugin) {
-        Map<Integer, Link> linkMap = new LinkedHashMap<Integer, Link>(  );
-        DAOUtil daoUtil;
-        if ( linkSearcher != null ) 
+	public Collection<Link> selectLinksListSearch(LinkSearcher linkSearcher, Plugin plugin) 
+	{
+        Map<Integer, Link> linkMap = new LinkedHashMap<>(  );
+        
+        String queryStr = ( linkSearcher != null ) ? appendFilters( SQL_QUERY_SELECTALL, linkSearcher ) : SQL_QUERY_SELECTALL;
+        try ( DAOUtil daoUtil = new DAOUtil( queryStr, plugin ) )
         {
-            daoUtil = new DAOUtil( appendFilters( SQL_QUERY_SELECTALL, linkSearcher ), plugin );
-            setFilterValues( daoUtil, linkSearcher );
-        } 
-        else
-        {
-            daoUtil = new DAOUtil( SQL_QUERY_SELECTALL, plugin );
+	        if ( linkSearcher != null ) 
+	        {
+	            setFilterValues( daoUtil, linkSearcher );
+	        } 
+	        daoUtil.executeQuery(  );
+	
+	        while ( daoUtil.next(  ) )
+	        {
+	            Link link = getRow(daoUtil);
+	            linkMap.put( link.getId(), link );
+	        }
         }
-        daoUtil.executeQuery(  );
 
-        while ( daoUtil.next(  ) )
-        {
-            Link link = getRow(daoUtil);
-            linkMap.put( link.getId(), link );
-        }
-        daoUtil.free( );
-
-        ArrayList<Link> result = new ArrayList<Link>(linkMap.values());
+        ArrayList<Link> result = new ArrayList<>(linkMap.values());
         return result;
 	}       
 	
@@ -250,26 +248,28 @@ public final class LinkDAO implements ILinkDAO
      * @param linkSearcher The linkSearcher
      * @return The sql statement
      */
-	private String appendFilters( String query, LinkSearcher linkSearcher ) {
+	private String appendFilters( String query, LinkSearcher linkSearcher ) 
+	{
         //Create the where clause
         StringBuilder stringBuilder = new StringBuilder( );
         
         if ( linkSearcher.getCodeCampagne( ) != null ) 
         {
-        	stringBuilder.append(" ( ip.code_campagne = ? OR ic.code_campagne = ? ) AND");
+        	stringBuilder.append( " ( ip.code_campagne = ? OR ic.code_campagne = ? ) AND" );
         }
         
         if ( linkSearcher.getCodeIdee( ) != null ) 
         {
-        	stringBuilder.append(" ( ip.code_idee = ? OR ic.code_idee = ? ) AND");
+        	stringBuilder.append( " ( ip.code_idee = ? OR ic.code_idee = ? ) AND" );
         }
         
         if ( linkSearcher.getTitle( ) != null ) 
         {
-        	stringBuilder.append(" ( ip.titre LIKE ? OR ic.titre LIKE ? ) AND");
+        	stringBuilder.append( " ( ip.titre LIKE ? OR ic.titre LIKE ? ) AND" );
         }
         
-        if (stringBuilder.length() > 0) {
+        if ( stringBuilder.length() > 0 ) 
+        {
             //Remove the final " AND"
             stringBuilder.setLength( stringBuilder.length(  ) - 4 );
         }
@@ -278,7 +278,8 @@ public final class LinkDAO implements ILinkDAO
         StringBuilder finalQuery = new StringBuilder();
         finalQuery.append(query);
         
-        if (stringBuilder.length() > 0) {
+        if ( stringBuilder.length() > 0 ) 
+        {
             finalQuery.append(" WHERE ");
             finalQuery.append(stringBuilder.toString());
         }
@@ -294,18 +295,18 @@ public final class LinkDAO implements ILinkDAO
         
         if ( linkSearcher.getCodeCampagne( ) != null ) 
         {
-        	daoUtil.setString(nCpt++, linkSearcher.getCodeCampagne( ) );
-        	daoUtil.setString(nCpt++, linkSearcher.getCodeCampagne( ) );
+        	daoUtil.setString( nCpt++, linkSearcher.getCodeCampagne( ) );
+        	daoUtil.setString( nCpt++, linkSearcher.getCodeCampagne( ) );
         }
         if ( linkSearcher.getCodeIdee( ) != null ) 
         {
-        	daoUtil.setInt(nCpt++, linkSearcher.getCodeIdee( ) );
-        	daoUtil.setInt(nCpt++, linkSearcher.getCodeIdee( ) );
+        	daoUtil.setInt( nCpt++, linkSearcher.getCodeIdee( ) );
+        	daoUtil.setInt( nCpt++, linkSearcher.getCodeIdee( ) );
         }
         if ( linkSearcher.getTitle( ) != null ) 
         {
-            daoUtil.setString(nCpt++, "%" + linkSearcher.getTitle( ) + "%" );
-            daoUtil.setString(nCpt++, "%" + linkSearcher.getTitle( ) + "%" );
+            daoUtil.setString( nCpt++, "%" + linkSearcher.getTitle( ) + "%" );
+            daoUtil.setString( nCpt++, "%" + linkSearcher.getTitle( ) + "%" );
         }
      }
     

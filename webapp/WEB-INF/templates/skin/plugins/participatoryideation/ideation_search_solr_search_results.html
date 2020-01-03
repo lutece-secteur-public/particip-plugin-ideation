@@ -161,7 +161,7 @@ ${encoded_facets_queries}
 						<div class="col-md-3 col-xs-12">
 							<#-- Recherche par thème -->
 							<label class="select" for="theme">
-								<select name="fq" id="theme" onChange="searchArrond()" class="form-control">
+								<select name="fq" id="theme" onChange="searchArrond()" class="form-control <#if facet_theme != "">selected</#if>">
 									<#if facet_theme="">
 										<option value="" selected="selected">#i18n{participatoryideation.search.form.field.theme.label}</option>
 									<#else>
@@ -177,7 +177,7 @@ ${encoded_facets_queries}
 						<div class="col-md-3 col-xs-12">
 							<#-- Recherche par campagne -->
 							<label class="select" for="campagne">
-								<select name="fq" id="campagne" onChange="searchArrond()" class="form-control">
+								<select name="fq" id="campagne" onChange="searchArrond()" class="form-control <#if facet_campagne != "">selected</#if>">
 									<#if facet_campagne="">
 										<option value="" selected="selected">#i18n{participatoryideation.search.form.field.campaign.label}</option>
 									<#else>
