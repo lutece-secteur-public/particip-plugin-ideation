@@ -117,7 +117,9 @@ public class SolrIdeeIndexer implements SolrIndexer
 
 
         String strCodeGeoloc;
-        double dLongitude, dLatitude;
+        double dLongitude = 0;
+        double dLatitude  = 0;
+
         if (idee.getAdress() != null && idee.getLongitude() != null && idee.getLatitude() != null) {
             dLongitude = idee.getLongitude();
             dLatitude = idee.getLatitude();
@@ -129,21 +131,11 @@ public class SolrIdeeIndexer implements SolrIndexer
         }
         else 
         {
-            Double[] latlon;
             if (Idee.LOCALISATION_TYPE_ARDT.equals(idee.getLocalisationType())) {
                 strCodeGeoloc = "idee_ardt-" + idee.getLocalisationArdt();
-            	latlon = IdeeService.getInstance().getArrondissementLatLong(idee.getLocalisationArdt());
             } else {
                 strCodeGeoloc = "idee_paris";
-                latlon = IdeeService.getInstance().getParisLatLong();
             }
-            if ( latlon == null )
-            {
-                AppLogService.error( "[SolrIdeeIndexer] Unable to get lat/lon, using that of Paris (idee " + idee.getReference() + ")" );
-            	latlon = IdeeService.getInstance().getParisLatLong();
-            }
-            dLatitude = latlon[0];
-            dLongitude = latlon[1];
         } 
         item.addDynamicFieldGeoloc("idee", idee.getAdress(), dLongitude, dLatitude, strCodeGeoloc);
         item.addDynamicField("idee_status", String.valueOf(idee.getStatusPublic().isPublished( )));

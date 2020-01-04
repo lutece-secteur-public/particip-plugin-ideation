@@ -123,7 +123,7 @@ public class IdeeJspBean extends ManageIdeationIdeesJspBean
     private static final String PROPERTY_PAGE_TITLE_CONFIRM_REMOVE_IDEE = "participatoryideation.confirm_remove_idee.pageTitle";
 
     // Markers
-    private static final String MARK_ARRONDISSEMENTS_LIST = "arrondissements_list";
+//    private static final String MARK_ARRONDISSEMENTS_LIST = "arrondissements_list";
     private static final String MARK_CAMPAGNETHEME_LIST = "campagnetheme_list";
     private static final String MARK_HANDICAP_LIST = "handicap_list";
     private static final String MARK_IDEE_LIST = "idee_list";
@@ -181,7 +181,6 @@ public class IdeeJspBean extends ManageIdeationIdeesJspBean
 
     private static SolrIdeeIndexer _solrIdeeIndexer  = SpringContextService.getBean( "participatoryideation.solrIdeeIndexer" );
     
-    private static final java.util.regex.Pattern _patternAdresseArrondissement = java.util.regex.Pattern.compile( ", 75[0-1]([0-2][0-9]) PARIS" );
     
     // Session variable to store working values
     private IdeeBoForm _ideeBoForm;
@@ -408,18 +407,15 @@ public class IdeeJspBean extends ManageIdeationIdeesJspBean
     {
         _idee = ( _idee != null ) ? _idee : new Idee( );
 
-//        Collection<Campagne> listCampagnes = CampagneHome.getCampagnesList( );
         String lastCampagneCode = CampagneHome.getLastCampagne().getCode();
         List<CampagneTheme> listCampagneThemes = (List<CampagneTheme>) CampagneThemeHome.getCampagneThemesListByCampagne( lastCampagneCode ) ;
 
         Map<String, Object> model = getModel( );
         model.put( MARK_IDEE, _idee );
         model.put( MARK_LANGUAGE, getLocale( ) );
-//        model.put( MARK_LIST_CAMPAGNES, listCampagnes );
         model.put( MARK_LOCALISATION_TYPE_LIST, IdeeService.getInstance( ).getTypeLocalisationList( ) );
         model.put( MARK_CAMPAGNETHEME_LIST, listCampagneThemes );
         model.put( MARK_HANDICAP_LIST, IdeeService.getInstance().getHandicapCodesList() );
-        model.put( MARK_ARRONDISSEMENTS_LIST, IdeeService.getInstance( ).getArrondissements( ) );
 
         return getPage( PROPERTY_PAGE_TITLE_CREATE_IDEE, TEMPLATE_CREATE_IDEE, model );
     }
@@ -862,11 +858,14 @@ public class IdeeJspBean extends ManageIdeationIdeesJspBean
                 addError( MESSAGE_ERROR_ADDRESS_LOCALISATION_TYPE_EMPTY, request.getLocale( ) );
                 bIsValid = false;
             }
+            
+            // FIXME : This code is waiting for reintegration of geojson mecanism...
 //            if ( StringUtils.isEmpty( _idee.getGeoJson( ) ) )
 //            {
 //                addError( MESSAGE_ERROR_ADDRESS_NOT_VALID + " - Unable to identity GeoJSON for address '" + _idee.getAdress( ) + "'", request.getLocale( ) );
 //                bIsValid = false;
 //            }
+            
         }
         else
         {
@@ -884,22 +883,28 @@ public class IdeeJspBean extends ManageIdeationIdeesJspBean
                 _idee.setAdress( geolocItem.getAddress( ) );
                 _idee.setLatitude( geolocItem.getLat( ) );
                 _idee.setLongitude( geolocItem.getLon( ) );
-                Matcher m = _patternAdresseArrondissement.matcher( _idee.getAdress( ) );
-                if ( m.find( ) ) {
-	                int nArdt = Integer.parseInt( m.group( 1 ) );
-	                String strArdt = IdeeService.getInstance( ).getArrondissementCode( nArdt );
-	                if ( _idee.getLocalisationType( ).equals( Idee.LOCALISATION_TYPE_ARDT )
-	                        && StringUtils.isNotEmpty( _idee.getLocalisationArdt( ) )
-	                        && ( !strArdt.equals( _idee.getLocalisationArdt( ) ) ) )
-	                {
-	                    addError( MESSAGE_ERROR_ADDRESS_ARDT_MISMATCH, request.getLocale( ) );
-	                    bIsValid = false;
-	                }
-	                else
-	                {
-	                	_idee.setLocalisationArdt( strArdt );
-	                }
-                }
+                
+// FIXME : Trying to automaticly identify zip code from geojson
+
+//              private static final java.util.regex.Pattern _patternAdresseArrondissement = java.util.regex.Pattern.compile( ", 75[0-1]([0-2][0-9]) PARIS" );
+
+//                Matcher m = _patternAdresseArrondissement.matcher( _idee.getAdress( ) );
+//                if ( m.find( ) ) {
+//	                int nArdt = Integer.parseInt( m.group( 1 ) );
+//	                String strArdt = IdeeService.getInstance( ).getArrondissementCode( nArdt );
+//	                if ( _idee.getLocalisationType( ).equals( Idee.LOCALISATION_TYPE_ARDT )
+//	                        && StringUtils.isNotEmpty( _idee.getLocalisationArdt( ) )
+//	                        && ( !strArdt.equals( _idee.getLocalisationArdt( ) ) ) )
+//	                {
+//	                    addError( MESSAGE_ERROR_ADDRESS_ARDT_MISMATCH, request.getLocale( ) );
+//	                    bIsValid = false;
+//	                }
+//	                else
+//	                {
+//	                	_idee.setLocalisationArdt( strArdt );
+//	                }
+//                }
+                
             }
             catch ( Exception e )
             {

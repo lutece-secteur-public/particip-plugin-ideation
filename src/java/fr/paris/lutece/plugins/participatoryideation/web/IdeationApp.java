@@ -54,9 +54,7 @@ import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
 
 import fr.paris.lutece.plugins.leaflet.business.GeolocItem;
-import fr.paris.lutece.plugins.participatorybudget.business.campaign.CampagneHome;
 import fr.paris.lutece.plugins.participatorybudget.service.MyInfosService;
-import fr.paris.lutece.plugins.participatorybudget.service.campaign.CampagnesService;
 import fr.paris.lutece.plugins.participatorybudget.web.MyInfosXPage;
 import fr.paris.lutece.plugins.participatoryideation.business.Idee;
 import fr.paris.lutece.plugins.participatoryideation.business.capgeo.QpvQva;
@@ -110,6 +108,11 @@ import fr.paris.lutece.util.filesystem.FileSystemUtil;
 @Controller( xpageName = "ideation" , pageTitleI18nKey = "participatoryideation.xpage.ideation.pageTitle" , pagePathI18nKey = "participatoryideation.xpage.ideation.pagePathLabel" )
 public class IdeationApp extends MVCApplication
 {
+	
+	// *********************************************************************************************
+	// * STATIC STATIC STATIC STATIC STATIC STATIC STATIC STATIC STATIC STATIC STATIC STATIC STATI *
+	// * STATIC STATIC STATIC STATIC STATIC STATIC STATIC STATIC STATIC STATIC STATIC STATIC STATI *
+	// *********************************************************************************************
 
     private static final long serialVersionUID = -3590277455677622883L;
 
@@ -126,57 +129,63 @@ public class IdeationApp extends MVCApplication
     private static final String JSP_PORTAL = "jsp/site/Portal.jsp";
 
     //Views/Actions
-    private static final String STEP_LOCATION = "location";
-    private static final String STEP_TITLE = "title";
-    private static final String STEP_APPROX = "approx";
+    private static final String STEP_LOCATION    = "location";
+    private static final String STEP_TITLE       = "title";
+    private static final String STEP_APPROX      = "approx";
     private static final String STEP_DESCRIPTION = "description";
-    private static final String STEP_UPLOAD = "upload";
-    private static final String STEP_RECAP = "recap";
-    private static final String STEP_CONFIRMED = "confirmed";
-    private static final String ACTION_ABANDON = "abandon";
+    private static final String STEP_UPLOAD      = "upload";
+    private static final String STEP_RECAP       = "recap";
+    private static final String STEP_CONFIRMED   = "confirmed";
+    private static final String ACTION_ABANDON   = "abandon";
 
     // Parameters
     private static final String PARAMETER_APPROX_SOLR_DBG = "mdpdbg";
-    private static final String PARAMETER_PAGE = "page";
-    private static final String PARAMETER_CONF = "conf";
+    private static final String PARAMETER_PAGE            = "page";
+    private static final String PARAMETER_CONF            = "conf";
+    private static final String PARAMETER_CAMPAIGN        = "campaign";
 
     // Markers
-    private static final String MARK_APPROX_KEYWORD_LIST = "results_keyword_list";
+    private static final String MARK_IDEATION_CAMPAIGN_SERVICE_IMPLEMENTATION = "ideation_campaign_service_implementation";
+    
+    private static final String MARK_APPROX_KEYWORD_LIST            = "results_keyword_list";
     private static final String MARK_APPROX_PREVIOUS_CAMPAIGNS_LIST = "results_previous_campaigns_list";
-    private static final String MARK_APPROX_LOCATION_LIST = "results_location_list";
-    private static final String MARK_APPROX_KEYWORD_SOLR_DBG = "solr_keyword_query_dbg";
-    private static final String MARK_APPROX_LOCATION_SOLR_DBG = "solr_location_query_dbg";
-    private static final String MARK_STEPS_INDEX = "cur_etape_index";
+    private static final String MARK_APPROX_LOCATION_LIST           = "results_location_list";
+    private static final String MARK_APPROX_KEYWORD_SOLR_DBG        = "solr_keyword_query_dbg";
+    private static final String MARK_APPROX_LOCATION_SOLR_DBG       = "solr_location_query_dbg";
+    
+    private static final String MARK_STEPS_INDEX   = "cur_etape_index";
     private static final String MARK_STEPS_CONTENT = "cur_etape_content";
-    private static final String MARK_FORM_ETAPE_LOCATION = "form_etape_location";
-    private static final String MARK_FORM_ETAPE_TITLE = "form_etape_title";
-    private static final String MARK_FORM_ETAPE_APPROX = "form_etape_approx";
+    
+    private static final String MARK_FORM_ETAPE_LOCATION    = "form_etape_location";
+    private static final String MARK_FORM_ETAPE_TITLE       = "form_etape_title";
+    private static final String MARK_FORM_ETAPE_APPROX      = "form_etape_approx";
     private static final String MARK_FORM_ETAPE_DESCRIPTION = "form_etape_description";
-    private static final String MARK_FORM_ETAPE_UPLOAD = "form_etape_upload";
-    private static final String MARK_FORM_ETAPE_RECAP = "form_etape_recap";
+    private static final String MARK_FORM_ETAPE_UPLOAD      = "form_etape_upload";
+    private static final String MARK_FORM_ETAPE_RECAP       = "form_etape_recap";
 
-    private static final String MARK_HANDLER = "handler";
+    private static final String MARK_HANDLER     = "handler";
     private static final String MARK_UPLOAD_DOCS = "docs";
     private static final String MARK_UPLOAD_IMGS = "imgs";
 
-    private static final String MARK_RECAP_CODE_THEME = "recap_code_theme";
-    private static final String MARK_RECAP_LOCALISATION_TYPE = "recap_localisation_type";
-    private static final String MARK_RECAP_LOCALISATION_ARDT = "recap_localisation_ardt";
-    private static final String MARK_RECAP_LOCALISATION_ADRESS = "recap_localisation_adress";
-    private static final String MARK_RECAP_TITLE = "recap_title";
-    private static final String MARK_RECAP_DEPOSITAIRE_TYPE = "recap_depositaire_type";
-    private static final String MARK_RECAP_DEPOSITAIRE = "recap_depositaire";
-    private static final String MARK_RECAP_DESCRIPTION = "recap_description";
-    private static final String MARK_RECAP_COUT = "recap_cout";
-    private static final String MARK_RECAP_DOCS = "recap_docs";
-    private static final String MARK_RECAP_IMGS = "recap_imgs";
-    private static final String MARK_RECAP_IDEE_CREATED_CODE= "idee_created_code";
-    private static final String MARK_RECAP_IDEE_CREATED_CAMPAGNE = "idee_created_campagne";
+    private static final String MARK_RECAP_CODE_THEME             = "recap_code_theme";
+    private static final String MARK_RECAP_LOCALISATION_TYPE      = "recap_localisation_type";
+    private static final String MARK_RECAP_LOCALISATION_ARDT      = "recap_localisation_ardt";
+    private static final String MARK_RECAP_LOCALISATION_ADRESS    = "recap_localisation_adress";
+    private static final String MARK_RECAP_TITLE                  = "recap_title";
+    private static final String MARK_RECAP_DEPOSITAIRE_TYPE       = "recap_depositaire_type";
+    private static final String MARK_RECAP_DEPOSITAIRE            = "recap_depositaire";
+    private static final String MARK_RECAP_DESCRIPTION            = "recap_description";
+    private static final String MARK_RECAP_COUT                   = "recap_cout";
+    private static final String MARK_RECAP_DOCS                   = "recap_docs";
+    private static final String MARK_RECAP_IMGS                   = "recap_imgs";
+    private static final String MARK_RECAP_IDEE_CREATED_CODE      = "idee_created_code";
+    private static final String MARK_RECAP_IDEE_CREATED_CAMPAGNE  = "idee_created_campagne";
     private static final String MARK_RECAP_IDEE_CREATED_REFERENCE = "idee_created_reference";
 
-    private static final String MARK_WHOLE_AREA             =            "whole_area" ;
+    private static final String MARK_CAMPAIGN_THEMES        = "themes";
+    private static final String MARK_WHOLE_AREA             = "whole_area";
     private static final String MARK_NUMBER_LOCALIZED_AREAS = "number_localized_areas";
-    private static final String MARK_LOCALIZED_AREAS        =        "localized_areas";
+    private static final String MARK_LOCALIZED_AREAS        = "localized_areas";
 
     public static final String QPV_QVA_QPV  = "NQPV";
     public static final String QPV_QVA_QVA  = "QVA";
@@ -188,61 +197,108 @@ public class IdeationApp extends MVCApplication
     public static final String HANDICAP_LABEL_YES = "yes";
     public static final String HANDICAP_LABEL_NO  = "no" ;
 
-    private static final String PROPERTY_NEWPROJECTS_GEOLOC_FIELD = "participatoryideation.approx.newprojects.geoloc_field";
-    private static final String PROPERTY_NEWPROJECTS_ARDT_FIELD = "participatoryideation.approx.newprojects.ardt_field";
-    private static final String PROPERTY_OLDPROJECTS_ARDT_FIELD = "participatoryideation.approx.oldprojects.ardt_field";
-    private static final String PROPERTY_NEWPROJECTS_TYPE = "participatoryideation.approx.newprojects.type";
-    private static final String MESSAGE_CAMPAGNE_IDEATION_CLOSED_SUBMIT = "participatoryideation.messages.campagne.ideation.closed.submit";
+    private static final String PROPERTY_NEWPROJECTS_GEOLOC_FIELD       = "participatoryideation.approx.newprojects.geoloc_field";
+    private static final String PROPERTY_NEWPROJECTS_ARDT_FIELD         = "participatoryideation.approx.newprojects.ardt_field";
+    private static final String PROPERTY_OLDPROJECTS_ARDT_FIELD         = "participatoryideation.approx.oldprojects.ardt_field";
+    private static final String PROPERTY_NEWPROJECTS_TYPE               = "participatoryideation.approx.newprojects.type";
+    private static final String MESSAGE_CAMPAIGN_UNSPECIFIED            = "participatoryideation.messages.campaign.unspecified";
+    private static final String MESSAGE_CAMPAIGN_IDEATION_CLOSED_SUBMIT = "participatoryideation.messages.campaign.ideation.closed.submit";
 
     private static final String SOLR_NEWPROJECTS_GEOLOC_FIELD = AppPropertiesService.getProperty( PROPERTY_NEWPROJECTS_GEOLOC_FIELD, "idee_geoloc" );
     private static final String SOLR_NEWPROJECTS_ARDT_FIELD   = AppPropertiesService.getProperty( PROPERTY_NEWPROJECTS_ARDT_FIELD  , "localisation_ardt_text" );
     private static final String SOLR_OLDPROJECTS_ARDT_FIELD   = AppPropertiesService.getProperty( PROPERTY_OLDPROJECTS_ARDT_FIELD  , "localisation_text" );
     private static final String SOLR_NEWPROJECTS_TYPE         = AppPropertiesService.getProperty( PROPERTY_NEWPROJECTS_TYPE        , "idee" );
     
-    private static final String SOLR_PREVIOUS_CAMPAIGNS = "("
-    		+ "(type:idee AND statut_publique_project_text:\"NONRETENU\") "
-    		+ "OR (type:\"PB Project\" AND statut_project_text:\"SUIVI\")"
-    		+ ")";
-    //private static final String SOLR_PREVIOUS_PROJECTS = "(type:\"Projets 2015\" AND statut_project_text:\"SUIVI\")";
+    private static final String SOLR_PREVIOUS_CAMPAIGNS = "((type:idee AND statut_publique_project_text:\"NONRETENU\") OR (type:\"PB Project\" AND statut_project_text:\"SUIVI\"))";
+//  private static final String SOLR_PREVIOUS_PROJECTS  = "(type:\"Projets 2015\" AND statut_project_text:\"SUIVI\")";
 
-    private static final String DSKEY_APPROX_SCORE_RATIO_LIMIT="participatoryideation.site_property.form.approx.scoreRatioLimit";
-    private static final String DSKEY_APPROX_DISTANCE_LIMIT="participatoryideation.site_property.form.approx.distanceLimit";
-    private static final String DSKEY_APPROX_KEYWORD_RESULTS_COUNT="participatoryideation.site_property.form.approx.keywordResultsCount";
-    private static final String DSKEY_APPROX_LOCATION_RESULTS_COUNT="participatoryideation.site_property.form.approx.locationResultsCount";
-    private static final String DSKEY_APPROX_PREVIOUS_CAMPAIGNS_RESULTS_COUNT="participatoryideation.site_property.form.approx.previousCampaignsResultsCount";
+    private static final String DSKEY_APPROX_SCORE_RATIO_LIMIT                = "participatoryideation.site_property.form.approx.scoreRatioLimit";
+    private static final String DSKEY_APPROX_DISTANCE_LIMIT                   = "participatoryideation.site_property.form.approx.distanceLimit";
+    private static final String DSKEY_APPROX_KEYWORD_RESULTS_COUNT            = "participatoryideation.site_property.form.approx.keywordResultsCount";
+    private static final String DSKEY_APPROX_LOCATION_RESULTS_COUNT           = "participatoryideation.site_property.form.approx.locationResultsCount";
+    private static final String DSKEY_APPROX_PREVIOUS_CAMPAIGNS_RESULTS_COUNT = "participatoryideation.site_property.form.approx.previousCampaignsResultsCount";
 
+	// *********************************************************************************************
+	// * ATTRIBUTES ATTRIBUTES ATTRIBUTES ATTRIBUTES ATTRIBUTES ATTRIBUTES ATTRIBUTES ATTRIBUTES A *
+	// * ATTRIBUTES ATTRIBUTES ATTRIBUTES ATTRIBUTES ATTRIBUTES ATTRIBUTES ATTRIBUTES ATTRIBUTES A *
+	// *********************************************************************************************
 
     //To accumulate the results of the form. These represent user input.
-    FormEtapeLocation _formEtapeLocation;
-    FormEtapeTitle _formEtapeTitle;
-    FormEtapeApprox _formEtapeApprox;
+    FormEtapeLocation    _formEtapeLocation;
+    FormEtapeTitle       _formEtapeTitle;
+    FormEtapeApprox      _formEtapeApprox;
     FormEtapeDescription _formEtapeDescription;
-    FormEtapeUpload _formEtapeUpload;
-    FormEtapeRecap _formEtapeRecap;
-    Idee _ideeCreate; //The idee we are building
-    Idee _ideeDisplay; //The last idee submitted to show in recap, but avoid double submissions
-    String _strNextStep; //The first non validated step of the form
+    FormEtapeUpload      _formEtapeUpload;
+    FormEtapeRecap       _formEtapeRecap;
+    
+    Idee   _ideeCreate;          // The idee we are building
+    Idee   _ideeDisplay;         // The last idee submitted to show in recap, but avoid double submissions
+    String _strNextStep;         // The first non validated step of the form
+
+	// *********************************************************************************************
+	// * CONSTRUCTOR CONSTRUCTOR CONSTRUCTOR CONSTRUCTOR CONSTRUCTOR CONSTRUCTOR CONSTRUCTOR CONST *
+	// * CONSTRUCTOR CONSTRUCTOR CONSTRUCTOR CONSTRUCTOR CONSTRUCTOR CONSTRUCTOR CONSTRUCTOR CONST *
+	// *********************************************************************************************
 
     public IdeationApp(  ) {
         reInitFormSession(  );
     }
 
-    /**
-     * Returns an exception when it is not the ideation phase
-     * @param request The HTTP request
-     * @throws SiteMessageException
-     */
-    private void checkIdeationPhase( HttpServletRequest request ) throws SiteMessageException
-    {
-        if ( !IdeationCampaignService.getInstance().isDuring(Constants.IDEATION) )
-        {
-            Map<String, Object> requestParameters = new HashMap<String, Object>(  );
-            requestParameters.put( PARAMETER_PAGE, "search-solr" );
-            requestParameters.put( PARAMETER_CONF, "list_idees" );
+	// *********************************************************************************************
+	// * XPAGE XPAGE XPAGE XPAGE XPAGE XPAGE XPAGE XPAGE XPAGE XPAGE XPAGE XPAGE XPAGE XPAGE XPAGE *
+	// * XPAGE XPAGE XPAGE XPAGE XPAGE XPAGE XPAGE XPAGE XPAGE XPAGE XPAGE XPAGE XPAGE XPAGE XPAGE *
+	// *********************************************************************************************
 
-            SiteMessageService.setMessage( request, MESSAGE_CAMPAGNE_IDEATION_CLOSED_SUBMIT, SiteMessage.TYPE_ERROR, JSP_PORTAL, requestParameters );
+    @Override
+    public XPage getPage( HttpServletRequest request, int nMode, Plugin plugin ) throws SiteMessageException, UserNotSignedException
+    {
+        checkIdeationCampaignPhase( request );
+
+        if ( !checkUserAuthorized( request ) )
+        {
+        	return redirect( request, AppPathService.getProdUrl( request ) + MyInfosXPage.getUrlMyInfos() );
         }
+        
+        //Some automatic stuff
+        if ( SecurityService.isAuthenticationEnable() && SecurityService.getInstance().getRegisteredUser( request ) != null ) {
+            _ideeCreate.setLuteceUserName(SecurityService.getInstance().getRegisteredUser(request).getName());
+        }
+        else
+        {
+        	_ideeCreate.setLuteceUserName("guid");
+        }
+
+        String strAction = MVCUtils.getAction( request );
+        String strView   = MVCUtils.getView( request );
+
+        if ( STEP_CONFIRMED.equals( strView ) ) 
+        {
+            // The confirmed step is special, you can view it if you have already completed the form at least once
+            if ( _ideeDisplay == null ) 
+            {
+                return redirectView( request, _strNextStep );
+            }
+        } 
+        else if ( !ACTION_ABANDON.equals( strAction ) ) 
+        {
+            // View and actions from the steps
+            if ( 
+            	   !( ( strView == null   || allValidBeforeEtape( strView   ) ) 
+            	&&    ( strAction == null || allValidBeforeEtape( strAction ) ) ) 
+            ) 
+            {
+                return redirectView( request, _strNextStep );
+            }
+        }
+
+        return super.getPage( request, nMode, plugin );
     }
+
+	// *********************************************************************************************
+	// * STEP STEP STEP STEP STEP STEP STEP STEP STEP STEP STEP STEP STEP STEP STEP STEP STEP STEP *
+	// * STEP STEP STEP STEP STEP STEP STEP STEP STEP STEP STEP STEP STEP STEP STEP STEP STEP STEP *
+	// *********************************************************************************************
+
     /**
      * Returns the content of the page ideation.
      * @param request The HTTP request
@@ -255,9 +311,11 @@ public class IdeationApp extends MVCApplication
         
         model.put( MARK_STEPS_INDEX  , STEPS.LOCATION_INDEX.ordinal(  ) );
         model.put( MARK_STEPS_CONTENT, TEMPLATE_LOCATION );
-        model.put( MARK_NUMBER_LOCALIZED_AREAS , IdeationCampaignService.getInstance().getCampaignNumberLocalizedAreas() );
-        model.put( MARK_LOCALIZED_AREAS        , IdeationCampaignService.getInstance().getCampaignLocalizedAreas() );
-        model.put( MARK_WHOLE_AREA             , IdeationCampaignService.getInstance().getCampaignWholeArea() );
+        
+        model.put( MARK_CAMPAIGN_THEMES        , IdeationCampaignService.getInstance().getCampaignThemes              ( _ideeCreate.getCodeCampagne() ) );
+        model.put( MARK_NUMBER_LOCALIZED_AREAS , IdeationCampaignService.getInstance().getCampaignNumberLocalizedAreas( _ideeCreate.getCodeCampagne() ) );
+        model.put( MARK_LOCALIZED_AREAS        , IdeationCampaignService.getInstance().getCampaignLocalizedAreas      ( _ideeCreate.getCodeCampagne() ) );
+        model.put( MARK_WHOLE_AREA             , IdeationCampaignService.getInstance().getCampaignWholeArea           ( _ideeCreate.getCodeCampagne() ) );
         
         return getXPage( TEMPLATE_ETAPES, request.getLocale(  ), model );
     }
@@ -449,7 +507,7 @@ public class IdeationApp extends MVCApplication
 
         ArrayList<String> listFQ = new ArrayList<String>();
         //listFQ.add( SOLR_FQ_ALLPROJECTS );
-        listFQ.add( "(type:idee AND campagne_text:\"" + CampagnesService.getInstance().getLastCampagne().getCode() + "\")" );
+        listFQ.add( "(type:idee AND campagne_text:\"" + _ideeCreate.getCodeCampagne() + "\")" );
         String strGeofiltFq = getDistanceFQ();
         if ( strGeofiltFq != null ) {
             listFQ.add( strGeofiltFq );
@@ -498,7 +556,7 @@ public class IdeationApp extends MVCApplication
         Double[] dLatLon = null;
         ArrayList<String> listFQ = new ArrayList<String>();
         //listFQ.add( SOLR_FQ_ALLPROJECTS );
-        listFQ.add( "(type:idee AND campagne_text:\"" + CampagnesService.getInstance().getLastCampagne().getCode() + "\")" );
+        listFQ.add( "(type:idee AND campagne_text:\"" + _ideeCreate.getCodeCampagne() + "\")" );
         if ( _ideeCreate.getLongitude() != null && _ideeCreate.getLatitude() != null ) {
             dLatLon = new Double[] { _ideeCreate.getLatitude() , _ideeCreate.getLongitude()};
             String strGeofiltFq = getDistanceFQ();
@@ -508,7 +566,6 @@ public class IdeationApp extends MVCApplication
         }
         if ( _ideeCreate.getLocalisationArdt() != null )
         {
-            dLatLon = IdeeService.getInstance().getArrondissementLatLong( _ideeCreate.getLocalisationArdt() );
             String strArdtFQ = "(" +SOLR_NEWPROJECTS_ARDT_FIELD+":" + _ideeCreate.getLocalisationArdt() +
                  " OR "+SOLR_OLDPROJECTS_ARDT_FIELD+":\"" + getOldArdtText(_ideeCreate.getLocalisationArdt()) + "\")";
             listFQ.add(strArdtFQ);
@@ -818,6 +875,25 @@ public class IdeationApp extends MVCApplication
     }
 
     /**
+     * Returns the content of the confirmation
+     * @param request The HTTP request
+     * @return The view
+     */
+    @View( value = STEP_CONFIRMED )
+    public XPage viewConfirmed( HttpServletRequest request )
+    {
+        Map<String, Object> model = getModel( request, true );
+        model.put( MARK_STEPS_INDEX, STEPS.CONFIRMED_INDEX.ordinal(  ) );
+        model.put( MARK_STEPS_CONTENT, TEMPLATE_CONFIRMED );
+        return getXPage( TEMPLATE_ETAPES, request.getLocale(  ), model );
+    }
+
+	// *********************************************************************************************
+	// * FORM FORM FORM FORM FORM FORM FORM FORM FORM FORM FORM FORM FORM FORM FORM FORM FORM FORM *
+	// * FORM FORM FORM FORM FORM FORM FORM FORM FORM FORM FORM FORM FORM FORM FORM FORM FORM FORM *
+	// *********************************************************************************************
+
+    /**
      * Process the form of the page ideation.
      * Can't have this in the service because it needs to be done after the transaction because the task uses the idee from the database
      * @param idee The idee
@@ -857,20 +933,6 @@ public class IdeationApp extends MVCApplication
     }
 
     /**
-     * Returns the content of the confirmation
-     * @param request The HTTP request
-     * @return The view
-     */
-    @View( value = STEP_CONFIRMED )
-    public XPage viewConfirmed( HttpServletRequest request )
-    {
-        Map<String, Object> model = getModel( request, true );
-        model.put( MARK_STEPS_INDEX, STEPS.CONFIRMED_INDEX.ordinal(  ) );
-        model.put( MARK_STEPS_CONTENT, TEMPLATE_CONFIRMED );
-        return getXPage( TEMPLATE_ETAPES, request.getLocale(  ), model );
-    }
-
-    /**
      * Get a model Object filled with default values
      * @param request The HTTP request
      * @return The model
@@ -889,9 +951,13 @@ public class IdeationApp extends MVCApplication
     protected Map<String, Object> getModel( HttpServletRequest request, boolean isConfirmed )
     {
         Map<String, Object> model = super.getModel(  );
-        IdeationStaticService.getInstance(  ).fillCampagneStaticContent(model, CampagneHome.getLastCampagne().getCode());
-        fillFormEtapes(model);
-        fillRecap(model, isConfirmed ? _ideeDisplay : _ideeCreate, request);
+        
+        model.put( MARK_IDEATION_CAMPAIGN_SERVICE_IMPLEMENTATION, IdeationCampaignService.getInstance().getClass().getName() );
+        
+        IdeationStaticService.getInstance(  ).fillCampagneStaticContent( model, _ideeCreate.getCodeCampagne() );
+        fillFormEtapes                                                 ( model );
+        fillRecap                                                      ( model, isConfirmed ? _ideeDisplay : _ideeCreate, request );
+        
         return model;
     }
 
@@ -904,11 +970,11 @@ public class IdeationApp extends MVCApplication
     protected void fillRecap( Map<String, Object> model, Idee idee, HttpServletRequest request )
     {
         //Step 1
-        model.put( MARK_RECAP_DEPOSITAIRE_TYPE, idee.getDepositaireType(  ) );
-        model.put( MARK_RECAP_DEPOSITAIRE, idee.getDepositaire(  ) );
-        model.put( MARK_RECAP_CODE_THEME, idee.getCodeTheme() );
-        model.put( MARK_RECAP_LOCALISATION_TYPE, idee.getLocalisationType() );
-        model.put( MARK_RECAP_LOCALISATION_ARDT, idee.getLocalisationArdt() );
+        model.put( MARK_RECAP_DEPOSITAIRE_TYPE   , idee.getDepositaireType() );
+        model.put( MARK_RECAP_DEPOSITAIRE        , idee.getDepositaire() );
+        model.put( MARK_RECAP_CODE_THEME         , idee.getCodeTheme() );
+        model.put( MARK_RECAP_LOCALISATION_TYPE  , idee.getLocalisationType() );
+        model.put( MARK_RECAP_LOCALISATION_ARDT  , idee.getLocalisationArdt() );
         model.put( MARK_RECAP_LOCALISATION_ADRESS, idee.getAdress() );
 
         //Step 2
@@ -916,72 +982,54 @@ public class IdeationApp extends MVCApplication
 
         //step 4
         model.put( MARK_RECAP_DESCRIPTION, idee.getDescription(  ) );
-        model.put( MARK_RECAP_COUT, idee.getCout(  ) );
+        model.put( MARK_RECAP_COUT       , idee.getCout(  ) );
 
         //step 5
         model.put( MARK_RECAP_DOCS, idee.getDocs(  ) );
         model.put( MARK_RECAP_IMGS, idee.getImgs(  ) );
 
         //step 6
-        model.put( MARK_RECAP_IDEE_CREATED_CODE, idee.getCodeIdee( ) );
-        model.put( MARK_RECAP_IDEE_CREATED_CAMPAGNE, idee.getCodeCampagne( ) );
+        model.put( MARK_RECAP_IDEE_CREATED_CODE     , idee.getCodeIdee( ) );
+        model.put( MARK_RECAP_IDEE_CREATED_CAMPAGNE , idee.getCodeCampagne( ) );
         model.put( MARK_RECAP_IDEE_CREATED_REFERENCE, idee.getReference( ) );
     }
 
     protected void fillFormEtapes( Map<String, Object> model )
     {
-        model.put(MARK_FORM_ETAPE_LOCATION, _formEtapeLocation);
-        model.put(MARK_FORM_ETAPE_TITLE, _formEtapeTitle);
-        model.put(MARK_FORM_ETAPE_APPROX, _formEtapeApprox);
-        model.put(MARK_FORM_ETAPE_DESCRIPTION, _formEtapeDescription);
-        model.put(MARK_FORM_ETAPE_UPLOAD, _formEtapeUpload);
-        model.put(MARK_FORM_ETAPE_RECAP, _formEtapeRecap);
+        model.put( MARK_FORM_ETAPE_LOCATION   , _formEtapeLocation );
+        model.put( MARK_FORM_ETAPE_TITLE      , _formEtapeTitle );
+        model.put( MARK_FORM_ETAPE_APPROX     , _formEtapeApprox );
+        model.put( MARK_FORM_ETAPE_DESCRIPTION, _formEtapeDescription );
+        model.put( MARK_FORM_ETAPE_UPLOAD     , _formEtapeUpload );
+        model.put( MARK_FORM_ETAPE_RECAP      , _formEtapeRecap );
     }
 
-    @Override
-    public XPage getPage( HttpServletRequest request, int nMode, Plugin plugin )
-        throws SiteMessageException, UserNotSignedException
+    /**
+     * Returns an exception when it is not the ideation phase
+     * @param request The HTTP request
+     * @throws SiteMessageException
+     */
+    private void checkIdeationCampaignPhase( HttpServletRequest request ) throws SiteMessageException
     {
-        checkIdeationPhase( request );
+    	// Verify a campaign is specified.
+    	if ( StringUtils.isBlank( _ideeCreate.getCodeCampagne() ) )
+    	{
+    		_ideeCreate.setCodeCampagne( request.getParameter( PARAMETER_CAMPAIGN ) );
+    	}
 
-        if(!checkUserAuthorized(request))
+    	if ( StringUtils.isBlank( _ideeCreate.getCodeCampagne() ) )
+		{
+            SiteMessageService.setMessage( request, MESSAGE_CAMPAIGN_UNSPECIFIED, SiteMessage.TYPE_ERROR, JSP_PORTAL );
+		}
+		else if ( !IdeationCampaignService.getInstance().isDuring( _ideeCreate.getCodeCampagne(), Constants.IDEATION ) )
         {
-        	return redirect(request, AppPathService.getProdUrl(request)+MyInfosXPage.getUrlMyInfos());
+            Map<String, Object> requestParameters = new HashMap<String, Object>(  );
+            requestParameters.put( PARAMETER_PAGE, "search-solr" );
+            requestParameters.put( PARAMETER_CONF, "list_idees" );
+            SiteMessageService.setMessage( request, MESSAGE_CAMPAIGN_IDEATION_CLOSED_SUBMIT, SiteMessage.TYPE_ERROR, JSP_PORTAL, requestParameters );
         }
-        //Check user validay
-        
-        //Some automatic stuff
-        if (SecurityService.isAuthenticationEnable() && SecurityService.getInstance().getRegisteredUser(request) != null ) {
-            _ideeCreate.setLuteceUserName(SecurityService.getInstance().getRegisteredUser(request).getName());
-            //_ideeCreate.setLuteceUserEmail(SecurityService.getInstance().getRegisteredUser(request).getEmail());
-            //_ideeCreate.setLuteceUserFirstName(SecurityService.getInstance().getRegisteredUser(request).getUserInfos().get("user.name.family"));
-            //_ideeCreate.setLuteceUserLastName(SecurityService.getInstance().getRegisteredUser(request).getUserInfos().get("user.name.given"));
-        }
-        else
-        {
-        	_ideeCreate.setLuteceUserName("guid");
-        }
-
-        String strAction = MVCUtils.getAction( request );
-        String strView = MVCUtils.getView( request );
-
-        //The confirmed step is special, you can view it if you
-        //have already completed the form at least once
-        if (STEP_CONFIRMED.equals(strView)) {
-            if (_ideeDisplay == null) {
-                return redirectView(request, _strNextStep);
-            }
-        // View and actions from the steps
-        } else if (!ACTION_ABANDON.equals(strAction)) {
-            if (!((strView == null || allValidBeforeEtape(strView)) &&
-                (strAction == null || allValidBeforeEtape(strAction)))) {
-                return redirectView(request, _strNextStep);
-            }
-        }
-
-        return super.getPage(request, nMode, plugin);
     }
-
+    
     private boolean allValidBeforeEtape(String strEtape) {
         return STEPS.getByName(strEtape) != null && STEPS.getByName(strEtape).ordinal() <= STEPS.getByName(_strNextStep).ordinal();
     }
@@ -1135,6 +1183,7 @@ public class IdeationApp extends MVCApplication
             }
         }
     }
+    
     private void convertFormEtapeTitle(FormEtapeTitle formEtapeTitle, Idee idee) {
         idee.setTitre(formEtapeTitle.getTitre().trim());
         idee.setDejadepose(formEtapeTitle.getDejadepose().trim());
@@ -1159,29 +1208,30 @@ public class IdeationApp extends MVCApplication
         idee.setDocs(convertAllFileItemsToFiles(formEtapeUpload.getDocs(request)));
     }
     
-
-
     private void reInitFormSession() {
         reInitFormSession( null );
     }
 
-    private void reInitFormSession(HttpServletRequest request)
-    {
-          _formEtapeLocation=new FormEtapeLocation();
-          _formEtapeTitle=new FormEtapeTitle();
-          _formEtapeApprox=new FormEtapeApprox();
-          _formEtapeDescription=new FormEtapeDescription();
-          if (_formEtapeUpload != null && request != null) {
-              _formEtapeUpload.reInitFormSession( request );
-          }
-           _formEtapeUpload=new FormEtapeUpload();
-           _formEtapeRecap=new FormEtapeRecap();
-           _ideeDisplay=_ideeCreate;
-           _ideeCreate=new Idee();
-           _strNextStep = STEP_LOCATION;
+	private void reInitFormSession( HttpServletRequest request ) 
+	{
+		_formEtapeLocation    = new FormEtapeLocation();
+		_formEtapeTitle       = new FormEtapeTitle();
+		_formEtapeApprox      = new FormEtapeApprox();
+		_formEtapeDescription = new FormEtapeDescription();
+		
+		if ( _formEtapeUpload != null && request != null ) 
+		{
+			_formEtapeUpload.reInitFormSession( request );
+		}
+		
+		_formEtapeUpload = new FormEtapeUpload();
+		_formEtapeRecap  = new FormEtapeRecap();
+		
+		_ideeDisplay = _ideeCreate;
+		_ideeCreate  = new Idee();
 
-           _ideeCreate.setCodeCampagne(CampagneHome.getLastCampagne().getCode()); //This should go in it's own view when we add the feature
-    }
+		_strNextStep = STEP_LOCATION;
+	}
 
     private List<File> convertAllFileItemsToFiles(
             List<FileItem> listFileItems) {

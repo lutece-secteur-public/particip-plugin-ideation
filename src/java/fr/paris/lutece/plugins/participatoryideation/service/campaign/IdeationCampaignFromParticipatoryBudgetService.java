@@ -37,7 +37,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import fr.paris.lutece.plugins.participatoryideation.service.processor.IdeationClientProcessor;
-import fr.paris.lutece.portal.service.spring.SpringContextService;
 import fr.paris.lutece.portal.service.util.AppLogService;
 import fr.paris.lutece.portal.service.util.AppPropertiesService;
 import fr.paris.lutece.util.ReferenceList;
@@ -48,368 +47,239 @@ import fr.paris.lutece.util.ReferenceList;
 public class IdeationCampaignFromParticipatoryBudgetService implements IIdeationCampaignService 
 {
 
-	/**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean isBeforeBeginning( String phase ) {
-    	try {
-        	JSONObject json =  new JSONObject(IdeationClientProcessor.getProcess(
-    			      AppPropertiesService.getProperty("participatoryideation.campaign.rest.webapp.url")
-    	  			    + AppPropertiesService.getProperty("participatoryideation.campaign.rest.demand.base_url")
-    	  			    + phase + "/before-beginning"));
-        	return json.getBoolean("result"); }
-    	catch (Exception e) {
-        	AppLogService.error( e.getMessage() , e );
-			return false;
-		}    
-    }
-    
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean isBeforeBeginning( String codeCampaign, String phase ) {
-    	try {
-        	JSONObject json =  new JSONObject(IdeationClientProcessor.getProcess(
-    			      AppPropertiesService.getProperty("participatoryideation.campaign.rest.webapp.url")
-    	  			    + AppPropertiesService.getProperty("participatoryideation.campaign.rest.demand.base_url")
-    	  			    + codeCampaign + "/" + phase + "/before-beginning"));
-        	return json.getBoolean("result"); }
-    	catch (Exception e) {
-        	AppLogService.error( e.getMessage() , e );
-			return false;
-		}    
-    }
-    
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean isAfterBeginning( String phase ) {
-    	try {
-        	JSONObject json =  new JSONObject(IdeationClientProcessor.getProcess(
-    			      AppPropertiesService.getProperty("participatoryideation.campaign.rest.webapp.url")
-    	  			    + AppPropertiesService.getProperty("participatoryideation.campaign.rest.demand.base_url")
-    	  			    + phase + "/after-beginning"));
-        	return json.getBoolean("result"); }
-    	catch (Exception e) {
-        	AppLogService.error( e.getMessage() , e );
-			return false;
-		}    
-    }
+	private final static String REST_URL =  
+		  AppPropertiesService.getProperty("participatoryideation.campaign.rest.webapp.url")
+		+ AppPropertiesService.getProperty("participatoryideation.campaign.rest.demand.base_url");
+	
+	// *********************************************************************************************
+	// * AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA *
+	// * AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA *
+	// *********************************************************************************************
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean isAfterBeginning( String codeCampaign, String phase ) {
-    	try {
-        	JSONObject json =  new JSONObject(IdeationClientProcessor.getProcess(
-    			      AppPropertiesService.getProperty("participatoryideation.campaign.rest.webapp.url")
-    	  			    + AppPropertiesService.getProperty("participatoryideation.campaign.rest.demand.base_url")
-    	  			    + codeCampaign + "/" + phase + "/after-beginning"));
-        	return json.getBoolean("result"); }
-    	catch (Exception e) {
-        	AppLogService.error( e.getMessage() , e );
-			return false;
-		}    
-    }
-    
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean isDuring( String phase ) {
-    	try {
-        	JSONObject json =  new JSONObject(IdeationClientProcessor.getProcess(
-    			      AppPropertiesService.getProperty("participatoryideation.campaign.rest.webapp.url")
-    	  			    + AppPropertiesService.getProperty("participatoryideation.campaign.rest.demand.base_url")
-    	  			    + phase + "/during"));
-        	return json.getBoolean("result"); }
-    	catch (Exception e) {
-        	AppLogService.error( e.getMessage() , e );
-			return false;
-		}    
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean isDuring( String codeCampaign, String phase ) {
-    	try {
-        	JSONObject json =  new JSONObject(IdeationClientProcessor.getProcess(
-    			      AppPropertiesService.getProperty("participatoryideation.campaign.rest.webapp.url")
-    	  			    + AppPropertiesService.getProperty("participatoryideation.campaign.rest.demand.base_url")
-    	  			    + codeCampaign + "/" + phase + "/during"));
-        	return json.getBoolean("result"); }
-    	catch (Exception e) {
-        	AppLogService.error( e.getMessage() , e );
-			return false;
-		}    
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean isBeforeEnd( String phase ) {
-    	try {
-        	JSONObject json =  new JSONObject(IdeationClientProcessor.getProcess(
-    			      AppPropertiesService.getProperty("participatoryideation.campaign.rest.webapp.url")
-    	  			    + AppPropertiesService.getProperty("participatoryideation.campaign.rest.demand.base_url")
-    	  			    + phase + "/before-end"));
-        	return json.getBoolean("result"); }
-    	catch (Exception e) {
-        	AppLogService.error( e.getMessage() , e );
-			return false;
-		}    
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean isBeforeEnd( String codeCampaign, String phase ) {
-    	try {
-        	JSONObject json =  new JSONObject(IdeationClientProcessor.getProcess(
-    			      AppPropertiesService.getProperty("participatoryideation.campaign.rest.webapp.url")
-    	  			    + AppPropertiesService.getProperty("participatoryideation.campaign.rest.demand.base_url")
-    	  			    + codeCampaign + "/" + phase + "/before-end"));
-        	return json.getBoolean("result"); }
-    	catch (Exception e) {
-        	AppLogService.error( e.getMessage() , e );
-			return false;
-		}    
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean isAfterEnd( String phase ) {
-    	try {
-        	JSONObject json =  new JSONObject(IdeationClientProcessor.getProcess(
-    			      AppPropertiesService.getProperty("participatoryideation.campaign.rest.webapp.url")
-    	  			    + AppPropertiesService.getProperty("participatoryideation.campaign.rest.demand.base_url")
-    	  			    + phase + "/after-end"));
-        	return json.getBoolean("result"); }
-    	catch (Exception e) {
-        	AppLogService.error( e.getMessage() , e );
-			return false;
-		}    
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean isAfterEnd( String codeCampaign, String phase ) {
-    	try {
-        	JSONObject json =  new JSONObject(IdeationClientProcessor.getProcess(
-    			      AppPropertiesService.getProperty("participatoryideation.campaign.rest.webapp.url")
-    	  			    + AppPropertiesService.getProperty("participatoryideation.campaign.rest.demand.base_url")
-    	  			    + codeCampaign + "/" + phase + "/after-end"));
-        	return json.getBoolean("result"); }
-    	catch (Exception e) {
-        	AppLogService.error( e.getMessage() , e );
-			return false;
-		}    
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public int getCampaignNumberLocalizedAreas(String codeCampaign) {
-    	try {
-        	JSONObject areasJson =  new JSONObject(IdeationClientProcessor.getProcess(
-    			      AppPropertiesService.getProperty("participatoryideation.campaign.rest.webapp.url")
-    	  			    + AppPropertiesService.getProperty("participatoryideation.campaign.rest.demand.base_url")
-    	  			    + codeCampaign + "/localized-areas"));
-        	if (areasJson.getString("status").equals("OK")) {
-            	JSONArray jsonArray = areasJson.getJSONArray("result");
-            	return jsonArray.length();
-        	}
-        	return 0;
-
-        } catch (Exception e) {
-        	AppLogService.error( e.getMessage() , e );
-        	return 0;
-		}
+		return countValueList( codeCampaign + "/localized-areas" );
     }
     
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public int getCampaignNumberLocalizedAreas() {
-    	try {
-        	JSONObject areasJson =  new JSONObject(IdeationClientProcessor.getProcess(
-    			      AppPropertiesService.getProperty("participatoryideation.campaign.rest.webapp.url")
-    	  			    + AppPropertiesService.getProperty("participatoryideation.campaign.rest.demand.base_url")
-    	  			    + "localized-areas"));
-        	if (areasJson.getString("status").equals("OK")) {
-            	JSONArray jsonArray = areasJson.getJSONArray("result");
-            	return jsonArray.length();
-        	}
-        	return 0;
-
-        } catch (Exception e) {
-        	AppLogService.error( e.getMessage() , e );
-        	return 0;
-		}
+		return countValueList( "localized-areas" );
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public ReferenceList getCampaignAllAreas(String codeCampaign) {
-        ReferenceList listAreas = new ReferenceList();
-    	try {
-        	JSONObject areasJson =  new JSONObject(IdeationClientProcessor.getProcess(
-    			      AppPropertiesService.getProperty("participatoryideation.campaign.rest.webapp.url")
-    	  			    + AppPropertiesService.getProperty("participatoryideation.campaign.rest.demand.base_url")
-    	  			    + codeCampaign + "/all-areas"));
-        	if (areasJson.getString("status").equals("OK")) {
-            	JSONArray jsonArray = areasJson.getJSONArray("result");
-
-            	if (jsonArray != null) { 
-            	   int len = jsonArray.length();
-            	   for ( int i = 0; i < len; i++ ) { 
-						listAreas.addItem(jsonArray.get(i).toString(), jsonArray.get(i).toString());
-            	   }
-            	}
-        	}
-        	
-        	return listAreas;
-        } catch (Exception e) {
-        	AppLogService.error( e.getMessage() , e );
-			return listAreas;
-		}
+		return parseValueList( codeCampaign + "/all-areas" );
     }
     
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public ReferenceList getCampaignAllAreas() {
-        ReferenceList listAreas = new ReferenceList();
-    	try {
-        	JSONObject areasJson =  new JSONObject(IdeationClientProcessor.getProcess(
-    			      AppPropertiesService.getProperty("participatoryideation.campaign.rest.webapp.url")
-    	  			    + AppPropertiesService.getProperty("participatoryideation.campaign.rest.demand.base_url")
-    	  			    + "all-areas"));
-        	if (areasJson.getString("status").equals("OK")) {
-            	JSONArray jsonArray = areasJson.getJSONArray("result");
-
-            	if (jsonArray != null) { 
-            	   int len = jsonArray.length();
-            	   for ( int i = 0; i < len; i++ ) { 
-						listAreas.addItem(jsonArray.get(i).toString(), jsonArray.get(i).toString());
-            	   }
-            	}
-        	}
-        	
-        	return listAreas;
-        } catch (Exception e) {
-        	AppLogService.error( e.getMessage() , e );
-			return listAreas;
-		}
+		return parseValueList( "all-areas" );
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public ReferenceList getCampaignLocalizedAreas(String codeCampaign) {
-        ReferenceList listAreas = new ReferenceList();
-    	try {
-        	JSONObject areasJson =  new JSONObject(IdeationClientProcessor.getProcess(
-    			      AppPropertiesService.getProperty("participatoryideation.campaign.rest.webapp.url")
-    	  			    + AppPropertiesService.getProperty("participatoryideation.campaign.rest.demand.base_url")
-    	  			    + codeCampaign + "/localized-areas"));
-        	if (areasJson.getString("status").equals("OK")) {
-            	JSONArray jsonArray = areasJson.getJSONArray("result");
-
-            	if (jsonArray != null) { 
-            	   int len = jsonArray.length();
-            	   for ( int i = 0; i < len; i++ ) { 
-						listAreas.addItem(jsonArray.get(i).toString(), jsonArray.get(i).toString());
-            	   }
-            	}
-        	}
-        	
-        	return listAreas;
-        } catch (Exception e) {
-        	AppLogService.error( e.getMessage() , e );
-			return listAreas;
-		}
+		return parseValueList( codeCampaign + "/localized-areas" );
     }
     
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public ReferenceList getCampaignLocalizedAreas() {
+		return parseValueList( "localized-areas" );
+    }
+
+    @Override
+    public String getCampaignWholeArea(String codeCampaign) {
+    	return parseString( codeCampaign + "/whole-area" );
+    }
+    
+    @Override
+    public String getCampaignWholeArea() {
+    	return parseString( "whole-area" );
+    }
+
+    // *********************************************************************************************
+	// * PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASE *
+	// * PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASE *
+	// *********************************************************************************************
+
+    @Override
+    public boolean isBeforeBeginning( String phase ) {
+    	return parseBoolean( phase + "/before-beginning" );
+    }
+    
+    @Override
+    public boolean isBeforeBeginning( String codeCampaign, String phase ) {
+    	return parseBoolean( codeCampaign + "/" + phase + "/before-beginning" );
+    }
+    
+    @Override
+    public boolean isAfterBeginning( String phase ) {
+    	return parseBoolean( phase + "/after-beginning" );
+    }
+
+    @Override
+    public boolean isAfterBeginning( String codeCampaign, String phase ) {
+    	return parseBoolean( codeCampaign + "/" + phase + "/after-beginning" );
+    }
+    
+    @Override
+    public boolean isDuring( String phase ) {
+    	return parseBoolean( phase + "/during" );
+    }
+
+    @Override
+    public boolean isDuring( String codeCampaign, String phase ) {
+    	return parseBoolean( codeCampaign + "/" + phase + "/during" );
+    }
+
+    @Override
+    public boolean isBeforeEnd( String phase ) {
+    	return parseBoolean( phase + "/before-end" );
+    }
+
+    @Override
+    public boolean isBeforeEnd( String codeCampaign, String phase ) {
+    	return parseBoolean( codeCampaign + "/" + phase + "/before-end" );
+    }
+
+    @Override
+    public boolean isAfterEnd( String phase ) {
+    	return parseBoolean( phase + "/after-end" );
+    }
+
+    @Override
+    public boolean isAfterEnd( String codeCampaign, String phase ) {
+    	return parseBoolean( codeCampaign + "/" + phase + "/after-end" );
+    }
+
+	// *********************************************************************************************
+	// * THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEME *
+	// * THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEME *
+	// *********************************************************************************************
+
+    @Override
+	public ReferenceList getCampaignThemes(String codeCampaign) {
+		return parseReferenceList( codeCampaign + "/themes" );
+	}
+
+	@Override
+	public ReferenceList getCampaignThemes() {
+		return parseReferenceList( "themes" );
+	}
+
+	// *********************************************************************************************
+	// * UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS *
+	// * UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS *
+	// *********************************************************************************************
+
+	/**
+	 * Parse a String typed REST response.
+	 */
+	private String parseString( String restRequest ) {
+    	try {
+        	JSONObject json =  new JSONObject(IdeationClientProcessor.getProcess( REST_URL + restRequest ) );
+        	return json.getString("result"); 
+        }
+    	catch ( Exception e ) 
+    	{
+        	AppLogService.error( e.getMessage() , e );
+			return "";
+		}    
+	}
+	
+	/**
+	 * Parse a boolean typed REST response.
+	 */
+	private boolean parseBoolean( String restRequest ) {
+    	try {
+        	JSONObject json =  new JSONObject(IdeationClientProcessor.getProcess( REST_URL + restRequest ) );
+        	return json.getBoolean("result"); 
+        }
+    	catch ( Exception e ) 
+    	{
+        	AppLogService.error( e.getMessage() , e );
+			return false;
+		}    
+	}
+	
+	/**
+	 * Parse a ReferenceList typed REST response.
+	 */
+	private ReferenceList parseReferenceList( String restRequest ) {
         ReferenceList listAreas = new ReferenceList();
     	try {
-        	JSONObject areasJson =  new JSONObject(IdeationClientProcessor.getProcess(
-    			      AppPropertiesService.getProperty("participatoryideation.campaign.rest.webapp.url")
-    	  			    + AppPropertiesService.getProperty("participatoryideation.campaign.rest.demand.base_url")
-    	  			    + "localized-areas"));
-        	if (areasJson.getString("status").equals("OK")) {
-            	JSONArray jsonArray = areasJson.getJSONArray("result");
+        	JSONObject jsonResult =  new JSONObject( IdeationClientProcessor.getProcess( REST_URL + restRequest ) );
+        	if ( jsonResult.getString( "status" ).equals( "OK" ) ) 
+        	{
+            	JSONArray jsonArray = jsonResult.getJSONArray( "result" );
 
-            	if (jsonArray != null) { 
+            	if ( jsonArray != null ) 
+            	{ 
             	   int len = jsonArray.length();
-            	   for ( int i = 0; i < len; i++ ) { 
-						listAreas.addItem(jsonArray.get(i).toString(), jsonArray.get(i).toString());
+            	   for ( int i = 0; i < len; i++ ) 
+            	   {
+            		   JSONObject item = jsonArray.getJSONObject( i );
+            		   listAreas.addItem( item.getString( "code" ) , item.getString( "name" ) );
             	   }
             	}
         	}
         	
         	return listAreas;
-        } catch (Exception e) {
+        } 
+    	catch ( Exception e ) 
+    	{
         	AppLogService.error( e.getMessage() , e );
 			return listAreas;
 		}
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String getCampaignWholeArea(String codeCampaign) {
+	}
+	
+	/**
+	 * Parse a list of value REST response.
+	 */
+	private ReferenceList parseValueList( String restRequest ) {
+        ReferenceList listAreas = new ReferenceList();
     	try {
-        	JSONObject wholeJson =  new JSONObject(IdeationClientProcessor.getProcess(
-    			      AppPropertiesService.getProperty("participatoryideation.campaign.rest.webapp.url")
-    	  			    + AppPropertiesService.getProperty("participatoryideation.campaign.rest.demand.base_url")
-    	  			  + codeCampaign + "/whole-area"));
-        	return wholeJson.getString("result");
-        } catch (Exception e) {
-        	AppLogService.error( e.getMessage() , e );
-			return "";
-		}
-    }
-    
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String getCampaignWholeArea() {
-    	try {
-        	JSONObject wholeJson =  new JSONObject(IdeationClientProcessor.getProcess(
-    			      AppPropertiesService.getProperty("participatoryideation.campaign.rest.webapp.url")
-    	  			    + AppPropertiesService.getProperty("participatoryideation.campaign.rest.demand.base_url")
-    	  			    + "whole-area"));
-        	return wholeJson.getString("result");
-        } catch (Exception e) {
-        	AppLogService.error( e.getMessage() , e );
-			return "";
-		}
-    }
+        	JSONObject jsonResult =  new JSONObject( IdeationClientProcessor.getProcess( REST_URL + restRequest ) );
+        	if ( jsonResult.getString( "status" ).equals( "OK" ) ) 
+        	{
+            	JSONArray jsonArray = jsonResult.getJSONArray( "result" );
 
+            	if ( jsonArray != null ) 
+            	{ 
+            	   int len = jsonArray.length();
+            	   for ( int i = 0; i < len; i++ ) { 
+						listAreas.addItem( jsonArray.get( i ).toString(), jsonArray.get( i ).toString() );
+            	   }
+            	}
+        	}
+        	
+        	return listAreas;
+        } 
+    	catch ( Exception e ) 
+    	{
+        	AppLogService.error( e.getMessage() , e );
+			return listAreas;
+		}
+	}
+	
+	/**
+	 * Count number of key/value in such typed REST response.
+	 */
+	private int countValueList( String restRequest ) {
+    	try {
+        	JSONObject areasJson =  new JSONObject( IdeationClientProcessor.getProcess( REST_URL + restRequest ) );
+        	if ( areasJson.getString("status").equals("OK") ) 
+        	{
+            	JSONArray jsonArray = areasJson.getJSONArray( "result" );
+            	return jsonArray.length();
+        	}
+        	
+        	return 0;
+        } 
+    	catch ( Exception e )
+    	{
+        	AppLogService.error( e.getMessage() , e );
+        	return 0;
+		}
+	}
+	
 }

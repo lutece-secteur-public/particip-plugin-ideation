@@ -33,7 +33,6 @@
  */
 package fr.paris.lutece.plugins.participatoryideation.service;
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
@@ -63,8 +62,6 @@ import fr.paris.lutece.util.ReferenceList;
 
 public class IdeeService implements IIdeeService {
 	
-	private static final String PROPERTY_ARRONDISSEMENT = "participatoryideation.arrondissement.";
-    private static final String PROPERTY_ARRONDISSEMENT_EMPTY = "participatoryideation.arrondissementEmpty";
     private static final String PROPERTY_LABEL_NQPV = "participatoryideation.qpvqva.nqpv.label";
     private static final String PROPERTY_LABEL_QVA = "participatoryideation.qpvqva.qva.label";
     private static final String PROPERTY_LABEL_GPRU = "participatoryideation.qpvqva.gpru.label";
@@ -78,15 +75,13 @@ public class IdeeService implements IIdeeService {
     private static final String PROPERTY_HANDICAP_LABEL_YES = "participatoryideation.handicap.yes.label";
     private static final String PROPERTY_HANDICAP_LABEL_NO  = "participatoryideation.handicap.no.label";
   
-	private static volatile ReferenceList _listArrondissements;
-	private static volatile Map<String, String> _mapArrondissements;
-	private static volatile Map<String,  Double[]> _hashArrondissementsLatLons;
-	private static volatile Map<Integer, String> _hashArrondissementsCode;
-	private static volatile ReferenceList _listQpvQvaCodes;
+	private static volatile ReferenceList       _listQpvQvaCodes;
 	private static volatile Map<String, String> _mapQpvQvaCodes;
+
 	private static volatile ReferenceList       _listHandicapCodes;
-	private static volatile Map<String, String>  _mapHandicapCodes;
-	private static volatile ReferenceList _listTypeLocalisation;
+	private static volatile Map<String, String> _mapHandicapCodes;
+	
+	private static volatile ReferenceList       _listTypeLocalisation;
 	private static volatile Map<String, String> _mapTypeLocalisation;
 	
 	
@@ -95,30 +90,7 @@ public class IdeeService implements IIdeeService {
 	private static final String BEAN_IDEE_SERVICE="participatoryideation.ideeService";
 	private static final String BEAN_TRANSACTION_MANAGER="participatoryideation.ideeServiceTransactionManager";
 	private static final String BEAN_SOLR_IDEE_INDEXER="participatoryideation.solrIdeeIndexer";
-	private static final Double[] _parisLatLon = { 48.859085, 2.347403 };
-	private static final Double[][] _arrondissementLatLons = {
-        { 48.862422, 2.337595 },
-        { 48.868222, 2.343667 },
-        { 48.863219, 2.360162 },
-        { 48.854448, 2.357675 },
-        { 48.844653, 2.351109 },
-        { 48.849865, 2.334951 },
-        { 48.856129, 2.312587 },
-        { 48.873376, 2.312882 },
-        { 48.877544, 2.338310 },
-        { 48.876526, 2.361216 },
-        { 48.859391, 2.380633 },
-        { 48.841399, 2.390914 },
-        { 48.829421, 2.366010 },
-        { 48.831096, 2.329405 },
-        { 48.843012, 2.294905 },
-        { 48.860419, 2.279201 },
-        { 48.887349, 2.308634 },
-        { 48.891820, 2.348945 },
-        { 48.886983, 2.386271 },
-        { 48.863604, 2.401843 },
-    };
-	
+
     @Inject
     private IResourceExtenderHistoryService _resourceExtenderHistoryService;
 
@@ -128,21 +100,6 @@ public class IdeeService implements IIdeeService {
         {
             _singleton = SpringContextService.getBean( BEAN_IDEE_SERVICE );
             _solrIdeeIndexer= SpringContextService.getBean( BEAN_SOLR_IDEE_INDEXER );
-            _hashArrondissementsLatLons=new HashMap<String, Double[]>();
-            _hashArrondissementsCode=new HashMap<>();
-            _listArrondissements = new ReferenceList(  );
-            _listArrondissements.addItem( "",
-                I18nService.getLocalizedString( PROPERTY_ARRONDISSEMENT_EMPTY, Locale.FRENCH ) );
-
-            for ( int i = 0; i < 20; i++ )
-            {
-                String strCode = "" + ( 75001 + i );
-                _listArrondissements.addItem( strCode,
-                    I18nService.getLocalizedString( PROPERTY_ARRONDISSEMENT + strCode, Locale.FRENCH ) );
-                _hashArrondissementsLatLons.put(strCode, _arrondissementLatLons[i]);
-                _hashArrondissementsCode.put(i+1, strCode);
-            }
-            _mapArrondissements = _listArrondissements.toMap();
                     
             _listQpvQvaCodes = new ReferenceList();
             _listQpvQvaCodes.addItem(IdeationApp.QPV_QVA_NO , I18nService.getLocalizedString( PROPERTY_LABEL_NON, Locale.FRENCH ));
@@ -226,51 +183,6 @@ public class IdeeService implements IIdeeService {
     	return idee.getStatusPublic()!= null && idee.getStatusPublic().isPublished();
     }
 	
-	
-	 /**
-     * Provides the list of arrondissements
-     * @return The list
-     */
-    public  ReferenceList getArrondissements(  )
-    {
-       
-
-        return _listArrondissements;
-    }
-    
-    
-    /**
-     * Provides the list of arrondissements
-     * @return The list
-     */
-    public  String getArrondissementCode(Integer nNumero )
-    {
-       
-
-        return _hashArrondissementsCode.get(nNumero);
-    }
-    
-    
-    
-    
-    public Double[] getArrondissementLatLong(String strCode)
-    {
-    	return _hashArrondissementsLatLons.get(strCode);
-    }
-    
-    public Double[] getParisLatLong()
-    {
-    	return _parisLatLon;
-    }
-    
-    /**
-     * @return the mapArrondissements
-     */
-    public Map<String, String> getArrondissementsMap() {
-        return _mapArrondissements;
-    }
-    
-    
     /**
      * @return the QpvQvaCodes
      */

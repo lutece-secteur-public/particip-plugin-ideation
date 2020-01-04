@@ -103,7 +103,7 @@ ${encoded_facets_queries}
 				<div class="row">
 				
 					<div class="col-md-12">
-						<#-- recherche par mot clé -->
+						<#-- Full-text search -->
 						<div class="form-group">
 							<label class="sr-only" for="query">#i18n{participatoryideation.search.form.field.keyword.label}</label>
 							<div class="input-group">
@@ -125,8 +125,26 @@ ${encoded_facets_queries}
 				<div id="searchParameters" class="collapse dont-collapse-sm">
 			
 					<div class="row">
+
 						<div class="col-md-3 col-xs-12">
-							<#-- Search by location -->
+							<#-- Campaign-based search -->
+							<label class="select" for="campagne">
+								<select name="fq" id="campagne" onChange="searchArrond()" class="form-control <#if facet_campagne != "">selected</#if>">
+									<#if facet_campagne="">
+										<option value="" selected="selected">#i18n{participatoryideation.search.form.field.campaign.label}</option>
+									<#else>
+										<option value="" >#i18n{participatoryideation.search.form.field.campaign.all}</option>
+									</#if>
+									<#list list_campagne?sort_by("title") as campagne>
+										<option value="campagne_text:${campagne.code}" <#if facet_campagne=campagne.code>selected="selected"</#if> >${campagne.title}</option>
+									</#list>
+								</select>
+							</label>
+						</div>
+						
+
+						<div class="col-md-3 col-xs-12">
+							<#-- Location-based search -->
 							<label class="select" for="arrondissement">
 								<select name="fq" id="arrondissement" onChange="searchArrond()" class="form-control <#if arr != "">selected</#if>">
 									
@@ -159,7 +177,7 @@ ${encoded_facets_queries}
 						</div>
 	
 						<div class="col-md-3 col-xs-12">
-							<#-- Recherche par thème -->
+							<#-- Theme-based search -->
 							<label class="select" for="theme">
 								<select name="fq" id="theme" onChange="searchArrond()" class="form-control <#if facet_theme != "">selected</#if>">
 									<#if facet_theme="">
@@ -167,31 +185,18 @@ ${encoded_facets_queries}
 									<#else>
 										<option value="">#i18n{participatoryideation.search.form.field.theme.label}</option>
 									</#if>
-									<#list campagne_static.themes_list?sort_by("title")  as theme>
+									
+									<option value="" >FIXME : Themes must be recovered from SOLR facets</option>
+									<#-- list campagne_static.themes_list?sort_by("title")  as theme>
 										<option value="code_theme_string:${theme.code}" <#if facet_theme=theme.code>selected="selected"</#if> >${theme.title}</option>
-									</#list>
+									</#list -->
+									
 								</select>
 							</label>
 						</div>
 						
 						<div class="col-md-3 col-xs-12">
-							<#-- Recherche par campagne -->
-							<label class="select" for="campagne">
-								<select name="fq" id="campagne" onChange="searchArrond()" class="form-control <#if facet_campagne != "">selected</#if>">
-									<#if facet_campagne="">
-										<option value="" selected="selected">#i18n{participatoryideation.search.form.field.campaign.label}</option>
-									<#else>
-										<option value="" >#i18n{participatoryideation.search.form.field.campaign.all}</option>
-									</#if>
-									<#list list_campagne?sort_by("title") as campagne>
-										<option value="campagne_text:${campagne.code}" <#if facet_campagne=campagne.code>selected="selected"</#if> >${campagne.title}</option>
-									</#list>
-								</select>
-							</label>
-						</div>
-						
-						<div class="col-md-3 col-xs-12">
-							<#-- Recherche par type de dépositaire -->
+							<#-- SubmitterType-based search -->
 							<label class="select" for="depositaire_type">
 								<select name="fq" id="depositaire_type" onChange="searchArrond()" class="form-control">
 									<option value="" <#if facet_depositaire_type="">selected="selected"</#if> >#i18n{participatoryideation.search.form.field.submitter_type.label}</option>
@@ -207,7 +212,7 @@ ${encoded_facets_queries}
 					<div class="row">
 	
 						<div class="col-md-3 col-xs-12">
-							<#-- Recherche par statut -->
+							<#-- Status-based search -->
 							<label class="select" for="status">
 								<select name="fq" id="status" onChange="searchArrond()" class="form-control">
 									<option value=""  <#if facet_status="">selected="selected"</#if> >#i18n{participatoryideation.search.form.field.status.label}</option>
@@ -221,7 +226,7 @@ ${encoded_facets_queries}
 						</div>
 						
 						<div class="col-md-3 col-xs-12">
-							<#-- Filtre Q-Pop -->
+							<#-- QPop-based search -->
 							<div class="checkbox form-control">
 								<label for="qpop">
 									<input type="checkbox" name="fq" id="qpop" value="-type_qpvqva_string:NON" <#if facet_qpop!="">checked</#if> onChange="searchArrond()"/>
@@ -231,7 +236,7 @@ ${encoded_facets_queries}
 						</div>
 						
 						<div class="col-md-3 col-xs-12">
-							<#-- Filtre handicap -->
+							<#-- Handicap-based search -->
 							<div class="checkbox form-control">
 		       					<label for="handicap">
 		       						<input type="checkbox" name="fq" id="handicap" value="handicap_string:yes" <#if facet_handicap!="">checked</#if> onChange="searchArrond()"/>

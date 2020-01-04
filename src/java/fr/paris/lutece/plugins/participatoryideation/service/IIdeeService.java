@@ -53,15 +53,15 @@ public interface IIdeeService {
 
 	void removeIdeeByMdp(Idee idee);
 
-	ReferenceList getArrondissements();
-
-	Map<String, String> getArrondissementsMap();
-
-	Double[] getArrondissementLatLong(String strCode);
-
-	Double[] getParisLatLong();
-
-	String getArrondissementCode(Integer nNumero);
+//	ReferenceList getArrondissements();
+//
+//	Map<String, String> getArrondissementsMap();
+//
+//	Double[] getArrondissementLatLong(String strCode);
+//
+//	Double[] getParisLatLong();
+//
+//	String getArrondissementCode(Integer nNumero);
 
 	ReferenceList getQpvQvaCodesList();
 

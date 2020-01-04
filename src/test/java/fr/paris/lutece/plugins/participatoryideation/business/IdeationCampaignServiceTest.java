@@ -79,5 +79,9 @@ public class IdeationCampaignServiceTest extends LuteceTestCase
 
     	assertEquals( true, instance.isDuring(        Constants.IDEATION ) );
     	assertEquals( true, instance.isDuring( "123", Constants.IDEATION ) );
+
+    	// Methods about themes
+    	assertEquals( 3,  instance.getCampaignThemes(       ).size() );
+    	assertEquals( 3,  instance.getCampaignThemes( "123" ).size() );
     }    
 }

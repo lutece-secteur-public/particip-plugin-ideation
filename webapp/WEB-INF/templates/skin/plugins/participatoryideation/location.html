@@ -7,19 +7,21 @@
 	<#-- * THEME THEME THEME THEME THEME THEME THEME THEME THEME THEME THEME THEME THEME T * -->
 	<#-- * THEME THEME THEME THEME THEME THEME THEME THEME THEME THEME THEME THEME THEME T * -->
 	<#-- *********************************************************************************** -->
+	
 	<div class="form-group">
 		<p>#i18n{participatoryideation.submit_project.steps.location.code_theme_label}</p>
 		<div class="row">
+			
 			<#assign nIndex=0>
-			<#assign nMaxIndex=campagne_static.themes_list?size - 1>
-			<#list campagne_static.themes_list?sort_by("title")?reverse as theme>
+			<#assign nMaxIndex=themes?size - 1>
+			<#list themes?sort_by("code") as theme>
 				<#if nIndex%4==0 >
 					<div class="col-xs-6 col-sm-4">
 				</#if>
 				<div class="radio">
 					<label for="code_theme_${theme.code}">
 						<input type="radio" id="code_theme_${theme.code}" name="code_theme" value="${theme.code}" <#if form_etape_location.codeTheme??&&theme.code == form_etape_location.codeTheme>checked="checked"</#if>>
-						${theme["title"]}
+						${theme["name"]}
 					</label>
 				</div>
 				<#if nIndex%4==3 || nIndex==nMaxIndex>
@@ -27,6 +29,7 @@
 				</#if>
 				<#assign nIndex=nIndex+1>
 			</#list>
+		
 		</div>
 	</div>
 
@@ -34,9 +37,13 @@
 	<#-- * DEPOSITAIRE DEPOSITAIRE DEPOSITAIRE DEPOSITAIRE DEPOSITAIRE DEPOSITAIRE DEPOSIT * -->
 	<#-- * DEPOSITAIRE DEPOSITAIRE DEPOSITAIRE DEPOSITAIRE DEPOSITAIRE DEPOSITAIRE DEPOSIT * -->
 	<#-- *********************************************************************************** -->
+	
 	<div id="depositaire_row" class="form-group">
 		<p>#i18n{participatoryideation.submit_project.steps.location.depositary_label}</p>
 		<#assign autre = 0> <#-- L'option 'Autre' sera insérée en fin de liste -->
+		
+		<div class="alert alert-warning">FIXME : Submitters must be recovered from ideation campagne</div>
+			
 		<#list campagne_static.depositaire_types_list?sort_by("id") as depositaire_type>
 			<#if depositaire_type["libelle"] = 'Autre'>
 				<#assign autre = 1>
@@ -57,63 +64,69 @@
 			</label>
 		</#if>
 
-  <#list campagne_static.depositaire_types_list as depositaire_type>
-    <div id="complement_${depositaire_type["code"]}" class="depositaire-complement">
-      <#if depositaire_type["codeComplementType"] != "NONE">
-          <label for="complement_depositaire_${depositaire_type["code"]}">${depositaire_type["libelle"]} :</label>
-        </#if>
-        <#if depositaire_type["codeComplementType"] == "LIST">
-          <select id="complement_depositaire_${depositaire_type["code"]}" name="depositaire" class="form-control">
-          <#list depositaire_type["values"] as value>
-            <option value="${value["code"]}"<#if form_etape_location.depositaireType?? && form_etape_location.depositaireType=depositaire_type["code"]&&form_etape_location.depositaire??&&value.code == form_etape_location.depositaire> selected="selected"</#if>>${value["name"]}</option>
-          </#list>
-          </select>
-        <#elseif depositaire_type["codeComplementType"] == "FREE">
-          <input type="text" class="form-control" name="depositaire" <#if form_etape_location.depositaireType?? && form_etape_location.depositaireType=depositaire_type["code"]>value="${form_etape_location["depositaire"]!''}"</#if> id="complement_depositaire_${depositaire_type["code"]}">
-        </#if>
-    </div>
-  </#list>
-  </div>
+		<#list campagne_static.depositaire_types_list as depositaire_type>
+    		<div id="complement_${depositaire_type["code"]}" class="depositaire-complement">
+      			<#if depositaire_type["codeComplementType"] != "NONE">
+          			<label for="complement_depositaire_${depositaire_type["code"]}">${depositaire_type["libelle"]} :</label>
+        		</#if>
+        		<#if depositaire_type["codeComplementType"] == "LIST">
+          			<select id="complement_depositaire_${depositaire_type["code"]}" name="depositaire" class="form-control">
+          				<#list depositaire_type["values"] as value>
+            				<option value="${value["code"]}"<#if form_etape_location.depositaireType?? && form_etape_location.depositaireType=depositaire_type["code"]&&form_etape_location.depositaire??&&value.code == form_etape_location.depositaire> selected="selected"</#if>>${value["name"]}</option>
+          				</#list>
+          			</select>
+        		<#elseif depositaire_type["codeComplementType"] == "FREE">
+          			<input type="text" class="form-control" name="depositaire" <#if form_etape_location.depositaireType?? && form_etape_location.depositaireType=depositaire_type["code"]>value="${form_etape_location["depositaire"]!''}"</#if> id="complement_depositaire_${depositaire_type["code"]}">
+        		</#if>
+    		</div>
+  		</#list>
+  	
+  	</div>
   
-  <div class="form-group">
-	<p>#i18n{participatoryideation.submit_project.steps.location.location_type_label}</p>
-    <label class="radio-inline">
-    <#if whole_area != "" >
-      <input type="radio" name="localisation_type" id="mode_radio_paris" value="whole" <#if form_etape_location.localisationType??&& form_etape_location.localisationType=='whole'>checked</#if>>
-		${whole_area}
-    </label>
-    </#if>
-    <#if number_localized_areas != 0 >
-    <label class="radio-inline">
-        <input type="radio" name="localisation_type" id="mode_radio_ardt" value="ardt" <#if form_etape_location.localisationType??&& form_etape_location.localisationType=='ardt'>checked</#if>>
-		#i18n{participatoryideation.submit_project.steps.location.location_label_area}
-    </label>
-    <div id="col_ardt">
-        <label class="sr-only"></label>
-        <@comboWithParams name="localisation_ardt" items=localized_areas default_value="${form_etape_location.localisationArdt!''}"additionalParameters=" class=\"form-control input-sm\" " />
-    </div>
-    </#if>
-  </div>
+	<#-- *********************************************************************************** -->
+	<#-- * LOCATION LOCATION LOCATION LOCATION LOCATION LOCATION LOCATION LOCATION LOCATIO * -->
+	<#-- * LOCATION LOCATION LOCATION LOCATION LOCATION LOCATION LOCATION LOCATION LOCATIO * -->
+	<#-- *********************************************************************************** -->
+	
+  	<div class="form-group">
+		<p>#i18n{participatoryideation.submit_project.steps.location.location_type_label}</p>
+	    <#if whole_area != "" >
+		    <label class="radio-inline">
+	    	  	<input type="radio" name="localisation_type" id="mode_radio_paris" value="whole" <#if form_etape_location.localisationType??&& form_etape_location.localisationType=='whole'>checked</#if>>
+				${whole_area}
+		    </label>
+	    </#if>
+	    <#if number_localized_areas != 0 >
+	    	<label class="radio-inline">
+	        	<input type="radio" name="localisation_type" id="mode_radio_ardt" value="ardt" <#if form_etape_location.localisationType??&& form_etape_location.localisationType=='ardt'>checked</#if>>
+				#i18n{participatoryideation.submit_project.steps.location.location_label_area}
+	    	</label>
+	    	<div id="col_ardt">
+		        <label class="sr-only"></label>
+	        	<@comboWithParams name="localisation_ardt" items=localized_areas default_value="${form_etape_location.localisationArdt!''}"additionalParameters=" class=\"form-control input-sm\" " />
+	    	</div>
+	    </#if>
+	</div>
 
-  <div id="col_geoloc" class="form-group">
-	<p>#i18n{participatoryideation.submit_project.steps.location.address_label}</p>
-    <div class="input-group">
-      	<input type="text" class="form-control input-sm" name="adress" id="adress" value="${form_etape_location.adress!''}">
-      <span class="input-group-btn">
-        <button class="btn btn-default btn-xs" type="button" title="effacer" id="button_delete_adress"><i class="fa fa-times"></i></button>
-      </span>
-    </div>
-    <input id="geojson" type="hidden" name="geojson" value="${(form_etape_location.geojson?html)!''}">
-    <input id="geojson_state" type="hidden">
-	<br/>
-	<div class="form-control-static" id="map">&nbsp;</div>
-  </div>
+  	<div id="col_geoloc" class="form-group">
+		<p>#i18n{participatoryideation.submit_project.steps.location.address_label}</p>
+    	<div class="input-group">
+      		<input type="text" class="form-control input-sm" name="adress" id="adress" value="${form_etape_location.adress!''}">
+      		<span class="input-group-btn">
+        		<button class="btn btn-default btn-xs" type="button" title="effacer" id="button_delete_adress"><i class="fa fa-times"></i></button>
+      		</span>
+    	</div>
+    	<input id="geojson" type="hidden" name="geojson" value="${(form_etape_location.geojson?html)!''}">
+    	<input id="geojson_state" type="hidden">
+		<br/>
+		<div class="form-control-static" id="map">&nbsp;</div>
+  	</div>
   
-  <div class="form-button text-center">
-    <button type="submit" value="Continuer" class="btn btn-14rem btn-black-on-white">#i18n{participatoryideation.submit_project.steps.location.submit} <i class="fa fa-angle-down"></i></button>
-  </div>
+  	<div class="form-button text-center">
+    	<button type="submit" value="Continuer" class="btn btn-14rem btn-black-on-white">#i18n{participatoryideation.submit_project.steps.location.submit} <i class="fa fa-angle-down"></i></button>
+  	</div>
 
-  </form>
+	</form>
 
 <script type="text/javascript" src="js/proj4js-combined.js"></script>
 <script type="text/javascript" src="jsp/site/plugins/address/modules/autocomplete/SetupSuggestPOI.js.jsp"></script>

@@ -63,8 +63,8 @@ public class IdeationCampaignService implements IIdeationCampaignService {
     }
 
 	// *********************************************************************************************
-	// * INTERFACE INTERFACE INTERFACE INTERFACE INTERFACE INTERFACE INTERFACE INTERFACE INTERFACE *
-	// * INTERFACE INTERFACE INTERFACE INTERFACE INTERFACE INTERFACE INTERFACE INTERFACE INTERFACE *
+	// * AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA *
+	// * AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA *
 	// *********************************************************************************************
 	
 	@Override
@@ -96,6 +96,25 @@ public class IdeationCampaignService implements IIdeationCampaignService {
 	public int getCampaignNumberLocalizedAreas() {
 		return 0;
 	}
+
+	@Override
+	public ReferenceList getCampaignAllAreas(String codeCampaign) {
+		ReferenceList allAreas = new ReferenceList();
+		allAreas.addItem( WHOLE_AREA, WHOLE_AREA );
+		return allAreas;
+	}
+
+	@Override
+	public ReferenceList getCampaignAllAreas() {
+		ReferenceList allAreas = new ReferenceList();
+		allAreas.addItem( WHOLE_AREA, WHOLE_AREA );
+		return allAreas;
+	}
+
+	// *********************************************************************************************
+	// * PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASE *
+	// * PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASE *
+	// *********************************************************************************************
 
 	@Override
 	public boolean isBeforeBeginning(String codeCampaign, String phase) {
@@ -147,17 +166,27 @@ public class IdeationCampaignService implements IIdeationCampaignService {
 		return false;
 	}
 
+	// *********************************************************************************************
+	// * THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEME *
+	// * THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEME *
+	// *********************************************************************************************
+
 	@Override
-	public ReferenceList getCampaignAllAreas(String codeCampaign) {
-		ReferenceList allAreas = new ReferenceList();
-		allAreas.addItem( WHOLE_AREA, WHOLE_AREA );
-		return allAreas;
+	public ReferenceList getCampaignThemes(String codeCampaign) 
+	{
+		return getCampaignThemes();
 	}
 
 	@Override
-	public ReferenceList getCampaignAllAreas() {
-		ReferenceList allAreas = new ReferenceList();
-		allAreas.addItem( WHOLE_AREA, WHOLE_AREA );
-		return allAreas;
+	public ReferenceList getCampaignThemes() 
+	{
+		ReferenceList items = new ReferenceList();
+		
+		items.addItem( "SPORT"      , "Spooort !" );
+		items.addItem( "SOCIAL"     , "Social issues" );
+		items.addItem( "GENERAL"    , "General" );
+		
+		return items;
 	}
+
 }
