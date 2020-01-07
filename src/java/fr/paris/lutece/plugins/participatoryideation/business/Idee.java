@@ -621,35 +621,30 @@ public class Idee implements Serializable, IExtendableResource {
 	@Override
 	public String getIdExtendableResource() 
 	{
-		// TODO Auto-generated method stub
 		return Integer.toString( _nId );
 	}
 
 	@Override
 	public String getExtendableResourceType() 
 	{
-		// TODO Auto-generated method stub
 		return PROPERTY_RESOURCE_TYPE;
 	}
 
 	@Override
 	public String getExtendableResourceName() 
 	{
-		// TODO Auto-generated method stub
 		return _strTitre;
 	}
 
 	@Override
 	public String getExtendableResourceDescription() 
 	{
-		// TODO Auto-generated method stub
 		return _strDescription;
 	}
 
 	@Override
 	public String getExtendableResourceImageUrl() 
 	{
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -701,9 +696,9 @@ public class Idee implements Serializable, IExtendableResource {
 	/**
 	 * @param CodeIdee the CodeIdee to set
 	 */
-	public void setCodeIdee( int CodeIdee ) 
+	public void setCodeIdee( int iCodeIdee ) 
 	{
-		this._nCodeIdee = CodeIdee;
+		this._nCodeIdee = iCodeIdee;
 	}
 
 	/**

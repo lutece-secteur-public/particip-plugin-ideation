@@ -130,6 +130,14 @@ public class Link implements Serializable
 		this._childTitle = _childTitle;
 	}
 
-    
-    
+	// *********************************************************************************************
+	// * TOSTRING TOSTRING TOSTRING TOSTRING TOSTRING TOSTRING TOSTRING TOSTRING TOSTRING TOSTRING *
+	// * TOSTRING TOSTRING TOSTRING TOSTRING TOSTRING TOSTRING TOSTRING TOSTRING TOSTRING TOSTRING *
+	// *********************************************************************************************
+
+	@Override
+	public String toString() {
+		return "{" + getId() + ", parent=" + getParentCodeIdee() + ", child=" + getChildCodeIdee() + "}";
+	}
+
 }

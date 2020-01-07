@@ -41,7 +41,7 @@ import fr.paris.lutece.test.LuteceTestCase;
 /**
  * DepositaireTypeTest
  */
-public class CampagneDepositaireTest extends LuteceTestCase
+public class CampagneDepositaireHomeTest extends LuteceTestCase
 {
 	private final static String CODE_CAMPAIGN         = "XYZ";
 	private final static String CODE_DEPOSITAIRE_TYPE = "ABCD1234";

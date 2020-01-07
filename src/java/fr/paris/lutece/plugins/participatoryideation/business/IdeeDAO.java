@@ -193,7 +193,7 @@ public final class IdeeDAO implements IIdeeDAO
 	        daoUtil.setString   ( nCpt++, idee.getTypeQpvQva() );
 	        daoUtil.setString   ( nCpt++, idee.getIdQpvQva() );
 	        daoUtil.setString   ( nCpt++, idee.getLibelleQpvQva() );
-	        daoUtil.setString   ( nCpt++, idee.getStatusPublic().getValeur() );
+	        daoUtil.setString   ( nCpt++, ( idee.getStatusPublic() == null) ? null : idee.getStatusPublic().getValeur() );
 	        daoUtil.setString   ( nCpt++, ( idee.getStatusEudonet() == null) ? null : idee.getStatusEudonet().getValeur() );
 	        daoUtil.setString   ( nCpt++, idee.getMotifRecev() );
 	        daoUtil.setString   ( nCpt++, idee.getIdProjet( ) );
@@ -416,32 +416,44 @@ public final class IdeeDAO implements IIdeeDAO
 	       int nCpt=1;
 	       
 	       daoUtil.setInt( nCpt++, idee.getExportedTag( ) );
-	       daoUtil.setString( nCpt++, idee.getStatusPublic().getValeur( ) );
-	       if(idee.getStatusEudonet()!=null){
+	       
+	       if ( idee.getStatusPublic() != null ) 
+	       {
 	    	   daoUtil.setString( nCpt++, idee.getStatusEudonet().getValeur() );
-	       }else{
+	       }
+	       else
+	       {
 	    	   daoUtil.setString( nCpt++, null );
 	       }
+
+	       if ( idee.getStatusEudonet() != null ) 
+	       {
+	    	   daoUtil.setString( nCpt++, idee.getStatusEudonet().getValeur() );
+	       }
+	       else
+	       {
+	    	   daoUtil.setString( nCpt++, null );
+	       }
+	       
 	       daoUtil.setString( nCpt++, idee.getMotifRecev());
 	
 	       daoUtil.setString( nCpt++, idee.getTypeQpvQva());
 	       daoUtil.setString( nCpt++, idee.getIdQpvQva());
 	       daoUtil.setString( nCpt++, idee.getLibelleQpvQva());
-	       daoUtil.setString(nCpt++, idee.getIdProjet( ) );
-	       daoUtil.setString(nCpt++, idee.getTitreProjet( ) );
+	       daoUtil.setString( nCpt++, idee.getIdProjet( ) );
+	       daoUtil.setString( nCpt++, idee.getTitreProjet( ) );
 	       daoUtil.setString( nCpt++, idee.getUrlProjet( ) );
 	       daoUtil.setString( nCpt++, idee.getWinnerProjet( ) );
-	
 	       daoUtil.setString( nCpt++, idee.getTitre() );
 	       daoUtil.setString( nCpt++, idee.getDescription() );
 	       
-	       if(idee.getCout()!=null)
+	       if ( idee.getCout() != null )
 	       {
-	               daoUtil.setLong(nCpt++, idee.getCout());
+	               daoUtil.setLong( nCpt++, idee.getCout() );
 	       }
 	       else
 	       {
-	               daoUtil.setLongNull(nCpt++);    
+	               daoUtil.setLongNull( nCpt++ );    
 	       
 	       }
 	       
