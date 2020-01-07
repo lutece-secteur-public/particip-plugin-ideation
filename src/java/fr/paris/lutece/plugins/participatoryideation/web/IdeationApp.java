@@ -55,7 +55,6 @@ import org.apache.solr.common.SolrDocumentList;
 
 import fr.paris.lutece.plugins.leaflet.business.GeolocItem;
 import fr.paris.lutece.plugins.participatorybudget.service.MyInfosService;
-import fr.paris.lutece.plugins.participatorybudget.web.MyInfosXPage;
 import fr.paris.lutece.plugins.participatoryideation.business.Idee;
 import fr.paris.lutece.plugins.participatoryideation.business.capgeo.QpvQva;
 import fr.paris.lutece.plugins.participatoryideation.service.IdeationErrorException;
@@ -100,6 +99,7 @@ import fr.paris.lutece.portal.util.mvc.xpage.MVCApplication;
 import fr.paris.lutece.portal.util.mvc.xpage.annotations.Controller;
 import fr.paris.lutece.portal.web.xpages.XPage;
 import fr.paris.lutece.util.filesystem.FileSystemUtil;
+import fr.paris.lutece.util.url.UrlItem;
 
 /**
  * This class provides a simple implementation of an XPage
@@ -256,7 +256,12 @@ public class IdeationApp extends MVCApplication
 
         if ( !checkUserAuthorized( request ) )
         {
-        	return redirect( request, AppPathService.getProdUrl( request ) + MyInfosXPage.getUrlMyInfos() );
+    		UrlItem urlItem = new UrlItem(AppPathService.getPortalUrl());
+    		urlItem.addParameter(MVCUtils.PARAMETER_PAGE, "mesInfos");
+    		urlItem.addParameter(MVCUtils.PARAMETER_VIEW, "mesinfos");
+    		urlItem.addParameter("completeInfos", Boolean.TRUE.toString());
+
+        	return redirect( request, AppPathService.getProdUrl( request ) + urlItem );
         }
         
         //Some automatic stuff
