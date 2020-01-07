@@ -34,7 +34,6 @@
 package fr.paris.lutece.plugins.participatoryideation.business;
 
 import fr.paris.lutece.test.LuteceTestCase;
-import fr.paris.lutece.util.ReferenceItem;
 import fr.paris.lutece.util.ReferenceList;
 
 /**
