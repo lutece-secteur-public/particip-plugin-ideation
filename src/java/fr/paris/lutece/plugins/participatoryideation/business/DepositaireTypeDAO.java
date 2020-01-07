@@ -122,11 +122,7 @@ public final class DepositaireTypeDAO implements IDepositaireTypeDAO
 	
 	        if ( daoUtil.next( ) )
 	        {
-	            depositaire = new DepositaireType();
-	            depositaire.setId( daoUtil.getInt( 1 ) );
-	            depositaire.setCode( daoUtil.getString( 2 ) );
-	            depositaire.setLibelle( daoUtil.getString( 3 ) );
-	            depositaire.setCodeComplementType( daoUtil.getString( 4 ) );
+	            depositaire = getRow( daoUtil );
 	        }
         }
         
@@ -264,9 +260,9 @@ public final class DepositaireTypeDAO implements IDepositaireTypeDAO
     {
         DepositaireType depositaireType = new DepositaireType(  );
 
-        depositaireType.setId( daoUtil.getInt( 1 ) );
-        depositaireType.setCode( daoUtil.getString( 2 ) );
-        depositaireType.setLibelle( daoUtil.getString( 3 ) );
+        depositaireType.setId                ( daoUtil.getInt   ( 1 ) );
+        depositaireType.setCode              ( daoUtil.getString( 2 ) );
+        depositaireType.setLibelle           ( daoUtil.getString( 3 ) );
         depositaireType.setCodeComplementType( daoUtil.getString( 4 ) );
 
         return depositaireType;

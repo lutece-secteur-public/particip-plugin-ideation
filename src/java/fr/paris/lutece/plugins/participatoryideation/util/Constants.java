@@ -61,9 +61,9 @@ public final class Constants
     public static final String PROPERTY_GENERATE_IDEE_LUTECE_USER_NAME = "participatoryideation.atelier.generateIdee.luteceUserName";
 
     // Constructor
-    public Constants() 
+    private Constants()
     {
-    	throw new RuntimeException( "This class must not be instanciated !" );
+    	throw new UnsupportedOperationException( "This class must not be instanciated !" );
 	}
 
 }
