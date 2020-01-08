@@ -31,7 +31,7 @@
  *
  * License 1.0
  */
-package fr.paris.lutece.plugins.participatoryideation.business;
+package fr.paris.lutece.plugins.participatoryideation.service.campaign;
 
 import fr.paris.lutece.plugins.participatoryideation.service.campaign.IIdeationCampaignService;
 import fr.paris.lutece.plugins.participatoryideation.service.campaign.IdeationCampaignService;
@@ -49,7 +49,7 @@ public class IdeationCampaignServiceTest extends LuteceTestCase
         IIdeationCampaignService instance = IdeationCampaignService.getInstance( );
 
         // Spring bean instantiation
-        assertTrue( instance.getClass( ) == IdeationCampaignService.class );
+        assertEquals( IdeationCampaignService.class, instance.getClass( ) );
 
         // Methods about areas
         assertEquals( 1, instance.getCampaignAllAreas( ).size( ) );

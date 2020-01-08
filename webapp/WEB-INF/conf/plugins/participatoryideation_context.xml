@@ -24,14 +24,18 @@
 	<!-- Services beans -->
 
 	<bean id="participatoryideation.solrIdeeIndexer"          class="fr.paris.lutece.plugins.participatoryideation.service.SolrIdeeIndexer" />
-
-	<bean id="participatoryideation.ideationCampaignService"  class="fr.paris.lutece.plugins.participatoryideation.service.campaign.IdeationCampaignService" />
-	<!-- <bean id="participatoryideation.ideationCampaignService"  class="fr.paris.lutece.plugins.participatoryideation.service.campaign.IdeationCampaignFromParticipatoryBudgetService" /> -->
 	
 	<bean id="participatoryideation.ideeService"              class="fr.paris.lutece.plugins.participatoryideation.service.IdeeService" />  
 	<bean id="participatoryideation.ideationStaticService"    class="fr.paris.lutece.plugins.participatoryideation.service.IdeationStaticService" />
 	<bean id="participatoryideation.linkStaticService"        class="fr.paris.lutece.plugins.participatoryideation.service.LinkStaticService" />
 	<bean id="participatoryideation.ideeWSService"            class="fr.paris.lutece.plugins.participatoryideation.service.IdeeWSService" /> 
+
+
+	<bean id="participatoryideation.ideationCampaignService"  class="fr.paris.lutece.plugins.participatoryideation.service.campaign.IdeationCampaignService" />
+	<!-- <bean id="participatoryideation.ideationCampaignService"  class="fr.paris.lutece.plugins.participatoryideation.service.campaign.IdeationCampaignFromParticipatoryBudgetService" /> -->
+
+	<bean id="participatoryideation.myInfosService"  class="fr.paris.lutece.plugins.participatoryideation.service.myinfos.MyInfosService" />
+	<!-- <bean id="participatoryideation.myInfosService"  class="fr.paris.lutece.plugins.participatoryideation.service.myinfos.MyInfosFromParticipatoryBudgetService" /> -->
 
     <!-- Site properties -->
     

@@ -54,7 +54,7 @@ import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
 
 import fr.paris.lutece.plugins.leaflet.business.GeolocItem;
-import fr.paris.lutece.plugins.participatorybudget.service.MyInfosService;
+//import fr.paris.lutece.plugins.participatorybudget.service.MyInfosService;
 import fr.paris.lutece.plugins.participatoryideation.business.Idee;
 import fr.paris.lutece.plugins.participatoryideation.business.capgeo.QpvQva;
 import fr.paris.lutece.plugins.participatoryideation.service.IdeationErrorException;
@@ -64,6 +64,7 @@ import fr.paris.lutece.plugins.participatoryideation.service.IdeeService;
 import fr.paris.lutece.plugins.participatoryideation.service.IdeeWSService;
 import fr.paris.lutece.plugins.participatoryideation.service.campaign.IdeationCampaignService;
 import fr.paris.lutece.plugins.participatoryideation.service.capgeo.QpvQvaService;
+import fr.paris.lutece.plugins.participatoryideation.service.myinfos.MyInfosService;
 import fr.paris.lutece.plugins.participatoryideation.util.Constants;
 import fr.paris.lutece.plugins.participatoryideation.web.etape.FormEtapeApprox;
 import fr.paris.lutece.plugins.participatoryideation.web.etape.FormEtapeDescription;
@@ -1170,7 +1171,7 @@ public class IdeationApp extends MVCApplication
             {
                 throw new UserNotSignedException( );
             }
-            return MyInfosService.loadUserInfos( user ).getIsValid( );
+            return MyInfosService.getInstance( ).isUserValid( user.getName( ) );
         }
         return false;
 
