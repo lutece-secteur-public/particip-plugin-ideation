@@ -35,7 +35,6 @@ package fr.paris.lutece.plugins.participatoryideation.business.notify;
 
 import fr.paris.lutece.util.sql.DAOUtil;
 
-
 /**
  *
  * TaskNotifyIdeationConfigDAO
@@ -44,12 +43,11 @@ import fr.paris.lutece.util.sql.DAOUtil;
 public class TaskNotifyIdeationConfigDAO implements ITaskNotifyIdeationConfigDAO
 {
     private static final String SQL_QUERY_FIND_BY_PRIMARY_KEY = "SELECT id_task, sender_name, sender_email, subject, message, recipients_cc, recipients_bcc, isFollowers, isDepositaire FROM task_notify_ideation_cf  WHERE id_task=?";
-    private static final String SQL_QUERY_INSERT = "INSERT INTO task_notify_ideation_cf( " +
-        "id_task,sender_name,sender_email,subject,message,recipients_cc,recipients_bcc,isFollowers,isDepositaire)" +
-        "VALUES (?,?,?,?,?,?,?,?,?)";
-    private static final String SQL_QUERY_UPDATE = "UPDATE task_notify_ideation_cf " +
-        " SET id_task = ?, sender_name = ?, sender_email = ?, subject = ?, message = ?, recipients_cc = ?, recipients_bcc = ? , isFollowers = ?, isDepositaire = ? " +
-        " WHERE id_task = ? ";
+    private static final String SQL_QUERY_INSERT = "INSERT INTO task_notify_ideation_cf( "
+            + "id_task,sender_name,sender_email,subject,message,recipients_cc,recipients_bcc,isFollowers,isDepositaire)" + "VALUES (?,?,?,?,?,?,?,?,?)";
+    private static final String SQL_QUERY_UPDATE = "UPDATE task_notify_ideation_cf "
+            + " SET id_task = ?, sender_name = ?, sender_email = ?, subject = ?, message = ?, recipients_cc = ?, recipients_bcc = ? , isFollowers = ?, isDepositaire = ? "
+            + " WHERE id_task = ? ";
     private static final String SQL_QUERY_DELETE = "DELETE FROM task_notify_ideation_cf WHERE id_task = ? ";
 
     /**
@@ -58,22 +56,22 @@ public class TaskNotifyIdeationConfigDAO implements ITaskNotifyIdeationConfigDAO
     @Override
     public synchronized void insert( TaskNotifyIdeationConfig config )
     {
-        //FIXME use the plugin in all DAOUtil constructions
-        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT ) )
+        // FIXME use the plugin in all DAOUtil constructions
+        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT ) )
         {
-	        int nPos = 0;
-	
-	        daoUtil.setInt( ++nPos, config.getIdTask(  ) );
-	        daoUtil.setString( ++nPos, config.getSenderName(  ) );
-	        daoUtil.setString( ++nPos, config.getSenderEmail(  ) );
-	        daoUtil.setString( ++nPos, config.getSubject(  ) );
-	        daoUtil.setString( ++nPos, config.getMessage(  ) );
-	        daoUtil.setString( ++nPos, config.getRecipientsCc(  ) );
-	        daoUtil.setString( ++nPos, config.getRecipientsBcc(  ) );
-	        daoUtil.setBoolean( ++nPos, config.isFollowers(  ) );
-	        daoUtil.setBoolean( ++nPos, config.isDepositaire(  ) );
-	
-	        daoUtil.executeUpdate(  );
+            int nPos = 0;
+
+            daoUtil.setInt( ++nPos, config.getIdTask( ) );
+            daoUtil.setString( ++nPos, config.getSenderName( ) );
+            daoUtil.setString( ++nPos, config.getSenderEmail( ) );
+            daoUtil.setString( ++nPos, config.getSubject( ) );
+            daoUtil.setString( ++nPos, config.getMessage( ) );
+            daoUtil.setString( ++nPos, config.getRecipientsCc( ) );
+            daoUtil.setString( ++nPos, config.getRecipientsBcc( ) );
+            daoUtil.setBoolean( ++nPos, config.isFollowers( ) );
+            daoUtil.setBoolean( ++nPos, config.isDepositaire( ) );
+
+            daoUtil.executeUpdate( );
         }
     }
 
@@ -83,22 +81,22 @@ public class TaskNotifyIdeationConfigDAO implements ITaskNotifyIdeationConfigDAO
     @Override
     public void store( TaskNotifyIdeationConfig config )
     {
-        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE ) )
+        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE ) )
         {
-	        int nPos = 0;
-	
-	        daoUtil.setInt( ++nPos, config.getIdTask(  ) );
-	        daoUtil.setString( ++nPos, config.getSenderName(  ) );
-	        daoUtil.setString( ++nPos, config.getSenderEmail(  ) );
-	        daoUtil.setString( ++nPos, config.getSubject(  ) );
-	        daoUtil.setString( ++nPos, config.getMessage(  ) );
-	        daoUtil.setString( ++nPos, config.getRecipientsCc(  ) );
-	        daoUtil.setString( ++nPos, config.getRecipientsBcc(  ) );
-	        daoUtil.setBoolean( ++nPos, config.isFollowers(  ) );
-	        daoUtil.setBoolean( ++nPos, config.isDepositaire(  ) );
-	
-	        daoUtil.setInt( ++nPos, config.getIdTask(  ) );
-	        daoUtil.executeUpdate(  );
+            int nPos = 0;
+
+            daoUtil.setInt( ++nPos, config.getIdTask( ) );
+            daoUtil.setString( ++nPos, config.getSenderName( ) );
+            daoUtil.setString( ++nPos, config.getSenderEmail( ) );
+            daoUtil.setString( ++nPos, config.getSubject( ) );
+            daoUtil.setString( ++nPos, config.getMessage( ) );
+            daoUtil.setString( ++nPos, config.getRecipientsCc( ) );
+            daoUtil.setString( ++nPos, config.getRecipientsBcc( ) );
+            daoUtil.setBoolean( ++nPos, config.isFollowers( ) );
+            daoUtil.setBoolean( ++nPos, config.isDepositaire( ) );
+
+            daoUtil.setInt( ++nPos, config.getIdTask( ) );
+            daoUtil.executeUpdate( );
         }
     }
 
@@ -109,28 +107,28 @@ public class TaskNotifyIdeationConfigDAO implements ITaskNotifyIdeationConfigDAO
     public TaskNotifyIdeationConfig load( int nIdTask )
     {
         TaskNotifyIdeationConfig config = null;
-        
-        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_FIND_BY_PRIMARY_KEY ) )
+
+        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_FIND_BY_PRIMARY_KEY ) )
         {
-	        daoUtil.setInt( 1, nIdTask );
-	
-	        daoUtil.executeQuery(  );
-	
-	        int nPos = 0;
-	
-	        if ( daoUtil.next(  ) )
-	        {
-	            config = new TaskNotifyIdeationConfig(  );
-	            config.setIdTask( daoUtil.getInt( ++nPos ) );
-	            config.setSenderName( daoUtil.getString( ++nPos ) );
-	            config.setSenderEmail( daoUtil.getString( ++nPos ) );
-	            config.setSubject( daoUtil.getString( ++nPos ) );
-	            config.setMessage( daoUtil.getString( ++nPos ) );
-	            config.setRecipientsCc( daoUtil.getString( ++nPos ) );
-	            config.setRecipientsBcc( daoUtil.getString( ++nPos ) );
-	            config.setFollowers( daoUtil.getBoolean( ++nPos ) );
-	            config.setDepositaire( daoUtil.getBoolean( ++nPos ) );
-	        }
+            daoUtil.setInt( 1, nIdTask );
+
+            daoUtil.executeQuery( );
+
+            int nPos = 0;
+
+            if ( daoUtil.next( ) )
+            {
+                config = new TaskNotifyIdeationConfig( );
+                config.setIdTask( daoUtil.getInt( ++nPos ) );
+                config.setSenderName( daoUtil.getString( ++nPos ) );
+                config.setSenderEmail( daoUtil.getString( ++nPos ) );
+                config.setSubject( daoUtil.getString( ++nPos ) );
+                config.setMessage( daoUtil.getString( ++nPos ) );
+                config.setRecipientsCc( daoUtil.getString( ++nPos ) );
+                config.setRecipientsBcc( daoUtil.getString( ++nPos ) );
+                config.setFollowers( daoUtil.getBoolean( ++nPos ) );
+                config.setDepositaire( daoUtil.getBoolean( ++nPos ) );
+            }
         }
 
         return config;
@@ -142,10 +140,10 @@ public class TaskNotifyIdeationConfigDAO implements ITaskNotifyIdeationConfigDAO
     @Override
     public void delete( int nIdState )
     {
-        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE ) )
+        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE ) )
         {
-	        daoUtil.setInt( 1, nIdState );
-	        daoUtil.executeUpdate(  );
+            daoUtil.setInt( 1, nIdState );
+            daoUtil.executeUpdate( );
         }
     }
 }

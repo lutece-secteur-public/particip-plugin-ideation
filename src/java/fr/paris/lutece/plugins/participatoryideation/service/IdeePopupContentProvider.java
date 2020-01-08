@@ -44,12 +44,11 @@ import fr.paris.lutece.plugins.participatoryideation.business.IdeeHome;
 import fr.paris.lutece.portal.service.template.AppTemplateService;
 import fr.paris.lutece.util.html.HtmlTemplate;
 
-
 public class IdeePopupContentProvider implements IPopupContentProvider
 {
 
     // Templates
-    private static final String TEMPLATE_IDEE_POPUP="/skin/plugins/participatoryideation/popup_idee.html";
+    private static final String TEMPLATE_IDEE_POPUP = "/skin/plugins/participatoryideation/popup_idee.html";
 
     // Markers
     private static final String MARK_IDEE = "idee";
@@ -58,10 +57,10 @@ public class IdeePopupContentProvider implements IPopupContentProvider
     {
         int nId = Integer.parseInt( strIdDocument );
         Idee idee = IdeeHome.findByPrimaryKey( nId );
-        Map<String, Object> model = new HashMap<String, Object>(); 
+        Map<String, Object> model = new HashMap<String, Object>( );
         model.put( MARK_IDEE, idee );
-        IdeationStaticService.getInstance(  ).fillCampagneStaticContent( model, idee.getCodeCampagne() );
-        HtmlTemplate t = AppTemplateService.getTemplate( TEMPLATE_IDEE_POPUP, request.getLocale(), model );
-        return t.getHtml();
+        IdeationStaticService.getInstance( ).fillCampagneStaticContent( model, idee.getCodeCampagne( ) );
+        HtmlTemplate t = AppTemplateService.getTemplate( TEMPLATE_IDEE_POPUP, request.getLocale( ), model );
+        return t.getHtml( );
     }
 }

@@ -36,8 +36,6 @@ package fr.paris.lutece.plugins.participatoryideation.business;
 import fr.paris.lutece.portal.service.plugin.Plugin;
 import java.util.Collection;
 
-
-
 /**
  * ILinkDAO Interface
  */
@@ -45,55 +43,72 @@ public interface ILinkDAO
 {
     /**
      * Insert a new record in the table.
-     * @param link instance of the link object to insert
-     * @param plugin the Plugin
+     * 
+     * @param link
+     *            instance of the link object to insert
+     * @param plugin
+     *            the Plugin
      */
     void insert( Link link, Plugin plugin );
 
     /**
      * Update the record in the table
-     * @param link the reference of the link
-     * @param plugin the Plugin
+     * 
+     * @param link
+     *            the reference of the link
+     * @param plugin
+     *            the Plugin
      */
     void store( Link link, Plugin plugin );
 
     /**
      * Delete a record from the table
-     * @param nKey The identifier of the link to delete
-     * @param plugin the Plugin
+     * 
+     * @param nKey
+     *            The identifier of the link to delete
+     * @param plugin
+     *            the Plugin
      */
     void delete( int nKey, Plugin plugin );
 
-    ///////////////////////////////////////////////////////////////////////////
+    // /////////////////////////////////////////////////////////////////////////
     // Finders
 
     /**
      * Load the data from the table
-     * @param nKey The identifier of the link
-     * @param plugin the Plugin
+     * 
+     * @param nKey
+     *            The identifier of the link
+     * @param plugin
+     *            the Plugin
      * @return The instance of the link
      */
     Link load( int nKey, Plugin plugin );
 
     /**
      * Load the data of all the link objects and returns them as a collection
-     * @param plugin the Plugin
+     * 
+     * @param plugin
+     *            the Plugin
      * @return The collection which contains the data of all the link objects
      */
     Collection<Link> selectLinksList( Plugin plugin );
-    
+
     /**
      * Load the id of all the link objects and returns them as a collection
-     * @param plugin the Plugin
+     * 
+     * @param plugin
+     *            the Plugin
      * @return The collection which contains the id of all the link objects
      */
     Collection<Integer> selectIdLinksList( Plugin plugin );
 
     /**
-     * @param linkSearcher the link search
-     * @param plugin the plugin 
+     * @param linkSearcher
+     *            the link search
+     * @param plugin
+     *            the plugin
      * @return list of vs
      */
-	Collection<Link> selectLinksListSearch( LinkSearcher linkSearcher, Plugin plugin );
+    Collection<Link> selectLinksListSearch( LinkSearcher linkSearcher, Plugin plugin );
 }
-

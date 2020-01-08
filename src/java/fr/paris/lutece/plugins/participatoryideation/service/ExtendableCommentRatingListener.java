@@ -56,7 +56,7 @@ public class ExtendableCommentRatingListener implements IRatingListener
     public void cancelVote( LuteceUser arg0, String arg1, String arg2 )
     {
         // TODO Auto-generated method stub
-        
+
     }
 
     /**
@@ -89,14 +89,14 @@ public class ExtendableCommentRatingListener implements IRatingListener
                 Idee idee = IdeeHome.findByPrimaryKey( Integer.parseInt( comment.getIdExtendableResource( ) ) );
 
                 // Can not rate an idee if not during its ideation campagne
-                if ( idee == null || !IdeationCampaignService.getInstance().isDuring( idee.getCodeCampagne( ), Constants.IDEATION ) )
+                if ( idee == null || !IdeationCampaignService.getInstance( ).isDuring( idee.getCodeCampagne( ), Constants.IDEATION ) )
                 {
                     return false;
                 }
             }
 
         }
-        catch ( NumberFormatException e )
+        catch( NumberFormatException e )
         {
             return false;
         }

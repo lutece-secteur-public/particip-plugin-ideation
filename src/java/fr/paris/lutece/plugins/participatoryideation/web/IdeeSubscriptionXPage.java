@@ -32,7 +32,7 @@
  * License 1.0
  */
 package fr.paris.lutece.plugins.participatoryideation.web;
- 
+
 import java.util.List;
 import java.util.Map;
 
@@ -56,113 +56,112 @@ import fr.paris.lutece.util.ReferenceList;
 /**
  * This class provides the user interface to view Idee xpages
  */
- 
-@Controller( xpageName = "mySubscriptions" , pageTitleI18nKey = "participatoryideation.xpage.mySubscriptions.pageTitle" , pagePathI18nKey = "participatoryideation.xpage.mySubscriptions.pagePathLabel" )
+
+@Controller( xpageName = "mySubscriptions", pageTitleI18nKey = "participatoryideation.xpage.mySubscriptions.pageTitle", pagePathI18nKey = "participatoryideation.xpage.mySubscriptions.pagePathLabel" )
 public class IdeeSubscriptionXPage extends MVCApplication
 {
 
-
     // Templates
-    private static final String TEMPLATE_VIEW_MY_SUBSCRIPTIONS="/skin/plugins/participatoryideation/view_my_subscriptions.html";
-    
+    private static final String TEMPLATE_VIEW_MY_SUBSCRIPTIONS = "/skin/plugins/participatoryideation/view_my_subscriptions.html";
+
     // Parameters
-    private static final String PARAMETER_SELECT_SUBSCRIPTIONS="select_subscriptions";
-  
-    
+    private static final String PARAMETER_SELECT_SUBSCRIPTIONS = "select_subscriptions";
+
     // Markers
     private static final String MARK_LIST_USER_SUBSCRIPTIONS = "list_user_subscriptions";
     private static final String MARK_REF_LIST_SUBSCRIPTIONS = "list_subscriptions";
-    
+
     // Views
     private static final String VIEW_MY_SUBSCRIPTIONS = "viewMySubscriptions";
     // Actions
     private static final String SAVE_MY_SUBSCRIPTIONS = "saveMySubscriptions";
-    //Messages
-    private static final String MESSAGE_SAVE_SUBSCRIPTIONS_SUCCESS="participatoryideation.message.saveSubscriptionsSuccess";
-    
-    
+    // Messages
+    private static final String MESSAGE_SAVE_SUBSCRIPTIONS_SUCCESS = "participatoryideation.message.saveSubscriptionsSuccess";
+
     /**
      * Returns the form to update info about a idee
      *
-     * @param request The Http request
+     * @param request
+     *            The Http request
      * @return The HTML form to update info
      */
     @View( value = VIEW_MY_SUBSCRIPTIONS, defaultView = true )
     public XPage getMySubscriptions( HttpServletRequest request ) throws UserNotSignedException
     {
-        Map<String, Object> model = getModel(  );
-    	
-		LuteceUser user = SecurityService.getInstance().getRegisteredUser(
-				request);
-		
-		if (user == null) {
-					
-					throw new UserNotSignedException(); 
-				}
-	
-		SubscriptionService subscriptionService = SubscriptionService.getInstance( );
-	    SubscriptionFilter filter = new SubscriptionFilter( );
-	    filter.setIdSubscriber( user.getName( ) );
-	    List<Subscription> listUserSubscriptions = subscriptionService.findByFilter( filter );
-	    ReferenceList refListSubscriptions=IdeationSubscriptionProviderService.getService().getRefListIdeationSubscription(getLocale(request));
-	    
+        Map<String, Object> model = getModel( );
+
+        LuteceUser user = SecurityService.getInstance( ).getRegisteredUser( request );
+
+        if ( user == null )
+        {
+
+            throw new UserNotSignedException( );
+        }
+
+        SubscriptionService subscriptionService = SubscriptionService.getInstance( );
+        SubscriptionFilter filter = new SubscriptionFilter( );
+        filter.setIdSubscriber( user.getName( ) );
+        List<Subscription> listUserSubscriptions = subscriptionService.findByFilter( filter );
+        ReferenceList refListSubscriptions = IdeationSubscriptionProviderService.getService( ).getRefListIdeationSubscription( getLocale( request ) );
+
         model.put( MARK_LIST_USER_SUBSCRIPTIONS, listUserSubscriptions );
-        model.put( MARK_REF_LIST_SUBSCRIPTIONS, refListSubscriptions);
-        
-        return getXPage( TEMPLATE_VIEW_MY_SUBSCRIPTIONS, request.getLocale(  ), model );
+        model.put( MARK_REF_LIST_SUBSCRIPTIONS, refListSubscriptions );
+
+        return getXPage( TEMPLATE_VIEW_MY_SUBSCRIPTIONS, request.getLocale( ), model );
     }
-    
+
     /**
      * Process save my subscriptions
-     * @param request The HTTP request
+     * 
+     * @param request
+     *            The HTTP request
      * @return The view
      */
     @Action( value = SAVE_MY_SUBSCRIPTIONS )
-    public XPage doSaveMySubscriptions( HttpServletRequest request )throws UserNotSignedException
+    public XPage doSaveMySubscriptions( HttpServletRequest request ) throws UserNotSignedException
     {
-    	LuteceUser user = SecurityService.getInstance().getRegisteredUser(
-				request);
-		
-		if (user == null) {
-					
-					throw new UserNotSignedException(); 
-				}
-    	String[] selectedSubscriptions = request.getParameterValues( PARAMETER_SELECT_SUBSCRIPTIONS );
-    	
-    	ReferenceList refListSubscriptions=IdeationSubscriptionProviderService.getService().getRefListIdeationSubscription(getLocale(request));
-    	
-    	for(ReferenceItem subscription:refListSubscriptions)
-    	{
-    		boolean bMustCreate=false;
-    		
-    		if(selectedSubscriptions!=null)
-    		{
-	    		for (int i = 0; i < selectedSubscriptions.length; i++) {
-					
-	    			if(selectedSubscriptions[i].equals(subscription.getCode()))
-	    			{
-	    				
-	    				bMustCreate=true;
-	    			}
-	    		}
-    		}
-    		if(bMustCreate)
-    		{
-    			IdeationSubscriptionProviderService.getService().createSubscription(user, subscription.getCode());
-    		}
-    		else
-    		{
-    			IdeationSubscriptionProviderService.getService().removeSubscription(user, subscription.getCode());
-    		}
-   		
-    	}
-    	
-     	addInfo(MESSAGE_SAVE_SUBSCRIPTIONS_SUCCESS,getLocale(request));
-    	
-    	return redirectView( request, VIEW_MY_SUBSCRIPTIONS );
-        
-    	    
-    	    
+        LuteceUser user = SecurityService.getInstance( ).getRegisteredUser( request );
+
+        if ( user == null )
+        {
+
+            throw new UserNotSignedException( );
+        }
+        String [ ] selectedSubscriptions = request.getParameterValues( PARAMETER_SELECT_SUBSCRIPTIONS );
+
+        ReferenceList refListSubscriptions = IdeationSubscriptionProviderService.getService( ).getRefListIdeationSubscription( getLocale( request ) );
+
+        for ( ReferenceItem subscription : refListSubscriptions )
+        {
+            boolean bMustCreate = false;
+
+            if ( selectedSubscriptions != null )
+            {
+                for ( int i = 0; i < selectedSubscriptions.length; i++ )
+                {
+
+                    if ( selectedSubscriptions [i].equals( subscription.getCode( ) ) )
+                    {
+
+                        bMustCreate = true;
+                    }
+                }
+            }
+            if ( bMustCreate )
+            {
+                IdeationSubscriptionProviderService.getService( ).createSubscription( user, subscription.getCode( ) );
+            }
+            else
+            {
+                IdeationSubscriptionProviderService.getService( ).removeSubscription( user, subscription.getCode( ) );
+            }
+
+        }
+
+        addInfo( MESSAGE_SAVE_SUBSCRIPTIONS_SUCCESS, getLocale( request ) );
+
+        return redirectView( request, VIEW_MY_SUBSCRIPTIONS );
+
     }
-    
+
 }

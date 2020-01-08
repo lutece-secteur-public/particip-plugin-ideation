@@ -38,60 +38,71 @@ import fr.paris.lutece.util.ReferenceList;
 /**
  * Interface for providing informations about ideation campaign.
  */
-public interface IIdeationCampaignService {
+public interface IIdeationCampaignService
+{
 
-	public static final String WHOLE_AREA = "whole city";
-	
-	// *********************************************************************************************
-	// * AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA *
-	// * AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA *
-	// *********************************************************************************************
-	
-	// Provides informations about area.
-	
-    public ReferenceList getCampaignAllAreas            ( String codeCampaign );
+    public static final String WHOLE_AREA = "whole city";
 
-    public String        getCampaignWholeArea           ( String codeCampaign );
-    
-    public ReferenceList getCampaignLocalizedAreas      ( String codeCampaign );
-    public int           getCampaignNumberLocalizedAreas( String codeCampaign );
-    
+    // *********************************************************************************************
+    // * AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA *
+    // * AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA *
+    // *********************************************************************************************
+
+    // Provides informations about area.
+
+    public ReferenceList getCampaignAllAreas( String codeCampaign );
+
+    public String getCampaignWholeArea( String codeCampaign );
+
+    public ReferenceList getCampaignLocalizedAreas( String codeCampaign );
+
+    public int getCampaignNumberLocalizedAreas( String codeCampaign );
+
     // Same as precedent, for last campagne.
-    
-    public ReferenceList getCampaignAllAreas            ( );
 
-    public String        getCampaignWholeArea           ( );
-    
-    public ReferenceList getCampaignLocalizedAreas      ( );
-    public int           getCampaignNumberLocalizedAreas( );
+    public ReferenceList getCampaignAllAreas( );
 
-	// *********************************************************************************************
-	// * PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASE *
-	// * PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASE *
-	// *********************************************************************************************
-	
-	// Provides informations about campaign dates.
+    public String getCampaignWholeArea( );
+
+    public ReferenceList getCampaignLocalizedAreas( );
+
+    public int getCampaignNumberLocalizedAreas( );
+
+    // *********************************************************************************************
+    // * PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASE *
+    // * PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASE *
+    // *********************************************************************************************
+
+    // Provides informations about campaign dates.
     public boolean isBeforeBeginning( String codeCampaign, String phase );
-    public boolean isAfterBeginning ( String codeCampaign, String phase );
-    public boolean isDuring         ( String codeCampaign, String phase );
-    public boolean isBeforeEnd      ( String codeCampaign, String phase );
-    public boolean isAfterEnd       ( String codeCampaign, String phase );
+
+    public boolean isAfterBeginning( String codeCampaign, String phase );
+
+    public boolean isDuring( String codeCampaign, String phase );
+
+    public boolean isBeforeEnd( String codeCampaign, String phase );
+
+    public boolean isAfterEnd( String codeCampaign, String phase );
 
     // Same as precedent, for last campagne.
     public boolean isBeforeBeginning( String phase );
-    public boolean isAfterBeginning ( String phase );
-    public boolean isDuring         ( String phase );
-    public boolean isBeforeEnd      ( String phase );
-    public boolean isAfterEnd       ( String phase );
 
-	// *********************************************************************************************
-	// * THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEME *
-	// * THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEME *
-	// *********************************************************************************************
+    public boolean isAfterBeginning( String phase );
 
-    public ReferenceList getCampaignThemes( String codeCampaign ); 
-    
+    public boolean isDuring( String phase );
+
+    public boolean isBeforeEnd( String phase );
+
+    public boolean isAfterEnd( String phase );
+
+    // *********************************************************************************************
+    // * THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEME *
+    // * THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEME *
+    // *********************************************************************************************
+
+    public ReferenceList getCampaignThemes( String codeCampaign );
+
     // Same as precedent, for last campagne.
-    public ReferenceList getCampaignThemes( ); 
-    
+    public ReferenceList getCampaignThemes( );
+
 }

@@ -52,14 +52,16 @@ public final class CampagneDepositaireHome
     /**
      * Private constructor - this class need not be instantiated
      */
-    private CampagneDepositaireHome(  )
+    private CampagneDepositaireHome( )
     {
     }
 
     /**
      * Create an instance of the campagneDepositaire class
-     * @param campagneDepositaire The instance of the CampagneDepositaire which contains the informations to store
-     * @return The  instance of campagneDepositaire which has been created with its primary key.
+     * 
+     * @param campagneDepositaire
+     *            The instance of the CampagneDepositaire which contains the informations to store
+     * @return The instance of campagneDepositaire which has been created with its primary key.
      */
     public static CampagneDepositaire create( CampagneDepositaire campagneDepositaire )
     {
@@ -70,8 +72,10 @@ public final class CampagneDepositaireHome
 
     /**
      * Update of the campagneDepositaire which is specified in parameter
-     * @param campagneDepositaire The instance of the CampagneDepositaire which contains the data to store
-     * @return The instance of the  campagneDepositaire which has been updated
+     * 
+     * @param campagneDepositaire
+     *            The instance of the CampagneDepositaire which contains the data to store
+     * @return The instance of the campagneDepositaire which has been updated
      */
     public static CampagneDepositaire update( CampagneDepositaire campagneDepositaire )
     {
@@ -82,19 +86,23 @@ public final class CampagneDepositaireHome
 
     /**
      * Remove the campagneDepositaire whose identifier is specified in parameter
-     * @param nKey The campagneDepositaire Id
+     * 
+     * @param nKey
+     *            The campagneDepositaire Id
      */
     public static void remove( int nKey )
     {
         _dao.delete( nKey, _plugin );
     }
 
-    ///////////////////////////////////////////////////////////////////////////
+    // /////////////////////////////////////////////////////////////////////////
     // Finders
 
     /**
      * Returns an instance of a campagneDepositaire whose identifier is specified in parameter
-     * @param nKey The campagneDepositaire primary key
+     * 
+     * @param nKey
+     *            The campagneDepositaire primary key
      * @return an instance of CampagneDepositaire
      */
     public static CampagneDepositaire findByPrimaryKey( int nKey )
@@ -104,15 +112,17 @@ public final class CampagneDepositaireHome
 
     /**
      * Load the data of all the campagneDepositaire objects and returns them in form of a collection
+     * 
      * @return the collection which contains the data of all the campagneDepositaire objects
      */
     public static Collection<CampagneDepositaire> getCampagneDepositairesList( )
     {
         return _dao.selectCampagneDepositairesList( _plugin );
     }
-    
+
     /**
      * Load the id of all the campagneDepositaire objects and returns them in form of a collection
+     * 
      * @return the collection which contains the id of all the campagneDepositaire objects
      */
     public static Collection<Integer> getIdCampagneDepositairesList( )
@@ -122,6 +132,7 @@ public final class CampagneDepositaireHome
 
     /**
      * Load the data of all the campagneDepositaire objects for a campagne and returns them in form of a collection
+     * 
      * @return the collection which contains the data of all the campagneDepositaire objects
      */
     public static Collection<CampagneDepositaire> getCampagneDepositaireListByCampagne( String codeCampagne )
@@ -129,4 +140,3 @@ public final class CampagneDepositaireHome
         return _dao.selectCampagneDepositaireListByCampagne( codeCampagne, _plugin );
     }
 }
-

@@ -33,7 +33,6 @@
  */
 package fr.paris.lutece.plugins.participatoryideation.utils.http;
 
-
 import fr.paris.lutece.portal.service.util.AppLogService;
 import fr.paris.lutece.util.httpaccess.HttpAccess;
 import fr.paris.lutece.util.httpaccess.HttpAccessException;
@@ -43,6 +42,7 @@ import org.apache.commons.lang.StringUtils;
 
 import java.util.List;
 import java.util.Map;
+
 /**
  *
  * WebServiceCaller
@@ -65,10 +65,11 @@ public class WebServiceCaller implements IWebServiceCaller
             {
                 strResponse = httpAccess.doPost( strUrl, mapParameters, authenticator, listElements );
             }
-            else if ( httpMethod == HttpMethodEnum.GET )
-            {
-                strResponse = httpAccess.doGet( strUrl, authenticator, listElements );
-            }
+            else
+                if ( httpMethod == HttpMethodEnum.GET )
+                {
+                    strResponse = httpAccess.doGet( strUrl, authenticator, listElements );
+                }
         }
         catch( HttpAccessException e )
         {

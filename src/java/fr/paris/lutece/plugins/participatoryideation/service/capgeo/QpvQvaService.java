@@ -59,103 +59,98 @@ import fr.paris.lutece.portal.service.util.AppLogService;
 import fr.paris.lutece.portal.service.util.AppPropertiesService;
 import fr.paris.lutece.util.httpaccess.HttpAccess;
 
-public class QpvQvaService {
+public class QpvQvaService
+{
 
     private static final String PROPERTY_CAPGEO_QPV_QVA_URL = "participatoryideation.capgeo.qpvqva";
-    private static final String CAPGEO_QPV_QVA_URL = AppPropertiesService.getProperty(
-            PROPERTY_CAPGEO_QPV_QVA_URL, "http://services1.arcgis.com/yFAX7hJID4ONeUHP/arcgis/rest/services/QPV_QVA_GPRU/FeatureServer/0/query" );
+    private static final String CAPGEO_QPV_QVA_URL = AppPropertiesService.getProperty( PROPERTY_CAPGEO_QPV_QVA_URL,
+            "http://services1.arcgis.com/yFAX7hJID4ONeUHP/arcgis/rest/services/QPV_QVA_GPRU/FeatureServer/0/query" );
 
-    private static final String PARAMETER_GEOMETRY_TYPE="geometryType";
-    private static final String PARAMETER_GEOMETRY_TYPE_VALUE="esriGeometryPoint";
-    private static final String PARAMETER_IN_SR="inSR";
-    private static final String PARAMETER_IN_SR_VALUE="4326";
-    private static final String PARAMETER_SPATIAL_REL="esriSpatialRelIntersects";
-    private static final String PARAMETER_SPATIAL_REL_VALUE="esriSpatialRelIntersects";
-    private static final String PARAMETER_OUT_FIELDS="outFields";
-    private static final String PARAMETER_OUT_FIELDS_VALUE="C_NQPV,L_NQPV,C_NAT_QPV,GPRU_NOM,EXT_BP,FID";
-    private static final String PARAMETER_RETURN_GEOMETRY="returnGeometry";
-    private static final String PARAMETER_RETURN_GEOMETRY_VALUE="false";
-    private static final String PARAMETER_RETURN_IDS_ONLY="returnIdsOnly";
-    private static final String PARAMETER_RETURN_IDS_ONLY_VALUE="false";
-    private static final String PARAMETER_RETURN_COUNT_ONLY="returnCountOnly";
-    private static final String PARAMETER_RETURN_COUNT_ONLY_VALUE="false";
-    private static final String PARAMETER_RETURN_Z="returnZ";
-    private static final String PARAMETER_RETURN_Z_VALUE="false";
-    private static final String PARAMETER_RETURN_M="returnM";
-    private static final String PARAMETER_RETURN_M_VALUE="false";
-    private static final String PARAMETER_RETURN_DISTINCT="returnDistinctValues";
-    private static final String PARAMETER_RETURN_DISTINCT_VALUE="false";
-    private static final String PARAMETER_FORMAT="f";
-    private static final String PARAMETER_FORMAT_VALUE="json";
+    private static final String PARAMETER_GEOMETRY_TYPE = "geometryType";
+    private static final String PARAMETER_GEOMETRY_TYPE_VALUE = "esriGeometryPoint";
+    private static final String PARAMETER_IN_SR = "inSR";
+    private static final String PARAMETER_IN_SR_VALUE = "4326";
+    private static final String PARAMETER_SPATIAL_REL = "esriSpatialRelIntersects";
+    private static final String PARAMETER_SPATIAL_REL_VALUE = "esriSpatialRelIntersects";
+    private static final String PARAMETER_OUT_FIELDS = "outFields";
+    private static final String PARAMETER_OUT_FIELDS_VALUE = "C_NQPV,L_NQPV,C_NAT_QPV,GPRU_NOM,EXT_BP,FID";
+    private static final String PARAMETER_RETURN_GEOMETRY = "returnGeometry";
+    private static final String PARAMETER_RETURN_GEOMETRY_VALUE = "false";
+    private static final String PARAMETER_RETURN_IDS_ONLY = "returnIdsOnly";
+    private static final String PARAMETER_RETURN_IDS_ONLY_VALUE = "false";
+    private static final String PARAMETER_RETURN_COUNT_ONLY = "returnCountOnly";
+    private static final String PARAMETER_RETURN_COUNT_ONLY_VALUE = "false";
+    private static final String PARAMETER_RETURN_Z = "returnZ";
+    private static final String PARAMETER_RETURN_Z_VALUE = "false";
+    private static final String PARAMETER_RETURN_M = "returnM";
+    private static final String PARAMETER_RETURN_M_VALUE = "false";
+    private static final String PARAMETER_RETURN_DISTINCT = "returnDistinctValues";
+    private static final String PARAMETER_RETURN_DISTINCT_VALUE = "false";
+    private static final String PARAMETER_FORMAT = "f";
+    private static final String PARAMETER_FORMAT_VALUE = "json";
 
-    private static final String PARAMETER_GEOMETRY="geometry";
+    private static final String PARAMETER_GEOMETRY = "geometry";
 
     private static ObjectMapper _mapper;
     static
     {
-        _mapper = new ObjectMapper(  );
+        _mapper = new ObjectMapper( );
         _mapper.configure( DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false );
     }
 
     /** Private constructor */
-    private QpvQvaService()
+    private QpvQvaService( )
     {
     }
 
-    private static void addCommonParameters( Map<String, String> mapParameters, double longitude, double latitude ) {
-        mapParameters.put(PARAMETER_GEOMETRY_TYPE,PARAMETER_GEOMETRY_TYPE_VALUE);
-        mapParameters.put(PARAMETER_IN_SR,PARAMETER_IN_SR_VALUE);
-        mapParameters.put(PARAMETER_SPATIAL_REL,PARAMETER_SPATIAL_REL_VALUE);
-        mapParameters.put(PARAMETER_RETURN_GEOMETRY,PARAMETER_RETURN_GEOMETRY_VALUE);
-        mapParameters.put(PARAMETER_RETURN_IDS_ONLY,PARAMETER_RETURN_IDS_ONLY_VALUE);
-        mapParameters.put(PARAMETER_RETURN_COUNT_ONLY,PARAMETER_RETURN_COUNT_ONLY_VALUE);
-        mapParameters.put(PARAMETER_RETURN_Z,PARAMETER_RETURN_Z_VALUE);
-        mapParameters.put(PARAMETER_RETURN_M,PARAMETER_RETURN_M_VALUE);
-        mapParameters.put(PARAMETER_RETURN_DISTINCT,PARAMETER_RETURN_DISTINCT_VALUE);
-        mapParameters.put(PARAMETER_FORMAT,PARAMETER_FORMAT_VALUE);
+    private static void addCommonParameters( Map<String, String> mapParameters, double longitude, double latitude )
+    {
+        mapParameters.put( PARAMETER_GEOMETRY_TYPE, PARAMETER_GEOMETRY_TYPE_VALUE );
+        mapParameters.put( PARAMETER_IN_SR, PARAMETER_IN_SR_VALUE );
+        mapParameters.put( PARAMETER_SPATIAL_REL, PARAMETER_SPATIAL_REL_VALUE );
+        mapParameters.put( PARAMETER_RETURN_GEOMETRY, PARAMETER_RETURN_GEOMETRY_VALUE );
+        mapParameters.put( PARAMETER_RETURN_IDS_ONLY, PARAMETER_RETURN_IDS_ONLY_VALUE );
+        mapParameters.put( PARAMETER_RETURN_COUNT_ONLY, PARAMETER_RETURN_COUNT_ONLY_VALUE );
+        mapParameters.put( PARAMETER_RETURN_Z, PARAMETER_RETURN_Z_VALUE );
+        mapParameters.put( PARAMETER_RETURN_M, PARAMETER_RETURN_M_VALUE );
+        mapParameters.put( PARAMETER_RETURN_DISTINCT, PARAMETER_RETURN_DISTINCT_VALUE );
+        mapParameters.put( PARAMETER_FORMAT, PARAMETER_FORMAT_VALUE );
         String strLonLat = String.format( Locale.ENGLISH, "%.6f,%.6f", longitude, latitude );
-        mapParameters.put(PARAMETER_GEOMETRY, strLonLat);
+        mapParameters.put( PARAMETER_GEOMETRY, strLonLat );
     }
 
-    public static List<QpvQva> getQpvQva(double longitude, double latitude)
-            throws Exception {
+    public static List<QpvQva> getQpvQva( double longitude, double latitude ) throws Exception
+    {
         HttpAccess httpAccess = new HttpAccess( );
-        Map<String, String> mapParameters = new ConcurrentHashMap<String, String>(  );
-        
-        addCommonParameters(mapParameters, longitude, latitude);
-        mapParameters.put(PARAMETER_OUT_FIELDS,PARAMETER_OUT_FIELDS_VALUE);
+        Map<String, String> mapParameters = new ConcurrentHashMap<String, String>( );
+
+        addCommonParameters( mapParameters, longitude, latitude );
+        mapParameters.put( PARAMETER_OUT_FIELDS, PARAMETER_OUT_FIELDS_VALUE );
 
         QpvQvaRestResponse response;
-        
-       /* ClientConfig clientConfig = new DefaultClientConfig(  );
-        clientConfig.getFeatures(  ).put( JSONConfiguration.FEATURE_POJO_MAPPING, Boolean.TRUE );
-        Client client = Client.create( clientConfig );
-        //client.addFilter( new HTTPBasicAuthFilter( userName, password ) );
-        WebResource webResource = client.resource( CAPGEO_QPV_QVA_URL );
-        
-        //MultivaluedMap multivaluedMap = new MultivaluedMapImpl();
-        
-        ClientResponse clientResponse = webResource
-        		.queryParam(PARAMETER_GEOMETRY_TYPE, PARAMETER_GEOMETRY_TYPE_VALUE)
-        		.queryParam(PARAMETER_IN_SR, PARAMETER_IN_SR_VALUE)
-        		.queryParam(PARAMETER_SPATIAL_REL,PARAMETER_SPATIAL_REL_VALUE)
-        		.queryParam(PARAMETER_RETURN_GEOMETRY,PARAMETER_RETURN_GEOMETRY_VALUE)
-        		.queryParam(PARAMETER_RETURN_IDS_ONLY,PARAMETER_RETURN_IDS_ONLY_VALUE)
-        		.queryParam(PARAMETER_RETURN_COUNT_ONLY,PARAMETER_RETURN_COUNT_ONLY_VALUE)
-        		.queryParam(PARAMETER_RETURN_Z,PARAMETER_RETURN_Z_VALUE)
-        		.queryParam(PARAMETER_RETURN_M,PARAMETER_RETURN_M_VALUE)
-        		.queryParam(PARAMETER_RETURN_DISTINCT,PARAMETER_RETURN_DISTINCT_VALUE)
-        		.queryParam(PARAMETER_FORMAT,PARAMETER_FORMAT_VALUE)
-        		.queryParam(PARAMETER_GEOMETRY, mapParameters.get("geometry"))
-        		.type( MediaType.APPLICATION_JSON ).accept( MediaType.APPLICATION_JSON )
-                .get( ClientResponse.class );
-        
-        int status = clientResponse.getStatus();*/
-        
-        String strJson = httpAccess.doPost(CAPGEO_QPV_QVA_URL, mapParameters);
-        AppLogService.info("Ideation QpvQvaService qpvqva: got response from " + CAPGEO_QPV_QVA_URL + strJson);
+
+        /*
+         * ClientConfig clientConfig = new DefaultClientConfig( ); clientConfig.getFeatures( ).put( JSONConfiguration.FEATURE_POJO_MAPPING, Boolean.TRUE );
+         * Client client = Client.create( clientConfig ); //client.addFilter( new HTTPBasicAuthFilter( userName, password ) ); WebResource webResource =
+         * client.resource( CAPGEO_QPV_QVA_URL );
+         * 
+         * //MultivaluedMap multivaluedMap = new MultivaluedMapImpl();
+         * 
+         * ClientResponse clientResponse = webResource .queryParam(PARAMETER_GEOMETRY_TYPE, PARAMETER_GEOMETRY_TYPE_VALUE) .queryParam(PARAMETER_IN_SR,
+         * PARAMETER_IN_SR_VALUE) .queryParam(PARAMETER_SPATIAL_REL,PARAMETER_SPATIAL_REL_VALUE)
+         * .queryParam(PARAMETER_RETURN_GEOMETRY,PARAMETER_RETURN_GEOMETRY_VALUE) .queryParam(PARAMETER_RETURN_IDS_ONLY,PARAMETER_RETURN_IDS_ONLY_VALUE)
+         * .queryParam(PARAMETER_RETURN_COUNT_ONLY,PARAMETER_RETURN_COUNT_ONLY_VALUE) .queryParam(PARAMETER_RETURN_Z,PARAMETER_RETURN_Z_VALUE)
+         * .queryParam(PARAMETER_RETURN_M,PARAMETER_RETURN_M_VALUE) .queryParam(PARAMETER_RETURN_DISTINCT,PARAMETER_RETURN_DISTINCT_VALUE)
+         * .queryParam(PARAMETER_FORMAT,PARAMETER_FORMAT_VALUE) .queryParam(PARAMETER_GEOMETRY, mapParameters.get("geometry")) .type( MediaType.APPLICATION_JSON
+         * ).accept( MediaType.APPLICATION_JSON ) .get( ClientResponse.class );
+         * 
+         * int status = clientResponse.getStatus();
+         */
+
+        String strJson = httpAccess.doPost( CAPGEO_QPV_QVA_URL, mapParameters );
+        AppLogService.info( "Ideation QpvQvaService qpvqva: got response from " + CAPGEO_QPV_QVA_URL + strJson );
         response = _mapper.readValue( strJson, QpvQvaRestResponse.class );
-        List<QpvQva> features = response.getFeatures();
+        List<QpvQva> features = response.getFeatures( );
         return features;
     }
 

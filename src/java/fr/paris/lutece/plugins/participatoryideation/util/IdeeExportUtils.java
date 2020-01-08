@@ -36,7 +36,8 @@ package fr.paris.lutece.plugins.participatoryideation.util;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class IdeeExportUtils {
+public class IdeeExportUtils
+{
     public static final String ERROR_NOTHING_TO_EXPORT = "participatoryideation.message.csv.error.nothingToExport";
     private static final String CSV = "csv";
     private static final String APPLICATION_CSV = "application/csv";
@@ -55,19 +56,23 @@ public class IdeeExportUtils {
      *
      * Creates a new IdeeExportUtils.java object.
      */
-    private IdeeExportUtils(  )
+    private IdeeExportUtils( )
     {
     }
 
     /**
-    * Writes the http header in the response
-    * @param request the httpServletRequest
-    * @param response the http response
-    * @param strFileName the name of the file who must insert in the response
-    * @param strFileExtension the file extension
-    */
-    public static void addHeaderResponse( HttpServletRequest request, HttpServletResponse response, String strFileName,
-        String strFileExtension )
+     * Writes the http header in the response
+     * 
+     * @param request
+     *            the httpServletRequest
+     * @param response
+     *            the http response
+     * @param strFileName
+     *            the name of the file who must insert in the response
+     * @param strFileExtension
+     *            the file extension
+     */
+    public static void addHeaderResponse( HttpServletRequest request, HttpServletResponse response, String strFileName, String strFileExtension )
     {
         response.setHeader( CONTENT_DISPOSITION, ATTACHMENT + strFileName + DOUBLE_QUOTE );
 
@@ -77,7 +82,7 @@ public class IdeeExportUtils {
         }
         else
         {
-            String strMimeType = request.getSession(  ).getServletContext(  ).getMimeType( strFileName );
+            String strMimeType = request.getSession( ).getServletContext( ).getMimeType( strFileName );
 
             if ( strMimeType != null )
             {

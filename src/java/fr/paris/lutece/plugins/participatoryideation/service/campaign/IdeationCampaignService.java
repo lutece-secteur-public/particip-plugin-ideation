@@ -37,23 +37,21 @@ import fr.paris.lutece.portal.service.spring.SpringContextService;
 import fr.paris.lutece.util.ReferenceList;
 
 /**
- * This class provides very simple ideation campaign services :
- *   - One 'whole city' area 
- *   - No 'localized' area 
- *   - Ideation is always open
+ * This class provides very simple ideation campaign services : - One 'whole city' area - No 'localized' area - Ideation is always open
  */
-public class IdeationCampaignService implements IIdeationCampaignService {
+public class IdeationCampaignService implements IIdeationCampaignService
+{
 
-	// *********************************************************************************************
-	// * SINGLETON SINGLETON SINGLETON SINGLETON SINGLETON SINGLETON SINGLETON SINGLETON SINGLETON *
-	// * SINGLETON SINGLETON SINGLETON SINGLETON SINGLETON SINGLETON SINGLETON SINGLETON SINGLETON *
-	// *********************************************************************************************
-	
-	private static final String BEAN_IDEATIONCAMPAIGN_SERVICE = "participatoryideation.ideationCampaignService";
-	
-	private static IIdeationCampaignService _singleton;
-	
-	public static IIdeationCampaignService getInstance(  )
+    // *********************************************************************************************
+    // * SINGLETON SINGLETON SINGLETON SINGLETON SINGLETON SINGLETON SINGLETON SINGLETON SINGLETON *
+    // * SINGLETON SINGLETON SINGLETON SINGLETON SINGLETON SINGLETON SINGLETON SINGLETON SINGLETON *
+    // *********************************************************************************************
+
+    private static final String BEAN_IDEATIONCAMPAIGN_SERVICE = "participatoryideation.ideationCampaignService";
+
+    private static IIdeationCampaignService _singleton;
+
+    public static IIdeationCampaignService getInstance( )
     {
         if ( _singleton == null )
         {
@@ -62,131 +60,149 @@ public class IdeationCampaignService implements IIdeationCampaignService {
         return _singleton;
     }
 
-	// *********************************************************************************************
-	// * AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA *
-	// * AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA *
-	// *********************************************************************************************
-	
-	@Override
-	public String getCampaignWholeArea(String codeCampaign) {
-		return WHOLE_AREA;
-	}
+    // *********************************************************************************************
+    // * AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA *
+    // * AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA *
+    // *********************************************************************************************
 
-	@Override
-	public ReferenceList getCampaignLocalizedAreas(String codeCampaign) {
-		return new ReferenceList();
-	}
+    @Override
+    public String getCampaignWholeArea( String codeCampaign )
+    {
+        return WHOLE_AREA;
+    }
 
-	@Override
-	public int getCampaignNumberLocalizedAreas(String codeCampaign) {
-		return 0;
-	}
+    @Override
+    public ReferenceList getCampaignLocalizedAreas( String codeCampaign )
+    {
+        return new ReferenceList( );
+    }
 
-	@Override
-	public String getCampaignWholeArea() {
-		return WHOLE_AREA;
-	}
+    @Override
+    public int getCampaignNumberLocalizedAreas( String codeCampaign )
+    {
+        return 0;
+    }
 
-	@Override
-	public ReferenceList getCampaignLocalizedAreas() {
-		return new ReferenceList();
-	}
+    @Override
+    public String getCampaignWholeArea( )
+    {
+        return WHOLE_AREA;
+    }
 
-	@Override
-	public int getCampaignNumberLocalizedAreas() {
-		return 0;
-	}
+    @Override
+    public ReferenceList getCampaignLocalizedAreas( )
+    {
+        return new ReferenceList( );
+    }
 
-	@Override
-	public ReferenceList getCampaignAllAreas(String codeCampaign) {
-		ReferenceList allAreas = new ReferenceList();
-		allAreas.addItem( WHOLE_AREA, WHOLE_AREA );
-		return allAreas;
-	}
+    @Override
+    public int getCampaignNumberLocalizedAreas( )
+    {
+        return 0;
+    }
 
-	@Override
-	public ReferenceList getCampaignAllAreas() {
-		ReferenceList allAreas = new ReferenceList();
-		allAreas.addItem( WHOLE_AREA, WHOLE_AREA );
-		return allAreas;
-	}
+    @Override
+    public ReferenceList getCampaignAllAreas( String codeCampaign )
+    {
+        ReferenceList allAreas = new ReferenceList( );
+        allAreas.addItem( WHOLE_AREA, WHOLE_AREA );
+        return allAreas;
+    }
 
-	// *********************************************************************************************
-	// * PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASE *
-	// * PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASE *
-	// *********************************************************************************************
+    @Override
+    public ReferenceList getCampaignAllAreas( )
+    {
+        ReferenceList allAreas = new ReferenceList( );
+        allAreas.addItem( WHOLE_AREA, WHOLE_AREA );
+        return allAreas;
+    }
 
-	@Override
-	public boolean isBeforeBeginning(String codeCampaign, String phase) {
-		return false;
-	}
+    // *********************************************************************************************
+    // * PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASE *
+    // * PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASE *
+    // *********************************************************************************************
 
-	@Override
-	public boolean isAfterBeginning(String codeCampaign, String phase) {
-		return true;
-	}
+    @Override
+    public boolean isBeforeBeginning( String codeCampaign, String phase )
+    {
+        return false;
+    }
 
-	@Override
-	public boolean isDuring(String codeCampaign, String phase) {
-		return true;
-	}
+    @Override
+    public boolean isAfterBeginning( String codeCampaign, String phase )
+    {
+        return true;
+    }
 
-	@Override
-	public boolean isBeforeEnd(String codeCampaign, String phase) {
-		return true;
-	}
+    @Override
+    public boolean isDuring( String codeCampaign, String phase )
+    {
+        return true;
+    }
 
-	@Override
-	public boolean isAfterEnd(String codeCampaign, String phase) {
-		return false;
-	}
+    @Override
+    public boolean isBeforeEnd( String codeCampaign, String phase )
+    {
+        return true;
+    }
 
-	@Override
-	public boolean isBeforeBeginning(String phase) {
-		return false;
-	}
+    @Override
+    public boolean isAfterEnd( String codeCampaign, String phase )
+    {
+        return false;
+    }
 
-	@Override
-	public boolean isAfterBeginning(String phase) {
-		return true;
-	}
+    @Override
+    public boolean isBeforeBeginning( String phase )
+    {
+        return false;
+    }
 
-	@Override
-	public boolean isDuring(String phase) {
-		return true;
-	}
+    @Override
+    public boolean isAfterBeginning( String phase )
+    {
+        return true;
+    }
 
-	@Override
-	public boolean isBeforeEnd(String phase) {
-		return true;
-	}
+    @Override
+    public boolean isDuring( String phase )
+    {
+        return true;
+    }
 
-	@Override
-	public boolean isAfterEnd(String phase) {
-		return false;
-	}
+    @Override
+    public boolean isBeforeEnd( String phase )
+    {
+        return true;
+    }
 
-	// *********************************************************************************************
-	// * THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEME *
-	// * THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEME *
-	// *********************************************************************************************
+    @Override
+    public boolean isAfterEnd( String phase )
+    {
+        return false;
+    }
 
-	@Override
-	public ReferenceList getCampaignThemes(String codeCampaign) 
-	{
-		return getCampaignThemes();
-	}
+    // *********************************************************************************************
+    // * THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEME *
+    // * THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEME *
+    // *********************************************************************************************
 
-	@Override
-	public ReferenceList getCampaignThemes() 
-	{
-		ReferenceList items = new ReferenceList();
-		
-		items.addItem( "SPORT"      , "Spooort !" );
-		items.addItem( "SOCIAL"     , "Social issues" );
-		items.addItem( "GENERAL"    , "General" );
-		
-		return items;
-	}
+    @Override
+    public ReferenceList getCampaignThemes( String codeCampaign )
+    {
+        return getCampaignThemes( );
+    }
+
+    @Override
+    public ReferenceList getCampaignThemes( )
+    {
+        ReferenceList items = new ReferenceList( );
+
+        items.addItem( "SPORT", "Spooort !" );
+        items.addItem( "SOCIAL", "Social issues" );
+        items.addItem( "GENERAL", "General" );
+
+        return items;
+    }
 
 }

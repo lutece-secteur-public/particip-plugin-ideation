@@ -38,27 +38,27 @@ import org.hibernate.validator.constraints.*;
 
 import java.io.Serializable;
 
-
 /**
  * This is the business class for the object CampagneDepositaire
- */ 
+ */
 public class CampagneDepositaire implements Serializable
 {
     private static final long serialVersionUID = 1L;
 
-    // Variables declarations 
+    // Variables declarations
     private int _nId;
-    
+
     @NotEmpty( message = "#i18n{participatoryideation.validation.campagnedepositaire.CodeCampagne.notEmpty}" )
-    @Size( max = 50 , message = "#i18n{participatoryideation.validation.campagnedepositaire.CodeCampagne.size}" ) 
+    @Size( max = 50, message = "#i18n{participatoryideation.validation.campagnedepositaire.CodeCampagne.size}" )
     private String _strCodeCampagne;
-    
+
     @NotEmpty( message = "#i18n{participatoryideation.validation.campagnedepositaire.CodeDepositaireType.notEmpty}" )
-    @Size( max = 50 , message = "#i18n{participatoryideation.validation.campagnedepositaire.CodeDepositaireType.size}" ) 
+    @Size( max = 50, message = "#i18n{participatoryideation.validation.campagnedepositaire.CodeDepositaireType.size}" )
     private String _strCodeDepositaireType;
 
     /**
      * Returns the Id
+     * 
      * @return The Id
      */
     public int getId( )
@@ -68,8 +68,10 @@ public class CampagneDepositaire implements Serializable
 
     /**
      * Sets the Id
-     * @param nId The Id
-     */ 
+     * 
+     * @param nId
+     *            The Id
+     */
     public void setId( int nId )
     {
         _nId = nId;
@@ -77,6 +79,7 @@ public class CampagneDepositaire implements Serializable
 
     /**
      * Returns the CodeCampagne
+     * 
      * @return The CodeCampagne
      */
     public String getCodeCampagne( )
@@ -86,14 +89,18 @@ public class CampagneDepositaire implements Serializable
 
     /**
      * Sets the CodeCampagne
-     * @param strCodeCampagne The CodeCampagne
-     */ 
+     * 
+     * @param strCodeCampagne
+     *            The CodeCampagne
+     */
     public void setCodeCampagne( String strCodeCampagne )
     {
         _strCodeCampagne = strCodeCampagne;
     }
+
     /**
      * Returns the CodeDepositaireType
+     * 
      * @return The CodeDepositaireType
      */
     public String getCodeDepositaireType( )
@@ -103,8 +110,10 @@ public class CampagneDepositaire implements Serializable
 
     /**
      * Sets the CodeDepositaireType
-     * @param strCodeDepositaireType The CodeDepositaireType
-     */ 
+     * 
+     * @param strCodeDepositaireType
+     *            The CodeDepositaireType
+     */
     public void setCodeDepositaireType( String strCodeDepositaireType )
     {
         _strCodeDepositaireType = strCodeDepositaireType;

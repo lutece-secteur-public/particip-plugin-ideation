@@ -36,8 +36,6 @@ package fr.paris.lutece.plugins.participatoryideation.business;
 import fr.paris.lutece.portal.service.plugin.Plugin;
 import java.util.Collection;
 
-
-
 /**
  * ICampagneDepositaireDAO Interface
  */
@@ -45,56 +43,73 @@ public interface ICampagneDepositaireDAO
 {
     /**
      * Insert a new record in the table.
-     * @param campagneDepositaire instance of the CampagneDepositaire object to insert
-     * @param plugin the Plugin
+     * 
+     * @param campagneDepositaire
+     *            instance of the CampagneDepositaire object to insert
+     * @param plugin
+     *            the Plugin
      */
     void insert( CampagneDepositaire campagneDepositaire, Plugin plugin );
 
     /**
      * Update the record in the table
-     * @param campagneDepositaire the reference of the CampagneDepositaire
-     * @param plugin the Plugin
+     * 
+     * @param campagneDepositaire
+     *            the reference of the CampagneDepositaire
+     * @param plugin
+     *            the Plugin
      */
     void store( CampagneDepositaire campagneDepositaire, Plugin plugin );
 
     /**
      * Delete a record from the table
-     * @param nKey The identifier of the CampagneDepositaire to delete
-     * @param plugin the Plugin
+     * 
+     * @param nKey
+     *            The identifier of the CampagneDepositaire to delete
+     * @param plugin
+     *            the Plugin
      */
     void delete( int nKey, Plugin plugin );
 
-    ///////////////////////////////////////////////////////////////////////////
+    // /////////////////////////////////////////////////////////////////////////
     // Finders
 
     /**
      * Load the data from the table
-     * @param nKey The identifier of the campagneDepositaire
-     * @param plugin the Plugin
+     * 
+     * @param nKey
+     *            The identifier of the campagneDepositaire
+     * @param plugin
+     *            the Plugin
      * @return The instance of the campagneDepositaire
      */
     CampagneDepositaire load( int nKey, Plugin plugin );
 
     /**
      * Load the data of all the campagneDepositaire objects and returns them as a collection
-     * @param plugin the Plugin
+     * 
+     * @param plugin
+     *            the Plugin
      * @return The collection which contains the data of all the campagneDepositaire objects
      */
     Collection<CampagneDepositaire> selectCampagneDepositairesList( Plugin plugin );
-    
+
     /**
      * Load the data of all the campagneDepositaire objects for a campagne and returns them as a collection
-     * @param plugin the Plugin
+     * 
+     * @param plugin
+     *            the Plugin
      * @return The collection which contains the data of all the {@link CampagneDepositaire} objects
      */
     Collection<CampagneDepositaire> selectCampagneDepositaireListByCampagne( String codeCampagne, Plugin plugin );
- 
+
     /**
      * Load the id of all the campagneDepositaire objects and returns them as a collection
-     * @param plugin the Plugin
+     * 
+     * @param plugin
+     *            the Plugin
      * @return The collection which contains the id of all the campagneDepositaire objects
      */
     Collection<Integer> selectIdCampagneDepositairesList( Plugin plugin );
-    
-}
 
+}

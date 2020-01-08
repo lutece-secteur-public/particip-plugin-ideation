@@ -35,7 +35,6 @@ package fr.paris.lutece.plugins.participatoryideation.business.notify;
 
 import fr.paris.lutece.plugins.workflowcore.business.config.TaskConfig;
 
-
 /**
  *
  * TaskChangeIdeeStatusConfig
@@ -47,16 +46,18 @@ public class TaskChangeIdeeStatusConfig extends TaskConfig
 
     /**
      * Get the status
+     * 
      * @return the status of the idee
      */
-    public String getIdeeStatus(  )
+    public String getIdeeStatus( )
     {
         return _strIdeeStatus;
     }
 
     /**
      * 
-     * @param strIdeeStatus the status of the idee
+     * @param strIdeeStatus
+     *            the status of the idee
      */
     public void setIdeeStatus( String strIdeeStatus )
     {

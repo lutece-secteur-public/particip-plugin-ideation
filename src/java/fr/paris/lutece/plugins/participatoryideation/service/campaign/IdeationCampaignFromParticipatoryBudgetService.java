@@ -42,244 +42,274 @@ import fr.paris.lutece.portal.service.util.AppPropertiesService;
 import fr.paris.lutece.util.ReferenceList;
 
 /**
- * This class provides campaign services and informations from plugin-participatorybudget. It uses the REST API of the plugin. 
+ * This class provides campaign services and informations from plugin-participatorybudget. It uses the REST API of the plugin.
  */
-public class IdeationCampaignFromParticipatoryBudgetService implements IIdeationCampaignService 
+public class IdeationCampaignFromParticipatoryBudgetService implements IIdeationCampaignService
 {
 
-	private final static String REST_URL =  
-		  AppPropertiesService.getProperty("participatoryideation.campaign.rest.webapp.url")
-		+ AppPropertiesService.getProperty("participatoryideation.campaign.rest.demand.base_url");
-	
-	// *********************************************************************************************
-	// * AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA *
-	// * AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA *
-	// *********************************************************************************************
+    private final static String REST_URL = AppPropertiesService.getProperty( "participatoryideation.campaign.rest.webapp.url" )
+            + AppPropertiesService.getProperty( "participatoryideation.campaign.rest.demand.base_url" );
+
+    // *********************************************************************************************
+    // * AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA *
+    // * AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA *
+    // *********************************************************************************************
 
     @Override
-    public int getCampaignNumberLocalizedAreas(String codeCampaign) {
-		return countValueList( codeCampaign + "/localized-areas" );
-    }
-    
-    @Override
-    public int getCampaignNumberLocalizedAreas() {
-		return countValueList( "localized-areas" );
+    public int getCampaignNumberLocalizedAreas( String codeCampaign )
+    {
+        return countValueList( codeCampaign + "/localized-areas" );
     }
 
     @Override
-    public ReferenceList getCampaignAllAreas(String codeCampaign) {
-		return parseValueList( codeCampaign + "/all-areas" );
-    }
-    
-    @Override
-    public ReferenceList getCampaignAllAreas() {
-		return parseValueList( "all-areas" );
+    public int getCampaignNumberLocalizedAreas( )
+    {
+        return countValueList( "localized-areas" );
     }
 
     @Override
-    public ReferenceList getCampaignLocalizedAreas(String codeCampaign) {
-		return parseValueList( codeCampaign + "/localized-areas" );
-    }
-    
-    @Override
-    public ReferenceList getCampaignLocalizedAreas() {
-		return parseValueList( "localized-areas" );
+    public ReferenceList getCampaignAllAreas( String codeCampaign )
+    {
+        return parseValueList( codeCampaign + "/all-areas" );
     }
 
     @Override
-    public String getCampaignWholeArea(String codeCampaign) {
-    	return parseString( codeCampaign + "/whole-area" );
+    public ReferenceList getCampaignAllAreas( )
+    {
+        return parseValueList( "all-areas" );
     }
-    
+
     @Override
-    public String getCampaignWholeArea() {
-    	return parseString( "whole-area" );
+    public ReferenceList getCampaignLocalizedAreas( String codeCampaign )
+    {
+        return parseValueList( codeCampaign + "/localized-areas" );
+    }
+
+    @Override
+    public ReferenceList getCampaignLocalizedAreas( )
+    {
+        return parseValueList( "localized-areas" );
+    }
+
+    @Override
+    public String getCampaignWholeArea( String codeCampaign )
+    {
+        return parseString( codeCampaign + "/whole-area" );
+    }
+
+    @Override
+    public String getCampaignWholeArea( )
+    {
+        return parseString( "whole-area" );
     }
 
     // *********************************************************************************************
-	// * PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASE *
-	// * PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASE *
-	// *********************************************************************************************
+    // * PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASE *
+    // * PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASE *
+    // *********************************************************************************************
 
     @Override
-    public boolean isBeforeBeginning( String phase ) {
-    	return parseBoolean( phase + "/before-beginning" );
-    }
-    
-    @Override
-    public boolean isBeforeBeginning( String codeCampaign, String phase ) {
-    	return parseBoolean( codeCampaign + "/" + phase + "/before-beginning" );
-    }
-    
-    @Override
-    public boolean isAfterBeginning( String phase ) {
-    	return parseBoolean( phase + "/after-beginning" );
+    public boolean isBeforeBeginning( String phase )
+    {
+        return parseBoolean( phase + "/before-beginning" );
     }
 
     @Override
-    public boolean isAfterBeginning( String codeCampaign, String phase ) {
-    	return parseBoolean( codeCampaign + "/" + phase + "/after-beginning" );
-    }
-    
-    @Override
-    public boolean isDuring( String phase ) {
-    	return parseBoolean( phase + "/during" );
+    public boolean isBeforeBeginning( String codeCampaign, String phase )
+    {
+        return parseBoolean( codeCampaign + "/" + phase + "/before-beginning" );
     }
 
     @Override
-    public boolean isDuring( String codeCampaign, String phase ) {
-    	return parseBoolean( codeCampaign + "/" + phase + "/during" );
+    public boolean isAfterBeginning( String phase )
+    {
+        return parseBoolean( phase + "/after-beginning" );
     }
 
     @Override
-    public boolean isBeforeEnd( String phase ) {
-    	return parseBoolean( phase + "/before-end" );
+    public boolean isAfterBeginning( String codeCampaign, String phase )
+    {
+        return parseBoolean( codeCampaign + "/" + phase + "/after-beginning" );
     }
 
     @Override
-    public boolean isBeforeEnd( String codeCampaign, String phase ) {
-    	return parseBoolean( codeCampaign + "/" + phase + "/before-end" );
+    public boolean isDuring( String phase )
+    {
+        return parseBoolean( phase + "/during" );
     }
 
     @Override
-    public boolean isAfterEnd( String phase ) {
-    	return parseBoolean( phase + "/after-end" );
+    public boolean isDuring( String codeCampaign, String phase )
+    {
+        return parseBoolean( codeCampaign + "/" + phase + "/during" );
     }
 
     @Override
-    public boolean isAfterEnd( String codeCampaign, String phase ) {
-    	return parseBoolean( codeCampaign + "/" + phase + "/after-end" );
+    public boolean isBeforeEnd( String phase )
+    {
+        return parseBoolean( phase + "/before-end" );
     }
 
-	// *********************************************************************************************
-	// * THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEME *
-	// * THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEME *
-	// *********************************************************************************************
+    @Override
+    public boolean isBeforeEnd( String codeCampaign, String phase )
+    {
+        return parseBoolean( codeCampaign + "/" + phase + "/before-end" );
+    }
 
     @Override
-	public ReferenceList getCampaignThemes(String codeCampaign) {
-		return parseReferenceList( codeCampaign + "/themes" );
-	}
+    public boolean isAfterEnd( String phase )
+    {
+        return parseBoolean( phase + "/after-end" );
+    }
 
-	@Override
-	public ReferenceList getCampaignThemes() {
-		return parseReferenceList( "themes" );
-	}
+    @Override
+    public boolean isAfterEnd( String codeCampaign, String phase )
+    {
+        return parseBoolean( codeCampaign + "/" + phase + "/after-end" );
+    }
 
-	// *********************************************************************************************
-	// * UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS *
-	// * UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS *
-	// *********************************************************************************************
+    // *********************************************************************************************
+    // * THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEME *
+    // * THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEME *
+    // *********************************************************************************************
 
-	/**
-	 * Parse a String typed REST response.
-	 */
-	private String parseString( String restRequest ) {
-    	try {
-        	JSONObject json =  new JSONObject(IdeationClientProcessor.getProcess( REST_URL + restRequest ) );
-        	return json.getString("result"); 
+    @Override
+    public ReferenceList getCampaignThemes( String codeCampaign )
+    {
+        return parseReferenceList( codeCampaign + "/themes" );
+    }
+
+    @Override
+    public ReferenceList getCampaignThemes( )
+    {
+        return parseReferenceList( "themes" );
+    }
+
+    // *********************************************************************************************
+    // * UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS *
+    // * UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS *
+    // *********************************************************************************************
+
+    /**
+     * Parse a String typed REST response.
+     */
+    private String parseString( String restRequest )
+    {
+        try
+        {
+            JSONObject json = new JSONObject( IdeationClientProcessor.getProcess( REST_URL + restRequest ) );
+            return json.getString( "result" );
         }
-    	catch ( Exception e ) 
-    	{
-        	AppLogService.error( e.getMessage() , e );
-			return "";
-		}    
-	}
-	
-	/**
-	 * Parse a boolean typed REST response.
-	 */
-	private boolean parseBoolean( String restRequest ) {
-    	try {
-        	JSONObject json =  new JSONObject(IdeationClientProcessor.getProcess( REST_URL + restRequest ) );
-        	return json.getBoolean("result"); 
+        catch( Exception e )
+        {
+            AppLogService.error( e.getMessage( ), e );
+            return "";
         }
-    	catch ( Exception e ) 
-    	{
-        	AppLogService.error( e.getMessage() , e );
-			return false;
-		}    
-	}
-	
-	/**
-	 * Parse a ReferenceList typed REST response.
-	 */
-	private ReferenceList parseReferenceList( String restRequest ) {
-        ReferenceList listAreas = new ReferenceList();
-    	try {
-        	JSONObject jsonResult =  new JSONObject( IdeationClientProcessor.getProcess( REST_URL + restRequest ) );
-        	if ( jsonResult.getString( "status" ).equals( "OK" ) ) 
-        	{
-            	JSONArray jsonArray = jsonResult.getJSONArray( "result" );
+    }
 
-            	if ( jsonArray != null ) 
-            	{ 
-            	   int len = jsonArray.length();
-            	   for ( int i = 0; i < len; i++ ) 
-            	   {
-            		   JSONObject item = jsonArray.getJSONObject( i );
-            		   listAreas.addItem( item.getString( "code" ) , item.getString( "name" ) );
-            	   }
-            	}
-        	}
-        	
-        	return listAreas;
-        } 
-    	catch ( Exception e ) 
-    	{
-        	AppLogService.error( e.getMessage() , e );
-			return listAreas;
-		}
-	}
-	
-	/**
-	 * Parse a list of value REST response.
-	 */
-	private ReferenceList parseValueList( String restRequest ) {
-        ReferenceList listAreas = new ReferenceList();
-    	try {
-        	JSONObject jsonResult =  new JSONObject( IdeationClientProcessor.getProcess( REST_URL + restRequest ) );
-        	if ( jsonResult.getString( "status" ).equals( "OK" ) ) 
-        	{
-            	JSONArray jsonArray = jsonResult.getJSONArray( "result" );
+    /**
+     * Parse a boolean typed REST response.
+     */
+    private boolean parseBoolean( String restRequest )
+    {
+        try
+        {
+            JSONObject json = new JSONObject( IdeationClientProcessor.getProcess( REST_URL + restRequest ) );
+            return json.getBoolean( "result" );
+        }
+        catch( Exception e )
+        {
+            AppLogService.error( e.getMessage( ), e );
+            return false;
+        }
+    }
 
-            	if ( jsonArray != null ) 
-            	{ 
-            	   int len = jsonArray.length();
-            	   for ( int i = 0; i < len; i++ ) { 
-						listAreas.addItem( jsonArray.get( i ).toString(), jsonArray.get( i ).toString() );
-            	   }
-            	}
-        	}
-        	
-        	return listAreas;
-        } 
-    	catch ( Exception e ) 
-    	{
-        	AppLogService.error( e.getMessage() , e );
-			return listAreas;
-		}
-	}
-	
-	/**
-	 * Count number of key/value in such typed REST response.
-	 */
-	private int countValueList( String restRequest ) {
-    	try {
-        	JSONObject areasJson =  new JSONObject( IdeationClientProcessor.getProcess( REST_URL + restRequest ) );
-        	if ( areasJson.getString("status").equals("OK") ) 
-        	{
-            	JSONArray jsonArray = areasJson.getJSONArray( "result" );
-            	return jsonArray.length();
-        	}
-        	
-        	return 0;
-        } 
-    	catch ( Exception e )
-    	{
-        	AppLogService.error( e.getMessage() , e );
-        	return 0;
-		}
-	}
-	
+    /**
+     * Parse a ReferenceList typed REST response.
+     */
+    private ReferenceList parseReferenceList( String restRequest )
+    {
+        ReferenceList listAreas = new ReferenceList( );
+        try
+        {
+            JSONObject jsonResult = new JSONObject( IdeationClientProcessor.getProcess( REST_URL + restRequest ) );
+            if ( jsonResult.getString( "status" ).equals( "OK" ) )
+            {
+                JSONArray jsonArray = jsonResult.getJSONArray( "result" );
+
+                if ( jsonArray != null )
+                {
+                    int len = jsonArray.length( );
+                    for ( int i = 0; i < len; i++ )
+                    {
+                        JSONObject item = jsonArray.getJSONObject( i );
+                        listAreas.addItem( item.getString( "code" ), item.getString( "name" ) );
+                    }
+                }
+            }
+
+            return listAreas;
+        }
+        catch( Exception e )
+        {
+            AppLogService.error( e.getMessage( ), e );
+            return listAreas;
+        }
+    }
+
+    /**
+     * Parse a list of value REST response.
+     */
+    private ReferenceList parseValueList( String restRequest )
+    {
+        ReferenceList listAreas = new ReferenceList( );
+        try
+        {
+            JSONObject jsonResult = new JSONObject( IdeationClientProcessor.getProcess( REST_URL + restRequest ) );
+            if ( jsonResult.getString( "status" ).equals( "OK" ) )
+            {
+                JSONArray jsonArray = jsonResult.getJSONArray( "result" );
+
+                if ( jsonArray != null )
+                {
+                    int len = jsonArray.length( );
+                    for ( int i = 0; i < len; i++ )
+                    {
+                        listAreas.addItem( jsonArray.get( i ).toString( ), jsonArray.get( i ).toString( ) );
+                    }
+                }
+            }
+
+            return listAreas;
+        }
+        catch( Exception e )
+        {
+            AppLogService.error( e.getMessage( ), e );
+            return listAreas;
+        }
+    }
+
+    /**
+     * Count number of key/value in such typed REST response.
+     */
+    private int countValueList( String restRequest )
+    {
+        try
+        {
+            JSONObject areasJson = new JSONObject( IdeationClientProcessor.getProcess( REST_URL + restRequest ) );
+            if ( areasJson.getString( "status" ).equals( "OK" ) )
+            {
+                JSONArray jsonArray = areasJson.getJSONArray( "result" );
+                return jsonArray.length( );
+            }
+
+            return 0;
+        }
+        catch( Exception e )
+        {
+            AppLogService.error( e.getMessage( ), e );
+            return 0;
+        }
+    }
+
 }

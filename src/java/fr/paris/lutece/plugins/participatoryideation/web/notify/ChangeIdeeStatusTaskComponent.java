@@ -45,7 +45,6 @@ import fr.paris.lutece.portal.service.util.AppPathService;
 import fr.paris.lutece.util.ReferenceList;
 import fr.paris.lutece.util.html.HtmlTemplate;
 
-
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -55,7 +54,6 @@ import javax.inject.Named;
 
 import javax.servlet.http.HttpServletRequest;
 
-
 /**
  *
  * INotifyIdeationTaskComponent
@@ -63,16 +61,16 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class ChangeIdeeStatusTaskComponent extends NoFormTaskComponent
 {
-	// PARAMETERS
-	public static final String PARAMETER_IDEE_STATUS = "idee_status";
-	
-	//For rich text editor
-	public static final String MARK_WEBAPP_URL = "webapp_url";
-	public static final String MARK_LOCALE = "locale";
-	public static final String MARK_IDEE = "idee";
-	
-	// MARKS
-	public static final String MARK_CONFIG = "config";
+    // PARAMETERS
+    public static final String PARAMETER_IDEE_STATUS = "idee_status";
+
+    // For rich text editor
+    public static final String MARK_WEBAPP_URL = "webapp_url";
+    public static final String MARK_LOCALE = "locale";
+    public static final String MARK_IDEE = "idee";
+
+    // MARKS
+    public static final String MARK_CONFIG = "config";
     // TEMPLATES
     private static final String TEMPLATE_CHANGE_Idee_Status_CONFIG = "admin/plugins/participatoryideation/notify/task_change_idee_status_config.html";
 
@@ -91,13 +89,13 @@ public class ChangeIdeeStatusTaskComponent extends NoFormTaskComponent
     {
         String strIdeeStatus = request.getParameter( PARAMETER_IDEE_STATUS );
 
-        TaskChangeIdeeStatusConfig config = _taskChangeIdeeStatusConfigService.findByPrimaryKey( task.getId(  ) );
+        TaskChangeIdeeStatusConfig config = _taskChangeIdeeStatusConfigService.findByPrimaryKey( task.getId( ) );
         Boolean bCreate = false;
 
         if ( config == null )
         {
-            config = new TaskChangeIdeeStatusConfig(  );
-            config.setIdTask( task.getId(  ) );
+            config = new TaskChangeIdeeStatusConfig( );
+            config.setIdTask( task.getId( ) );
             bCreate = true;
         }
 
@@ -121,19 +119,18 @@ public class ChangeIdeeStatusTaskComponent extends NoFormTaskComponent
     @Override
     public String getDisplayConfigForm( HttpServletRequest request, Locale locale, ITask task )
     {
-        TaskChangeIdeeStatusConfig config = _taskChangeIdeeStatusConfigService.findByPrimaryKey( task.getId(  ) );
-        ReferenceList refListStatus = new ReferenceList(  );
+        TaskChangeIdeeStatusConfig config = _taskChangeIdeeStatusConfigService.findByPrimaryKey( task.getId( ) );
+        ReferenceList refListStatus = new ReferenceList( );
 
-        //   refListStatus.addItem( StringUtils.EMPTY, StringUtils.EMPTY );
-        Status[] listStat = Status.values(  );
+        // refListStatus.addItem( StringUtils.EMPTY, StringUtils.EMPTY );
+        Status [ ] listStat = Status.values( );
 
         for ( Status tmpState : listStat )
         {
-            refListStatus.addItem( tmpState.getValeur(  ),
-                I18nService.getLocalizedString( tmpState.getLibelle(  ), locale ) );
+            refListStatus.addItem( tmpState.getValeur( ), I18nService.getLocalizedString( tmpState.getLibelle( ), locale ) );
         }
 
-        Map<String, Object> model = new HashMap<String, Object>(  );
+        Map<String, Object> model = new HashMap<String, Object>( );
 
         model.put( MARK_REF_LIST_STATUS, refListStatus );
         model.put( MARK_CONFIG, config );
@@ -142,7 +139,7 @@ public class ChangeIdeeStatusTaskComponent extends NoFormTaskComponent
 
         HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_CHANGE_Idee_Status_CONFIG, locale, model );
 
-        return template.getHtml(  );
+        return template.getHtml( );
     }
 
     /**

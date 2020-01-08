@@ -68,7 +68,6 @@ import fr.paris.lutece.portal.service.util.AppLogService;
 import fr.paris.lutece.util.ReferenceList;
 import fr.paris.lutece.util.url.UrlItem;
 
-
 public class SolrIdeeIndexer implements SolrIndexer
 {
 
@@ -77,150 +76,163 @@ public class SolrIdeeIndexer implements SolrIndexer
     private static final String XPAGE_IDEE = "idee";
     private static final String PARAMETER_CODE_CAMPAGNE = "campagne";
     private static final String PARAMETER_CODE_IDEE = "idee";
-    
+
     @Inject
     private IRatingService _ratingService;
 
-    public void writeIdee( Idee idee ) {
-        try {
-            write(getItem(idee));
-        } catch (Exception e) {
-            AppLogService.error( "[SolrIdeeIndexer] Error during write (idee " + idee.getReference() + ") " + e.getMessage(), e);
+    public void writeIdee( Idee idee )
+    {
+        try
+        {
+            write( getItem( idee ) );
         }
-    }
-    
-    public void removeIdee (  Idee idee ){
-    	
-    	try {
-    		 SolrClient SOLR_SERVER = SolrServerService.getInstance(  ).getSolrServer(  );
-    	     SOLR_SERVER.deleteByQuery( SearchItem.FIELD_UID + ":"+SolrIndexerService.getWebAppName( )+"_"+getResourceUid( Integer.toString(idee.getId()),null ));
-    	     SOLR_SERVER.commit(  );
-
-        } catch (Exception e) {
-            AppLogService.error( "[SolrIdeeIndexer] Error during remove (idee " + idee.getReference() + ") " + e.getMessage(), e);
+        catch( Exception e )
+        {
+            AppLogService.error( "[SolrIdeeIndexer] Error during write (idee " + idee.getReference( ) + ") " + e.getMessage( ), e );
         }
     }
 
-    public SolrItem getItem( Idee idee )
-        throws IOException
+    public void removeIdee( Idee idee )
+    {
+
+        try
+        {
+            SolrClient SOLR_SERVER = SolrServerService.getInstance( ).getSolrServer( );
+            SOLR_SERVER.deleteByQuery( SearchItem.FIELD_UID + ":" + SolrIndexerService.getWebAppName( ) + "_"
+                    + getResourceUid( Integer.toString( idee.getId( ) ), null ) );
+            SOLR_SERVER.commit( );
+
+        }
+        catch( Exception e )
+        {
+            AppLogService.error( "[SolrIdeeIndexer] Error during remove (idee " + idee.getReference( ) + ") " + e.getMessage( ), e );
+        }
+    }
+
+    public SolrItem getItem( Idee idee ) throws IOException
     {
         // the item
-        SolrItem item = new SolrItem(  );
-        item.setUid( getResourceUid( Integer.toString(idee.getId()),
-                null ) );
-        item.setDate( idee.getCreationTimestamp() );
+        SolrItem item = new SolrItem( );
+        item.setUid( getResourceUid( Integer.toString( idee.getId( ) ), null ) );
+        item.setDate( idee.getCreationTimestamp( ) );
         item.setType( "idee" );
         item.setSummary( idee.getDescription( ) );
-        item.setTitle( idee.getTitre(  ) );
-        item.setSite( SolrIndexerService.getWebAppName(  ) );
+        item.setTitle( idee.getTitre( ) );
+        item.setSite( SolrIndexerService.getWebAppName( ) );
         item.setRole( "none" );
-
 
         String strCodeGeoloc;
         double dLongitude = 0;
-        double dLatitude  = 0;
+        double dLatitude = 0;
 
-        if (idee.getAdress() != null && idee.getLongitude() != null && idee.getLatitude() != null) {
-            dLongitude = idee.getLongitude();
-            dLatitude = idee.getLatitude();
-            if (Idee.LOCALISATION_TYPE_ARDT.equals(idee.getLocalisationType())) {
-                strCodeGeoloc = "idee_geoloc-ardt-" + idee.getLocalisationArdt();
-            } else {
+        if ( idee.getAdress( ) != null && idee.getLongitude( ) != null && idee.getLatitude( ) != null )
+        {
+            dLongitude = idee.getLongitude( );
+            dLatitude = idee.getLatitude( );
+            if ( Idee.LOCALISATION_TYPE_ARDT.equals( idee.getLocalisationType( ) ) )
+            {
+                strCodeGeoloc = "idee_geoloc-ardt-" + idee.getLocalisationArdt( );
+            }
+            else
+            {
                 strCodeGeoloc = "idee_geoloc-paris";
             }
         }
-        else 
+        else
         {
-            if (Idee.LOCALISATION_TYPE_ARDT.equals(idee.getLocalisationType())) {
-                strCodeGeoloc = "idee_ardt-" + idee.getLocalisationArdt();
-            } else {
+            if ( Idee.LOCALISATION_TYPE_ARDT.equals( idee.getLocalisationType( ) ) )
+            {
+                strCodeGeoloc = "idee_ardt-" + idee.getLocalisationArdt( );
+            }
+            else
+            {
                 strCodeGeoloc = "idee_paris";
             }
-        } 
-        item.addDynamicFieldGeoloc("idee", idee.getAdress(), dLongitude, dLatitude, strCodeGeoloc);
-        item.addDynamicField("idee_status", String.valueOf(idee.getStatusPublic().isPublished( )));
-        item.addDynamicFieldNotAnalysed("status", String.valueOf( idee.getStatusPublic( ).getValeur( ) ) );
-        item.addDynamicFieldNotAnalysed("code_theme", idee.getCodeTheme());
-        item.addDynamicFieldNotAnalysed("code_depositaire_type", idee.getDepositaireType());
-        item.addDynamicField("campagne", idee.getCodeCampagne());
-        item.addDynamicField("code_projet", (long) idee.getCodeIdee());
-        item.addDynamicField("localisation",
-                ((idee.getAdress() != null) && (!"".equals(idee.getAdress().trim()))) ? 
-                	idee.getAdress() :
-                	(Idee.LOCALISATION_TYPE_ARDT.equals(idee.getLocalisationType().trim()) ? 
-                		idee.getLocalisationArdt() : 
-                		"whole city" // TODO : Must get this string from campaign area service
-                	)
-                );
-        item.addDynamicFieldNotAnalysed("localisation_type", idee.getLocalisationType());
-
-        if (Idee.LOCALISATION_TYPE_ARDT.equals(idee.getLocalisationType().trim()) ) {
-            item.addDynamicField("localisation_ardt",  idee.getLocalisationArdt());
         }
+        item.addDynamicFieldGeoloc( "idee", idee.getAdress( ), dLongitude, dLatitude, strCodeGeoloc );
+        item.addDynamicField( "idee_status", String.valueOf( idee.getStatusPublic( ).isPublished( ) ) );
+        item.addDynamicFieldNotAnalysed( "status", String.valueOf( idee.getStatusPublic( ).getValeur( ) ) );
+        item.addDynamicFieldNotAnalysed( "code_theme", idee.getCodeTheme( ) );
+        item.addDynamicFieldNotAnalysed( "code_depositaire_type", idee.getDepositaireType( ) );
+        item.addDynamicField( "campagne", idee.getCodeCampagne( ) );
+        item.addDynamicField( "code_projet", (long) idee.getCodeIdee( ) );
+        item.addDynamicField( "localisation", ( ( idee.getAdress( ) != null ) && ( !"".equals( idee.getAdress( ).trim( ) ) ) ) ? idee.getAdress( )
+                : ( Idee.LOCALISATION_TYPE_ARDT.equals( idee.getLocalisationType( ).trim( ) ) ? idee.getLocalisationArdt( ) : "whole city" // TODO : Must get
+                                                                                                                                           // this string from
+                                                                                                                                           // campaign area
+                                                                                                                                           // service
+                ) );
+        item.addDynamicFieldNotAnalysed( "localisation_type", idee.getLocalisationType( ) );
 
-        item.addDynamicField("budget", idee.getCout(  ));
-
-        item.addDynamicFieldNotAnalysed("type_qpvqva", idee.getTypeQpvQva());
-        if (IdeationApp.QPV_QVA_QPV.equals(idee.getTypeQpvQva()) || IdeationApp.QPV_QVA_QVA.equals(idee.getTypeQpvQva())
-        || IdeationApp.QPV_QVA_GPRU.equals(idee.getTypeQpvQva()) || IdeationApp.QPV_QVA_QBP.equals(idee.getTypeQpvQva())) {
-            item.addDynamicField("libelle_qpvqva", idee.getLibelleQpvQva());
-        }
-        
-        item.addDynamicFieldNotAnalysed("url_projet", idee.getUrlProjet( ));
-        item.addDynamicFieldNotAnalysed("winner_projet", idee.getWinnerProjet( ));
-        
-        item.addDynamicFieldNotAnalysed( "handicap", idee.getHandicap() );
-        
-        if(idee.getStatusPublic().getValeur() != null)
+        if ( Idee.LOCALISATION_TYPE_ARDT.equals( idee.getLocalisationType( ).trim( ) ) )
         {
-        	item.addDynamicField("statut_publique_project", idee.getStatusPublic().getValeur());
+            item.addDynamicField( "localisation_ardt", idee.getLocalisationArdt( ) );
         }
-        
+
+        item.addDynamicField( "budget", idee.getCout( ) );
+
+        item.addDynamicFieldNotAnalysed( "type_qpvqva", idee.getTypeQpvQva( ) );
+        if ( IdeationApp.QPV_QVA_QPV.equals( idee.getTypeQpvQva( ) ) || IdeationApp.QPV_QVA_QVA.equals( idee.getTypeQpvQva( ) )
+                || IdeationApp.QPV_QVA_GPRU.equals( idee.getTypeQpvQva( ) ) || IdeationApp.QPV_QVA_QBP.equals( idee.getTypeQpvQva( ) ) )
+        {
+            item.addDynamicField( "libelle_qpvqva", idee.getLibelleQpvQva( ) );
+        }
+
+        item.addDynamicFieldNotAnalysed( "url_projet", idee.getUrlProjet( ) );
+        item.addDynamicFieldNotAnalysed( "winner_projet", idee.getWinnerProjet( ) );
+
+        item.addDynamicFieldNotAnalysed( "handicap", idee.getHandicap( ) );
+
+        if ( idee.getStatusPublic( ).getValeur( ) != null )
+        {
+            item.addDynamicField( "statut_publique_project", idee.getStatusPublic( ).getValeur( ) );
+        }
+
         Rating rating = _ratingService.findByResource( String.valueOf( idee.getId( ) ), Idee.PROPERTY_RESOURCE_TYPE );
-        
+
         if ( rating != null )
         {
-	        item.addDynamicField("like", ( long ) rating.getScorePositifsVotes( ) );
-	        item.addDynamicField("dislike", ( long ) rating.getScoreNegativesVotes( ) );
+            item.addDynamicField( "like", (long) rating.getScorePositifsVotes( ) );
+            item.addDynamicField( "dislike", (long) rating.getScoreNegativesVotes( ) );
         }
         else
         {
-        	item.addDynamicField("like", 0L );
-        	item.addDynamicField("dislike", 0L);
+            item.addDynamicField( "like", 0L );
+            item.addDynamicField( "dislike", 0L );
         }
 
-
-        item.setXmlContent("");
-        UrlItem url = new UrlItem( SolrIndexerService.getBaseUrl(  ) );
+        item.setXmlContent( "" );
+        UrlItem url = new UrlItem( SolrIndexerService.getBaseUrl( ) );
         url.addParameter( PARAMETER_XPAGE, XPAGE_IDEE );
-        url.addParameter( PARAMETER_CODE_CAMPAGNE, idee.getCodeCampagne(  ) );
-        url.addParameter( PARAMETER_CODE_IDEE, idee.getCodeIdee(  ) );
-
+        url.addParameter( PARAMETER_CODE_CAMPAGNE, idee.getCodeCampagne( ) );
+        url.addParameter( PARAMETER_CODE_IDEE, idee.getCodeIdee( ) );
 
         // Date Hierarchy
-        GregorianCalendar calendar = new GregorianCalendar();
-        calendar.setTime( idee.getCreationTimestamp() );
-        item.setHieDate( calendar.get( GregorianCalendar.YEAR ) + "/" + ( calendar.get( GregorianCalendar.MONTH ) + 1 ) + "/" +
-                calendar.get( GregorianCalendar.DAY_OF_MONTH ) + "/" );
+        GregorianCalendar calendar = new GregorianCalendar( );
+        calendar.setTime( idee.getCreationTimestamp( ) );
+        item.setHieDate( calendar.get( GregorianCalendar.YEAR ) + "/" + ( calendar.get( GregorianCalendar.MONTH ) + 1 ) + "/"
+                + calendar.get( GregorianCalendar.DAY_OF_MONTH ) + "/" );
 
-        List<String> listCategorie = new ArrayList<String>();
-        item.setCategorie(listCategorie);
-        item.setUrl( url.getUrl(  ) );
-        StringBuilder sb = new StringBuilder();
-           sb.append(idee.getDescription(  ) + " " + idee.getTitre(  ) );
-        if ( idee.getAdress() != null ) {
-            sb.append( " " + idee.getAdress(  ) );
+        List<String> listCategorie = new ArrayList<String>( );
+        item.setCategorie( listCategorie );
+        item.setUrl( url.getUrl( ) );
+        StringBuilder sb = new StringBuilder( );
+        sb.append( idee.getDescription( ) + " " + idee.getTitre( ) );
+        if ( idee.getAdress( ) != null )
+        {
+            sb.append( " " + idee.getAdress( ) );
         }
 
-        String strNickname = UserPreferencesService.instance(  ).getNickname( idee.getLuteceUserName(  ) );
-        if ( ! StringUtils.isEmpty( strNickname ) ) {
+        String strNickname = UserPreferencesService.instance( ).getNickname( idee.getLuteceUserName( ) );
+        if ( !StringUtils.isEmpty( strNickname ) )
+        {
             sb.append( " " + strNickname );
-            item.addDynamicFieldNotAnalysed("pseudo", strNickname);
+            item.addDynamicFieldNotAnalysed( "pseudo", strNickname );
         }
 
-        sb.append( " " + idee.getReference() );
+        sb.append( " " + idee.getReference( ) );
 
-        item.setContent( sb.toString() );
+        item.setContent( sb.toString( ) );
 
         return item;
     }
@@ -234,41 +246,47 @@ public class SolrIdeeIndexer implements SolrIndexer
         StringBuilder sb = new StringBuilder( strResourceId );
         sb.append( '_' ).append( SHORT_NAME );
 
-        return sb.toString(  );
+        return sb.toString( );
     }
 
     @Override
-    public List<Field> getAdditionalFields() {
+    public List<Field> getAdditionalFields( )
+    {
         // TODO Auto-generated method stub
-        return new ArrayList();
+        return new ArrayList( );
     }
 
     @Override
-    public String getDescription() {
+    public String getDescription( )
+    {
         // TODO Auto-generated method stub
         return "Solr idee indexer";
     }
 
     @Override
-    public List<SolrItem> getDocuments(String arg0) {
+    public List<SolrItem> getDocuments( String arg0 )
+    {
         // TODO Auto-generated method stub
-        return new ArrayList();
+        return new ArrayList( );
     }
 
     @Override
-    public String getName() {
+    public String getName( )
+    {
         // TODO Auto-generated method stub
         return "SolrIdeeIndexer";
     }
 
     @Override
-    public List<String> getResourcesName() {
+    public List<String> getResourcesName( )
+    {
         // TODO Auto-generated method stub
-        return new ArrayList();
+        return new ArrayList( );
     }
 
     @Override
-    public String getVersion() {
+    public String getVersion( )
+    {
         // TODO Auto-generated method stub
         return "1.0.0";
     }
@@ -276,51 +294,63 @@ public class SolrIdeeIndexer implements SolrIndexer
     /*
      * Index all ideas.
      */
-    public List<String> indexDocuments() {
+    public List<String> indexDocuments( )
+    {
 
-    	// Errors and logs management
-    	List<String> errors = new ArrayList<String>();
-    	StringBuffer sbLogs = SolrIndexerService.getSbLogs();
-     
-    	// Getting solrItems to index
-        IdeeSearcher _ideeSearcher= new IdeeSearcher();
-    	_ideeSearcher.setIsPublished(true);
-    	
-    	Collection<SolrItem> ideesSolrItems = new ArrayList<SolrItem>();
-    	
-    	Collection<Idee> ideesList = new ArrayList<Idee>();
-		try {
-	    	ideesList = IdeeHome.getIdeesListSearch(_ideeSearcher);
-        } catch (Exception e) {
-        	printIndexMessage(e, sbLogs);
-        	errors.add( SolrIndexerService.buildErrorMessage( e ) );
-        	errors.add( sbLogs.toString() );
+        // Errors and logs management
+        List<String> errors = new ArrayList<String>( );
+        StringBuffer sbLogs = SolrIndexerService.getSbLogs( );
+
+        // Getting solrItems to index
+        IdeeSearcher _ideeSearcher = new IdeeSearcher( );
+        _ideeSearcher.setIsPublished( true );
+
+        Collection<SolrItem> ideesSolrItems = new ArrayList<SolrItem>( );
+
+        Collection<Idee> ideesList = new ArrayList<Idee>( );
+        try
+        {
+            ideesList = IdeeHome.getIdeesListSearch( _ideeSearcher );
+        }
+        catch( Exception e )
+        {
+            printIndexMessage( e, sbLogs );
+            errors.add( SolrIndexerService.buildErrorMessage( e ) );
+            errors.add( sbLogs.toString( ) );
         }
 
-		for (Idee idee: ideesList) {
-    		try {
-    			ideesSolrItems.add( getItem(idee) );
-            } catch (Exception e) {
-            	printIndexMessage(e, sbLogs);
-            	errors.add( SolrIndexerService.buildErrorMessage( e ) );
-            	errors.add( sbLogs.toString() );
+        for ( Idee idee : ideesList )
+        {
+            try
+            {
+                ideesSolrItems.add( getItem( idee ) );
             }
-    	}
-    	
-    	try {
-        	sbLogs.append("\nIndexing " + ideesSolrItems.size() + " idea solr items, from " + ideesList.size() + " ideas\n");
-			SolrIndexerService.write(ideesSolrItems, sbLogs);
-		} catch (Exception e) {
-        	printIndexMessage(e, sbLogs);
-        	errors.add( SolrIndexerService.buildErrorMessage( e ) );
-        	errors.add( sbLogs.toString() );
-		}
-    	
+            catch( Exception e )
+            {
+                printIndexMessage( e, sbLogs );
+                errors.add( SolrIndexerService.buildErrorMessage( e ) );
+                errors.add( sbLogs.toString( ) );
+            }
+        }
+
+        try
+        {
+            sbLogs.append( "\nIndexing " + ideesSolrItems.size( ) + " idea solr items, from " + ideesList.size( ) + " ideas\n" );
+            SolrIndexerService.write( ideesSolrItems, sbLogs );
+        }
+        catch( Exception e )
+        {
+            printIndexMessage( e, sbLogs );
+            errors.add( SolrIndexerService.buildErrorMessage( e ) );
+            errors.add( sbLogs.toString( ) );
+        }
+
         return errors;
     }
 
     @Override
-    public boolean isEnable() {
+    public boolean isEnable( )
+    {
         // TODO Auto-generated method stub
         return true;
     }
@@ -330,30 +360,30 @@ public class SolrIdeeIndexer implements SolrIndexer
      */
     private static SolrInputDocument solrItem2SolrInputDocument( SolrItem solrItem )
     {
-        SolrInputDocument solrInputDocument = new SolrInputDocument(  );
-        String strWebappName = SolrIndexerService.getWebAppName(  );
+        SolrInputDocument solrInputDocument = new SolrInputDocument( );
+        String strWebappName = SolrIndexerService.getWebAppName( );
 
-        // Prefix the uid by the name of the site. Without that, it is necessary imposible to index two resources of two different sites with the same identifier
-        solrInputDocument.addField( SearchItem.FIELD_UID,
-        strWebappName + SolrConstants.CONSTANT_UNDERSCORE + solrItem.getUid(  ) );
-        solrInputDocument.addField( SearchItem.FIELD_DATE, solrItem.getDate(  ) );
-        solrInputDocument.addField( SearchItem.FIELD_TYPE, solrItem.getType(  ) );
-        solrInputDocument.addField( SearchItem.FIELD_SUMMARY, solrItem.getSummary(  ) );
-        solrInputDocument.addField( SearchItem.FIELD_TITLE, solrItem.getTitle(  ) );
-        solrInputDocument.addField( SolrItem.FIELD_SITE, solrItem.getSite(  ) );
-        solrInputDocument.addField( SearchItem.FIELD_ROLE, solrItem.getRole(  ) );
-        solrInputDocument.addField( SolrItem.FIELD_XML_CONTENT, solrItem.getXmlContent(  ) );
-        solrInputDocument.addField( SearchItem.FIELD_URL, solrItem.getUrl(  ) );
-        solrInputDocument.addField( SolrItem.FIELD_HIERATCHY_DATE, solrItem.getHieDate(  ) );
-        solrInputDocument.addField( SolrItem.FIELD_CATEGORIE, solrItem.getCategorie(  ) );
-        solrInputDocument.addField( SolrItem.FIELD_CONTENT, solrItem.getContent(  ) );
-        solrInputDocument.addField( SearchItem.FIELD_DOCUMENT_PORTLET_ID, solrItem.getDocPortletId(  ) );
+        // Prefix the uid by the name of the site. Without that, it is necessary imposible to index two resources of two different sites with the same
+        // identifier
+        solrInputDocument.addField( SearchItem.FIELD_UID, strWebappName + SolrConstants.CONSTANT_UNDERSCORE + solrItem.getUid( ) );
+        solrInputDocument.addField( SearchItem.FIELD_DATE, solrItem.getDate( ) );
+        solrInputDocument.addField( SearchItem.FIELD_TYPE, solrItem.getType( ) );
+        solrInputDocument.addField( SearchItem.FIELD_SUMMARY, solrItem.getSummary( ) );
+        solrInputDocument.addField( SearchItem.FIELD_TITLE, solrItem.getTitle( ) );
+        solrInputDocument.addField( SolrItem.FIELD_SITE, solrItem.getSite( ) );
+        solrInputDocument.addField( SearchItem.FIELD_ROLE, solrItem.getRole( ) );
+        solrInputDocument.addField( SolrItem.FIELD_XML_CONTENT, solrItem.getXmlContent( ) );
+        solrInputDocument.addField( SearchItem.FIELD_URL, solrItem.getUrl( ) );
+        solrInputDocument.addField( SolrItem.FIELD_HIERATCHY_DATE, solrItem.getHieDate( ) );
+        solrInputDocument.addField( SolrItem.FIELD_CATEGORIE, solrItem.getCategorie( ) );
+        solrInputDocument.addField( SolrItem.FIELD_CONTENT, solrItem.getContent( ) );
+        solrInputDocument.addField( SearchItem.FIELD_DOCUMENT_PORTLET_ID, solrItem.getDocPortletId( ) );
 
         // Add the dynamic fields
         // They must be declared into the schema.xml of the solr server
-        Map<String, Object> mapDynamicFields = solrItem.getDynamicFields(  );
+        Map<String, Object> mapDynamicFields = solrItem.getDynamicFields( );
 
-        for ( String strDynamicField : mapDynamicFields.keySet(  ) )
+        for ( String strDynamicField : mapDynamicFields.keySet( ) )
         {
             solrInputDocument.addField( strDynamicField, mapDynamicFields.get( strDynamicField ) );
         }
@@ -363,23 +393,26 @@ public class SolrIdeeIndexer implements SolrIndexer
 
     private static void write( SolrItem solrItem )
     {
-        SolrClient SOLR_SERVER = SolrServerService.getInstance(  ).getSolrServer(  );
+        SolrClient SOLR_SERVER = SolrServerService.getInstance( ).getSolrServer( );
         try
         {
             SolrInputDocument solrInputDocument = solrItem2SolrInputDocument( solrItem );
             SOLR_SERVER.add( solrInputDocument );
-            SOLR_SERVER.commit(  );
+            SOLR_SERVER.commit( );
         }
-        catch ( Exception e )
+        catch( Exception e )
         {
-            AppLogService.error( "IdeationApp, error during indexation" + e.getMessage(), e);
+            AppLogService.error( "IdeationApp, error during indexation" + e.getMessage( ), e );
         }
     }
-    
+
     /**
      * Adds the exception into the buffer and the StringBuffer
-     * @param exception Exception to report
-     * @param sbLogs StringBuffer to write to
+     * 
+     * @param exception
+     *            Exception to report
+     * @param sbLogs
+     *            StringBuffer to write to
      */
     private static void printIndexMessage( Exception exception, StringBuffer sbLogs )
     {
@@ -387,20 +420,19 @@ public class SolrIdeeIndexer implements SolrIndexer
 
         if ( exception != null )
         {
-	        sbLogs.append( "(" + exception.getClass().getName() + ") " + exception.getMessage(  ) );
-	        if ( exception.getCause(  ) != null )
-	        {
-	            sbLogs.append( " : " );
-	            sbLogs.append( exception.getCause(  ).getMessage(  ) );
-	        }
-	        AppLogService.error( exception.getMessage(  ), exception );
+            sbLogs.append( "(" + exception.getClass( ).getName( ) + ") " + exception.getMessage( ) );
+            if ( exception.getCause( ) != null )
+            {
+                sbLogs.append( " : " );
+                sbLogs.append( exception.getCause( ).getMessage( ) );
+            }
+            AppLogService.error( exception.getMessage( ), exception );
         }
         else
         {
-        	sbLogs.append( "'exception' param is null !" );
+            sbLogs.append( "'exception' param is null !" );
         }
-        
-    }
 
+    }
 
 }

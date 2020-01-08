@@ -31,7 +31,7 @@
  *
  * License 1.0
  */
- 
+
 package fr.paris.lutece.plugins.participatoryideation.web;
 
 import fr.paris.lutece.plugins.participatoryideation.business.CampagneDepositaire;
@@ -46,9 +46,7 @@ import fr.paris.lutece.util.url.UrlItem;
 import java.util.List;
 import java.util.Map;
 
-
 import javax.servlet.http.HttpServletRequest;
-
 
 /**
  * This class provides the user interface to manage CampagneDepositaire features ( manage, create, modify, remove )
@@ -57,14 +55,13 @@ import javax.servlet.http.HttpServletRequest;
 public class CampagneDepositaireJspBean extends ManageIdeationJspBean
 {
 
-    ////////////////////////////////////////////////////////////////////////////
+    // //////////////////////////////////////////////////////////////////////////
     // Constants
 
     // templates
     private static final String TEMPLATE_MANAGE_CAMPAGNEDEPOSITAIRES = "/admin/plugins/participatoryideation/manage_campagnedepositaires.html";
     private static final String TEMPLATE_CREATE_CAMPAGNEDEPOSITAIRE = "/admin/plugins/participatoryideation/create_campagnedepositaire.html";
     private static final String TEMPLATE_MODIFY_CAMPAGNEDEPOSITAIRE = "/admin/plugins/participatoryideation/modify_campagnedepositaire.html";
-
 
     // Parameters
     private static final String PARAMETER_ID_CAMPAGNEDEPOSITAIRE = "id";
@@ -83,7 +80,7 @@ public class CampagneDepositaireJspBean extends ManageIdeationJspBean
     // Properties
     private static final String MESSAGE_CONFIRM_REMOVE_CAMPAGNEDEPOSITAIRE = "participatoryideation.message.confirmRemoveCampagneDepositaire";
     private static final String PROPERTY_DEFAULT_LIST_CAMPAGNEDEPOSITAIRE_PER_PAGE = "participatoryideation.listCampagneDepositaires.itemsPerPage";
- 
+
     private static final String VALIDATION_ATTRIBUTES_PREFIX = "participatoryideation.model.entity.campagnedepositaire.attribute.";
 
     // Views
@@ -101,21 +98,22 @@ public class CampagneDepositaireJspBean extends ManageIdeationJspBean
     private static final String INFO_CAMPAGNEDEPOSITAIRE_CREATED = "participatoryideation.info.campagnedepositaire.created";
     private static final String INFO_CAMPAGNEDEPOSITAIRE_UPDATED = "participatoryideation.info.campagnedepositaire.updated";
     private static final String INFO_CAMPAGNEDEPOSITAIRE_REMOVED = "participatoryideation.info.campagnedepositaire.removed";
-    
+
     // Session variable to store working values
     private CampagneDepositaire _campagnedepositaire;
-    
-    
+
     /**
      * Build the Manage View
-     * @param request The HTTP request
+     * 
+     * @param request
+     *            The HTTP request
      * @return The page
      */
     @View( value = VIEW_MANAGE_CAMPAGNEDEPOSITAIRES, defaultView = true )
     public String getManageCampagneDepositaires( HttpServletRequest request )
     {
         _campagnedepositaire = null;
-        List<CampagneDepositaire> listCampagneDepositaires = (List<CampagneDepositaire>) CampagneDepositaireHome.getCampagneDepositairesList(  );
+        List<CampagneDepositaire> listCampagneDepositaires = (List<CampagneDepositaire>) CampagneDepositaireHome.getCampagneDepositairesList( );
         Map<String, Object> model = getPaginatedListModel( request, MARK_CAMPAGNEDEPOSITAIRE_LIST, listCampagneDepositaires, JSP_MANAGE_CAMPAGNEDEPOSITAIRES );
 
         return getPage( PROPERTY_PAGE_TITLE_MANAGE_CAMPAGNEDEPOSITAIRES, TEMPLATE_MANAGE_CAMPAGNEDEPOSITAIRES, model );
@@ -124,15 +122,16 @@ public class CampagneDepositaireJspBean extends ManageIdeationJspBean
     /**
      * Returns the form to create a campagnedepositaire
      *
-     * @param request The Http request
+     * @param request
+     *            The Http request
      * @return the html code of the campagnedepositaire form
      */
     @View( VIEW_CREATE_CAMPAGNEDEPOSITAIRE )
     public String getCreateCampagneDepositaire( HttpServletRequest request )
     {
-        _campagnedepositaire = ( _campagnedepositaire != null ) ? _campagnedepositaire : new CampagneDepositaire(  );
+        _campagnedepositaire = ( _campagnedepositaire != null ) ? _campagnedepositaire : new CampagneDepositaire( );
 
-        Map<String, Object> model = getModel(  );
+        Map<String, Object> model = getModel( );
         model.put( MARK_CAMPAGNEDEPOSITAIRE, _campagnedepositaire );
 
         return getPage( PROPERTY_PAGE_TITLE_CREATE_CAMPAGNEDEPOSITAIRE, TEMPLATE_CREATE_CAMPAGNEDEPOSITAIRE, model );
@@ -141,7 +140,8 @@ public class CampagneDepositaireJspBean extends ManageIdeationJspBean
     /**
      * Process the data capture form of a new campagnedepositaire
      *
-     * @param request The Http Request
+     * @param request
+     *            The Http Request
      * @return The Jsp URL of the process result
      */
     @Action( ACTION_CREATE_CAMPAGNEDEPOSITAIRE )
@@ -156,16 +156,16 @@ public class CampagneDepositaireJspBean extends ManageIdeationJspBean
         }
 
         CampagneDepositaireHome.create( _campagnedepositaire );
-        addInfo( INFO_CAMPAGNEDEPOSITAIRE_CREATED, getLocale(  ) );
+        addInfo( INFO_CAMPAGNEDEPOSITAIRE_CREATED, getLocale( ) );
 
         return redirectView( request, VIEW_MANAGE_CAMPAGNEDEPOSITAIRES );
     }
 
     /**
-     * Manages the removal form of a campagnedepositaire whose identifier is in the http
-     * request
+     * Manages the removal form of a campagnedepositaire whose identifier is in the http request
      *
-     * @param request The Http request
+     * @param request
+     *            The Http request
      * @return the html code to confirm
      */
     @Action( ACTION_CONFIRM_REMOVE_CAMPAGNEDEPOSITAIRE )
@@ -175,8 +175,8 @@ public class CampagneDepositaireJspBean extends ManageIdeationJspBean
         UrlItem url = new UrlItem( getActionUrl( ACTION_REMOVE_CAMPAGNEDEPOSITAIRE ) );
         url.addParameter( PARAMETER_ID_CAMPAGNEDEPOSITAIRE, nId );
 
-        String strMessageUrl = AdminMessageService.getMessageUrl( request, MESSAGE_CONFIRM_REMOVE_CAMPAGNEDEPOSITAIRE,
-                url.getUrl(  ), AdminMessage.TYPE_CONFIRMATION );
+        String strMessageUrl = AdminMessageService.getMessageUrl( request, MESSAGE_CONFIRM_REMOVE_CAMPAGNEDEPOSITAIRE, url.getUrl( ),
+                AdminMessage.TYPE_CONFIRMATION );
 
         return redirect( request, strMessageUrl );
     }
@@ -184,7 +184,8 @@ public class CampagneDepositaireJspBean extends ManageIdeationJspBean
     /**
      * Handles the removal form of a campagnedepositaire
      *
-     * @param request The Http request
+     * @param request
+     *            The Http request
      * @return the jsp URL to display the form to manage campagnedepositaires
      */
     @Action( ACTION_REMOVE_CAMPAGNEDEPOSITAIRE )
@@ -192,7 +193,7 @@ public class CampagneDepositaireJspBean extends ManageIdeationJspBean
     {
         int nId = Integer.parseInt( request.getParameter( PARAMETER_ID_CAMPAGNEDEPOSITAIRE ) );
         CampagneDepositaireHome.remove( nId );
-        addInfo( INFO_CAMPAGNEDEPOSITAIRE_REMOVED, getLocale(  ) );
+        addInfo( INFO_CAMPAGNEDEPOSITAIRE_REMOVED, getLocale( ) );
 
         return redirectView( request, VIEW_MANAGE_CAMPAGNEDEPOSITAIRES );
     }
@@ -200,7 +201,8 @@ public class CampagneDepositaireJspBean extends ManageIdeationJspBean
     /**
      * Returns the form to update info about a campagnedepositaire
      *
-     * @param request The Http request
+     * @param request
+     *            The Http request
      * @return The HTML form to update info
      */
     @View( VIEW_MODIFY_CAMPAGNEDEPOSITAIRE )
@@ -208,12 +210,12 @@ public class CampagneDepositaireJspBean extends ManageIdeationJspBean
     {
         int nId = Integer.parseInt( request.getParameter( PARAMETER_ID_CAMPAGNEDEPOSITAIRE ) );
 
-        if ( _campagnedepositaire == null || ( _campagnedepositaire.getId(  ) != nId ))
+        if ( _campagnedepositaire == null || ( _campagnedepositaire.getId( ) != nId ) )
         {
             _campagnedepositaire = CampagneDepositaireHome.findByPrimaryKey( nId );
         }
 
-        Map<String, Object> model = getModel(  );
+        Map<String, Object> model = getModel( );
         model.put( MARK_CAMPAGNEDEPOSITAIRE, _campagnedepositaire );
 
         return getPage( PROPERTY_PAGE_TITLE_MODIFY_CAMPAGNEDEPOSITAIRE, TEMPLATE_MODIFY_CAMPAGNEDEPOSITAIRE, model );
@@ -222,7 +224,8 @@ public class CampagneDepositaireJspBean extends ManageIdeationJspBean
     /**
      * Process the change form of a campagnedepositaire
      *
-     * @param request The Http request
+     * @param request
+     *            The Http request
      * @return The Jsp URL of the process result
      */
     @Action( ACTION_MODIFY_CAMPAGNEDEPOSITAIRE )
@@ -237,7 +240,7 @@ public class CampagneDepositaireJspBean extends ManageIdeationJspBean
         }
 
         CampagneDepositaireHome.update( _campagnedepositaire );
-        addInfo( INFO_CAMPAGNEDEPOSITAIRE_UPDATED, getLocale(  ) );
+        addInfo( INFO_CAMPAGNEDEPOSITAIRE_UPDATED, getLocale( ) );
 
         return redirectView( request, VIEW_MANAGE_CAMPAGNEDEPOSITAIRES );
     }

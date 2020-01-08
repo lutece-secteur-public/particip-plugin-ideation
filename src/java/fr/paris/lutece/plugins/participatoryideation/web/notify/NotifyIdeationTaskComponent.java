@@ -53,7 +53,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 
-
 /**
  *
  * INotifyIdeationTaskComponent
@@ -76,7 +75,7 @@ public class NotifyIdeationTaskComponent extends NoFormTaskComponent
     public static final String PARAMETER_FOLLOWERS = "followers";
     public static final String PARAMETER_DEPOSITAIRE = "depositaire";
 
-    //For rich text editor
+    // For rich text editor
     public static final String MARK_WEBAPP_URL = "webapp_url";
     public static final String MARK_LOCALE = "locale";
 
@@ -85,7 +84,7 @@ public class NotifyIdeationTaskComponent extends NoFormTaskComponent
     public static final String MARK_DEFAULT_SENDER_NAME = "default_sender_name";
     public static final String MARK_DEFAULT_SENDER_EMAIL = "default_sender_email";
     private static final String MARK_FALSE = "false";
-    
+
     // TEMPLATES
     private static final String TEMPLATE_TASK_NOTIFY_DIRECTORY_CONFIG = "admin/plugins/participatoryideation/notify/task_notify_ideation_config.html";
 
@@ -106,18 +105,16 @@ public class NotifyIdeationTaskComponent extends NoFormTaskComponent
         String strMessage = request.getParameter( PARAMETER_MESSAGE );
         String strRecipientsCc = request.getParameter( PARAMETER_RECIPIENTS_CC );
         String strRecipientsBcc = request.getParameter( PARAMETER_RECIPIENTS_BCC );
-        String strFollowers = ( request.getParameter( PARAMETER_FOLLOWERS ) == null ) ? MARK_FALSE
-                                                                                      : request.getParameter( PARAMETER_FOLLOWERS );
-        String strSumbitters = ( request.getParameter( PARAMETER_DEPOSITAIRE ) == null ) ? MARK_FALSE
-                                                                                        : request.getParameter( PARAMETER_DEPOSITAIRE );
+        String strFollowers = ( request.getParameter( PARAMETER_FOLLOWERS ) == null ) ? MARK_FALSE : request.getParameter( PARAMETER_FOLLOWERS );
+        String strSumbitters = ( request.getParameter( PARAMETER_DEPOSITAIRE ) == null ) ? MARK_FALSE : request.getParameter( PARAMETER_DEPOSITAIRE );
 
-        TaskNotifyIdeationConfig config = _taskNotifyIdeationConfigService.findByPrimaryKey( task.getId(  ) );
+        TaskNotifyIdeationConfig config = _taskNotifyIdeationConfigService.findByPrimaryKey( task.getId( ) );
         Boolean bCreate = false;
 
         if ( config == null )
         {
-            config = new TaskNotifyIdeationConfig(  );
-            config.setIdTask( task.getId(  ) );
+            config = new TaskNotifyIdeationConfig( );
+            config.setIdTask( task.getId( ) );
             bCreate = true;
         }
 
@@ -148,11 +145,11 @@ public class NotifyIdeationTaskComponent extends NoFormTaskComponent
     @Override
     public String getDisplayConfigForm( HttpServletRequest request, Locale locale, ITask task )
     {
-        TaskNotifyIdeationConfig config = _taskNotifyIdeationConfigService.findByPrimaryKey( task.getId(  ) );
+        TaskNotifyIdeationConfig config = _taskNotifyIdeationConfigService.findByPrimaryKey( task.getId( ) );
         String strDefaultSenderName = AppPropertiesService.getProperty( PROPERTY_NOTIFY_MAIL_DEFAULT_SENDER_NAME );
         String strDefaultSenderEmail = AppPropertiesService.getProperty( PROPERTY_NOTIFY_MAIL_DEFAULT_SENDER_EMAIL );
 
-        Map<String, Object> model = new HashMap<String, Object>(  );
+        Map<String, Object> model = new HashMap<String, Object>( );
 
         model.put( MARK_CONFIG, config );
         model.put( MARK_DEFAULT_SENDER_NAME, strDefaultSenderName );
@@ -162,7 +159,7 @@ public class NotifyIdeationTaskComponent extends NoFormTaskComponent
 
         HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_TASK_NOTIFY_DIRECTORY_CONFIG, locale, model );
 
-        return template.getHtml(  );
+        return template.getHtml( );
     }
 
     /**

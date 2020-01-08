@@ -33,7 +33,6 @@
  */
 package fr.paris.lutece.plugins.participatoryideation.service.subscription;
 
-
 import java.util.List;
 import java.util.Locale;
 
@@ -50,7 +49,6 @@ import fr.paris.lutece.portal.service.security.LuteceUser;
 import fr.paris.lutece.portal.service.spring.SpringContextService;
 import fr.paris.lutece.util.ReferenceList;
 
-
 /**
  * IdeationSubscriptionProviderService
  */
@@ -62,43 +60,36 @@ public class IdeationSubscriptionProviderService implements ISubscriptionProvide
     public static final String BEAN_NAME = "participatoryideation.ideationSubscriptionProviderService";
     public static final String SUBSCRIPTION_NEW_COMMENT_ON_MY_PROPOSAL = "newCommentOnMyProposal";
     public static final String SUBSCRIPTION_NEW_COMMENT_ON_PARTICIPATE_PROPOSAL = "newCommentOnParticipateProposal";
-    public static final String SUBSCRIPTION_NEW_STATE_ON_PARTICIPATE_PROPOSAL  = "newStateOnParticipateProposal";
-    public static final String SUBSCRIPTION_NEW_STATE_ON_MY_PROPOSAL  = "newStateOnMyProposal";
-    public static final String SUBSCRIPTION_NEW_PARTICIPATION_ON_MY_PROPOSAL  = "newParticipationOnMyProposal";
-    public static final String SUBSCRIPTION_UPDATE_ON_REALIZATION  = "updateOnRealization";
-    
-    public static final String[] TAB_SUBSCRIPTIONS = new String[]
-            {
-    			SUBSCRIPTION_NEW_COMMENT_ON_MY_PROPOSAL, 
-    			SUBSCRIPTION_NEW_COMMENT_ON_PARTICIPATE_PROPOSAL,
-    			SUBSCRIPTION_NEW_STATE_ON_PARTICIPATE_PROPOSAL,
-    			SUBSCRIPTION_NEW_STATE_ON_MY_PROPOSAL,
-    			SUBSCRIPTION_NEW_PARTICIPATION_ON_MY_PROPOSAL,
-    			SUBSCRIPTION_UPDATE_ON_REALIZATION
-    		};
-    
-   
-    
+    public static final String SUBSCRIPTION_NEW_STATE_ON_PARTICIPATE_PROPOSAL = "newStateOnParticipateProposal";
+    public static final String SUBSCRIPTION_NEW_STATE_ON_MY_PROPOSAL = "newStateOnMyProposal";
+    public static final String SUBSCRIPTION_NEW_PARTICIPATION_ON_MY_PROPOSAL = "newParticipationOnMyProposal";
+    public static final String SUBSCRIPTION_UPDATE_ON_REALIZATION = "updateOnRealization";
+
+    public static final String [ ] TAB_SUBSCRIPTIONS = new String [ ] {
+            SUBSCRIPTION_NEW_COMMENT_ON_MY_PROPOSAL, SUBSCRIPTION_NEW_COMMENT_ON_PARTICIPATE_PROPOSAL, SUBSCRIPTION_NEW_STATE_ON_PARTICIPATE_PROPOSAL,
+            SUBSCRIPTION_NEW_STATE_ON_MY_PROPOSAL, SUBSCRIPTION_NEW_PARTICIPATION_ON_MY_PROPOSAL, SUBSCRIPTION_UPDATE_ON_REALIZATION
+    };
+
     private static final String SUBSCRIPTION_PROVIDER_NAME = "participatoryideation.subscriptionProviderName";
-    private static final String MESSAGE_SUBSCRIBED_PREFIX= "participatoryideation.message.subscriptions.";
+    private static final String MESSAGE_SUBSCRIBED_PREFIX = "participatoryideation.message.subscriptions.";
     private static final String ID_ALL = "*";
     private static IdeationSubscriptionProviderService _instance;
     private static ReferenceList _refListIdeationSubscription;
-    
+
     /**
      * Returns the instance of the singleton
      *
      * @return The instance of the singleton
      */
-    public static IdeationSubscriptionProviderService getService(  )
+    public static IdeationSubscriptionProviderService getService( )
     {
         if ( _instance == null )
         {
-            synchronized ( IdeationSubscriptionProviderService.class )
+            synchronized( IdeationSubscriptionProviderService.class )
             {
                 _instance = SpringContextService.getBean( BEAN_NAME );
-          
-         	 }
+
+            }
         }
 
         return _instance;
@@ -108,7 +99,7 @@ public class IdeationSubscriptionProviderService implements ISubscriptionProvide
      * {@inheritDoc}
      */
     @Override
-    public String getProviderName(  )
+    public String getProviderName( )
     {
         return SUBSCRIPTION_PROVIDER_NAME;
     }
@@ -117,18 +108,17 @@ public class IdeationSubscriptionProviderService implements ISubscriptionProvide
      * {@inheritDoc}
      */
     @Override
-    public String getSubscriptionHtmlDescription( LuteceUser user, String strSubscriptionKey,
-        String strIdSubscribedResource, Locale locale )
+    public String getSubscriptionHtmlDescription( LuteceUser user, String strSubscriptionKey, String strIdSubscribedResource, Locale locale )
     {
-        
-    	
-    	   for (int i = 0; i < TAB_SUBSCRIPTIONS.length; i++) {
-    		   if(TAB_SUBSCRIPTIONS[i].equals(strSubscriptionKey))
-    				   {
-    			   
-    			   			return I18nService.getLocalizedString( MESSAGE_SUBSCRIBED_PREFIX+strSubscriptionKey, locale );
-    				   }
-    	  }
+
+        for ( int i = 0; i < TAB_SUBSCRIPTIONS.length; i++ )
+        {
+            if ( TAB_SUBSCRIPTIONS [i].equals( strSubscriptionKey ) )
+            {
+
+                return I18nService.getLocalizedString( MESSAGE_SUBSCRIBED_PREFIX + strSubscriptionKey, locale );
+            }
+        }
 
         return StringUtils.EMPTY;
     }
@@ -149,7 +139,7 @@ public class IdeationSubscriptionProviderService implements ISubscriptionProvide
     @Override
     public String getUrlModifySubscription( LuteceUser user, String strSubscriptionKey, String strIdSubscribedResource )
     {
-        //No subscription modification 
+        // No subscription modification
         return null;
     }
 
@@ -164,73 +154,77 @@ public class IdeationSubscriptionProviderService implements ISubscriptionProvide
 
     /**
      * Remove a subscription of a user to a digg
-     * @param user The user to remove the subscription of
-     * @param nIdDigg The id of the digg
+     * 
+     * @param user
+     *            The user to remove the subscription of
+     * @param nIdDigg
+     *            The id of the digg
      */
     public void removeSubscription( LuteceUser user, String strSubscriptionKey )
     {
-    	
-    	
-    	
-    		SubscriptionFilter filter = new SubscriptionFilter( user.getName(  ), getProviderName(  ), strSubscriptionKey,
-    				ID_ALL  );
-    		List<Subscription> listSubscription = SubscriptionService.getInstance(  ).findByFilter( filter );
-    		if ( ( listSubscription != null ) && ( listSubscription.size(  ) > 0 ) )
-            {
-                for ( Subscription subscription : listSubscription )
-                {
-                    SubscriptionService.getInstance(  ).removeSubscription( subscription, false );
-                }
-            }
-    }
 
-    
-    
+        SubscriptionFilter filter = new SubscriptionFilter( user.getName( ), getProviderName( ), strSubscriptionKey, ID_ALL );
+        List<Subscription> listSubscription = SubscriptionService.getInstance( ).findByFilter( filter );
+        if ( ( listSubscription != null ) && ( listSubscription.size( ) > 0 ) )
+        {
+            for ( Subscription subscription : listSubscription )
+            {
+                SubscriptionService.getInstance( ).removeSubscription( subscription, false );
+            }
+        }
+    }
 
     /**
      * Create a new subscription to a digg
-     * @param user The user to create a subscription of
-     * @param nIdDigg The id of the digg to subscribe to
+     * 
+     * @param user
+     *            The user to create a subscription of
+     * @param nIdDigg
+     *            The id of the digg to subscribe to
      */
     public void createSubscription( LuteceUser user, String strSubscriptionKey )
     {
-        createSubscription(user.getName(), strSubscriptionKey);
+        createSubscription( user.getName( ), strSubscriptionKey );
     }
-    
+
     /**
      * Create a new subscription to a digg
-     * @param user The user to create a subscription of
-     * @param nIdDigg The id of the digg to subscribe to
+     * 
+     * @param user
+     *            The user to create a subscription of
+     * @param nIdDigg
+     *            The id of the digg to subscribe to
      */
     public void createSubscription( String strLuteceUserName, String strSubscriptionKey )
     {
         if ( !hasUserSubscribedToResource( strLuteceUserName, strSubscriptionKey ) )
         {
-        	 Subscription subscription = new Subscription(  );
-             subscription.setIdSubscribedResource( ID_ALL );
-             subscription.setUserId( strLuteceUserName );
-             subscription.setSubscriptionKey( strSubscriptionKey );
-             subscription.setSubscriptionProvider( getProviderName(  ) );
-             SubscriptionService.getInstance(  ).createSubscription( subscription );
+            Subscription subscription = new Subscription( );
+            subscription.setIdSubscribedResource( ID_ALL );
+            subscription.setUserId( strLuteceUserName );
+            subscription.setSubscriptionKey( strSubscriptionKey );
+            subscription.setSubscriptionProvider( getProviderName( ) );
+            SubscriptionService.getInstance( ).createSubscription( subscription );
         }
     }
 
-
-   
     /**
      * Check if a user has subscribed to a resource
-     * @param user The user
-     * @param nId The id of the subscribed resource
-     * @param strSubscriptionKey The subscription key
+     * 
+     * @param user
+     *            The user
+     * @param nId
+     *            The id of the subscribed resource
+     * @param strSubscriptionKey
+     *            The subscription key
      * @return True if the user has subscribed to the resource, false otherwise
      */
     private boolean hasUserSubscribedToResource( String strLuteceUserName, String strSubscriptionKey )
     {
-        SubscriptionFilter filter = new SubscriptionFilter( strLuteceUserName, getProviderName(  ), strSubscriptionKey,
-                ID_ALL );
-        List<Subscription> listSubscription = SubscriptionService.getInstance(  ).findByFilter( filter );
+        SubscriptionFilter filter = new SubscriptionFilter( strLuteceUserName, getProviderName( ), strSubscriptionKey, ID_ALL );
+        List<Subscription> listSubscription = SubscriptionService.getInstance( ).findByFilter( filter );
 
-        if ( ( listSubscription != null ) && ( listSubscription.size(  ) > 0 ) )
+        if ( ( listSubscription != null ) && ( listSubscription.size( ) > 0 ) )
         {
             return true;
         }
@@ -238,39 +232,34 @@ public class IdeationSubscriptionProviderService implements ISubscriptionProvide
         return false;
     }
 
-	@Override
-	public String getSubscriptionHtmlDescriptionBis(LuteceUser user,
-			String strSubscriptionKey, String strIdSubscribedResource,
-			Locale locale, String userSub) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	
-	
-	
-	
-	public ReferenceList getRefListIdeationSubscription(Locale locale )
-	{
-		if(_refListIdeationSubscription==null)
-		{
-		  synchronized ( IdeationSubscriptionProviderService.class )
+    @Override
+    public String getSubscriptionHtmlDescriptionBis( LuteceUser user, String strSubscriptionKey, String strIdSubscribedResource, Locale locale, String userSub )
+    {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    public ReferenceList getRefListIdeationSubscription( Locale locale )
+    {
+        if ( _refListIdeationSubscription == null )
+        {
+            synchronized( IdeationSubscriptionProviderService.class )
             {
-			  	initRefListIdeationSubscription(locale);
+                initRefListIdeationSubscription( locale );
             }
-		}
-		
-		return _refListIdeationSubscription;
-	}
-	
-	
-	private void initRefListIdeationSubscription(Locale locale )
-	{
-		_refListIdeationSubscription=new ReferenceList();
-		for (int i = 0; i < TAB_SUBSCRIPTIONS.length; i++) {
-		_refListIdeationSubscription.addItem(TAB_SUBSCRIPTIONS[i], I18nService.getLocalizedString( MESSAGE_SUBSCRIBED_PREFIX+TAB_SUBSCRIPTIONS[i], locale ));
-		}
-	}
-	
-	 
+        }
+
+        return _refListIdeationSubscription;
+    }
+
+    private void initRefListIdeationSubscription( Locale locale )
+    {
+        _refListIdeationSubscription = new ReferenceList( );
+        for ( int i = 0; i < TAB_SUBSCRIPTIONS.length; i++ )
+        {
+            _refListIdeationSubscription.addItem( TAB_SUBSCRIPTIONS [i],
+                    I18nService.getLocalizedString( MESSAGE_SUBSCRIBED_PREFIX + TAB_SUBSCRIPTIONS [i], locale ) );
+        }
+    }
+
 }

@@ -78,41 +78,36 @@ import org.apache.commons.lang.StringUtils;
  */
 public class TaskNotifyIdeation extends SimpleTask
 {
-	// BEANS CONFIG
-	public static final String CONFIG_SERVICE_BEAN_NAME = "participatoryideation.taskNotifyIdeationConfigService";
-	
+    // BEANS CONFIG
+    public static final String CONFIG_SERVICE_BEAN_NAME = "participatoryideation.taskNotifyIdeationConfigService";
+
     // PARAMETERS
-    private static final String PARAM_BP_EMAIL = "participatorybudget.email" ;
+    private static final String PARAM_BP_EMAIL = "participatorybudget.email";
     private static final String PARAM_COMMENT = "comment";
     private static final String PARAM_NAME = "name";
-    private static final String PARAM_FROM_URL= "from_url";
-    
-    
+    private static final String PARAM_FROM_URL = "from_url";
+
     // MARKS
     private static final String MARK_IDEE = "idee";
     private static final String MARK_PSEUDO = "pseudo_declencheur";
-    private static final String MARK_EMAIL  = "email_declencheur";
+    private static final String MARK_EMAIL = "email_declencheur";
     private static final String MARK_PSEUDO_DEPOSITAIRE = "pseudo_depositaire";
     private static final String MARK_PSEUDO_DESTINATAIRE = "pseudo_destinataire";
     private static final String MARK_COMMENT_CONTENT = "comment_content";
     private static final String MARK_IS_BACK_USER = "comment_is_back_user";
-    
+
     // CONSTANTS
     private static final String HTML_BR = "<br/>";
     private static final String HTML_R = "\r";
     private static final String ID_ALL = "*";
-    private static final String ACTION_NAME_CREATE_IDEE= AppPropertiesService.getProperty(Constants.PROPERTY_WORKFLOW_ACTION_NAME_CREATE_IDEE);
-    private static final String ACTION_NAME_CREATE_COMMENT= AppPropertiesService.getProperty(Constants.PROPERTY_WORKFLOW_ACTION_NAME_CREATE_COMMENT);
-    private static final String ACTION_NAME_FOLLOW= AppPropertiesService.getProperty(Constants.PROPERTY_WORKFLOW_ACTION_NAME_FOLLOW);
-    private static final String ACTION_NAME_CANCEL_FOLLOW= AppPropertiesService.getProperty(Constants.PROPERTY_WORKFLOW_ACTION_NAME_CANCEL_FOLLOW);
-  
+    private static final String ACTION_NAME_CREATE_IDEE = AppPropertiesService.getProperty( Constants.PROPERTY_WORKFLOW_ACTION_NAME_CREATE_IDEE );
+    private static final String ACTION_NAME_CREATE_COMMENT = AppPropertiesService.getProperty( Constants.PROPERTY_WORKFLOW_ACTION_NAME_CREATE_COMMENT );
+    private static final String ACTION_NAME_FOLLOW = AppPropertiesService.getProperty( Constants.PROPERTY_WORKFLOW_ACTION_NAME_FOLLOW );
+    private static final String ACTION_NAME_CANCEL_FOLLOW = AppPropertiesService.getProperty( Constants.PROPERTY_WORKFLOW_ACTION_NAME_CANCEL_FOLLOW );
 
-    
-    
-    
-    //ERRORS
+    // ERRORS
     private static final String ERROR_GET_EMAIL = "Ideation, failed to get email";
-    
+
     @Inject
     private IResourceHistoryService _resourceHistoryService;
     @Inject
@@ -130,102 +125,102 @@ public class TaskNotifyIdeation extends SimpleTask
     @Override
     public void processTask( int nIdResourceHistory, HttpServletRequest request, Locale locale )
     {
-    	
+
         ResourceHistory resourceHistory = _resourceHistoryService.findByPrimaryKey( nIdResourceHistory );
         LuteceUser user = null;
-        String strComment = StringUtils.EMPTY ;
-        String strNickNameUser = StringUtils.EMPTY ;
-        String strEmailUser    = StringUtils.EMPTY ;
-        boolean bBackUser=false;
-        String actionName= resourceHistory.getAction().getName();
-        
-        if (request != null)
+        String strComment = StringUtils.EMPTY;
+        String strNickNameUser = StringUtils.EMPTY;
+        String strEmailUser = StringUtils.EMPTY;
+        boolean bBackUser = false;
+        String actionName = resourceHistory.getAction( ).getName( );
+
+        if ( request != null )
         {
-        	user = SecurityService.getInstance(  ).getRegisteredUser( request );
-        	strComment = request.getParameter( PARAM_COMMENT ) == null ? StringUtils.EMPTY : request.getParameter( PARAM_COMMENT ) ;
-        	if(user!=null && (request.getParameter(PARAM_FROM_URL)==null || !request.getParameter(PARAM_FROM_URL).contains("jsp/admin")))
-        	{
-        		strNickNameUser = UserPreferencesService.instance( ).getNickname( user.getName( ) )  ;
-        		strEmailUser    = user.getEmail();
-        	}
-        	else 
-        	{
-        		bBackUser=true; 
-        		if(!StringUtils.isEmpty(strComment) && request.getParameter( PARAM_NAME ) != null )
-        		{
-        			strNickNameUser=  request.getParameter( PARAM_NAME );
-        		}
-        	
-        	}
-        
-        	
-        	
-         }
-        if ( ( resourceHistory != null ) && Idee.WORKFLOW_RESOURCE_TYPE.equals( resourceHistory.getResourceType(  ) ) )
-        {
-            Idee idee = IdeeHome.findByPrimaryKey( resourceHistory.getIdResource(  ) );
-            
-            String strIdeeLuteceUsername = idee.getLuteceUserName(  );
-            String strNickNameDepositaire = UserPreferencesService.instance( ).getNickname( strIdeeLuteceUsername )  ;
-            String strNickNameDestinataire = StringUtils.EMPTY ;
-            
-            if (StringUtils.isNotBlank( strComment ) )
+            user = SecurityService.getInstance( ).getRegisteredUser( request );
+            strComment = request.getParameter( PARAM_COMMENT ) == null ? StringUtils.EMPTY : request.getParameter( PARAM_COMMENT );
+            if ( user != null && ( request.getParameter( PARAM_FROM_URL ) == null || !request.getParameter( PARAM_FROM_URL ).contains( "jsp/admin" ) ) )
             {
-            	strComment = strComment.replaceAll( HTML_R, HTML_BR ) ;
+                strNickNameUser = UserPreferencesService.instance( ).getNickname( user.getName( ) );
+                strEmailUser = user.getEmail( );
             }
-            
-            Map<String, Object> model = new HashMap<String, Object>(  );
+            else
+            {
+                bBackUser = true;
+                if ( !StringUtils.isEmpty( strComment ) && request.getParameter( PARAM_NAME ) != null )
+                {
+                    strNickNameUser = request.getParameter( PARAM_NAME );
+                }
+
+            }
+
+        }
+        if ( ( resourceHistory != null ) && Idee.WORKFLOW_RESOURCE_TYPE.equals( resourceHistory.getResourceType( ) ) )
+        {
+            Idee idee = IdeeHome.findByPrimaryKey( resourceHistory.getIdResource( ) );
+
+            String strIdeeLuteceUsername = idee.getLuteceUserName( );
+            String strNickNameDepositaire = UserPreferencesService.instance( ).getNickname( strIdeeLuteceUsername );
+            String strNickNameDestinataire = StringUtils.EMPTY;
+
+            if ( StringUtils.isNotBlank( strComment ) )
+            {
+                strComment = strComment.replaceAll( HTML_R, HTML_BR );
+            }
+
+            Map<String, Object> model = new HashMap<String, Object>( );
             model.put( MARK_IDEE, idee );
             model.put( MARK_PSEUDO, strNickNameUser );
-            model.put( MARK_EMAIL , strEmailUser    );
+            model.put( MARK_EMAIL, strEmailUser );
             model.put( MARK_PSEUDO_DEPOSITAIRE, strNickNameDepositaire );
             model.put( MARK_COMMENT_CONTENT, strComment );
-            model.put( MARK_IS_BACK_USER,bBackUser);
-            
-            
-            TaskNotifyIdeationConfig config = _taskNotifyIdeationConfigService.findByPrimaryKey( this.getId(  ) );
-            String strSenderName = config.getSenderName(  );
-            String strRecipientBcc = config.getRecipientsBcc(  );
-            String strRecipientCc = config.getRecipientsCc(  );
-            String strSubject = config.getSubject(  );
-            
-            String strMessage = StringUtils.EMPTY ; 
-            
-            String strEmail= StringUtils.EMPTY ;
-            String strSenderEmail = config.getSenderEmail(  );
-            
-            if ( config.isFollowers(  ) )
+            model.put( MARK_IS_BACK_USER, bBackUser );
+
+            TaskNotifyIdeationConfig config = _taskNotifyIdeationConfigService.findByPrimaryKey( this.getId( ) );
+            String strSenderName = config.getSenderName( );
+            String strRecipientBcc = config.getRecipientsBcc( );
+            String strRecipientCc = config.getRecipientsCc( );
+            String strSubject = config.getSubject( );
+
+            String strMessage = StringUtils.EMPTY;
+
+            String strEmail = StringUtils.EMPTY;
+            String strSenderEmail = config.getSenderEmail( );
+
+            if ( config.isFollowers( ) )
             {
-            	List<String> subscriber= new ArrayList<String>();
-            	List<String> subscriberComment= new ArrayList<String>();
-            	SubscriptionFilter filterSub = new SubscriptionFilter(  );
-            	filterSub.setIdSubscribedResource( ID_ALL );
-            	
-            	filterSub.setSubscriptionProvider( IdeationSubscriptionProviderService.getService( ).getProviderName(  ) );
-                            
-                if(actionName.equals(ACTION_NAME_CREATE_COMMENT)){
-                	
-                	filterSub.setSubscriptionKey(IdeationSubscriptionProviderService.SUBSCRIPTION_NEW_COMMENT_ON_PARTICIPATE_PROPOSAL);
-                	List<Subscription> listSubComment= SubscriptionService.getInstance(  ).findByFilter(filterSub);
-                	 for ( Subscription subComment : listSubComment )
-                     {
-                		 subscriberComment.add(subComment.getUserId( ));
-                         
-                     }
-                
-                }else if (!(actionName.equals(ACTION_NAME_FOLLOW) || actionName.equals(ACTION_NAME_CANCEL_FOLLOW) )){
-                	filterSub.setSubscriptionKey( IdeationSubscriptionProviderService.SUBSCRIPTION_NEW_STATE_ON_PARTICIPATE_PROPOSAL );
-                	List<Subscription> listSubscription= SubscriptionService.getInstance(  ).findByFilter(filterSub);
-                	  
-                    for ( Subscription subscription : listSubscription )
+                List<String> subscriber = new ArrayList<String>( );
+                List<String> subscriberComment = new ArrayList<String>( );
+                SubscriptionFilter filterSub = new SubscriptionFilter( );
+                filterSub.setIdSubscribedResource( ID_ALL );
+
+                filterSub.setSubscriptionProvider( IdeationSubscriptionProviderService.getService( ).getProviderName( ) );
+
+                if ( actionName.equals( ACTION_NAME_CREATE_COMMENT ) )
+                {
+
+                    filterSub.setSubscriptionKey( IdeationSubscriptionProviderService.SUBSCRIPTION_NEW_COMMENT_ON_PARTICIPATE_PROPOSAL );
+                    List<Subscription> listSubComment = SubscriptionService.getInstance( ).findByFilter( filterSub );
+                    for ( Subscription subComment : listSubComment )
                     {
-                    	subscriber.add(subscription.getUserId( ));
-                        
+                        subscriberComment.add( subComment.getUserId( ) );
+
                     }
+
                 }
-                
-                
-                ResourceExtenderHistoryFilter filter = new ResourceExtenderHistoryFilter(  );
+                else
+                    if ( !( actionName.equals( ACTION_NAME_FOLLOW ) || actionName.equals( ACTION_NAME_CANCEL_FOLLOW ) ) )
+                    {
+                        filterSub.setSubscriptionKey( IdeationSubscriptionProviderService.SUBSCRIPTION_NEW_STATE_ON_PARTICIPATE_PROPOSAL );
+                        List<Subscription> listSubscription = SubscriptionService.getInstance( ).findByFilter( filterSub );
+
+                        for ( Subscription subscription : listSubscription )
+                        {
+                            subscriber.add( subscription.getUserId( ) );
+
+                        }
+                    }
+
+                ResourceExtenderHistoryFilter filter = new ResourceExtenderHistoryFilter( );
                 filter.setExtenderType( FollowResourceExtender.RESOURCE_EXTENDER );
                 filter.setExtendableResourceType( Idee.PROPERTY_RESOURCE_TYPE );
                 filter.setIdExtendableResource( String.valueOf( idee.getId( ) ) );
@@ -234,140 +229,155 @@ public class TaskNotifyIdeation extends SimpleTask
 
                 for ( ResourceExtenderHistory followerHistory : listHistories )
                 {
-                	if(!subscriberComment.isEmpty( ) && actionName.equals(ACTION_NAME_CREATE_COMMENT) && subscriberComment.contains(followerHistory.getUserGuid(  ))){
-                		
-                		strNickNameDestinataire = UserPreferencesService.instance( ).getNickname( followerHistory.getUserGuid(  ) )  ;
-	                	model.put( MARK_PSEUDO_DESTINATAIRE, strNickNameDestinataire );
-	                	
-	                	strMessage = AppTemplateService.getTemplateFromStringFtl( 
-	                            "[#ftl]\n[#setting date_format=\"dd/MM/yyyy\"]\n" + config.getMessage(  ), locale, model ).getHtml(  );
-	                    try
-	                    {
-	                    	strEmail = UserPreferencesService.instance( ).get( followerHistory.getUserGuid(  ),PARAM_BP_EMAIL, StringUtils.EMPTY);
-	                        
-	                    }
-	                    catch ( Exception e )
-	                    {
-	                        throw new RuntimeException( ERROR_GET_EMAIL, e );
-	                    }
-	
-	                    MailService.sendMailHtml( strEmail, strRecipientCc, strRecipientBcc, strSenderName, strSenderEmail,
-	                        strSubject, strMessage );
-                		
-                	}else if(!subscriber.isEmpty( ) && subscriber.contains(followerHistory.getUserGuid(  ))){
-                		
-	                	strNickNameDestinataire = UserPreferencesService.instance( ).getNickname( followerHistory.getUserGuid(  ) )  ;
-	                	model.put( MARK_PSEUDO_DESTINATAIRE, strNickNameDestinataire );
-	                	
-	                	strMessage = AppTemplateService.getTemplateFromStringFtl( 
-	                            "[#ftl]\n[#setting date_format=\"dd/MM/yyyy\"]\n" + config.getMessage(  ), locale, model ).getHtml(  );
-	                    try
-	                    {
-	                    	strEmail = UserPreferencesService.instance( ).get( followerHistory.getUserGuid(  ),PARAM_BP_EMAIL, StringUtils.EMPTY);
-	                        
-	                    }
-	                    catch ( Exception e )
-	                    {
-	                        throw new RuntimeException( ERROR_GET_EMAIL, e );
-	                    }
-	
-	                    MailService.sendMailHtml( strEmail, strRecipientCc, strRecipientBcc, strSenderName, strSenderEmail,
-	                        strSubject, strMessage );
-                	}
-                	
+                    if ( !subscriberComment.isEmpty( ) && actionName.equals( ACTION_NAME_CREATE_COMMENT )
+                            && subscriberComment.contains( followerHistory.getUserGuid( ) ) )
+                    {
+
+                        strNickNameDestinataire = UserPreferencesService.instance( ).getNickname( followerHistory.getUserGuid( ) );
+                        model.put( MARK_PSEUDO_DESTINATAIRE, strNickNameDestinataire );
+
+                        strMessage = AppTemplateService.getTemplateFromStringFtl( "[#ftl]\n[#setting date_format=\"dd/MM/yyyy\"]\n" + config.getMessage( ),
+                                locale, model ).getHtml( );
+                        try
+                        {
+                            strEmail = UserPreferencesService.instance( ).get( followerHistory.getUserGuid( ), PARAM_BP_EMAIL, StringUtils.EMPTY );
+
+                        }
+                        catch( Exception e )
+                        {
+                            throw new RuntimeException( ERROR_GET_EMAIL, e );
+                        }
+
+                        MailService.sendMailHtml( strEmail, strRecipientCc, strRecipientBcc, strSenderName, strSenderEmail, strSubject, strMessage );
+
+                    }
+                    else
+                        if ( !subscriber.isEmpty( ) && subscriber.contains( followerHistory.getUserGuid( ) ) )
+                        {
+
+                            strNickNameDestinataire = UserPreferencesService.instance( ).getNickname( followerHistory.getUserGuid( ) );
+                            model.put( MARK_PSEUDO_DESTINATAIRE, strNickNameDestinataire );
+
+                            strMessage = AppTemplateService.getTemplateFromStringFtl( "[#ftl]\n[#setting date_format=\"dd/MM/yyyy\"]\n" + config.getMessage( ),
+                                    locale, model ).getHtml( );
+                            try
+                            {
+                                strEmail = UserPreferencesService.instance( ).get( followerHistory.getUserGuid( ), PARAM_BP_EMAIL, StringUtils.EMPTY );
+
+                            }
+                            catch( Exception e )
+                            {
+                                throw new RuntimeException( ERROR_GET_EMAIL, e );
+                            }
+
+                            MailService.sendMailHtml( strEmail, strRecipientCc, strRecipientBcc, strSenderName, strSenderEmail, strSubject, strMessage );
+                        }
+
                 }
             }
 
-            if ( config.isDepositaire(  ) )
+            if ( config.isDepositaire( ) )
             {
-            	
-            	List<Subscription> subDepoPart= null;
-            	List<Subscription> subDepoFollow= null;
-            	List<Subscription> listSubDepoComment= null;
-            	SubscriptionFilter filterSubDepo = new SubscriptionFilter(  );
-            	filterSubDepo.setIdSubscriber(strIdeeLuteceUsername);
-            	
-            	 if(actionName.equals(ACTION_NAME_CREATE_COMMENT)){
-                 	
-            		 filterSubDepo.setSubscriptionKey(IdeationSubscriptionProviderService.SUBSCRIPTION_NEW_COMMENT_ON_MY_PROPOSAL);
-                 	 listSubDepoComment= SubscriptionService.getInstance(  ).findByFilter(filterSubDepo);
-                 	 
-                 }else if((actionName.equals(ACTION_NAME_FOLLOW) || actionName.equals(ACTION_NAME_CANCEL_FOLLOW) )){
-                 	
 
-            		 filterSubDepo.setSubscriptionKey(IdeationSubscriptionProviderService.SUBSCRIPTION_NEW_PARTICIPATION_ON_MY_PROPOSAL);
-            		 subDepoFollow= SubscriptionService.getInstance(  ).findByFilter(filterSubDepo);
-                 
-                 }
-            	  else{
-                	 filterSubDepo.setSubscriptionKey( IdeationSubscriptionProviderService.SUBSCRIPTION_NEW_PARTICIPATION_ON_MY_PROPOSAL);
-                 	 subDepoPart= SubscriptionService.getInstance(  ).findByFilter(filterSubDepo);
-                 	
-                	 
-                 }
-            	 model.put( MARK_PSEUDO_DESTINATAIRE, strNickNameDepositaire );
-            	 if( actionName.equals(ACTION_NAME_CREATE_IDEE)){
-            	
-		            		
-		                try
-		                {
-		                	strMessage = AppTemplateService.getTemplateFromStringFtl( 
-		                            "[#ftl]\n[#setting date_format=\"dd/MM/yyyy\"]\n" + config.getMessage(  ), locale, model ).getHtml(  );
-		                	strEmail = UserPreferencesService.instance( ).get( strIdeeLuteceUsername, PARAM_BP_EMAIL, StringUtils.EMPTY );
-		                }
-		                catch ( Exception e )
-		                {
-		                    throw new RuntimeException( ERROR_GET_EMAIL, e );
-		                }
-		
-		                MailService.sendMailHtml( strEmail, strRecipientCc, strRecipientBcc, strSenderName, strSenderEmail,
-		                    strSubject, strMessage );
-            	 }else if(listSubDepoComment != null && !listSubDepoComment.isEmpty( ) && actionName.equals(ACTION_NAME_CREATE_COMMENT)){
-            		 
-            		 try{
-		                	strMessage = AppTemplateService.getTemplateFromStringFtl( 
-		                            "[#ftl]\n[#setting date_format=\"dd/MM/yyyy\"]\n" + config.getMessage(  ), locale, model ).getHtml(  );
-		                	strEmail = UserPreferencesService.instance( ).get( strIdeeLuteceUsername, PARAM_BP_EMAIL, StringUtils.EMPTY );
-		                }
-		                catch ( Exception e )
-		                {
-		                    throw new RuntimeException( ERROR_GET_EMAIL, e );
-		                }
-		
-		                MailService.sendMailHtml( strEmail, strRecipientCc, strRecipientBcc, strSenderName, strSenderEmail,
-		                    strSubject, strMessage );
-            		 
-            	 }else if(subDepoFollow != null && !subDepoFollow.isEmpty( ) && (actionName.equals(ACTION_NAME_FOLLOW) || actionName.equals(ACTION_NAME_CANCEL_FOLLOW) )){
-            		 
-            		 try{
-		                	strMessage = AppTemplateService.getTemplateFromStringFtl( 
-		                            "[#ftl]\n[#setting date_format=\"dd/MM/yyyy\"]\n" + config.getMessage(  ), locale, model ).getHtml(  );
-		                	strEmail = UserPreferencesService.instance( ).get( strIdeeLuteceUsername, PARAM_BP_EMAIL, StringUtils.EMPTY );
-		                }
-		                catch ( Exception e )
-		                {
-		                    throw new RuntimeException( ERROR_GET_EMAIL, e );
-		                }
-		
-		                MailService.sendMailHtml( strEmail, strRecipientCc, strRecipientBcc, strSenderName, strSenderEmail,
-		                    strSubject, strMessage );
-            		 
-            	 }else if(subDepoPart != null && !subDepoPart.isEmpty( ) ){
-            		 
-            		 try{
-		                	strMessage = AppTemplateService.getTemplateFromStringFtl( 
-		                            "[#ftl]\n[#setting date_format=\"dd/MM/yyyy\"]\n" + config.getMessage(  ), locale, model ).getHtml(  );
-		                	strEmail = UserPreferencesService.instance( ).get( strIdeeLuteceUsername, PARAM_BP_EMAIL, StringUtils.EMPTY );
-		                }
-		                catch ( Exception e )
-		                {
-		                    throw new RuntimeException( ERROR_GET_EMAIL, e );
-		                }
-		
-		                MailService.sendMailHtml( strEmail, strRecipientCc, strRecipientBcc, strSenderName, strSenderEmail,
-		                    strSubject, strMessage );
-            		 
-            	 }
+                List<Subscription> subDepoPart = null;
+                List<Subscription> subDepoFollow = null;
+                List<Subscription> listSubDepoComment = null;
+                SubscriptionFilter filterSubDepo = new SubscriptionFilter( );
+                filterSubDepo.setIdSubscriber( strIdeeLuteceUsername );
+
+                if ( actionName.equals( ACTION_NAME_CREATE_COMMENT ) )
+                {
+
+                    filterSubDepo.setSubscriptionKey( IdeationSubscriptionProviderService.SUBSCRIPTION_NEW_COMMENT_ON_MY_PROPOSAL );
+                    listSubDepoComment = SubscriptionService.getInstance( ).findByFilter( filterSubDepo );
+
+                }
+                else
+                    if ( ( actionName.equals( ACTION_NAME_FOLLOW ) || actionName.equals( ACTION_NAME_CANCEL_FOLLOW ) ) )
+                    {
+
+                        filterSubDepo.setSubscriptionKey( IdeationSubscriptionProviderService.SUBSCRIPTION_NEW_PARTICIPATION_ON_MY_PROPOSAL );
+                        subDepoFollow = SubscriptionService.getInstance( ).findByFilter( filterSubDepo );
+
+                    }
+                    else
+                    {
+                        filterSubDepo.setSubscriptionKey( IdeationSubscriptionProviderService.SUBSCRIPTION_NEW_PARTICIPATION_ON_MY_PROPOSAL );
+                        subDepoPart = SubscriptionService.getInstance( ).findByFilter( filterSubDepo );
+
+                    }
+                model.put( MARK_PSEUDO_DESTINATAIRE, strNickNameDepositaire );
+                if ( actionName.equals( ACTION_NAME_CREATE_IDEE ) )
+                {
+
+                    try
+                    {
+                        strMessage = AppTemplateService.getTemplateFromStringFtl( "[#ftl]\n[#setting date_format=\"dd/MM/yyyy\"]\n" + config.getMessage( ),
+                                locale, model ).getHtml( );
+                        strEmail = UserPreferencesService.instance( ).get( strIdeeLuteceUsername, PARAM_BP_EMAIL, StringUtils.EMPTY );
+                    }
+                    catch( Exception e )
+                    {
+                        throw new RuntimeException( ERROR_GET_EMAIL, e );
+                    }
+
+                    MailService.sendMailHtml( strEmail, strRecipientCc, strRecipientBcc, strSenderName, strSenderEmail, strSubject, strMessage );
+                }
+                else
+                    if ( listSubDepoComment != null && !listSubDepoComment.isEmpty( ) && actionName.equals( ACTION_NAME_CREATE_COMMENT ) )
+                    {
+
+                        try
+                        {
+                            strMessage = AppTemplateService.getTemplateFromStringFtl( "[#ftl]\n[#setting date_format=\"dd/MM/yyyy\"]\n" + config.getMessage( ),
+                                    locale, model ).getHtml( );
+                            strEmail = UserPreferencesService.instance( ).get( strIdeeLuteceUsername, PARAM_BP_EMAIL, StringUtils.EMPTY );
+                        }
+                        catch( Exception e )
+                        {
+                            throw new RuntimeException( ERROR_GET_EMAIL, e );
+                        }
+
+                        MailService.sendMailHtml( strEmail, strRecipientCc, strRecipientBcc, strSenderName, strSenderEmail, strSubject, strMessage );
+
+                    }
+                    else
+                        if ( subDepoFollow != null && !subDepoFollow.isEmpty( )
+                                && ( actionName.equals( ACTION_NAME_FOLLOW ) || actionName.equals( ACTION_NAME_CANCEL_FOLLOW ) ) )
+                        {
+
+                            try
+                            {
+                                strMessage = AppTemplateService.getTemplateFromStringFtl(
+                                        "[#ftl]\n[#setting date_format=\"dd/MM/yyyy\"]\n" + config.getMessage( ), locale, model ).getHtml( );
+                                strEmail = UserPreferencesService.instance( ).get( strIdeeLuteceUsername, PARAM_BP_EMAIL, StringUtils.EMPTY );
+                            }
+                            catch( Exception e )
+                            {
+                                throw new RuntimeException( ERROR_GET_EMAIL, e );
+                            }
+
+                            MailService.sendMailHtml( strEmail, strRecipientCc, strRecipientBcc, strSenderName, strSenderEmail, strSubject, strMessage );
+
+                        }
+                        else
+                            if ( subDepoPart != null && !subDepoPart.isEmpty( ) )
+                            {
+
+                                try
+                                {
+                                    strMessage = AppTemplateService.getTemplateFromStringFtl(
+                                            "[#ftl]\n[#setting date_format=\"dd/MM/yyyy\"]\n" + config.getMessage( ), locale, model ).getHtml( );
+                                    strEmail = UserPreferencesService.instance( ).get( strIdeeLuteceUsername, PARAM_BP_EMAIL, StringUtils.EMPTY );
+                                }
+                                catch( Exception e )
+                                {
+                                    throw new RuntimeException( ERROR_GET_EMAIL, e );
+                                }
+
+                                MailService.sendMailHtml( strEmail, strRecipientCc, strRecipientBcc, strSenderName, strSenderEmail, strSubject, strMessage );
+
+                            }
             }
         }
     }

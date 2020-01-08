@@ -41,57 +41,57 @@ import fr.paris.lutece.util.ReferenceList;
  */
 public class DepositaireTypeHomeTest extends LuteceTestCase
 {
-	private final static String        CODE            = "0";
-	private final static String        LIBELLE         = "Libelle";
-	private final static String        CODE_COMPLEMENT = "FREE";
-	private final static ReferenceList REFERENCE_LIST  = new ReferenceList();
+    private final static String CODE = "0";
+    private final static String LIBELLE = "Libelle";
+    private final static String CODE_COMPLEMENT = "FREE";
+    private final static ReferenceList REFERENCE_LIST = new ReferenceList( );
 
-    public void testBusiness(  )
+    public void testBusiness( )
     {
-    	REFERENCE_LIST.addItem( "123",  "abc");
-    	
+        REFERENCE_LIST.addItem( "123", "abc" );
+
         // Create an object
-    	DepositaireType instance = new DepositaireType();
-    	instance.setCode              ( CODE );
-    	instance.setLibelle           ( LIBELLE );
-    	instance.setCodeComplementType( CODE_COMPLEMENT );
-    	instance.setValues            ( REFERENCE_LIST );
+        DepositaireType instance = new DepositaireType( );
+        instance.setCode( CODE );
+        instance.setLibelle( LIBELLE );
+        instance.setCodeComplementType( CODE_COMPLEMENT );
+        instance.setValues( REFERENCE_LIST );
         DepositaireTypeHome.create( instance );
-        
+
         // Test findByCode method
         DepositaireType storedInstance = DepositaireTypeHome.findByCode( CODE );
-        assertTrue( instanceEquals(instance, storedInstance) );
-        
+        assertTrue( instanceEquals( instance, storedInstance ) );
+
         // Test findBy method
-        storedInstance = DepositaireTypeHome.findByPrimaryKey( instance.getId() );
-        assertTrue( instanceEquals(instance, storedInstance) );
-        assertNull( storedInstance.getValues() );
-        
+        storedInstance = DepositaireTypeHome.findByPrimaryKey( instance.getId( ) );
+        assertTrue( instanceEquals( instance, storedInstance ) );
+        assertNull( storedInstance.getValues( ) );
+
         // List test
         DepositaireTypeHome.getDepositaireTypesList( );
 
         // Delete test
-        DepositaireTypeHome.remove( instance.getId() );
+        DepositaireTypeHome.remove( instance.getId( ) );
 
     }
-    
-    private boolean instanceEquals( DepositaireType instance1, DepositaireType instance2 ) 
-    {    	
-    	if ( !instance1.getCode().equals( instance2.getCode() ) )
-    	{
-    		return false;
-    	}
-    
-    	if ( !instance1.getLibelle().equals( instance2.getLibelle() ) )
-    	{
-    		return false;
-    	}
-    	
-    	if ( !instance1.getCodeComplementType().equals( instance2.getCodeComplementType() ) )
-    	{
-    		return false;
-    	}
-    	
-    	return true;
+
+    private boolean instanceEquals( DepositaireType instance1, DepositaireType instance2 )
+    {
+        if ( !instance1.getCode( ).equals( instance2.getCode( ) ) )
+        {
+            return false;
+        }
+
+        if ( !instance1.getLibelle( ).equals( instance2.getLibelle( ) ) )
+        {
+            return false;
+        }
+
+        if ( !instance1.getCodeComplementType( ).equals( instance2.getCodeComplementType( ) ) )
+        {
+            return false;
+        }
+
+        return true;
     }
 }

@@ -41,26 +41,27 @@ import fr.paris.lutece.plugins.participatorybudget.service.MyInfosListenerServic
 import fr.paris.lutece.plugins.participatoryideation.business.Idee;
 import fr.paris.lutece.plugins.participatoryideation.service.fileimage.IdeationFileImageService;
 import fr.paris.lutece.portal.service.plugin.Plugin;
+
 /**
- *  IdeePlugin
+ * IdeePlugin
  */
 public class IdeationPlugin extends Plugin
 {
-	public static final String PLUGIN_NAME = "participatoryideation";
-	/**
+    public static final String PLUGIN_NAME = "participatoryideation";
+
+    /**
      * {@inheritDoc}
      */
     @Override
-    public void init(  )
+    public void init( )
     {
-    	CommentListenerService.registerListener(Idee.PROPERTY_RESOURCE_TYPE, new IdeeCommentListener());
-        RatingListenerService.registerListener( ExtendableComment.RESOURCE_TYPE,
-                new ExtendableCommentRatingListener( ) );
-    	RatingListenerService.registerListener(Idee.PROPERTY_RESOURCE_TYPE, new IdeeRatingListener());
-    	FollowListenerService.registerListener(Idee.PROPERTY_RESOURCE_TYPE, new IdeeFollowListener());
-    	MyInfosListenerService.registerListener(new IdeationMyInfosListener());
-    	
-    	// ImageResourceManager registering.
-    	IdeationFileImageService.getInstance(  ).register(  );
+        CommentListenerService.registerListener( Idee.PROPERTY_RESOURCE_TYPE, new IdeeCommentListener( ) );
+        RatingListenerService.registerListener( ExtendableComment.RESOURCE_TYPE, new ExtendableCommentRatingListener( ) );
+        RatingListenerService.registerListener( Idee.PROPERTY_RESOURCE_TYPE, new IdeeRatingListener( ) );
+        FollowListenerService.registerListener( Idee.PROPERTY_RESOURCE_TYPE, new IdeeFollowListener( ) );
+        MyInfosListenerService.registerListener( new IdeationMyInfosListener( ) );
+
+        // ImageResourceManager registering.
+        IdeationFileImageService.getInstance( ).register( );
     }
 }

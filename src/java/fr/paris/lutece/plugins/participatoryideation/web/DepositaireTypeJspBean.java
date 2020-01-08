@@ -31,7 +31,7 @@
  *
  * License 1.0
  */
- 
+
 package fr.paris.lutece.plugins.participatoryideation.web;
 
 import fr.paris.lutece.plugins.participatoryideation.business.DepositaireType;
@@ -46,9 +46,7 @@ import fr.paris.lutece.util.url.UrlItem;
 import java.util.List;
 import java.util.Map;
 
-
 import javax.servlet.http.HttpServletRequest;
-
 
 /**
  * This class provides the user interface to manage DepositaireType features ( manage, create, modify, remove )
@@ -57,14 +55,13 @@ import javax.servlet.http.HttpServletRequest;
 public class DepositaireTypeJspBean extends ManageIdeationJspBean
 {
 
-    ////////////////////////////////////////////////////////////////////////////
+    // //////////////////////////////////////////////////////////////////////////
     // Constants
 
     // templates
     private static final String TEMPLATE_MANAGE_DEPOSITAIRES = "/admin/plugins/participatoryideation/manage_depositairetypes.html";
     private static final String TEMPLATE_CREATE_DEPOSITAIRE = "/admin/plugins/participatoryideation/create_depositairetype.html";
     private static final String TEMPLATE_MODIFY_DEPOSITAIRE = "/admin/plugins/participatoryideation/modify_depositairetype.html";
-
 
     // Parameters
     private static final String PARAMETER_ID_DEPOSITAIRE = "id";
@@ -83,7 +80,7 @@ public class DepositaireTypeJspBean extends ManageIdeationJspBean
     // Properties
     private static final String MESSAGE_CONFIRM_REMOVE_DEPOSITAIRE = "participatoryideation.message.confirmRemoveDepositaireType";
     private static final String PROPERTY_DEFAULT_LIST_DEPOSITAIRE_PER_PAGE = "participatoryideation.listDepositaireTypes.itemsPerPage";
- 
+
     private static final String VALIDATION_ATTRIBUTES_PREFIX = "participatoryideation.model.entity.depositairetype.attribute.";
 
     // Views
@@ -101,21 +98,22 @@ public class DepositaireTypeJspBean extends ManageIdeationJspBean
     private static final String INFO_DEPOSITAIRE_CREATED = "participatoryideation.info.depositairetype.created";
     private static final String INFO_DEPOSITAIRE_UPDATED = "participatoryideation.info.depositairetype.updated";
     private static final String INFO_DEPOSITAIRE_REMOVED = "participatoryideation.info.depositairetype.removed";
-    
+
     // Session variable to store working values
     private DepositaireType _depositairetype;
-    
-    
+
     /**
      * Build the Manage View
-     * @param request The HTTP request
+     * 
+     * @param request
+     *            The HTTP request
      * @return The page
      */
     @View( value = VIEW_MANAGE_DEPOSITAIRES, defaultView = true )
     public String getManageDepositaireTypes( HttpServletRequest request )
     {
         _depositairetype = null;
-        List<DepositaireType> listDepositaireTypes = (List<DepositaireType>) DepositaireTypeHome.getDepositaireTypesList(  );
+        List<DepositaireType> listDepositaireTypes = (List<DepositaireType>) DepositaireTypeHome.getDepositaireTypesList( );
         Map<String, Object> model = getPaginatedListModel( request, MARK_DEPOSITAIRE_LIST, listDepositaireTypes, JSP_MANAGE_DEPOSITAIRES );
 
         return getPage( PROPERTY_PAGE_TITLE_MANAGE_DEPOSITAIRES, TEMPLATE_MANAGE_DEPOSITAIRES, model );
@@ -124,15 +122,16 @@ public class DepositaireTypeJspBean extends ManageIdeationJspBean
     /**
      * Returns the form to create a depositairetype
      *
-     * @param request The Http request
+     * @param request
+     *            The Http request
      * @return the html code of the depositairetype form
      */
     @View( VIEW_CREATE_DEPOSITAIRE )
     public String getCreateDepositaireType( HttpServletRequest request )
     {
-        _depositairetype = ( _depositairetype != null ) ? _depositairetype : new DepositaireType(  );
+        _depositairetype = ( _depositairetype != null ) ? _depositairetype : new DepositaireType( );
 
-        Map<String, Object> model = getModel(  );
+        Map<String, Object> model = getModel( );
         model.put( MARK_DEPOSITAIRE, _depositairetype );
 
         return getPage( PROPERTY_PAGE_TITLE_CREATE_DEPOSITAIRE, TEMPLATE_CREATE_DEPOSITAIRE, model );
@@ -141,7 +140,8 @@ public class DepositaireTypeJspBean extends ManageIdeationJspBean
     /**
      * Process the data capture form of a new depositairetype
      *
-     * @param request The Http Request
+     * @param request
+     *            The Http Request
      * @return The Jsp URL of the process result
      */
     @Action( ACTION_CREATE_DEPOSITAIRE )
@@ -156,16 +156,16 @@ public class DepositaireTypeJspBean extends ManageIdeationJspBean
         }
 
         DepositaireTypeHome.create( _depositairetype );
-        addInfo( INFO_DEPOSITAIRE_CREATED, getLocale(  ) );
+        addInfo( INFO_DEPOSITAIRE_CREATED, getLocale( ) );
 
         return redirectView( request, VIEW_MANAGE_DEPOSITAIRES );
     }
 
     /**
-     * Manages the removal form of a depositairetype whose identifier is in the http
-     * request
+     * Manages the removal form of a depositairetype whose identifier is in the http request
      *
-     * @param request The Http request
+     * @param request
+     *            The Http request
      * @return the html code to confirm
      */
     @Action( ACTION_CONFIRM_REMOVE_DEPOSITAIRE )
@@ -175,8 +175,7 @@ public class DepositaireTypeJspBean extends ManageIdeationJspBean
         UrlItem url = new UrlItem( getActionUrl( ACTION_REMOVE_DEPOSITAIRE ) );
         url.addParameter( PARAMETER_ID_DEPOSITAIRE, nId );
 
-        String strMessageUrl = AdminMessageService.getMessageUrl( request, MESSAGE_CONFIRM_REMOVE_DEPOSITAIRE,
-                url.getUrl(  ), AdminMessage.TYPE_CONFIRMATION );
+        String strMessageUrl = AdminMessageService.getMessageUrl( request, MESSAGE_CONFIRM_REMOVE_DEPOSITAIRE, url.getUrl( ), AdminMessage.TYPE_CONFIRMATION );
 
         return redirect( request, strMessageUrl );
     }
@@ -184,7 +183,8 @@ public class DepositaireTypeJspBean extends ManageIdeationJspBean
     /**
      * Handles the removal form of a depositairetype
      *
-     * @param request The Http request
+     * @param request
+     *            The Http request
      * @return the jsp URL to display the form to manage depositairetypes
      */
     @Action( ACTION_REMOVE_DEPOSITAIRE )
@@ -192,7 +192,7 @@ public class DepositaireTypeJspBean extends ManageIdeationJspBean
     {
         int nId = Integer.parseInt( request.getParameter( PARAMETER_ID_DEPOSITAIRE ) );
         DepositaireTypeHome.remove( nId );
-        addInfo( INFO_DEPOSITAIRE_REMOVED, getLocale(  ) );
+        addInfo( INFO_DEPOSITAIRE_REMOVED, getLocale( ) );
 
         return redirectView( request, VIEW_MANAGE_DEPOSITAIRES );
     }
@@ -200,7 +200,8 @@ public class DepositaireTypeJspBean extends ManageIdeationJspBean
     /**
      * Returns the form to update info about a depositairetype
      *
-     * @param request The Http request
+     * @param request
+     *            The Http request
      * @return The HTML form to update info
      */
     @View( VIEW_MODIFY_DEPOSITAIRE )
@@ -208,12 +209,12 @@ public class DepositaireTypeJspBean extends ManageIdeationJspBean
     {
         int nId = Integer.parseInt( request.getParameter( PARAMETER_ID_DEPOSITAIRE ) );
 
-        if ( _depositairetype == null || ( _depositairetype.getId(  ) != nId ))
+        if ( _depositairetype == null || ( _depositairetype.getId( ) != nId ) )
         {
             _depositairetype = DepositaireTypeHome.findByPrimaryKey( nId );
         }
 
-        Map<String, Object> model = getModel(  );
+        Map<String, Object> model = getModel( );
         model.put( MARK_DEPOSITAIRE, _depositairetype );
 
         return getPage( PROPERTY_PAGE_TITLE_MODIFY_DEPOSITAIRE, TEMPLATE_MODIFY_DEPOSITAIRE, model );
@@ -222,7 +223,8 @@ public class DepositaireTypeJspBean extends ManageIdeationJspBean
     /**
      * Process the change form of a depositairetype
      *
-     * @param request The Http request
+     * @param request
+     *            The Http request
      * @return The Jsp URL of the process result
      */
     @Action( ACTION_MODIFY_DEPOSITAIRE )
@@ -237,7 +239,7 @@ public class DepositaireTypeJspBean extends ManageIdeationJspBean
         }
 
         DepositaireTypeHome.update( _depositairetype );
-        addInfo( INFO_DEPOSITAIRE_UPDATED, getLocale(  ) );
+        addInfo( INFO_DEPOSITAIRE_UPDATED, getLocale( ) );
 
         return redirectView( request, VIEW_MANAGE_DEPOSITAIRES );
     }

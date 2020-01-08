@@ -66,7 +66,7 @@ public class TaskChangeIdeeStatus extends SimpleTask
      */
     public static final String CONFIG_SERVICE_BEAN_NAME = "participatoryideation.taskChangeIdeeStatusConfigService";
     // From plugin-ideation
-    private static final String BEAN_SOLR_IDEE_INDEXER="participatoryideation.solrIdeeIndexer";
+    private static final String BEAN_SOLR_IDEE_INDEXER = "participatoryideation.solrIdeeIndexer";
 
     // Messages
     private static final String MESSAGE_UNPUBLISHED_IDEE = "module.workflow.ideation.task_change_idee_status.labelUnpublishedIdee";
@@ -81,24 +81,26 @@ public class TaskChangeIdeeStatus extends SimpleTask
     public void processTask( int nIdResourceHistory, HttpServletRequest request, Locale locale )
     {
         ResourceHistory resourceHistory = _resourceHistoryService.findByPrimaryKey( nIdResourceHistory );
-        TaskChangeIdeeStatusConfig config = _taskChangeIdeeStatusConfigService.findByPrimaryKey( this.getId(  ) );
+        TaskChangeIdeeStatusConfig config = _taskChangeIdeeStatusConfigService.findByPrimaryKey( this.getId( ) );
 
-        if ( ( config != null ) && ( resourceHistory != null ) &&
-                Idee.WORKFLOW_RESOURCE_TYPE.equals( resourceHistory.getResourceType(  ) ) )
+        if ( ( config != null ) && ( resourceHistory != null ) && Idee.WORKFLOW_RESOURCE_TYPE.equals( resourceHistory.getResourceType( ) ) )
         {
             // We get the idee to update
-            Idee idee = IdeeHome.findByPrimaryKey( resourceHistory.getIdResource(  ) );
+            Idee idee = IdeeHome.findByPrimaryKey( resourceHistory.getIdResource( ) );
 
             if ( idee != null )
             {
-                idee.setStatusPublic( Idee.Status.getByValue( config.getIdeeStatus(  ) ) );
+                idee.setStatusPublic( Idee.Status.getByValue( config.getIdeeStatus( ) ) );
                 IdeeHome.updateBO( idee );
 
                 SolrIdeeIndexer solrIdeeIndexer = SpringContextService.getBean( BEAN_SOLR_IDEE_INDEXER );
-                if ( IdeeService.getInstance().isPublished(idee) ) {
-                    solrIdeeIndexer.writeIdee(idee);
-                } else {
-                    solrIdeeIndexer.removeIdee(idee);
+                if ( IdeeService.getInstance( ).isPublished( idee ) )
+                {
+                    solrIdeeIndexer.writeIdee( idee );
+                }
+                else
+                {
+                    solrIdeeIndexer.removeIdee( idee );
                 }
             }
         }
@@ -110,12 +112,11 @@ public class TaskChangeIdeeStatus extends SimpleTask
     @Override
     public String getTitle( Locale locale )
     {
-        TaskChangeIdeeStatusConfig config = _taskChangeIdeeStatusConfigService.findByPrimaryKey( this.getId(  ) );
+        TaskChangeIdeeStatusConfig config = _taskChangeIdeeStatusConfigService.findByPrimaryKey( this.getId( ) );
 
-        if ( ( config != null ) && ( config.getIdeeStatus(  ) != null ) )
+        if ( ( config != null ) && ( config.getIdeeStatus( ) != null ) )
         {
-            return I18nService.getLocalizedString( Idee.Status.getByValue( config.getIdeeStatus(  ) ).getLibelle(  ),
-                locale );
+            return I18nService.getLocalizedString( Idee.Status.getByValue( config.getIdeeStatus( ) ).getLibelle( ), locale );
         }
 
         return StringUtils.EMPTY;
@@ -125,8 +126,8 @@ public class TaskChangeIdeeStatus extends SimpleTask
      * {@inheritDoc}
      */
     @Override
-    public void doRemoveConfig(  )
+    public void doRemoveConfig( )
     {
-        _taskChangeIdeeStatusConfigService.remove( this.getId(  ) );
+        _taskChangeIdeeStatusConfigService.remove( this.getId( ) );
     }
 }

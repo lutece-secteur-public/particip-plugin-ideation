@@ -31,7 +31,7 @@
  *
  * License 1.0
  */
- 
+
 package fr.paris.lutece.plugins.participatoryideation.web;
 
 import java.util.ArrayList;
@@ -41,7 +41,8 @@ import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class IdeeBoForm {
+public class IdeeBoForm
+{
 
     private int _nId;
 
@@ -55,12 +56,13 @@ public class IdeeBoForm {
     private String _strLibelleQpvQva;
     private String _strHandicap;
     private String _strIdProjet;
-	private String _strTitreProjet;
+    private String _strTitreProjet;
     private String _strUrlProjet;
     private String _strWinnerProjet;
 
     /**
      * Returns the Id
+     * 
      * @return The Id
      */
     public int getId( )
@@ -70,8 +72,10 @@ public class IdeeBoForm {
 
     /**
      * Sets the Id
-     * @param nId The Id
-     */ 
+     * 
+     * @param nId
+     *            The Id
+     */
     public void setId( int nId )
     {
         _nId = nId;
@@ -80,152 +84,186 @@ public class IdeeBoForm {
     /**
      * @return the TypeQpvQva
      */
-    public String getTypeQpvQva() {
+    public String getTypeQpvQva( )
+    {
         return _strTypeQpvQva;
     }
 
     /**
-     * @param strTypeQpvQva the TypeQpvQva to set
+     * @param strTypeQpvQva
+     *            the TypeQpvQva to set
      */
-    public void setTypeQpvQva(String strTypeQpvQva) {
+    public void setTypeQpvQva( String strTypeQpvQva )
+    {
         this._strTypeQpvQva = strTypeQpvQva;
     }
 
     /**
      * @return the IdQpvQva
      */
-    public String getIdQpvQva() {
+    public String getIdQpvQva( )
+    {
         return _strIdQpvQva;
     }
 
     /**
-     * @param strIdQpvQva the IdQpvQva to set
+     * @param strIdQpvQva
+     *            the IdQpvQva to set
      */
-    public void setIdQpvQva(String strIdQpvQva) {
+    public void setIdQpvQva( String strIdQpvQva )
+    {
         this._strIdQpvQva = strIdQpvQva;
     }
 
     /**
      * @return the LibelleQpvQva
      */
-    public String getLibelleQpvQva() {
+    public String getLibelleQpvQva( )
+    {
         return _strLibelleQpvQva;
     }
 
     /**
-     * @param strLibelleQpvQva the LibelleQpvQva to set
+     * @param strLibelleQpvQva
+     *            the LibelleQpvQva to set
      */
-    public void setLibelleQpvQva(String strLibelleQpvQva) {
+    public void setLibelleQpvQva( String strLibelleQpvQva )
+    {
         this._strLibelleQpvQva = strLibelleQpvQva;
     }
-    
-    public String getHandicap() {
+
+    public String getHandicap( )
+    {
         return _strHandicap;
     }
 
-    public void setHandicap(String strHandicap) {
+    public void setHandicap( String strHandicap )
+    {
         this._strHandicap = strHandicap;
     }
 
     /**
      * GET IdProjet the id project
+     * 
      * @return IdProjet the id project
      */
-	public String getIdProjet( )
-	{
-		return _strIdProjet;
-	}
-	
-	/**
-	 * SET IdProjet
-	 * @param strIDProjet the Id project
-	 */
-	public void setIdProjet( String strIDProjet )
-	{
-		this._strIdProjet = strIDProjet;
-	}
-	
-	/**
-	 * GET the title project
-	 * @return TitreProjet the title project
-	 */
-	public String getTitreProjet( )
-	{
-		return _strTitreProjet;
-	}
-	/**
-	 * SET the title project 
-	 * @param strTitreProjet the title project
-	 */
-	public void setTitreProjet( String strTitreProjet ) 
-	{
-		this._strTitreProjet = strTitreProjet;
-	}
+    public String getIdProjet( )
+    {
+        return _strIdProjet;
+    }
+
+    /**
+     * SET IdProjet
+     * 
+     * @param strIDProjet
+     *            the Id project
+     */
+    public void setIdProjet( String strIDProjet )
+    {
+        this._strIdProjet = strIDProjet;
+    }
+
+    /**
+     * GET the title project
+     * 
+     * @return TitreProjet the title project
+     */
+    public String getTitreProjet( )
+    {
+        return _strTitreProjet;
+    }
+
+    /**
+     * SET the title project
+     * 
+     * @param strTitreProjet
+     *            the title project
+     */
+    public void setTitreProjet( String strTitreProjet )
+    {
+        this._strTitreProjet = strTitreProjet;
+    }
+
     /**
      * Get the url project
+     * 
      * @return the url project
      */
-	public String getUrlProjet( ) 
-	{
-		return _strUrlProjet;
-	}
-	/**
-	 * Set the url project
-	 * @param strUrlProjet the url project
-	 */
-	public void setUrlProjet( String strUrlProjet ) 
-	{
-		_strUrlProjet = strUrlProjet;
-	}
-    
+    public String getUrlProjet( )
+    {
+        return _strUrlProjet;
+    }
+
+    /**
+     * Set the url project
+     * 
+     * @param strUrlProjet
+     *            the url project
+     */
+    public void setUrlProjet( String strUrlProjet )
+    {
+        _strUrlProjet = strUrlProjet;
+    }
+
     /**
      * Get the winner project value
+     * 
      * @return the winner project value
      */
-	public String getWinnerProjet( ) 
-	{
-		return _strWinnerProjet;
-	}
-	
-	/**
-	 * Set the winner project value
-	 * @param strUrlProjet the winner project value
-	 */
-	public void setWinnerProjet( String strWinnerProjet ) 
-	{
-		_strWinnerProjet = strWinnerProjet;
-	}
+    public String getWinnerProjet( )
+    {
+        return _strWinnerProjet;
+    }
 
-	public String getTitre() {
-		return _strTitre;
-	}
+    /**
+     * Set the winner project value
+     * 
+     * @param strUrlProjet
+     *            the winner project value
+     */
+    public void setWinnerProjet( String strWinnerProjet )
+    {
+        _strWinnerProjet = strWinnerProjet;
+    }
 
-	public void setTitre(String _strTitre) {
-		this._strTitre = _strTitre;
-	}
+    public String getTitre( )
+    {
+        return _strTitre;
+    }
 
-	public String getDescription() {
-		return _strDescription;
-	}
+    public void setTitre( String _strTitre )
+    {
+        this._strTitre = _strTitre;
+    }
 
-	public void setDescription(String _strDescription) {
-		this._strDescription = _strDescription;
-	}
+    public String getDescription( )
+    {
+        return _strDescription;
+    }
 
-	public String getCout() {
-		return _strCout;
-	}
+    public void setDescription( String _strDescription )
+    {
+        this._strDescription = _strDescription;
+    }
 
-	public void setCout(String _strCout) {
-		this._strCout = _strCout;
-	}
+    public String getCout( )
+    {
+        return _strCout;
+    }
 
-	public String getLocalisationArdt() {
-		return _strLocalisationArdt;
-	}
+    public void setCout( String _strCout )
+    {
+        this._strCout = _strCout;
+    }
 
-	public void setLocalisationArdt(String _strLocalisationArdt) {
-		this._strLocalisationArdt = _strLocalisationArdt;
-	}
-    
+    public String getLocalisationArdt( )
+    {
+        return _strLocalisationArdt;
+    }
+
+    public void setLocalisationArdt( String _strLocalisationArdt )
+    {
+        this._strLocalisationArdt = _strLocalisationArdt;
+    }
+
 }

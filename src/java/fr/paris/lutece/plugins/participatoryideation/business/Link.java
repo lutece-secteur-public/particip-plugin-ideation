@@ -35,109 +35,127 @@ package fr.paris.lutece.plugins.participatoryideation.business;
 
 import java.io.Serializable;
 
-
 /**
  * This is the business class for the object Link
- */ 
+ */
 public class Link implements Serializable
 {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	// Variables declarations 
+    // Variables declarations
     private int _nId;
-    
+
     private int _parentId;
     private int _childId;
-    
+
     private String _parentCodeCampagne;
     private String _childCodeCampagne;
-    
+
     private int _parentCodeIdee;
     private int _childCodeIdee;
-    
+
     private String _parentTitle;
     private String _childTitle;
-    
-    public int getId() {
-		return _nId;
-	}
 
-    public void setId(int _nId) {
-		this._nId = _nId;
-	}
-	
-    public int getParentId() {
-		return _parentId;
-	}
-	
-    public void setParentId(int _parentId) {
-		this._parentId = _parentId;
-	}
-	
-    public int getChildId() {
-		return _childId;
-	}
-	
-    public void setChildId(int _childId) {
-		this._childId = _childId;
-	}
+    public int getId( )
+    {
+        return _nId;
+    }
 
-	public String getParentCodeCampagne() {
-		return _parentCodeCampagne;
-	}
+    public void setId( int _nId )
+    {
+        this._nId = _nId;
+    }
 
-	public void setParentCodeCampagne(String _parentCodeCampagne) {
-		this._parentCodeCampagne = _parentCodeCampagne;
-	}
+    public int getParentId( )
+    {
+        return _parentId;
+    }
 
-	public String getChildCodeCampagne() {
-		return _childCodeCampagne;
-	}
+    public void setParentId( int _parentId )
+    {
+        this._parentId = _parentId;
+    }
 
-	public void setChildCodeCampagne(String _childCodeCampagne) {
-		this._childCodeCampagne = _childCodeCampagne;
-	}
+    public int getChildId( )
+    {
+        return _childId;
+    }
 
-	public int getParentCodeIdee() {
-		return _parentCodeIdee;
-	}
+    public void setChildId( int _childId )
+    {
+        this._childId = _childId;
+    }
 
-	public void setParentCodeIdee(int _parentCodeIdee) {
-		this._parentCodeIdee = _parentCodeIdee;
-	}
+    public String getParentCodeCampagne( )
+    {
+        return _parentCodeCampagne;
+    }
 
-	public int getChildCodeIdee() {
-		return _childCodeIdee;
-	}
+    public void setParentCodeCampagne( String _parentCodeCampagne )
+    {
+        this._parentCodeCampagne = _parentCodeCampagne;
+    }
 
-	public void setChildCodeIdee(int _childCodeIdee) {
-		this._childCodeIdee = _childCodeIdee;
-	}
+    public String getChildCodeCampagne( )
+    {
+        return _childCodeCampagne;
+    }
 
-	public String getParentTitle() {
-		return _parentTitle;
-	}
+    public void setChildCodeCampagne( String _childCodeCampagne )
+    {
+        this._childCodeCampagne = _childCodeCampagne;
+    }
 
-	public void setParentTitle(String _parentTitle) {
-		this._parentTitle = _parentTitle;
-	}
+    public int getParentCodeIdee( )
+    {
+        return _parentCodeIdee;
+    }
 
-	public String getChildTitle() {
-		return _childTitle;
-	}
+    public void setParentCodeIdee( int _parentCodeIdee )
+    {
+        this._parentCodeIdee = _parentCodeIdee;
+    }
 
-	public void setChildTitle(String _childTitle) {
-		this._childTitle = _childTitle;
-	}
+    public int getChildCodeIdee( )
+    {
+        return _childCodeIdee;
+    }
 
-	// *********************************************************************************************
-	// * TOSTRING TOSTRING TOSTRING TOSTRING TOSTRING TOSTRING TOSTRING TOSTRING TOSTRING TOSTRING *
-	// * TOSTRING TOSTRING TOSTRING TOSTRING TOSTRING TOSTRING TOSTRING TOSTRING TOSTRING TOSTRING *
-	// *********************************************************************************************
+    public void setChildCodeIdee( int _childCodeIdee )
+    {
+        this._childCodeIdee = _childCodeIdee;
+    }
 
-	@Override
-	public String toString() {
-		return "{" + getId() + ", parent=" + getParentCodeIdee() + ", child=" + getChildCodeIdee() + "}";
-	}
+    public String getParentTitle( )
+    {
+        return _parentTitle;
+    }
+
+    public void setParentTitle( String _parentTitle )
+    {
+        this._parentTitle = _parentTitle;
+    }
+
+    public String getChildTitle( )
+    {
+        return _childTitle;
+    }
+
+    public void setChildTitle( String _childTitle )
+    {
+        this._childTitle = _childTitle;
+    }
+
+    // *********************************************************************************************
+    // * TOSTRING TOSTRING TOSTRING TOSTRING TOSTRING TOSTRING TOSTRING TOSTRING TOSTRING TOSTRING *
+    // * TOSTRING TOSTRING TOSTRING TOSTRING TOSTRING TOSTRING TOSTRING TOSTRING TOSTRING TOSTRING *
+    // *********************************************************************************************
+
+    @Override
+    public String toString( )
+    {
+        return "{" + getId( ) + ", parent=" + getParentCodeIdee( ) + ", child=" + getChildCodeIdee( ) + "}";
+    }
 
 }

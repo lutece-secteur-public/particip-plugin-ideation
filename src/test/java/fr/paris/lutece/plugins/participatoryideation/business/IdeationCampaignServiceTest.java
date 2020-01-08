@@ -43,45 +43,45 @@ import fr.paris.lutece.test.LuteceTestCase;
  */
 public class IdeationCampaignServiceTest extends LuteceTestCase
 {
-    public void testBusiness(  )
+    public void testBusiness( )
     {
-    	// Initialize an object
-    	IIdeationCampaignService instance = IdeationCampaignService.getInstance();
+        // Initialize an object
+        IIdeationCampaignService instance = IdeationCampaignService.getInstance( );
 
-    	// Spring bean instantiation
-    	assertTrue( instance.getClass() == IdeationCampaignService.class );
-    	
-    	// Methods about areas
-    	assertEquals( 1, instance.getCampaignAllAreas(       ).size() );
-    	assertEquals( 1, instance.getCampaignAllAreas( "123" ).size() );
-    	
-    	assertEquals( 0, instance.getCampaignLocalizedAreas(       ).size() );
-    	assertEquals( 0, instance.getCampaignLocalizedAreas( "123" ).size() );
-    	
-    	assertEquals( 0, instance.getCampaignNumberLocalizedAreas(       ) );
-    	assertEquals( 0, instance.getCampaignNumberLocalizedAreas( "123" ) );
-    	
-    	assertEquals( IIdeationCampaignService.WHOLE_AREA, instance.getCampaignWholeArea(       ) );
-    	assertEquals( IIdeationCampaignService.WHOLE_AREA, instance.getCampaignWholeArea( "123" ) );
+        // Spring bean instantiation
+        assertTrue( instance.getClass( ) == IdeationCampaignService.class );
 
-    	// Methods about phases
-    	assertEquals( true, instance.isAfterBeginning(        Constants.IDEATION ) );
-    	assertEquals( true, instance.isAfterBeginning( "123", Constants.IDEATION ) );
+        // Methods about areas
+        assertEquals( 1, instance.getCampaignAllAreas( ).size( ) );
+        assertEquals( 1, instance.getCampaignAllAreas( "123" ).size( ) );
 
-    	assertEquals( false, instance.isAfterEnd(        Constants.IDEATION ) );
-    	assertEquals( false, instance.isAfterEnd( "123", Constants.IDEATION ) );
+        assertEquals( 0, instance.getCampaignLocalizedAreas( ).size( ) );
+        assertEquals( 0, instance.getCampaignLocalizedAreas( "123" ).size( ) );
 
-    	assertEquals( false, instance.isBeforeBeginning(        Constants.IDEATION ) );
-    	assertEquals( false, instance.isBeforeBeginning( "123", Constants.IDEATION ) );
+        assertEquals( 0, instance.getCampaignNumberLocalizedAreas( ) );
+        assertEquals( 0, instance.getCampaignNumberLocalizedAreas( "123" ) );
 
-    	assertEquals( true, instance.isBeforeEnd(        Constants.IDEATION ) );
-    	assertEquals( true, instance.isBeforeEnd( "123", Constants.IDEATION ) );
+        assertEquals( IIdeationCampaignService.WHOLE_AREA, instance.getCampaignWholeArea( ) );
+        assertEquals( IIdeationCampaignService.WHOLE_AREA, instance.getCampaignWholeArea( "123" ) );
 
-    	assertEquals( true, instance.isDuring(        Constants.IDEATION ) );
-    	assertEquals( true, instance.isDuring( "123", Constants.IDEATION ) );
+        // Methods about phases
+        assertEquals( true, instance.isAfterBeginning( Constants.IDEATION ) );
+        assertEquals( true, instance.isAfterBeginning( "123", Constants.IDEATION ) );
 
-    	// Methods about themes
-    	assertEquals( 3,  instance.getCampaignThemes(       ).size() );
-    	assertEquals( 3,  instance.getCampaignThemes( "123" ).size() );
-    }    
+        assertEquals( false, instance.isAfterEnd( Constants.IDEATION ) );
+        assertEquals( false, instance.isAfterEnd( "123", Constants.IDEATION ) );
+
+        assertEquals( false, instance.isBeforeBeginning( Constants.IDEATION ) );
+        assertEquals( false, instance.isBeforeBeginning( "123", Constants.IDEATION ) );
+
+        assertEquals( true, instance.isBeforeEnd( Constants.IDEATION ) );
+        assertEquals( true, instance.isBeforeEnd( "123", Constants.IDEATION ) );
+
+        assertEquals( true, instance.isDuring( Constants.IDEATION ) );
+        assertEquals( true, instance.isDuring( "123", Constants.IDEATION ) );
+
+        // Methods about themes
+        assertEquals( 3, instance.getCampaignThemes( ).size( ) );
+        assertEquals( 3, instance.getCampaignThemes( "123" ).size( ) );
+    }
 }

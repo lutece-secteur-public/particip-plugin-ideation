@@ -33,7 +33,6 @@
  */
 package fr.paris.lutece.plugins.participatoryideation.service;
 
-
 import java.util.Locale;
 
 import org.apache.commons.lang.StringUtils;
@@ -46,7 +45,6 @@ import fr.paris.lutece.portal.service.resource.IExtendableResourceService;
 import fr.paris.lutece.portal.service.util.AppPathService;
 import fr.paris.lutece.util.url.UrlItem;
 
-
 /**
  *
  * DocumentExtendableResourceService
@@ -56,7 +54,6 @@ public class IdeeExtendableResourceService implements IExtendableResourceService
 {
     private static final String MESSAGE_IDEE_RESOURCE_TYPE_DESCRIPTION = "participatoryideation.resource.resourceTypeDescription";
     private static final String PARAMETER_IDEE_ID = "id";
-   
 
     /**
      * {@inheritDoc}
@@ -77,7 +74,7 @@ public class IdeeExtendableResourceService implements IExtendableResourceService
         {
             int nIdIdee = Integer.parseInt( strIdResource );
 
-            return IdeeHome.findByPrimaryKey(nIdIdee);
+            return IdeeHome.findByPrimaryKey( nIdIdee );
         }
 
         return null;
@@ -87,7 +84,7 @@ public class IdeeExtendableResourceService implements IExtendableResourceService
      * {@inheritDoc}
      */
     @Override
-    public String getResourceType(  )
+    public String getResourceType( )
     {
         return Idee.PROPERTY_RESOURCE_TYPE;
     }
@@ -109,11 +106,11 @@ public class IdeeExtendableResourceService implements IExtendableResourceService
     {
         if ( StringUtils.isNotBlank( strIdResource ) && StringUtils.isNumeric( strIdResource ) )
         {
-                UrlItem urlItem = new UrlItem( AppPathService.getPortalUrl(  ) );
-                urlItem.addParameter( PARAMETER_IDEE_ID, strIdResource );
+            UrlItem urlItem = new UrlItem( AppPathService.getPortalUrl( ) );
+            urlItem.addParameter( PARAMETER_IDEE_ID, strIdResource );
 
-                               return urlItem.getUrl(  );
-            
+            return urlItem.getUrl( );
+
         }
 
         return null;

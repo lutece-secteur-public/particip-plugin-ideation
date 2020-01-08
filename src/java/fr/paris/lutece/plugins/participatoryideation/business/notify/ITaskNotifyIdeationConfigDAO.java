@@ -35,7 +35,6 @@ package fr.paris.lutece.plugins.participatoryideation.business.notify;
 
 import fr.paris.lutece.plugins.workflowcore.business.config.ITaskConfigDAO;
 
-
 /**
  *
  * ITaskNotifyDirectoryConfigDAO

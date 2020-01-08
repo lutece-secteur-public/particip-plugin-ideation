@@ -51,7 +51,6 @@ import fr.paris.lutece.portal.web.util.LocalizedPaginator;
 import fr.paris.lutece.util.html.Paginator;
 import fr.paris.lutece.util.url.UrlItem;
 
-
 /**
  * ManageIdeationIdees JSP Bean abstract class for JSP Bean
  */
@@ -59,7 +58,7 @@ public abstract class ManageIdeationIdeesJspBean extends MVCAdminJspBean
 {
     // Right
     public static final String RIGHT_MANAGE_IDEATION_IDEES = "IDEATION_IDEES_MANAGEMENT";
-    
+
     private static final String PROPERTY_DEFAULT_LIST_ITEM_PER_PAGE = "participatoryideation.listItems.itemsPerPage";
     private static final String PARAMETER_PAGE_INDEX = "page_index";
     private static final String MARK_PAGINATOR = "paginator";
@@ -68,64 +67,69 @@ public abstract class ManageIdeationIdeesJspBean extends MVCAdminJspBean
     private static final String MARK_IDEE = "idee";
     private static final String MARK_WORKFLOW_STATE = "workflow_state";
 
-
-    //Variables
+    // Variables
     private int _nDefaultItemsPerPage;
     private String _strCurrentPageIndex;
     private int _nItemsPerPage;
 
     /**
      * Return a model that contains the list and paginator infos
-     * @param request The HTTP request
-     * @param strBookmark The bookmark
-     * @param list The list of item
-     * @param strManageJsp The JSP
+     * 
+     * @param request
+     *            The HTTP request
+     * @param strBookmark
+     *            The bookmark
+     * @param list
+     *            The list of item
+     * @param strManageJsp
+     *            The JSP
      * @return The model
      */
-    protected Map<String, Object> getPaginatedListModel( HttpServletRequest request, String strBookmark, List list,
-        String strManageJsp )
+    protected Map<String, Object> getPaginatedListModel( HttpServletRequest request, String strBookmark, List list, String strManageJsp )
     {
         _strCurrentPageIndex = Paginator.getPageIndex( request, Paginator.PARAMETER_PAGE_INDEX, _strCurrentPageIndex );
         _nDefaultItemsPerPage = AppPropertiesService.getPropertyInt( PROPERTY_DEFAULT_LIST_ITEM_PER_PAGE, 50 );
-        _nItemsPerPage = Paginator.getItemsPerPage( request, Paginator.PARAMETER_ITEMS_PER_PAGE, _nItemsPerPage,
-                _nDefaultItemsPerPage );
+        _nItemsPerPage = Paginator.getItemsPerPage( request, Paginator.PARAMETER_ITEMS_PER_PAGE, _nItemsPerPage, _nDefaultItemsPerPage );
 
         UrlItem url = new UrlItem( strManageJsp );
-        String strUrl = url.getUrl(  );
+        String strUrl = url.getUrl( );
 
         // PAGINATOR
-        LocalizedPaginator paginator = new LocalizedPaginator( list, _nItemsPerPage, strUrl, PARAMETER_PAGE_INDEX,
-                _strCurrentPageIndex, getLocale(  ) );
+        LocalizedPaginator paginator = new LocalizedPaginator( list, _nItemsPerPage, strUrl, PARAMETER_PAGE_INDEX, _strCurrentPageIndex, getLocale( ) );
 
-        Map<String, Object> model = getModel(  );
+        Map<String, Object> model = getModel( );
 
         model.put( MARK_NB_ITEMS_PER_PAGE, "" + _nItemsPerPage );
         model.put( MARK_PAGINATOR, paginator );
-        model.put( strBookmark, getExtraInfos( paginator.getPageItems(  ) ) );
+        model.put( strBookmark, getExtraInfos( paginator.getPageItems( ) ) );
 
         return model;
     }
 
     /**
      * fetch additional infos for the idees from the database
-     * @param idees the list of idees
+     * 
+     * @param idees
+     *            the list of idees
      * @return the list of idees with extra infos
      */
-    private List<Map<String, Object>> getExtraInfos( Collection<Idee> idees ) {
+    private List<Map<String, Object>> getExtraInfos( Collection<Idee> idees )
+    {
         int idWorkflow = AppPropertiesService.getPropertyInt( Constants.PROPERTY_WORKFLOW_ID, -1 );
-        List<Map<String, Object>> listIdeesWithWorkflow = new ArrayList<Map<String, Object>>(  );
-        WorkflowService workflowService = WorkflowService.getInstance(  );
-        boolean bWorkflowAvailable = workflowService.isAvailable(  );
+        List<Map<String, Object>> listIdeesWithWorkflow = new ArrayList<Map<String, Object>>( );
+        WorkflowService workflowService = WorkflowService.getInstance( );
+        boolean bWorkflowAvailable = workflowService.isAvailable( );
 
         for ( Idee idee : idees )
         {
-            Map<String, Object> hash = new HashMap<String, Object>(  );
+            Map<String, Object> hash = new HashMap<String, Object>( );
             hash.put( MARK_IDEE, idee );
-            if ( bWorkflowAvailable ) {
-                State state = workflowService.getState( idee.getId(  ), Idee.WORKFLOW_RESOURCE_TYPE, idWorkflow, -1 );
+            if ( bWorkflowAvailable )
+            {
+                State state = workflowService.getState( idee.getId( ), Idee.WORKFLOW_RESOURCE_TYPE, idWorkflow, -1 );
                 hash.put( MARK_WORKFLOW_STATE, state );
             }
-            listIdeesWithWorkflow.add(hash);
+            listIdeesWithWorkflow.add( hash );
         }
         return listIdeesWithWorkflow;
     }

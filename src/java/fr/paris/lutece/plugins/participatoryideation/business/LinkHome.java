@@ -52,14 +52,16 @@ public final class LinkHome
     /**
      * Private constructor - this class need not be instantiated
      */
-    private LinkHome(  )
+    private LinkHome( )
     {
     }
 
     /**
      * Create an instance of the link class
-     * @param link The instance of the link which contains the informations to store
-     * @return The  instance of link which has been created with its primary key.
+     * 
+     * @param link
+     *            The instance of the link which contains the informations to store
+     * @return The instance of link which has been created with its primary key.
      */
     public static Link create( Link link )
     {
@@ -70,8 +72,10 @@ public final class LinkHome
 
     /**
      * Update of the link which is specified in parameter
-     * @param link The instance of the link which contains the data to store
-     * @return The instance of the  link which has been updated
+     * 
+     * @param link
+     *            The instance of the link which contains the data to store
+     * @return The instance of the link which has been updated
      */
     public static Link update( Link link )
     {
@@ -88,27 +92,30 @@ public final class LinkHome
         _dao.delete( nKey, _plugin );
     }
 
-    ///////////////////////////////////////////////////////////////////////////
+    // /////////////////////////////////////////////////////////////////////////
     // Finders
 
     /**
      * Returns an instance of a link whose identifier is specified in parameter
-     * @param nKey The link primary key
+     * 
+     * @param nKey
+     *            The link primary key
      */
     public static Link findByPrimaryKey( int nKey )
     {
-        return _dao.load( nKey, _plugin);
+        return _dao.load( nKey, _plugin );
     }
 
     /**
      * Load the data of all the link objects and returns them in form of a collection
+     * 
      * @return the collection which contains the data of all the link objects
      */
     public static Collection<Link> getLinksList( )
     {
         return _dao.selectLinksList( _plugin );
     }
-    
+
     /**
      * Load the data of all the link objects searched and returns them in form of a collection
      */
@@ -119,6 +126,7 @@ public final class LinkHome
 
     /**
      * Load the id of all the link objects and returns them in form of a collection
+     * 
      * @return the collection which contains the id of all the link objects
      */
     public static Collection<Integer> getIdLinksList( )
@@ -127,4 +135,3 @@ public final class LinkHome
     }
 
 }
-

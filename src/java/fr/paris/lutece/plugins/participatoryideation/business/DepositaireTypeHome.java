@@ -54,14 +54,16 @@ public final class DepositaireTypeHome
     /**
      * Private constructor - this class need not be instantiated
      */
-    private DepositaireTypeHome(  )
+    private DepositaireTypeHome( )
     {
     }
 
     /**
      * Create an instance of the depositaireType class
-     * @param depositaireType The instance of the DepositaireType which contains the informations to store
-     * @return The  instance of depositaireType which has been created with its primary key.
+     * 
+     * @param depositaireType
+     *            The instance of the DepositaireType which contains the informations to store
+     * @return The instance of depositaireType which has been created with its primary key.
      */
     public static DepositaireType create( DepositaireType depositaireType )
     {
@@ -72,8 +74,10 @@ public final class DepositaireTypeHome
 
     /**
      * Update of the depositaireType which is specified in parameter
-     * @param depositaireType The instance of the DepositaireType which contains the data to store
-     * @return The instance of the  depositaireType which has been updated
+     * 
+     * @param depositaireType
+     *            The instance of the DepositaireType which contains the data to store
+     * @return The instance of the depositaireType which has been updated
      */
     public static DepositaireType update( DepositaireType depositaireType )
     {
@@ -84,37 +88,43 @@ public final class DepositaireTypeHome
 
     /**
      * Remove the depositaireType whose identifier is specified in parameter
-     * @param nKey The depositaireType Id
+     * 
+     * @param nKey
+     *            The depositaireType Id
      */
     public static void remove( int nKey )
     {
         _dao.delete( nKey, _plugin );
     }
 
-    ///////////////////////////////////////////////////////////////////////////
+    // /////////////////////////////////////////////////////////////////////////
     // Finders
 
     /**
      * Returns an instance of a depositaireType whose identifier is specified in parameter
-     * @param nKey The depositaireType primary key
+     * 
+     * @param nKey
+     *            The depositaireType primary key
      * @return an instance of DepositaireType
      */
     public static DepositaireType findByPrimaryKey( int nKey )
     {
-        return _dao.load( nKey, _plugin);
+        return _dao.load( nKey, _plugin );
     }
 
     /**
      * Load the data of all the depositaireType objects and returns them in form of a collection
+     * 
      * @return the collection which contains the data of all the depositaireType objects
      */
     public static Collection<DepositaireType> getDepositaireTypesList( )
     {
         return _dao.selectDepositaireTypesList( _plugin );
     }
-    
+
     /**
      * Load the id of all the depositaireType objects and returns them in form of a collection
+     * 
      * @return the collection which contains the id of all the depositaireType objects
      */
     public static Collection<Integer> getIdDepositaireTypesList( )
@@ -124,6 +134,7 @@ public final class DepositaireTypeHome
 
     /**
      * Load the data of all the depositaireType objects for a campagne and returns them in form of a collection
+     * 
      * @return the collection which contains the data of all the depositaireType objects
      */
     public static Collection<DepositaireType> getDepositaireTypesListByCampagne( String strCampagneCode )
@@ -133,16 +144,19 @@ public final class DepositaireTypeHome
 
     /**
      * Returns an instance of a depositaireType whose identifier is specified in parameter
-     * @param nKey The depositaireType primary key
+     * 
+     * @param nKey
+     *            The depositaireType primary key
      * @return an instance of DepositaireType
      */
     public static DepositaireType findByCode( String strCode )
     {
-        return _dao.load( strCode, _plugin);
+        return _dao.load( strCode, _plugin );
     }
 
     /**
      * Load the data of all the depositaireType objects mapped to a campagne and returns them in form of a map
+     * 
      * @return the collection which contains the data of all the depositaireType objects
      */
     public static Map<String, List<DepositaireType>> getDepositaireTypesMapByCampagne( )
@@ -151,4 +165,3 @@ public final class DepositaireTypeHome
     }
 
 }
-

@@ -38,8 +38,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-
-
 /**
  * IDepositaireTypeDAO Interface
  */
@@ -47,71 +45,93 @@ public interface IDepositaireTypeDAO
 {
     /**
      * Insert a new record in the table.
-     * @param depositaireType instance of the DepositaireType object to insert
-     * @param plugin the Plugin
+     * 
+     * @param depositaireType
+     *            instance of the DepositaireType object to insert
+     * @param plugin
+     *            the Plugin
      */
     void insert( DepositaireType depositaireType, Plugin plugin );
 
     /**
      * Update the record in the table
-     * @param depositaireType the reference of the DepositaireType
-     * @param plugin the Plugin
+     * 
+     * @param depositaireType
+     *            the reference of the DepositaireType
+     * @param plugin
+     *            the Plugin
      */
     void store( DepositaireType depositaireType, Plugin plugin );
 
     /**
      * Delete a record from the table
-     * @param nKey The identifier of the DepositaireType to delete
-     * @param plugin the Plugin
+     * 
+     * @param nKey
+     *            The identifier of the DepositaireType to delete
+     * @param plugin
+     *            the Plugin
      */
     void delete( int nKey, Plugin plugin );
 
-    ///////////////////////////////////////////////////////////////////////////
+    // /////////////////////////////////////////////////////////////////////////
     // Finders
 
     /**
      * Load the data from the table
-     * @param nKey The identifier of the depositaireType
-     * @param plugin the Plugin
+     * 
+     * @param nKey
+     *            The identifier of the depositaireType
+     * @param plugin
+     *            the Plugin
      * @return The instance of the depositaireType
      */
     DepositaireType load( int nKey, Plugin plugin );
 
     /**
      * Load the data of all the depositaireType objects and returns them as a collection
-     * @param plugin the Plugin
+     * 
+     * @param plugin
+     *            the Plugin
      * @return The collection which contains the data of all the depositaireType objects
      */
     Collection<DepositaireType> selectDepositaireTypesList( Plugin plugin );
-    
+
     /**
      * Load the id of all the depositaireType objects and returns them as a collection
-     * @param plugin the Plugin
+     * 
+     * @param plugin
+     *            the Plugin
      * @return The collection which contains the id of all the depositaireType objects
      */
     Collection<Integer> selectIdDepositaireTypesList( Plugin plugin );
 
     /**
      * Load the data of all the depositaireType objects for campagne and returns them as a collection
-     * @param plugin the Plugin
+     * 
+     * @param plugin
+     *            the Plugin
      * @return The collection which contains the data of all the depositaireType objects
      */
     Collection<DepositaireType> selectDepositaireTypesListByCampagne( String strCodeCampagne, Plugin plugin );
 
     /**
      * Load the data from the table
-     * @param strCode The depositaire type code
-     * @param plugin the Plugin
+     * 
+     * @param strCode
+     *            The depositaire type code
+     * @param plugin
+     *            the Plugin
      * @return The instance of the depositaireType
      */
     DepositaireType load( String strCode, Plugin plugin );
 
     /**
      * Load the data of all the depositaireType objects mapped to a campagne and returns them as a map
-     * @param plugin the Plugin
+     * 
+     * @param plugin
+     *            the Plugin
      * @return The collection which contains the data of all the depositaireType objects
      */
     Map<String, List<DepositaireType>> selectDepositaireTypesMapByCampagne( Plugin plugin );
 
 }
-

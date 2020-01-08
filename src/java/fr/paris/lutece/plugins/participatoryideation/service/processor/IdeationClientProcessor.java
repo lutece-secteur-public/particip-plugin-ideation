@@ -49,9 +49,10 @@ public class IdeationClientProcessor
      * @throws Exception
      *             exception if there are errors
      */
-    public static String getProcess(String url) throws Exception {
-        return new WebServiceCaller().callWebService( url, null,
-                RequestAuthenticationService.getRequestAuthenticator( ), Arrays.asList(), HttpMethodEnum.GET );
+    public static String getProcess( String url ) throws Exception
+    {
+        return new WebServiceCaller( )
+                .callWebService( url, null, RequestAuthenticationService.getRequestAuthenticator( ), Arrays.asList( ), HttpMethodEnum.GET );
 
     }
 }

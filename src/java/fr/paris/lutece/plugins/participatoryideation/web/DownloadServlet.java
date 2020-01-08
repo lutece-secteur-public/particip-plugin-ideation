@@ -46,28 +46,31 @@ import fr.paris.lutece.portal.business.file.FileHome;
 import fr.paris.lutece.portal.business.physicalfile.PhysicalFile;
 import fr.paris.lutece.portal.business.physicalfile.PhysicalFileHome;
 
-
 /**
  * Servlet serving document file resources
  */
 public class DownloadServlet extends HttpServlet
 {
-	/**
+    /**
 	 *
 	 */
-	private static final long serialVersionUID = 8625639667629973645L;
+    private static final long serialVersionUID = 8625639667629973645L;
     private static final String PARAMETER_ID = "id";
 
     /**
      * Handles the HTTP <code>GET</code> method.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException the servlet Exception
-     * @throws IOException the io exception
+     * 
+     * @param request
+     *            servlet request
+     * @param response
+     *            servlet response
+     * @throws ServletException
+     *             the servlet Exception
+     * @throws IOException
+     *             the io exception
      */
     @Override
-    protected void doGet( HttpServletRequest request, HttpServletResponse response )
-        throws ServletException, IOException
+    protected void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException
     {
         String strResourceId = request.getParameter( PARAMETER_ID );
         File file;
@@ -75,42 +78,44 @@ public class DownloadServlet extends HttpServlet
         if ( strResourceId != null )
         {
             int nResourceId = Integer.parseInt( strResourceId );
-			///XXX don't load the file in memory with getBytes, use getBinaryStream instead
-			//use
-			//int idx = 2;
-			//InputStream inputStream = result.getBinaryStream(idx);
-			//int fileLength = inputStream.available();
-			//byte[] buffer = new byte[4096];
-			//int bytesRead = -1;
-			//
-			//while ((bytesRead = inputStream.read(buffer)) != -1) {
-			//outStream.write(buffer, 0, bytesRead);
-			//}
+            // /XXX don't load the file in memory with getBytes, use getBinaryStream instead
+            // use
+            // int idx = 2;
+            // InputStream inputStream = result.getBinaryStream(idx);
+            // int fileLength = inputStream.available();
+            // byte[] buffer = new byte[4096];
+            // int bytesRead = -1;
+            //
+            // while ((bytesRead = inputStream.read(buffer)) != -1) {
+            // outStream.write(buffer, 0, bytesRead);
+            // }
             file = FileHome.findByPrimaryKey( nResourceId );
-			PhysicalFile physicalFile = ( file.getPhysicalFile(  ) != null )
-				? PhysicalFileHome.findByPrimaryKey( file.getPhysicalFile(  ).getIdPhysicalFile(  ) ) : null;
-			if ( physicalFile != null ) {
+            PhysicalFile physicalFile = ( file.getPhysicalFile( ) != null ) ? PhysicalFileHome.findByPrimaryKey( file.getPhysicalFile( ).getIdPhysicalFile( ) )
+                    : null;
+            if ( physicalFile != null )
+            {
                 // set content properties and header attributes for the response
-                response.setContentType( file.getMimeType(  ) );
-                response.setContentLength( file.getSize(  ) );
+                response.setContentType( file.getMimeType( ) );
+                response.setContentLength( file.getSize( ) );
                 String headerKey = "Content-Disposition";
-                String headerValue = String.format("attachment; filename=\"%s\"", file.getTitle());
-                response.setHeader(headerKey, headerValue);
+                String headerValue = String.format( "attachment; filename=\"%s\"", file.getTitle( ) );
+                response.setHeader( headerKey, headerValue );
 
-                OutputStream out = response.getOutputStream(  );
-                out.write( physicalFile.getValue(  ) );
-                out.flush(  );
-                out.close(  );
-			}
+                OutputStream out = response.getOutputStream( );
+                out.write( physicalFile.getValue( ) );
+                out.flush( );
+                out.close( );
+            }
         }
     }
 
     /**
      * Returns a short description of the servlet.
+     * 
      * @return message
      */
     @Override
-    public String getServletInfo(  )
+    public String getServletInfo( )
     {
         return "Servlet serving files content from core_file and core_physical_file tables";
     }

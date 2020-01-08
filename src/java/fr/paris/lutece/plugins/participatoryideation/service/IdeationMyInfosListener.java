@@ -55,75 +55,77 @@ import fr.paris.lutece.portal.service.spring.SpringContextService;
 import fr.paris.lutece.util.ReferenceItem;
 import fr.paris.lutece.util.ReferenceList;
 
-public class IdeationMyInfosListener implements IMyInfosListener {
+public class IdeationMyInfosListener implements IMyInfosListener
+{
 
-	private static final String BEAN_SOLR_IDEE_INDEXER="participatoryideation.solrIdeeIndexer";
-	private static final String BEAN_COMMENT_DAO="extend-comment.commentDAO";
-	
-	private ICommentService _commentService = SpringContextService.getBean( CommentService.BEAN_SERVICE );
-	private SolrIdeeIndexer _solrIdeeIndexer= SpringContextService.getBean( BEAN_SOLR_IDEE_INDEXER );
-	 private ICommentDAO _commentDAO= SpringContextService.getBean( BEAN_COMMENT_DAO);
+    private static final String BEAN_SOLR_IDEE_INDEXER = "participatoryideation.solrIdeeIndexer";
+    private static final String BEAN_COMMENT_DAO = "extend-comment.commentDAO";
 
-	@Override
-	public void updateNickName(String strLuteceUserName, String strNickName) {
-		
-    //update comments
-	CommentFilter _commentFilter= new CommentFilter();
-    _commentFilter.setLuteceUserName(strLuteceUserName);
-    	
-    List<Comment> listComments=	_commentService.findByResource("*",Idee.PROPERTY_RESOURCE_TYPE, _commentFilter, 0, 10000, false);
-    
-    if(listComments!=null)
+    private ICommentService _commentService = SpringContextService.getBean( CommentService.BEAN_SERVICE );
+    private SolrIdeeIndexer _solrIdeeIndexer = SpringContextService.getBean( BEAN_SOLR_IDEE_INDEXER );
+    private ICommentDAO _commentDAO = SpringContextService.getBean( BEAN_COMMENT_DAO );
+
+    @Override
+    public void updateNickName( String strLuteceUserName, String strNickName )
     {
-    	
-	    for(Comment comment:listComments)
-	    {
-	    	Comment commentPrimary=_commentService.findByPrimaryKey(comment.getIdComment());
-	    	commentPrimary.setName(strNickName);
-	        _commentDAO.store( commentPrimary, CommentPlugin.getPlugin( ) );
-	    }
-		
+
+        // update comments
+        CommentFilter _commentFilter = new CommentFilter( );
+        _commentFilter.setLuteceUserName( strLuteceUserName );
+
+        List<Comment> listComments = _commentService.findByResource( "*", Idee.PROPERTY_RESOURCE_TYPE, _commentFilter, 0, 10000, false );
+
+        if ( listComments != null )
+        {
+
+            for ( Comment comment : listComments )
+            {
+                Comment commentPrimary = _commentService.findByPrimaryKey( comment.getIdComment( ) );
+                commentPrimary.setName( strNickName );
+                _commentDAO.store( commentPrimary, CommentPlugin.getPlugin( ) );
+            }
+
+        }
+        // reindex all user idees
+
+        IdeeSearcher _ideeSearcher = new IdeeSearcher( );
+        _ideeSearcher.setLuteceUserName( strLuteceUserName );
+        _ideeSearcher.setIsPublished( true );
+
+        Collection<Idee> ideesSubmitted = IdeeHome.getIdeesListSearch( _ideeSearcher );
+        for ( Idee idee : ideesSubmitted )
+        {
+
+            _solrIdeeIndexer.writeIdee( idee );
+
+        }
     }
-    //reindex all user idees
-    
-    IdeeSearcher _ideeSearcher= new IdeeSearcher();
-	_ideeSearcher.setLuteceUserName(strLuteceUserName);
-	_ideeSearcher.setIsPublished(true);
-	
-	Collection<Idee> ideesSubmitted=IdeeHome.getIdeesListSearch(_ideeSearcher);
-	 for(Idee idee:ideesSubmitted)
+
+    @Override
+    public void createNickName( String strLuteceUserName, String strNickName )
     {
-    	
-    	_solrIdeeIndexer.writeIdee( idee );
-    	
+
+        ReferenceList refList = IdeationSubscriptionProviderService.getService( ).getRefListIdeationSubscription( Locale.FRENCH );
+
+        for ( ReferenceItem refItem : refList )
+        {
+            IdeationSubscriptionProviderService.getService( ).createSubscription( strLuteceUserName, refItem.getCode( ) );
+
+        }
     }
-   }
 
-	@Override
-	public void createNickName(String strLuteceUserName, String strNickName) {
-		
-		ReferenceList refList= IdeationSubscriptionProviderService.getService().getRefListIdeationSubscription(Locale.FRENCH);
-		
-		for (ReferenceItem refItem:refList)
-		{
-			IdeationSubscriptionProviderService.getService().createSubscription(strLuteceUserName,refItem.getCode());
-				
-		}
-	}
+    @Override
+    public int canChangeArrond( LuteceUser user )
+    {
+        // return default value
+        return 0;
+    }
 
-	@Override
-	public int canChangeArrond(LuteceUser user) {
-	  //return default value
-	    return 0;
-	}
+    @Override
+    public String deleteVotes( HttpServletRequest request )
+    {
 
-	@Override
-	public String deleteVotes(HttpServletRequest request) {
-
-	    return null;
-	}
-
-
-	
+        return null;
+    }
 
 }

@@ -35,7 +35,6 @@ package fr.paris.lutece.plugins.participatoryideation.business.notify;
 
 import fr.paris.lutece.plugins.workflowcore.business.config.TaskConfig;
 
-
 /**
  *
  * TaskNotifyDirectoryConfig
@@ -54,16 +53,19 @@ public class TaskNotifyIdeationConfig extends TaskConfig
 
     /**
      * Get the subject
+     * 
      * @return the subject of the message
      */
-    public String getSubject(  )
+    public String getSubject( )
     {
         return _strSubject;
     }
 
     /**
      * Set the subject of the message
-     * @param subject the subject of the message
+     * 
+     * @param subject
+     *            the subject of the message
      */
     public void setSubject( String subject )
     {
@@ -72,16 +74,19 @@ public class TaskNotifyIdeationConfig extends TaskConfig
 
     /**
      * Get the message
+     * 
      * @return the message of the notification
      */
-    public String getMessage(  )
+    public String getMessage( )
     {
         return _strMessage;
     }
 
     /**
      * Set the message of the notification
-     * @param message the message of the notifictaion
+     * 
+     * @param message
+     *            the message of the notifictaion
      */
     public void setMessage( String message )
     {
@@ -90,16 +95,19 @@ public class TaskNotifyIdeationConfig extends TaskConfig
 
     /**
      * Get the sender name
+     * 
      * @return the sender name
      */
-    public String getSenderName(  )
+    public String getSenderName( )
     {
         return _strSenderName;
     }
 
     /**
      * Set the sender name
-     * @param senderName the sender name
+     * 
+     * @param senderName
+     *            the sender name
      */
     public void setSenderName( String senderName )
     {
@@ -108,16 +116,19 @@ public class TaskNotifyIdeationConfig extends TaskConfig
 
     /**
      * Get the sender email
+     * 
      * @return the sender email
      */
-    public String getSenderEmail(  )
+    public String getSenderEmail( )
     {
         return _strSenderEmail;
     }
 
     /**
      * Set the sender email
-     * @param senderEmail the sender email
+     * 
+     * @param senderEmail
+     *            the sender email
      */
     public void setSenderEmail( String senderEmail )
     {
@@ -126,16 +137,19 @@ public class TaskNotifyIdeationConfig extends TaskConfig
 
     /**
      * Returns the Recipient
+     * 
      * @return The Recipient
      */
-    public String getRecipientsCc(  )
+    public String getRecipientsCc( )
     {
         return _strRecipientsCc;
     }
 
     /**
      * Sets the Recipient
-     * @param strRecipient The Recipient
+     * 
+     * @param strRecipient
+     *            The Recipient
      */
     public void setRecipientsCc( String strRecipient )
     {
@@ -144,16 +158,19 @@ public class TaskNotifyIdeationConfig extends TaskConfig
 
     /**
      * Returns the Recipient
+     * 
      * @return The Recipient
      */
-    public String getRecipientsBcc(  )
+    public String getRecipientsBcc( )
     {
         return _strRecipientsBcc;
     }
 
     /**
      * Sets the Recipient
-     * @param strRecipient The Recipient
+     * 
+     * @param strRecipient
+     *            The Recipient
      */
     public void setRecipientsBcc( String strRecipient )
     {
@@ -162,16 +179,19 @@ public class TaskNotifyIdeationConfig extends TaskConfig
 
     /**
      * Returns if is Followers
+     * 
      * @return If is Followers
      */
-    public boolean isFollowers(  )
+    public boolean isFollowers( )
     {
         return _bFollowers;
     }
 
     /**
      * Sets is Followers
-     * @param bFollowers is Followers
+     * 
+     * @param bFollowers
+     *            is Followers
      */
     public void setFollowers( boolean bFollowers )
     {
@@ -180,16 +200,19 @@ public class TaskNotifyIdeationConfig extends TaskConfig
 
     /**
      * Returns is Depositaire
+     * 
      * @return Is Depositaire
      */
-    public boolean isDepositaire(  )
+    public boolean isDepositaire( )
     {
         return _bDepositaire;
     }
 
     /**
      * Sets is Depositaire
-     * @param bDepositaire Is Depositaire
+     * 
+     * @param bDepositaire
+     *            Is Depositaire
      */
     public void setDepositaire( boolean bDepositaire )
     {

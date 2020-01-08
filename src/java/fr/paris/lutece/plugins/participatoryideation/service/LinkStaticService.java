@@ -42,7 +42,8 @@ import fr.paris.lutece.plugins.participatorybudget.business.campaign.CampagneHom
 import fr.paris.lutece.portal.service.cache.AbstractCacheableService;
 import fr.paris.lutece.portal.service.spring.SpringContextService;
 
-public class LinkStaticService extends AbstractCacheableService implements ILinkStaticService {
+public class LinkStaticService extends AbstractCacheableService implements ILinkStaticService
+{
 
     private static ILinkStaticService _singleton;
     private static final String BEAN_IDEATION_STATIC_SERVICE = "participatoryideation.linkStaticService";
@@ -54,35 +55,34 @@ public class LinkStaticService extends AbstractCacheableService implements ILink
     private static final String MARK_CAMPAGNE = "campagne";
 
     public static final String CACHE_KEY = "[linkStatic]";
-  
 
     public void fillAllStaticContent( Map<String, Object> model )
     {
-    	Object cached = getFromCache( CACHE_KEY );
-        if ( cached == null ) 
+        Object cached = getFromCache( CACHE_KEY );
+        if ( cached == null )
         {
-           cached = putAllStaticContentInCache(  ); 
+            cached = putAllStaticContentInCache( );
         }
         model.put( MARK_GLOBAL_STATIC, cached );
     }
-    
-    private Map<String, Object> putAllStaticContentInCache(  ) 
+
+    private Map<String, Object> putAllStaticContentInCache( )
     {
-        Map<String, Object> content = new HashMap<String, Object>();
-        Collection<Campagne> listCampagne = CampagneHome.getCampagnesList();
-        
-        for ( Campagne campagne: listCampagne ) 
+        Map<String, Object> content = new HashMap<String, Object>( );
+        Collection<Campagne> listCampagne = CampagneHome.getCampagnesList( );
+
+        for ( Campagne campagne : listCampagne )
         {
             Map<String, Object> campagneContent = new HashMap<String, Object>( );
             campagneContent.put( MARK_CAMPAGNE, campagne );
             content.put( campagne.getCode( ), campagneContent );
         }
-        putInCache ( CACHE_KEY, content );
-        
+        putInCache( CACHE_KEY, content );
+
         return content;
     }
 
-    public static ILinkStaticService getInstance(  )
+    public static ILinkStaticService getInstance( )
     {
         if ( _singleton == null )
         {
@@ -91,12 +91,12 @@ public class LinkStaticService extends AbstractCacheableService implements ILink
         return _singleton;
     }
 
-    public LinkStaticService()
+    public LinkStaticService( )
     {
-            initCache();
+        initCache( );
     }
 
-    public String getName(  )
+    public String getName( )
     {
         return SERVICE_NAME;
     }

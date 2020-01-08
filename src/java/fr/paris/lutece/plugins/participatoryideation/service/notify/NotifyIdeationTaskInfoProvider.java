@@ -37,7 +37,6 @@ import fr.paris.lutece.plugins.workflow.service.taskinfo.AbstractTaskInfoProvide
 
 import javax.servlet.http.HttpServletRequest;
 
-
 /**
  *
  * NotifyDirectoryTaskInfoProvider
@@ -49,7 +48,7 @@ public class NotifyIdeationTaskInfoProvider extends AbstractTaskInfoProvider
      * {@inheritDoc}
      */
     @Override
-    public String getPluginName(  )
+    public String getPluginName( )
     {
         return "Workflow ideation";
     }

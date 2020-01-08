@@ -1,4 +1,3 @@
-
 /*
  * Copyright (c) 2002-2020, Mairie de Paris
  * All rights reserved.
@@ -58,34 +57,35 @@ import fr.paris.lutece.portal.service.security.LuteceUser;
 import fr.paris.lutece.portal.service.security.SecurityService;
 import fr.paris.lutece.portal.service.util.AppLogService;
 
+public class FormEtapeLocation extends AbstractFormEtape
+{
 
-public class FormEtapeLocation extends  AbstractFormEtape  {
+    private static final String I18N_ERROR_ARRONDISSEMENT_EMPTY = "participatoryideation.validation.idee.FormEtapeLocation.Arrondissement.notEmpty";
+    private static final String I18N_ERROR_ADRESS_FORMAT = "participatoryideation.validation.idee.FormEtapeLocation.AdressFormat";
+    private static final String I18N_ERROR_ADRESS_NOT_VALID = "participatoryideation.validation.idee.FormEtapeLocation.AdressNotValid";
+    private static final String I18N_ERROR_ADRESS_ARDT_MISMATCH = "participatoryideation.validation.idee.FormEtapeLocation.ArdtMismatch";
+    private static final String I18N_ERROR_COMPLEMENT_EMPTY = "participatoryideation.validation.idee.FormEtapeLocation.depositaire_complement.notEmpty";
 
-	private static final String I18N_ERROR_ARRONDISSEMENT_EMPTY = "participatoryideation.validation.idee.FormEtapeLocation.Arrondissement.notEmpty";
-	private static final String I18N_ERROR_ADRESS_FORMAT        = "participatoryideation.validation.idee.FormEtapeLocation.AdressFormat";
-	private static final String I18N_ERROR_ADRESS_NOT_VALID     = "participatoryideation.validation.idee.FormEtapeLocation.AdressNotValid";
-	private static final String I18N_ERROR_ADRESS_ARDT_MISMATCH = "participatoryideation.validation.idee.FormEtapeLocation.ArdtMismatch";
-	private static final String I18N_ERROR_COMPLEMENT_EMPTY     = "participatoryideation.validation.idee.FormEtapeLocation.depositaire_complement.notEmpty";
-
-	@NotEmpty( message = "#i18n{participatoryideation.validation.idee.FormEtapeLocation.CodeTheme.notEmpty}" )
-    @Size( max = 50 , message = "#i18n{participatoryideation.validation.idee.FormEtapeLocation.CodeTheme.size}" )
+    @NotEmpty( message = "#i18n{participatoryideation.validation.idee.FormEtapeLocation.CodeTheme.notEmpty}" )
+    @Size( max = 50, message = "#i18n{participatoryideation.validation.idee.FormEtapeLocation.CodeTheme.size}" )
     private String _strCodeTheme;
-	
-	@NotEmpty( message = "#i18n{participatoryideation.validation.idee.FormEtapeLocation.localisationTypeNotEmpty}" )
-	private String _strLocalisationType;
-	
-	private String _strLocalisationArdt;
-	private String _strGeojson;
-	private String _strAdress;
 
-	@NotEmpty( message = "#i18n{participatoryideation.validation.idee.FormEtapeLocation.depositaireType.notEmpty}" )
-	private String _strDepositaireType;
-	
-	@Size( max = 50 , message = "#i18n{participatoryideation.validation.idee.Depositaire.size}" )
-	private String _strDepositaire;
+    @NotEmpty( message = "#i18n{participatoryideation.validation.idee.FormEtapeLocation.localisationTypeNotEmpty}" )
+    private String _strLocalisationType;
 
-	/**
+    private String _strLocalisationArdt;
+    private String _strGeojson;
+    private String _strAdress;
+
+    @NotEmpty( message = "#i18n{participatoryideation.validation.idee.FormEtapeLocation.depositaireType.notEmpty}" )
+    private String _strDepositaireType;
+
+    @Size( max = 50, message = "#i18n{participatoryideation.validation.idee.Depositaire.size}" )
+    private String _strDepositaire;
+
+    /**
      * Returns the LocalisationArdt
+     * 
      * @return The LocalisationArdt
      */
     public String getLocalisationArdt( )
@@ -95,25 +95,28 @@ public class FormEtapeLocation extends  AbstractFormEtape  {
 
     /**
      * Sets the LocalisationArdt
-     * @param strLocalisationArdt The LocalisationArdt
+     * 
+     * @param strLocalisationArdt
+     *            The LocalisationArdt
      */
     public void setLocalisationArdt( String strLocalisationArdt )
     {
         _strLocalisationArdt = strLocalisationArdt;
     }
 
-	public String getLocalisationType() 
-	{
-		return _strLocalisationType;
-	}
+    public String getLocalisationType( )
+    {
+        return _strLocalisationType;
+    }
 
-	public void setLocalisationType(String strLocalisationType) 
-	{
-		this._strLocalisationType = strLocalisationType;
-	}
+    public void setLocalisationType( String strLocalisationType )
+    {
+        this._strLocalisationType = strLocalisationType;
+    }
 
-	 /**
+    /**
      * Returns the CodeTheme
+     * 
      * @return The CodeTheme
      */
     public String getCodeTheme( )
@@ -123,120 +126,121 @@ public class FormEtapeLocation extends  AbstractFormEtape  {
 
     /**
      * Sets the CodeTheme
-     * @param strCodeTheme The CodeTheme
+     * 
+     * @param strCodeTheme
+     *            The CodeTheme
      */
     public void setCodeTheme( String strCodeTheme )
     {
         _strCodeTheme = strCodeTheme;
     }
 
-	public String getGeojson() 
-	{
-		return _strGeojson;
-	}
+    public String getGeojson( )
+    {
+        return _strGeojson;
+    }
 
-	public void setGeojson(String _strGeojson) 
-	{
-		this._strGeojson = _strGeojson;
-	}
+    public void setGeojson( String _strGeojson )
+    {
+        this._strGeojson = _strGeojson;
+    }
 
     public List<String> checkValidationErrors( HttpServletRequest request )
     {
-    	List<String> listErrors        = new ArrayList<>();
-        String       strComplementType = DepositaireTypeHome.findByCode( getDepositaireType() ).getCodeComplementType();
-        
-        if ( !DepositaireType.CODE_COMPLEMENT_TYPE_NONE.equals( strComplementType ) && StringUtils.isBlank( getDepositaire() ) ) 
+        List<String> listErrors = new ArrayList<>( );
+        String strComplementType = DepositaireTypeHome.findByCode( getDepositaireType( ) ).getCodeComplementType( );
+
+        if ( !DepositaireType.CODE_COMPLEMENT_TYPE_NONE.equals( strComplementType ) && StringUtils.isBlank( getDepositaire( ) ) )
         {
-        	listErrors.add(I18N_ERROR_COMPLEMENT_EMPTY);
+            listErrors.add( I18N_ERROR_COMPLEMENT_EMPTY );
         }
 
-        if ( getLocalisationType().equals( Idee.LOCALISATION_TYPE_ARDT ) && StringUtils.isEmpty( getLocalisationArdt() ) ) 
+        if ( getLocalisationType( ).equals( Idee.LOCALISATION_TYPE_ARDT ) && StringUtils.isEmpty( getLocalisationArdt( ) ) )
         {
-        	listErrors.add(I18N_ERROR_ARRONDISSEMENT_EMPTY);
+            listErrors.add( I18N_ERROR_ARRONDISSEMENT_EMPTY );
         }
 
-// FIXME : This code is waiting for reintegration of geojson mecanism...
-//    	  
-//          private static final java.util.regex.Pattern patternAdresseArrondissement = java.util.regex.Pattern.compile(", 75[0-1]([0-2][0-9]) PARIS");
-//    	  if (StringUtils.isNotBlank(getAdress()) && StringUtils.isEmpty(getGeojson())) {
-//    		  listErrors.add(I18N_ERROR_ADRESS_NOT_VALID);
-//    	  }
-//
-//    	  if (StringUtils.isNotEmpty(getGeojson())) {
-//              GeolocItem geolocItem = null;
-//          
-//              try {
-//                  geolocItem = GeolocItem.fromJSON(this.getGeojson());
-//                  setAdress(geolocItem.getAddress());
-//                  Matcher m = patternAdresseArrondissement.matcher(getAdress());
-//                  m.find();
-//                  int nArdt;
-//                  nArdt = Integer.parseInt(m.group(1));
-//                  String strArdt = IdeeService.getInstance().getArrondissementCode(nArdt);
-//                  if (getLocalisationType().equals(Idee.LOCALISATION_TYPE_ARDT) &&
-//                      StringUtils.isNotEmpty( getLocalisationArdt()) &&
-//                      (!strArdt.equals(getLocalisationArdt())) ) {
-//                      listErrors.add(I18N_ERROR_ADRESS_ARDT_MISMATCH);
-//                  } else {
-//                      setLocalisationArdt(strArdt);
-//                  }
-//              } catch (IOException e) {
-//                  listErrors.add(I18N_ERROR_ADRESS_FORMAT);
-//                  AppLogService.error ( "IdeationApp: malformed data from client: address = " + getGeojson() + "; exeception " + e );
-//              }
-//          }
-        
+        // FIXME : This code is waiting for reintegration of geojson mecanism...
+        //
+        // private static final java.util.regex.Pattern patternAdresseArrondissement = java.util.regex.Pattern.compile(", 75[0-1]([0-2][0-9]) PARIS");
+        // if (StringUtils.isNotBlank(getAdress()) && StringUtils.isEmpty(getGeojson())) {
+        // listErrors.add(I18N_ERROR_ADRESS_NOT_VALID);
+        // }
+        //
+        // if (StringUtils.isNotEmpty(getGeojson())) {
+        // GeolocItem geolocItem = null;
+        //
+        // try {
+        // geolocItem = GeolocItem.fromJSON(this.getGeojson());
+        // setAdress(geolocItem.getAddress());
+        // Matcher m = patternAdresseArrondissement.matcher(getAdress());
+        // m.find();
+        // int nArdt;
+        // nArdt = Integer.parseInt(m.group(1));
+        // String strArdt = IdeeService.getInstance().getArrondissementCode(nArdt);
+        // if (getLocalisationType().equals(Idee.LOCALISATION_TYPE_ARDT) &&
+        // StringUtils.isNotEmpty( getLocalisationArdt()) &&
+        // (!strArdt.equals(getLocalisationArdt())) ) {
+        // listErrors.add(I18N_ERROR_ADRESS_ARDT_MISMATCH);
+        // } else {
+        // setLocalisationArdt(strArdt);
+        // }
+        // } catch (IOException e) {
+        // listErrors.add(I18N_ERROR_ADRESS_FORMAT);
+        // AppLogService.error ( "IdeationApp: malformed data from client: address = " + getGeojson() + "; exeception " + e );
+        // }
+        // }
+
         return listErrors;
-     }
+    }
 
     public List<String> checkValidationErrorsLocalized( HttpServletRequest request, Locale locale )
     {
-        List<String> listErrors = new ArrayList<>();
-        String       userUid    = "guid";
-        
-        if ( SecurityService.getInstance().getRegisteredUser( request ) != null )
+        List<String> listErrors = new ArrayList<>( );
+        String userUid = "guid";
+
+        if ( SecurityService.getInstance( ).getRegisteredUser( request ) != null )
         {
-            LuteceUser user = SecurityService.getInstance().getRegisteredUser( request );
+            LuteceUser user = SecurityService.getInstance( ).getRegisteredUser( request );
             userUid = user.getName( );
         }
 
         return listErrors;
     }
 
+    public String getAdress( )
+    {
+        return _strAdress;
+    }
 
-	public String getAdress() 
-	{
-		return _strAdress;
-	}
+    public void setAdress( String _strAdress )
+    {
+        this._strAdress = _strAdress;
+    }
 
-	public void setAdress( String _strAdress ) 
-	{
-		this._strAdress = _strAdress;
-	}
+    public String getDepositaireType( )
+    {
+        return _strDepositaireType;
+    }
 
-	public String getDepositaireType() 
-	{
-		return _strDepositaireType;
-	}
+    public void setDepositaireType( String _strDepositaireType )
+    {
+        this._strDepositaireType = _strDepositaireType;
+    }
 
-	public void setDepositaireType( String _strDepositaireType ) 
-	{
-		this._strDepositaireType = _strDepositaireType;
-	}
+    public String getDepositaire( )
+    {
+        return _strDepositaire;
+    }
 
-	public String getDepositaire() 
-	{
-		return _strDepositaire;
-	}
+    public void setDepositaire( String _strConseilQuartier )
+    {
+        this._strDepositaire = _strConseilQuartier;
+    }
 
-	public void setDepositaire( String _strConseilQuartier ) 
-	{
-		this._strDepositaire = _strConseilQuartier;
-	}
-
-	public boolean mustCopyDepositaire() 
-	{
-		String strComplementType = DepositaireTypeHome.findByCode( getDepositaireType() ).getCodeComplementType();
-		return !DepositaireType.CODE_COMPLEMENT_TYPE_NONE.equals( strComplementType );
-	}
+    public boolean mustCopyDepositaire( )
+    {
+        String strComplementType = DepositaireTypeHome.findByCode( getDepositaireType( ) ).getCodeComplementType( );
+        return !DepositaireType.CODE_COMPLEMENT_TYPE_NONE.equals( strComplementType );
+    }
 }

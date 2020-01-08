@@ -33,7 +33,6 @@
  */
 package fr.paris.lutece.plugins.participatoryideation.service;
 
-
 /**
  *
  * GidWsException
@@ -46,7 +45,8 @@ public class IdeationErrorException extends Exception
 
     /**
      *
-     * @param strErrorCode strErrorCode
+     * @param strErrorCode
+     *            strErrorCode
      *
      */
     public IdeationErrorException( String strErrorCode )
@@ -58,14 +58,15 @@ public class IdeationErrorException extends Exception
      *
      * @return strErrorCode
      */
-    public String getErrorCode(  )
+    public String getErrorCode( )
     {
         return _strErrorCode;
     }
 
     /**
      *
-     * @param strErrorCode strErrorCode
+     * @param strErrorCode
+     *            strErrorCode
      */
     public void setErrorCode( String strErrorCode )
     {

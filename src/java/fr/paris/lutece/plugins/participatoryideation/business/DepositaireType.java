@@ -41,10 +41,9 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import fr.paris.lutece.util.ReferenceList;
 
-
 /**
  * This is the business class for the object DepositaireType
- */ 
+ */
 public class DepositaireType implements Serializable
 {
     public static final String CODE_COMPLEMENT_TYPE_NONE = "NONE";
@@ -53,25 +52,26 @@ public class DepositaireType implements Serializable
 
     private static final long serialVersionUID = 1L;
 
-    // Variables declarations 
+    // Variables declarations
     private int _nId;
-    
+
     @NotEmpty( message = "#i18n{participatoryideation.validation.depositaire.Code.notEmpty}" )
-    @Size( max = 50 , message = "#i18n{participatoryideation.validation.depositaire.Code.size}" ) 
+    @Size( max = 50, message = "#i18n{participatoryideation.validation.depositaire.Code.size}" )
     private String _strCode;
-    
+
     @NotEmpty( message = "#i18n{participatoryideation.validation.depositaire.Libelle.notEmpty}" )
-    @Size( max = 50 , message = "#i18n{participatoryideation.validation.depositaire.Libelle.size}" ) 
+    @Size( max = 50, message = "#i18n{participatoryideation.validation.depositaire.Libelle.size}" )
     private String _strLibelle;
-    
+
     @NotEmpty( message = "#i18n{participatoryideation.validation.depositaire.CodeComplementType.notEmpty}" )
     private String _strCodeComplementType;
 
-    //Non null when codeComplementType is "LIST"
+    // Non null when codeComplementType is "LIST"
     private ReferenceList _listValues;
 
     /**
      * Returns the Id
+     * 
      * @return The Id
      */
     public int getId( )
@@ -81,8 +81,10 @@ public class DepositaireType implements Serializable
 
     /**
      * Sets the Id
-     * @param nId The Id
-     */ 
+     * 
+     * @param nId
+     *            The Id
+     */
     public void setId( int nId )
     {
         _nId = nId;
@@ -90,6 +92,7 @@ public class DepositaireType implements Serializable
 
     /**
      * Returns the Code
+     * 
      * @return The Code
      */
     public String getCode( )
@@ -99,14 +102,18 @@ public class DepositaireType implements Serializable
 
     /**
      * Sets the Code
-     * @param strCode The Code
-     */ 
+     * 
+     * @param strCode
+     *            The Code
+     */
     public void setCode( String strCode )
     {
         _strCode = strCode;
     }
+
     /**
      * Returns the Libelle
+     * 
      * @return The Libelle
      */
     public String getLibelle( )
@@ -116,14 +123,18 @@ public class DepositaireType implements Serializable
 
     /**
      * Sets the Libelle
-     * @param strLibelle The Libelle
-     */ 
+     * 
+     * @param strLibelle
+     *            The Libelle
+     */
     public void setLibelle( String strLibelle )
     {
         _strLibelle = strLibelle;
     }
+
     /**
      * Returns the CodeComplementType
+     * 
      * @return The CodeComplementType
      */
     public String getCodeComplementType( )
@@ -133,8 +144,10 @@ public class DepositaireType implements Serializable
 
     /**
      * Sets the CodeComplementType
-     * @param strCodeComplementType The CodeComplementType
-     */ 
+     * 
+     * @param strCodeComplementType
+     *            The CodeComplementType
+     */
     public void setCodeComplementType( String strCodeComplementType )
     {
         _strCodeComplementType = strCodeComplementType;
@@ -143,15 +156,16 @@ public class DepositaireType implements Serializable
     /**
      * @return the values
      */
-    public ReferenceList getValues() 
+    public ReferenceList getValues( )
     {
         return _listValues;
     }
 
     /**
-     * @param values the values to set
+     * @param values
+     *            the values to set
      */
-    public void setValues( ReferenceList values ) 
+    public void setValues( ReferenceList values )
     {
         _listValues = values;
     }

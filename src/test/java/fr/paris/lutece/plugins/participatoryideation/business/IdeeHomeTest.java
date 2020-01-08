@@ -46,63 +46,64 @@ import fr.paris.lutece.test.LuteceTestCase;
  */
 public class IdeeHomeTest extends LuteceTestCase
 {
-	public final static String     MOCK_CODE_CAMPAIGN       = "mockCodeCampaign";
-	public final static int        MOCK_CODE_IDEE           = 1;
-	public final static String     MOCK_TITLE               = "mockTitle";
-	public final static String     MOCK_DESCRIPTION         = "mockDescription";
-	public final static String     MOCK_LUTECE_USER_NAME    = "mockLuteceUserName";
-	public final static String     MOCK_CODE_THEME          = "mockCodeTheme";
-	public final static String     MOCK_LOCALISATION_TYPE   = "mockLocalisationType";
-	public final static String     MOCK_DEPOSITAIRE_TYPE    = "mockDepositaireType";
-	public final static boolean    MOCK_ACCEPT_EXPLOIT      = true;
-	public final static String     MOCK_TYPE_QPV_QVA        = "mockTypeQpvQva";
-	public final static Timestamp  MOCK_CREATION_TIMESTAMP  = new Timestamp( System.currentTimeMillis() );
-	public final static boolean    MOCK_ACCEPT_CONTACT      = false;
-	public final static String     MOCK_HANDICAP            = "yes";
-	public final static String     MOCK_HANDICAP_COMPLEMENT = "mockHandicapComplement";
-	public final static Status     MOCK_STATUS_PUBLIC       = Status.STATUS_A_ETUDE;
-	public final static Status     MOCK_STATUS_EUDONET      = Status.STATUS_EN_CO_CONSTRUCTION;
-	public final static List<File> MOCK_IMGS                = new ArrayList<>();
-	public final static List<File> MOCK_DOCS                = new ArrayList<>();
-	
-	// *********************************************************************************************
-	// * TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST *
-	// * TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST *
-	// *********************************************************************************************
+    public final static String MOCK_CODE_CAMPAIGN = "mockCodeCampaign";
+    public final static int MOCK_CODE_IDEE = 1;
+    public final static String MOCK_TITLE = "mockTitle";
+    public final static String MOCK_DESCRIPTION = "mockDescription";
+    public final static String MOCK_LUTECE_USER_NAME = "mockLuteceUserName";
+    public final static String MOCK_CODE_THEME = "mockCodeTheme";
+    public final static String MOCK_LOCALISATION_TYPE = "mockLocalisationType";
+    public final static String MOCK_DEPOSITAIRE_TYPE = "mockDepositaireType";
+    public final static boolean MOCK_ACCEPT_EXPLOIT = true;
+    public final static String MOCK_TYPE_QPV_QVA = "mockTypeQpvQva";
+    public final static Timestamp MOCK_CREATION_TIMESTAMP = new Timestamp( System.currentTimeMillis( ) );
+    public final static boolean MOCK_ACCEPT_CONTACT = false;
+    public final static String MOCK_HANDICAP = "yes";
+    public final static String MOCK_HANDICAP_COMPLEMENT = "mockHandicapComplement";
+    public final static Status MOCK_STATUS_PUBLIC = Status.STATUS_A_ETUDE;
+    public final static Status MOCK_STATUS_EUDONET = Status.STATUS_EN_CO_CONSTRUCTION;
+    public final static List<File> MOCK_IMGS = new ArrayList<>( );
+    public final static List<File> MOCK_DOCS = new ArrayList<>( );
 
-    public void testBusiness(  ) {
-    	
-    }
+    // *********************************************************************************************
+    // * TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST *
+    // * TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST *
+    // *********************************************************************************************
 
-	// *********************************************************************************************
-	// * MOCK MOCK MOCK MOCK MOCK MOCK MOCK MOCK MOCK MOCK MOCK MOCK MOCK MOCK MOCK MOCK MOCK MOCK *
-	// * MOCK MOCK MOCK MOCK MOCK MOCK MOCK MOCK MOCK MOCK MOCK MOCK MOCK MOCK MOCK MOCK MOCK MOCK *
-	// *********************************************************************************************
-
-	public static Idee getMockIdeeInstance(  )
+    public void testBusiness( )
     {
-    	Idee idee = new Idee();
-    	
-    	idee.setCodeCampagne      ( MOCK_CODE_CAMPAIGN );
-    	idee.setCodeIdee          ( MOCK_CODE_IDEE );
-    	idee.setTitre             ( MOCK_TITLE );
-    	idee.setDescription       ( MOCK_DESCRIPTION );
-    	idee.setLuteceUserName    ( MOCK_LUTECE_USER_NAME );
-    	idee.setCodeTheme         ( MOCK_CODE_THEME );
-    	idee.setLocalisationType  ( MOCK_LOCALISATION_TYPE );
-    	idee.setDepositaireType   ( MOCK_DEPOSITAIRE_TYPE );
-    	idee.setAcceptExploit     ( MOCK_ACCEPT_EXPLOIT );
-    	idee.setTypeQpvQva        ( MOCK_TYPE_QPV_QVA );
-    	idee.setCreationTimestamp ( MOCK_CREATION_TIMESTAMP );
-    	idee.setAcceptContact     ( MOCK_ACCEPT_CONTACT );
-    	idee.setHandicap          ( MOCK_HANDICAP );
-    	idee.setHandicapComplement( MOCK_HANDICAP_COMPLEMENT );
-    	idee.setStatusPublic      ( MOCK_STATUS_PUBLIC );
-    	idee.setStatusEudonet     ( MOCK_STATUS_EUDONET );
-    	idee.setImgs              ( MOCK_IMGS );
-    	idee.setDocs              ( MOCK_DOCS );
-    	
-    	return idee;
+
     }
-    
+
+    // *********************************************************************************************
+    // * MOCK MOCK MOCK MOCK MOCK MOCK MOCK MOCK MOCK MOCK MOCK MOCK MOCK MOCK MOCK MOCK MOCK MOCK *
+    // * MOCK MOCK MOCK MOCK MOCK MOCK MOCK MOCK MOCK MOCK MOCK MOCK MOCK MOCK MOCK MOCK MOCK MOCK *
+    // *********************************************************************************************
+
+    public static Idee getMockIdeeInstance( )
+    {
+        Idee idee = new Idee( );
+
+        idee.setCodeCampagne( MOCK_CODE_CAMPAIGN );
+        idee.setCodeIdee( MOCK_CODE_IDEE );
+        idee.setTitre( MOCK_TITLE );
+        idee.setDescription( MOCK_DESCRIPTION );
+        idee.setLuteceUserName( MOCK_LUTECE_USER_NAME );
+        idee.setCodeTheme( MOCK_CODE_THEME );
+        idee.setLocalisationType( MOCK_LOCALISATION_TYPE );
+        idee.setDepositaireType( MOCK_DEPOSITAIRE_TYPE );
+        idee.setAcceptExploit( MOCK_ACCEPT_EXPLOIT );
+        idee.setTypeQpvQva( MOCK_TYPE_QPV_QVA );
+        idee.setCreationTimestamp( MOCK_CREATION_TIMESTAMP );
+        idee.setAcceptContact( MOCK_ACCEPT_CONTACT );
+        idee.setHandicap( MOCK_HANDICAP );
+        idee.setHandicapComplement( MOCK_HANDICAP_COMPLEMENT );
+        idee.setStatusPublic( MOCK_STATUS_PUBLIC );
+        idee.setStatusEudonet( MOCK_STATUS_EUDONET );
+        idee.setImgs( MOCK_IMGS );
+        idee.setDocs( MOCK_DOCS );
+
+        return idee;
+    }
+
 }

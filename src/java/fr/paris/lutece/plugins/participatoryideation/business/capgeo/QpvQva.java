@@ -33,7 +33,8 @@
  */
 package fr.paris.lutece.plugins.participatoryideation.business.capgeo;
 
-public class QpvQva {
+public class QpvQva
+{
     String _strType;
     String _strId;
     String _strLibelle;
@@ -44,84 +45,102 @@ public class QpvQva {
     /**
      * @return the type
      */
-    public String getType() {
+    public String getType( )
+    {
         return _strType;
     }
 
     /**
-     * @param strType the type to set
+     * @param strType
+     *            the type to set
      */
-    public void setType(String strType) {
+    public void setType( String strType )
+    {
         _strType = strType;
     }
 
     /**
      * @return the id
      */
-    public String getId() {
+    public String getId( )
+    {
         return _strId;
     }
 
     /**
-     * @param strId the id to set
+     * @param strId
+     *            the id to set
      */
-    public void setId(String strId) {
+    public void setId( String strId )
+    {
         _strId = strId;
     }
 
     /**
      * @return the libelle
      */
-    public String getLibelle() {
+    public String getLibelle( )
+    {
         return _strLibelle;
     }
 
     /**
-     * @param strLibelle the libelle to set
+     * @param strLibelle
+     *            the libelle to set
      */
-    public void setLibelle(String strLibelle) {
+    public void setLibelle( String strLibelle )
+    {
         _strLibelle = strLibelle;
     }
 
     /**
      * @return the GpruNom
      */
-    public String getGpruNom() {
+    public String getGpruNom( )
+    {
         return _strGpruNom;
     }
 
     /**
-     * @param strGpruNom the GpruNom to set
+     * @param strGpruNom
+     *            the GpruNom to set
      */
-    public void setGpruNom(String strGpruNom) {
+    public void setGpruNom( String strGpruNom )
+    {
         this._strGpruNom = strGpruNom;
     }
 
     /**
      * @return the ExtBp
      */
-    public String getExtBp() {
+    public String getExtBp( )
+    {
         return _strExtBp;
     }
 
     /**
-     * @param strExtBp the ExtBp to set
+     * @param strExtBp
+     *            the ExtBp to set
      */
-    public void setExtBp(String strExtBp) {
+    public void setExtBp( String strExtBp )
+    {
         this._strExtBp = strExtBp;
     }
 
     /**
      * @return the Fid
      */
-    public String getFid() {
+    public String getFid( )
+    {
         return _strFid;
     }
 
     /**
-     * @param strFid the Fid to set
+     * @param strFid
+     *            the Fid to set
      */
-    public void setFid(String strFid) {
+    public void setFid( String strFid )
+    {
         this._strFid = strFid;
     }
 }

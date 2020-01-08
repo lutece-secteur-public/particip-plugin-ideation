@@ -60,23 +60,21 @@ public class CsvUtils
     private static final String PARAMETER_FIELD_CSV = ".champs";
     public static final String IDEEUSERS_PREFIX_CSV = "IDEEUSERS";
     public static final String PARAMETER_ID_USER_FIELD_CSV = "id_user";
-    
+
     private static ArrayList<String> _exportKeyList;
     private static Map<String, Integer> _headersMap;
     private static String _strKeyPrefixCsv = "";
 
     static
     {
-        PROPERTY_RESOURCES_LIBRARY_CSV_PROPERTIES = AppPropertiesService
-                .getProperty( "participatoryideation.csv.configuration.path" );
+        PROPERTY_RESOURCES_LIBRARY_CSV_PROPERTIES = AppPropertiesService.getProperty( "participatoryideation.csv.configuration.path" );
         PROPERTY_SEPARATEUR_CSV = AppPropertiesService.getProperty( "participatoryideation.csv.separator", ";" ).charAt( 0 );
     }
 
     private static void getValuesFromCsv( String key )
     {
-        //Load csv property file
-        InputStream isCsvProperty = CsvUtils.class.getClassLoader( ).getResourceAsStream(
-                PROPERTY_RESOURCES_LIBRARY_CSV_PROPERTIES );
+        // Load csv property file
+        InputStream isCsvProperty = CsvUtils.class.getClassLoader( ).getResourceAsStream( PROPERTY_RESOURCES_LIBRARY_CSV_PROPERTIES );
         if ( isCsvProperty == null )
         {
             throw new AppException( "Fichier " + PROPERTY_RESOURCES_LIBRARY_CSV_PROPERTIES + " non trouvé." );
@@ -87,12 +85,12 @@ public class CsvUtils
             {
                 Properties csvProperty = new Properties( );
                 csvProperty.load( isCsvProperty );
-                _exportKeyList = new ArrayList<String>(  );
-                _headersMap = new HashMap<String, Integer>(  );
+                _exportKeyList = new ArrayList<String>( );
+                _headersMap = new HashMap<String, Integer>( );
 
-                //Retrieve the fields
+                // Retrieve the fields
                 String strFieldsList = csvProperty.getProperty( key + PARAMETER_FIELD_CSV );
-                String[] fieldsArray = strFieldsList.split( PARAMETER_SPLIT_CSV );
+                String [ ] fieldsArray = strFieldsList.split( PARAMETER_SPLIT_CSV );
 
                 int i = 0;
                 for ( String field : fieldsArray )
@@ -103,39 +101,40 @@ public class CsvUtils
                 }
 
             }
-            catch ( IOException e )
+            catch( IOException e )
             {
                 throw new AppException( "Problème lors de l'édition du fichier CSV : " + e.getMessage( ), e );
             }
         }
     }
-    
+
     public static List<String> getPrefKeys( String key )
     {
         if ( !key.equals( _strKeyPrefixCsv ) )
         {
             getValuesFromCsv( key );
         }
-        
+
         return _exportKeyList;
     }
-    
+
     public static Map<String, Integer> getHeaderLineOrder( String key )
     {
         if ( !key.equals( _strKeyPrefixCsv ) )
         {
             getValuesFromCsv( key );
         }
-        
+
         return _headersMap;
     }
 
     /**
-     * Ecrit sur la sortie passée en paramètre, les lignes de csv.
-     * Attention : ne gère pas l'écriture des en-têtes (content type par
-     * exemple) ni la fermeture du flux de sortie.
+     * Ecrit sur la sortie passée en paramètre, les lignes de csv. Attention : ne gère pas l'écriture des en-têtes (content type par exemple) ni la fermeture du
+     * flux de sortie.
+     * 
      * @param cle
-     * @param <R> type du DTO résultat
+     * @param <R>
+     *            type du DTO résultat
      * @param businessDTO
      * @param listeResultat
      * @param out
@@ -144,9 +143,8 @@ public class CsvUtils
     {
         if ( resultList != null )
         {
-            //Load csv property file
-            InputStream isCsvProperty = CsvUtils.class.getClassLoader( ).getResourceAsStream(
-                    PROPERTY_RESOURCES_LIBRARY_CSV_PROPERTIES );
+            // Load csv property file
+            InputStream isCsvProperty = CsvUtils.class.getClassLoader( ).getResourceAsStream( PROPERTY_RESOURCES_LIBRARY_CSV_PROPERTIES );
             if ( isCsvProperty == null )
             {
                 throw new AppException( "Fichier " + PROPERTY_RESOURCES_LIBRARY_CSV_PROPERTIES + " non trouvé." );
@@ -156,36 +154,35 @@ public class CsvUtils
                 try
                 {
                     Properties csvProperty = new Properties( );
-                    csvProperty.load( isCsvProperty );;
-                    CSVWriter csvWriter = new CSVWriter( new OutputStreamWriter( out, PROPERTY_ENCODING_CSV ),
-                            PROPERTY_SEPARATEUR_CSV );
-                    
-                    //Retrieve the headers
-                    String strHeadersList = csvProperty.getProperty( key + PARAMETER_HEADER_CSV );
-                    String[] headersArray = strHeadersList.split( PARAMETER_SPLIT_CSV );
+                    csvProperty.load( isCsvProperty );
+                    ;
+                    CSVWriter csvWriter = new CSVWriter( new OutputStreamWriter( out, PROPERTY_ENCODING_CSV ), PROPERTY_SEPARATEUR_CSV );
 
-                    
+                    // Retrieve the headers
+                    String strHeadersList = csvProperty.getProperty( key + PARAMETER_HEADER_CSV );
+                    String [ ] headersArray = strHeadersList.split( PARAMETER_SPLIT_CSV );
+
                     for ( int i = 0; i < headersArray.length; i++ )
                     {
-                        headersArray[i] = I18nService.getLocalizedString( headersArray[i], locale );
+                        headersArray [i] = I18nService.getLocalizedString( headersArray [i], locale );
 
                     }
                     csvWriter.writeNext( headersArray );
 
                     if ( !resultList.isEmpty( ) )
                     {
-                        //Retrieve the fields
+                        // Retrieve the fields
                         String strFieldsList = csvProperty.getProperty( key + PARAMETER_FIELD_CSV );
-                        String[] fieldsArray = strFieldsList.split( PARAMETER_SPLIT_CSV );
+                        String [ ] fieldsArray = strFieldsList.split( PARAMETER_SPLIT_CSV );
 
                         for ( ArrayList<String> userInfos : resultList )
                         {
-                        	List<String> ligneCsv = new ArrayList<String>(  );
-                            for ( int i = 0; i < userInfos.size(); i++ )
+                            List<String> ligneCsv = new ArrayList<String>( );
+                            for ( int i = 0; i < userInfos.size( ); i++ )
                             {
                                 ligneCsv.add( userInfos.get( i ) );
                             }
-                            String[] stockArr = new String[ligneCsv.size()];
+                            String [ ] stockArr = new String [ ligneCsv.size( )];
                             csvWriter.writeNext( ligneCsv.toArray( stockArr ) );
                         }
                     }
@@ -194,7 +191,7 @@ public class CsvUtils
                     csvWriter.close( );
 
                 }
-                catch ( IOException e )
+                catch( IOException e )
                 {
                     throw new AppException( "Problème lors de l'édition du fichier CSV : " + e.getMessage( ), e );
                 }
