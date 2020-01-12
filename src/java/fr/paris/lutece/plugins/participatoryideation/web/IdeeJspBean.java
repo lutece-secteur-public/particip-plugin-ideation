@@ -42,7 +42,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.regex.Matcher;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -50,9 +49,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang.StringUtils;
 
 import fr.paris.lutece.plugins.leaflet.business.GeolocItem;
-import fr.paris.lutece.plugins.participatorybudget.business.campaign.CampagneHome;
-import fr.paris.lutece.plugins.participatorybudget.business.campaign.CampagneTheme;
-import fr.paris.lutece.plugins.participatorybudget.business.campaign.CampagneThemeHome;
 import fr.paris.lutece.plugins.participatoryideation.business.Idee;
 import fr.paris.lutece.plugins.participatoryideation.business.IdeeHome;
 import fr.paris.lutece.plugins.participatoryideation.business.IdeeSearcher;
@@ -62,6 +58,7 @@ import fr.paris.lutece.plugins.participatoryideation.service.IdeationStaticServi
 import fr.paris.lutece.plugins.participatoryideation.service.IdeeService;
 import fr.paris.lutece.plugins.participatoryideation.service.IdeeUsersService;
 import fr.paris.lutece.plugins.participatoryideation.service.SolrIdeeIndexer;
+import fr.paris.lutece.plugins.participatoryideation.service.campaign.IdeationCampaignService;
 import fr.paris.lutece.plugins.participatoryideation.service.capgeo.QpvQvaService;
 import fr.paris.lutece.plugins.participatoryideation.util.Constants;
 import fr.paris.lutece.plugins.participatoryideation.util.CsvUtils;
@@ -79,7 +76,6 @@ import fr.paris.lutece.portal.service.workflow.WorkflowService;
 import fr.paris.lutece.portal.util.mvc.admin.annotations.Controller;
 import fr.paris.lutece.portal.util.mvc.commons.annotations.Action;
 import fr.paris.lutece.portal.util.mvc.commons.annotations.View;
-import fr.paris.lutece.util.ReferenceItem;
 import fr.paris.lutece.util.ReferenceList;
 import fr.paris.lutece.util.url.UrlItem;
 
@@ -95,11 +91,13 @@ public class IdeeJspBean extends ManageIdeationIdeesJspBean
 
     // templates
     private static final String TEMPLATE_MANAGE_IDEES = "/admin/plugins/participatoryideation/manage_idees.html";
-    private static final String TEMPLATE_CREATE_IDEE = "/admin/plugins/participatoryideation/create_idee.html";
+    private static final String TEMPLATE_INIT_IDEE = "/admin/plugins/participatoryideation/init_idee.html";
+    private static final String TEMPLATE_COMPLETE_IDEE = "/admin/plugins/participatoryideation/complete_idee.html";
     private static final String TEMPLATE_MODIFY_IDEE = "/admin/plugins/participatoryideation/modify_idee.html";
     private static final String TEMPLATE_CONFIRM_REMOVE_IDEE = "/admin/plugins/participatoryideation/confirm_remove_idee.html";
 
     // Parameters
+    private static final String PARAMETER_CAMPAIGN_CODE = "campaign_code";
     private static final String PARAMETER_ID_IDEE = "id";
     private static final String PARAMETER_FILTER_CODE_CAMPAGNE = "filter_code_campagne";
     private static final String PARAMETER_FILTER_CODE_THEME = "filter_code_theme";
@@ -108,7 +106,7 @@ public class IdeeJspBean extends ManageIdeationIdeesJspBean
     private static final String PARAMETER_FILTER_QPVQVA = "filter_qpvqva";
     private static final String PARAMETER_FILTER_HANDICAP = "filter_handicap";
     private static final String PARAMETER_FILTER_TYPE_LOCALISATION = "filter_type_localisation";
-    private static final String PARAMETER_FILTER_ARRONDISSEMENT = "filter_arrondissement";
+    private static final String PARAMETER_FILTER_AREA = "filter_arrondissement";
     private static final String PARAMETER_SORT_COLUMN = "sort_column";
     private static final String PARAMETER_SORT_ORDER = "sort_order";
     private static final String PARAMETER_MOTIFRECEV = "motifRecev";
@@ -121,7 +119,8 @@ public class IdeeJspBean extends ManageIdeationIdeesJspBean
     private static final String PROPERTY_PAGE_TITLE_CONFIRM_REMOVE_IDEE = "participatoryideation.confirm_remove_idee.pageTitle";
 
     // Markers
-    // private static final String MARK_ARRONDISSEMENTS_LIST = "arrondissements_list";
+    private static final String MARK_CAMPAIGN_CODE = "campaign_code";
+    private static final String MARK_CAMPAIGN_LIST = "campaign_list";
     private static final String MARK_CAMPAGNETHEME_LIST = "campagnetheme_list";
     private static final String MARK_HANDICAP_LIST = "handicap_list";
     private static final String MARK_IDEE_LIST = "idee_list";
@@ -136,6 +135,7 @@ public class IdeeJspBean extends ManageIdeationIdeesJspBean
     private static final String MARK_FILTER_ARRONDISSEMENT = "filter_arrondissement";
     private static final String MARK_LANGUAGE = "language";
     private static final String MARK_LOCALISATION_TYPE_LIST = "type_localisation_list";
+    private static final String MARK_AREA_LIST = "area_list";
     private static final String MARK_SORT_COLUMN = "sort_column";
     private static final String MARK_SORT_ORDER = "sort_order";
     private static final String MARK_WORKFLOW_STATES_LIST = "workflow_states_list";
@@ -147,11 +147,9 @@ public class IdeeJspBean extends ManageIdeationIdeesJspBean
 
     // Properties
     private static final String MESSAGE_ERROR_IDEE_REMOVED = "participatoryideation.message.error.idee.removed";
-
+    private static final String MESSAGE_ERROR_CAMPAIGN_NOT_SPECIFIED = "participatoryideation.message.error.campaign.notSpecified";
     private static final String MESSAGE_ERROR_ARRONDISSEMENT_EMPTY = "participatoryideation.validation.idee.Arrondissement.notEmpty";
     private static final String MESSAGE_ERROR_ADDRESS_FORMAT = "participatoryideation.validation.idee.Address.Format";
-    private static final String MESSAGE_ERROR_ADDRESS_NOT_VALID = "participatoryideation.validation.idee.Address.NotValid";
-    private static final String MESSAGE_ERROR_ADDRESS_ARDT_MISMATCH = "participatoryideation.validation.idee.Address.ArdtMismatch";
     private static final String MESSAGE_ERROR_ADDRESS_LOCALISATION_TYPE_EMPTY = "participatoryideation.validation.idee.LocalisationType.NotEmpty";
 
     private static final String VALIDATION_ATTRIBUTES_PREFIX = "participatoryideation.model.entity.idee.attribute.";
@@ -161,7 +159,8 @@ public class IdeeJspBean extends ManageIdeationIdeesJspBean
 
     // Views
     private static final String VIEW_MANAGE_IDEES = "manageIdees";
-    private static final String VIEW_CREATE_IDEE = "createIdee";
+    private static final String VIEW_INIT_IDEE = "initIdee";
+    private static final String VIEW_COMPLETE_IDEE = "completeIdee";
     private static final String VIEW_MODIFY_IDEE = "modifyIdee";
     private static final String VIEW_CONFIRM_REMOVE_IDEE = "confirmRemoveIdee";
 
@@ -219,38 +218,47 @@ public class IdeeJspBean extends ManageIdeationIdeesJspBean
             {
                 model.put( MARK_FILTER_CODE_CAMPAGNE, _ideeSearcher.getCodeCampagne( ) );
             }
+            
             if ( StringUtils.isNotBlank( _ideeSearcher.getCodeTheme( ) ) )
             {
                 model.put( MARK_FILTER_CODE_THEME, _ideeSearcher.getCodeTheme( ) );
             }
+            
             if ( StringUtils.isNotBlank( _ideeSearcher.getTitreOuDescriptionouRef( ) ) )
             {
                 model.put( MARK_FILTER_TITRE_OU_DESCRIPTION, _ideeSearcher.getTitreOuDescriptionouRef( ) );
             }
+            
             if ( _ideeSearcher.getStatusPublic( ) != null )
             {
                 model.put( PARAMETER_FILTER_PUBLIC_STATE, _ideeSearcher.getStatusPublic( ) );
             }
+            
             if ( StringUtils.isNotBlank( _ideeSearcher.getTypeQpvQva( ) ) )
             {
                 model.put( MARK_FILTER_QPVQVA, _ideeSearcher.getTypeQpvQva( ) );
             }
+            
             if ( StringUtils.isNotBlank( _ideeSearcher.getHandicap( ) ) )
             {
                 model.put( MARK_FILTER_HANDICAP, _ideeSearcher.getHandicap( ) );
             }
+            
             if ( StringUtils.isNotBlank( _ideeSearcher.getTypeLocalisation( ) ) )
             {
                 model.put( MARK_FILTER_TYPE_LOCALISATION, _ideeSearcher.getTypeLocalisation( ) );
             }
+            
             if ( StringUtils.isNotBlank( _ideeSearcher.getArrondissement( ) ) )
             {
                 model.put( MARK_FILTER_ARRONDISSEMENT, _ideeSearcher.getArrondissement( ) );
             }
+            
             if ( StringUtils.isNotBlank( _ideeSearcher.getOrderColumn( ) ) )
             {
                 model.put( MARK_SORT_COLUMN, _ideeSearcher.getOrderColumn( ) );
             }
+            
             if ( StringUtils.isNotBlank( _ideeSearcher.getOrderAscDesc( ) ) )
             {
                 model.put( MARK_SORT_ORDER, _ideeSearcher.getOrderAscDesc( ) );
@@ -388,7 +396,7 @@ public class IdeeJspBean extends ManageIdeationIdeesJspBean
             }
         }
 
-        String strArrondissement = request.getParameter( PARAMETER_FILTER_ARRONDISSEMENT );
+        String strArrondissement = request.getParameter( PARAMETER_FILTER_AREA );
         if ( strArrondissement != null )
         {
             if ( StringUtils.isBlank( strArrondissement ) )
@@ -448,23 +456,54 @@ public class IdeeJspBean extends ManageIdeationIdeesJspBean
     // * CREATE CREATE CREATE CREATE CREATE CREATE CREATE CREATE CREATE CREATE CREATE CR *
     // * CREATE CREATE CREATE CREATE CREATE CREATE CREATE CREATE CREATE CREATE CREATE CR *
     // ***********************************************************************************
+    // * First  step : initialize the idee by specifying the campaign                    *
+    // * Second step : complete other data                                               *
+    // ***********************************************************************************
 
-    @View( VIEW_CREATE_IDEE )
-    public String getCreateIdee( HttpServletRequest request )
+    @View( VIEW_INIT_IDEE )
+    public String getInitIdee( HttpServletRequest request )
     {
-        _idee = ( _idee != null ) ? _idee : new Idee( );
-
-        String lastCampagneCode = CampagneHome.getLastCampagne( ).getCode( );
-        List<CampagneTheme> listCampagneThemes = (List<CampagneTheme>) CampagneThemeHome.getCampagneThemesListByCampagne( lastCampagneCode );
+        _idee = new Idee( );
 
         Map<String, Object> model = getModel( );
+        model.put( MARK_CAMPAIGN_LIST, IdeationCampaignService.getInstance().getCampaigns() );
         model.put( MARK_IDEE, _idee );
         model.put( MARK_LANGUAGE, getLocale( ) );
-        model.put( MARK_LOCALISATION_TYPE_LIST, IdeeService.getInstance( ).getTypeLocalisationList( ) );
-        model.put( MARK_CAMPAGNETHEME_LIST, listCampagneThemes );
-        model.put( MARK_HANDICAP_LIST, IdeeService.getInstance( ).getHandicapCodesList( ) );
 
-        return getPage( PROPERTY_PAGE_TITLE_CREATE_IDEE, TEMPLATE_CREATE_IDEE, model );
+        return getPage( PROPERTY_PAGE_TITLE_CREATE_IDEE, TEMPLATE_INIT_IDEE, model );
+    }
+
+    @View( VIEW_COMPLETE_IDEE )
+    public String getCompleteIdee( HttpServletRequest request )
+    {
+        Map<String, Object> model = getModel( );
+
+        // If no campaign specified, expect it in request.
+        if ( StringUtils.isBlank( _idee.getCodeCampagne() ) )
+        {
+        	_idee.setCodeCampagne( request.getParameter( PARAMETER_CAMPAIGN_CODE ) );
+        	if ( StringUtils.isBlank( _idee.getCodeCampagne() ) )
+        	{
+                Map<String, Object> requestParameters = new HashMap<String, Object>( );
+                requestParameters.put( PARAMETER_PLUGIN_NAME, "participatoryideation" );
+                String strMessageUrl = AdminMessageService.getMessageUrl( request, MESSAGE_ERROR_CAMPAIGN_NOT_SPECIFIED, JSP_MANAGE_IDEES, AdminMessage.TYPE_ERROR, requestParameters );
+                return redirect( request, strMessageUrl );
+        	}
+        }
+        	
+        // Data depending of specified campaign
+        String campaignCode = _idee.getCodeCampagne();
+        model.put( MARK_CAMPAIGN_CODE, campaignCode );
+        model.put( MARK_CAMPAGNETHEME_LIST, IdeationCampaignService.getInstance().getCampaignThemes( campaignCode ) );
+        model.put( MARK_AREA_LIST, IdeationCampaignService.getInstance().getCampaignAllAreas( campaignCode ) );
+        
+        // Data NOT depending of specified campaign
+        model.put( MARK_LOCALISATION_TYPE_LIST, IdeeService.getInstance( ).getTypeLocalisationList( ) );
+        model.put( MARK_HANDICAP_LIST, IdeeService.getInstance( ).getHandicapCodesList( ) );
+        model.put( MARK_IDEE, _idee );
+        model.put( MARK_LANGUAGE, getLocale( ) );
+
+        return getPage( PROPERTY_PAGE_TITLE_CREATE_IDEE, TEMPLATE_COMPLETE_IDEE, model );
     }
 
     @Action( ACTION_CREATE_IDEE )
@@ -473,13 +512,10 @@ public class IdeeJspBean extends ManageIdeationIdeesJspBean
 
         populate( _idee, request );
 
-        // String strCodesIdees = request.getParameter( PARAMETER_LIST_CODE_IDEES ) == null ? StringUtils.EMPTY
-        // : request.getParameter( PARAMETER_LIST_CODE_IDEES );
-
         // Check constraints
-        if ( !validateBean( _idee, VALIDATION_ATTRIBUTES_PREFIX ) || !isIdeeAddressValid( request ) /* || !checkCodesIdees( strCodesIdees, request.getLocale( ) */)
+        if ( !validateBean( _idee, VALIDATION_ATTRIBUTES_PREFIX ) || !isIdeeAddressValid( request ) )
         {
-            return redirectView( request, VIEW_CREATE_IDEE );
+            return redirectView( request, VIEW_COMPLETE_IDEE );
         }
 
         if ( Idee.LOCALISATION_TYPE_PARIS.equals( _idee.getLocalisationType( ) ) && StringUtils.isEmpty( _idee.getGeoJson( ) ) )
@@ -488,7 +524,7 @@ public class IdeeJspBean extends ManageIdeationIdeesJspBean
         }
 
         _idee.setCodeIdee( 0 );
-        _idee.setCodeCampagne( CampagneHome.getLastCampagne( ).getCode( ) );
+//        _idee.setCodeCampagne( CampagneHome.getLastCampagne( ).getCode( ) );
         _idee.setDepositaireType( AppPropertiesService.getProperty( Constants.PROPERTY_GENERATE_IDEE_DEPOSITAIRE_TYPE ) );
         _idee.setDepositaire( AppPropertiesService.getProperty( Constants.PROPERTY_GENERATE_IDEE_DEPOSITAIRE ) );
         _idee.setLuteceUserName( AppPropertiesService.getProperty( Constants.PROPERTY_GENERATE_IDEE_LUTECE_USER_NAME ) );
@@ -620,7 +656,7 @@ public class IdeeJspBean extends ManageIdeationIdeesJspBean
 
         if ( _idee.getCodeCampagne( ) != null )
         {
-            IdeationStaticService.getInstance( ).fillCampagneStaticContent( model, _idee.getCodeCampagne( ) );
+            IdeationStaticService.getInstance( ).fillCampaignStaticContent( model, _idee.getCodeCampagne( ) );
         }
         else
         {

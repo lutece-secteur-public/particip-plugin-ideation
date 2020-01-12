@@ -1,7 +1,7 @@
 <#include "manageideation_idee_tabs.html" />
 <@tabs tab="idee" />
 
-<@rowBoxHeader i18nTitleKey="participatoryideation.create_idee.pageTitle">
+<@rowBoxHeader i18nTitleKey="participatoryideation.complete_idee.pageTitle">
 
 	<#-- *********************************************************************************** -->
 	<#-- * FORM FORM FORM FORM FORM FORM FORM FORM FORM FORM FORM FORM FORM FORM FORM FORM * -->
@@ -12,42 +12,39 @@
 		<@messages errors=errors />
 		<input type="hidden" id="id" name="id"/>
 
-		<@fieldInputText i18nLabelKey="participatoryideation.create_idee.labelTitre"       mandatory=true inputName="titre"       value="${idee.titre!}"       i18nHelpBlockKey='ideation.create_idee.labelTitre.help'       />
-
-		<@fieldTextArea  i18nLabelKey="participatoryideation.create_idee.labelDescription" mandatory=true inputName="description" value="${idee.description!}" i18nHelpBlockKey='ideation.create_idee.labelDescription.help' />
-
-		<@fieldInputText i18nLabelKey="participatoryideation.create_idee.labelCout"        inputName="cout"        value="${idee.cout!}"       i18nHelpBlockKey='ideation.create_idee.labelCout.help'        />
-
-		<@fieldInputCombo i18nLabelKey="participatoryideation.create_idee.labelLocalisationType" inputName="localisationType" items=type_localisation_list value="${(idee.localisationType)!}" i18nHelpBlockKey="participatoryideation.create_idee.labelLocalisationType.help" />
-
-		<@fieldInputCombo i18nLabelKey="participatoryideation.create_idee.labelLocalisationArdt" inputName="localisationArdt" items=arrondissements_list value="${(idee.localisationArdt)!}" i18nHelpBlockKey="participatoryideation.create_idee.labelLocalisationArdt.help" />
+		<@fieldStaticText  i18nLabelKey="participatoryideation.init_idee.labelCampaign">${idee.codeCampagne!}</@fieldStaticText>
+		<@fieldInputText  i18nLabelKey="participatoryideation.complete_idee.labelTitre"       mandatory=true inputName="titre"       value="${idee.titre!}"       i18nHelpBlockKey='ideation.create_idee.labelTitre.help'       />
+		<@fieldTextArea   i18nLabelKey="participatoryideation.complete_idee.labelDescription" mandatory=true inputName="description" value="${idee.description!}" i18nHelpBlockKey='ideation.create_idee.labelDescription.help' />
+		<@fieldInputText  i18nLabelKey="participatoryideation.complete_idee.labelCout"        inputName="cout"        value="${idee.cout!}"       i18nHelpBlockKey='ideation.create_idee.labelCout.help'        />
+		<@fieldInputCombo i18nLabelKey="participatoryideation.complete_idee.labelLocalisationType" inputName="localisationType" items=type_localisation_list value="${(idee.localisationType)!}" i18nHelpBlockKey="participatoryideation.complete_idee.labelLocalisationType.help" />
+		<@fieldInputCombo i18nLabelKey="participatoryideation.complete_idee.labelLocalisationArdt" inputName="localisationArdt" items=area_list value="${(idee.localisationArdt)!}" i18nHelpBlockKey="participatoryideation.complete_idee.labelLocalisationArdt.help" />
 
 		<div class="form-group">
-			<label class="col-xs-12 col-sm-3 col-md-3" for="thematique">#i18n{ideation.create_idee.labelCodeTheme} : </label>
+			<label class="col-xs-12 col-sm-3 col-md-3" for="thematique">#i18n{participatoryideation.complete_idee.labelCodeTheme} : </label>
 			<div class="col-xs-12 col-sm-9 col-md-9">
 				<select id="thematique" name="codeTheme" class="form-control">
 					<#list campagnetheme_list as campagnetheme >
-						<option value="${campagnetheme.code}" <#if idee.codeTheme?? && campagnetheme.code==idee.codeTheme> selected="selected"</#if>>${campagnetheme.codeCampagne} - ${campagnetheme.title!}</option>
+						<option value="${campagnetheme.code}" <#if idee.codeTheme?? && campagnetheme.code==idee.codeTheme> selected="selected"</#if>>${campagnetheme.code!} - ${campagnetheme.name!}</option>
 					</#list>
 				</select>
-				<p class="help-block">#i18n{ideation.create_idee.labelCodeTheme.help}</p>
+				<p class="help-block">#i18n{participatoryideation.complete_idee.labelCodeTheme.help}</p>
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="col-xs-12 col-sm-3 col-md-3" for="handicap">#i18n{ideation.create_idee.labelHandicap} : </label>
+			<label class="col-xs-12 col-sm-3 col-md-3" for="handicap">#i18n{participatoryideation.complete_idee.labelHandicap} : </label>
 			<div class="col-xs-12 col-sm-9 col-md-9">
 				<select id="handicap" name="handicap" class="form-control">
 					<#list handicap_list as handicap >
 						<option value="${handicap.code}" <#if idee.handicap?? && handicap.code==idee.handicap> selected="selected"</#if>>${handicap.name}</option>
 					</#list>
 				</select>
-				<p class="help-block">#i18n{ideation.create_idee.labelHandicap.help}</p>
+				<p class="help-block">#i18n{participatoryideation.complete_idee.labelHandicap.help}</p>
 			</div>
 		</div>
 
         <div class="form-group">
-            <label class="col-xs-12 col-sm-3 col-md-3" for="adress">#i18n{ideation.create_idee.labelGeoloc} : </label>
+            <label class="col-xs-12 col-sm-3 col-md-3" for="adress">#i18n{participatoryideation.complete_idee.labelGeoloc} : </label>
             <div class="col-xs-12 col-sm-9 col-md-9">
                 <div class="input-group">
                     <input type="text" class="form-control" name="adress" id="adress" value="${idee.adress!''}">
@@ -55,12 +52,11 @@
                         <button class="btn btn-default" type="button" title="effacer" id="button_delete_address"><i class="fa fa-times"></i></button>
                     </span>
                 </div>
-                <p class="help-block">#i18n{ideation.create_idee.labelGeoloc.help}</p>
+                <p class="help-block">#i18n{participatoryideation.complete_idee.labelGeoloc.help}</p>
             </div>
         </div>
         <input id="geojson" type="hidden" name="geo_json" value="${(idee.geoJson?html)!''}">
         <input id="geojson_state" type="hidden">
-
 
 		<@actionButtons button1Name="action_createIdee" button2Name="view_manageIdees"/>
 

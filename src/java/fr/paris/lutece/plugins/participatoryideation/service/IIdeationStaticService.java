@@ -46,7 +46,7 @@ public interface IIdeationStaticService
      * @param strCampagneCode
      *            The CampagneCode
      */
-    public void fillCampagneStaticContent( Map<String, Object> model, String strCampagneCode );
+    public void fillCampaignStaticContent( Map<String, Object> model, String strCampagneCode );
 
     /**
      * Fill the model with commons objects used in templates for all campagnes

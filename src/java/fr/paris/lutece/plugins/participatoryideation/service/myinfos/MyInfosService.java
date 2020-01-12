@@ -34,12 +34,19 @@
 package fr.paris.lutece.plugins.participatoryideation.service.myinfos;
 
 import fr.paris.lutece.portal.service.spring.SpringContextService;
+import fr.paris.lutece.portal.service.util.AppPathService;
+import fr.paris.lutece.portal.util.mvc.utils.MVCUtils;
+import fr.paris.lutece.util.url.UrlItem;
 
 /**
  * This class provides very simple 'my infos' services : - myinfos are always valid
  */
 public class MyInfosService implements IMyInfosService
 {
+
+	private static final String PAGE_MY_INFOS = "mesInfos";
+    private static final String VIEW_MY_INFOS = "mesinfos";
+    private static final String PARAMETER_COMPLETE_INFOS = "completeInfos";
 
     // *********************************************************************************************
     // * SINGLETON SINGLETON SINGLETON SINGLETON SINGLETON SINGLETON SINGLETON SINGLETON SINGLETON *
@@ -68,6 +75,23 @@ public class MyInfosService implements IMyInfosService
     public boolean isUserValid( String userId )
     {
         return true;
+    }
+
+    // *********************************************************************************************
+    // * FILL FILL FILL FILL FILL FILL FILL FILL FILL FILL FILL FILL FILL FILL FILL FILL FILL FILL *
+    // * FILL FILL FILL FILL FILL FILL FILL FILL FILL FILL FILL FILL FILL FILL FILL FILL FILL FILL *
+    // *********************************************************************************************
+
+    @Override
+    public String getUrlMyInfosFillAction( )
+    {
+        UrlItem urlItem = new UrlItem( AppPathService.getPortalUrl( ) );
+        
+        urlItem.addParameter( MVCUtils.PARAMETER_PAGE, PAGE_MY_INFOS );
+        urlItem.addParameter( MVCUtils.PARAMETER_VIEW, VIEW_MY_INFOS );
+        urlItem.addParameter( PARAMETER_COMPLETE_INFOS, Boolean.TRUE.toString( ) );
+
+        return urlItem.getUrl( );
     }
 
 }

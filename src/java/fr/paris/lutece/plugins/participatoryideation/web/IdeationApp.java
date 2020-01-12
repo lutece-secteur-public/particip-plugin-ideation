@@ -54,7 +54,6 @@ import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
 
 import fr.paris.lutece.plugins.leaflet.business.GeolocItem;
-//import fr.paris.lutece.plugins.participatorybudget.service.MyInfosService;
 import fr.paris.lutece.plugins.participatoryideation.business.Idee;
 import fr.paris.lutece.plugins.participatoryideation.business.capgeo.QpvQva;
 import fr.paris.lutece.plugins.participatoryideation.service.IdeationErrorException;
@@ -100,7 +99,6 @@ import fr.paris.lutece.portal.util.mvc.xpage.MVCApplication;
 import fr.paris.lutece.portal.util.mvc.xpage.annotations.Controller;
 import fr.paris.lutece.portal.web.xpages.XPage;
 import fr.paris.lutece.util.filesystem.FileSystemUtil;
-import fr.paris.lutece.util.url.UrlItem;
 
 /**
  * This class provides a simple implementation of an XPage
@@ -211,7 +209,6 @@ public class IdeationApp extends MVCApplication
     private static final String SOLR_NEWPROJECTS_TYPE = AppPropertiesService.getProperty( PROPERTY_NEWPROJECTS_TYPE, "idee" );
 
     private static final String SOLR_PREVIOUS_CAMPAIGNS = "((type:idee AND statut_publique_project_text:\"NONRETENU\") OR (type:\"PB Project\" AND statut_project_text:\"SUIVI\"))";
-    // private static final String SOLR_PREVIOUS_PROJECTS = "(type:\"Projets 2015\" AND statut_project_text:\"SUIVI\")";
 
     private static final String DSKEY_APPROX_SCORE_RATIO_LIMIT = "participatoryideation.site_property.form.approx.scoreRatioLimit";
     private static final String DSKEY_APPROX_DISTANCE_LIMIT = "participatoryideation.site_property.form.approx.distanceLimit";
@@ -254,16 +251,13 @@ public class IdeationApp extends MVCApplication
     @Override
     public XPage getPage( HttpServletRequest request, int nMode, Plugin plugin ) throws SiteMessageException, UserNotSignedException
     {
+    	// Verify campaign is specified and open
         checkIdeationCampaignPhase( request );
 
+        // If user's personal infos not filled, then redirect to the 'complete myinfos' webpage
         if ( !checkUserAuthorized( request ) )
         {
-            UrlItem urlItem = new UrlItem( AppPathService.getPortalUrl( ) );
-            urlItem.addParameter( MVCUtils.PARAMETER_PAGE, "mesInfos" );
-            urlItem.addParameter( MVCUtils.PARAMETER_VIEW, "mesinfos" );
-            urlItem.addParameter( "completeInfos", Boolean.TRUE.toString( ) );
-
-            return redirect( request, AppPathService.getProdUrl( request ) + urlItem );
+            return redirect( request, MyInfosService.getInstance().getUrlMyInfosFillAction() );
         }
 
         // Some automatic stuff
@@ -1073,7 +1067,7 @@ public class IdeationApp extends MVCApplication
 
         model.put( MARK_IDEATION_CAMPAIGN_SERVICE_IMPLEMENTATION, IdeationCampaignService.getInstance( ).getClass( ).getName( ) );
 
-        IdeationStaticService.getInstance( ).fillCampagneStaticContent( model, _ideeCreate.getCodeCampagne( ) );
+        IdeationStaticService.getInstance( ).fillCampaignStaticContent( model, _ideeCreate.getCodeCampagne( ) );
         fillFormEtapes( model );
         fillRecap( model, isConfirmed ? _ideeDisplay : _ideeCreate, request );
 

@@ -44,13 +44,12 @@ import fr.paris.lutece.plugins.avatar.service.AvatarService;
 import fr.paris.lutece.plugins.extend.business.extender.history.ResourceExtenderHistory;
 import fr.paris.lutece.plugins.extend.service.extender.history.IResourceExtenderHistoryService;
 import fr.paris.lutece.plugins.extend.service.extender.history.ResourceExtenderHistoryService;
-import fr.paris.lutece.plugins.participatorybudget.service.MyInfosService;
-import fr.paris.lutece.plugins.participatorybudget.web.MyInfosXPage;
 import fr.paris.lutece.plugins.participatoryideation.business.Idee;
 import fr.paris.lutece.plugins.participatoryideation.business.IdeeHome;
 import fr.paris.lutece.plugins.participatoryideation.service.IdeationStaticService;
 import fr.paris.lutece.plugins.participatoryideation.service.IdeeService;
 import fr.paris.lutece.plugins.participatoryideation.service.campaign.IdeationCampaignService;
+import fr.paris.lutece.plugins.participatoryideation.service.myinfos.MyInfosService;
 import fr.paris.lutece.portal.service.datastore.DatastoreService;
 import fr.paris.lutece.portal.service.mail.MailService;
 import fr.paris.lutece.portal.service.message.SiteMessageException;
@@ -87,15 +86,12 @@ public class IdeeXPage extends MVCApplication
 
     // Parameters
     private static final String PARAM_BP_EMAIL = "participatorybudget.email";
-    // private static final String PARAM_BP_FIRST_NAME = "participatorybudget.firstname" ;
-    // private static final String PARAM_BP_LASTE_NAME = "participatorybudget.lastname" ;
     private static final String PARAM_BP_NICKNAME = "portal.nickname";
     private static final String PARAMETER_CODE_IDEE = "idee";
     private static final String PARAMETER_CODE_CAMPAGNE = "campagne";
     private static final String PARAMETER_SHOW_CONTACT = "showContact";
 
     private static final String PARAMETER_LAST_NAME_USAGER = "last_name_usager";
-    private static final String PARAMETER_EMAIL_USAGER = "email_usager";
     private static final String PARAMETER_QUESTION_USAGER = "question_usager";
 
     // Markers
@@ -177,7 +173,7 @@ public class IdeeXPage extends MVCApplication
         {
             if ( !checkUserAuthorized( request ) )
             {
-                return redirect( request, AppPathService.getProdUrl( request ) + MyInfosXPage.getUrlMyInfos( ) );
+                return redirect( request, AppPathService.getProdUrl( request ) + MyInfosService.getInstance().getUrlMyInfosFillAction() );
             }
         }
 
@@ -221,7 +217,7 @@ public class IdeeXPage extends MVCApplication
             }
         }
         model.put( MARK_IS_EXTEND_INSTALLED, PortalService.isExtendActivated( ) );
-        IdeationStaticService.getInstance( ).fillCampagneStaticContent( model, _idee.getCodeCampagne( ) );
+        IdeationStaticService.getInstance( ).fillCampaignStaticContent( model, _idee.getCodeCampagne( ) );
 
         XPage xpage = getXPage( TEMPLATE_VIEW_IDEE, request.getLocale( ), model );
         xpage.setTitle( _idee.getTitre( ) );
@@ -263,12 +259,9 @@ public class IdeeXPage extends MVCApplication
         if ( _idee != null )
         {
             String strEmail = UserPreferencesService.instance( ).get( _idee.getLuteceUserName( ), PARAM_BP_EMAIL, StringUtils.EMPTY );
-            // String strFirstName = UserPreferencesService.instance( ).get( _idee.getLuteceUserName() ,PARAM_BP_FIRST_NAME, StringUtils.EMPTY );
-            // String strLastName = UserPreferencesService.instance( ).get( _idee.getLuteceUserName() ,PARAM_BP_LASTE_NAME, StringUtils.EMPTY );
             String strNickname = UserPreferencesService.instance( ).get( _idee.getLuteceUserName( ), PARAM_BP_NICKNAME, StringUtils.EMPTY );
 
             strEmailDepositaire = strEmail;
-            // strNomDepositaire = strFirstName + " " + strLastName;
             strNomDepositaire = strNickname;
         }
 
@@ -345,7 +338,7 @@ public class IdeeXPage extends MVCApplication
             {
                 throw new UserNotSignedException( );
             }
-            return MyInfosService.loadUserInfos( user ).getIsValid( );
+            return MyInfosService.getInstance().isUserValid( user.getName() );
 
         }
         return false;

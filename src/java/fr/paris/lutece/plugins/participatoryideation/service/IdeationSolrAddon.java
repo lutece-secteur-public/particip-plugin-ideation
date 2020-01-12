@@ -77,7 +77,7 @@ public class IdeationSolrAddon implements ISolrSearchAppAddOn
     public void buildPageAddOn( Map<String, Object> model, HttpServletRequest request )
     {
         Campagne lastCampagne = CampagneHome.getLastCampagne( );
-        IdeationStaticService.getInstance( ).fillCampagneStaticContent( model, lastCampagne.getCode( ) );
+        IdeationStaticService.getInstance( ).fillCampaignStaticContent( model, lastCampagne.getCode( ) );
 
         // IdeationStaticService.getInstance( ).fillAllStaticContent(model);
 

@@ -37,7 +37,6 @@ import fr.paris.lutece.plugins.extend.modules.comment.service.CommentListenerSer
 import fr.paris.lutece.plugins.extend.modules.extendablecomment.business.ExtendableComment;
 import fr.paris.lutece.plugins.extend.modules.follow.service.FollowListenerService;
 import fr.paris.lutece.plugins.extend.modules.rating.service.RatingListenerService;
-import fr.paris.lutece.plugins.participatorybudget.service.MyInfosListenerService;
 import fr.paris.lutece.plugins.participatoryideation.business.Idee;
 import fr.paris.lutece.plugins.participatoryideation.service.fileimage.IdeationFileImageService;
 import fr.paris.lutece.portal.service.plugin.Plugin;
@@ -59,7 +58,6 @@ public class IdeationPlugin extends Plugin
         RatingListenerService.registerListener( ExtendableComment.RESOURCE_TYPE, new ExtendableCommentRatingListener( ) );
         RatingListenerService.registerListener( Idee.PROPERTY_RESOURCE_TYPE, new IdeeRatingListener( ) );
         FollowListenerService.registerListener( Idee.PROPERTY_RESOURCE_TYPE, new IdeeFollowListener( ) );
-        MyInfosListenerService.registerListener( new IdeationMyInfosListener( ) );
 
         // ImageResourceManager registering.
         IdeationFileImageService.getInstance( ).register( );

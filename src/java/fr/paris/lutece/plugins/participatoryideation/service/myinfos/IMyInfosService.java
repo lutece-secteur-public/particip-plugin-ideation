@@ -39,13 +39,12 @@ package fr.paris.lutece.plugins.participatoryideation.service.myinfos;
 public interface IMyInfosService
 {
 
-    // *********************************************************************************************
-    // * ISVALID ISVALID ISVALID ISVALID ISVALID ISVALID ISVALID ISVALID ISVALID ISVALID ISVALID I *
-    // * ISVALID ISVALID ISVALID ISVALID ISVALID ISVALID ISVALID ISVALID ISVALID ISVALID ISVALID I *
-    // *********************************************************************************************
-
     // Provides informations about validity.
 
     public boolean isUserValid( String userId );
+
+    // provides URL of page where user can fill its personal infos
+
+    public String getUrlMyInfosFillAction( );
 
 }

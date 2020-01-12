@@ -59,7 +59,7 @@ public class IdeePopupContentProvider implements IPopupContentProvider
         Idee idee = IdeeHome.findByPrimaryKey( nId );
         Map<String, Object> model = new HashMap<String, Object>( );
         model.put( MARK_IDEE, idee );
-        IdeationStaticService.getInstance( ).fillCampagneStaticContent( model, idee.getCodeCampagne( ) );
+        IdeationStaticService.getInstance( ).fillCampaignStaticContent( model, idee.getCodeCampagne( ) );
         HtmlTemplate t = AppTemplateService.getTemplate( TEMPLATE_IDEE_POPUP, request.getLocale( ), model );
         return t.getHtml( );
     }

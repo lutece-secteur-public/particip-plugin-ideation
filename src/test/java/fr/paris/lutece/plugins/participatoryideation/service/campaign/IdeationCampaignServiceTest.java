@@ -51,19 +51,11 @@ public class IdeationCampaignServiceTest extends LuteceTestCase
         // Spring bean instantiation
         assertEquals( IdeationCampaignService.class, instance.getClass( ) );
 
-        // Methods about areas
-        assertEquals( 1, instance.getCampaignAllAreas( ).size( ) );
-        assertEquals( 1, instance.getCampaignAllAreas( "123" ).size( ) );
-
-        assertEquals( 0, instance.getCampaignLocalizedAreas( ).size( ) );
-        assertEquals( 0, instance.getCampaignLocalizedAreas( "123" ).size( ) );
-
-        assertEquals( 0, instance.getCampaignNumberLocalizedAreas( ) );
-        assertEquals( 0, instance.getCampaignNumberLocalizedAreas( "123" ) );
-
-        assertEquals( IIdeationCampaignService.WHOLE_AREA, instance.getCampaignWholeArea( ) );
-        assertEquals( IIdeationCampaignService.WHOLE_AREA, instance.getCampaignWholeArea( "123" ) );
-
+        // Methods about campaign
+        assertEquals( 1, instance.getCampaigns().size() );
+        assertEquals( "A", instance.getCampaigns().iterator().next().getCode() );
+        assertEquals( "Ideation", instance.getCampaigns().iterator().next().getName() );
+        
         // Methods about phases
         assertEquals( true, instance.isAfterBeginning( Constants.IDEATION ) );
         assertEquals( true, instance.isAfterBeginning( "123", Constants.IDEATION ) );
@@ -79,6 +71,19 @@ public class IdeationCampaignServiceTest extends LuteceTestCase
 
         assertEquals( true, instance.isDuring( Constants.IDEATION ) );
         assertEquals( true, instance.isDuring( "123", Constants.IDEATION ) );
+
+        // Methods about areas
+        assertEquals( 1, instance.getCampaignAllAreas( ).size( ) );
+        assertEquals( 1, instance.getCampaignAllAreas( "123" ).size( ) );
+
+        assertEquals( 0, instance.getCampaignLocalizedAreas( ).size( ) );
+        assertEquals( 0, instance.getCampaignLocalizedAreas( "123" ).size( ) );
+
+        assertEquals( 0, instance.getCampaignNumberLocalizedAreas( ) );
+        assertEquals( 0, instance.getCampaignNumberLocalizedAreas( "123" ) );
+
+        assertEquals( IIdeationCampaignService.WHOLE_AREA, instance.getCampaignWholeArea( ) );
+        assertEquals( IIdeationCampaignService.WHOLE_AREA, instance.getCampaignWholeArea( "123" ) );
 
         // Methods about themes
         assertEquals( 3, instance.getCampaignThemes( ).size( ) );

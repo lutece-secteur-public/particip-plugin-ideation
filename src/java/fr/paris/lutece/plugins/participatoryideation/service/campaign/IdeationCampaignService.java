@@ -41,6 +41,9 @@ import fr.paris.lutece.util.ReferenceList;
  */
 public class IdeationCampaignService implements IIdeationCampaignService
 {
+	
+	private static final String CAMPAIGN_CODE  = "A";
+	private static final String CAMPAIGN_TITLE = "Ideation";
 
     // *********************************************************************************************
     // * SINGLETON SINGLETON SINGLETON SINGLETON SINGLETON SINGLETON SINGLETON SINGLETON SINGLETON *
@@ -61,59 +64,15 @@ public class IdeationCampaignService implements IIdeationCampaignService
     }
 
     // *********************************************************************************************
-    // * AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA *
-    // * AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA *
+    // * CAMPAIGN CAMPAIGN CAMPAIGN CAMPAIGN CAMPAIGN CAMPAIGN CAMPAIGN CAMPAIGN CAMPAIGN CAMPAIGN *
+    // * CAMPAIGN CAMPAIGN CAMPAIGN CAMPAIGN CAMPAIGN CAMPAIGN CAMPAIGN CAMPAIGN CAMPAIGN CAMPAIGN *
     // *********************************************************************************************
 
-    @Override
-    public String getCampaignWholeArea( String codeCampaign )
-    {
-        return WHOLE_AREA;
-    }
-
-    @Override
-    public ReferenceList getCampaignLocalizedAreas( String codeCampaign )
-    {
-        return new ReferenceList( );
-    }
-
-    @Override
-    public int getCampaignNumberLocalizedAreas( String codeCampaign )
-    {
-        return 0;
-    }
-
-    @Override
-    public String getCampaignWholeArea( )
-    {
-        return WHOLE_AREA;
-    }
-
-    @Override
-    public ReferenceList getCampaignLocalizedAreas( )
-    {
-        return new ReferenceList( );
-    }
-
-    @Override
-    public int getCampaignNumberLocalizedAreas( )
-    {
-        return 0;
-    }
-
-    @Override
-    public ReferenceList getCampaignAllAreas( String codeCampaign )
+    // Provides list of campaigns
+    public ReferenceList getCampaigns( )
     {
         ReferenceList allAreas = new ReferenceList( );
-        allAreas.addItem( WHOLE_AREA, WHOLE_AREA );
-        return allAreas;
-    }
-
-    @Override
-    public ReferenceList getCampaignAllAreas( )
-    {
-        ReferenceList allAreas = new ReferenceList( );
-        allAreas.addItem( WHOLE_AREA, WHOLE_AREA );
+        allAreas.addItem( CAMPAIGN_CODE, CAMPAIGN_TITLE );
         return allAreas;
     }
 
@@ -183,6 +142,63 @@ public class IdeationCampaignService implements IIdeationCampaignService
     }
 
     // *********************************************************************************************
+    // * AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA *
+    // * AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA AREA *
+    // *********************************************************************************************
+
+    @Override
+    public String getCampaignWholeArea( String codeCampaign )
+    {
+        return WHOLE_AREA;
+    }
+
+    @Override
+    public ReferenceList getCampaignLocalizedAreas( String codeCampaign )
+    {
+        return new ReferenceList( );
+    }
+
+    @Override
+    public int getCampaignNumberLocalizedAreas( String codeCampaign )
+    {
+        return 0;
+    }
+
+    @Override
+    public String getCampaignWholeArea( )
+    {
+        return WHOLE_AREA;
+    }
+
+    @Override
+    public ReferenceList getCampaignLocalizedAreas( )
+    {
+        return new ReferenceList( );
+    }
+
+    @Override
+    public int getCampaignNumberLocalizedAreas( )
+    {
+        return 0;
+    }
+
+    @Override
+    public ReferenceList getCampaignAllAreas( String codeCampaign )
+    {
+        ReferenceList allAreas = new ReferenceList( );
+        allAreas.addItem( WHOLE_AREA, WHOLE_AREA );
+        return allAreas;
+    }
+
+    @Override
+    public ReferenceList getCampaignAllAreas( )
+    {
+        ReferenceList allAreas = new ReferenceList( );
+        allAreas.addItem( WHOLE_AREA, WHOLE_AREA );
+        return allAreas;
+    }
+
+    // *********************************************************************************************
     // * THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEME *
     // * THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEME *
     // *********************************************************************************************
@@ -198,9 +214,9 @@ public class IdeationCampaignService implements IIdeationCampaignService
     {
         ReferenceList items = new ReferenceList( );
 
-        items.addItem( "SPORT", "Spooort !" );
-        items.addItem( "SOCIAL", "Social issues" );
         items.addItem( "GENERAL", "General" );
+        items.addItem( "SOCIAL", "Social issues" );
+        items.addItem( "SPORT", "Spooort !" );
 
         return items;
     }
