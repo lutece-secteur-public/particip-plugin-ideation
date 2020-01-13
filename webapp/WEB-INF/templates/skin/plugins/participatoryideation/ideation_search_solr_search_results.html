@@ -135,13 +135,13 @@ ${encoded_facets_queries}
 									<#else>
 										<option value="" >#i18n{participatoryideation.search.form.field.campaign.all}</option>
 									</#if>
-									<#list list_campagne?sort_by("title") as campagne>
-										<option value="campagne_text:${campagne.code}" <#if facet_campagne=campagne.code>selected="selected"</#if> >${campagne.title}</option>
+									<#list global_static?keys as campaign_code>
+										<#assign campaign = global_static[campaign_code]['campagne'] >
+										<option value="campagne_text:${campaign.code}" <#if facet_campagne=campaign.code>selected="selected"</#if> >${campaign.name}</option>
 									</#list>
 								</select>
 							</label>
 						</div>
-						
 
 						<div class="col-md-3 col-xs-12">
 							<#-- Location-based search -->
@@ -200,9 +200,12 @@ ${encoded_facets_queries}
 							<label class="select" for="depositaire_type">
 								<select name="fq" id="depositaire_type" onChange="searchArrond()" class="form-control">
 									<option value="" <#if facet_depositaire_type="">selected="selected"</#if> >#i18n{participatoryideation.search.form.field.submitter_type.label}</option>
-									<#list campagne_static.depositaire_types_list as depositaire_type>
+
+									<option value="" >FIXME : Themes must be recovered from SOLR facets</option>
+
+									<#-- list campagne_static.depositaire_types_list as depositaire_type>
 										<option value="code_depositaire_type_string:${depositaire_type.code}" <#if facet_depositaire_type=depositaire_type.code>selected="selected"</#if> >${depositaire_type.libelle}</option>
-									</#list>
+									</#list -->
 								</select>
 							</label>
 						</div>

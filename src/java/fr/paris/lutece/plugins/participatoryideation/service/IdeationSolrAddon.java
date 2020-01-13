@@ -43,8 +43,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import fr.paris.lutece.plugins.leaflet.business.GeolocItem;
 import fr.paris.lutece.plugins.leaflet.service.IconService;
-import fr.paris.lutece.plugins.participatorybudget.business.campaign.Campagne;
-import fr.paris.lutece.plugins.participatorybudget.business.campaign.CampagneHome;
 import fr.paris.lutece.plugins.search.solr.business.SolrSearchEngine;
 import fr.paris.lutece.plugins.search.solr.business.SolrSearchResult;
 import fr.paris.lutece.plugins.search.solr.indexer.SolrItem;
@@ -76,10 +74,7 @@ public class IdeationSolrAddon implements ISolrSearchAppAddOn
     @Override
     public void buildPageAddOn( Map<String, Object> model, HttpServletRequest request )
     {
-        Campagne lastCampagne = CampagneHome.getLastCampagne( );
-        IdeationStaticService.getInstance( ).fillCampaignStaticContent( model, lastCampagne.getCode( ) );
-
-        // IdeationStaticService.getInstance( ).fillAllStaticContent(model);
+        IdeationStaticService.getInstance( ).fillAllStaticContent( model );
 
         if ( PARAMETER_CONF_MAP.equals( request.getParameter( SOLRSEARCHAPP_PARAMETER_CONF ) ) )
         {

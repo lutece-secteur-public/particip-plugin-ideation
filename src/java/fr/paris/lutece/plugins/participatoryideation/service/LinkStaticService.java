@@ -33,14 +33,14 @@
  */
 package fr.paris.lutece.plugins.participatoryideation.service;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import fr.paris.lutece.plugins.participatorybudget.business.campaign.Campagne;
-import fr.paris.lutece.plugins.participatorybudget.business.campaign.CampagneHome;
+import fr.paris.lutece.plugins.participatoryideation.service.campaign.IdeationCampaignService;
 import fr.paris.lutece.portal.service.cache.AbstractCacheableService;
 import fr.paris.lutece.portal.service.spring.SpringContextService;
+import fr.paris.lutece.util.ReferenceItem;
+import fr.paris.lutece.util.ReferenceList;
 
 public class LinkStaticService extends AbstractCacheableService implements ILinkStaticService
 {
@@ -52,7 +52,7 @@ public class LinkStaticService extends AbstractCacheableService implements ILink
 
     private static final String MARK_GLOBAL_STATIC = "global_static";
 
-    private static final String MARK_CAMPAGNE = "campagne";
+    private static final String MARK_CAMPAGNE = "campaign";
 
     public static final String CACHE_KEY = "[linkStatic]";
 
@@ -69,13 +69,14 @@ public class LinkStaticService extends AbstractCacheableService implements ILink
     private Map<String, Object> putAllStaticContentInCache( )
     {
         Map<String, Object> content = new HashMap<String, Object>( );
-        Collection<Campagne> listCampagne = CampagneHome.getCampagnesList( );
-
-        for ( Campagne campagne : listCampagne )
+        
+        ReferenceList campaigns = IdeationCampaignService.getInstance().getCampaigns();
+        
+        for ( ReferenceItem item : campaigns )
         {
             Map<String, Object> campagneContent = new HashMap<String, Object>( );
-            campagneContent.put( MARK_CAMPAGNE, campagne );
-            content.put( campagne.getCode( ), campagneContent );
+            campagneContent.put( MARK_CAMPAGNE, item );
+            content.put( item.getCode( ), campagneContent );
         }
         putInCache( CACHE_KEY, content );
 
