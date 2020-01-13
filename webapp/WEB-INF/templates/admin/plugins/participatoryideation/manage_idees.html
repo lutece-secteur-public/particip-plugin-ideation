@@ -10,8 +10,8 @@
             <!-- Add pull-right to class1 -->
             <@actionButtons button1Name="view_initIdee" icon1="icon-plus icon-white" i18nValue1Key="participatoryideation.manage_idees.buttonAdd" />
        		  <a href="jsp/admin/plugins/extend/ViewExtenderInfo.jsp?extenderType=comment&idExtendableResource=*&extendableResourceType=IDEE&from_url=jsp/admin/plugins/participatoryideation/ManageIdees.jsp"
-               class="btn btn-primary btn-small" title="#i18n{ideation.manage_idees.viewComments}" >
-                <i class="fa fa-comments">#i18n{ideation.manage_idees.viewAllComments}</i>
+               class="btn btn-primary btn-small" title="#i18n{participatoryideation.manage_idees.viewComments}" >
+                <i class="fa fa-comments">#i18n{participatoryideation.manage_idees.viewAllComments}</i>
             </a>	
         </form>
         <@paginationAdmin paginator=paginator combo=1 />
@@ -126,8 +126,8 @@
                 <select id="sort_column" name="sort_column" class="form-control input-xs">
                 <option value="" <#if !sort_column??>selected="selected"</#if><option>
                 <#list [
-                    {"code":"reference", "name": "#i18n{ideation.manage_idees.columnReference}"},
-                    {"code":"creation_timestamp", "name": "#i18n{ideation.manage_idees.columnCreationTimestamp}"}
+                    {"code":"reference", "name": "#i18n{participatoryideation.manage_idees.columnReference}"},
+                    {"code":"creation_timestamp", "name": "#i18n{participatoryideation.manage_idees.columnCreationTimestamp}"}
                 ] as column >
                 <option value="${column.code}" <#if sort_column?? && column.code==sort_column> selected="selected"</#if>>${column.name}</option>
                 </#list>
@@ -138,8 +138,8 @@
                 <select id="sort_order" name="sort_order" class="form-control input-xs">
                 <option value="" <#if !sort_order??>selected="selected"</#if><option>
                 <#list [
-                    {"code":"ASC", "name": "#i18n{ideation.manage_idees.sortOrderAsc}"},
-                    {"code":"DESC", "name": "#i18n{ideation.manage_idees.sortOrderDesc}"}
+                    {"code":"ASC", "name": "#i18n{participatoryideation.manage_idees.sortOrderAsc}"},
+                    {"code":"DESC", "name": "#i18n{participatoryideation.manage_idees.sortOrderDesc}"}
                 ] as order >
                 <option value="${order.code}" <#if sort_order?? && order.code==sort_order> selected="selected"</#if>>${order.name}</option>
                 </#list>
@@ -158,21 +158,21 @@
     <@table>
         <tr>
             <input type="hidden" id="id" name="id"/>
-            <th>#i18n{ideation.manage_idees.columnCreationTimestamp}</th>
-            <th>#i18n{ideation.manage_idees.columnReference}</th>
-            <th>#i18n{ideation.manage_idees.columnCampagne}</th>
-            <th>#i18n{ideation.manage_idees.columnTheme}</th>
-            <th>#i18n{ideation.manage_idees.columnTitre}</th>
-            <th>#i18n{ideation.manage_idees.columnDescription}</th>
-            <th>#i18n{ideation.manage_idees.columnLocalisationType}</th>
-            <th>#i18n{ideation.manage_idees.columnLocalisationArdt}</th>
-            <th>#i18n{ideation.manage_idees.columnAdress}</th>
-            <th>#i18n{ideation.manage_idees.columnDepositaireType}</th>
-            <th>#i18n{ideation.manage_idees.columnQpvQva}</th>
-            <th>#i18n{ideation.manage_idees.columnParents}</th>
-            <th>#i18n{ideation.manage_idees.columnChilds}</th>
-            <th>#i18n{ideation.manage_idees.columnStatus}</th>
-            <th>#i18n{ideation.manage_idees.columnExportEudonet}</th>
+            <th>#i18n{participatoryideation.manage_idees.columnCreationTimestamp}</th>
+            <th>#i18n{participatoryideation.manage_idees.columnReference}</th>
+            <th>#i18n{participatoryideation.manage_idees.columnCampagne}</th>
+            <th>#i18n{participatoryideation.manage_idees.columnTheme}</th>
+            <th>#i18n{participatoryideation.manage_idees.columnTitre}</th>
+            <th>#i18n{participatoryideation.manage_idees.columnDescription}</th>
+            <th>#i18n{participatoryideation.manage_idees.columnLocalisationType}</th>
+            <th>#i18n{participatoryideation.manage_idees.columnLocalisationArdt}</th>
+            <th>#i18n{participatoryideation.manage_idees.columnAdress}</th>
+            <th>#i18n{participatoryideation.manage_idees.columnDepositaireType}</th>
+            <th>#i18n{participatoryideation.manage_idees.columnQpvQva}</th>
+            <th>#i18n{participatoryideation.manage_idees.columnParents}</th>
+            <th>#i18n{participatoryideation.manage_idees.columnChilds}</th>
+            <th>#i18n{participatoryideation.manage_idees.columnStatus}</th>
+            <th>#i18n{participatoryideation.manage_idees.columnExportEudonet}</th>
             <th>#i18n{portal.util.labelActions}</th>
         </tr>
         <@tableHeadBodySeparator />
@@ -243,11 +243,11 @@
             </a>
             </#if>
             <a href="jsp/admin/plugins/extend/ViewExtenderInfo.jsp?extenderType=comment&idExtendableResource=${idee.id}&extendableResourceType=IDEE&from_url=jsp/admin/plugins/participatoryideation/ManageIdees.jsp"
-               class="btn btn-primary btn-small" title="#i18n{ideation.manage_idees.viewComments}" >
+               class="btn btn-primary btn-small" title="#i18n{participatoryideation.manage_idees.viewComments}" >
                 <i class="fa fa-comments"></i>
             </a>
             <a href="jsp/admin/plugins/participatoryideation/DoExportCsvIdeeUsers.jsp?id=${idee.id}"
-               class="btn btn-primary btn-small" title="#i18n{ideation.manage_idees.labelExportCSV}">
+               class="btn btn-primary btn-small" title="#i18n{participatoryideation.manage_idees.labelExportCSV}">
                 <i class="fa fa-download"></i>
             </a>
         </td>

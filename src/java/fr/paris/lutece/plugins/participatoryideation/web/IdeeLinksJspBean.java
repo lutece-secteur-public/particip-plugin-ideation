@@ -47,7 +47,7 @@ import fr.paris.lutece.plugins.participatoryideation.business.IdeeHome;
 import fr.paris.lutece.plugins.participatoryideation.business.Link;
 import fr.paris.lutece.plugins.participatoryideation.business.LinkHome;
 import fr.paris.lutece.plugins.participatoryideation.business.LinkSearcher;
-import fr.paris.lutece.plugins.participatoryideation.service.LinkStaticService;
+import fr.paris.lutece.plugins.participatoryideation.service.IdeationStaticService;
 import fr.paris.lutece.portal.service.message.AdminMessage;
 import fr.paris.lutece.portal.service.message.AdminMessageService;
 import fr.paris.lutece.portal.util.mvc.admin.annotations.Controller;
@@ -183,7 +183,7 @@ public class IdeeLinksJspBean extends ManageIdeeLinksJspBean
             }
         }
 
-        LinkStaticService.getInstance( ).fillAllStaticContent( model );
+        IdeationStaticService.getInstance( ).fillAllStaticContent( model );
 
         return getPage( PROPERTY_PAGE_TITLE_MANAGE_LINKS, TEMPLATE_MANAGE_LINKS, model );
     }
@@ -208,7 +208,7 @@ public class IdeeLinksJspBean extends ManageIdeeLinksJspBean
         Map<String, Object> model = getModel( );
         model.put( MARK_LINK, _link );
 
-        LinkStaticService.getInstance( ).fillAllStaticContent( model );
+        IdeationStaticService.getInstance( ).fillAllStaticContent( model );
 
         return getPage( PROPERTY_PAGE_TITLE_CREATE_LINK, TEMPLATE_CREATE_LINK, model );
     }
@@ -265,7 +265,7 @@ public class IdeeLinksJspBean extends ManageIdeeLinksJspBean
         model.put( MARK_SEVERAL_LINKS_CHILD_CODE_CAMPAIN, _childCodeCampagne );
         model.put( MARK_SEVERAL_LINKS_CHILD_CODES_IDEES, _childCodesIdees );
 
-        LinkStaticService.getInstance( ).fillAllStaticContent( model );
+        IdeationStaticService.getInstance( ).fillAllStaticContent( model );
 
         return getPage( PROPERTY_PAGE_TITLE_CREATE_SEVERAL_LINKS, TEMPLATE_CREATE_SEVERAL_LINKS, model );
     }
@@ -405,7 +405,7 @@ public class IdeeLinksJspBean extends ManageIdeeLinksJspBean
         Map<String, Object> model = getModel( );
         model.put( MARK_LINK, _link );
 
-        LinkStaticService.getInstance( ).fillAllStaticContent( model );
+        IdeationStaticService.getInstance( ).fillAllStaticContent( model );
 
         return getPage( PROPERTY_PAGE_TITLE_MODIFY_LINK, TEMPLATE_MODIFY_LINK, model );
     }

@@ -66,7 +66,6 @@ public class IdeationStaticService extends AbstractCacheableService implements I
     private static final String MARK_CAMPAGNE = "campagne";
     
     private static final String MARK_AREA_LIST = "area_list";
-    private static final String MARK_AREA_MAP = "area_map";
     
     private static final String MARK_THEME_LIST = "theme_list";
     

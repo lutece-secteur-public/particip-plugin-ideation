@@ -10,7 +10,7 @@
         <input type="hidden" id="id" name="id"/>
 
         <div class="form-group">
-			<label class="col-xs-12 col-sm-3 col-md-3" for="parentCodeCampagne">#i18n{ideation.create_several_links.labelParentCodeCampagne} * : </label>
+			<label class="col-xs-12 col-sm-3 col-md-3" for="parentCodeCampagne">#i18n{participatoryideation.create_several_links.labelParentCodeCampagne} * : </label>
 			<div class="col-xs-12 col-sm-9 col-md-9">
  				<select id="parentCodeCampagne" name="parentCodeCampagne" class="form-control">
 					<option value=""></option>					         
@@ -19,14 +19,14 @@
 						<option value="${campagne.code}" <#if severalLinksParentCodeCampain?? && campagne.code == severalLinksParentCodeCampain> selected="selected"</#if>>${campagne.title}</option>
 					</#list>
            		</select>
-				<p class="help-block">#i18n{ideation.create_several_links.labelParentCodeCampagne.help}</p>
+				<p class="help-block">#i18n{participatoryideation.create_several_links.labelParentCodeCampagne.help}</p>
 			</div>               
         </div>
 
 		<@fieldInputText i18nLabelKey="participatoryideation.create_several_links.labelParentCodeIdee" inputName="parentCodeIdee" value="${severalLinksParentCodeIdee!}" i18nHelpBlockKey='ideation.create_several_links.labelParentCodeIdee.help' />
 
         <div class="form-group">
-			<label class="col-xs-12 col-sm-3 col-md-3" for="childCodeCampagne">#i18n{ideation.create_several_links.labelChildCodeCampagne} * : </label>
+			<label class="col-xs-12 col-sm-3 col-md-3" for="childCodeCampagne">#i18n{participatoryideation.create_several_links.labelChildCodeCampagne} * : </label>
 			<div class="col-xs-12 col-sm-9 col-md-9">
  				<select id="childCodeCampagne" name="childCodeCampagne" class="form-control">
 					<option value=""></option>					         
@@ -35,7 +35,7 @@
               			<option value="${campagne.code}" <#if severalLinksChildCodeCampain?? && campagne.code == severalLinksChildCodeCampain> selected="selected"</#if>>${campagne.title}</option>
 					</#list>
            		</select>
-				<p class="help-block">#i18n{ideation.create_several_links.labelChildCodeCampagne.help}</p>
+				<p class="help-block">#i18n{participatoryideation.create_several_links.labelChildCodeCampagne.help}</p>
 			</div>               
         </div>
 

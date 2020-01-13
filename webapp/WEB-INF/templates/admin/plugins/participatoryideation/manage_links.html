@@ -24,25 +24,25 @@
 		        <div class="row">
         		    <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
                 		 <div class="form-group">
-		                    <label for="filter_code_campagne">#i18n{ideation.manage_links.searchLabelCodeCampagne} :</label>
+		                    <label for="filter_code_campagne">#i18n{participatoryideation.manage_links.searchLabelCodeCampagne} :</label>
 		                    <select id="filter_code_campagne" name="filter_code_campagne" class="form-control input-xs">
-		                    <option value="" <#if !filter_code_campagne??>selected="selected"</#if>>#i18n{ideation.manage_links.searchLabelAll}</option>
+		                    <option value="" <#if !filter_code_campagne??>selected="selected"</#if>>#i18n{participatoryideation.manage_links.searchLabelAll}</option>
 		                    <#list global_static?keys as key>
-			                    <#assign campagne = global_static[key].campagne>
-			                    <option value="${campagne.code}" <#if filter_code_campagne?? && campagne.code==filter_code_campagne> selected="selected"</#if>>${campagne.title}</option>
+			                    <#assign campaign = global_static[key]['campagne'] >
+			                    <option value="${campaign.code}" <#if filter_code_campagne?? && campaign.code==filter_code_campagne> selected="selected"</#if>>${campaign.name}</option>
 		                    </#list>
 		                    </select>
                 		</div>
             		</div>
         		    <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
                 		 <div class="form-group">
-                    		<label for="filter_code_idee">#i18n{ideation.manage_links.searchLabelCodeIdee} :</label>
+                    		<label for="filter_code_idee">#i18n{participatoryideation.manage_links.searchLabelCodeIdee} :</label>
                     		<input type="number"  min="0" max="999999" class="form-control input-xs" name="filter_code_idee" value="${filter_code_idee!''}">
                 		</div>
             		</div>
         		    <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
                 		 <div class="form-group">
-                    		<label for="filter_title">#i18n{ideation.manage_links.searchLabelTitle} :</label>
+                    		<label for="filter_title">#i18n{participatoryideation.manage_links.searchLabelTitle} :</label>
                     		<input type="text" class="form-control input-xs" name="filter_title" value="${filter_title!''}">
                 		</div>
             		</div>
@@ -65,8 +65,8 @@
 	    <@table>
 	        <tr>
 	            <input type="hidden" id="id" name="id"/>
-	            <th>#i18n{ideation.manage_links.columnParentId}</th>
-	            <th>#i18n{ideation.manage_links.columnChildId}</th>
+	            <th>#i18n{participatoryideation.manage_links.columnParentId}</th>
+	            <th>#i18n{participatoryideation.manage_links.columnChildId}</th>
 	            <th>#i18n{portal.util.labelActions}</th>
 	        </tr>
 	        <@tableHeadBodySeparator />
