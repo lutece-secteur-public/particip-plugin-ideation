@@ -32,3 +32,13 @@ INSERT INTO task_change_idee_status_cf (id_task, idee_status) VALUES
 
 INSERT INTO task_notify_ideation_cf (id_task, sender_name, sender_email, subject, message, recipients_cc, recipients_bcc, isFollowers, isDepositaire) VALUES
 	(2, 'OpenPB', 'no-reply@openbp.org', 'Open PB - About your proposal', 'Thanks for submitting your proposal !', '', '', 0, 0);
+	
+INSERT INTO `workflow_workflow` (`id_workflow`, `name`, `description`, `creation_date`, `is_enabled`, `workgroup_key`) VALUES
+	(100, 'Proposal workflow', 'Proposal workflow', '2010-01-01 12:00:00', 1, 'all');
+
+INSERT INTO `workflow_state` (`id_state`, `name`, `description`, `id_workflow`, `is_initial_state`, `is_required_workgroup_assigned`, `id_icon`, `display_order`) VALUES
+	(100, 'Draft', 'Draft', 100, 1, 0, NULL, 1),
+	(101, 'Submitted', 'Submitted', 100, 0, 0, NULL, 2);
+	
+INSERT INTO workflow_action (id_action, name, description, id_workflow, id_state_before, id_state_after, id_icon, is_automatic, is_mass_action, display_order, is_automatic_reflexive_action) VALUES
+	(1, 'Submit', 'Used when a draft proposal is definitely submitted. ', 100, 100, 101, 1, 0, 0, 1, 0);

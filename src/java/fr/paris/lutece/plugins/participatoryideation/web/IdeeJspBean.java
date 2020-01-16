@@ -37,10 +37,9 @@ package fr.paris.lutece.plugins.participatoryideation.web;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -63,9 +62,9 @@ import fr.paris.lutece.plugins.participatoryideation.service.capgeo.QpvQvaServic
 import fr.paris.lutece.plugins.participatoryideation.util.Constants;
 import fr.paris.lutece.plugins.participatoryideation.util.CsvUtils;
 import fr.paris.lutece.plugins.participatoryideation.util.IdeeExportUtils;
+import fr.paris.lutece.plugins.workflowcore.business.state.State;
 import fr.paris.lutece.portal.business.file.File;
 import fr.paris.lutece.portal.service.admin.AccessDeniedException;
-import fr.paris.lutece.portal.service.i18n.I18nService;
 import fr.paris.lutece.portal.service.message.AdminMessage;
 import fr.paris.lutece.portal.service.message.AdminMessageService;
 import fr.paris.lutece.portal.service.spring.SpringContextService;
@@ -76,7 +75,6 @@ import fr.paris.lutece.portal.service.workflow.WorkflowService;
 import fr.paris.lutece.portal.util.mvc.admin.annotations.Controller;
 import fr.paris.lutece.portal.util.mvc.commons.annotations.Action;
 import fr.paris.lutece.portal.util.mvc.commons.annotations.View;
-import fr.paris.lutece.util.ReferenceList;
 import fr.paris.lutece.util.url.UrlItem;
 
 /**
@@ -138,8 +136,10 @@ public class IdeeJspBean extends ManageIdeationIdeesJspBean
     private static final String MARK_AREA_LIST = "area_list";
     private static final String MARK_SORT_COLUMN = "sort_column";
     private static final String MARK_SORT_ORDER = "sort_order";
-    private static final String MARK_WORKFLOW_STATES_LIST = "workflow_states_list";
-    private static final String MARK_WORKFLOW_STATES_MAP = "workflow_states_map";
+
+    private static final String MARK_WORKFLOW_STATE_MAP = "workflow_state_map"; // Workflow state of each proposal. Key = id of idee.
+    private static final String MARK_WORKFLOW_ACTIONS_MAP = "workflow_actions_map"; // Workflow actions of each proposal. Key = id of idee.
+
 
     private static final String MARK_RESOURCE_HISTORY = "workflow_history";
 
@@ -177,6 +177,10 @@ public class IdeeJspBean extends ManageIdeationIdeesJspBean
     private static final String INFO_IDEE_REMOVED = "participatoryideation.info.idee.removed";
 
     private static SolrIdeeIndexer _solrIdeeIndexer = SpringContextService.getBean( "participatoryideation.solrIdeeIndexer" );
+    
+    // Workflow
+    private static final String WORKFLOW_ID_DEFAULT = "100";
+    private static final String WORKFLOW_ID = AppPropertiesService.getProperty( Constants.PROPERTY_WORKFLOW_ID, WORKFLOW_ID_DEFAULT );
 
     // Session variable to store working values
     private IdeeBoForm _ideeBoForm;
@@ -267,19 +271,32 @@ public class IdeeJspBean extends ManageIdeationIdeesJspBean
 
         IdeationStaticService.getInstance( ).fillAllStaticContent( model );
 
-        // TODO cache this ?
-        if ( WorkflowService.getInstance( ).isAvailable( ) )
+        // Add workflow informations for each proposal
+        if ( WorkflowService.getInstance().isAvailable() )
         {
+        	// Identify workflow id
+        	int workflowId = -1;
+    		try 
+        	{
+        		workflowId = Integer.parseInt( WORKFLOW_ID );
+        	}
+        	catch ( NumberFormatException e )
+        	{
+        		workflowId = Integer.parseInt( WORKFLOW_ID_DEFAULT );
+        		AppLogService.error( "No such ideation workflow id : #" + WORKFLOW_ID + ", so using #100 by default.", e );
+        	}
+        	
+        	// Add data
+        	Map<String, State> stateMap = new HashMap<>();
+        	Map<String, Collection<fr.paris.lutece.plugins.workflowcore.business.action.Action>> actionsMap = new HashMap<>();
+        	for ( Idee idee : listIdees ) 
+        	{
+        		stateMap.put( ""+idee.getId(), WorkflowService.getInstance().getState( idee.getId(), Idee.WORKFLOW_RESOURCE_TYPE, workflowId, -1) );
+        		actionsMap.put( ""+idee.getId(), WorkflowService.getInstance().getActions( idee.getId(), Idee.WORKFLOW_RESOURCE_TYPE, workflowId, getUser() ) );
+        	}	
 
-            List<Idee.Status> enumList = Arrays.asList( Idee.Status.values( ) );
-            ReferenceList WorkflowStatesReferenceList = new ReferenceList( );
-
-            for ( Idee.Status status : enumList )
-            {
-                WorkflowStatesReferenceList.addItem( status.getValeur( ), I18nService.getLocalizedString( status.getLibelle( ), new Locale( "fr", "FR" ) ) );
-            }
-            model.put( MARK_WORKFLOW_STATES_LIST, WorkflowStatesReferenceList );
-            model.put( MARK_WORKFLOW_STATES_MAP, WorkflowStatesReferenceList.toMap( ) );
+        	model.put( MARK_WORKFLOW_STATE_MAP, stateMap );
+            model.put( MARK_WORKFLOW_ACTIONS_MAP, actionsMap );
         }
 
         return getPage( PROPERTY_PAGE_TITLE_MANAGE_IDEES, TEMPLATE_MANAGE_IDEES, model );
@@ -758,7 +775,6 @@ public class IdeeJspBean extends ManageIdeationIdeesJspBean
 
         if ( _idee.getStatusIsRemoved( ) )
         {
-            UrlItem url = new UrlItem( JSP_MANAGE_IDEES );
             Map<String, Object> requestParameters = new HashMap<String, Object>( );
             requestParameters.put( PARAMETER_PLUGIN_NAME, "participatoryideation" );
 

@@ -49,17 +49,6 @@
                 </select>
             </div>
             <div class="form-group">
-                <label for="filter_status">Status :</label>
-                <select id="filter_status" name="filter_status" class="form-control input-xs">
-                <option value="" <#if !filter_status??>selected="selected"</#if> <option>
-                <#if workflow_states_list??>
-	                <#list workflow_states_list as workflow_state>
-	                <option value="${workflow_state.code}" <#if filter_status?? && workflow_state.code==filter_status> selected="selected"</#if>> ${workflow_state.name}</option>
-	                </#list>
-	             </#if>   
-                </select>
-            </div>
-            <div class="form-group">
                 <label for="filter_handicap">Handicap :</label>
                 <select id="filter_handicap" name="filter_handicap" class="form-control input-xs">
 	                <option value="" <#if !filter_handicap??>selected="selected"</#if><option>
@@ -163,7 +152,6 @@
             <th>#i18n{participatoryideation.manage_idees.columnCampagne}</th>
             <th>#i18n{participatoryideation.manage_idees.columnTheme}</th>
             <th>#i18n{participatoryideation.manage_idees.columnTitre}</th>
-            <th>#i18n{participatoryideation.manage_idees.columnDescription}</th>
             <th>#i18n{participatoryideation.manage_idees.columnLocalisationType}</th>
             <th>#i18n{participatoryideation.manage_idees.columnLocalisationArdt}</th>
             <th>#i18n{participatoryideation.manage_idees.columnAdress}</th>
@@ -174,6 +162,8 @@
             <th>#i18n{participatoryideation.manage_idees.columnStatus}</th>
             <th>#i18n{participatoryideation.manage_idees.columnExportEudonet}</th>
             <th>#i18n{portal.util.labelActions}</th>
+            <th>#i18n{participatoryideation.manage_idees.labelWorkflowState}</th>
+            <th>#i18n{participatoryideation.manage_idees.labelWorkflowActions}</th>
         </tr>
         <@tableHeadBodySeparator />
             <#list idee_list as ideeExtra >
@@ -197,13 +187,6 @@
             </td>
             <td>
                 ${idee.titre} 
-            </td>
-             <td >
-             <#if idee.description?length &lt; 101>
-                 ${idee.description} 
-            <#else>
-                ${idee.description?substring(0,100)} ...
-            </#if>
             </td>
             <td>
                 ${idee.localisationType!''}
@@ -229,28 +212,68 @@
             <td>
                 <#list idee.childIdees as child>${child.reference} (${child.titre!})<#if child_has_next><br/></#if></#list>
             </td>
-        <td>#i18n{${idee.getStatusPublic().getLibelle()}}</td>
-        <td>${idee.exportedTag!}</td>
-        <td>
-            <a href="jsp/admin/plugins/participatoryideation/ManageIdees.jsp?view=modifyIdee&id=${idee.id}"
-               class="btn btn-primary btn-small" title="#i18n{portal.util.labelModify}">
-                <i class="fa fa-pencil"></i>
-            </a>
-            <#if idee.getStatusIsRemoved() == false> 
-            <a href="jsp/admin/plugins/participatoryideation/ManageIdees.jsp?view=confirmRemoveIdee&id=${idee.id}"
-               class="btn btn-danger btn-small" title="#i18n{portal.util.labelDelete}" >
-                <i class="fa fa-trash"></i>
-            </a>
-            </#if>
-            <a href="jsp/admin/plugins/extend/ViewExtenderInfo.jsp?extenderType=comment&idExtendableResource=${idee.id}&extendableResourceType=IDEE&from_url=jsp/admin/plugins/participatoryideation/ManageIdees.jsp"
-               class="btn btn-primary btn-small" title="#i18n{participatoryideation.manage_idees.viewComments}" >
-                <i class="fa fa-comments"></i>
-            </a>
-            <a href="jsp/admin/plugins/participatoryideation/DoExportCsvIdeeUsers.jsp?id=${idee.id}"
-               class="btn btn-primary btn-small" title="#i18n{participatoryideation.manage_idees.labelExportCSV}">
-                <i class="fa fa-download"></i>
-            </a>
-        </td>
+	        <td>#i18n{${idee.getStatusPublic().getLibelle()}}</td>
+	        <td>${idee.exportedTag!}</td>
+	        
+	        <td>
+	            <a href="jsp/admin/plugins/participatoryideation/ManageIdees.jsp?view=modifyIdee&id=${idee.id}"
+	               class="btn btn-primary btn-small" title="#i18n{portal.util.labelModify}">
+	                <i class="fa fa-pencil"></i>
+	            </a>
+	            <#if idee.getStatusIsRemoved() == false> 
+	            <a href="jsp/admin/plugins/participatoryideation/ManageIdees.jsp?view=confirmRemoveIdee&id=${idee.id}"
+	               class="btn btn-danger btn-small" title="#i18n{portal.util.labelDelete}" >
+	                <i class="fa fa-trash"></i>
+	            </a>
+	            </#if>
+	            <a href="jsp/admin/plugins/extend/ViewExtenderInfo.jsp?extenderType=comment&idExtendableResource=${idee.id}&extendableResourceType=IDEE&from_url=jsp/admin/plugins/participatoryideation/ManageIdees.jsp"
+	               class="btn btn-primary btn-small" title="#i18n{participatoryideation.manage_idees.viewComments}" >
+	                <i class="fa fa-comments"></i>
+	            </a>
+	            <a href="jsp/admin/plugins/participatoryideation/DoExportCsvIdeeUsers.jsp?id=${idee.id}"
+	               class="btn btn-primary btn-small" title="#i18n{participatoryideation.manage_idees.labelExportCSV}">
+	                <i class="fa fa-download"></i>
+	            </a>
+	        </td>
+	        
+	        <#-- Display workflow state and actions for current proopsal -->
+	        <td>
+		        <#if workflow_state_map??>
+		        	${(workflow_state_map[""+idee.id].name)!'No state'}
+		        <#else>
+		        	Disabled workflow
+		        </#if>
+		    </td>
+	        <td>
+	        <td>
+		        <#if workflow_actions_map?? && workflow_actions_map[""+idee.id]?? >
+		        	<#list workflow_actions_map[""+idee.id] as action >
+					    <a class="btn btn-primary" href="METIER_JSP_URL?id_action=${action.id}&id_resource=${idee.id}">
+					        <img src="image?resource_type=workflow_icon_img&id=${action.icon.id}"
+					            <#if action.icon.width!=-1> width="${action.icon.width}"</#if>
+					            <#if action.icon.height!=-1> height="${action.icon.height}"</#if>
+					            title="${action.name}"
+					            alt="${action.name}"/>
+					     </a>
+					</#list>
+		        <#else>
+		        	No actions
+		        </#if>
+		    </td>
+	        <td>
+	        
+	        
+	        
+<#-- if workflow_state??><#list workflow_action_list as action >
+    <a href="METIER_JSP_URL?id_action=${action.id}&id_resource=${id}">
+        <img src="image?resource_type=workflow_icon_img&id=${action.icon.id}"
+                <#if action.icon.width!=-1> width="${action.icon.width}"</#if>
+                <#if action.icon.height!=-1> height="${action.icon.height}"</#if>
+                title="${action.name}"
+                alt="${action.name}"/>
+     </a>
+</#list></#if -->
+	        </td>
         </tr>
         </#list>
     </@table>
