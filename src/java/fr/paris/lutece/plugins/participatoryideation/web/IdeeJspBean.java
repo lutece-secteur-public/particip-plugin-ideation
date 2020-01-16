@@ -75,7 +75,6 @@ import fr.paris.lutece.portal.service.workflow.WorkflowService;
 import fr.paris.lutece.portal.util.mvc.admin.annotations.Controller;
 import fr.paris.lutece.portal.util.mvc.commons.annotations.Action;
 import fr.paris.lutece.portal.util.mvc.commons.annotations.View;
-import fr.paris.lutece.util.url.UrlItem;
 
 /**
  * This class provides the user interface to manage Idee features ( manage, create, modify, remove )
@@ -97,6 +96,8 @@ public class IdeeJspBean extends ManageIdeationIdeesJspBean
     // Parameters
     private static final String PARAMETER_CAMPAIGN_CODE = "campaign_code";
     private static final String PARAMETER_ID_IDEE = "id";
+    private static final String PARAMETER_ID_ACTION = "id_action";
+    private static final String PARAMETER_ID_RESOURCE = "id_resource";
     private static final String PARAMETER_FILTER_CODE_CAMPAGNE = "filter_code_campagne";
     private static final String PARAMETER_FILTER_CODE_THEME = "filter_code_theme";
     private static final String PARAMETER_FILTER_TITRE_OU_DESCRIPTION = "filter_titre_ou_description";
@@ -140,7 +141,6 @@ public class IdeeJspBean extends ManageIdeationIdeesJspBean
     private static final String MARK_WORKFLOW_STATE_MAP = "workflow_state_map"; // Workflow state of each proposal. Key = id of idee.
     private static final String MARK_WORKFLOW_ACTIONS_MAP = "workflow_actions_map"; // Workflow actions of each proposal. Key = id of idee.
 
-
     private static final String MARK_RESOURCE_HISTORY = "workflow_history";
 
     private static final String JSP_MANAGE_IDEES = "jsp/admin/plugins/participatoryideation/ManageIdees.jsp";
@@ -151,6 +151,8 @@ public class IdeeJspBean extends ManageIdeationIdeesJspBean
     private static final String MESSAGE_ERROR_ARRONDISSEMENT_EMPTY = "participatoryideation.validation.idee.Arrondissement.notEmpty";
     private static final String MESSAGE_ERROR_ADDRESS_FORMAT = "participatoryideation.validation.idee.Address.Format";
     private static final String MESSAGE_ERROR_ADDRESS_LOCALISATION_TYPE_EMPTY = "participatoryideation.validation.idee.LocalisationType.NotEmpty";
+    private static final String MESSAGE_ERROR_IDEE_NO_SUCH_WORKFLOW_ACTION = "participatoryideation.message.error.workflow.noSuchAction";
+    private static final String MESSAGE_ERROR_IDEE_NO_SUCH_WORKFLOW_RESOURCE = "participatoryideation.message.error.workflow.noSuchResource";
 
     private static final String VALIDATION_ATTRIBUTES_PREFIX = "participatoryideation.model.entity.idee.attribute.";
 
@@ -170,6 +172,7 @@ public class IdeeJspBean extends ManageIdeationIdeesJspBean
     private static final String ACTION_SEARCH_IDEE = "searchIdee";
     private static final String ACTION_CANCEL_SEARCH = "cancelSearch";
     private static final String ACTION_CONFIRM_REMOVE_IDEE = "confirmRemoveIdee";
+    private static final String ACTION_PROCESS_WORKFLOW_ACTION = "processWorkflowAction";
 
     // Infos
     private static final String INFO_IDEE_CREATED = "participatoryideation.info.idee.created";
@@ -177,7 +180,7 @@ public class IdeeJspBean extends ManageIdeationIdeesJspBean
     private static final String INFO_IDEE_REMOVED = "participatoryideation.info.idee.removed";
 
     private static SolrIdeeIndexer _solrIdeeIndexer = SpringContextService.getBean( "participatoryideation.solrIdeeIndexer" );
-    
+
     // Workflow
     private static final String WORKFLOW_ID_DEFAULT = "100";
     private static final String WORKFLOW_ID = AppPropertiesService.getProperty( Constants.PROPERTY_WORKFLOW_ID, WORKFLOW_ID_DEFAULT );
@@ -222,47 +225,47 @@ public class IdeeJspBean extends ManageIdeationIdeesJspBean
             {
                 model.put( MARK_FILTER_CODE_CAMPAGNE, _ideeSearcher.getCodeCampagne( ) );
             }
-            
+
             if ( StringUtils.isNotBlank( _ideeSearcher.getCodeTheme( ) ) )
             {
                 model.put( MARK_FILTER_CODE_THEME, _ideeSearcher.getCodeTheme( ) );
             }
-            
+
             if ( StringUtils.isNotBlank( _ideeSearcher.getTitreOuDescriptionouRef( ) ) )
             {
                 model.put( MARK_FILTER_TITRE_OU_DESCRIPTION, _ideeSearcher.getTitreOuDescriptionouRef( ) );
             }
-            
+
             if ( _ideeSearcher.getStatusPublic( ) != null )
             {
                 model.put( PARAMETER_FILTER_PUBLIC_STATE, _ideeSearcher.getStatusPublic( ) );
             }
-            
+
             if ( StringUtils.isNotBlank( _ideeSearcher.getTypeQpvQva( ) ) )
             {
                 model.put( MARK_FILTER_QPVQVA, _ideeSearcher.getTypeQpvQva( ) );
             }
-            
+
             if ( StringUtils.isNotBlank( _ideeSearcher.getHandicap( ) ) )
             {
                 model.put( MARK_FILTER_HANDICAP, _ideeSearcher.getHandicap( ) );
             }
-            
+
             if ( StringUtils.isNotBlank( _ideeSearcher.getTypeLocalisation( ) ) )
             {
                 model.put( MARK_FILTER_TYPE_LOCALISATION, _ideeSearcher.getTypeLocalisation( ) );
             }
-            
+
             if ( StringUtils.isNotBlank( _ideeSearcher.getArrondissement( ) ) )
             {
                 model.put( MARK_FILTER_ARRONDISSEMENT, _ideeSearcher.getArrondissement( ) );
             }
-            
+
             if ( StringUtils.isNotBlank( _ideeSearcher.getOrderColumn( ) ) )
             {
                 model.put( MARK_SORT_COLUMN, _ideeSearcher.getOrderColumn( ) );
             }
-            
+
             if ( StringUtils.isNotBlank( _ideeSearcher.getOrderAscDesc( ) ) )
             {
                 model.put( MARK_SORT_ORDER, _ideeSearcher.getOrderAscDesc( ) );
@@ -272,30 +275,31 @@ public class IdeeJspBean extends ManageIdeationIdeesJspBean
         IdeationStaticService.getInstance( ).fillAllStaticContent( model );
 
         // Add workflow informations for each proposal
-        if ( WorkflowService.getInstance().isAvailable() )
+        if ( WorkflowService.getInstance( ).isAvailable( ) )
         {
-        	// Identify workflow id
-        	int workflowId = -1;
-    		try 
-        	{
-        		workflowId = Integer.parseInt( WORKFLOW_ID );
-        	}
-        	catch ( NumberFormatException e )
-        	{
-        		workflowId = Integer.parseInt( WORKFLOW_ID_DEFAULT );
-        		AppLogService.error( "No such ideation workflow id : #" + WORKFLOW_ID + ", so using #100 by default.", e );
-        	}
-        	
-        	// Add data
-        	Map<String, State> stateMap = new HashMap<>();
-        	Map<String, Collection<fr.paris.lutece.plugins.workflowcore.business.action.Action>> actionsMap = new HashMap<>();
-        	for ( Idee idee : listIdees ) 
-        	{
-        		stateMap.put( ""+idee.getId(), WorkflowService.getInstance().getState( idee.getId(), Idee.WORKFLOW_RESOURCE_TYPE, workflowId, -1) );
-        		actionsMap.put( ""+idee.getId(), WorkflowService.getInstance().getActions( idee.getId(), Idee.WORKFLOW_RESOURCE_TYPE, workflowId, getUser() ) );
-        	}	
+            // Identify workflow id
+            int workflowId = -1;
+            try
+            {
+                workflowId = Integer.parseInt( WORKFLOW_ID );
+            }
+            catch( NumberFormatException e )
+            {
+                workflowId = Integer.parseInt( WORKFLOW_ID_DEFAULT );
+                AppLogService.error( "No such ideation workflow id : #" + WORKFLOW_ID + ", so using #100 by default.", e );
+            }
 
-        	model.put( MARK_WORKFLOW_STATE_MAP, stateMap );
+            // Add data
+            Map<String, State> stateMap = new HashMap<>( );
+            Map<String, Collection<fr.paris.lutece.plugins.workflowcore.business.action.Action>> actionsMap = new HashMap<>( );
+            for ( Idee idee : listIdees )
+            {
+                stateMap.put( "" + idee.getId( ), WorkflowService.getInstance( ).getState( idee.getId( ), Idee.WORKFLOW_RESOURCE_TYPE, workflowId, -1 ) );
+                actionsMap.put( "" + idee.getId( ),
+                        WorkflowService.getInstance( ).getActions( idee.getId( ), Idee.WORKFLOW_RESOURCE_TYPE, workflowId, getUser( ) ) );
+            }
+
+            model.put( MARK_WORKFLOW_STATE_MAP, stateMap );
             model.put( MARK_WORKFLOW_ACTIONS_MAP, actionsMap );
         }
 
@@ -473,8 +477,8 @@ public class IdeeJspBean extends ManageIdeationIdeesJspBean
     // * CREATE CREATE CREATE CREATE CREATE CREATE CREATE CREATE CREATE CREATE CREATE CR *
     // * CREATE CREATE CREATE CREATE CREATE CREATE CREATE CREATE CREATE CREATE CREATE CR *
     // ***********************************************************************************
-    // * First  step : initialize the idee by specifying the campaign                    *
-    // * Second step : complete other data                                               *
+    // * First step : initialize the idee by specifying the campaign *
+    // * Second step : complete other data *
     // ***********************************************************************************
 
     @View( VIEW_INIT_IDEE )
@@ -483,7 +487,7 @@ public class IdeeJspBean extends ManageIdeationIdeesJspBean
         _idee = new Idee( );
 
         Map<String, Object> model = getModel( );
-        model.put( MARK_CAMPAIGN_LIST, IdeationCampaignService.getInstance().getCampaigns() );
+        model.put( MARK_CAMPAIGN_LIST, IdeationCampaignService.getInstance( ).getCampaigns( ) );
         model.put( MARK_IDEE, _idee );
         model.put( MARK_LANGUAGE, getLocale( ) );
 
@@ -496,24 +500,25 @@ public class IdeeJspBean extends ManageIdeationIdeesJspBean
         Map<String, Object> model = getModel( );
 
         // If no campaign specified, expect it in request.
-        if ( StringUtils.isBlank( _idee.getCodeCampagne() ) )
+        if ( StringUtils.isBlank( _idee.getCodeCampagne( ) ) )
         {
-        	_idee.setCodeCampagne( request.getParameter( PARAMETER_CAMPAIGN_CODE ) );
-        	if ( StringUtils.isBlank( _idee.getCodeCampagne() ) )
-        	{
+            _idee.setCodeCampagne( request.getParameter( PARAMETER_CAMPAIGN_CODE ) );
+            if ( StringUtils.isBlank( _idee.getCodeCampagne( ) ) )
+            {
                 Map<String, Object> requestParameters = new HashMap<String, Object>( );
                 requestParameters.put( PARAMETER_PLUGIN_NAME, "participatoryideation" );
-                String strMessageUrl = AdminMessageService.getMessageUrl( request, MESSAGE_ERROR_CAMPAIGN_NOT_SPECIFIED, JSP_MANAGE_IDEES, AdminMessage.TYPE_ERROR, requestParameters );
+                String strMessageUrl = AdminMessageService.getMessageUrl( request, MESSAGE_ERROR_CAMPAIGN_NOT_SPECIFIED, JSP_MANAGE_IDEES,
+                        AdminMessage.TYPE_ERROR, requestParameters );
                 return redirect( request, strMessageUrl );
-        	}
+            }
         }
-        	
+
         // Data depending of specified campaign
-        String campaignCode = _idee.getCodeCampagne();
+        String campaignCode = _idee.getCodeCampagne( );
         model.put( MARK_CAMPAIGN_CODE, campaignCode );
-        model.put( MARK_CAMPAGNETHEME_LIST, IdeationCampaignService.getInstance().getCampaignThemes( campaignCode ) );
-        model.put( MARK_AREA_LIST, IdeationCampaignService.getInstance().getCampaignAllAreas( campaignCode ) );
-        
+        model.put( MARK_CAMPAGNETHEME_LIST, IdeationCampaignService.getInstance( ).getCampaignThemes( campaignCode ) );
+        model.put( MARK_AREA_LIST, IdeationCampaignService.getInstance( ).getCampaignAllAreas( campaignCode ) );
+
         // Data NOT depending of specified campaign
         model.put( MARK_LOCALISATION_TYPE_LIST, IdeeService.getInstance( ).getTypeLocalisationList( ) );
         model.put( MARK_HANDICAP_LIST, IdeeService.getInstance( ).getHandicapCodesList( ) );
@@ -541,12 +546,12 @@ public class IdeeJspBean extends ManageIdeationIdeesJspBean
         }
 
         _idee.setCodeIdee( 0 );
-//        _idee.setCodeCampagne( CampagneHome.getLastCampagne( ).getCode( ) );
+        // _idee.setCodeCampagne( CampagneHome.getLastCampagne( ).getCode( ) );
         _idee.setDepositaireType( AppPropertiesService.getProperty( Constants.PROPERTY_GENERATE_IDEE_DEPOSITAIRE_TYPE ) );
         _idee.setDepositaire( AppPropertiesService.getProperty( Constants.PROPERTY_GENERATE_IDEE_DEPOSITAIRE ) );
         _idee.setLuteceUserName( AppPropertiesService.getProperty( Constants.PROPERTY_GENERATE_IDEE_LUTECE_USER_NAME ) );
         _idee.setCreationTimestamp( new java.sql.Timestamp( ( new java.util.Date( ) ).getTime( ) ) );
-        _idee.setStatusPublic( Idee.Status.STATUS_DEPOSE );
+        _idee.setStatusPublic( Idee.Status.STATUS_SUBMITTED );
         _idee.setTypeQpvQva( IdeationApp.QPV_QVA_NO );
         _idee.setDocs( new ArrayList<File>( ) );
         _idee.setImgs( new ArrayList<File>( ) );
@@ -824,6 +829,66 @@ public class IdeeJspBean extends ManageIdeationIdeesJspBean
         addInfo( INFO_IDEE_UPDATED, getLocale( ) );
 
         return redirect( request, doRemoveIdee( request ) );
+    }
+
+    // *********************************************************************************************
+    // * WORKFLOW WORKFLOW WORKFLOW WORKFLOW WORKFLOW WORKFLOW WORKFLOW WORKFLOW WORKFLOW WORKFLOW *
+    // * WORKFLOW WORKFLOW WORKFLOW WORKFLOW WORKFLOW WORKFLOW WORKFLOW WORKFLOW WORKFLOW WORKFLOW *
+    // *********************************************************************************************
+
+    /**
+     * Process an workflow action.
+     * 
+     * @param request
+     *            the HTTP request
+     * @return Manage idee admin page
+     * @throws AccessDeniedException
+     *             the access denied exception
+     */
+    @Action( ACTION_PROCESS_WORKFLOW_ACTION )
+    public String doProcessWorkflowAction( HttpServletRequest request ) throws AccessDeniedException
+    {
+        int actionId;
+        int resourceId;
+
+        // Get action id and resource id from HTTP request
+
+        String strActionId = request.getParameter( PARAMETER_ID_ACTION );
+        String strResourceId = request.getParameter( PARAMETER_ID_RESOURCE );
+
+        try
+        {
+            actionId = Integer.parseInt( strActionId );
+        }
+        catch( NumberFormatException e )
+        {
+            Object [ ] msgParams = {
+                strActionId
+            };
+            String strMessageUrl = AdminMessageService.getMessageUrl( request, MESSAGE_ERROR_IDEE_NO_SUCH_WORKFLOW_ACTION, msgParams, JSP_MANAGE_IDEES,
+                    AdminMessage.TYPE_ERROR );
+            return redirect( request, strMessageUrl );
+        }
+
+        try
+        {
+            resourceId = Integer.parseInt( strResourceId );
+        }
+        catch( NumberFormatException e )
+        {
+            Object [ ] msgParams = {
+                strResourceId
+            };
+            String strMessageUrl = AdminMessageService.getMessageUrl( request, MESSAGE_ERROR_IDEE_NO_SUCH_WORKFLOW_RESOURCE, msgParams, JSP_MANAGE_IDEES,
+                    AdminMessage.TYPE_ERROR );
+            return redirect( request, strMessageUrl );
+        }
+
+        // Process workflow action
+
+        WorkflowService.getInstance( ).doProcessAction( resourceId, Idee.WORKFLOW_RESOURCE_TYPE, actionId, -1, request, request.getLocale( ), false );
+
+        return redirectView( request, VIEW_MANAGE_IDEES );
     }
 
     // ***********************************************************************************

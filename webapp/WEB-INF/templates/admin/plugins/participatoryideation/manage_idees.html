@@ -248,11 +248,10 @@
 	        <td>
 		        <#if workflow_actions_map?? && workflow_actions_map[""+idee.id]?? >
 		        	<#list workflow_actions_map[""+idee.id] as action >
-					    <a class="btn btn-primary" href="METIER_JSP_URL?id_action=${action.id}&id_resource=${idee.id}">
+					    <a class="btn btn-primary" href="jsp/admin/plugins/participatoryideation/ManageIdees.jsp?action=processWorkflowAction&id_action=${action.id}&id_resource=${idee.id}" title="${action.name}" >
 					        <img src="image?resource_type=workflow_icon_img&id=${action.icon.id}"
 					            <#if action.icon.width!=-1> width="${action.icon.width}"</#if>
 					            <#if action.icon.height!=-1> height="${action.icon.height}"</#if>
-					            title="${action.name}"
 					            alt="${action.name}"/>
 					     </a>
 					</#list>
@@ -260,20 +259,6 @@
 		        	No actions
 		        </#if>
 		    </td>
-	        <td>
-	        
-	        
-	        
-<#-- if workflow_state??><#list workflow_action_list as action >
-    <a href="METIER_JSP_URL?id_action=${action.id}&id_resource=${id}">
-        <img src="image?resource_type=workflow_icon_img&id=${action.icon.id}"
-                <#if action.icon.width!=-1> width="${action.icon.width}"</#if>
-                <#if action.icon.height!=-1> height="${action.icon.height}"</#if>
-                title="${action.name}"
-                alt="${action.name}"/>
-     </a>
-</#list></#if -->
-	        </td>
         </tr>
         </#list>
     </@table>

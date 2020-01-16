@@ -50,7 +50,7 @@ public interface IIdeationCampaignService
 {
 
     public static final String WHOLE_AREA = "whole city";
-    
+
     // *********************************************************************************************
     // * CAMPAIGN CAMPAIGN CAMPAIGN CAMPAIGN CAMPAIGN CAMPAIGN CAMPAIGN CAMPAIGN CAMPAIGN CAMPAIGN *
     // * CAMPAIGN CAMPAIGN CAMPAIGN CAMPAIGN CAMPAIGN CAMPAIGN CAMPAIGN CAMPAIGN CAMPAIGN CAMPAIGN *
@@ -66,16 +66,24 @@ public interface IIdeationCampaignService
 
     // Provides informations about campaign dates.
     public boolean isBeforeBeginning( String codeCampaign, String phase );
+
     public boolean isAfterBeginning( String codeCampaign, String phase );
+
     public boolean isDuring( String codeCampaign, String phase );
+
     public boolean isBeforeEnd( String codeCampaign, String phase );
+
     public boolean isAfterEnd( String codeCampaign, String phase );
 
     // Same as precedent, for last campagne.
     public boolean isBeforeBeginning( String phase );
+
     public boolean isAfterBeginning( String phase );
+
     public boolean isDuring( String phase );
+
     public boolean isBeforeEnd( String phase );
+
     public boolean isAfterEnd( String phase );
 
     // *********************************************************************************************
@@ -85,14 +93,20 @@ public interface IIdeationCampaignService
 
     // Provides informations about area.
     public ReferenceList getCampaignAllAreas( String codeCampaign );
+
     public String getCampaignWholeArea( String codeCampaign );
+
     public ReferenceList getCampaignLocalizedAreas( String codeCampaign );
+
     public int getCampaignNumberLocalizedAreas( String codeCampaign );
 
     // Same as precedent, for last campagne.
     public ReferenceList getCampaignAllAreas( );
+
     public String getCampaignWholeArea( );
+
     public ReferenceList getCampaignLocalizedAreas( );
+
     public int getCampaignNumberLocalizedAreas( );
 
     // *********************************************************************************************

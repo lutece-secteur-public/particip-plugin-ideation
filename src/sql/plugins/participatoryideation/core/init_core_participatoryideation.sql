@@ -27,3 +27,20 @@ INSERT INTO core_datastore VALUES ('participatoryideation.site_property.form.app
 INSERT INTO core_datastore VALUES ('participatoryideation.site_property.form.approx.keywordResultsCount','6');
 INSERT INTO core_datastore VALUES ('participatoryideation.site_property.form.approx.locationResultsCount','6');
 INSERT INTO core_datastore VALUES ('participatoryideation.site_property.form.approx.previousCampaignsResultsCount','6');
+
+INSERT INTO workflow_action (id_action, name, description, id_workflow, id_state_before, id_state_after, id_icon, is_automatic, is_mass_action, display_order, is_automatic_reflexive_action) VALUES
+	(100, 'Submit', 'Used when a draft proposal is definitely submitted.', 100, 100, 101, 1, 0, 0, 1, 0),
+	(101, 'Reinit', 'Return to draft state. ', 100, 101, 100, 3, 0, 0, 1, 0);
+	
+	
+INSERT INTO `workflow_resource_workflow` (`id_resource`, `resource_type`, `id_state`, `id_workflow`, `id_external_parent`, `is_associated_workgroups`) VALUES 
+	(1, 'PARTICIPATORYIDEATION_PROPOSAL', 101, 100, -1, 0),
+	(2, 'PARTICIPATORYIDEATION_PROPOSAL', 100, 100, -1, 0),
+	(3, 'PARTICIPATORYIDEATION_PROPOSAL', 100, 100, -1, 0);
+
+INSERT INTO workflow_state (id_state, name, description, id_workflow, is_initial_state, is_required_workgroup_assigned, id_icon, display_order) VALUES
+	(100, 'Draft', 'Draft', 100, 1, 0, NULL, 1),
+	(101, 'Submitted', 'Submitted', 100, 0, 0, NULL, 2);
+	
+INSERT INTO workflow_workflow (id_workflow, name, description, creation_date, is_enabled, workgroup_key) VALUES
+	(100, 'Proposal workflow', 'Proposal workflow', '2010-01-01 12:00:00', 1, 'all');

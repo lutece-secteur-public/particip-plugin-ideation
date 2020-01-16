@@ -41,9 +41,9 @@ import fr.paris.lutece.util.ReferenceList;
  */
 public class IdeationCampaignService implements IIdeationCampaignService
 {
-	
-	private static final String CAMPAIGN_CODE  = "A";
-	private static final String CAMPAIGN_TITLE = "Ideation";
+
+    private static final String CAMPAIGN_CODE = "A";
+    private static final String CAMPAIGN_TITLE = "Ideation";
 
     // *********************************************************************************************
     // * SINGLETON SINGLETON SINGLETON SINGLETON SINGLETON SINGLETON SINGLETON SINGLETON SINGLETON *
