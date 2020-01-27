@@ -113,6 +113,7 @@
         <componentName>participatoryideation</componentName>
         <jiraProjectName>PARTIDEA</jiraProjectName>
         <jiraComponentId>15760</jiraComponentId>
+        <jenkins.mailing.list>ML_JENKINS_BP</jenkins.mailing.list>
     </properties>
 
     <scm>
