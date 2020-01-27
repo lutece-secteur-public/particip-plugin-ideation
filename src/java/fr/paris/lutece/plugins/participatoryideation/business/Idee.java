@@ -115,7 +115,7 @@ public class Idee implements Serializable, IExtendableResource
     public enum Status
     {
 
-        STATUS_DEPOSE( "DEPOSE", "participatoryideation.message.labelStatusDepose", true ), STATUS_EN_CO_CONSTRUCTION( "ENCOCONSTRUCTION",
+        STATUS_SUBMITTED( "SUBMITTED", "participatoryideation.message.labelStatusSubmitted", true ), STATUS_EN_CO_CONSTRUCTION( "ENCOCONSTRUCTION",
                 "participatoryideation.message.labelStatusEnCoConstruction", true ), STATUS_REGROUPE( "REGROUPE",
                 "participatoryideation.message.labelStatusRegroupe", true ), STATUS_A_ETUDE( "AETUDE", "participatoryideation.message.labelAEtude", true ), STATUS_RETENU(
                 "RETENU", "participatoryideation.message.labelRetenu", true ), STATUS_NON_RETENU( "NONRETENU", "participatoryideation.message.labelNonRetenu",

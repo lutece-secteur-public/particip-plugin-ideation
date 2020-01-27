@@ -104,7 +104,7 @@ public abstract class AbstractRestBasedService
                     for ( int i = 0; i < len; i++ )
                     {
                         JSONObject item = jsonArray.getJSONObject( i );
-                        listAreas.addItem( item.getString( "code" ), item.getString( "name" ) );
+                        listAreas.addItem( item.getString( "code" ), item.isNull( "title" ) ? item.getString( "name" ) : item.getString( "title" ) );
                     }
                 }
             }

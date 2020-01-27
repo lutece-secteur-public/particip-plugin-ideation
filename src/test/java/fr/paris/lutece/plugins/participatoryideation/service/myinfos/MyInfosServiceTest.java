@@ -50,11 +50,11 @@ public class MyInfosServiceTest extends LuteceTestCase
 
         // Methods about validation
         assertEquals( true, instance.isUserValid( "user123" ) );
-        
+
         // Methods about completing myinfos
-        
-        System.out.println ( instance.getUrlMyInfosFillAction() );
-        
-        assertEquals( "jsp/site/Portal.jsp?page=mesInfos&view=mesinfos&completeInfos=true", instance.getUrlMyInfosFillAction() );
+
+        System.out.println( instance.getUrlMyInfosFillAction( ) );
+
+        assertEquals( "jsp/site/Portal.jsp?page=mesInfos&view=mesinfos&completeInfos=true", instance.getUrlMyInfosFillAction( ) );
     }
 }

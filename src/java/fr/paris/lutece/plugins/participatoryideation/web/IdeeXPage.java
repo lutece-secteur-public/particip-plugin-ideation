@@ -173,7 +173,7 @@ public class IdeeXPage extends MVCApplication
         {
             if ( !checkUserAuthorized( request ) )
             {
-                return redirect( request, AppPathService.getProdUrl( request ) + MyInfosService.getInstance().getUrlMyInfosFillAction() );
+                return redirect( request, AppPathService.getProdUrl( request ) + MyInfosService.getInstance( ).getUrlMyInfosFillAction( ) );
             }
         }
 
@@ -338,7 +338,7 @@ public class IdeeXPage extends MVCApplication
             {
                 throw new UserNotSignedException( );
             }
-            return MyInfosService.getInstance().isUserValid( user.getName() );
+            return MyInfosService.getInstance( ).isUserValid( user.getName( ) );
 
         }
         return false;

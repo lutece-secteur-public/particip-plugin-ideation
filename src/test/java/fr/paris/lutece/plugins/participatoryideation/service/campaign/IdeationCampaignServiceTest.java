@@ -52,10 +52,10 @@ public class IdeationCampaignServiceTest extends LuteceTestCase
         assertEquals( IdeationCampaignService.class, instance.getClass( ) );
 
         // Methods about campaign
-        assertEquals( 1, instance.getCampaigns().size() );
-        assertEquals( "A", instance.getCampaigns().iterator().next().getCode() );
-        assertEquals( "Ideation", instance.getCampaigns().iterator().next().getName() );
-        
+        assertEquals( 1, instance.getCampaigns( ).size( ) );
+        assertEquals( "A", instance.getCampaigns( ).iterator( ).next( ).getCode( ) );
+        assertEquals( "Ideation", instance.getCampaigns( ).iterator( ).next( ).getName( ) );
+
         // Methods about phases
         assertEquals( true, instance.isAfterBeginning( Constants.IDEATION ) );
         assertEquals( true, instance.isAfterBeginning( "123", Constants.IDEATION ) );

@@ -251,13 +251,13 @@ public class IdeationApp extends MVCApplication
     @Override
     public XPage getPage( HttpServletRequest request, int nMode, Plugin plugin ) throws SiteMessageException, UserNotSignedException
     {
-    	// Verify campaign is specified and open
+        // Verify campaign is specified and open
         checkIdeationCampaignPhase( request );
 
         // If user's personal infos not filled, then redirect to the 'complete myinfos' webpage
         if ( !checkUserAuthorized( request ) )
         {
-            return redirect( request, MyInfosService.getInstance().getUrlMyInfosFillAction() );
+            return redirect( request, MyInfosService.getInstance( ).getUrlMyInfosFillAction( ) );
         }
 
         // Some automatic stuff
@@ -956,7 +956,7 @@ public class IdeationApp extends MVCApplication
         try
         {
             _ideeCreate.setCreationTimestamp( new java.sql.Timestamp( ( new java.util.Date( ) ).getTime( ) ) );
-            _ideeCreate.setStatusPublic( Idee.Status.STATUS_DEPOSE );
+            _ideeCreate.setStatusPublic( Idee.Status.STATUS_SUBMITTED );
 
             IdeeService.getInstance( ).createIdee( _ideeCreate );
             createWorkflowResource( _ideeCreate, request );
