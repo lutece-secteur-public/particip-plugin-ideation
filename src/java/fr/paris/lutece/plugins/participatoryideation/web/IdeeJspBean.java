@@ -687,8 +687,8 @@ public class IdeeJspBean extends ManageIdeationIdeesJspBean
         if ( WorkflowService.getInstance( ).isAvailable( ) )
         {
             int idWorkflow = AppPropertiesService.getPropertyInt( Constants.PROPERTY_WORKFLOW_ID, -1 );
-            model.put( MARK_RESOURCE_HISTORY,
-                    WorkflowService.getInstance( ).getDisplayDocumentHistory( _idee.getId( ), Idee.WORKFLOW_RESOURCE_TYPE, idWorkflow, request, getLocale( ) ) );
+            model.put( MARK_RESOURCE_HISTORY, WorkflowService.getInstance( ).getDisplayDocumentHistory( _idee.getId( ), Idee.WORKFLOW_RESOURCE_TYPE, idWorkflow,
+                    request, getLocale( ) ) );
         }
 
         return getPage( PROPERTY_PAGE_TITLE_MODIFY_IDEE, TEMPLATE_MODIFY_IDEE, model );
@@ -862,7 +862,7 @@ public class IdeeJspBean extends ManageIdeationIdeesJspBean
         catch( NumberFormatException e )
         {
             Object [ ] msgParams = {
-                strActionId
+                    strActionId
             };
             String strMessageUrl = AdminMessageService.getMessageUrl( request, MESSAGE_ERROR_IDEE_NO_SUCH_WORKFLOW_ACTION, msgParams, JSP_MANAGE_IDEES,
                     AdminMessage.TYPE_ERROR );
@@ -876,7 +876,7 @@ public class IdeeJspBean extends ManageIdeationIdeesJspBean
         catch( NumberFormatException e )
         {
             Object [ ] msgParams = {
-                strResourceId
+                    strResourceId
             };
             String strMessageUrl = AdminMessageService.getMessageUrl( request, MESSAGE_ERROR_IDEE_NO_SUCH_WORKFLOW_RESOURCE, msgParams, JSP_MANAGE_IDEES,
                     AdminMessage.TYPE_ERROR );

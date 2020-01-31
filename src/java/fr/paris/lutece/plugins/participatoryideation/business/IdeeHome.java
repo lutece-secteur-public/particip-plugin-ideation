@@ -211,9 +211,10 @@ public final class IdeeHome
         }
     }
 
-    /* ***********************************************************************************
-     * SUB_INFOS SUB_INFOS SUB_INFOS SUB_INFOS SUB_INFOS SUB_INFOS SUB_INFOS SUB_INFOS * SUB_INFOS SUB_INFOS SUB_INFOS SUB_INFOS SUB_INFOS SUB_INFOS SUB_INFOS
-     * SUB_INFOS ***********************************************************************************
+    /*
+     * *********************************************************************************** SUB_INFOS SUB_INFOS SUB_INFOS SUB_INFOS SUB_INFOS SUB_INFOS SUB_INFOS
+     * SUB_INFOS * SUB_INFOS SUB_INFOS SUB_INFOS SUB_INFOS SUB_INFOS SUB_INFOS SUB_INFOS SUB_INFOS
+     * ***********************************************************************************
      */
 
     /**
@@ -359,8 +360,8 @@ public final class IdeeHome
         }
         else
             if ( nbPart == 0 && nbAsso == 1 && nbCons == 0 && nbAutr == 0 )
-                childrenPseudos.append( "Ce projet a été élaboré sur proposition de l’association « "
-                        + IdeeHome.findByPrimaryKey( _nIds.get( 0 ) ).getDepositaire( ) + " »" );
+                childrenPseudos.append(
+                        "Ce projet a été élaboré sur proposition de l’association « " + IdeeHome.findByPrimaryKey( _nIds.get( 0 ) ).getDepositaire( ) + " »" );
             else
                 if ( nbPart == 0 && nbAsso == 0 && nbCons == 1 && nbAutr == 0 )
                     childrenPseudos.append( "Ce projet a été élaboré sur proposition du conseil de quartier « "

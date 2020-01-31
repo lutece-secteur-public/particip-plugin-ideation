@@ -160,14 +160,14 @@ public class FormEtapeDescription extends AbstractFormEtape
                 if ( getDescription( ).trim( ).replaceAll( "(\\r\\n|\\n\\r)", " " ).length( ) > nMax )
                 {
                     listErrors.add( I18nService.getLocalizedString( I18N_ERROR_DESCRIPTION_MAX_LENGTH, new String [ ] {
-                        Integer.toString( nMax )
+                            Integer.toString( nMax )
                     }, locale ) );
                 }
             }
             catch( NumberFormatException nfe )
             {
-                AppLogService.error( "IdeationApp: NumberFormatException when parsing max Description length from datastore, key "
-                        + DSKEY_DESCRIPTION_MAX_LENGTH, nfe );
+                AppLogService.error(
+                        "IdeationApp: NumberFormatException when parsing max Description length from datastore, key " + DSKEY_DESCRIPTION_MAX_LENGTH, nfe );
             }
         }
 
@@ -180,14 +180,14 @@ public class FormEtapeDescription extends AbstractFormEtape
                 if ( getDescription( ).trim( ).length( ) < nMin )
                 {
                     listErrors.add( I18nService.getLocalizedString( I18N_ERROR_DESCRIPTION_MIN_LENGTH, new String [ ] {
-                        Integer.toString( nMin )
+                            Integer.toString( nMin )
                     }, locale ) );
                 }
             }
             catch( NumberFormatException nfe )
             {
-                AppLogService.error( "IdeationApp: NumberFormatException when parsing max Description length from datastore, key "
-                        + DSKEY_DESCRIPTION_MAX_LENGTH, nfe );
+                AppLogService.error(
+                        "IdeationApp: NumberFormatException when parsing max Description length from datastore, key " + DSKEY_DESCRIPTION_MAX_LENGTH, nfe );
             }
         }
 
@@ -202,7 +202,7 @@ public class FormEtapeDescription extends AbstractFormEtape
                     if ( getHandicapComplement( ).trim( ).length( ) < nMin )
                     {
                         listErrors.add( I18nService.getLocalizedString( I18N_ERROR_HANDICAP_COMPLEMENT_MIN_LENGTH, new String [ ] {
-                            Integer.toString( nMin )
+                                Integer.toString( nMin )
                         }, locale ) );
                     }
                 }
@@ -222,7 +222,7 @@ public class FormEtapeDescription extends AbstractFormEtape
                     if ( getHandicapComplement( ).trim( ).length( ) > nMax )
                     {
                         listErrors.add( I18nService.getLocalizedString( I18N_ERROR_HANDICAP_COMPLEMENT_MAX_LENGTH, new String [ ] {
-                            Integer.toString( nMax )
+                                Integer.toString( nMax )
                         }, locale ) );
                     }
                 }
@@ -245,7 +245,7 @@ public class FormEtapeDescription extends AbstractFormEtape
                     if ( getOperatingbudget( ).trim( ).length( ) < nMin )
                     {
                         listErrors.add( I18nService.getLocalizedString( I18N_ERROR_OPERATINGBUDGET_MIN_LENGTH, new String [ ] {
-                            Integer.toString( nMin )
+                                Integer.toString( nMin )
                         }, locale ) );
                     }
                 }
@@ -265,7 +265,7 @@ public class FormEtapeDescription extends AbstractFormEtape
                     if ( getOperatingbudget( ).trim( ).length( ) > nMax )
                     {
                         listErrors.add( I18nService.getLocalizedString( I18N_ERROR_OPERATINGBUDGET_MAX_LENGTH, new String [ ] {
-                            Integer.toString( nMax )
+                                Integer.toString( nMax )
                         }, locale ) );
                     }
                 }

@@ -138,7 +138,8 @@ public class IdeationStaticService extends AbstractCacheableService implements I
             {
                 if ( status.isPublished( ) )
                 {
-                    WorkflowStatesReferenceList.addItem( status.getValeur( ), I18nService.getLocalizedString( status.getLibelle( ), new Locale( "fr", "FR" ) ) );
+                    WorkflowStatesReferenceList.addItem( status.getValeur( ),
+                            I18nService.getLocalizedString( status.getLibelle( ), new Locale( "fr", "FR" ) ) );
                 }
             }
             model.put( MARK_LIST_STATUS_STATIC, WorkflowStatesReferenceList );

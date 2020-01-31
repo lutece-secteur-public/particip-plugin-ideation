@@ -33,12 +33,21 @@
  */
 package fr.paris.lutece.plugins.participatoryideation.service.rest;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
-import fr.paris.lutece.plugins.participatoryideation.service.processor.IdeationClientProcessor;
+import fr.paris.lutece.plugins.participatoryideation.service.authentication.RequestAuthenticationService;
 import fr.paris.lutece.portal.service.util.AppLogService;
 import fr.paris.lutece.util.ReferenceList;
+import fr.paris.lutece.util.httpaccess.HttpAccess;
+import fr.paris.lutece.util.httpaccess.HttpAccessException;
+import fr.paris.lutece.util.signrequest.RequestAuthenticator;
 
 /**
  * This class provides some util methods for rest-based services.
@@ -47,18 +56,92 @@ public abstract class AbstractRestBasedService
 {
 
     // *********************************************************************************************
-    // * UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS *
-    // * UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS UTILS *
+    // * GET-POST GET-POST GET-POST GET-POST GET-POST GET-POST GET-POST GET-POST GET-POST GET-POST *
+    // * GET-POST GET-POST GET-POST GET-POST GET-POST GET-POST GET-POST GET-POST GET-POST GET-POST *
+    // *********************************************************************************************
+
+    /**
+     * Perform a get HTTP request, expecting a JSon formatted result.
+     */
+    protected JSONObject doGetJSon( String url )
+    {
+        try
+        {
+            RequestAuthenticator authenticator = RequestAuthenticationService.getRequestAuthenticator( );
+            return new JSONObject( new HttpAccess( ).doGet( url, authenticator, Arrays.asList( ) ) );
+        }
+        catch( Exception e )
+        {
+            AppLogService.error( "An error occurs when calling '" + url + "'", e );
+            return null;
+        }
+    }
+
+    /**
+     * Perform a post HTTP request with parameters as Map, expecting a JSon formatted result.
+     */
+    protected JSONObject doPostJSon( String url, Map<String, String> params ) throws JSONException, HttpAccessException
+    {
+        try
+        {
+            RequestAuthenticator authenticator = RequestAuthenticationService.getRequestAuthenticator( );
+            return new JSONObject( new HttpAccess( ).doPost( url, params, authenticator, Arrays.asList( ) ) );
+        }
+        catch( Exception e )
+        {
+            AppLogService.error( "An error occured when calling '" + url + "'", e );
+            return null;
+        }
+    }
+
+    // *********************************************************************************************
+    // * MAP-POST MAP-POST MAP-POST MAP-POST MAP-POST MAP-POST MAP-POST MAP-POST MAP-POST MAP-POST *
+    // * MAP-POST MAP-POST MAP-POST MAP-POST MAP-POST MAP-POST MAP-POST MAP-POST MAP-POST MAP-POST *
+    // *********************************************************************************************
+
+    /**
+     * Post a map, parse and return another map.
+     */
+    protected Map<String, String> doPostMapToMap( JSONObject json )
+    {
+        Map<String, String> map = new HashMap<>( );
+        try
+        {
+            if ( json.getString( "status" ).equals( "OK" ) )
+            {
+                JSONObject jsonResult = json.getJSONObject( "result" );
+                if ( jsonResult != null )
+                {
+                    @SuppressWarnings( "unchecked" )
+                    Iterator<String> keys = json.keys( );
+                    while ( keys.hasNext( ) )
+                    {
+                        String key = keys.next( );
+                        map.put( key, json.getString( key ) );
+                    }
+                }
+            }
+            return map;
+        }
+        catch( Exception e )
+        {
+            AppLogService.error( e.getMessage( ), e );
+            return map;
+        }
+    }
+
+    // *********************************************************************************************
+    // * PARSE PARSE PARSE PARSE PARSE PARSE PARSE PARSE PARSE PARSE PARSE PARSE PARSE PARSE PARSE *
+    // * PARSE PARSE PARSE PARSE PARSE PARSE PARSE PARSE PARSE PARSE PARSE PARSE PARSE PARSE PARSE *
     // *********************************************************************************************
 
     /**
      * Parse a String typed REST response.
      */
-    protected String parseString( String restRequest )
+    protected String parseString( JSONObject json )
     {
         try
         {
-            JSONObject json = new JSONObject( IdeationClientProcessor.getProcess( restRequest ) );
             return json.getString( "result" );
         }
         catch( Exception e )
@@ -71,11 +154,10 @@ public abstract class AbstractRestBasedService
     /**
      * Parse a boolean typed REST response.
      */
-    protected boolean parseBoolean( String restRequest )
+    protected boolean parseBoolean( JSONObject json )
     {
         try
         {
-            JSONObject json = new JSONObject( IdeationClientProcessor.getProcess( restRequest ) );
             return json.getBoolean( "result" );
         }
         catch( Exception e )
@@ -88,15 +170,14 @@ public abstract class AbstractRestBasedService
     /**
      * Parse a ReferenceList typed REST response.
      */
-    protected ReferenceList parseReferenceList( String restRequest )
+    protected ReferenceList parseReferenceList( JSONObject json )
     {
         ReferenceList listAreas = new ReferenceList( );
         try
         {
-            JSONObject jsonResult = new JSONObject( IdeationClientProcessor.getProcess( restRequest ) );
-            if ( jsonResult.getString( "status" ).equals( "OK" ) )
+            if ( json.getString( "status" ).equals( "OK" ) )
             {
-                JSONArray jsonArray = jsonResult.getJSONArray( "result" );
+                JSONArray jsonArray = json.getJSONArray( "result" );
 
                 if ( jsonArray != null )
                 {
@@ -121,15 +202,14 @@ public abstract class AbstractRestBasedService
     /**
      * Parse a list of value REST response.
      */
-    protected ReferenceList parseValueList( String restRequest )
+    protected ReferenceList parseValueList( JSONObject json )
     {
         ReferenceList listAreas = new ReferenceList( );
         try
         {
-            JSONObject jsonResult = new JSONObject( IdeationClientProcessor.getProcess( restRequest ) );
-            if ( jsonResult.getString( "status" ).equals( "OK" ) )
+            if ( json.getString( "status" ).equals( "OK" ) )
             {
-                JSONArray jsonArray = jsonResult.getJSONArray( "result" );
+                JSONArray jsonArray = json.getJSONArray( "result" );
 
                 if ( jsonArray != null )
                 {
@@ -153,14 +233,13 @@ public abstract class AbstractRestBasedService
     /**
      * Count number of key/value in such typed REST response.
      */
-    protected int countValueList( String restRequest )
+    protected int countValueList( JSONObject json )
     {
         try
         {
-            JSONObject areasJson = new JSONObject( IdeationClientProcessor.getProcess( restRequest ) );
-            if ( areasJson.getString( "status" ).equals( "OK" ) )
+            if ( json.getString( "status" ).equals( "OK" ) )
             {
-                JSONArray jsonArray = areasJson.getJSONArray( "result" );
+                JSONArray jsonArray = json.getJSONArray( "result" );
                 return jsonArray.length( );
             }
 

@@ -77,7 +77,7 @@ public final class DepositaireTypeDAO implements IDepositaireTypeDAO
     {
         int nKey = 1;
 
-        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_NEW_PK, plugin ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_NEW_PK, plugin ) )
         {
             daoUtil.executeQuery( );
 
@@ -96,7 +96,7 @@ public final class DepositaireTypeDAO implements IDepositaireTypeDAO
     @Override
     public void insert( DepositaireType depositaire, Plugin plugin )
     {
-        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT, plugin ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT, plugin ) )
         {
             depositaire.setId( newPrimaryKey( plugin ) );
 
@@ -117,7 +117,7 @@ public final class DepositaireTypeDAO implements IDepositaireTypeDAO
     {
         DepositaireType depositaire = null;
 
-        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT, plugin ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT, plugin ) )
         {
             daoUtil.setInt( 1, nKey );
             daoUtil.executeQuery( );
@@ -139,7 +139,7 @@ public final class DepositaireTypeDAO implements IDepositaireTypeDAO
     {
         DepositaireType depositaire = null;
 
-        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT_BY_CODE, plugin ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT_BY_CODE, plugin ) )
         {
             daoUtil.setString( 1, strCode );
             daoUtil.executeQuery( );
@@ -159,7 +159,7 @@ public final class DepositaireTypeDAO implements IDepositaireTypeDAO
     @Override
     public void delete( int nKey, Plugin plugin )
     {
-        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE, plugin ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE, plugin ) )
         {
             daoUtil.setInt( 1, nKey );
             daoUtil.executeUpdate( );
@@ -172,7 +172,7 @@ public final class DepositaireTypeDAO implements IDepositaireTypeDAO
     @Override
     public void store( DepositaireType depositaire, Plugin plugin )
     {
-        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE, plugin ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE, plugin ) )
         {
             daoUtil.setInt( 1, depositaire.getId( ) );
             daoUtil.setString( 2, depositaire.getCode( ) );
@@ -192,7 +192,7 @@ public final class DepositaireTypeDAO implements IDepositaireTypeDAO
     {
         Collection<DepositaireType> depositaireList = new ArrayList<>( );
 
-        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL, plugin ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL, plugin ) )
         {
             daoUtil.executeQuery( );
 
@@ -220,7 +220,7 @@ public final class DepositaireTypeDAO implements IDepositaireTypeDAO
     {
         Collection<Integer> depositaireList = new ArrayList<>( );
 
-        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL_ID, plugin ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL_ID, plugin ) )
         {
             daoUtil.executeQuery( );
 
@@ -241,7 +241,7 @@ public final class DepositaireTypeDAO implements IDepositaireTypeDAO
     {
         List<DepositaireType> depositaireList = new ArrayList<>( );
 
-        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL_BY_CAMPAGNE, plugin ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL_BY_CAMPAGNE, plugin ) )
         {
             daoUtil.setString( 1, strCampagneCode );
             daoUtil.executeQuery( );
@@ -281,7 +281,7 @@ public final class DepositaireTypeDAO implements IDepositaireTypeDAO
 
         String queryStr = ( strCampagneCode != null ) ? SQL_QUERY_SELECTALL_VALUES_BY_CAMPAGNE : SQL_QUERY_SELECTALL_DISTINCT_VALUES;
 
-        try( DAOUtil daoUtil = new DAOUtil( queryStr, plugin ) )
+        try ( DAOUtil daoUtil = new DAOUtil( queryStr, plugin ) )
         {
             if ( strCampagneCode != null )
             {
@@ -330,7 +330,7 @@ public final class DepositaireTypeDAO implements IDepositaireTypeDAO
     {
         Map<String, List<DepositaireType>> depositaireTypeMap = new HashMap<>( );
 
-        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL_JOIN_CAMPAGNE, plugin ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL_JOIN_CAMPAGNE, plugin ) )
         {
             daoUtil.executeQuery( );
 

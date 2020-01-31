@@ -99,7 +99,7 @@ public final class IdeeDAO implements IIdeeDAO
     {
         int nKey = 1;
 
-        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_NEW_PK, plugin ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_NEW_PK, plugin ) )
         {
             daoUtil.executeQuery( );
 
@@ -123,7 +123,7 @@ public final class IdeeDAO implements IIdeeDAO
     {
         int nKey = 1;
 
-        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_NEW_CODE_IDEE, plugin ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_NEW_CODE_IDEE, plugin ) )
         {
             daoUtil.setString( 1, strCodeCampagne );
             daoUtil.executeQuery( );
@@ -143,7 +143,7 @@ public final class IdeeDAO implements IIdeeDAO
     @Override
     public void insert( Idee idee, Plugin plugin )
     {
-        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT, plugin ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT, plugin ) )
         {
             int nCpt = 1;
 
@@ -241,7 +241,7 @@ public final class IdeeDAO implements IIdeeDAO
     {
         int nKey = 1;
 
-        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_NEW_PK_FILE, plugin ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_NEW_PK_FILE, plugin ) )
         {
             daoUtil.executeQuery( );
 
@@ -256,7 +256,7 @@ public final class IdeeDAO implements IIdeeDAO
 
     private void insertFile( String string, int id, int id2, Plugin plugin )
     {
-        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT_FILE, plugin ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT_FILE, plugin ) )
         {
             daoUtil.setInt( 1, newPrimaryKeyFile( plugin ) );
             daoUtil.setInt( 2, id );
@@ -275,7 +275,7 @@ public final class IdeeDAO implements IIdeeDAO
     {
         Idee idee = null;
 
-        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT, plugin ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT, plugin ) )
         {
             daoUtil.setInt( 1, nKey );
             daoUtil.executeQuery( );
@@ -303,7 +303,7 @@ public final class IdeeDAO implements IIdeeDAO
     {
         Idee idee = null;
 
-        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT_BY_CODES, plugin ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT_BY_CODES, plugin ) )
         {
             daoUtil.setString( 1, strCodeCampagne );
             daoUtil.setInt( 2, nCodeIdee );
@@ -326,7 +326,7 @@ public final class IdeeDAO implements IIdeeDAO
 
     private void loadFileIds( Idee idee, Plugin plugin )
     {
-        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT_FILE, plugin ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT_FILE, plugin ) )
         {
             daoUtil.setInt( 1, idee.getId( ) );
             daoUtil.executeQuery( );
@@ -360,7 +360,7 @@ public final class IdeeDAO implements IIdeeDAO
 
     private void loadLinkedIdees( Idee idee, Plugin plugin )
     {
-        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT_CHILD_IDEES, plugin ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT_CHILD_IDEES, plugin ) )
         {
             daoUtil.setInt( 1, idee.getId( ) );
             daoUtil.executeQuery( );
@@ -368,7 +368,7 @@ public final class IdeeDAO implements IIdeeDAO
             idee.setChildIdees( listIdees );
         }
 
-        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT_PARENT_IDEES, plugin ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT_PARENT_IDEES, plugin ) )
         {
             daoUtil.setInt( 1, idee.getId( ) );
             daoUtil.executeQuery( );
@@ -418,7 +418,7 @@ public final class IdeeDAO implements IIdeeDAO
     @Override
     public int hasParent( int nIdIdee, Plugin plugin )
     {
-        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT_PARENT_IDEES, plugin ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT_PARENT_IDEES, plugin ) )
         {
             daoUtil.setInt( 1, nIdIdee );
             daoUtil.executeQuery( );
@@ -437,7 +437,7 @@ public final class IdeeDAO implements IIdeeDAO
     @Override
     public void storeBO( Idee idee, Plugin plugin )
     {
-        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE, plugin ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE, plugin ) )
         {
             int nCpt = 1;
 
@@ -513,7 +513,7 @@ public final class IdeeDAO implements IIdeeDAO
         Map<Integer, Idee> ideeMap = new LinkedHashMap<Integer, Idee>( );
 
         String queryStr = ( ideeSearcher != null ) ? appendFilters( SQL_QUERY_SELECTALL, ideeSearcher ) : SQL_QUERY_SELECTALL;
-        try( DAOUtil daoUtil = new DAOUtil( queryStr, plugin ) )
+        try ( DAOUtil daoUtil = new DAOUtil( queryStr, plugin ) )
         {
             if ( ideeSearcher != null )
             {
@@ -552,7 +552,7 @@ public final class IdeeDAO implements IIdeeDAO
         }
 
         // TODO do we need to filter these ?
-        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL_FILES, plugin ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL_FILES, plugin ) )
         {
             daoUtil.executeQuery( );
             while ( daoUtil.next( ) )
@@ -582,7 +582,7 @@ public final class IdeeDAO implements IIdeeDAO
         }
 
         // TODO do we need to filter these ?
-        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL_LINKS, plugin ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL_LINKS, plugin ) )
         {
             daoUtil.executeQuery( );
             while ( daoUtil.next( ) )
@@ -619,7 +619,7 @@ public final class IdeeDAO implements IIdeeDAO
     {
         Collection<Integer> ideeList = new ArrayList<Integer>( );
 
-        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL_ID, plugin ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL_ID, plugin ) )
         {
             daoUtil.executeQuery( );
 
@@ -774,8 +774,9 @@ public final class IdeeDAO implements IIdeeDAO
         }
 
         // Create the order by clause without SQL Injection
-        String strOrder = IdeeSearcher.ORDER_ASC.equals( ideeSearcher.getOrderAscDesc( ) ) || IdeeSearcher.ORDER_DESC.equals( ideeSearcher.getOrderAscDesc( ) ) ? ideeSearcher
-                .getOrderAscDesc( ) : null;
+        String strOrder = IdeeSearcher.ORDER_ASC.equals( ideeSearcher.getOrderAscDesc( ) ) || IdeeSearcher.ORDER_DESC.equals( ideeSearcher.getOrderAscDesc( ) )
+                ? ideeSearcher.getOrderAscDesc( )
+                : null;
         StringBuilder stringBuilderOrderBy = new StringBuilder( );
         if ( IdeeSearcher.COLUMN_REFERENCE.equals( ideeSearcher.getOrderColumn( ) ) )
         {
@@ -937,7 +938,7 @@ public final class IdeeDAO implements IIdeeDAO
     {
         int nKey = 1;
 
-        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_NEW_PK_IDEE_LINK, plugin ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_NEW_PK_IDEE_LINK, plugin ) )
         {
             daoUtil.executeQuery( );
 
@@ -952,7 +953,7 @@ public final class IdeeDAO implements IIdeeDAO
 
     private void insertLink( int nIdParentIdee, int nIdChildIdee, Plugin plugin )
     {
-        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT_LINK, plugin ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT_LINK, plugin ) )
         {
             daoUtil.setInt( 1, newPrimaryKeyIdeeLink( plugin ) );
             daoUtil.setInt( 2, nIdParentIdee );
@@ -967,7 +968,7 @@ public final class IdeeDAO implements IIdeeDAO
     @Override
     public void deleteLinkByParent( int nParentIdeeId, Plugin plugin )
     {
-        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE_LINK_BY_PARENT, plugin ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE_LINK_BY_PARENT, plugin ) )
         {
             daoUtil.setInt( 1, nParentIdeeId );
             daoUtil.executeUpdate( );
@@ -980,7 +981,7 @@ public final class IdeeDAO implements IIdeeDAO
     @Override
     public void deleteLinkByChild( int nChildIdeeId, Plugin plugin )
     {
-        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE_LINK_BY_CHILD, plugin ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE_LINK_BY_CHILD, plugin ) )
         {
             daoUtil.setInt( 1, nChildIdeeId );
             daoUtil.executeUpdate( );

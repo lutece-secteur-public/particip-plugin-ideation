@@ -122,8 +122,8 @@ public class IdeationUploadHandler extends AbstractAsynchronousUploadHandler
     public String canUploadFiles( HttpServletRequest request, String strFieldName, List<FileItem> listFileItemsToUpload, Locale locale )
     {
         int nMaxSize = AppPropertiesService.getPropertyInt( PROPERTY_UPLOAD_PJS_MAX_SIZE, DEFAULT_MAX_FILE_SIZE );
-        String strMimeTypeAuthorized = AppPropertiesService.getProperty( PARAMETER_IMGS.equals( strFieldName ) ? PROPERTY_UPLOAD_IMAGE_MIME_TYPE_AUTORIZED
-                : PROPERTY_UPLOAD_DOC_MIME_TYPE_AUTORIZED );
+        String strMimeTypeAuthorized = AppPropertiesService
+                .getProperty( PARAMETER_IMGS.equals( strFieldName ) ? PROPERTY_UPLOAD_IMAGE_MIME_TYPE_AUTORIZED : PROPERTY_UPLOAD_DOC_MIME_TYPE_AUTORIZED );
         int nMaxPjs = AppPropertiesService.getPropertyInt( PROPERTY_UPLOAD_NB_PJS_MAX, DEFAULT_MAX_PJS );
 
         int nFileSize = 0;
@@ -173,8 +173,9 @@ public class IdeationUploadHandler extends AbstractAsynchronousUploadHandler
 
                 if ( bMimeTypeNotAutorized )
                 {
-                    return I18nService.getLocalizedString( PARAMETER_IMGS.equals( strFieldName ) ? ERROR_MESSAGE_IMAGE_MIME_TYPE_AUTORIZED
-                            : ERROR_MESSAGE_DOC_MIME_TYPE_AUTORIZED, request.getLocale( ) );
+                    return I18nService.getLocalizedString(
+                            PARAMETER_IMGS.equals( strFieldName ) ? ERROR_MESSAGE_IMAGE_MIME_TYPE_AUTORIZED : ERROR_MESSAGE_DOC_MIME_TYPE_AUTORIZED,
+                            request.getLocale( ) );
                 }
             }
 

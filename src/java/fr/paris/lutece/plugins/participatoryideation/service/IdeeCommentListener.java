@@ -150,7 +150,8 @@ public class IdeeCommentListener implements ICommentListener
         Idee idee = IdeeHome.findByPrimaryKey( nId_Idee );
         String strDataStoreValue = DatastoreService.getDataValue( PROPERTY_ACTIVATION_COMMENTAIRES, "0" );
 
-        if ( idee != null && !IdeationCampaignService.getInstance( ).isDuring( idee.getCodeCampagne( ), Constants.IDEATION ) && strDataStoreValue.equals( "0" ) )
+        if ( idee != null && !IdeationCampaignService.getInstance( ).isDuring( idee.getCodeCampagne( ), Constants.IDEATION )
+                && strDataStoreValue.equals( "0" ) )
         {
             sbError.append( I18nService.getLocalizedString( MESSAGE_CAMPAGNE_IDEATION_CLOSED_COMMENT, new Locale( "fr", "FR" ) ) );
             sbError.append( ", " );
@@ -177,7 +178,8 @@ public class IdeeCommentListener implements ICommentListener
         Idee idee = IdeeHome.findByPrimaryKey( nIdIdee );
         String strDataStoreValue = DatastoreService.getDataValue( PROPERTY_ACTIVATION_COMMENTAIRES, "0" );
 
-        if ( idee != null && !IdeationCampaignService.getInstance( ).isDuring( idee.getCodeCampagne( ), Constants.IDEATION ) && strDataStoreValue.equals( "0" ) )
+        if ( idee != null && !IdeationCampaignService.getInstance( ).isDuring( idee.getCodeCampagne( ), Constants.IDEATION )
+                && strDataStoreValue.equals( "0" ) )
         {
             return false;
         }

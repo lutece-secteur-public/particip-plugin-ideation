@@ -102,7 +102,7 @@ public final class IdeationFileImageService implements ImageResourceProvider
      */
     public ImageResource getImageResource( int nIdResource )
     {
-        if ( true /* FIXME : is this file a bp file ? */)
+        if ( true /* FIXME : is this file a bp file ? */ )
         {
 
             File file = FileHome.findByPrimaryKey( nIdResource );

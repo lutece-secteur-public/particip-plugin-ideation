@@ -92,7 +92,8 @@ public class HeaderInclude implements PageInclude
     private static final String CLASS_CSS_OUT = "logged-out";
     private static final String CLASS_CSS_IN = "logged-in";
 
-    private static IResourceExtenderHistoryService _resourceExtenderHistoryService = SpringContextService.getBean( ResourceExtenderHistoryService.BEAN_SERVICE );
+    private static IResourceExtenderHistoryService _resourceExtenderHistoryService = SpringContextService
+            .getBean( ResourceExtenderHistoryService.BEAN_SERVICE );
 
     /**
      * {@inheritDoc}
@@ -132,8 +133,8 @@ public class HeaderInclude implements PageInclude
             CommentFilter _commentFilter = new CommentFilter( );
             _commentFilter.setLuteceUserName( strLuteceUserName );
 
-            Collection<Idee> ideesCommented = getIdeesCommentedByUser( getCommentService( ).findByResource( "*", Idee.PROPERTY_RESOURCE_TYPE, _commentFilter,
-                    0, 10000, false ) );
+            Collection<Idee> ideesCommented = getIdeesCommentedByUser(
+                    getCommentService( ).findByResource( "*", Idee.PROPERTY_RESOURCE_TYPE, _commentFilter, 0, 10000, false ) );
 
             ResourceExtenderHistoryFilter filter = new ResourceExtenderHistoryFilter( );
 

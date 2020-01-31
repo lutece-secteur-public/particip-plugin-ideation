@@ -98,8 +98,8 @@ public class SolrIdeeIndexer implements SolrIndexer
         try
         {
             SolrClient SOLR_SERVER = SolrServerService.getInstance( ).getSolrServer( );
-            SOLR_SERVER.deleteByQuery( SearchItem.FIELD_UID + ":" + SolrIndexerService.getWebAppName( ) + "_"
-                    + getResourceUid( Integer.toString( idee.getId( ) ), null ) );
+            SOLR_SERVER.deleteByQuery(
+                    SearchItem.FIELD_UID + ":" + SolrIndexerService.getWebAppName( ) + "_" + getResourceUid( Integer.toString( idee.getId( ) ), null ) );
             SOLR_SERVER.commit( );
 
         }

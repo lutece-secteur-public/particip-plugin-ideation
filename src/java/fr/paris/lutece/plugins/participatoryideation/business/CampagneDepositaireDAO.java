@@ -66,7 +66,7 @@ public final class CampagneDepositaireDAO implements ICampagneDepositaireDAO
     {
         int nKey = 1;
 
-        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_NEW_PK, plugin ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_NEW_PK, plugin ) )
         {
             daoUtil.executeQuery( );
             if ( daoUtil.next( ) )
@@ -84,7 +84,7 @@ public final class CampagneDepositaireDAO implements ICampagneDepositaireDAO
     @Override
     public void insert( CampagneDepositaire campagneDepositaire, Plugin plugin )
     {
-        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT, plugin ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT, plugin ) )
         {
             campagneDepositaire.setId( newPrimaryKey( plugin ) );
 
@@ -104,7 +104,7 @@ public final class CampagneDepositaireDAO implements ICampagneDepositaireDAO
     {
         CampagneDepositaire campagneDepositaire = null;
 
-        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT, plugin ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT, plugin ) )
         {
             daoUtil.setInt( 1, nKey );
             daoUtil.executeQuery( );
@@ -127,7 +127,7 @@ public final class CampagneDepositaireDAO implements ICampagneDepositaireDAO
     @Override
     public void delete( int nKey, Plugin plugin )
     {
-        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE, plugin ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE, plugin ) )
         {
             daoUtil.setInt( 1, nKey );
             daoUtil.executeUpdate( );
@@ -140,7 +140,7 @@ public final class CampagneDepositaireDAO implements ICampagneDepositaireDAO
     @Override
     public void store( CampagneDepositaire campagneDepositaire, Plugin plugin )
     {
-        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE, plugin ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE, plugin ) )
         {
             daoUtil.setInt( 1, campagneDepositaire.getId( ) );
             daoUtil.setString( 2, campagneDepositaire.getCodeCampagne( ) );
@@ -159,7 +159,7 @@ public final class CampagneDepositaireDAO implements ICampagneDepositaireDAO
     {
         Collection<CampagneDepositaire> campagneDepositaireList = new ArrayList<>( );
 
-        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL, plugin ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL, plugin ) )
         {
             daoUtil.executeQuery( );
 
@@ -181,7 +181,7 @@ public final class CampagneDepositaireDAO implements ICampagneDepositaireDAO
     {
         Collection<CampagneDepositaire> campagneDepositaireList = new ArrayList<>( );
 
-        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL_BY_CAMPAGNE, plugin ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL_BY_CAMPAGNE, plugin ) )
         {
             daoUtil.setString( 1, codeCampagne );
             daoUtil.executeQuery( );
@@ -204,7 +204,7 @@ public final class CampagneDepositaireDAO implements ICampagneDepositaireDAO
     {
         Collection<Integer> campagneDepositaireList = new ArrayList<Integer>( );
 
-        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL_ID, plugin ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL_ID, plugin ) )
         {
             daoUtil.executeQuery( );
 

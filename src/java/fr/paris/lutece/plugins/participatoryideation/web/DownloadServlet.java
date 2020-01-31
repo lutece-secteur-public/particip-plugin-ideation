@@ -52,8 +52,8 @@ import fr.paris.lutece.portal.business.physicalfile.PhysicalFileHome;
 public class DownloadServlet extends HttpServlet
 {
     /**
-	 *
-	 */
+     *
+     */
     private static final long serialVersionUID = 8625639667629973645L;
     private static final String PARAMETER_ID = "id";
 

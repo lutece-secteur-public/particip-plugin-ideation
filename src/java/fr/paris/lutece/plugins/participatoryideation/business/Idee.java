@@ -116,11 +116,12 @@ public class Idee implements Serializable, IExtendableResource
     {
 
         STATUS_SUBMITTED( "SUBMITTED", "participatoryideation.message.labelStatusSubmitted", true ), STATUS_EN_CO_CONSTRUCTION( "ENCOCONSTRUCTION",
-                "participatoryideation.message.labelStatusEnCoConstruction", true ), STATUS_REGROUPE( "REGROUPE",
-                "participatoryideation.message.labelStatusRegroupe", true ), STATUS_A_ETUDE( "AETUDE", "participatoryideation.message.labelAEtude", true ), STATUS_RETENU(
-                "RETENU", "participatoryideation.message.labelRetenu", true ), STATUS_NON_RETENU( "NONRETENU", "participatoryideation.message.labelNonRetenu",
-                true ), STATUS_SUPPRIME_PAR_USAGER( "SUPPRIMEPARUSAGER", "participatoryideation.message.labelSupprimeParUsager", false ), STATUS_SUPPRIME_PAR_MDP(
-                "SUPPRIMEPARMDP", "participatoryideation.message.labelSupprimeParMdp", false );
+                "participatoryideation.message.labelStatusEnCoConstruction",
+                true ), STATUS_REGROUPE( "REGROUPE", "participatoryideation.message.labelStatusRegroupe", true ), STATUS_A_ETUDE( "AETUDE",
+                        "participatoryideation.message.labelAEtude", true ), STATUS_RETENU( "RETENU", "participatoryideation.message.labelRetenu",
+                                true ), STATUS_NON_RETENU( "NONRETENU", "participatoryideation.message.labelNonRetenu", true ), STATUS_SUPPRIME_PAR_USAGER(
+                                        "SUPPRIMEPARUSAGER", "participatoryideation.message.labelSupprimeParUsager",
+                                        false ), STATUS_SUPPRIME_PAR_MDP( "SUPPRIMEPARMDP", "participatoryideation.message.labelSupprimeParMdp", false );
 
         private static final Map<String, Status> valueMap;
         private static final List<Status> listStatusPublished = new ArrayList<>( );
@@ -856,8 +857,8 @@ public class Idee implements Serializable, IExtendableResource
      */
     public boolean getStatusIsRemoved( )
     {
-        return ( _statusPublic.getValeur( ).equals( Status.STATUS_SUPPRIME_PAR_MDP.getValeur( ) ) || _statusPublic.getValeur( ).equals(
-                Status.STATUS_SUPPRIME_PAR_USAGER.getValeur( ) ) );
+        return ( _statusPublic.getValeur( ).equals( Status.STATUS_SUPPRIME_PAR_MDP.getValeur( ) )
+                || _statusPublic.getValeur( ).equals( Status.STATUS_SUPPRIME_PAR_USAGER.getValeur( ) ) );
     }
 
     /* ********************************************************************************************* */

@@ -146,8 +146,8 @@ public class IdeeSubscriberXPage extends MVCApplication
         CommentFilter _commentFilter = new CommentFilter( );
         _commentFilter.setLuteceUserName( strLuteceUserName );
 
-        Collection<Idee> ideesCommented = getIdeesCommentedByUser( getCommentService( ).findByResource( "*", Idee.PROPERTY_RESOURCE_TYPE, _commentFilter, 0,
-                10000, false ) );
+        Collection<Idee> ideesCommented = getIdeesCommentedByUser(
+                getCommentService( ).findByResource( "*", Idee.PROPERTY_RESOURCE_TYPE, _commentFilter, 0, 10000, false ) );
 
         ResourceExtenderHistoryFilter filter = new ResourceExtenderHistoryFilter( );
 

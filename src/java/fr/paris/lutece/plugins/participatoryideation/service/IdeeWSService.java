@@ -157,8 +157,9 @@ public class IdeeWSService implements IIdeeWSService
         }
 
         if ( valStatusLutece.equals( valStatusEudonet )
-                || ( !valStatusLutece.equals( valStatusEudonet ) && !valStatusLutece.equals( valStatusEudonetLutece ) && !valStatusEudonet
-                        .equals( valStatusEudonetLutece ) ) || ( valStatusLutece.equals( Idee.Status.STATUS_SUPPRIME_PAR_USAGER.getValeur( ) ) )
+                || ( !valStatusLutece.equals( valStatusEudonet ) && !valStatusLutece.equals( valStatusEudonetLutece )
+                        && !valStatusEudonet.equals( valStatusEudonetLutece ) )
+                || ( valStatusLutece.equals( Idee.Status.STATUS_SUPPRIME_PAR_USAGER.getValeur( ) ) )
                 || ( valStatusEudonet.equals( Idee.Status.STATUS_SUPPRIME_PAR_USAGER.getValeur( ) ) ) )
         {
             // On ne fait rien
@@ -166,11 +167,9 @@ public class IdeeWSService implements IIdeeWSService
         else
         {
             IdeeHome.updateBO( ideeEudonet );
-            if ( ideeEudonet.getMotifRecev( ) != null
-                    && StringUtils.isNotEmpty( ideeEudonet.getMotifRecev( ) )
-                    && StringUtils.isNotBlank( ideeEudonet.getMotifRecev( ) )
-                    && !( ideeLutece.getMotifRecev( ) != null && ideeEudonet.getMotifRecev( ) != null && ideeEudonet.getMotifRecev( ).equals(
-                            ideeLutece.getMotifRecev( ) ) ) )
+            if ( ideeEudonet.getMotifRecev( ) != null && StringUtils.isNotEmpty( ideeEudonet.getMotifRecev( ) )
+                    && StringUtils.isNotBlank( ideeEudonet.getMotifRecev( ) ) && !( ideeLutece.getMotifRecev( ) != null && ideeEudonet.getMotifRecev( ) != null
+                            && ideeEudonet.getMotifRecev( ).equals( ideeLutece.getMotifRecev( ) ) ) )
             {
                 createComment( ideeEudonet );
             }
@@ -246,8 +245,9 @@ public class IdeeWSService implements IIdeeWSService
 
         boolean foundAction = false;
         int nIdWorkflow = AppPropertiesService.getPropertyInt( Constants.PROPERTY_WORKFLOW_ID, -1 );
-        String ideeStatutLibelle = removeAccent( I18nService.getLocalizedString( ( Idee.Status.getByValue( ideeStatut ).getLibelle( ) ),
-                new Locale( "fr", "FR" ) ) ) + ( notify ? " (avec notification)" : " (sans notification)" );
+        String ideeStatutLibelle = removeAccent(
+                I18nService.getLocalizedString( ( Idee.Status.getByValue( ideeStatut ).getLibelle( ) ), new Locale( "fr", "FR" ) ) )
+                + ( notify ? " (avec notification)" : " (sans notification)" );
 
         if ( nIdWorkflow != -1 )
         {

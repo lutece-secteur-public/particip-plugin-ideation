@@ -236,8 +236,8 @@ public class TaskNotifyIdeation extends SimpleTask
                         strNickNameDestinataire = UserPreferencesService.instance( ).getNickname( followerHistory.getUserGuid( ) );
                         model.put( MARK_PSEUDO_DESTINATAIRE, strNickNameDestinataire );
 
-                        strMessage = AppTemplateService.getTemplateFromStringFtl( "[#ftl]\n[#setting date_format=\"dd/MM/yyyy\"]\n" + config.getMessage( ),
-                                locale, model ).getHtml( );
+                        strMessage = AppTemplateService
+                                .getTemplateFromStringFtl( "[#ftl]\n[#setting date_format=\"dd/MM/yyyy\"]\n" + config.getMessage( ), locale, model ).getHtml( );
                         try
                         {
                             strEmail = UserPreferencesService.instance( ).get( followerHistory.getUserGuid( ), PARAM_BP_EMAIL, StringUtils.EMPTY );
@@ -258,8 +258,9 @@ public class TaskNotifyIdeation extends SimpleTask
                             strNickNameDestinataire = UserPreferencesService.instance( ).getNickname( followerHistory.getUserGuid( ) );
                             model.put( MARK_PSEUDO_DESTINATAIRE, strNickNameDestinataire );
 
-                            strMessage = AppTemplateService.getTemplateFromStringFtl( "[#ftl]\n[#setting date_format=\"dd/MM/yyyy\"]\n" + config.getMessage( ),
-                                    locale, model ).getHtml( );
+                            strMessage = AppTemplateService
+                                    .getTemplateFromStringFtl( "[#ftl]\n[#setting date_format=\"dd/MM/yyyy\"]\n" + config.getMessage( ), locale, model )
+                                    .getHtml( );
                             try
                             {
                                 strEmail = UserPreferencesService.instance( ).get( followerHistory.getUserGuid( ), PARAM_BP_EMAIL, StringUtils.EMPTY );
@@ -312,8 +313,8 @@ public class TaskNotifyIdeation extends SimpleTask
 
                     try
                     {
-                        strMessage = AppTemplateService.getTemplateFromStringFtl( "[#ftl]\n[#setting date_format=\"dd/MM/yyyy\"]\n" + config.getMessage( ),
-                                locale, model ).getHtml( );
+                        strMessage = AppTemplateService
+                                .getTemplateFromStringFtl( "[#ftl]\n[#setting date_format=\"dd/MM/yyyy\"]\n" + config.getMessage( ), locale, model ).getHtml( );
                         strEmail = UserPreferencesService.instance( ).get( strIdeeLuteceUsername, PARAM_BP_EMAIL, StringUtils.EMPTY );
                     }
                     catch( Exception e )
@@ -329,8 +330,9 @@ public class TaskNotifyIdeation extends SimpleTask
 
                         try
                         {
-                            strMessage = AppTemplateService.getTemplateFromStringFtl( "[#ftl]\n[#setting date_format=\"dd/MM/yyyy\"]\n" + config.getMessage( ),
-                                    locale, model ).getHtml( );
+                            strMessage = AppTemplateService
+                                    .getTemplateFromStringFtl( "[#ftl]\n[#setting date_format=\"dd/MM/yyyy\"]\n" + config.getMessage( ), locale, model )
+                                    .getHtml( );
                             strEmail = UserPreferencesService.instance( ).get( strIdeeLuteceUsername, PARAM_BP_EMAIL, StringUtils.EMPTY );
                         }
                         catch( Exception e )
@@ -348,8 +350,9 @@ public class TaskNotifyIdeation extends SimpleTask
 
                             try
                             {
-                                strMessage = AppTemplateService.getTemplateFromStringFtl(
-                                        "[#ftl]\n[#setting date_format=\"dd/MM/yyyy\"]\n" + config.getMessage( ), locale, model ).getHtml( );
+                                strMessage = AppTemplateService
+                                        .getTemplateFromStringFtl( "[#ftl]\n[#setting date_format=\"dd/MM/yyyy\"]\n" + config.getMessage( ), locale, model )
+                                        .getHtml( );
                                 strEmail = UserPreferencesService.instance( ).get( strIdeeLuteceUsername, PARAM_BP_EMAIL, StringUtils.EMPTY );
                             }
                             catch( Exception e )
@@ -366,8 +369,9 @@ public class TaskNotifyIdeation extends SimpleTask
 
                                 try
                                 {
-                                    strMessage = AppTemplateService.getTemplateFromStringFtl(
-                                            "[#ftl]\n[#setting date_format=\"dd/MM/yyyy\"]\n" + config.getMessage( ), locale, model ).getHtml( );
+                                    strMessage = AppTemplateService
+                                            .getTemplateFromStringFtl( "[#ftl]\n[#setting date_format=\"dd/MM/yyyy\"]\n" + config.getMessage( ), locale, model )
+                                            .getHtml( );
                                     strEmail = UserPreferencesService.instance( ).get( strIdeeLuteceUsername, PARAM_BP_EMAIL, StringUtils.EMPTY );
                                 }
                                 catch( Exception e )

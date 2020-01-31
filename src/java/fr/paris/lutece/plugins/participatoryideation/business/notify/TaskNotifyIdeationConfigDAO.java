@@ -57,7 +57,7 @@ public class TaskNotifyIdeationConfigDAO implements ITaskNotifyIdeationConfigDAO
     public synchronized void insert( TaskNotifyIdeationConfig config )
     {
         // FIXME use the plugin in all DAOUtil constructions
-        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT ) )
         {
             int nPos = 0;
 
@@ -81,7 +81,7 @@ public class TaskNotifyIdeationConfigDAO implements ITaskNotifyIdeationConfigDAO
     @Override
     public void store( TaskNotifyIdeationConfig config )
     {
-        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE ) )
         {
             int nPos = 0;
 
@@ -108,7 +108,7 @@ public class TaskNotifyIdeationConfigDAO implements ITaskNotifyIdeationConfigDAO
     {
         TaskNotifyIdeationConfig config = null;
 
-        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_FIND_BY_PRIMARY_KEY ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_FIND_BY_PRIMARY_KEY ) )
         {
             daoUtil.setInt( 1, nIdTask );
 
@@ -140,7 +140,7 @@ public class TaskNotifyIdeationConfigDAO implements ITaskNotifyIdeationConfigDAO
     @Override
     public void delete( int nIdState )
     {
-        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE ) )
         {
             daoUtil.setInt( 1, nIdState );
             daoUtil.executeUpdate( );

@@ -128,7 +128,7 @@ public class FormEtapeTitle extends AbstractFormEtape
                 if ( getTitre( ).trim( ).length( ) > nMax )
                 {
                     listErrors.add( I18nService.getLocalizedString( I18N_ERROR_TITRE_MAX_LENGTH, new String [ ] {
-                        Integer.toString( nMax )
+                            Integer.toString( nMax )
                     }, locale ) );
                 }
             }
@@ -147,7 +147,7 @@ public class FormEtapeTitle extends AbstractFormEtape
                 if ( getTitre( ).trim( ).length( ) < nMin )
                 {
                     listErrors.add( I18nService.getLocalizedString( I18N_ERROR_TITRE_MIN_LENGTH, new String [ ] {
-                        Integer.toString( nMin )
+                            Integer.toString( nMin )
                     }, locale ) );
                 }
             }
@@ -168,14 +168,14 @@ public class FormEtapeTitle extends AbstractFormEtape
                     if ( getDejadepose( ).trim( ).length( ) < nMin )
                     {
                         listErrors.add( I18nService.getLocalizedString( I18N_ERROR_DEJADEPOSE_MIN_LENGTH, new String [ ] {
-                            Integer.toString( nMin )
+                                Integer.toString( nMin )
                         }, locale ) );
                     }
                 }
                 catch( NumberFormatException nfe )
                 {
-                    AppLogService.error( "IdeationApp: NumberFormatException when parsing min Dejadepose length from datastore, key "
-                            + DSKEY_DEJADEPOSE_MIN_LENGTH, nfe );
+                    AppLogService.error(
+                            "IdeationApp: NumberFormatException when parsing min Dejadepose length from datastore, key " + DSKEY_DEJADEPOSE_MIN_LENGTH, nfe );
                 }
             }
 
@@ -188,14 +188,14 @@ public class FormEtapeTitle extends AbstractFormEtape
                     if ( getDejadepose( ).trim( ).length( ) > nMax )
                     {
                         listErrors.add( I18nService.getLocalizedString( I18N_ERROR_DEJADEPOSE_MAX_LENGTH, new String [ ] {
-                            Integer.toString( nMax )
+                                Integer.toString( nMax )
                         }, locale ) );
                     }
                 }
                 catch( NumberFormatException nfe )
                 {
-                    AppLogService.error( "IdeationApp: NumberFormatException when parsing max Dejadepose length from datastore, key "
-                            + DSKEY_DEJADEPOSE_MAX_LENGTH, nfe );
+                    AppLogService.error(
+                            "IdeationApp: NumberFormatException when parsing max Dejadepose length from datastore, key " + DSKEY_DEJADEPOSE_MAX_LENGTH, nfe );
                 }
             }
         }
@@ -211,14 +211,15 @@ public class FormEtapeTitle extends AbstractFormEtape
                     if ( getCreationmethod( ).trim( ).length( ) < nMin )
                     {
                         listErrors.add( I18nService.getLocalizedString( I18N_ERROR_CREATIONMETHOD_MIN_LENGTH, new String [ ] {
-                            Integer.toString( nMin )
+                                Integer.toString( nMin )
                         }, locale ) );
                     }
                 }
                 catch( NumberFormatException nfe )
                 {
-                    AppLogService.error( "IdeationApp: NumberFormatException when parsing min Creationmethod length from datastore, key "
-                            + DSKEY_CREATIONMETHOD_MIN_LENGTH, nfe );
+                    AppLogService.error(
+                            "IdeationApp: NumberFormatException when parsing min Creationmethod length from datastore, key " + DSKEY_CREATIONMETHOD_MIN_LENGTH,
+                            nfe );
                 }
             }
 
@@ -231,7 +232,7 @@ public class FormEtapeTitle extends AbstractFormEtape
                     if ( getCreationmethod( ).trim( ).length( ) > nMax )
                     {
                         listErrors.add( I18nService.getLocalizedString( I18N_ERROR_CREATIONMETHOD_MAX_LENGTH, new String [ ] {
-                            Integer.toString( nMax )
+                                Integer.toString( nMax )
                         }, locale ) );
                     }
                 }

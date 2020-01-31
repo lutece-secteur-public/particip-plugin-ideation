@@ -60,14 +60,14 @@ public class IdeationSolrAddon implements ISolrSearchAppAddOn
     private static final String SOLRSEARCHAPP_MARK_POINTS_FIELDCODE = "code";
     private static final String SOLRSEARCHAPP_MARK_POINTS_TYPE = "type";
     private static final String SOLRSEARCHAPP_PROPERTY_SOLR_RESPONSE_MAX = "solr.reponse.max";
-    private static final int SOLRSEARCHAPP_SOLR_RESPONSE_MAX = Integer.parseInt( AppPropertiesService.getProperty( SOLRSEARCHAPP_PROPERTY_SOLR_RESPONSE_MAX,
-            "50" ) );
+    private static final int SOLRSEARCHAPP_SOLR_RESPONSE_MAX = Integer
+            .parseInt( AppPropertiesService.getProperty( SOLRSEARCHAPP_PROPERTY_SOLR_RESPONSE_MAX, "50" ) );
 
     private static final String PARAMETER_CONF_MAP = "map_idees";
     private static final String SOLR_QUERY_ALL = "*:*";
     private static final String PROPERTY_OLDPROJECTS_FQ = "participatoryideation.oldprojects.fq";
     private static final String [ ] SOLR_FQ_OLDPROJECTS = {
-        AppPropertiesService.getProperty( PROPERTY_OLDPROJECTS_FQ, "type:PB Project" )
+            AppPropertiesService.getProperty( PROPERTY_OLDPROJECTS_FQ, "type:PB Project" )
     };
     private static final String MARK_OLDPROJECTS_POINTS = "oldprojects_points";
 
@@ -131,7 +131,8 @@ public class IdeationSolrAddon implements ISolrSearchAppAddOn
 
                         geolocItem.setIcon( strIcon );
                         h.put( SOLRSEARCHAPP_MARK_POINTS_GEOJSON, geolocItem.toJSON( ) );
-                        h.put( SOLRSEARCHAPP_MARK_POINTS_ID, result.getId( ).substring( result.getId( ).indexOf( "_" ) + 1, result.getId( ).lastIndexOf( "_" ) ) );
+                        h.put( SOLRSEARCHAPP_MARK_POINTS_ID,
+                                result.getId( ).substring( result.getId( ).indexOf( "_" ) + 1, result.getId( ).lastIndexOf( "_" ) ) );
                         h.put( SOLRSEARCHAPP_MARK_POINTS_FIELDCODE, key.substring( 0, key.lastIndexOf( "_" ) ) );
                         h.put( SOLRSEARCHAPP_MARK_POINTS_TYPE, strType );
                         points.add( h );

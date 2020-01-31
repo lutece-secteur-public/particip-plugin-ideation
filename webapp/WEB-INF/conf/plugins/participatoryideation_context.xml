@@ -86,8 +86,6 @@
           </property>
      </bean>
 
-	<bean id="participatoryideation.webServiceCaller" class="fr.paris.lutece.plugins.participatoryideation.utils.http.WebServiceCaller" />
-
 	<bean id="taskNotifyIdeationConfigDAO" class="fr.paris.lutece.plugins.participatoryideation.business.notify.TaskNotifyIdeationConfigDAO" />
 	
 	<!-- TaskInfoProvider -->

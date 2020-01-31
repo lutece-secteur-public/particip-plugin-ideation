@@ -69,7 +69,7 @@ public final class LinkDAO implements ILinkDAO
     {
         int nKey = 1;
 
-        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_NEW_PK, plugin ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_NEW_PK, plugin ) )
         {
             daoUtil.executeQuery( );
 
@@ -88,7 +88,7 @@ public final class LinkDAO implements ILinkDAO
     @Override
     public void insert( Link link, Plugin plugin )
     {
-        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT, plugin ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT, plugin ) )
         {
             link.setId( newPrimaryKey( plugin ) );
 
@@ -108,7 +108,7 @@ public final class LinkDAO implements ILinkDAO
     {
         Link link = null;
 
-        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT, plugin ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT, plugin ) )
         {
             daoUtil.setInt( 1, nKey );
             daoUtil.executeQuery( );
@@ -128,7 +128,7 @@ public final class LinkDAO implements ILinkDAO
     @Override
     public void delete( int nKey, Plugin plugin )
     {
-        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE, plugin ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE, plugin ) )
         {
             daoUtil.setInt( 1, nKey );
             daoUtil.executeUpdate( );
@@ -141,7 +141,7 @@ public final class LinkDAO implements ILinkDAO
     @Override
     public void store( Link link, Plugin plugin )
     {
-        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE, plugin ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE, plugin ) )
         {
             daoUtil.setInt( 1, link.getId( ) );
             daoUtil.setInt( 2, link.getParentId( ) );
@@ -160,7 +160,7 @@ public final class LinkDAO implements ILinkDAO
     {
         Collection<Link> linkList = new ArrayList<>( );
 
-        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL, plugin ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL, plugin ) )
         {
             daoUtil.executeQuery( );
 
@@ -182,7 +182,7 @@ public final class LinkDAO implements ILinkDAO
     {
         Collection<Integer> linkList = new ArrayList<>( );
 
-        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL_ID, plugin ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL_ID, plugin ) )
         {
             daoUtil.executeQuery( );
 
@@ -214,9 +214,10 @@ public final class LinkDAO implements ILinkDAO
         return link;
     }
 
-    /* ***********************************************************************************
-     * SEARCH SEARCH SEARCH SEARCH SEARCH SEARCH SEARCH SEARCH SEARCH SEARCH SEARCH SE * SEARCH SEARCH SEARCH SEARCH SEARCH SEARCH SEARCH SEARCH SEARCH SEARCH
-     * SEARCH SE ***********************************************************************************
+    /*
+     * *********************************************************************************** SEARCH SEARCH SEARCH SEARCH SEARCH SEARCH SEARCH SEARCH SEARCH SEARCH
+     * SEARCH SE * SEARCH SEARCH SEARCH SEARCH SEARCH SEARCH SEARCH SEARCH SEARCH SEARCH SEARCH SE
+     * ***********************************************************************************
      */
 
     @Override
@@ -225,7 +226,7 @@ public final class LinkDAO implements ILinkDAO
         Map<Integer, Link> linkMap = new LinkedHashMap<>( );
 
         String queryStr = ( linkSearcher != null ) ? appendFilters( SQL_QUERY_SELECTALL, linkSearcher ) : SQL_QUERY_SELECTALL;
-        try( DAOUtil daoUtil = new DAOUtil( queryStr, plugin ) )
+        try ( DAOUtil daoUtil = new DAOUtil( queryStr, plugin ) )
         {
             if ( linkSearcher != null )
             {
