@@ -445,7 +445,7 @@ public final class IdeeDAO implements IIdeeDAO
 
             if ( idee.getStatusPublic( ) != null )
             {
-                daoUtil.setString( nCpt++, idee.getStatusEudonet( ).getValeur( ) );
+                daoUtil.setString( nCpt++, idee.getStatusPublic( ).getValeur( ) );
             }
             else
             {
