@@ -1,45 +1,47 @@
+<#setting url_escaping_charset=encoding>
+
+<#-- Getting solr conf -->
 <#if conf_user_query??>
-  <#assign conf_query = "&amp;conf=${conf_user_query}">
+  	<#assign conf_query = "&amp;conf=${conf_user_query}">
 <#else>
-  <#assign conf_query = "">
+  	<#assign conf_query = "">
 </#if>
 
-<#setting url_escaping_charset=encoding>
 <#-- Encode facet queries -->
 <#assign allParisCity = "-localisation_text:whole">
 <#assign allArrParisCity = "localisation_text:">
-
 <#macro EncodeFQ list_fq  optionalParam1="" optionalParam2="">
-<#assign bCheck = false>
-<#assign encoded_facets_queries = "">
-<#list list_fq as facet>
-  <#if optionalParam1?has_content && optionalParam2?has_content && facet?starts_with(optionalParam2) >
-    <#assign encoded_facets_queries = encoded_facets_queries+"&fq="+optionalParam1>
-    <#assign bCheck = true>
-  <#else>
-    <#assign encoded_facets_queries = encoded_facets_queries+"&fq="+facet?url>
-    <#if facet?starts_with(optionalParam1)>
-      <#assign bCheck = true>
-    </#if>
-  </#if>
-</#list>
-<#if optionalParam1?has_content && optionalParam2?has_content && !bCheck>
-  <#assign encoded_facets_queries = encoded_facets_queries+"&fq="+optionalParam1>
-</#if>
-${encoded_facets_queries}</#macro>
+	<#assign bCheck = false>
+	<#assign encoded_facets_queries = "">
+	<#list list_fq as facet>
+  		<#if optionalParam1?has_content && optionalParam2?has_content && facet?starts_with(optionalParam2) >
+    		<#assign encoded_facets_queries = encoded_facets_queries+"&fq="+optionalParam1>
+    		<#assign bCheck = true>
+  		<#else>
+    		<#assign encoded_facets_queries = encoded_facets_queries+"&fq="+facet?url>
+    		<#if facet?starts_with(optionalParam1)>
+      			<#assign bCheck = true>
+    		</#if>
+  		</#if>
+	</#list>
+	<#if optionalParam1?has_content && optionalParam2?has_content && !bCheck>
+  		<#assign encoded_facets_queries = encoded_facets_queries+"&fq="+optionalParam1>
+	</#if>
+	${encoded_facets_queries}</#macro>
+
 <#assign sQuery = "">
 
 <#macro EncodeFQArrondissement list_fq >
     <#assign encoded_facets_queries = "">
 
     <#list list_fq as facet>
-    <#if facet?starts_with("localisation_text") || facet?starts_with("type") || facet?starts_with("-localisation_text")>
-            <#assign encoded_facets_queries = encoded_facets_queries+"&fq="+facet?url>
-    </#if>
+	    <#if facet?starts_with("localisation_text") || facet?starts_with("code_theme_string") || facet?starts_with("type") || facet?starts_with("-localisation_text")>
+	            <#assign encoded_facets_queries = encoded_facets_queries+"&fq="+facet?url>
+	    </#if>
     </#list>
-${encoded_facets_queries}
-</#macro>
+	${encoded_facets_queries}</#macro>
 
+<#-- Old code ? Can be removed ? -->
 <#if query?has_content>
     <#if !query?starts_with("categorie")>
         <#if !query?starts_with("(")>
@@ -50,8 +52,16 @@ ${encoded_facets_queries}
     </#if>
 </#if>
 
+<#-- Dealing with query -->
 <#assign sQueryUrlSave = sQuery>
 <#assign sQuery = sQuery?split(":")?last>
+<#assign sQueryUrl= sQuery>
+<#if sQuery?has_content && sQuery?starts_with("(") && sQuery?ends_with(")") >
+    <#assign sQuery = sQuery?remove_beginning("(")>
+    <#assign sQuery = sQuery?remove_ending(")")>
+</#if>
+
+<#-- Retreiving current facets filters -->
 <#assign arr= "">
 <#assign facet_theme= "">
 <#assign facet_campagne= "">
@@ -61,34 +71,38 @@ ${encoded_facets_queries}
 <#assign facet_status="">
 <#assign monTri ="">
 <#assign ordre_aleatoire= "true">
-<#assign sQueryUrl= sQuery>
 <#assign cadre_de_vie= 'false'>
 <#assign education_et_jeunesse= 'false'>
 <#assign logement_et_habitat= 'false'>
 <#assign environnement= 'false'>
 <#assign sport= 'false'>
-<#if sQuery?has_content && sQuery?starts_with("(") && sQuery?ends_with(")") >
-    <#assign sQuery = sQuery?remove_beginning("(")>
-    <#assign sQuery = sQuery?remove_ending(")")>
-</#if>
-<#-- facets -->
 <#assign number_random="${.now?long?string}"?number />
+<#if facets_list??>
+	<#list facets_list as facet>
+		<!-- <input type="hidden" name="fq" value="${facet}" /> -->
+		<#if     facet?starts_with("localisation_text:")>				<#assign arr = facet?split(":")?last>
+		<#elseif facet?starts_with("code_theme_string:")>				<#assign facet_theme = facet?split(":")?last>
+		<#elseif facet?starts_with("campagne_text:")>					<#assign facet_campagne = facet?split(":")?last>
+		<#elseif facet?starts_with("handicap_string")>					<#assign facet_handicap = facet?split(":")?last>
+		<#elseif facet?starts_with("type_qpvqva_string")>				<#assign facet_qpop = facet?split(":")?last>
+		<#elseif facet?starts_with("code_depositaire_type_string:")>	<#assign facet_depositaire_type = facet?split(":")?last>
+		<#elseif facet?starts_with("statut_publique_project_text:")>	<#assign facet_status = facet?split(":")?last>
+		</#if>
+	</#list>
+</#if>
+	
+<#--
+	arr = <strong>${arr!'?'}</strong><br>
+	facet_theme = <strong>${facet_theme!'?'}</strong><br>
+	facet_campagne = <strong>${facet_campagne!'?'}</strong><br>
+	facet_handicap = <strong>${facet_handicap!'?'}</strong><br>
+	facet_qpop = <strong>${facet_qpop!'?'}</strong><br>
+	facet_depositaire_type = <strong>${facet_depositaire_type!'?'}</strong><br>
+	facet_status = <strong>${facet_status!'?'}</strong><br>
+-->
 
 <section id="search-prj">
 
-	<#if facets_list??>
-		<#list facets_list as facet>
-			<!-- <input type="hidden" name="fq" value="${facet}" /> -->
-			<#if     facet?starts_with("localisation_text:")>				<#assign arr = facet?split(":")?last>
-			<#elseif facet?starts_with("code_theme_string:")>				<#assign facet_theme = facet?split(":")?last>
-			<#elseif facet?starts_with("campagne_text:")>					<#assign facet_campagne = facet?split(":")?last>
-			<#elseif facet?starts_with("handicap_string")>					<#assign facet_handicap = facet?split(":")?last>
-			<#elseif facet?starts_with("-type_qpvqva_string")>				<#assign facet_qpop = facet?split(":")?last>
-			<#elseif facet?starts_with("code_depositaire_type_string:")>	<#assign facet_depositaire_type = facet?split(":")?last>
-			<#elseif facet?starts_with("status_string:")>					<#assign facet_status = facet?split(":")?last>
-			</#if>
-		</#list>
-	</#if>
 
 	<form id="search-prj-form" name="search" method="get" action="jsp/site/Portal.jsp">
 	
@@ -133,12 +147,26 @@ ${encoded_facets_queries}
 									<#if facet_campagne="">
 										<option value="" selected="selected">#i18n{participatoryideation.search.form.field.campaign.label}</option>
 									<#else>
-										<option value="" >#i18n{participatoryideation.search.form.field.campaign.all}</option>
+										<option value="" >#i18n{participatoryideation.search.form.field.campaign.reset}</option>
 									</#if>
-									<#list global_static?keys as campaign_code>
-										<#assign campaign = global_static[campaign_code]['campagne'] >
-										<option value="campagne_text:${campaign.code}" <#if facet_campagne=campaign.code>selected="selected"</#if> >${campaign.name}</option>
-									</#list>
+									
+									<option disabled="disabled">----</option>
+									
+									<#if facets??>
+										<#list facets as facet>
+											<#if facet.name == "campagne_text">
+												<#list facet.values?sort as value>
+													<#if value.count != 0>
+														<#if facet_campagne == value.name>
+															<option value="campagne_text:${(value.name)!''}" selected="selected" >${(value.name)!''} (${(value.count)!''})</option>
+														<#else>
+															<option value="campagne_text:${(value.name)!''}" >${(value.name)!''} (${(value.count)!''})</option>
+														</#if>
+													</#if>
+												</#list>
+											</#if>
+										</#list>
+									</#if>
 								</select>
 							</label>
 						</div>
@@ -147,11 +175,10 @@ ${encoded_facets_queries}
 							<#-- Location-based search -->
 							<label class="select" for="arrondissement">
 								<select name="fq" id="arrondissement" onChange="searchArrond()" class="form-control <#if arr != "">selected</#if>">
-									
 									<#if arr=="">
-										<option value="" selected="selected">#i18n{participatoryideation.search.form.field.location.label}</option>
+										<option value="" selected="selected">#i18n{participatoryideation.search.form.field.location.label} </option>
 									<#else>
-										<option value="" >#i18n{participatoryideation.search.form.field.location.label} </option>
+										<option value="" >#i18n{participatoryideation.search.form.field.location.reset} </option>
 									</#if>
 									
 									<option disabled="disabled">----</option>
@@ -183,14 +210,26 @@ ${encoded_facets_queries}
 									<#if facet_theme="">
 										<option value="" selected="selected">#i18n{participatoryideation.search.form.field.theme.label}</option>
 									<#else>
-										<option value="">#i18n{participatoryideation.search.form.field.theme.label}</option>
+										<option value="">#i18n{participatoryideation.search.form.field.theme.reset}</option>
 									</#if>
 									
-									<option value="" >FIXME : Themes must be recovered from SOLR facets</option>
-									<#-- list campagne_static.themes_list?sort_by("title")  as theme>
-										<option value="code_theme_string:${theme.code}" <#if facet_theme=theme.code>selected="selected"</#if> >${theme.title}</option>
-									</#list -->
+									<option disabled="disabled">----</option>
 									
+									<#if facets??>
+										<#list facets as facet>
+											<#if facet.name == "code_theme_string">
+												<#list facet.values?sort as value>
+													<#if value.count != 0>
+														<#if facet_theme == value.name>
+															<option value="code_theme_string:${(value.name)!''}" selected="selected" >${(value.name)!''} (${(value.count)!''})</option>
+														<#else>
+															<option value="code_theme_string:${(value.name)!''}" >${(value.name)!''} (${(value.count)!''})</option>
+														</#if>
+													</#if>
+												</#list>
+											</#if>
+										</#list>
+									</#if>
 								</select>
 							</label>
 						</div>
@@ -198,14 +237,30 @@ ${encoded_facets_queries}
 						<div class="col-md-3 col-xs-12">
 							<#-- SubmitterType-based search -->
 							<label class="select" for="depositaire_type">
-								<select name="fq" id="depositaire_type" onChange="searchArrond()" class="form-control">
-									<option value="" <#if facet_depositaire_type="">selected="selected"</#if> >#i18n{participatoryideation.search.form.field.submitter_type.label}</option>
-
-									<option value="" >FIXME : Themes must be recovered from SOLR facets</option>
-
-									<#-- list campagne_static.depositaire_types_list as depositaire_type>
-										<option value="code_depositaire_type_string:${depositaire_type.code}" <#if facet_depositaire_type=depositaire_type.code>selected="selected"</#if> >${depositaire_type.libelle}</option>
-									</#list -->
+								<select name="fq" id="depositaire_type" onChange="searchArrond()" class="form-control <#if facet_depositaire_type != "">selected</#if>">
+									<#if facet_depositaire_type="">
+										<option value="" selected="selected">#i18n{participatoryideation.search.form.field.submitter_type.label}</option>
+									<#else>
+										<option value="">#i18n{participatoryideation.search.form.field.submitter_type.reset}</option>
+									</#if>
+									
+									<option disabled="disabled">----</option>
+									
+									<#if facets??>
+										<#list facets as facet>
+											<#if facet.name == "code_depositaire_type_string">
+												<#list facet.values?sort as value>
+													<#if value.count != 0>
+														<#if facet_depositaire_type == value.name>
+															<option value="code_depositaire_type_string:${(value.name)!''}" selected="selected" >${(value.name)!''} (${(value.count)!''})</option>
+														<#else>
+															<option value="code_depositaire_type_string:${(value.name)!''}" >${(value.name)!''} (${(value.count)!''})</option>
+														</#if>
+													</#if>
+												</#list>
+											</#if>
+										</#list>
+									</#if>
 								</select>
 							</label>
 						</div>
@@ -217,11 +272,28 @@ ${encoded_facets_queries}
 						<div class="col-md-3 col-xs-12">
 							<#-- Status-based search -->
 							<label class="select" for="status">
-								<select name="fq" id="status" onChange="searchArrond()" class="form-control">
-									<option value=""  <#if facet_status="">selected="selected"</#if> >#i18n{participatoryideation.search.form.field.status.label}</option>
-									<#if status_static_list??>
-										<#list status_static_list as status_static>
-											<option value="status_string:${status_static.code}" <#if facet_status=status_static.code> selected="selected"</#if>> ${status_static.name}</option>
+								<select name="fq" id="status" onChange="searchArrond()" class="form-control <#if facet_status != "">selected</#if>">
+									<#if facet_theme="">
+										<option value="" selected="selected">#i18n{participatoryideation.search.form.field.status.label}</option>
+									<#else>
+										<option value="">#i18n{participatoryideation.search.form.field.status.reset}</option>
+									</#if>
+									
+									<option disabled="disabled">----</option>
+									
+									<#if facets??>
+										<#list facets as facet>
+											<#if facet.name == "statut_publique_project_text">
+												<#list facet.values?sort as value>
+													<#if value.count != 0>
+														<#if facet_status == value.name>
+															<option value="statut_publique_project_text:${(value.name)!''}" selected="selected" >${(value.name)!''} (${(value.count)!''})</option>
+														<#else>
+															<option value="statut_publique_project_text:${(value.name)!''}" >${(value.name)!''} (${(value.count)!''})</option>
+														</#if>
+													</#if>
+												</#list>
+											</#if>
 										</#list>
 									</#if>
 								</select>
@@ -230,22 +302,63 @@ ${encoded_facets_queries}
 						
 						<div class="col-md-3 col-xs-12">
 							<#-- QPop-based search -->
-							<div class="checkbox form-control">
-								<label for="qpop">
-									<input type="checkbox" name="fq" id="qpop" value="-type_qpvqva_string:NON" <#if facet_qpop!="">checked</#if> onChange="searchArrond()"/>
-		       						#i18n{participatoryideation.search.form.field.qpop.label}
-		       					</label>
-		       				</div>
+							<label class="select" for="qpop">
+								<select name="fq" id="qpop" onChange="searchArrond()" class="form-control <#if facet_qpop != "">selected</#if>">
+									<#if facet_qpop="">
+										<option value="" selected="selected">#i18n{participatoryideation.search.form.field.qpop.label}</option>
+									<#else>
+										<option value="">#i18n{participatoryideation.search.form.field.qpop.reset}</option>
+									</#if>
+									
+									<option disabled="disabled">----</option>
+									
+									<#if facets??>
+										<#list facets as facet>
+											<#if facet.name == "type_qpvqva_string">
+												<#list facet.values?sort as value>
+													<#if value.count != 0>
+														<#if facet_qpop == value.name>
+															<option value="type_qpvqva_string:${(value.name)!''}" selected="selected" >${(value.name)!''} (${(value.count)!''})</option>
+														<#else>
+															<option value="type_qpvqva_string:${(value.name)!''}" >${(value.name)!''} (${(value.count)!''})</option>
+														</#if>
+													</#if>
+												</#list>
+											</#if>
+										</#list>
+									</#if>
+								</select>
+							</label>
 						</div>
 						
 						<div class="col-md-3 col-xs-12">
-							<#-- Handicap-based search -->
-							<div class="checkbox form-control">
-		       					<label for="handicap">
-		       						<input type="checkbox" name="fq" id="handicap" value="handicap_string:yes" <#if facet_handicap!="">checked</#if> onChange="searchArrond()"/>
-		       						#i18n{participatoryideation.search.form.field.handicap.label}
-								</label>
-		       				</div>
+							<label class="select" for="handicap">
+								<select name="fq" id="handicap" onChange="searchArrond()" class="form-control <#if facet_handicap != "">selected</#if>">
+									<#if facet_handicap="">
+										<option value="" selected="selected">#i18n{participatoryideation.search.form.field.handicap.label}</option>
+									<#else>
+										<option value="">#i18n{participatoryideation.search.form.field.handicap.reset}</option>
+									</#if>
+									
+									<option disabled="disabled">----</option>
+									
+									<#if facets??>
+										<#list facets as facet>
+											<#if facet.name == "handicap_string">
+												<#list facet.values?sort as value>
+													<#if value.count != 0>
+														<#if facet_handicap == value.name>
+															<option value="handicap_string:${(value.name)!''}" selected="selected" >${(value.name)!''} (${(value.count)!''})</option>
+														<#else>
+															<option value="handicap_string:${(value.name)!''}" >${(value.name)!''} (${(value.count)!''})</option>
+														</#if>
+													</#if>
+												</#list>
+											</#if>
+										</#list>
+									</#if>
+								</select>
+							</label>
 						</div>
 						
 						<div class="col-md-3 col-xs-12">
@@ -341,12 +454,13 @@ ${encoded_facets_queries}
 
 <script type="text/javascript">
 
-<#if conf_user_query = "list_idees">
-	<#assign other_view_code='map_idees'>
-<#else>
-	<#assign other_view_code='list_idees'>
-</#if>
-
+	<#-- Dealing with list/map display buttons -->
+	<#if conf_user_query = "list_idees">
+		<#assign other_view_code='map_idees'>
+	<#else>
+		<#assign other_view_code='list_idees'>
+	</#if>
+	
 	$("#button_map_list").click( function(){
 		$("#form_conf_hidden").attr('value',"map_idees");
 	});
@@ -361,135 +475,137 @@ ${encoded_facets_queries}
         //From xss filter + lucene special characters
         var forbidden_chars = "<>&|():~[]\\\"?*{}^+!";
         $(form).find("input[type=text]").each(function(idx, elem) {
-                var error = false;
-                for (var i = 0; i < forbidden_chars.length; i++) {
-                    if (!error && elem.value.indexOf(forbidden_chars.charAt(i)) != -1) {
-                        error = true;
-                        all_ok = false;
-                        var parent = $(elem).parents(".form-group");
-                        parent.addClass("has-error has-feedback");
-                        var helpblock = $(parent).find(".help-txt");
-                        helpblock.after("<p class=\"help-block\"><i class=\"fa fa-warning\"></i> Forbidden characters : " + forbidden_chars + "</p>");
-                        helpblock.remove();
-                    }
-                }
-                if (!error) {
-                    var str = elem.value;
-                    var prev_char = " ";
-                    for(var i=0; i<str.length;i++) {
-                        if (str[i] === "-" && prev_char === " ") {
-                            error = true;
-                            all_ok = false;
-                            var parent = $(elem).parents(".form-group");
-                            parent.addClass("has-error has-feedback");
-                            var helpblock = $(parent).find(".help-txt");
-                            helpblock.after("<p class=\"help-block\"><i class=\"fa fa-warning\"></i> Forbidden characters : " + forbidden_chars + "</p>");
-                            helpblock.remove();
-                            break;
-                        }
-                        prev_char=str[i];
-                    }
-                }
+	        var error = false;
+	        for (var i = 0; i < forbidden_chars.length; i++) {
+	            if (!error && elem.value.indexOf(forbidden_chars.charAt(i)) != -1) {
+	                error = true;
+	                all_ok = false;
+	                var parent = $(elem).parents(".form-group");
+	                parent.addClass("has-error has-feedback");
+	                var helpblock = $(parent).find(".help-txt");
+	                helpblock.after("<p class=\"help-block\"><i class=\"fa fa-warning\"></i> Forbidden characters : " + forbidden_chars + "</p>");
+	                helpblock.remove();
+	            }
+	        }
+	        if (!error) {
+	            var str = elem.value;
+	            var prev_char = " ";
+	            for(var i=0; i<str.length;i++) {
+	                if (str[i] === "-" && prev_char === " ") {
+	                    error = true;
+	                    all_ok = false;
+	                    var parent = $(elem).parents(".form-group");
+	                    parent.addClass("has-error has-feedback");
+	                    var helpblock = $(parent).find(".help-txt");
+	                    helpblock.after("<p class=\"help-block\"><i class=\"fa fa-warning\"></i> Forbidden characters : " + forbidden_chars + "</p>");
+	                    helpblock.remove();
+	                    break;
+	                }
+	                prev_char=str[i];
+	            }
+	        }
         });
         if (!all_ok) {
-    $(form).find("button").removeAttr("disabled");
-  }
-  return all_ok;
-}
+    		$(form).find("button").removeAttr("disabled");
+  		}
+  		return all_ok;
+	}
 
-function searchThematique (link) {
+	function searchThematique (link) {
         $("#type_search").val("thematique");
         $("#thematique").val(link);
         $("#search-prj-form").submit();
-}
-function getURLSubmit ()
-{
-    var myquery = "";
-    checkComma();
-    if ($("#solr").val().trim()!="")
-        {
-        myquery = "&query=content:"+$("#solr").val();
-    }
-    var urltest = "${fullUrl}?page=search-solr&items_per_page=${nb_items_per_page}&sort_name="+$("#sort").val()+myquery;
-    urltest += "<@EncodeFQ facets_list allParisCity allArrParisCity />";
-    return urltest;
-}
-
-$("#solr").bind("keypress", function (e) {
-     if (e.keyCode == 13) {
-        searchTri ();
-     }
- });
-function checkComma()
-{
- if ($("#solr").val().trim()!="")
-   {
-     var idTmp = $("#solr").val().trim();
-     if (idTmp.length > 2 && idTmp.substr(0,1)!="(" && idTmp.substr(idTmp.length-1)!=")")
-        $("#solr").val($("#solr").val());
-    }
- }
-
-function voteArrond (){
-    $("#type_search").val("arrondissement");
-    $("#type_search").val("arrondissement");
-    $("#arrondissement option").val("user_arrondissement")
-    checkComma();
-    $("#search-prj-form").submit();
-}
-
-function searchArrond () {
-  $("#type_search").val("arrondissement");
-    searchTri();
-}
-
-function searchBudget (budget) {
-    $("#sort_order option").val("budget_long&sort_order=asc");
-    $("#budget").val(budget);
-    searchTri();
-}
-
-function displayInMap() {
-    $("#form_conf_hidden").attr('value',"${other_view_code}");
-}
-
-function searchTri () {
-    $("#search-prj-form").find("button").attr("disabled", "disabled");
-    if ($("#arrondissement").val() == "all_arr")
-    {
-        window.location.href = getURLSubmit();
-    } else {
-         checkComma();
-    $("#search-prj-form").submit();
-    }
-}
-function getParameterByName(name) {
-    name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
-    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-        results = regex.exec(location.search);
-    return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
-}
-
-$(function(){
-    $("#adv-search").toggle();
-
-    var type_search = getParameterByName("type_search");
-    var order = getParameterByName("sort_name");
-
-    if (type_search == '' || type_search == 'simple' || type_search == 'thematique') {
-        $("#type_search").val("simple");
-    } else {
-        $("#type_search").val("avancee");
-    }
-
-    $("select").change( function(){
-      searchArrond();
-    })
-
-    $("#search-prj-form").submit( function(){
-        return validateForm( $(this) );
-    })
-
-});
+	}
+	
+	function getURLSubmit ()
+	{
+	    var myquery = "";
+	    checkComma();
+	    if ($("#solr").val().trim()!="")
+        	{
+        	myquery = "&query=content:"+$("#solr").val();
+    	}
+    	var urltest = "${fullUrl}?page=search-solr&items_per_page=${nb_items_per_page}&sort_name="+$("#sort").val()+myquery;
+    	urltest += "<@EncodeFQ facets_list allParisCity allArrParisCity />";
+    	return urltest;
+	}
+	
+	$("#solr").bind("keypress", function (e) {
+	     if (e.keyCode == 13) {
+	        searchTri ();
+	     }
+	 });
+	function checkComma()
+	{
+	 if ($("#solr").val().trim()!="")
+	   {
+	     var idTmp = $("#solr").val().trim();
+	     if (idTmp.length > 2 && idTmp.substr(0,1)!="(" && idTmp.substr(idTmp.length-1)!=")")
+	        $("#solr").val($("#solr").val());
+	    }
+	 }
+	
+	function voteArrond (){
+	    $("#type_search").val("arrondissement");
+	    $("#type_search").val("arrondissement");
+	    $("#arrondissement option").val("user_arrondissement")
+	    checkComma();
+	    $("#search-prj-form").submit();
+	}
+	
+	function searchArrond () {
+	  $("#type_search").val("arrondissement");
+	    searchTri();
+	}
+	
+	function searchBudget (budget) {
+	    $("#sort_order option").val("budget_long&sort_order=asc");
+	    $("#budget").val(budget);
+	    searchTri();
+	}
+	
+	function displayInMap() {
+	    $("#form_conf_hidden").attr('value',"${other_view_code}");
+	}
+	
+	function searchTri () {
+	    $("#search-prj-form").find("button").attr("disabled", "disabled");
+	    if ($("#arrondissement").val() == "all_arr")
+	    {
+	        window.location.href = getURLSubmit();
+	    } else {
+	         checkComma();
+	    $("#search-prj-form").submit();
+	    }
+	}
+	
+	function getParameterByName(name) {
+	    name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+	    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+	        results = regex.exec(location.search);
+	    return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+	}
+	
+	$(function(){
+	    $("#adv-search").toggle();
+	
+	    var type_search = getParameterByName("type_search");
+	    var order = getParameterByName("sort_name");
+	
+	    if (type_search == '' || type_search == 'simple' || type_search == 'thematique') {
+	        $("#type_search").val("simple");
+	    } else {
+	        $("#type_search").val("avancee");
+	    }
+	
+	    $("select").change( function(){
+	      searchArrond();
+	    })
+	
+	    $("#search-prj-form").submit( function(){
+	        return validateForm( $(this) );
+	    })
+	
+	});
 
 </script>
