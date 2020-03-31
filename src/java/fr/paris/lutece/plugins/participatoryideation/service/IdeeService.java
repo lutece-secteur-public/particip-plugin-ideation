@@ -47,9 +47,9 @@ import fr.paris.lutece.plugins.extend.business.extender.history.ResourceExtender
 import fr.paris.lutece.plugins.extend.business.extender.history.ResourceExtenderHistoryFilter;
 import fr.paris.lutece.plugins.extend.modules.follow.service.extender.FollowResourceExtender;
 import fr.paris.lutece.plugins.extend.service.extender.history.IResourceExtenderHistoryService;
-import fr.paris.lutece.plugins.participatoryideation.business.Idee;
-import fr.paris.lutece.plugins.participatoryideation.business.IdeeHome;
-import fr.paris.lutece.plugins.participatoryideation.business.IdeeSearcher;
+import fr.paris.lutece.plugins.participatoryideation.business.proposal.Idee;
+import fr.paris.lutece.plugins.participatoryideation.business.proposal.IdeeHome;
+import fr.paris.lutece.plugins.participatoryideation.business.proposal.IdeeSearcher;
 import fr.paris.lutece.plugins.participatoryideation.util.Constants;
 import fr.paris.lutece.plugins.participatoryideation.web.IdeationApp;
 import fr.paris.lutece.portal.business.file.File;

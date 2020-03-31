@@ -39,8 +39,8 @@ import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 
 import fr.paris.lutece.plugins.extend.modules.comment.service.ICommentListener;
-import fr.paris.lutece.plugins.participatoryideation.business.Idee;
-import fr.paris.lutece.plugins.participatoryideation.business.IdeeHome;
+import fr.paris.lutece.plugins.participatoryideation.business.proposal.Idee;
+import fr.paris.lutece.plugins.participatoryideation.business.proposal.IdeeHome;
 import fr.paris.lutece.plugins.participatoryideation.service.campaign.IdeationCampaignService;
 import fr.paris.lutece.plugins.participatoryideation.util.Constants;
 import fr.paris.lutece.portal.service.datastore.DatastoreService;

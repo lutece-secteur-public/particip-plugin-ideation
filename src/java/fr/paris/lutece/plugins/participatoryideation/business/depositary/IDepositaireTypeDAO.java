@@ -31,41 +31,43 @@
  *
  * License 1.0
  */
-package fr.paris.lutece.plugins.participatoryideation.business;
+package fr.paris.lutece.plugins.participatoryideation.business.depositary;
 
 import fr.paris.lutece.portal.service.plugin.Plugin;
 import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
 /**
- * ICampagneDepositaireDAO Interface
+ * IDepositaireTypeDAO Interface
  */
-public interface ICampagneDepositaireDAO
+public interface IDepositaireTypeDAO
 {
     /**
      * Insert a new record in the table.
      * 
-     * @param campagneDepositaire
-     *            instance of the CampagneDepositaire object to insert
+     * @param depositaireType
+     *            instance of the DepositaireType object to insert
      * @param plugin
      *            the Plugin
      */
-    void insert( CampagneDepositaire campagneDepositaire, Plugin plugin );
+    void insert( DepositaireType depositaireType, Plugin plugin );
 
     /**
      * Update the record in the table
      * 
-     * @param campagneDepositaire
-     *            the reference of the CampagneDepositaire
+     * @param depositaireType
+     *            the reference of the DepositaireType
      * @param plugin
      *            the Plugin
      */
-    void store( CampagneDepositaire campagneDepositaire, Plugin plugin );
+    void store( DepositaireType depositaireType, Plugin plugin );
 
     /**
      * Delete a record from the table
      * 
      * @param nKey
-     *            The identifier of the CampagneDepositaire to delete
+     *            The identifier of the DepositaireType to delete
      * @param plugin
      *            the Plugin
      */
@@ -78,38 +80,58 @@ public interface ICampagneDepositaireDAO
      * Load the data from the table
      * 
      * @param nKey
-     *            The identifier of the campagneDepositaire
+     *            The identifier of the depositaireType
      * @param plugin
      *            the Plugin
-     * @return The instance of the campagneDepositaire
+     * @return The instance of the depositaireType
      */
-    CampagneDepositaire load( int nKey, Plugin plugin );
+    DepositaireType load( int nKey, Plugin plugin );
 
     /**
-     * Load the data of all the campagneDepositaire objects and returns them as a collection
+     * Load the data of all the depositaireType objects and returns them as a collection
      * 
      * @param plugin
      *            the Plugin
-     * @return The collection which contains the data of all the campagneDepositaire objects
+     * @return The collection which contains the data of all the depositaireType objects
      */
-    Collection<CampagneDepositaire> selectCampagneDepositairesList( Plugin plugin );
+    Collection<DepositaireType> selectDepositaireTypesList( Plugin plugin );
 
     /**
-     * Load the data of all the campagneDepositaire objects for a campagne and returns them as a collection
+     * Load the id of all the depositaireType objects and returns them as a collection
      * 
      * @param plugin
      *            the Plugin
-     * @return The collection which contains the data of all the {@link CampagneDepositaire} objects
+     * @return The collection which contains the id of all the depositaireType objects
      */
-    Collection<CampagneDepositaire> selectCampagneDepositaireListByCampagne( String codeCampagne, Plugin plugin );
+    Collection<Integer> selectIdDepositaireTypesList( Plugin plugin );
 
     /**
-     * Load the id of all the campagneDepositaire objects and returns them as a collection
+     * Load the data of all the depositaireType objects for campagne and returns them as a collection
      * 
      * @param plugin
      *            the Plugin
-     * @return The collection which contains the id of all the campagneDepositaire objects
+     * @return The collection which contains the data of all the depositaireType objects
      */
-    Collection<Integer> selectIdCampagneDepositairesList( Plugin plugin );
+    Collection<DepositaireType> selectDepositaireTypesListByCampagne( String strCodeCampagne, Plugin plugin );
+
+    /**
+     * Load the data from the table
+     * 
+     * @param strCode
+     *            The depositaire type code
+     * @param plugin
+     *            the Plugin
+     * @return The instance of the depositaireType
+     */
+    DepositaireType load( String strCode, Plugin plugin );
+
+    /**
+     * Load the data of all the depositaireType objects mapped to a campagne and returns them as a map
+     * 
+     * @param plugin
+     *            the Plugin
+     * @return The collection which contains the data of all the depositaireType objects
+     */
+    Map<String, List<DepositaireType>> selectDepositaireTypesMapByCampagne( Plugin plugin );
 
 }

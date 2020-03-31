@@ -35,6 +35,10 @@ package fr.paris.lutece.plugins.participatoryideation.business;
 
 import java.util.Collection;
 
+import fr.paris.lutece.plugins.participatoryideation.business.link.Link;
+import fr.paris.lutece.plugins.participatoryideation.business.link.LinkHome;
+import fr.paris.lutece.plugins.participatoryideation.business.proposal.Idee;
+import fr.paris.lutece.plugins.participatoryideation.business.proposal.IdeeHome;
 import fr.paris.lutece.test.LuteceTestCase;
 import fr.paris.lutece.util.ReferenceList;
 

@@ -37,7 +37,8 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.paris.lutece.plugins.participatoryideation.business.Idee.Status;
+import fr.paris.lutece.plugins.participatoryideation.business.proposal.Idee;
+import fr.paris.lutece.plugins.participatoryideation.business.proposal.Idee.Status;
 import fr.paris.lutece.portal.business.file.File;
 import fr.paris.lutece.test.LuteceTestCase;
 

@@ -47,10 +47,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang.StringUtils;
 
 import fr.paris.lutece.plugins.leaflet.business.GeolocItem;
-import fr.paris.lutece.plugins.participatoryideation.business.Idee;
-import fr.paris.lutece.plugins.participatoryideation.business.IdeeHome;
-import fr.paris.lutece.plugins.participatoryideation.business.IdeeSearcher;
 import fr.paris.lutece.plugins.participatoryideation.business.capgeo.QpvQva;
+import fr.paris.lutece.plugins.participatoryideation.business.proposal.Idee;
+import fr.paris.lutece.plugins.participatoryideation.business.proposal.IdeeHome;
+import fr.paris.lutece.plugins.participatoryideation.business.proposal.IdeeSearcher;
 import fr.paris.lutece.plugins.participatoryideation.service.IdeationErrorException;
 import fr.paris.lutece.plugins.participatoryideation.service.IdeationStaticService;
 import fr.paris.lutece.plugins.participatoryideation.service.IdeeService;

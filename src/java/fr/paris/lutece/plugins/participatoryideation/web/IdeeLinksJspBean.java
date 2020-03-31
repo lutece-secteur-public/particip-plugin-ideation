@@ -41,11 +41,11 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
 
-import fr.paris.lutece.plugins.participatoryideation.business.Idee;
-import fr.paris.lutece.plugins.participatoryideation.business.IdeeHome;
-import fr.paris.lutece.plugins.participatoryideation.business.Link;
-import fr.paris.lutece.plugins.participatoryideation.business.LinkHome;
-import fr.paris.lutece.plugins.participatoryideation.business.LinkSearcher;
+import fr.paris.lutece.plugins.participatoryideation.business.link.Link;
+import fr.paris.lutece.plugins.participatoryideation.business.link.LinkHome;
+import fr.paris.lutece.plugins.participatoryideation.business.link.LinkSearcher;
+import fr.paris.lutece.plugins.participatoryideation.business.proposal.Idee;
+import fr.paris.lutece.plugins.participatoryideation.business.proposal.IdeeHome;
 import fr.paris.lutece.plugins.participatoryideation.service.IdeationStaticService;
 import fr.paris.lutece.portal.service.message.AdminMessage;
 import fr.paris.lutece.portal.service.message.AdminMessageService;

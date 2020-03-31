@@ -37,8 +37,8 @@ import java.util.Collection;
 
 import javax.servlet.http.HttpServletRequest;
 
-import fr.paris.lutece.plugins.participatoryideation.business.Idee;
-import fr.paris.lutece.plugins.participatoryideation.business.IdeeSearcher;
+import fr.paris.lutece.plugins.participatoryideation.business.proposal.Idee;
+import fr.paris.lutece.plugins.participatoryideation.business.proposal.IdeeSearcher;
 
 public interface IIdeeWSService
 {

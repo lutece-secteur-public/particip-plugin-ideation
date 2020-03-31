@@ -16,10 +16,10 @@
 
 	<!-- DAO beans -->
 
-    <bean id="participatoryideation.depositaireTypeDAO"       class="fr.paris.lutece.plugins.participatoryideation.business.DepositaireTypeDAO" />  
-    <bean id="participatoryideation.campagneDepositaireDAO"   class="fr.paris.lutece.plugins.participatoryideation.business.CampagneDepositaireDAO" />  
-    <bean id="participatoryideation.ideeDAO"                  class="fr.paris.lutece.plugins.participatoryideation.business.IdeeDAO" />  
-    <bean id="participatoryideation.linkDAO"                  class="fr.paris.lutece.plugins.participatoryideation.business.LinkDAO" />  
+    <bean id="participatoryideation.depositaireTypeDAO"       class="fr.paris.lutece.plugins.participatoryideation.business.depositary.DepositaireTypeDAO" />  
+    <bean id="participatoryideation.campagneDepositaireDAO"   class="fr.paris.lutece.plugins.participatoryideation.business.depositary.CampagneDepositaireDAO" />  
+    <bean id="participatoryideation.ideeDAO"                  class="fr.paris.lutece.plugins.participatoryideation.business.proposal.IdeeDAO" />  
+    <bean id="participatoryideation.linkDAO"                  class="fr.paris.lutece.plugins.participatoryideation.business.link.LinkDAO" />  
     
 	<!-- Services beans -->
 

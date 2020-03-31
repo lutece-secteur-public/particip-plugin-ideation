@@ -33,8 +33,8 @@
  */
 package fr.paris.lutece.plugins.participatoryideation.web.notify;
 
-import fr.paris.lutece.plugins.participatoryideation.business.Idee.Status;
 import fr.paris.lutece.plugins.participatoryideation.business.notify.TaskChangeIdeeStatusConfig;
+import fr.paris.lutece.plugins.participatoryideation.business.proposal.Idee.Status;
 import fr.paris.lutece.plugins.participatoryideation.service.notify.TaskChangeIdeeStatus;
 import fr.paris.lutece.plugins.workflow.web.task.NoFormTaskComponent;
 import fr.paris.lutece.plugins.workflowcore.service.config.ITaskConfigService;

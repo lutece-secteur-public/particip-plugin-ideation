@@ -39,9 +39,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import fr.paris.lutece.plugins.participatoryideation.business.DepositaireType;
-import fr.paris.lutece.plugins.participatoryideation.business.DepositaireTypeHome;
-import fr.paris.lutece.plugins.participatoryideation.business.Idee;
+import fr.paris.lutece.plugins.participatoryideation.business.depositary.DepositaireType;
+import fr.paris.lutece.plugins.participatoryideation.business.depositary.DepositaireTypeHome;
+import fr.paris.lutece.plugins.participatoryideation.business.proposal.Idee;
 import fr.paris.lutece.plugins.participatoryideation.service.campaign.IdeationCampaignService;
 import fr.paris.lutece.portal.service.cache.AbstractCacheableService;
 import fr.paris.lutece.portal.service.i18n.I18nService;

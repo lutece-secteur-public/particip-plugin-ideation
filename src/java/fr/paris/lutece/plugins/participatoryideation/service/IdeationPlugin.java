@@ -37,7 +37,7 @@ import fr.paris.lutece.plugins.extend.modules.comment.service.CommentListenerSer
 import fr.paris.lutece.plugins.extend.modules.extendablecomment.business.ExtendableComment;
 import fr.paris.lutece.plugins.extend.modules.follow.service.FollowListenerService;
 import fr.paris.lutece.plugins.extend.modules.rating.service.RatingListenerService;
-import fr.paris.lutece.plugins.participatoryideation.business.Idee;
+import fr.paris.lutece.plugins.participatoryideation.business.proposal.Idee;
 import fr.paris.lutece.plugins.participatoryideation.service.fileimage.IdeationFileImageService;
 import fr.paris.lutece.portal.service.plugin.Plugin;
 

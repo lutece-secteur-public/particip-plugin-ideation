@@ -33,6 +33,8 @@
  */
 package fr.paris.lutece.plugins.participatoryideation.business;
 
+import fr.paris.lutece.plugins.participatoryideation.business.depositary.DepositaireType;
+import fr.paris.lutece.plugins.participatoryideation.business.depositary.DepositaireTypeHome;
 import fr.paris.lutece.test.LuteceTestCase;
 import fr.paris.lutece.util.ReferenceList;
 

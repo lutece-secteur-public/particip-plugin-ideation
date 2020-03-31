@@ -31,7 +31,7 @@
  *
  * License 1.0
  */
-package fr.paris.lutece.plugins.participatoryideation.business;
+package fr.paris.lutece.plugins.participatoryideation.business.proposal;
 
 /**
  * This is the business class for storing search infos

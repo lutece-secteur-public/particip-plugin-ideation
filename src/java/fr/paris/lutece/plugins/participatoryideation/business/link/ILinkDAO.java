@@ -31,43 +31,41 @@
  *
  * License 1.0
  */
-package fr.paris.lutece.plugins.participatoryideation.business;
+package fr.paris.lutece.plugins.participatoryideation.business.link;
 
 import fr.paris.lutece.portal.service.plugin.Plugin;
 import java.util.Collection;
-import java.util.List;
-import java.util.Map;
 
 /**
- * IDepositaireTypeDAO Interface
+ * ILinkDAO Interface
  */
-public interface IDepositaireTypeDAO
+public interface ILinkDAO
 {
     /**
      * Insert a new record in the table.
      * 
-     * @param depositaireType
-     *            instance of the DepositaireType object to insert
+     * @param link
+     *            instance of the link object to insert
      * @param plugin
      *            the Plugin
      */
-    void insert( DepositaireType depositaireType, Plugin plugin );
+    void insert( Link link, Plugin plugin );
 
     /**
      * Update the record in the table
      * 
-     * @param depositaireType
-     *            the reference of the DepositaireType
+     * @param link
+     *            the reference of the link
      * @param plugin
      *            the Plugin
      */
-    void store( DepositaireType depositaireType, Plugin plugin );
+    void store( Link link, Plugin plugin );
 
     /**
      * Delete a record from the table
      * 
      * @param nKey
-     *            The identifier of the DepositaireType to delete
+     *            The identifier of the link to delete
      * @param plugin
      *            the Plugin
      */
@@ -80,58 +78,37 @@ public interface IDepositaireTypeDAO
      * Load the data from the table
      * 
      * @param nKey
-     *            The identifier of the depositaireType
+     *            The identifier of the link
      * @param plugin
      *            the Plugin
-     * @return The instance of the depositaireType
+     * @return The instance of the link
      */
-    DepositaireType load( int nKey, Plugin plugin );
+    Link load( int nKey, Plugin plugin );
 
     /**
-     * Load the data of all the depositaireType objects and returns them as a collection
+     * Load the data of all the link objects and returns them as a collection
      * 
      * @param plugin
      *            the Plugin
-     * @return The collection which contains the data of all the depositaireType objects
+     * @return The collection which contains the data of all the link objects
      */
-    Collection<DepositaireType> selectDepositaireTypesList( Plugin plugin );
+    Collection<Link> selectLinksList( Plugin plugin );
 
     /**
-     * Load the id of all the depositaireType objects and returns them as a collection
+     * Load the id of all the link objects and returns them as a collection
      * 
      * @param plugin
      *            the Plugin
-     * @return The collection which contains the id of all the depositaireType objects
+     * @return The collection which contains the id of all the link objects
      */
-    Collection<Integer> selectIdDepositaireTypesList( Plugin plugin );
+    Collection<Integer> selectIdLinksList( Plugin plugin );
 
     /**
-     * Load the data of all the depositaireType objects for campagne and returns them as a collection
-     * 
+     * @param linkSearcher
+     *            the link search
      * @param plugin
-     *            the Plugin
-     * @return The collection which contains the data of all the depositaireType objects
+     *            the plugin
+     * @return list of vs
      */
-    Collection<DepositaireType> selectDepositaireTypesListByCampagne( String strCodeCampagne, Plugin plugin );
-
-    /**
-     * Load the data from the table
-     * 
-     * @param strCode
-     *            The depositaire type code
-     * @param plugin
-     *            the Plugin
-     * @return The instance of the depositaireType
-     */
-    DepositaireType load( String strCode, Plugin plugin );
-
-    /**
-     * Load the data of all the depositaireType objects mapped to a campagne and returns them as a map
-     * 
-     * @param plugin
-     *            the Plugin
-     * @return The collection which contains the data of all the depositaireType objects
-     */
-    Map<String, List<DepositaireType>> selectDepositaireTypesMapByCampagne( Plugin plugin );
-
+    Collection<Link> selectLinksListSearch( LinkSearcher linkSearcher, Plugin plugin );
 }

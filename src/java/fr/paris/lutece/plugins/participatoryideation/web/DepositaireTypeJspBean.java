@@ -33,8 +33,8 @@
  */
 package fr.paris.lutece.plugins.participatoryideation.web;
 
-import fr.paris.lutece.plugins.participatoryideation.business.DepositaireType;
-import fr.paris.lutece.plugins.participatoryideation.business.DepositaireTypeHome;
+import fr.paris.lutece.plugins.participatoryideation.business.depositary.DepositaireType;
+import fr.paris.lutece.plugins.participatoryideation.business.depositary.DepositaireTypeHome;
 import fr.paris.lutece.portal.service.message.AdminMessage;
 import fr.paris.lutece.portal.service.message.AdminMessageService;
 import fr.paris.lutece.portal.util.mvc.admin.annotations.Controller;

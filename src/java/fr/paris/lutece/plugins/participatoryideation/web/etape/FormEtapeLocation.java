@@ -48,9 +48,9 @@ import org.apache.commons.lang.StringUtils;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import fr.paris.lutece.plugins.leaflet.business.GeolocItem;
-import fr.paris.lutece.plugins.participatoryideation.business.DepositaireType;
-import fr.paris.lutece.plugins.participatoryideation.business.DepositaireTypeHome;
-import fr.paris.lutece.plugins.participatoryideation.business.Idee;
+import fr.paris.lutece.plugins.participatoryideation.business.depositary.DepositaireType;
+import fr.paris.lutece.plugins.participatoryideation.business.depositary.DepositaireTypeHome;
+import fr.paris.lutece.plugins.participatoryideation.business.proposal.Idee;
 import fr.paris.lutece.plugins.participatoryideation.service.IdeeService;
 import fr.paris.lutece.portal.service.i18n.I18nService;
 import fr.paris.lutece.portal.service.security.LuteceUser;

@@ -41,7 +41,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import fr.paris.lutece.plugins.participatoryideation.business.Idee;
+import fr.paris.lutece.plugins.participatoryideation.business.proposal.Idee;
 import fr.paris.lutece.plugins.participatoryideation.util.Constants;
 import fr.paris.lutece.plugins.workflowcore.business.state.State;
 import fr.paris.lutece.portal.service.util.AppPropertiesService;

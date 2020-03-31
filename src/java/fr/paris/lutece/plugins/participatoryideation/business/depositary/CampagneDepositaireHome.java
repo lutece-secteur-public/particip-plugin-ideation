@@ -31,7 +31,7 @@
  *
  * License 1.0
  */
-package fr.paris.lutece.plugins.participatoryideation.business;
+package fr.paris.lutece.plugins.participatoryideation.business.depositary;
 
 import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.portal.service.plugin.PluginService;
@@ -82,6 +82,19 @@ public final class CampagneDepositaireHome
         _dao.store( campagneDepositaire, _plugin );
 
         return campagneDepositaire;
+    }
+
+    /**
+     * Change a campaign code
+     * 
+     * @param oldCampaignCode
+     *            The campaign code to change
+     * @param newCampaignCode
+     *            The new campaign code
+     */
+    public static void changeCampainCode( String oldCampaignCode, String newCampaignCode )
+    {
+        _dao.changeCampainCode( oldCampaignCode, newCampaignCode, _plugin );
     }
 
     /**

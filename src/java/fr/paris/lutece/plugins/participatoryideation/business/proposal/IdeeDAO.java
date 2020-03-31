@@ -31,7 +31,7 @@
  *
  * License 1.0
  */
-package fr.paris.lutece.plugins.participatoryideation.business;
+package fr.paris.lutece.plugins.participatoryideation.business.proposal;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -44,7 +44,7 @@ import java.util.Map.Entry;
 
 import org.apache.commons.lang.StringUtils;
 
-import fr.paris.lutece.plugins.participatoryideation.business.Idee.Status;
+import fr.paris.lutece.plugins.participatoryideation.business.proposal.Idee.Status;
 import fr.paris.lutece.plugins.participatoryideation.web.IdeationApp;
 import fr.paris.lutece.portal.business.file.File;
 import fr.paris.lutece.portal.business.file.FileHome;

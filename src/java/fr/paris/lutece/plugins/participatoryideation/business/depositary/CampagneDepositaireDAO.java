@@ -31,7 +31,7 @@
  *
  * License 1.0
  */
-package fr.paris.lutece.plugins.participatoryideation.business;
+package fr.paris.lutece.plugins.participatoryideation.business.depositary;
 
 import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.util.sql.DAOUtil;
@@ -51,6 +51,7 @@ public final class CampagneDepositaireDAO implements ICampagneDepositaireDAO
     private static final String SQL_QUERY_INSERT = "INSERT INTO ideation_campagnes_depositaires ( id_campagne_depositaire, code_campagne, code_depositaire_type ) VALUES ( ?, ?, ? ) ";
     private static final String SQL_QUERY_DELETE = "DELETE FROM ideation_campagnes_depositaires WHERE id_campagne_depositaire = ? ";
     private static final String SQL_QUERY_UPDATE = "UPDATE ideation_campagnes_depositaires SET id_campagne_depositaire = ?, code_campagne = ?, code_depositaire_type = ? WHERE id_campagne_depositaire = ?";
+    private static final String SQL_QUERY_CHANGEALL_CAMPAIGN_CODE = "UPDATE ideation_campagnes_depositaires SET code_campagne = ? WHERE code_campagne = ?";
     private static final String SQL_QUERY_SELECTALL = "SELECT id_campagne_depositaire, code_campagne, code_depositaire_type FROM ideation_campagnes_depositaires";
     private static final String SQL_QUERY_SELECTALL_BY_CAMPAGNE = "SELECT id_campagne_depositaire, code_campagne, code_depositaire_type FROM ideation_campagnes_depositaires WHERE code_campagne = ?";
     private static final String SQL_QUERY_SELECTALL_ID = "SELECT id_campagne_depositaire FROM ideation_campagnes_depositaires";
@@ -119,6 +120,20 @@ public final class CampagneDepositaireDAO implements ICampagneDepositaireDAO
         }
 
         return campagneDepositaire;
+    }
+
+    /**
+     * {@inheritDoc }
+     */
+    @Override
+    public void changeCampainCode( String oldCampaignCode, String newCampaignCode, Plugin plugin )
+    {
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_CHANGEALL_CAMPAIGN_CODE, plugin ) )
+        {
+            daoUtil.setString( 1, newCampaignCode );
+            daoUtil.setString( 2, oldCampaignCode );
+            daoUtil.executeUpdate( );
+        }
     }
 
     /**

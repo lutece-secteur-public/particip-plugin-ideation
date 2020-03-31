@@ -33,9 +33,9 @@
  */
 package fr.paris.lutece.plugins.participatoryideation.service.notify;
 
-import fr.paris.lutece.plugins.participatoryideation.business.Idee;
-import fr.paris.lutece.plugins.participatoryideation.business.IdeeHome;
 import fr.paris.lutece.plugins.participatoryideation.business.notify.TaskChangeIdeeStatusConfig;
+import fr.paris.lutece.plugins.participatoryideation.business.proposal.Idee;
+import fr.paris.lutece.plugins.participatoryideation.business.proposal.IdeeHome;
 import fr.paris.lutece.plugins.participatoryideation.service.IdeeService;
 import fr.paris.lutece.plugins.participatoryideation.service.SolrIdeeIndexer;
 import fr.paris.lutece.plugins.workflowcore.business.resource.ResourceHistory;

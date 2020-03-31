@@ -36,6 +36,8 @@ package fr.paris.lutece.plugins.participatoryideation.business;
 import java.util.Collection;
 import java.util.Iterator;
 
+import fr.paris.lutece.plugins.participatoryideation.business.depositary.CampagneDepositaire;
+import fr.paris.lutece.plugins.participatoryideation.business.depositary.CampagneDepositaireHome;
 import fr.paris.lutece.test.LuteceTestCase;
 
 /**
