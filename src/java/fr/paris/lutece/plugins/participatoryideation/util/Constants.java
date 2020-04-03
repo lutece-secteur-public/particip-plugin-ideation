@@ -52,13 +52,13 @@ public final class Constants
     public static final String PROPERTY_WORKFLOW_ACTION_NAME_FOLLOW = "participatoryideation.workFlowActionNameFollow";
     public static final String PROPERTY_WORKFLOW_ACTION_NAME_CANCEL_FOLLOW = "participatoryideation.workFlowActionNameCancelFollow";
 
-    public static final String PROPERTY_WORKFLOW_ACTION_NAME_CREATE_IDEE = "participatoryideation.workFlowActionNameCreateIdee";
-    public static final String PROPERTY_WORKFLOW_ACTION_NAME_DELETE_IDEE = "participatoryideation.workFlowActionNameDeleteIdee";
-    public static final String PROPERTY_WORKFLOW_ACTION_NAME_DELETE_IDEE_BY_MDP = "participatoryideation.workFlowActionNameDeleteIdeeByMdp";
+    public static final String PROPERTY_WORKFLOW_ACTION_NAME_CREATE_PROPOSAL = "participatoryideation.workFlowActionNameCreateProposal";
+    public static final String PROPERTY_WORKFLOW_ACTION_NAME_DELETE_PROPOSAL = "participatoryideation.workFlowActionNameDeleteProposal";
+    public static final String PROPERTY_WORKFLOW_ACTION_NAME_DELETE_PROPOSAL_BY_MDP = "participatoryideation.workFlowActionNameDeleteProposalByMdp";
 
-    public static final String PROPERTY_GENERATE_IDEE_DEPOSITAIRE_TYPE = "participatoryideation.atelier.generateIdee.depositaire_type";
-    public static final String PROPERTY_GENERATE_IDEE_DEPOSITAIRE = "participatoryideation.atelier.generateIdee.depositaire";
-    public static final String PROPERTY_GENERATE_IDEE_LUTECE_USER_NAME = "participatoryideation.atelier.generateIdee.luteceUserName";
+    public static final String PROPERTY_GENERATE_PROPOSAL_DEPOSITAIRE_TYPE = "participatoryideation.atelier.generateProposal.depositaire_type";
+    public static final String PROPERTY_GENERATE_PROPOSAL_DEPOSITAIRE = "participatoryideation.atelier.generateProposal.depositaire";
+    public static final String PROPERTY_GENERATE_PROPOSAL_LUTECE_USER_NAME = "participatoryideation.atelier.generateProposal.luteceUserName";
 
     // Constructor
     private Constants( )

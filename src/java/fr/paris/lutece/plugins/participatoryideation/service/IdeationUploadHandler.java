@@ -54,9 +54,9 @@ import fr.paris.lutece.util.filesystem.UploadUtil;
 
 public class IdeationUploadHandler extends AbstractAsynchronousUploadHandler
 {
-    public static final String BEAN_NAME = "participatoryideation.IdeeAsynchronousHandler";
+    public static final String BEAN_NAME = "participatoryideation.ProposalAsynchronousHandler";
 
-    private static final String HANDLER_NAME = "ideationIdeeUploadHandler";
+    private static final String HANDLER_NAME = "ideationProposalUploadHandler";
 
     // Error messages
     private static final String ERROR_MESSAGE_UPLOAD_PJS_MAX_SIZE = "participatoryideation.upload.message.uploadPjsMaxSize";

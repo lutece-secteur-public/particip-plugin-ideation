@@ -29,11 +29,11 @@
             <feature-icon-url/>
       </admin-feature>
       <admin-feature>
-          <feature-id>IDEATION_IDEE_MANAGEMENT</feature-id>
-          <feature-title>ideation.adminFeature.ManageIdeationIdees.name</feature-title>
-          <feature-description>ideation.adminFeature.ManageIdeationIdees.description</feature-description>
+          <feature-id>IDEATION_PROPOSAL_MANAGEMENT</feature-id>
+          <feature-title>ideation.adminFeature.ManageIdeationProposals.name</feature-title>
+          <feature-description>ideation.adminFeature.ManageIdeationProposals.description</feature-description>
           <feature-level>0</feature-level>
-          <feature-url>jsp/admin/plugins/participatoryideation/ManageIdees.jsp</feature-url>
+          <feature-url>jsp/admin/plugins/participatoryideation/ManageProposals.jsp</feature-url>
           <feature-icon-url/>
       </admin-feature>
     </admin-features>    
@@ -50,16 +50,16 @@
             <application-class>fr.paris.lutece.plugins.participatoryideation.web.IdeationApp</application-class>
         </application>
         <application>
-            <application-id>idee</application-id>
-            <application-class>fr.paris.lutece.plugins.participatoryideation.web.IdeeXPage</application-class>
+            <application-id>proposal</application-id>
+            <application-class>fr.paris.lutece.plugins.participatoryideation.web.ProposalXPage</application-class>
         </application>
          <application>
             <application-id>mySubscriptions</application-id>
-            <application-class>fr.paris.lutece.plugins.participatoryideation.web.IdeeSubscriptionXPage</application-class>
+            <application-class>fr.paris.lutece.plugins.participatoryideation.web.ProposalSubscriptionXPage</application-class>
         </application>
          <application>
             <application-id>myProjects</application-id>
-            <application-class>fr.paris.lutece.plugins.participatoryideation.web.IdeeSubscriberXPage</application-class>
+            <application-class>fr.paris.lutece.plugins.participatoryideation.web.ProposalSubscriberXPage</application-class>
         </application>
     </applications>
     

@@ -5,16 +5,16 @@ INSERT INTO core_admin_right (id_right,name,level_right,admin_url,description,is
 DELETE FROM core_user_right WHERE id_right = 'IDEATION_MANAGEMENT';
 INSERT INTO core_user_right (id_right,id_user) VALUES ('IDEATION_MANAGEMENT',1);
 
-DELETE FROM core_admin_right WHERE id_right = 'IDEATION_IDEES_MANAGEMENT';
+DELETE FROM core_admin_right WHERE id_right = 'IDEATION_PROPOSALS_MANAGEMENT';
 INSERT INTO core_admin_right (id_right,name,level_right,admin_url,description,is_updatable,plugin_name,id_feature_group,icon_url,documentation_url, id_order ) VALUES 
-('IDEATION_IDEES_MANAGEMENT','participatoryideation.adminFeature.ManageIdeationIdees.name',1,'jsp/admin/plugins/participatoryideation/ManageIdees.jsp','participatoryideation.adminFeature.ManageIdeationIdees.description',0,'ideation',NULL,NULL,NULL,4);
+('IDEATION_PROPOSALS_MANAGEMENT','participatoryideation.adminFeature.ManageIdeationProposals.name',1,'jsp/admin/plugins/participatoryideation/ManageProposals.jsp','participatoryideation.adminFeature.ManageIdeationProposals.description',0,'ideation',NULL,NULL,NULL,4);
 
-DELETE FROM core_user_right WHERE id_right = 'IDEATION_IDEES_MANAGEMENT';
-INSERT INTO core_user_right (id_right,id_user) VALUES ('IDEATION_IDEES_MANAGEMENT',1);
+DELETE FROM core_user_right WHERE id_right = 'IDEATION_PROPOSALS_MANAGEMENT';
+INSERT INTO core_user_right (id_right,id_user) VALUES ('IDEATION_PROPOSALS_MANAGEMENT',1);
 
 DELETE FROM core_admin_right WHERE id_right = 'IDEATION_LINKS_MANAGEMENT';
 INSERT INTO core_admin_right (id_right,name,level_right,admin_url,description,is_updatable,plugin_name,id_feature_group,icon_url,documentation_url, id_order ) VALUES 
-('IDEATION_LINKS_MANAGEMENT','participatoryideation.adminFeature.ManageIdeeLinks.name',1,'jsp/admin/plugins/participatoryideation/ManageIdeeLinks.jsp','participatoryideation.adminFeature.ManageIdeeLinks.description',0,'ideation',NULL,NULL,NULL,4);
+('IDEATION_LINKS_MANAGEMENT','participatoryideation.adminFeature.ManageProposalLinks.name',1,'jsp/admin/plugins/participatoryideation/ManageProposalLinks.jsp','participatoryideation.adminFeature.ManageProposalLinks.description',0,'ideation',NULL,NULL,NULL,4);
 
 INSERT INTO core_datastore VALUES ('participatoryideation.site_property.form.titre.minLength','15');
 INSERT INTO core_datastore VALUES ('participatoryideation.site_property.form.titre.maxLength','60');

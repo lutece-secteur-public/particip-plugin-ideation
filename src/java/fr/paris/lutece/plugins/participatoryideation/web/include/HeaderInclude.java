@@ -53,10 +53,10 @@ import fr.paris.lutece.plugins.extend.modules.comment.service.ICommentService;
 import fr.paris.lutece.plugins.extend.modules.follow.service.extender.FollowResourceExtender;
 import fr.paris.lutece.plugins.extend.service.extender.history.IResourceExtenderHistoryService;
 import fr.paris.lutece.plugins.extend.service.extender.history.ResourceExtenderHistoryService;
-import fr.paris.lutece.plugins.participatoryideation.business.proposal.Idee;
-import fr.paris.lutece.plugins.participatoryideation.business.proposal.IdeeHome;
-import fr.paris.lutece.plugins.participatoryideation.business.proposal.IdeeSearcher;
-import fr.paris.lutece.plugins.participatoryideation.service.IdeeService;
+import fr.paris.lutece.plugins.participatoryideation.business.proposal.Proposal;
+import fr.paris.lutece.plugins.participatoryideation.business.proposal.ProposalHome;
+import fr.paris.lutece.plugins.participatoryideation.business.proposal.ProposalSearcher;
+import fr.paris.lutece.plugins.participatoryideation.service.ProposalService;
 import fr.paris.lutece.portal.service.content.PageData;
 import fr.paris.lutece.portal.service.includes.PageInclude;
 import fr.paris.lutece.portal.service.security.LuteceUser;
@@ -124,17 +124,17 @@ public class HeaderInclude implements PageInclude
         if ( _user != null )
         {
             String strLuteceUserName = _user.getName( );
-            IdeeSearcher _ideeSearcher = new IdeeSearcher( );
-            _ideeSearcher.setLuteceUserName( strLuteceUserName );
-            _ideeSearcher.setIsPublished( true );
+            ProposalSearcher _proposalSearcher = new ProposalSearcher( );
+            _proposalSearcher.setLuteceUserName( strLuteceUserName );
+            _proposalSearcher.setIsPublished( true );
 
-            Collection<Idee> ideesSubmitted = IdeeHome.getIdeesListSearch( _ideeSearcher );
+            Collection<Proposal> proposalsSubmitted = ProposalHome.getProposalsListSearch( _proposalSearcher );
 
             CommentFilter _commentFilter = new CommentFilter( );
             _commentFilter.setLuteceUserName( strLuteceUserName );
 
-            Collection<Idee> ideesCommented = getIdeesCommentedByUser(
-                    getCommentService( ).findByResource( "*", Idee.PROPERTY_RESOURCE_TYPE, _commentFilter, 0, 10000, false ) );
+            Collection<Proposal> proposalsCommented = getProposalsCommentedByUser(
+                    getCommentService( ).findByResource( "*", Proposal.PROPERTY_RESOURCE_TYPE, _commentFilter, 0, 10000, false ) );
 
             ResourceExtenderHistoryFilter filter = new ResourceExtenderHistoryFilter( );
 
@@ -144,12 +144,12 @@ public class HeaderInclude implements PageInclude
 
             List<ResourceExtenderHistory> listHistories = _resourceExtenderHistoryService.findByFilter( filter );
 
-            Collection<Idee> ideesParticipate = getIdeesParticipatedByUser( listHistories );
+            Collection<Proposal> proposalsParticipate = getProposalsParticipatedByUser( listHistories );
 
             model.put( MARK_HEADER_COLOR, CLASS_CSS_IN );
-            model.put( MARK_HEADER_PROJECTS_SUBMITTED, ideesSubmitted.size( ) );
-            model.put( MARK_HEADER_PROJECTS_PARTICIPATE, ideesParticipate.size( ) );
-            model.put( MARK_HEADER_PROJECTS_COMMENTED, ideesCommented.size( ) );
+            model.put( MARK_HEADER_PROJECTS_SUBMITTED, proposalsSubmitted.size( ) );
+            model.put( MARK_HEADER_PROJECTS_PARTICIPATE, proposalsParticipate.size( ) );
+            model.put( MARK_HEADER_PROJECTS_COMMENTED, proposalsCommented.size( ) );
         }
 
         HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_HEADER_INCLUDE, locale, model );
@@ -172,15 +172,15 @@ public class HeaderInclude implements PageInclude
     }
 
     /**
-     * get the idees List
+     * get the proposals List
      * 
      * @param listComments
      * @return
      */
-    private static Collection<Idee> getIdeesCommentedByUser( Collection<Comment> listComments )
+    private static Collection<Proposal> getProposalsCommentedByUser( Collection<Comment> listComments )
     {
 
-        Collection<Idee> ideesList = new ArrayList<Idee>( );
+        Collection<Proposal> proposalsList = new ArrayList<Proposal>( );
         List<Integer> IdExtendableResourceList = new ArrayList<Integer>( );
         for ( Comment comment : listComments )
         {
@@ -189,29 +189,29 @@ public class HeaderInclude implements PageInclude
 
             if ( idRessource != null && StringUtils.isNotEmpty( idRessource ) && StringUtils.isNumeric( idRessource ) )
             {
-                int nIdIdee = Integer.parseInt( idRessource );
-                Idee idee = IdeeHome.findByPrimaryKey( nIdIdee );
-                if ( idee != null && IdeeService.getInstance( ).isPublished( idee ) && !IdExtendableResourceList.contains( nIdIdee ) )
+                int nIdProposal = Integer.parseInt( idRessource );
+                Proposal proposal = ProposalHome.findByPrimaryKey( nIdProposal );
+                if ( proposal != null && ProposalService.getInstance( ).isPublished( proposal ) && !IdExtendableResourceList.contains( nIdProposal ) )
                 {
-                    ideesList.add( idee );
-                    IdExtendableResourceList.add( nIdIdee );
+                    proposalsList.add( proposal );
+                    IdExtendableResourceList.add( nIdProposal );
                 }
             }
         }
 
-        return ideesList;
+        return proposalsList;
     }
 
     /**
-     * get the idees List
+     * get the proposals List
      * 
      * @param listFollow
      * @return
      */
-    private static Collection<Idee> getIdeesParticipatedByUser( Collection<ResourceExtenderHistory> listFollow )
+    private static Collection<Proposal> getProposalsParticipatedByUser( Collection<ResourceExtenderHistory> listFollow )
     {
 
-        Collection<Idee> ideesList = new ArrayList<Idee>( );
+        Collection<Proposal> proposalsList = new ArrayList<Proposal>( );
         for ( ResourceExtenderHistory follow : listFollow )
         {
 
@@ -219,16 +219,16 @@ public class HeaderInclude implements PageInclude
 
             if ( idRessource != null && StringUtils.isNotEmpty( idRessource ) && StringUtils.isNumeric( idRessource ) )
             {
-                int nIdIdee = Integer.parseInt( idRessource );
-                Idee idee = IdeeHome.findByPrimaryKey( nIdIdee );
-                if ( idee != null && IdeeService.getInstance( ).isPublished( idee ) )
+                int nIdProposal = Integer.parseInt( idRessource );
+                Proposal proposal = ProposalHome.findByPrimaryKey( nIdProposal );
+                if ( proposal != null && ProposalService.getInstance( ).isPublished( proposal ) )
                 {
-                    ideesList.add( idee );
+                    proposalsList.add( proposal );
                 }
             }
         }
 
-        return ideesList;
+        return proposalsList;
     }
 
 }

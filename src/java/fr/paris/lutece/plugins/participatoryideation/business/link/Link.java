@@ -51,8 +51,8 @@ public class Link implements Serializable
     private String _parentCodeCampagne;
     private String _childCodeCampagne;
 
-    private int _parentCodeIdee;
-    private int _childCodeIdee;
+    private int _parentCodeProposal;
+    private int _childCodeProposal;
 
     private String _parentTitle;
     private String _childTitle;
@@ -107,24 +107,24 @@ public class Link implements Serializable
         this._childCodeCampagne = _childCodeCampagne;
     }
 
-    public int getParentCodeIdee( )
+    public int getParentCodeProposal( )
     {
-        return _parentCodeIdee;
+        return _parentCodeProposal;
     }
 
-    public void setParentCodeIdee( int _parentCodeIdee )
+    public void setParentCodeProposal( int _parentCodeProposal )
     {
-        this._parentCodeIdee = _parentCodeIdee;
+        this._parentCodeProposal = _parentCodeProposal;
     }
 
-    public int getChildCodeIdee( )
+    public int getChildCodeProposal( )
     {
-        return _childCodeIdee;
+        return _childCodeProposal;
     }
 
-    public void setChildCodeIdee( int _childCodeIdee )
+    public void setChildCodeProposal( int _childCodeProposal )
     {
-        this._childCodeIdee = _childCodeIdee;
+        this._childCodeProposal = _childCodeProposal;
     }
 
     public String getParentTitle( )
@@ -155,7 +155,7 @@ public class Link implements Serializable
     @Override
     public String toString( )
     {
-        return "{" + getId( ) + ", parent=" + getParentCodeIdee( ) + ", child=" + getChildCodeIdee( ) + "}";
+        return "{" + getId( ) + ", parent=" + getParentCodeProposal( ) + ", child=" + getChildCodeProposal( ) + "}";
     }
 
 }

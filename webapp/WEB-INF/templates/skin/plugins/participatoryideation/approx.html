@@ -41,7 +41,7 @@
 						</#if>
 
 						
-						<#-- If the result is from a IDEE object -->
+						<#-- If the result is from a PROPOSAL object -->
 						<#if result.dynamicFields?? && result.dynamicFields.code_theme_string??>
 							<#if         result.dynamicFields.code_theme_string = "CADRE"><#assign theme_class = "cadre_vie">
 								<#elseif result.dynamicFields.code_theme_string = "CULTURE"><#assign theme_class = "culture">

@@ -1,0 +1,278 @@
+<#include "manageideation_proposal_tabs.html" />
+<@tabs tab="proposal" />
+
+<@rowBox>
+    <@boxHeader i18nTitleKey="participatoryideation.manage_proposals.tableLabel">
+        <@headerButtons>
+
+        
+        <form class="form-inline pull-right" method="post" name="manage_proposals" action="jsp/admin/plugins/participatoryideation/ManageProposals.jsp">
+            <!-- Add pull-right to class1 -->
+            <@actionButtons button1Name="view_initProposal" icon1="icon-plus icon-white" i18nValue1Key="participatoryideation.manage_proposals.buttonAdd" />
+       		  <a href="jsp/admin/plugins/extend/ViewExtenderInfo.jsp?extenderType=comment&idExtendableResource=*&extendableResourceType=PROPOSAL&from_url=jsp/admin/plugins/participatoryideation/ManageProposals.jsp"
+               class="btn btn-primary btn-small" title="#i18n{participatoryideation.manage_proposals.viewComments}" >
+                <i class="fa fa-comments">#i18n{participatoryideation.manage_proposals.viewAllComments}</i>
+            </a>	
+        </form>
+        <@paginationAdmin paginator=paginator combo=1 />
+        
+    </@headerButtons>
+    </@boxHeader>
+
+		<div class="row" >
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="well">
+            <@messages infos=infos />
+
+        <form method="post" action="jsp/admin/plugins/participatoryideation/ManageProposals.jsp">
+        <legend>Recherche</legend>
+
+        <div class="row">
+        <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+            <div class="form-group">
+                <label for="filter_titre_ou_description">Text libre, Titre, Description ou r&eacutef&eacuterence :</label>
+                <input type="text" class="form-control input-xs" name="filter_titre_ou_description" value="${filter_titre_ou_description!''}">
+            </div>
+        </div>
+        </div>
+        
+        <div class="row">
+        <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+            <div class="form-group">
+                <label for="filter_code_campagne">Campaign :</label>
+                <select id="filter_code_campagne" name="filter_code_campagne" class="form-control input-xs">
+                <option value="" <#if !filter_code_campagne??>selected="selected"</#if><option>
+                <#list global_static?keys as key>
+	                <#assign campaign = global_static[key].campagne>
+	                <option value="${campaign.code}" <#if filter_code_campagne?? && campaign.code==filter_code_campagne> selected="selected"</#if>>${campaign.name}</option>
+                </#list>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="filter_handicap">Handicap :</label>
+                <select id="filter_handicap" name="filter_handicap" class="form-control input-xs">
+	                <option value="" <#if !filter_handicap??>selected="selected"</#if><option>
+	                <#list handicap_list as handicap >
+		                <option value="${handicap.code}" <#if filter_handicap?? && handicap.code==filter_handicap> selected="selected"</#if>>${handicap.name}</option>
+	                </#list>
+                </select>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+            <div class="form-group">
+                <label for="filter_code_theme">Theme :</label>
+                <select id="filter_code_theme" name="filter_code_theme" class="form-control input-xs">
+	                <option value="" <#if !filter_code_theme??>selected="selected"</#if><option>
+	                <#list global_static?keys as key>
+		                <#list global_static[key].theme_list as theme>
+			                <option value="${theme.code}" <#if filter_code_theme?? && theme.code==filter_code_theme> selected="selected"</#if>>${theme.name}</option>
+		                </#list>
+	                </#list>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="filter_type_localisation">#i18n{participatoryideation.manage_proposals.columnLocalisationType} :</label>
+                <select id="filter_type_localisation" name="filter_type_localisation" class="form-control input-xs">
+	                <option value="" <#if !filter_type_localisation??>selected="selected"</#if><option>
+	                <#list type_localisation_list as type_localisation >
+		                <option value="${type_localisation.code}" <#if filter_type_localisation?? && type_localisation.code==filter_type_localisation> selected="selected"</#if>>${type_localisation.name}</option>
+	                </#list>
+                </select>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+            <div class="form-group">
+                <label for="filter_arrondissement">Arrondissement :</label>
+                <select id="filter_arrondissement" name="filter_arrondissement" class="form-control input-xs">
+	                <option value="" <#if !filter_arrondissement??>selected="selected"</#if><option>
+	                <#list global_static?keys as key>
+		                <#list global_static[key].area_list as area >
+		                	<option value="${area.code}" <#if filter_arrondissement?? && area.code==filter_arrondissement> selected="selected"</#if>>${area.name}</option>
+		                </#list>
+	                </#list>
+                </select>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+            <div class="form-group">
+                <label for="filter_qpvqva">QPV/QVA :</label>
+                <select id="filter_qpvqva" name="filter_qpvqva" class="form-control input-xs">
+	                <option value="" <#if !filter_qpvqva??>selected="selected"</#if><option>
+	               		<#list qpvqva_list as qpvqva >
+	                <option value="${qpvqva.code}" <#if filter_qpvqva?? && qpvqva.code==filter_qpvqva> selected="selected"</#if>>${qpvqva.name}</option>
+                </#list>
+                </select>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="form-group form-inline">
+            <input class="btn btn-primary btn-sm" type="submit" name=action_searchProposal value="Rechercher">
+            <input class="btn btn-primary btn-sm" type="submit" name=action_cancelSearch value="Annuler">
+            <div class="form-group">
+                <label for="sort_column">Colonne Tri :</label>
+                <select id="sort_column" name="sort_column" class="form-control input-xs">
+                <option value="" <#if !sort_column??>selected="selected"</#if><option>
+                <#list [
+                    {"code":"reference", "name": "#i18n{participatoryideation.manage_proposals.columnReference}"},
+                    {"code":"creation_timestamp", "name": "#i18n{participatoryideation.manage_proposals.columnCreationTimestamp}"}
+                ] as column >
+                <option value="${column.code}" <#if sort_column?? && column.code==sort_column> selected="selected"</#if>>${column.name}</option>
+                </#list>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="sort_order">ordre :</label>
+                <select id="sort_order" name="sort_order" class="form-control input-xs">
+                <option value="" <#if !sort_order??>selected="selected"</#if><option>
+                <#list [
+                    {"code":"ASC", "name": "#i18n{participatoryideation.manage_proposals.sortOrderAsc}"},
+                    {"code":"DESC", "name": "#i18n{participatoryideation.manage_proposals.sortOrderDesc}"}
+                ] as order >
+                <option value="${order.code}" <#if sort_order?? && order.code==sort_order> selected="selected"</#if>>${order.name}</option>
+                </#list>
+                </select>
+            </div>
+        </div>
+        </div>
+
+        </form>
+
+        </div>
+		</div>
+		</div>
+    <@boxBody>    
+    
+    <@table>
+        <tr>
+            <input type="hidden" id="id" name="id"/>
+            <th>#i18n{participatoryideation.manage_proposals.columnCreationTimestamp}</th>
+            <th>#i18n{participatoryideation.manage_proposals.columnReference}</th>
+            <th>#i18n{participatoryideation.manage_proposals.columnCampagne}</th>
+            <th>#i18n{participatoryideation.manage_proposals.columnTheme}</th>
+            <th>#i18n{participatoryideation.manage_proposals.columnTitre}</th>
+            <th>#i18n{participatoryideation.manage_proposals.columnLocalisationType}</th>
+            <th>#i18n{participatoryideation.manage_proposals.columnLocalisationArdt}</th>
+            <th>#i18n{participatoryideation.manage_proposals.columnAdress}</th>
+            <th>#i18n{participatoryideation.manage_proposals.columnDepositaireType}</th>
+            <th>#i18n{participatoryideation.manage_proposals.columnQpvQva}</th>
+            <th>#i18n{participatoryideation.manage_proposals.columnParents}</th>
+            <th>#i18n{participatoryideation.manage_proposals.columnChilds}</th>
+            <th>#i18n{participatoryideation.manage_proposals.columnStatus}</th>
+            <th>#i18n{participatoryideation.manage_proposals.columnExportEudonet}</th>
+            <th>#i18n{portal.util.labelActions}</th>
+            <th>#i18n{participatoryideation.manage_proposals.labelWorkflowState}</th>
+            <th>#i18n{participatoryideation.manage_proposals.labelWorkflowActions}</th>
+        </tr>
+        <@tableHeadBodySeparator />
+            <#list proposal_list as proposalExtra >
+            <#assign proposal = proposalExtra.proposal>
+        <tr>
+            <input type="hidden" id="id" name="id"/>
+            <td>
+                ${proposal.creationTimestamp}
+            </td>
+            <td>
+                ${proposal.reference}
+            </td>
+            <td>
+                ${(global_static[proposal.codeCampagne].campagne.title)!proposal.codeCampagne}
+            </td>
+            <td>
+                <#if (proposal.codeTheme)??>
+                <#assign theme_title = (global_static[proposal.codeCampagne].themes_map[proposal.codeTheme].title)!proposal.codeTheme>
+                </#if>
+                ${theme_title!''}
+            </td>
+            <td>
+                ${proposal.titre} 
+            </td>
+            <td>
+                ${proposal.localisationType!''}
+            </td>
+            <td>
+                ${proposal.localisationArdt!''}
+            </td>
+            <td>
+                ${proposal.adress!''}
+            </td>
+            <td>
+                <#if (proposal.depositaireType)??>
+                <#assign depositaire_type_libelle = (global_static[proposal.codeCampagne].depositaires_types_map[proposal.depositaireType].libelle)!proposal.depositaireType>
+                </#if>
+                ${depositaire_type_libelle!''}
+            </td>
+            <td>
+                <#if proposal.typeQpvQva??>${(qpvqva_map[proposal.typeQpvQva])!proposal.typeQpvQva}<#if proposal.libelleQpvQva??> : ${proposal.libelleQpvQva!}</#if></#if>
+            </td>
+            <td>
+                <#list proposal.parentProposals as parent>${parent.reference} (${parent.titre!})<#if parent_has_next><br/></#if></#list>
+            </td>
+            <td>
+                <#list proposal.childProposals as child>${child.reference} (${child.titre!})<#if child_has_next><br/></#if></#list>
+            </td>
+	        <td>#i18n{${proposal.getStatusPublic().getLibelle()}}</td>
+	        <td>${proposal.exportedTag!}</td>
+	        
+	        <td>
+	            <a href="jsp/admin/plugins/participatoryideation/ManageProposals.jsp?view=modifyProposal&id=${proposal.id}"
+	               class="btn btn-primary btn-small" title="#i18n{portal.util.labelModify}">
+	                <i class="fa fa-pencil"></i>
+	            </a>
+	            <#if proposal.getStatusIsRemoved() == false> 
+	            <a href="jsp/admin/plugins/participatoryideation/ManageProposals.jsp?view=confirmRemoveProposal&id=${proposal.id}"
+	               class="btn btn-danger btn-small" title="#i18n{portal.util.labelDelete}" >
+	                <i class="fa fa-trash"></i>
+	            </a>
+	            </#if>
+	            <a href="jsp/admin/plugins/extend/ViewExtenderInfo.jsp?extenderType=comment&idExtendableResource=${proposal.id}&extendableResourceType=PROPOSAL&from_url=jsp/admin/plugins/participatoryideation/ManageProposals.jsp"
+	               class="btn btn-primary btn-small" title="#i18n{participatoryideation.manage_proposals.viewComments}" >
+	                <i class="fa fa-comments"></i>
+	            </a>
+	            <a href="jsp/admin/plugins/participatoryideation/DoExportCsvProposalUsers.jsp?id=${proposal.id}"
+	               class="btn btn-primary btn-small" title="#i18n{participatoryideation.manage_proposals.labelExportCSV}">
+	                <i class="fa fa-download"></i>
+	            </a>
+	        </td>
+	        
+	        <#-- Display workflow state and actions for current proopsal -->
+	        <td>
+		        <#if workflow_state_map??>
+		        	${(workflow_state_map[""+proposal.id].name)!'No state'}
+		        <#else>
+		        	Disabled workflow
+		        </#if>
+		    </td>
+	        <td>
+	        <td>
+		        <#if workflow_actions_map?? && workflow_actions_map[""+proposal.id]?? >
+		        	<#list workflow_actions_map[""+proposal.id] as action >
+					    <a class="btn btn-primary" href="jsp/admin/plugins/participatoryideation/ManageProposals.jsp?action=processWorkflowAction&id_action=${action.id}&id_resource=${proposal.id}" title="${action.name}" >
+					        <img src="image?resource_type=workflow_icon_img&id=${action.icon.id}"
+					            <#if action.icon.width!=-1> width="${action.icon.width}"</#if>
+					            <#if action.icon.height!=-1> height="${action.icon.height}"</#if>
+					            alt="${action.name}"/>
+					     </a>
+					</#list>
+		        <#else>
+		        	No actions
+		        </#if>
+		    </td>
+        </tr>
+        </#list>
+    </@table>
+
+    <@paginationAdmin paginator=paginator />
+
+  </@boxBody>
+</@rowBox>
+
+<script type="text/javascript">
+    
+    $(document).ready( function(){
+        var description = $('#description') ;
+
+        description.text(description.text().substring(0,50));
+    });
+</script>

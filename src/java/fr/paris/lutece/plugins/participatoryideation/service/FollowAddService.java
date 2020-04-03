@@ -38,8 +38,8 @@ import fr.paris.lutece.plugins.document.business.DocumentHome;
 import fr.paris.lutece.plugins.document.business.attributes.DocumentAttribute;
 import fr.paris.lutece.plugins.extend.modules.follow.business.Follow;
 import fr.paris.lutece.plugins.extend.modules.follow.service.IFollowService;
-import fr.paris.lutece.plugins.participatoryideation.business.proposal.Idee;
-import fr.paris.lutece.plugins.participatoryideation.business.proposal.IdeeHome;
+import fr.paris.lutece.plugins.participatoryideation.business.proposal.Proposal;
+import fr.paris.lutece.plugins.participatoryideation.business.proposal.ProposalHome;
 import fr.paris.lutece.portal.business.resourceenhancer.IResourceDisplayManager;
 import fr.paris.lutece.util.xml.XmlUtil;
 
@@ -82,30 +82,30 @@ public class FollowAddService implements IResourceDisplayManager
             Document doc = DocumentHome.findByPrimaryKey( nIdResource );
             DocumentAttribute attr = doc.getAttribute( "num_idea" );
             int nCountFollowers = 0;
-            List<Idee> listChilds = null;
-            List<Idee> listChildsDB = new ArrayList<Idee>( );
+            List<Proposal> listChilds = null;
+            List<Proposal> listChildsDB = new ArrayList<Proposal>( );
             if ( attr != null && StringUtils.isNotEmpty( attr.getTextValue( ) ) )
             {
-                Idee ideeParent = IdeeHome.findByPrimaryKey( Integer.parseInt( attr.getTextValue( ) ) );
-                if ( ideeParent != null )
+                Proposal proposalParent = ProposalHome.findByPrimaryKey( Integer.parseInt( attr.getTextValue( ) ) );
+                if ( proposalParent != null )
                 {
-                    Follow follow = _followService.findByResource( String.valueOf( ideeParent.getId( ) ), Idee.PROPERTY_RESOURCE_TYPE );
+                    Follow follow = _followService.findByResource( String.valueOf( proposalParent.getId( ) ), Proposal.PROPERTY_RESOURCE_TYPE );
 
-                    listChilds = ideeParent.getChildIdees( );
+                    listChilds = proposalParent.getChildProposals( );
                     if ( follow != null )
                     {
                         nCountFollowers = follow.getFollowCount( );
                     }
-                    for ( Idee ideeChild : listChilds )
+                    for ( Proposal proposalChild : listChilds )
                     {
-                        follow = _followService.findByResource( String.valueOf( ideeChild.getId( ) ), Idee.PROPERTY_RESOURCE_TYPE );
+                        follow = _followService.findByResource( String.valueOf( proposalChild.getId( ) ), Proposal.PROPERTY_RESOURCE_TYPE );
                         if ( follow != null )
                         {
                             nCountFollowers += follow.getFollowCount( );
                         }
-                        listChildsDB.add( IdeeHome.findByPrimaryKey( ideeChild.getId( ) ) );
+                        listChildsDB.add( ProposalHome.findByPrimaryKey( proposalChild.getId( ) ) );
                     }
-                    model.put( MARK_IDEA, ideeParent );
+                    model.put( MARK_IDEA, proposalParent );
                 }
             }
             model.put( MARK_NB_ASSOCIES, nCountFollowers );

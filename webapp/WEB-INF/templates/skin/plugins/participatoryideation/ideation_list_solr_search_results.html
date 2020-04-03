@@ -117,7 +117,7 @@
 									<#if result.dynamicFields?? && result.dynamicFields.pseudo_string?? >
 										<span>#i18n{participatoryideation.view.list.card.submitted.title}</span><br>
 										<span>
-											<a href="jsp/site/Portal.jsp?page=search-solr&conf=list_idees&query=(pseudo_string:&quot;${result.dynamicFields.pseudo_string?html!''}&quot;)" title="Voir les propositions déposées par ${result.dynamicFields.pseudo_string?html!''} (nouvel onglet)">
+											<a href="jsp/site/Portal.jsp?page=search-solr&conf=list_proposals&query=(pseudo_string:&quot;${result.dynamicFields.pseudo_string?html!''}&quot;)" title="Voir les propositions déposées par ${result.dynamicFields.pseudo_string?html!''} (nouvel onglet)">
 												${result.dynamicFields.pseudo_string?html} 
 												<#if result.dynamicFields?? && result.dynamicFields.code_depositaire_type_string??>
 													<#if     result.dynamicFields.code_depositaire_type_string = 'CONSEIL'> #i18n{participatoryideation.view.list.card.submitted.council}

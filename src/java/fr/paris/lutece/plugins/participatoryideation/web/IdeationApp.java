@@ -55,12 +55,12 @@ import org.apache.solr.common.SolrDocumentList;
 
 import fr.paris.lutece.plugins.leaflet.business.GeolocItem;
 import fr.paris.lutece.plugins.participatoryideation.business.capgeo.QpvQva;
-import fr.paris.lutece.plugins.participatoryideation.business.proposal.Idee;
+import fr.paris.lutece.plugins.participatoryideation.business.proposal.Proposal;
 import fr.paris.lutece.plugins.participatoryideation.service.IdeationErrorException;
 import fr.paris.lutece.plugins.participatoryideation.service.IdeationStaticService;
 import fr.paris.lutece.plugins.participatoryideation.service.IdeationUploadHandler;
-import fr.paris.lutece.plugins.participatoryideation.service.IdeeService;
-import fr.paris.lutece.plugins.participatoryideation.service.IdeeWSService;
+import fr.paris.lutece.plugins.participatoryideation.service.ProposalService;
+import fr.paris.lutece.plugins.participatoryideation.service.ProposalWSService;
 import fr.paris.lutece.plugins.participatoryideation.service.campaign.IdeationCampaignService;
 import fr.paris.lutece.plugins.participatoryideation.service.capgeo.QpvQvaService;
 import fr.paris.lutece.plugins.participatoryideation.service.myinfos.MyInfosService;
@@ -177,9 +177,9 @@ public class IdeationApp extends MVCApplication
     private static final String MARK_RECAP_COUT = "recap_cout";
     private static final String MARK_RECAP_DOCS = "recap_docs";
     private static final String MARK_RECAP_IMGS = "recap_imgs";
-    private static final String MARK_RECAP_IDEE_CREATED_CODE = "idee_created_code";
-    private static final String MARK_RECAP_IDEE_CREATED_CAMPAGNE = "idee_created_campagne";
-    private static final String MARK_RECAP_IDEE_CREATED_REFERENCE = "idee_created_reference";
+    private static final String MARK_RECAP_PROPOSAL_CREATED_CODE = "proposal_created_code";
+    private static final String MARK_RECAP_PROPOSAL_CREATED_CAMPAGNE = "proposal_created_campagne";
+    private static final String MARK_RECAP_PROPOSAL_CREATED_REFERENCE = "proposal_created_reference";
 
     private static final String MARK_CAMPAIGN_THEMES = "themes";
     private static final String MARK_WHOLE_AREA = "whole_area";
@@ -203,12 +203,12 @@ public class IdeationApp extends MVCApplication
     private static final String MESSAGE_CAMPAIGN_UNSPECIFIED = "participatoryideation.messages.campaign.unspecified";
     private static final String MESSAGE_CAMPAIGN_IDEATION_CLOSED_SUBMIT = "participatoryideation.messages.campaign.ideation.closed.submit";
 
-    private static final String SOLR_NEWPROJECTS_GEOLOC_FIELD = AppPropertiesService.getProperty( PROPERTY_NEWPROJECTS_GEOLOC_FIELD, "idee_geoloc" );
+    private static final String SOLR_NEWPROJECTS_GEOLOC_FIELD = AppPropertiesService.getProperty( PROPERTY_NEWPROJECTS_GEOLOC_FIELD, "proposal_geoloc" );
     private static final String SOLR_NEWPROJECTS_ARDT_FIELD = AppPropertiesService.getProperty( PROPERTY_NEWPROJECTS_ARDT_FIELD, "localisation_ardt_text" );
     private static final String SOLR_OLDPROJECTS_ARDT_FIELD = AppPropertiesService.getProperty( PROPERTY_OLDPROJECTS_ARDT_FIELD, "localisation_text" );
-    private static final String SOLR_NEWPROJECTS_TYPE = AppPropertiesService.getProperty( PROPERTY_NEWPROJECTS_TYPE, "idee" );
+    private static final String SOLR_NEWPROJECTS_TYPE = AppPropertiesService.getProperty( PROPERTY_NEWPROJECTS_TYPE, "proposal" );
 
-    private static final String SOLR_PREVIOUS_CAMPAIGNS = "((type:idee AND statut_publique_project_text:\"NONRETENU\") OR (type:\"PB Project\" AND statut_project_text:\"SUIVI\"))";
+    private static final String SOLR_PREVIOUS_CAMPAIGNS = "((type:proposal AND statut_publique_project_text:\"NONRETENU\") OR (type:\"PB Project\" AND statut_project_text:\"SUIVI\"))";
 
     private static final String DSKEY_APPROX_SCORE_RATIO_LIMIT = "participatoryideation.site_property.form.approx.scoreRatioLimit";
     private static final String DSKEY_APPROX_DISTANCE_LIMIT = "participatoryideation.site_property.form.approx.distanceLimit";
@@ -229,8 +229,8 @@ public class IdeationApp extends MVCApplication
     FormEtapeUpload _formEtapeUpload;
     FormEtapeRecap _formEtapeRecap;
 
-    Idee _ideeCreate; // The idee we are building
-    Idee _ideeDisplay; // The last idee submitted to show in recap, but avoid double submissions
+    Proposal _proposalCreate; // The proposal we are building
+    Proposal _proposalDisplay; // The last proposal submitted to show in recap, but avoid double submissions
     String _strNextStep; // The first non validated step of the form
 
     // *********************************************************************************************
@@ -263,11 +263,11 @@ public class IdeationApp extends MVCApplication
         // Some automatic stuff
         if ( SecurityService.isAuthenticationEnable( ) && SecurityService.getInstance( ).getRegisteredUser( request ) != null )
         {
-            _ideeCreate.setLuteceUserName( SecurityService.getInstance( ).getRegisteredUser( request ).getName( ) );
+            _proposalCreate.setLuteceUserName( SecurityService.getInstance( ).getRegisteredUser( request ).getName( ) );
         }
         else
         {
-            _ideeCreate.setLuteceUserName( "guid" );
+            _proposalCreate.setLuteceUserName( "guid" );
         }
 
         String strAction = MVCUtils.getAction( request );
@@ -276,7 +276,7 @@ public class IdeationApp extends MVCApplication
         if ( STEP_CONFIRMED.equals( strView ) )
         {
             // The confirmed step is special, you can view it if you have already completed the form at least once
-            if ( _ideeDisplay == null )
+            if ( _proposalDisplay == null )
             {
                 return redirectView( request, _strNextStep );
             }
@@ -314,10 +314,10 @@ public class IdeationApp extends MVCApplication
         model.put( MARK_STEPS_INDEX, STEPS.LOCATION_INDEX.ordinal( ) );
         model.put( MARK_STEPS_CONTENT, TEMPLATE_LOCATION );
 
-        model.put( MARK_CAMPAIGN_THEMES, IdeationCampaignService.getInstance( ).getCampaignThemes( _ideeCreate.getCodeCampagne( ) ) );
-        model.put( MARK_NUMBER_LOCALIZED_AREAS, IdeationCampaignService.getInstance( ).getCampaignNumberLocalizedAreas( _ideeCreate.getCodeCampagne( ) ) );
-        model.put( MARK_LOCALIZED_AREAS, IdeationCampaignService.getInstance( ).getCampaignLocalizedAreas( _ideeCreate.getCodeCampagne( ) ) );
-        model.put( MARK_WHOLE_AREA, IdeationCampaignService.getInstance( ).getCampaignWholeArea( _ideeCreate.getCodeCampagne( ) ) );
+        model.put( MARK_CAMPAIGN_THEMES, IdeationCampaignService.getInstance( ).getCampaignThemes( _proposalCreate.getCodeCampagne( ) ) );
+        model.put( MARK_NUMBER_LOCALIZED_AREAS, IdeationCampaignService.getInstance( ).getCampaignNumberLocalizedAreas( _proposalCreate.getCodeCampagne( ) ) );
+        model.put( MARK_LOCALIZED_AREAS, IdeationCampaignService.getInstance( ).getCampaignLocalizedAreas( _proposalCreate.getCodeCampagne( ) ) );
+        model.put( MARK_WHOLE_AREA, IdeationCampaignService.getInstance( ).getCampaignWholeArea( _proposalCreate.getCodeCampagne( ) ) );
 
         return getXPage( TEMPLATE_ETAPES, request.getLocale( ), model );
     }
@@ -338,7 +338,7 @@ public class IdeationApp extends MVCApplication
             return redirectView( request, STEP_LOCATION );
         }
 
-        convertFormEtapeLocation( _formEtapeLocation, _ideeCreate );
+        convertFormEtapeLocation( _formEtapeLocation, _proposalCreate );
         _strNextStep = STEP_TITLE;
         return redirectView( request, STEP_TITLE );
     }
@@ -375,7 +375,7 @@ public class IdeationApp extends MVCApplication
             return redirectView( request, STEP_TITLE );
         }
 
-        convertFormEtapeTitle( _formEtapeTitle, _ideeCreate );
+        convertFormEtapeTitle( _formEtapeTitle, _proposalCreate );
         _strNextStep = STEP_APPROX;
         return redirectView( request, STEP_APPROX );
     }
@@ -431,7 +431,7 @@ public class IdeationApp extends MVCApplication
                 }
             }
 
-            if ( StringUtils.isNotEmpty( _ideeCreate.getAdress( ) ) )
+            if ( StringUtils.isNotEmpty( _proposalCreate.getAdress( ) ) )
             {
                 queryLocation = new SolrQuery( );
                 results_location = getLocationApproxResults( queryLocation, solrClient );
@@ -478,7 +478,7 @@ public class IdeationApp extends MVCApplication
     }
 
     /**
-     * get the string to limit results around the current idee, or null if there is no limit
+     * get the string to limit results around the current proposal, or null if there is no limit
      * 
      * @return the fq string
      */
@@ -504,12 +504,13 @@ public class IdeationApp extends MVCApplication
         if ( distanceLimit > 0 )
         {
             /*
-             * String strGeofiltFq = "((type:" + SOLR_NEWPROJECTS_TYPE + " AND {!geofilt pt=" + _ideeCreate.getLatitude() + ","+ _ideeCreate.getLongitude()
-             * +" sfield="+SOLR_NEWPROJECTS_GEOLOC_FIELD+" d="+distanceLimit+"})" + " OR (type:"+ SOLR_OLDPROJECTS_TYPE + " AND {!geofilt pt=" +
-             * _ideeCreate.getLatitude() + ","+ _ideeCreate.getLongitude() +" sfield="+ SOLR_OLDPROJECTS_GEOLOC_FIELD+" d="+distanceLimit+"}))";
+             * String strGeofiltFq = "((type:" + SOLR_NEWPROJECTS_TYPE + " AND {!geofilt pt=" + _proposalCreate.getLatitude() + ","+
+             * _proposalCreate.getLongitude() +" sfield="+SOLR_NEWPROJECTS_GEOLOC_FIELD+" d="+distanceLimit+"})" + " OR (type:"+ SOLR_OLDPROJECTS_TYPE +
+             * " AND {!geofilt pt=" + _proposalCreate.getLatitude() + ","+ _proposalCreate.getLongitude() +" sfield="+
+             * SOLR_OLDPROJECTS_GEOLOC_FIELD+" d="+distanceLimit+"}))";
              */
-            String strGeofiltFq = "((type:" + SOLR_NEWPROJECTS_TYPE + " AND {!geofilt pt=" + _ideeCreate.getLatitude( ) + "," + _ideeCreate.getLongitude( )
-                    + " sfield=" + SOLR_NEWPROJECTS_GEOLOC_FIELD + " d=" + distanceLimit + "}))";
+            String strGeofiltFq = "((type:" + SOLR_NEWPROJECTS_TYPE + " AND {!geofilt pt=" + _proposalCreate.getLatitude( ) + ","
+                    + _proposalCreate.getLongitude( ) + " sfield=" + SOLR_NEWPROJECTS_GEOLOC_FIELD + " d=" + distanceLimit + "}))";
 
             return strGeofiltFq;
         }
@@ -532,7 +533,7 @@ public class IdeationApp extends MVCApplication
     {
         List<SolrSearchResult> results = null;
         setApproxProjectsQuery( query );
-        query.setQuery( _ideeCreate.getAdress( ) );
+        query.setQuery( _proposalCreate.getAdress( ) );
         String strLocationResultsCount = DatastoreService.getDataValue( DSKEY_APPROX_LOCATION_RESULTS_COUNT, "" );
         int nLocationResultsCount = 6;
         if ( !"".equals( strLocationResultsCount ) )
@@ -550,7 +551,7 @@ public class IdeationApp extends MVCApplication
 
         ArrayList<String> listFQ = new ArrayList<String>( );
         // listFQ.add( SOLR_FQ_ALLPROJECTS );
-        listFQ.add( "(type:idee AND campagne_text:\"" + _ideeCreate.getCodeCampagne( ) + "\")" );
+        listFQ.add( "(type:proposal AND campagne_text:\"" + _proposalCreate.getCodeCampagne( ) + "\")" );
         String strGeofiltFq = getDistanceFQ( );
         if ( strGeofiltFq != null )
         {
@@ -588,7 +589,7 @@ public class IdeationApp extends MVCApplication
     {
         List<SolrSearchResult> results = null;
         setApproxProjectsQuery( query );
-        query.setQuery( _ideeCreate.getTitre( ) );
+        query.setQuery( _proposalCreate.getTitre( ) );
         String strKeywordResultsCount = DatastoreService.getDataValue( DSKEY_APPROX_KEYWORD_RESULTS_COUNT, "" );
         int nKeywordResultsCount = 6;
         if ( !"".equals( strKeywordResultsCount ) )
@@ -607,11 +608,11 @@ public class IdeationApp extends MVCApplication
         Double [ ] dLatLon = null;
         ArrayList<String> listFQ = new ArrayList<String>( );
         // listFQ.add( SOLR_FQ_ALLPROJECTS );
-        listFQ.add( "(type:idee AND campagne_text:\"" + _ideeCreate.getCodeCampagne( ) + "\")" );
-        if ( _ideeCreate.getLongitude( ) != null && _ideeCreate.getLatitude( ) != null )
+        listFQ.add( "(type:proposal AND campagne_text:\"" + _proposalCreate.getCodeCampagne( ) + "\")" );
+        if ( _proposalCreate.getLongitude( ) != null && _proposalCreate.getLatitude( ) != null )
         {
             dLatLon = new Double [ ] {
-                    _ideeCreate.getLatitude( ), _ideeCreate.getLongitude( )
+                    _proposalCreate.getLatitude( ), _proposalCreate.getLongitude( )
             };
             String strGeofiltFq = getDistanceFQ( );
             if ( strGeofiltFq != null )
@@ -619,10 +620,10 @@ public class IdeationApp extends MVCApplication
                 listFQ.add( strGeofiltFq );
             }
         }
-        if ( _ideeCreate.getLocalisationArdt( ) != null )
+        if ( _proposalCreate.getLocalisationArdt( ) != null )
         {
-            String strArdtFQ = "(" + SOLR_NEWPROJECTS_ARDT_FIELD + ":" + _ideeCreate.getLocalisationArdt( ) + " OR " + SOLR_OLDPROJECTS_ARDT_FIELD + ":\""
-                    + getOldArdtText( _ideeCreate.getLocalisationArdt( ) ) + "\")";
+            String strArdtFQ = "(" + SOLR_NEWPROJECTS_ARDT_FIELD + ":" + _proposalCreate.getLocalisationArdt( ) + " OR " + SOLR_OLDPROJECTS_ARDT_FIELD + ":\""
+                    + getOldArdtText( _proposalCreate.getLocalisationArdt( ) ) + "\")";
             listFQ.add( strArdtFQ );
         }
         query.setFilterQueries( listFQ.toArray( new String [ listFQ.size( )] ) );
@@ -643,7 +644,7 @@ public class IdeationApp extends MVCApplication
             // A match with a very close localisation (<1km) is better than a match without localisation which is in turn better
             // than a match with a far localisation (>1km)
             // Boost according to different fields depending on the type of the document..
-            query.set( "boost", "product(if(termfreq(type,'idee'), recip(geodist(idee_geoloc," + solrLatLon
+            query.set( "boost", "product(if(termfreq(type,'proposal'), recip(geodist(proposal_geoloc," + solrLatLon
                     + "),0.25,1,0.75), 1),if(termfreq(type,'PB Project'), recip(geodist(localisation_precise_geoloc," + solrLatLon + "),0.25,1,0.75), 1))" );
         }
         query.setIncludeScore( true );
@@ -737,7 +738,7 @@ public class IdeationApp extends MVCApplication
     {
         List<SolrSearchResult> results = null;
         setApproxProjectsQuery( query );
-        query.setQuery( _ideeCreate.getTitre( ) );
+        query.setQuery( _proposalCreate.getTitre( ) );
         String strPreviousCResultsCount = DatastoreService.getDataValue( DSKEY_APPROX_PREVIOUS_CAMPAIGNS_RESULTS_COUNT, "" );
         int nPreviousCResultsCount = 6;
         if ( !"".equals( strPreviousCResultsCount ) )
@@ -849,7 +850,7 @@ public class IdeationApp extends MVCApplication
             return redirectView( request, STEP_DESCRIPTION );
         }
 
-        convertFormEtapeDescription( _formEtapeDescription, _ideeCreate );
+        convertFormEtapeDescription( _formEtapeDescription, _proposalCreate );
         _strNextStep = STEP_UPLOAD;
         return redirectView( request, STEP_UPLOAD );
     }
@@ -889,12 +890,12 @@ public class IdeationApp extends MVCApplication
         if ( strAccepExploit != null && strAccepExploit.equals( "true" ) )
         {
             _formEtapeUpload.setAcceptExploit( strAccepExploit );
-            _ideeCreate.setAcceptExploit( true );
+            _proposalCreate.setAcceptExploit( true );
         }
         else
         {
             _formEtapeUpload.setAcceptExploit( "false" );
-            _ideeCreate.setAcceptExploit( false );
+            _proposalCreate.setAcceptExploit( false );
         }
         boolean hadSynchronousAction = _formEtapeUpload.populateSynchronousUpload( request );
         if ( !isValidateFormEtape( request, _formEtapeUpload ) || hadSynchronousAction )
@@ -903,7 +904,7 @@ public class IdeationApp extends MVCApplication
             return redirectView( request, STEP_UPLOAD );
         }
 
-        convertFormEtapeUpload( request, _formEtapeUpload, _ideeCreate );
+        convertFormEtapeUpload( request, _formEtapeUpload, _proposalCreate );
         _strNextStep = STEP_RECAP;
 
         return redirectView( request, STEP_RECAP );
@@ -941,12 +942,12 @@ public class IdeationApp extends MVCApplication
         if ( strAccepContact != null && strAccepContact.equals( "true" ) )
         {
             _formEtapeRecap.setAcceptContact( "true" );
-            _ideeCreate.setAcceptContact( true );
+            _proposalCreate.setAcceptContact( true );
         }
         else
         {
             _formEtapeRecap.setAcceptContact( "false" );
-            _ideeCreate.setAcceptContact( false );
+            _proposalCreate.setAcceptContact( false );
         }
         if ( !isValidateFormEtape( request, _formEtapeRecap ) )
         {
@@ -955,13 +956,13 @@ public class IdeationApp extends MVCApplication
 
         try
         {
-            _ideeCreate.setCreationTimestamp( new java.sql.Timestamp( ( new java.util.Date( ) ).getTime( ) ) );
-            _ideeCreate.setStatusPublic( Idee.Status.STATUS_SUBMITTED );
+            _proposalCreate.setCreationTimestamp( new java.sql.Timestamp( ( new java.util.Date( ) ).getTime( ) ) );
+            _proposalCreate.setStatusPublic( Proposal.Status.STATUS_SUBMITTED );
 
-            IdeeService.getInstance( ).createIdee( _ideeCreate );
-            createWorkflowResource( _ideeCreate, request );
+            ProposalService.getInstance( ).createProposal( _proposalCreate );
+            createWorkflowResource( _proposalCreate, request );
             // Clear the blobs for performance
-            clearBlobs( _ideeCreate );
+            clearBlobs( _proposalCreate );
             reInitFormSession( request );
         }
         catch( IdeationErrorException e )
@@ -994,32 +995,32 @@ public class IdeationApp extends MVCApplication
     // *********************************************************************************************
 
     /**
-     * Process the form of the page ideation. Can't have this in the service because it needs to be done after the transaction because the task uses the idee
-     * from the database
+     * Process the form of the page ideation. Can't have this in the service because it needs to be done after the transaction because the task uses the
+     * proposal from the database
      * 
-     * @param idee
-     *            The idee
+     * @param proposal
+     *            The proposal
      * @param request
      *            The HTTP request
      */
-    private void createWorkflowResource( Idee idee, HttpServletRequest request )
+    private void createWorkflowResource( Proposal proposal, HttpServletRequest request )
     {
 
         int idWorkflow = AppPropertiesService.getPropertyInt( Constants.PROPERTY_WORKFLOW_ID, -1 );
-        String strWorkflowActionNameCreateIdee = AppPropertiesService.getProperty( Constants.PROPERTY_WORKFLOW_ACTION_NAME_CREATE_IDEE );
+        String strWorkflowActionNameCreateProposal = AppPropertiesService.getProperty( Constants.PROPERTY_WORKFLOW_ACTION_NAME_CREATE_PROPOSAL );
 
         if ( idWorkflow != -1 )
         {
             try
             {
                 // Initialize the workflow, this creates the state for our resource
-                WorkflowService.getInstance( ).getState( idee.getId( ), Idee.WORKFLOW_RESOURCE_TYPE, idWorkflow, -1 );
-                IdeeWSService.getInstance( ).processActionByName( strWorkflowActionNameCreateIdee, idee.getId( ) );
+                WorkflowService.getInstance( ).getState( proposal.getId( ), Proposal.WORKFLOW_RESOURCE_TYPE, idWorkflow, -1 );
+                ProposalWSService.getInstance( ).processActionByName( strWorkflowActionNameCreateProposal, proposal.getId( ) );
 
             }
             catch( Exception e )
             {
-                AppLogService.error( "Ideation: error in idee creation workflow", e );
+                AppLogService.error( "Ideation: error in proposal creation workflow", e );
             }
         }
         else
@@ -1028,13 +1029,13 @@ public class IdeationApp extends MVCApplication
         }
     }
 
-    private void clearBlobs( Idee idee )
+    private void clearBlobs( Proposal proposal )
     {
-        for ( File f : idee.getImgs( ) )
+        for ( File f : proposal.getImgs( ) )
         {
             f.getPhysicalFile( ).setValue( null );
         }
-        for ( File f : idee.getDocs( ) )
+        for ( File f : proposal.getDocs( ) )
         {
             f.getPhysicalFile( ).setValue( null );
         }
@@ -1056,7 +1057,7 @@ public class IdeationApp extends MVCApplication
      * Get a model Object filled with default values
      * 
      * @param isConfirmed
-     *            true if the parameter for the recap come from the last submitted idee
+     *            true if the parameter for the recap come from the last submitted proposal
      * @param request
      *            The HTTP request
      * @return The model
@@ -1067,48 +1068,48 @@ public class IdeationApp extends MVCApplication
 
         model.put( MARK_IDEATION_CAMPAIGN_SERVICE_IMPLEMENTATION, IdeationCampaignService.getInstance( ).getClass( ).getName( ) );
 
-        IdeationStaticService.getInstance( ).fillCampaignStaticContent( model, _ideeCreate.getCodeCampagne( ) );
+        IdeationStaticService.getInstance( ).fillCampaignStaticContent( model, _proposalCreate.getCodeCampagne( ) );
         fillFormEtapes( model );
-        fillRecap( model, isConfirmed ? _ideeDisplay : _ideeCreate, request );
+        fillRecap( model, isConfirmed ? _proposalDisplay : _proposalCreate, request );
 
         return model;
     }
 
     /**
-     * Fill the model with commons objects used in templates from the idee, or from the FormEtapes
+     * Fill the model with commons objects used in templates from the proposal, or from the FormEtapes
      * 
-     * @param idee
-     *            the idee to use to fill the recap
+     * @param proposal
+     *            the proposal to use to fill the recap
      * @param request
      *            The HTTP request
      * @param model
      *            The model
      */
-    protected void fillRecap( Map<String, Object> model, Idee idee, HttpServletRequest request )
+    protected void fillRecap( Map<String, Object> model, Proposal proposal, HttpServletRequest request )
     {
         // Step 1
-        model.put( MARK_RECAP_DEPOSITAIRE_TYPE, idee.getDepositaireType( ) );
-        model.put( MARK_RECAP_DEPOSITAIRE, idee.getDepositaire( ) );
-        model.put( MARK_RECAP_CODE_THEME, idee.getCodeTheme( ) );
-        model.put( MARK_RECAP_LOCALISATION_TYPE, idee.getLocalisationType( ) );
-        model.put( MARK_RECAP_LOCALISATION_ARDT, idee.getLocalisationArdt( ) );
-        model.put( MARK_RECAP_LOCALISATION_ADRESS, idee.getAdress( ) );
+        model.put( MARK_RECAP_DEPOSITAIRE_TYPE, proposal.getDepositaireType( ) );
+        model.put( MARK_RECAP_DEPOSITAIRE, proposal.getDepositaire( ) );
+        model.put( MARK_RECAP_CODE_THEME, proposal.getCodeTheme( ) );
+        model.put( MARK_RECAP_LOCALISATION_TYPE, proposal.getLocalisationType( ) );
+        model.put( MARK_RECAP_LOCALISATION_ARDT, proposal.getLocalisationArdt( ) );
+        model.put( MARK_RECAP_LOCALISATION_ADRESS, proposal.getAdress( ) );
 
         // Step 2
-        model.put( MARK_RECAP_TITLE, idee.getTitre( ) );
+        model.put( MARK_RECAP_TITLE, proposal.getTitre( ) );
 
         // step 4
-        model.put( MARK_RECAP_DESCRIPTION, idee.getDescription( ) );
-        model.put( MARK_RECAP_COUT, idee.getCout( ) );
+        model.put( MARK_RECAP_DESCRIPTION, proposal.getDescription( ) );
+        model.put( MARK_RECAP_COUT, proposal.getCout( ) );
 
         // step 5
-        model.put( MARK_RECAP_DOCS, idee.getDocs( ) );
-        model.put( MARK_RECAP_IMGS, idee.getImgs( ) );
+        model.put( MARK_RECAP_DOCS, proposal.getDocs( ) );
+        model.put( MARK_RECAP_IMGS, proposal.getImgs( ) );
 
         // step 6
-        model.put( MARK_RECAP_IDEE_CREATED_CODE, idee.getCodeIdee( ) );
-        model.put( MARK_RECAP_IDEE_CREATED_CAMPAGNE, idee.getCodeCampagne( ) );
-        model.put( MARK_RECAP_IDEE_CREATED_REFERENCE, idee.getReference( ) );
+        model.put( MARK_RECAP_PROPOSAL_CREATED_CODE, proposal.getCodeProposal( ) );
+        model.put( MARK_RECAP_PROPOSAL_CREATED_CAMPAGNE, proposal.getCodeCampagne( ) );
+        model.put( MARK_RECAP_PROPOSAL_CREATED_REFERENCE, proposal.getReference( ) );
     }
 
     protected void fillFormEtapes( Map<String, Object> model )
@@ -1131,21 +1132,21 @@ public class IdeationApp extends MVCApplication
     private void checkIdeationCampaignPhase( HttpServletRequest request ) throws SiteMessageException
     {
         // Verify a campaign is specified.
-        if ( StringUtils.isBlank( _ideeCreate.getCodeCampagne( ) ) )
+        if ( StringUtils.isBlank( _proposalCreate.getCodeCampagne( ) ) )
         {
-            _ideeCreate.setCodeCampagne( request.getParameter( PARAMETER_CAMPAIGN ) );
+            _proposalCreate.setCodeCampagne( request.getParameter( PARAMETER_CAMPAIGN ) );
         }
 
-        if ( StringUtils.isBlank( _ideeCreate.getCodeCampagne( ) ) )
+        if ( StringUtils.isBlank( _proposalCreate.getCodeCampagne( ) ) )
         {
             SiteMessageService.setMessage( request, MESSAGE_CAMPAIGN_UNSPECIFIED, SiteMessage.TYPE_ERROR, JSP_PORTAL );
         }
         else
-            if ( !IdeationCampaignService.getInstance( ).isDuring( _ideeCreate.getCodeCampagne( ), Constants.IDEATION ) )
+            if ( !IdeationCampaignService.getInstance( ).isDuring( _proposalCreate.getCodeCampagne( ), Constants.IDEATION ) )
             {
                 Map<String, Object> requestParameters = new HashMap<String, Object>( );
                 requestParameters.put( PARAMETER_PAGE, "search-solr" );
-                requestParameters.put( PARAMETER_CONF, "list_idees" );
+                requestParameters.put( PARAMETER_CONF, "list_proposals" );
                 SiteMessageService.setMessage( request, MESSAGE_CAMPAIGN_IDEATION_CLOSED_SUBMIT, SiteMessage.TYPE_ERROR, JSP_PORTAL, requestParameters );
             }
     }
@@ -1214,18 +1215,18 @@ public class IdeationApp extends MVCApplication
 
     }
 
-    private void convertFormEtapeLocation( FormEtapeLocation formEtapeLocation, Idee idee )
+    private void convertFormEtapeLocation( FormEtapeLocation formEtapeLocation, Proposal proposal )
     {
-        idee.setLocalisationType( formEtapeLocation.getLocalisationType( ) );
-        idee.setCodeTheme( formEtapeLocation.getCodeTheme( ) );
-        idee.setDepositaireType( formEtapeLocation.getDepositaireType( ) );
+        proposal.setLocalisationType( formEtapeLocation.getLocalisationType( ) );
+        proposal.setCodeTheme( formEtapeLocation.getCodeTheme( ) );
+        proposal.setDepositaireType( formEtapeLocation.getDepositaireType( ) );
         if ( formEtapeLocation.mustCopyDepositaire( ) )
         {
-            idee.setDepositaire( formEtapeLocation.getDepositaire( ).trim( ) );
+            proposal.setDepositaire( formEtapeLocation.getDepositaire( ).trim( ) );
         }
         else
         {
-            idee.setDepositaire( null );
+            proposal.setDepositaire( null );
         }
         if ( StringUtils.isNotEmpty( formEtapeLocation.getGeojson( ) ) )
         {
@@ -1233,19 +1234,19 @@ public class IdeationApp extends MVCApplication
             try
             {
                 geolocItem = GeolocItem.fromJSON( formEtapeLocation.getGeojson( ) );
-                idee.setLatitude( geolocItem.getLat( ) );
-                idee.setLongitude( geolocItem.getLon( ) );
-                idee.setAdress( geolocItem.getAddress( ) );
-                idee.setLocalisationArdt( formEtapeLocation.getLocalisationArdt( ) );
+                proposal.setLatitude( geolocItem.getLat( ) );
+                proposal.setLongitude( geolocItem.getLon( ) );
+                proposal.setAdress( geolocItem.getAddress( ) );
+                proposal.setLocalisationArdt( formEtapeLocation.getLocalisationArdt( ) );
                 List<QpvQva> listQpvqva;
                 try
                 {
-                    listQpvqva = QpvQvaService.getQpvQva( idee.getLongitude( ), idee.getLatitude( ) );
+                    listQpvqva = QpvQvaService.getQpvQva( proposal.getLongitude( ), proposal.getLatitude( ) );
                     if ( listQpvqva.size( ) == 0 )
                     {
-                        idee.setTypeQpvQva( QPV_QVA_NO );
-                        idee.setIdQpvQva( null );
-                        idee.setLibelleQpvQva( null );
+                        proposal.setTypeQpvQva( QPV_QVA_NO );
+                        proposal.setIdQpvQva( null );
+                        proposal.setLibelleQpvQva( null );
                     }
                     else
                     {
@@ -1267,99 +1268,99 @@ public class IdeationApp extends MVCApplication
 
                         if ( StringUtils.isNotBlank( resQpvQva.getType( ) ) )
                         {
-                            idee.setTypeQpvQva( resQpvQva.getType( ) );
-                            idee.setIdQpvQva( resQpvQva.getId( ) );
-                            idee.setLibelleQpvQva( resQpvQva.getLibelle( ) );
+                            proposal.setTypeQpvQva( resQpvQva.getType( ) );
+                            proposal.setIdQpvQva( resQpvQva.getId( ) );
+                            proposal.setLibelleQpvQva( resQpvQva.getLibelle( ) );
                         }
                         else
                             if ( StringUtils.isNotBlank( resQpvQva.getGpruNom( ) ) )
                             {
-                                idee.setTypeQpvQva( QPV_QVA_GPRU );
-                                idee.setIdQpvQva( resQpvQva.getFid( ) );
-                                idee.setLibelleQpvQva( resQpvQva.getGpruNom( ) );
+                                proposal.setTypeQpvQva( QPV_QVA_GPRU );
+                                proposal.setIdQpvQva( resQpvQva.getFid( ) );
+                                proposal.setLibelleQpvQva( resQpvQva.getGpruNom( ) );
                             }
                             else
                                 if ( StringUtils.isNotBlank( resQpvQva.getExtBp( ) ) )
                                 {
-                                    idee.setTypeQpvQva( QPV_QVA_QBP );
-                                    idee.setIdQpvQva( resQpvQva.getFid( ) );
-                                    idee.setLibelleQpvQva( resQpvQva.getExtBp( ) );
+                                    proposal.setTypeQpvQva( QPV_QVA_QBP );
+                                    proposal.setIdQpvQva( resQpvQva.getFid( ) );
+                                    proposal.setLibelleQpvQva( resQpvQva.getExtBp( ) );
                                 }
                                 else
                                 {
-                                    idee.setTypeQpvQva( resQpvQva.getType( ) );
-                                    idee.setIdQpvQva( resQpvQva.getId( ) );
-                                    idee.setLibelleQpvQva( resQpvQva.getLibelle( ) );
+                                    proposal.setTypeQpvQva( resQpvQva.getType( ) );
+                                    proposal.setIdQpvQva( resQpvQva.getId( ) );
+                                    proposal.setLibelleQpvQva( resQpvQva.getLibelle( ) );
                                 }
                     }
                 }
                 catch( Exception e )
                 {
-                    idee.setTypeQpvQva( QPV_QVA_ERR );
-                    idee.setIdQpvQva( null );
-                    idee.setLibelleQpvQva( null );
+                    proposal.setTypeQpvQva( QPV_QVA_ERR );
+                    proposal.setIdQpvQva( null );
+                    proposal.setLibelleQpvQva( null );
                     AppLogService.error( "IDEATION: error when using capgeo rest QpvQva service", e );
                 }
 
             }
             catch( IOException e )
             {
-                idee.setTypeQpvQva( QPV_QVA_NO );
-                idee.setIdQpvQva( null );
-                idee.setLibelleQpvQva( null );
-                idee.setLatitude( null );
-                idee.setLongitude( null );
-                idee.setAdress( null );
-                idee.setLocalisationArdt( null );
+                proposal.setTypeQpvQva( QPV_QVA_NO );
+                proposal.setIdQpvQva( null );
+                proposal.setLibelleQpvQva( null );
+                proposal.setLatitude( null );
+                proposal.setLongitude( null );
+                proposal.setAdress( null );
+                proposal.setLocalisationArdt( null );
                 AppLogService.error( e );
             }
         }
         else
         {
-            idee.setTypeQpvQva( QPV_QVA_NO );
-            idee.setIdQpvQva( null );
-            idee.setLibelleQpvQva( null );
-            idee.setLatitude( null );
-            idee.setLongitude( null );
-            idee.setAdress( null );
-            if ( formEtapeLocation.getLocalisationType( ).equals( Idee.LOCALISATION_TYPE_ARDT ) && formEtapeLocation.getLocalisationArdt( ) != null )
+            proposal.setTypeQpvQva( QPV_QVA_NO );
+            proposal.setIdQpvQva( null );
+            proposal.setLibelleQpvQva( null );
+            proposal.setLatitude( null );
+            proposal.setLongitude( null );
+            proposal.setAdress( null );
+            if ( formEtapeLocation.getLocalisationType( ).equals( Proposal.LOCALISATION_TYPE_ARDT ) && formEtapeLocation.getLocalisationArdt( ) != null )
             {
-                idee.setLocalisationArdt( formEtapeLocation.getLocalisationArdt( ) );
+                proposal.setLocalisationArdt( formEtapeLocation.getLocalisationArdt( ) );
             }
             else
             {
-                idee.setLocalisationArdt( null );
+                proposal.setLocalisationArdt( null );
             }
         }
     }
 
-    private void convertFormEtapeTitle( FormEtapeTitle formEtapeTitle, Idee idee )
+    private void convertFormEtapeTitle( FormEtapeTitle formEtapeTitle, Proposal proposal )
     {
-        idee.setTitre( formEtapeTitle.getTitre( ).trim( ) );
-        idee.setDejadepose( formEtapeTitle.getDejadepose( ).trim( ) );
-        idee.setCreationmethod( formEtapeTitle.getCreationmethod( ).trim( ) );
+        proposal.setTitre( formEtapeTitle.getTitre( ).trim( ) );
+        proposal.setDejadepose( formEtapeTitle.getDejadepose( ).trim( ) );
+        proposal.setCreationmethod( formEtapeTitle.getCreationmethod( ).trim( ) );
     }
 
-    private void convertFormEtapeDescription( FormEtapeDescription formEtapeDescription, Idee idee )
+    private void convertFormEtapeDescription( FormEtapeDescription formEtapeDescription, Proposal proposal )
     {
-        idee.setDescription( formEtapeDescription.getDescription( ).trim( ) );
+        proposal.setDescription( formEtapeDescription.getDescription( ).trim( ) );
         if ( StringUtils.isNotBlank( formEtapeDescription.getCout( ) ) )
         {
-            idee.setCout( Long.parseLong( formEtapeDescription.getCout( ).replaceAll( "\\s+", "" ) ) );
+            proposal.setCout( Long.parseLong( formEtapeDescription.getCout( ).replaceAll( "\\s+", "" ) ) );
         }
         else
         {
-            idee.setCout( null );
+            proposal.setCout( null );
         }
-        idee.setHandicap( formEtapeDescription.getHandicap( ).trim( ) );
-        idee.setHandicapComplement( formEtapeDescription.getHandicapComplement( ).trim( ) );
-        idee.setOperatingbudget( formEtapeDescription.getOperatingbudget( ).trim( ) );
+        proposal.setHandicap( formEtapeDescription.getHandicap( ).trim( ) );
+        proposal.setHandicapComplement( formEtapeDescription.getHandicapComplement( ).trim( ) );
+        proposal.setOperatingbudget( formEtapeDescription.getOperatingbudget( ).trim( ) );
     }
 
-    private void convertFormEtapeUpload( HttpServletRequest request, FormEtapeUpload formEtapeUpload, Idee idee )
+    private void convertFormEtapeUpload( HttpServletRequest request, FormEtapeUpload formEtapeUpload, Proposal proposal )
     {
-        idee.setImgs( convertAllFileItemsToFiles( formEtapeUpload.getImgs( request ) ) );
-        idee.setDocs( convertAllFileItemsToFiles( formEtapeUpload.getDocs( request ) ) );
+        proposal.setImgs( convertAllFileItemsToFiles( formEtapeUpload.getImgs( request ) ) );
+        proposal.setDocs( convertAllFileItemsToFiles( formEtapeUpload.getDocs( request ) ) );
     }
 
     private void reInitFormSession( )
@@ -1382,8 +1383,8 @@ public class IdeationApp extends MVCApplication
         _formEtapeUpload = new FormEtapeUpload( );
         _formEtapeRecap = new FormEtapeRecap( );
 
-        _ideeDisplay = _ideeCreate;
-        _ideeCreate = new Idee( );
+        _proposalDisplay = _proposalCreate;
+        _proposalCreate = new Proposal( );
 
         _strNextStep = STEP_LOCATION;
     }

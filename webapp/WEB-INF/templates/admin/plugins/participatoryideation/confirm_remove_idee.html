@@ -1,15 +1,15 @@
-<#include "manageideation_idee_tabs.html" />
-<@tabs tab="idee" />
+<#include "manageideation_proposal_tabs.html" />
+<@tabs tab="proposal" />
 
-<@rowBoxHeader i18nTitleKey="participatoryideation.confirm_remove_idee.pageTitle">
-    <form class="form-horizontal" method="post" name="confirm_remove_idee" action="jsp/admin/plugins/participatoryideation/ManageIdees.jsp">
+<@rowBoxHeader i18nTitleKey="participatoryideation.confirm_remove_proposal.pageTitle">
+    <form class="form-horizontal" method="post" name="confirm_remove_proposal" action="jsp/admin/plugins/participatoryideation/ManageProposals.jsp">
         <@messages errors=errors />
-        <input type="hidden" id="id" name="id" value="${idee.id}"/>
-        <input type="hidden" id="exportedTag" name="exportedTag" value="${idee.exportedTag!}"/>
+        <input type="hidden" id="id" name="id" value="${proposal.id}"/>
+        <input type="hidden" id="exportedTag" name="exportedTag" value="${proposal.exportedTag!}"/>
 
-        <@fieldInputText i18nLabelKey="participatoryideation.confirm_remove_idee.labelMotifRecev" inputName="motifRecev" mandatory=true value="${idee.motifRecev!}" i18nHelpBlockKey="participatoryideation.confirm_remove_idee.labelMotifRecev.help" />
+        <@fieldInputText i18nLabelKey="participatoryideation.confirm_remove_proposal.labelMotifRecev" inputName="motifRecev" mandatory=true value="${proposal.motifRecev!}" i18nHelpBlockKey="participatoryideation.confirm_remove_proposal.labelMotifRecev.help" />
 
-        <@actionButtons button1Name="action_confirmRemoveIdee" button2Name="view_manageIdees"/>
+        <@actionButtons button1Name="action_confirmRemoveProposal" button2Name="view_manageProposals"/>
     </form>
 </@rowBoxHeader>
 

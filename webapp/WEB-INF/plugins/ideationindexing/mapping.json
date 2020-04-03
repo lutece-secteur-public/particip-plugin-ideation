@@ -1,6 +1,6 @@
 {
     "mappings": {
-      "ideeedataobject": {
+      "proposaledataobject": {
         "properties": {
           "campagne": {
             "type": "text",

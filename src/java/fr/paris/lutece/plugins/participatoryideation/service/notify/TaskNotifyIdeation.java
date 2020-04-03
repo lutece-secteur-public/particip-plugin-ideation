@@ -38,8 +38,8 @@ import fr.paris.lutece.plugins.extend.business.extender.history.ResourceExtender
 import fr.paris.lutece.plugins.extend.modules.follow.service.extender.FollowResourceExtender;
 import fr.paris.lutece.plugins.extend.service.extender.history.IResourceExtenderHistoryService;
 import fr.paris.lutece.plugins.participatoryideation.business.notify.TaskNotifyIdeationConfig;
-import fr.paris.lutece.plugins.participatoryideation.business.proposal.Idee;
-import fr.paris.lutece.plugins.participatoryideation.business.proposal.IdeeHome;
+import fr.paris.lutece.plugins.participatoryideation.business.proposal.Proposal;
+import fr.paris.lutece.plugins.participatoryideation.business.proposal.ProposalHome;
 import fr.paris.lutece.plugins.participatoryideation.service.subscription.IdeationSubscriptionProviderService;
 import fr.paris.lutece.plugins.participatoryideation.util.Constants;
 import fr.paris.lutece.plugins.subscribe.business.Subscription;
@@ -88,7 +88,7 @@ public class TaskNotifyIdeation extends SimpleTask
     private static final String PARAM_FROM_URL = "from_url";
 
     // MARKS
-    private static final String MARK_IDEE = "idee";
+    private static final String MARK_PROPOSAL = "proposal";
     private static final String MARK_PSEUDO = "pseudo_declencheur";
     private static final String MARK_EMAIL = "email_declencheur";
     private static final String MARK_PSEUDO_DEPOSITAIRE = "pseudo_depositaire";
@@ -100,7 +100,7 @@ public class TaskNotifyIdeation extends SimpleTask
     private static final String HTML_BR = "<br/>";
     private static final String HTML_R = "\r";
     private static final String ID_ALL = "*";
-    private static final String ACTION_NAME_CREATE_IDEE = AppPropertiesService.getProperty( Constants.PROPERTY_WORKFLOW_ACTION_NAME_CREATE_IDEE );
+    private static final String ACTION_NAME_CREATE_PROPOSAL = AppPropertiesService.getProperty( Constants.PROPERTY_WORKFLOW_ACTION_NAME_CREATE_PROPOSAL );
     private static final String ACTION_NAME_CREATE_COMMENT = AppPropertiesService.getProperty( Constants.PROPERTY_WORKFLOW_ACTION_NAME_CREATE_COMMENT );
     private static final String ACTION_NAME_FOLLOW = AppPropertiesService.getProperty( Constants.PROPERTY_WORKFLOW_ACTION_NAME_FOLLOW );
     private static final String ACTION_NAME_CANCEL_FOLLOW = AppPropertiesService.getProperty( Constants.PROPERTY_WORKFLOW_ACTION_NAME_CANCEL_FOLLOW );
@@ -154,12 +154,12 @@ public class TaskNotifyIdeation extends SimpleTask
             }
 
         }
-        if ( ( resourceHistory != null ) && Idee.WORKFLOW_RESOURCE_TYPE.equals( resourceHistory.getResourceType( ) ) )
+        if ( ( resourceHistory != null ) && Proposal.WORKFLOW_RESOURCE_TYPE.equals( resourceHistory.getResourceType( ) ) )
         {
-            Idee idee = IdeeHome.findByPrimaryKey( resourceHistory.getIdResource( ) );
+            Proposal proposal = ProposalHome.findByPrimaryKey( resourceHistory.getIdResource( ) );
 
-            String strIdeeLuteceUsername = idee.getLuteceUserName( );
-            String strNickNameDepositaire = UserPreferencesService.instance( ).getNickname( strIdeeLuteceUsername );
+            String strProposalLuteceUsername = proposal.getLuteceUserName( );
+            String strNickNameDepositaire = UserPreferencesService.instance( ).getNickname( strProposalLuteceUsername );
             String strNickNameDestinataire = StringUtils.EMPTY;
 
             if ( StringUtils.isNotBlank( strComment ) )
@@ -168,7 +168,7 @@ public class TaskNotifyIdeation extends SimpleTask
             }
 
             Map<String, Object> model = new HashMap<String, Object>( );
-            model.put( MARK_IDEE, idee );
+            model.put( MARK_PROPOSAL, proposal );
             model.put( MARK_PSEUDO, strNickNameUser );
             model.put( MARK_EMAIL, strEmailUser );
             model.put( MARK_PSEUDO_DEPOSITAIRE, strNickNameDepositaire );
@@ -222,8 +222,8 @@ public class TaskNotifyIdeation extends SimpleTask
 
                 ResourceExtenderHistoryFilter filter = new ResourceExtenderHistoryFilter( );
                 filter.setExtenderType( FollowResourceExtender.RESOURCE_EXTENDER );
-                filter.setExtendableResourceType( Idee.PROPERTY_RESOURCE_TYPE );
-                filter.setIdExtendableResource( String.valueOf( idee.getId( ) ) );
+                filter.setExtendableResourceType( Proposal.PROPERTY_RESOURCE_TYPE );
+                filter.setIdExtendableResource( String.valueOf( proposal.getId( ) ) );
 
                 List<ResourceExtenderHistory> listHistories = _resourceExtenderHistoryService.findByFilter( filter );
 
@@ -284,7 +284,7 @@ public class TaskNotifyIdeation extends SimpleTask
                 List<Subscription> subDepoFollow = null;
                 List<Subscription> listSubDepoComment = null;
                 SubscriptionFilter filterSubDepo = new SubscriptionFilter( );
-                filterSubDepo.setIdSubscriber( strIdeeLuteceUsername );
+                filterSubDepo.setIdSubscriber( strProposalLuteceUsername );
 
                 if ( actionName.equals( ACTION_NAME_CREATE_COMMENT ) )
                 {
@@ -308,14 +308,14 @@ public class TaskNotifyIdeation extends SimpleTask
 
                     }
                 model.put( MARK_PSEUDO_DESTINATAIRE, strNickNameDepositaire );
-                if ( actionName.equals( ACTION_NAME_CREATE_IDEE ) )
+                if ( actionName.equals( ACTION_NAME_CREATE_PROPOSAL ) )
                 {
 
                     try
                     {
                         strMessage = AppTemplateService
                                 .getTemplateFromStringFtl( "[#ftl]\n[#setting date_format=\"dd/MM/yyyy\"]\n" + config.getMessage( ), locale, model ).getHtml( );
-                        strEmail = UserPreferencesService.instance( ).get( strIdeeLuteceUsername, PARAM_BP_EMAIL, StringUtils.EMPTY );
+                        strEmail = UserPreferencesService.instance( ).get( strProposalLuteceUsername, PARAM_BP_EMAIL, StringUtils.EMPTY );
                     }
                     catch( Exception e )
                     {
@@ -333,7 +333,7 @@ public class TaskNotifyIdeation extends SimpleTask
                             strMessage = AppTemplateService
                                     .getTemplateFromStringFtl( "[#ftl]\n[#setting date_format=\"dd/MM/yyyy\"]\n" + config.getMessage( ), locale, model )
                                     .getHtml( );
-                            strEmail = UserPreferencesService.instance( ).get( strIdeeLuteceUsername, PARAM_BP_EMAIL, StringUtils.EMPTY );
+                            strEmail = UserPreferencesService.instance( ).get( strProposalLuteceUsername, PARAM_BP_EMAIL, StringUtils.EMPTY );
                         }
                         catch( Exception e )
                         {
@@ -353,7 +353,7 @@ public class TaskNotifyIdeation extends SimpleTask
                                 strMessage = AppTemplateService
                                         .getTemplateFromStringFtl( "[#ftl]\n[#setting date_format=\"dd/MM/yyyy\"]\n" + config.getMessage( ), locale, model )
                                         .getHtml( );
-                                strEmail = UserPreferencesService.instance( ).get( strIdeeLuteceUsername, PARAM_BP_EMAIL, StringUtils.EMPTY );
+                                strEmail = UserPreferencesService.instance( ).get( strProposalLuteceUsername, PARAM_BP_EMAIL, StringUtils.EMPTY );
                             }
                             catch( Exception e )
                             {
@@ -372,7 +372,7 @@ public class TaskNotifyIdeation extends SimpleTask
                                     strMessage = AppTemplateService
                                             .getTemplateFromStringFtl( "[#ftl]\n[#setting date_format=\"dd/MM/yyyy\"]\n" + config.getMessage( ), locale, model )
                                             .getHtml( );
-                                    strEmail = UserPreferencesService.instance( ).get( strIdeeLuteceUsername, PARAM_BP_EMAIL, StringUtils.EMPTY );
+                                    strEmail = UserPreferencesService.instance( ).get( strProposalLuteceUsername, PARAM_BP_EMAIL, StringUtils.EMPTY );
                                 }
                                 catch( Exception e )
                                 {

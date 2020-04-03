@@ -18,15 +18,15 @@
 
     <bean id="participatoryideation.depositaireTypeDAO"       class="fr.paris.lutece.plugins.participatoryideation.business.depositary.DepositaireTypeDAO" />  
     <bean id="participatoryideation.campagneDepositaireDAO"   class="fr.paris.lutece.plugins.participatoryideation.business.depositary.CampagneDepositaireDAO" />  
-    <bean id="participatoryideation.ideeDAO"                  class="fr.paris.lutece.plugins.participatoryideation.business.proposal.IdeeDAO" />  
+    <bean id="participatoryideation.proposalDAO"                  class="fr.paris.lutece.plugins.participatoryideation.business.proposal.ProposalDAO" />  
     <bean id="participatoryideation.linkDAO"                  class="fr.paris.lutece.plugins.participatoryideation.business.link.LinkDAO" />  
     
 	<!-- Services beans -->
 
-	<bean id="participatoryideation.solrIdeeIndexer"          class="fr.paris.lutece.plugins.participatoryideation.service.SolrIdeeIndexer" />
-	<bean id="participatoryideation.ideeService"              class="fr.paris.lutece.plugins.participatoryideation.service.IdeeService" />  
+	<bean id="participatoryideation.solrProposalIndexer"          class="fr.paris.lutece.plugins.participatoryideation.service.SolrProposalIndexer" />
+	<bean id="participatoryideation.proposalService"              class="fr.paris.lutece.plugins.participatoryideation.service.ProposalService" />  
 	<bean id="participatoryideation.ideationStaticService"    class="fr.paris.lutece.plugins.participatoryideation.service.IdeationStaticService" />
-	<bean id="participatoryideation.ideeWSService"            class="fr.paris.lutece.plugins.participatoryideation.service.IdeeWSService" /> 
+	<bean id="participatoryideation.proposalWSService"            class="fr.paris.lutece.plugins.participatoryideation.service.ProposalWSService" /> 
 	<bean id="participatoryideation.ideationCampaignService"  class="fr.paris.lutece.plugins.participatoryideation.service.campaign.IdeationCampaignService" />
 	<bean id="participatoryideation.myInfosService"           class="fr.paris.lutece.plugins.participatoryideation.service.myinfos.MyInfosService" />
 
@@ -38,20 +38,20 @@
         <property name="keysPrefix"><value>ideation.site_property.form</value></property>
     </bean>
     
-    <bean id="participatoryideation.IdeeSitePropertiesGroup" class="fr.paris.lutece.portal.service.site.properties.SitePropertiesGroup" >
-        <property name="nameKey"><value>ideation.view_idee.site_properties.name</value></property>
-        <property name="descriptionKey"><value>ideation.view_idee.site_properties.description</value></property>
-        <property name="keysPrefix"><value>ideation.site_property.view_idee</value></property>
+    <bean id="participatoryideation.ProposalSitePropertiesGroup" class="fr.paris.lutece.portal.service.site.properties.SitePropertiesGroup" >
+        <property name="nameKey"><value>ideation.view_proposal.site_properties.name</value></property>
+        <property name="descriptionKey"><value>ideation.view_proposal.site_properties.description</value></property>
+        <property name="keysPrefix"><value>ideation.site_property.view_proposal</value></property>
     </bean>
 
     <!-- Leaflet maps -->
     
-	<bean id="leaflet-icon-provider-idee" class="fr.paris.lutece.plugins.participatoryideation.service.IdeeIconProvider" />
-	<bean id="leaflet-rest-popup-provider-idee" class="fr.paris.lutece.plugins.participatoryideation.service.IdeePopupContentProvider" />
+	<bean id="leaflet-icon-provider-proposal" class="fr.paris.lutece.plugins.participatoryideation.service.ProposalIconProvider" />
+	<bean id="leaflet-rest-popup-provider-proposal" class="fr.paris.lutece.plugins.participatoryideation.service.ProposalPopupContentProvider" />
 
     <!-- AsynchronousUpload -->
     
-	<bean id="participatoryideation.IdeeAsynchronousHandler" class="fr.paris.lutece.plugins.participatoryideation.service.IdeationUploadHandler" />
+	<bean id="participatoryideation.ProposalAsynchronousHandler" class="fr.paris.lutece.plugins.participatoryideation.service.IdeationUploadHandler" />
 
 	<bean id="participatoryideation.IdeationSolrAddon" class="fr.paris.lutece.plugins.participatoryideation.service.IdeationSolrAddon" />
 
@@ -59,11 +59,11 @@
     
     <tx:annotation-driven/>
     
-    <bean id="participatoryideation.ideeServiceTransactionManager" class="fr.paris.lutece.portal.service.database.DAOUtilTransactionManager">
+    <bean id="participatoryideation.proposalServiceTransactionManager" class="fr.paris.lutece.portal.service.database.DAOUtilTransactionManager">
     	<property name="pluginName" value="participatoryideation"/>
     </bean>
     
-	<bean id="participatoryideation.ideeExtendableResourceService"       class="fr.paris.lutece.plugins.participatoryideation.service.IdeeExtendableResourceService" />
+	<bean id="participatoryideation.proposalExtendableResourceService"       class="fr.paris.lutece.plugins.participatoryideation.service.ProposalExtendableResourceService" />
 	<bean id="participatoryideation.ideationSubscriptionProviderService" class="fr.paris.lutece.plugins.participatoryideation.service.subscription.IdeationSubscriptionProviderService"/>
 
 	<!-- Components -->
@@ -112,25 +112,25 @@
      <bean id="participatoryideation.taskNotifyIdeation" class="fr.paris.lutece.plugins.participatoryideation.service.notify.TaskNotifyIdeation" scope="prototype" />
  	 <bean id="participatoryideation.taskNotifyIdeationConfig" class="fr.paris.lutece.plugins.participatoryideation.business.notify.TaskNotifyIdeationConfig" scope="prototype" />
 
-     <!-- Task Change idee status-->
-    <bean id="participatoryideation.taskChangeIdeeStatusConfigDAO" class="fr.paris.lutece.plugins.participatoryideation.business.notify.TaskChangeIdeeStatusConfigDAO"/>
+     <!-- Task Change proposal status-->
+    <bean id="participatoryideation.taskChangeProposalStatusConfigDAO" class="fr.paris.lutece.plugins.participatoryideation.business.notify.TaskChangeProposalStatusConfigDAO"/>
     
-	<bean id="participatoryideation.taskChangeIdeeStatus" class="fr.paris.lutece.plugins.participatoryideation.service.notify.TaskChangeIdeeStatus" scope="prototype" />
- 	<bean id="participatoryideation.taskChangeIdeeStatusConfig" class="fr.paris.lutece.plugins.participatoryideation.business.notify.TaskChangeIdeeStatusConfig" scope="prototype" />
-	<bean id="participatoryideation.taskChangeIdeeStatusConfigService"    class="fr.paris.lutece.plugins.participatoryideation.service.notify.TaskNotifyIdeationConfigService"
-		p:taskConfigDAO-ref="participatoryideation.taskChangeIdeeStatusConfigDAO" />
+	<bean id="participatoryideation.taskChangeProposalStatus" class="fr.paris.lutece.plugins.participatoryideation.service.notify.TaskChangeProposalStatus" scope="prototype" />
+ 	<bean id="participatoryideation.taskChangeProposalStatusConfig" class="fr.paris.lutece.plugins.participatoryideation.business.notify.TaskChangeProposalStatusConfig" scope="prototype" />
+	<bean id="participatoryideation.taskChangeProposalStatusConfigService"    class="fr.paris.lutece.plugins.participatoryideation.service.notify.TaskNotifyIdeationConfigService"
+		p:taskConfigDAO-ref="participatoryideation.taskChangeProposalStatusConfigDAO" />
 
  <!-- Task -->
-     <bean id="participatoryideation.taskTypeChangeIdeeStatus" class="fr.paris.lutece.plugins.workflowcore.business.task.TaskType"
-         p:key="taskChangeIdeeStatus"
-         p:titleI18nKey="module.workflow.ideation.task_change_idee_status.title"
-         p:beanName="participatoryideation.taskChangeIdeeStatus"
+     <bean id="participatoryideation.taskTypeChangeProposalStatus" class="fr.paris.lutece.plugins.workflowcore.business.task.TaskType"
+         p:key="taskChangeProposalStatus"
+         p:titleI18nKey="module.workflow.ideation.task_change_proposal_status.title"
+         p:beanName="participatoryideation.taskChangeProposalStatus"
          p:configRequired="true"
-         p:configBeanName="participatoryideation.taskChangeIdeeStatusConfig"
+         p:configBeanName="participatoryideation.taskChangeProposalStatusConfig"
          p:taskForAutomaticAction="true" />
 
 
- 	<bean id="participatoryideation.changeIdeeStatusTaskComponent" class="fr.paris.lutece.plugins.participatoryideation.web.notify.ChangeIdeeStatusTaskComponent"
-		p:taskType-ref="participatoryideation.taskTypeChangeIdeeStatus"
-		p:taskConfigService-ref="participatoryideation.taskChangeIdeeStatusConfigService" />
+ 	<bean id="participatoryideation.changeProposalStatusTaskComponent" class="fr.paris.lutece.plugins.participatoryideation.web.notify.ChangeProposalStatusTaskComponent"
+		p:taskType-ref="participatoryideation.taskTypeChangeProposalStatus"
+		p:taskConfigService-ref="participatoryideation.taskChangeProposalStatusConfigService" />
 </beans>

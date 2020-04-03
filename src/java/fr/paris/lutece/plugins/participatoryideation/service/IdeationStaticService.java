@@ -41,7 +41,7 @@ import java.util.Map;
 
 import fr.paris.lutece.plugins.participatoryideation.business.depositary.DepositaireType;
 import fr.paris.lutece.plugins.participatoryideation.business.depositary.DepositaireTypeHome;
-import fr.paris.lutece.plugins.participatoryideation.business.proposal.Idee;
+import fr.paris.lutece.plugins.participatoryideation.business.proposal.Proposal;
 import fr.paris.lutece.plugins.participatoryideation.service.campaign.IdeationCampaignService;
 import fr.paris.lutece.portal.service.cache.AbstractCacheableService;
 import fr.paris.lutece.portal.service.i18n.I18nService;
@@ -119,12 +119,12 @@ public class IdeationStaticService extends AbstractCacheableService implements I
     public void fillCampaignStaticContent( Map<String, Object> model, String strCampaignCode )
     {
         // Add global static data
-        model.put( MARK_QPVQVA_LIST, IdeeService.getInstance( ).getQpvQvaCodesList( ) );
-        model.put( MARK_QPVQVA_MAP, IdeeService.getInstance( ).getQpvQvaCodesMap( ) );
-        model.put( MARK_HANDICAP_LIST, IdeeService.getInstance( ).getHandicapCodesList( ) );
-        model.put( MARK_HANDICAP_MAP, IdeeService.getInstance( ).getHandicapCodesMap( ) );
-        model.put( MARK_LOCALISATION_TYPE_LIST, IdeeService.getInstance( ).getTypeLocalisationList( ) );
-        model.put( MARK_LOCALISATION_TYPE_MAP, IdeeService.getInstance( ).getTypeLocalisationMap( ) );
+        model.put( MARK_QPVQVA_LIST, ProposalService.getInstance( ).getQpvQvaCodesList( ) );
+        model.put( MARK_QPVQVA_MAP, ProposalService.getInstance( ).getQpvQvaCodesMap( ) );
+        model.put( MARK_HANDICAP_LIST, ProposalService.getInstance( ).getHandicapCodesList( ) );
+        model.put( MARK_HANDICAP_MAP, ProposalService.getInstance( ).getHandicapCodesMap( ) );
+        model.put( MARK_LOCALISATION_TYPE_LIST, ProposalService.getInstance( ).getTypeLocalisationList( ) );
+        model.put( MARK_LOCALISATION_TYPE_MAP, ProposalService.getInstance( ).getTypeLocalisationMap( ) );
 
         // Add list of campaigns
         model.put( MARK_LIST_CAMPAGNE, IdeationCampaignService.getInstance( ).getCampaigns( ) );
@@ -132,9 +132,9 @@ public class IdeationStaticService extends AbstractCacheableService implements I
         // Add list of proposal status
         if ( WorkflowService.getInstance( ).isAvailable( ) )
         {
-            List<Idee.Status> enumList = Arrays.asList( Idee.Status.values( ) );
+            List<Proposal.Status> enumList = Arrays.asList( Proposal.Status.values( ) );
             ReferenceList WorkflowStatesReferenceList = new ReferenceList( );
-            for ( Idee.Status status : enumList )
+            for ( Proposal.Status status : enumList )
             {
                 if ( status.isPublished( ) )
                 {
@@ -166,12 +166,12 @@ public class IdeationStaticService extends AbstractCacheableService implements I
     public void fillAllStaticContent( Map<String, Object> model )
     {
         // Add global static data
-        model.put( MARK_QPVQVA_LIST, IdeeService.getInstance( ).getQpvQvaCodesList( ) );
-        model.put( MARK_QPVQVA_MAP, IdeeService.getInstance( ).getQpvQvaCodesMap( ) );
-        model.put( MARK_HANDICAP_LIST, IdeeService.getInstance( ).getHandicapCodesList( ) );
-        model.put( MARK_HANDICAP_MAP, IdeeService.getInstance( ).getHandicapCodesMap( ) );
-        model.put( MARK_LOCALISATION_TYPE_LIST, IdeeService.getInstance( ).getTypeLocalisationList( ) );
-        model.put( MARK_LOCALISATION_TYPE_MAP, IdeeService.getInstance( ).getTypeLocalisationMap( ) );
+        model.put( MARK_QPVQVA_LIST, ProposalService.getInstance( ).getQpvQvaCodesList( ) );
+        model.put( MARK_QPVQVA_MAP, ProposalService.getInstance( ).getQpvQvaCodesMap( ) );
+        model.put( MARK_HANDICAP_LIST, ProposalService.getInstance( ).getHandicapCodesList( ) );
+        model.put( MARK_HANDICAP_MAP, ProposalService.getInstance( ).getHandicapCodesMap( ) );
+        model.put( MARK_LOCALISATION_TYPE_LIST, ProposalService.getInstance( ).getTypeLocalisationList( ) );
+        model.put( MARK_LOCALISATION_TYPE_MAP, ProposalService.getInstance( ).getTypeLocalisationMap( ) );
 
         // Add static data of all campaigns
         @SuppressWarnings( "unchecked" )

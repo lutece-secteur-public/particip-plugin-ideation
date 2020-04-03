@@ -1,0 +1,146 @@
+<#include "manageideation_proposal_tabs.html" />
+<@tabs tab="proposal" />
+
+<@rowBoxHeader i18nTitleKey="participatoryideation.modify_proposal.pageTitle">
+    <form class="form-horizontal" method="post" name="modify_proposal" action="jsp/admin/plugins/participatoryideation/ManageProposals.jsp">
+        <@messages errors=errors />
+        <input type="hidden" id="id" name="id" value="${proposal.id}"/>
+        <input type="hidden" id="exportedTag" name="exportedTag" value="${proposal.exportedTag!}"/>
+        <input type="hidden" id="motifRecev" name="motifRecev" value="${proposal.motifRecev!}"/>
+        
+        <@fieldInputText i18nLabelKey="participatoryideation.modify_proposal.labelTitre"       inputName="titre"       value="${proposal.titre!}"       i18nHelpBlockKey='ideation.modify_proposal.labelTitre.help'       />
+        <@fieldTextArea  i18nLabelKey="participatoryideation.modify_proposal.labelDescription" inputName="description" value="${proposal.description!}" i18nHelpBlockKey='ideation.modify_proposal.labelDescription.help' />
+        <@fieldInputText i18nLabelKey="participatoryideation.modify_proposal.labelCout"        inputName="cout"        value="${proposal.cout !}"       i18nHelpBlockKey='ideation.modify_proposal.labelCout.help'        />
+
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-3" for="cout">#i18n{participatoryideation.modify_proposal.labelLocalisationType} :</label>
+			<div class="col-xs-12 col-sm-9">			
+					<p class="form-control-static" > ${proposal.localisationType!} </p>
+					<p class="help-block">#i18n{participatoryideation.modify_proposal.labelLocalisationType.help}</p>
+			</div>
+		</div>
+
+        <@fieldInputText i18nLabelKey="participatoryideation.modify_proposal.labelLocalisationArdt" inputName="localisationArdt" value="${proposal.localisationArdt!}" i18nHelpBlockKey='ideation.modify_proposal.labelLocalisationArdt.help' />
+
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-3" for="cout">#i18n{participatoryideation.modify_proposal.labelStatusPublic} :</label>
+			<div class="col-xs-12 col-sm-9">			
+					<p class="form-control-static" > <#if proposal.getStatusPublic()??> #i18n{${proposal.getStatusPublic().getLibelle()!}} (Code : ${proposal.getStatusPublic().getValeur()!}) </#if></p>
+					<p class="help-block">#i18n{participatoryideation.modify_proposal.labelStatusPublic.help}</p>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-3" for="cout">#i18n{participatoryideation.modify_proposal.labelStatusEudonet} :</label>
+			<div class="col-xs-12 col-sm-9">			
+					<p class="form-control-static" > <#if proposal.getStatusEudonet()??> #i18n{${proposal.getStatusEudonet().getLibelle()!}} (Code : ${proposal.getStatusEudonet().getValeur()!})</#if> </p>
+					<p class="help-block">#i18n{participatoryideation.modify_proposal.labelStatusEudonet.help}</p>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-3" for="codeTheme">#i18n{participatoryideation.modify_proposal.labelCodeTheme} :</label>
+			<div class="col-xs-12 col-sm-9">			
+					<p class="form-control-static" >${(campagne_static.themes_map[proposal.codeTheme].title)!proposal.codeTheme} (Code : ${proposal.codeTheme!})</p>
+					<p class="help-block">#i18n{participatoryideation.modify_proposal.labelCodeTheme.help}</p>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-3" for="adress">#i18n{participatoryideation.modify_proposal.labelAdress} :</label>
+			<div class="col-xs-12 col-sm-9">			
+					<p class="form-control-static" > ${proposal.adress!} </p>
+					<p class="help-block">#i18n{participatoryideation.modify_proposal.labelAdress.help}</p>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-3" for="depositaireType">#i18n{participatoryideation.modify_proposal.labelDepositaireType} :</label>
+			<div class="col-xs-12 col-sm-9">			
+					<p class="form-control-static" >  ${(campagne_static.depositaires_types_map[proposal.depositaireType].libelle)!proposal.depositaireType!}  </p>
+					<p class="help-block">#i18n{participatoryideation.modify_proposal.labelDepositaireType.help}</p>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-3" for="depositaire">#i18n{participatoryideation.modify_proposal.labelDepositaire} :</label>
+			<div class="col-xs-12 col-sm-9">			
+					<p class="form-control-static" >
+                    <#if (campagne_static.depositaire_types_map[proposal.depositaireType])??>
+                        <#assign depositaire_type = campagne_static.depositaire_types_map[proposal.depositaireType]>
+                    </#if>
+                    <#if depositaire_type?? && depositaire_type["codeComplementType"] == "LIST">
+                    ${depositaire_type.name!proposal.depositaire!} (Code : ${proposal.depositaire!})
+                    <#else>
+                    ${proposal.depositaire!}
+                    </#if>
+                    </p>
+					<p class="help-block">#i18n{participatoryideation.modify_proposal.labelDepositaire.help}</p>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-3" for="acceptExploit">#i18n{participatoryideation.modify_proposal.labelAcceptExploit} :</label>
+			<div class="col-xs-12 col-sm-9">			
+					<p class="form-control-static" >  <#if proposal.acceptExploit> #i18n{participatoryideation.modify_proposal.labelTrue} <#else> #i18n{participatoryideation.modify_proposal.labelFalse}  </#if>  </p>
+					<p class="help-block">#i18n{participatoryideation.modify_proposal.labelAcceptExploit.help}</p>
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-3" for="acceptContact">#i18n{participatoryideation.modify_proposal.labelAcceptContact} :</label>
+			<div class="col-xs-12 col-sm-9">			
+					<p class="form-control-static" >  <#if proposal.acceptContact> #i18n{participatoryideation.modify_proposal.labelTrue} <#else> #i18n{participatoryideation.modify_proposal.labelFalse}  </#if>  </p>
+					<p class="help-block">#i18n{participatoryideation.modify_proposal.labelAcceptContact.help}</p>
+			</div>
+		</div>
+		
+
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-3" for="codeCampagne">#i18n{participatoryideation.modify_proposal.labelCodeCampagne} :</label>
+			<div class="col-xs-12 col-sm-9">			
+					<p class="form-control-static" >${(campagne_static.campagne.title)!proposal.codeCampagne} (Code : ${proposal.codeCampagne!})</p>
+					<p class="help-block">#i18n{participatoryideation.modify_proposal.labelCodeCampagne.help}</p>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-3" for="exportedTag">#i18n{participatoryideation.modify_proposal.labelExportedTag} :</label>
+			<div class="col-xs-12 col-sm-9">			
+					<p class="form-control-static" > ${proposal.exportedTag!} </p>
+					<p class="help-block">#i18n{participatoryideation.modify_proposal.labelExportedTag.help}</p>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-3" for="codeProposal">#i18n{participatoryideation.modify_proposal.labelCodeProposal} :</label>
+			<div class="col-xs-12 col-sm-9">			
+					<p class="form-control-static" > ${proposal.codeProposal!} </p>
+					<p class="help-block">#i18n{participatoryideation.modify_proposal.labelCodeProposal.help}</p>
+			</div>
+		</div>
+
+        <@fieldInputCombo i18nLabelKey="participatoryideation.modify_proposal.labelTypeQpvQva" inputName="type_qpv_qva" items=qpvqva_list value="${proposal.typeQpvQva!}" i18nHelpBlockKey="participatoryideation.modify_proposal.labelTypeQpvQva.help" />
+
+        <@fieldInputText i18nLabelKey="participatoryideation.modify_proposal.labelIdQpvQva" inputName="id_qpv_qva" value="${proposal.idQpvQva!}" i18nHelpBlockKey='ideation.modify_proposal.labelIdQpvQva.help' />
+
+        <@fieldInputText i18nLabelKey="participatoryideation.modify_proposal.labelLibelleQpvQva" inputName="libelle_qpv_qva" value="${proposal.libelleQpvQva!}" i18nHelpBlockKey='ideation.modify_proposal.labelLibelleQpvQva.help' />
+		
+        <@fieldInputCombo i18nLabelKey="participatoryideation.modify_proposal.labelHandicap" inputName="handicap" items=handicap_list value="${proposal.handicap!'no'}" i18nHelpBlockKey="participatoryideation.modify_proposal.labelHandicap.help" />
+
+		<@fieldInputText i18nLabelKey="participatoryideation.modify_proposal.idProjet" inputName="idProjet" value="${proposal.idProjet!''}" i18nHelpBlockKey='ideation.modify_proposal.idProjet.help' />
+
+		<@fieldInputText i18nLabelKey="participatoryideation.modify_proposal.titreProjet" inputName="titreProjet" value="${proposal.titreProjet!''}" i18nHelpBlockKey='ideation.modify_proposal.titreProjet.help' />
+
+		<@fieldInputText i18nLabelKey="participatoryideation.modify_proposal.urlProjet" inputName="urlProjet" value="${proposal.urlProjet!''}" i18nHelpBlockKey='ideation.modify_proposal.urlProjet.help' />
+		 
+		<@fieldInputText i18nLabelKey="participatoryideation.modify_proposal.winnerProjet" inputName="winnerProjet" value="${proposal.winnerProjet!''}" i18nHelpBlockKey='ideation.modify_proposal.winnerProjet.help' />
+		 
+        <@actionButtons button1Name="action_modifyProposal" button2Name="view_manageProposals"/>
+    </form>
+</@rowBoxHeader>
+
+<#if workflow_history??>
+Historique:
+${workflow_history!}
+</#if>

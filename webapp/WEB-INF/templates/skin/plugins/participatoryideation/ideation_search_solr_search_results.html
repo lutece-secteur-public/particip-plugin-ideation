@@ -377,7 +377,7 @@
 
 				<#-- Champs de tri -->
 				<div id="sub-search-left-panel" class="col-xs-6 col-sm-6 col-md-6">
-					<#if conf_user_query = "list_idees">
+					<#if conf_user_query = "list_proposals">
 						<div id="sub-search-sorts">
 							<#if !(sort_name??) ><#assign sort_name="" ></#if>
 							<#if !(sort_order??)><#assign sort_order=""></#if>
@@ -424,7 +424,7 @@
 				
 				<#--Nombre d'items et icônes liste/carto -->
 				<div id="sub-search-right-panel" class="col-xs-6 col-sm-6 col-md-6">
-					<#if conf_user_query = "list_idees">
+					<#if conf_user_query = "list_proposals">
 						<div id="sub-search-nbitems" class="">
 							${i18n('participatoryideation.search.form.result.number', paginator.itemsCount)}
 						</div>
@@ -455,18 +455,18 @@
 <script type="text/javascript">
 
 	<#-- Dealing with list/map display buttons -->
-	<#if conf_user_query = "list_idees">
-		<#assign other_view_code='map_idees'>
+	<#if conf_user_query = "list_proposals">
+		<#assign other_view_code='map_proposals'>
 	<#else>
-		<#assign other_view_code='list_idees'>
+		<#assign other_view_code='list_proposals'>
 	</#if>
 	
 	$("#button_map_list").click( function(){
-		$("#form_conf_hidden").attr('value',"map_idees");
+		$("#form_conf_hidden").attr('value',"map_proposals");
 	});
 	
 	$("#button_list").click( function(){
-		$("#form_conf_hidden").attr('value',"list_idees");
+		$("#form_conf_hidden").attr('value',"list_proposals");
 	});
 	
     function validateForm(form) {

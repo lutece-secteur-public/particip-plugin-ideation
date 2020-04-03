@@ -52,14 +52,14 @@ import fr.paris.lutece.portal.service.util.AppLogService;
 public class FormEtapeTitle extends AbstractFormEtape
 {
 
-    private static final String I18N_ERROR_TITRE_MIN_LENGTH = "participatoryideation.validation.idee.Titre.sizeMin";
-    private static final String I18N_ERROR_TITRE_MAX_LENGTH = "participatoryideation.validation.idee.Titre.sizeMax";
+    private static final String I18N_ERROR_TITRE_MIN_LENGTH = "participatoryideation.validation.proposal.Titre.sizeMin";
+    private static final String I18N_ERROR_TITRE_MAX_LENGTH = "participatoryideation.validation.proposal.Titre.sizeMax";
 
-    private static final String I18N_ERROR_DEJADEPOSE_MIN_LENGTH = "participatoryideation.validation.idee.Dejadepose.sizeMin";
-    private static final String I18N_ERROR_DEJADEPOSE_MAX_LENGTH = "participatoryideation.validation.idee.Dejadepose.sizeMax";
+    private static final String I18N_ERROR_DEJADEPOSE_MIN_LENGTH = "participatoryideation.validation.proposal.Dejadepose.sizeMin";
+    private static final String I18N_ERROR_DEJADEPOSE_MAX_LENGTH = "participatoryideation.validation.proposal.Dejadepose.sizeMax";
 
-    private static final String I18N_ERROR_CREATIONMETHOD_MIN_LENGTH = "participatoryideation.validation.idee.Creationmethod.sizeMin";
-    private static final String I18N_ERROR_CREATIONMETHOD_MAX_LENGTH = "participatoryideation.validation.idee.Creationmethod.sizeMax";
+    private static final String I18N_ERROR_CREATIONMETHOD_MIN_LENGTH = "participatoryideation.validation.proposal.Creationmethod.sizeMin";
+    private static final String I18N_ERROR_CREATIONMETHOD_MAX_LENGTH = "participatoryideation.validation.proposal.Creationmethod.sizeMax";
 
     private static final String DSKEY_TITRE_MIN_LENGTH = "participatoryideation.site_property.form.titre.minLength";
     private static final String DSKEY_TITRE_MAX_LENGTH = "participatoryideation.site_property.form.titre.maxLength";
@@ -70,8 +70,8 @@ public class FormEtapeTitle extends AbstractFormEtape
     private static final String DSKEY_CREATIONMETHOD_MIN_LENGTH = "participatoryideation.site_property.form.creationmethod.minLength";
     private static final String DSKEY_CREATIONMETHOD_MAX_LENGTH = "participatoryideation.site_property.form.creationmethod.maxLength";
 
-    @NotEmpty( message = "#i18n{participatoryideation.validation.idee.Titre.notEmpty}" )
-    @Size( max = 255, message = "#i18n{participatoryideation.validation.idee.Titre.size}" )
+    @NotEmpty( message = "#i18n{participatoryideation.validation.proposal.Titre.notEmpty}" )
+    @Size( max = 255, message = "#i18n{participatoryideation.validation.proposal.Titre.size}" )
     private String _strTitre;
 
     private String _strDejadepose;

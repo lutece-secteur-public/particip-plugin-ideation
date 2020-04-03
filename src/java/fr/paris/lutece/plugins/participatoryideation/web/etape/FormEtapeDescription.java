@@ -52,12 +52,12 @@ import fr.paris.lutece.portal.service.util.AppLogService;
 public class FormEtapeDescription extends AbstractFormEtape
 {
 
-    private static final String I18N_ERROR_DESCRIPTION_MIN_LENGTH = "participatoryideation.validation.idee.Description.sizeMin";
-    private static final String I18N_ERROR_DESCRIPTION_MAX_LENGTH = "participatoryideation.validation.idee.Description.sizeMax";
-    private static final String I18N_ERROR_HANDICAP_COMPLEMENT_MIN_LENGTH = "participatoryideation.validation.idee.HandicapComplement.sizeMin";
-    private static final String I18N_ERROR_HANDICAP_COMPLEMENT_MAX_LENGTH = "participatoryideation.validation.idee.HandicapComplement.sizeMax";
-    private static final String I18N_ERROR_OPERATINGBUDGET_MIN_LENGTH = "participatoryideation.validation.idee.Operatingbudget.sizeMin";
-    private static final String I18N_ERROR_OPERATINGBUDGET_MAX_LENGTH = "participatoryideation.validation.idee.Operatingbudget.sizeMax";
+    private static final String I18N_ERROR_DESCRIPTION_MIN_LENGTH = "participatoryideation.validation.proposal.Description.sizeMin";
+    private static final String I18N_ERROR_DESCRIPTION_MAX_LENGTH = "participatoryideation.validation.proposal.Description.sizeMax";
+    private static final String I18N_ERROR_HANDICAP_COMPLEMENT_MIN_LENGTH = "participatoryideation.validation.proposal.HandicapComplement.sizeMin";
+    private static final String I18N_ERROR_HANDICAP_COMPLEMENT_MAX_LENGTH = "participatoryideation.validation.proposal.HandicapComplement.sizeMax";
+    private static final String I18N_ERROR_OPERATINGBUDGET_MIN_LENGTH = "participatoryideation.validation.proposal.Operatingbudget.sizeMin";
+    private static final String I18N_ERROR_OPERATINGBUDGET_MAX_LENGTH = "participatoryideation.validation.proposal.Operatingbudget.sizeMax";
 
     private static final String DSKEY_DESCRIPTION_MIN_LENGTH = "participatoryideation.site_property.form.description.minLength";
     private static final String DSKEY_DESCRIPTION_MAX_LENGTH = "participatoryideation.site_property.form.description.maxLength";
@@ -66,10 +66,10 @@ public class FormEtapeDescription extends AbstractFormEtape
     private static final String DSKEY_OPERATINGBUDGET_MIN_LENGTH = "participatoryideation.site_property.form.operatingbudget.minLength";
     private static final String DSKEY_OPERATINGBUDGET_MAX_LENGTH = "participatoryideation.site_property.form.operatingbudget.maxLength";
 
-    @NotEmpty( message = "#i18n{participatoryideation.validation.idee.FormEtapeDescription.description.notEmpty}" )
-    @Size( max = 10000, message = "#i18n{participatoryideation.validation.idee.Description.size}" )
+    @NotEmpty( message = "#i18n{participatoryideation.validation.proposal.FormEtapeDescription.description.notEmpty}" )
+    @Size( max = 10000, message = "#i18n{participatoryideation.validation.proposal.Description.size}" )
     private String _strDescription;
-    @Pattern( regexp = "(\\d|\\s){0,20}", message = "#i18n{participatoryideation.validation.idee.FormEtapeDescription.cout.pattern}" )
+    @Pattern( regexp = "(\\d|\\s){0,20}", message = "#i18n{participatoryideation.validation.proposal.FormEtapeDescription.cout.pattern}" )
     private String _strCout;
 
     // ------------------------------------------------------------
@@ -98,7 +98,7 @@ public class FormEtapeDescription extends AbstractFormEtape
 
     // ------------------------------------------------------------
 
-    @NotEmpty( message = "#i18n{participatoryideation.validation.idee.FormEtapeDescription.handicap.notEmpty}" )
+    @NotEmpty( message = "#i18n{participatoryideation.validation.proposal.FormEtapeDescription.handicap.notEmpty}" )
     private String _strHandicap;
 
     public String getHandicap( )

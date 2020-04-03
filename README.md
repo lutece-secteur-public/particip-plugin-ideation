@@ -64,7 +64,7 @@ Now you can access to the search page :
 
 ```
 
-http://localhost:8080/pb/jsp/site/Portal.jsp?page=search-solr&conf=list_idees
+http://localhost:8080/pb/jsp/site/Portal.jsp?page=search-solr&conf=list_proposals
                 
 ```
 

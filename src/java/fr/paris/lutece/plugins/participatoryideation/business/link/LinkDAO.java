@@ -48,15 +48,15 @@ import fr.paris.lutece.util.sql.DAOUtil;
 public final class LinkDAO implements ILinkDAO
 {
     // Constants
-    private static final String SQL_QUERY_NEW_PK = "SELECT max( id_idee_link ) FROM ideation_idees_links";
+    private static final String SQL_QUERY_NEW_PK = "SELECT max( id_proposal_link ) FROM ideation_proposals_links";
 
-    private static final String SQL_QUERY_SELECTALL = "SELECT  l.id_idee_link, l.id_idee_parent, l.id_idee_child, ip.code_campagne, ic.code_campagne, ip.code_idee, ic.code_idee, ip.titre, ic.titre FROM ideation_idees_links AS l INNER JOIN ideation_idees AS ip ON ip.id_idee = l.id_idee_parent INNER JOIN ideation_idees AS ic ON ic.id_idee = l.id_idee_child";
-    private static final String SQL_QUERY_SELECT = SQL_QUERY_SELECTALL + " WHERE id_idee_link = ?";
-    private static final String SQL_QUERY_SELECTALL_ID = "SELECT id_idee_link FROM ideation_idees_links";
+    private static final String SQL_QUERY_SELECTALL = "SELECT  l.id_proposal_link, l.id_proposal_parent, l.id_proposal_child, ip.code_campagne, ic.code_campagne, ip.code_proposal, ic.code_proposal, ip.titre, ic.titre FROM ideation_proposals_links AS l INNER JOIN ideation_proposals AS ip ON ip.id_proposal = l.id_proposal_parent INNER JOIN ideation_proposals AS ic ON ic.id_proposal = l.id_proposal_child";
+    private static final String SQL_QUERY_SELECT = SQL_QUERY_SELECTALL + " WHERE id_proposal_link = ?";
+    private static final String SQL_QUERY_SELECTALL_ID = "SELECT id_proposal_link FROM ideation_proposals_links";
 
-    private static final String SQL_QUERY_INSERT = "INSERT INTO ideation_idees_links ( id_idee_link, id_idee_parent, id_idee_child ) VALUES ( ?, ?, ? ) ";
-    private static final String SQL_QUERY_DELETE = "DELETE FROM ideation_idees_links WHERE id_idee_link = ? ";
-    private static final String SQL_QUERY_UPDATE = "UPDATE ideation_idees_links SET id_idee_link = ?, id_idee_parent = ?, id_idee_child = ? WHERE id_idee_link = ?";
+    private static final String SQL_QUERY_INSERT = "INSERT INTO ideation_proposals_links ( id_proposal_link, id_proposal_parent, id_proposal_child ) VALUES ( ?, ?, ? ) ";
+    private static final String SQL_QUERY_DELETE = "DELETE FROM ideation_proposals_links WHERE id_proposal_link = ? ";
+    private static final String SQL_QUERY_UPDATE = "UPDATE ideation_proposals_links SET id_proposal_link = ?, id_proposal_parent = ?, id_proposal_child = ? WHERE id_proposal_link = ?";
 
     /**
      * Generates a new primary key
@@ -206,8 +206,8 @@ public final class LinkDAO implements ILinkDAO
         link.setChildId( daoUtil.getInt( nCpt++ ) );
         link.setParentCodeCampagne( daoUtil.getString( nCpt++ ) );
         link.setChildCodeCampagne( daoUtil.getString( nCpt++ ) );
-        link.setParentCodeIdee( daoUtil.getInt( nCpt++ ) );
-        link.setChildCodeIdee( daoUtil.getInt( nCpt++ ) );
+        link.setParentCodeProposal( daoUtil.getInt( nCpt++ ) );
+        link.setChildCodeProposal( daoUtil.getInt( nCpt++ ) );
         link.setParentTitle( daoUtil.getString( nCpt++ ) );
         link.setChildTitle( daoUtil.getString( nCpt++ ) );
 
@@ -264,9 +264,9 @@ public final class LinkDAO implements ILinkDAO
             stringBuilder.append( " ( ip.code_campagne = ? OR ic.code_campagne = ? ) AND" );
         }
 
-        if ( linkSearcher.getCodeIdee( ) != null )
+        if ( linkSearcher.getCodeProposal( ) != null )
         {
-            stringBuilder.append( " ( ip.code_idee = ? OR ic.code_idee = ? ) AND" );
+            stringBuilder.append( " ( ip.code_proposal = ? OR ic.code_proposal = ? ) AND" );
         }
 
         if ( linkSearcher.getTitle( ) != null )
@@ -290,7 +290,7 @@ public final class LinkDAO implements ILinkDAO
             finalQuery.append( stringBuilder.toString( ) );
         }
 
-        finalQuery.append( " ORDER BY l.id_idee_parent DESC, l.id_idee_child ASC" );
+        finalQuery.append( " ORDER BY l.id_proposal_parent DESC, l.id_proposal_child ASC" );
 
         return finalQuery.toString( );
     }
@@ -304,10 +304,10 @@ public final class LinkDAO implements ILinkDAO
             daoUtil.setString( nCpt++, linkSearcher.getCodeCampagne( ) );
             daoUtil.setString( nCpt++, linkSearcher.getCodeCampagne( ) );
         }
-        if ( linkSearcher.getCodeIdee( ) != null )
+        if ( linkSearcher.getCodeProposal( ) != null )
         {
-            daoUtil.setInt( nCpt++, linkSearcher.getCodeIdee( ) );
-            daoUtil.setInt( nCpt++, linkSearcher.getCodeIdee( ) );
+            daoUtil.setInt( nCpt++, linkSearcher.getCodeProposal( ) );
+            daoUtil.setInt( nCpt++, linkSearcher.getCodeProposal( ) );
         }
         if ( linkSearcher.getTitle( ) != null )
         {

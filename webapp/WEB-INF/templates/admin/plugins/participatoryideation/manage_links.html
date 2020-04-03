@@ -1,11 +1,11 @@
-<#include "manageideelinks_tabs.html" />
+<#include "manageproposallinks_tabs.html" />
 <@tabs tab="link" />
 
 <@rowBox>
 
     <@boxHeader i18nTitleKey="participatoryideation.manage_links.tableLabel">
         <@headerButtons>
-	        <form class="form-inline pull-right" method="post" name="manage_links" action="jsp/admin/plugins/participatoryideation/ManageIdeeLinks.jsp">
+	        <form class="form-inline pull-right" method="post" name="manage_links" action="jsp/admin/plugins/participatoryideation/ManageProposalLinks.jsp">
 	            <!-- Add pull-right to class1 -->
 	            <@actionButtons button1Name="view_createLink"         icon1="icon-plus icon-white" i18nValue1Key="participatoryideation.manage_links.buttonAdd"        />
 	            <@actionButtons button1Name="view_createSeveralLinks" icon1="icon-plus icon-white" i18nValue1Key="participatoryideation.manage_links.buttonAddSeveral" />
@@ -18,7 +18,7 @@
 	    <@messages infos=infos />
 
         <div class="well">
-		    <form method="post" action="jsp/admin/plugins/participatoryideation/ManageIdeeLinks.jsp">
+		    <form method="post" action="jsp/admin/plugins/participatoryideation/ManageProposalLinks.jsp">
         		<legend>Recherche</legend>
 
 		        <div class="row">
@@ -36,8 +36,8 @@
             		</div>
         		    <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
                 		 <div class="form-group">
-                    		<label for="filter_code_idee">#i18n{participatoryideation.manage_links.searchLabelCodeIdee} :</label>
-                    		<input type="number"  min="0" max="999999" class="form-control input-xs" name="filter_code_idee" value="${filter_code_idee!''}">
+                    		<label for="filter_code_proposal">#i18n{participatoryideation.manage_links.searchLabelCodeProposal} :</label>
+                    		<input type="number"  min="0" max="999999" class="form-control input-xs" name="filter_code_proposal" value="${filter_code_proposal!''}">
                 		</div>
             		</div>
         		    <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
@@ -75,18 +75,18 @@
 		        <tr>
 		            <input type="hidden" id="id" name="id"/>
 		            <td>
-		                (${link.parentId!'?'}) <a href="jsp/site/Portal.jsp?page=idee&campagne=${link.parentCodeCampagne!}&idee=${link.parentCodeIdee!}" target="_blank">${link.parentCodeCampagne!'?'}-${(link.parentCodeIdee!'?')?left_pad(6, "0")} : ${link.parentTitle!'?'}</a> 
+		                (${link.parentId!'?'}) <a href="jsp/site/Portal.jsp?page=proposal&campagne=${link.parentCodeCampagne!}&proposal=${link.parentCodeProposal!}" target="_blank">${link.parentCodeCampagne!'?'}-${(link.parentCodeProposal!'?')?left_pad(6, "0")} : ${link.parentTitle!'?'}</a> 
 		            </td>
 		            <td>
-		                (${link.childId!'?'}) <a href="jsp/site/Portal.jsp?page=idee&campagne=${link.childCodeCampagne!}&idee=${link.childCodeIdee!}" target="_blank">${link.childCodeCampagne!'?'}-${(link.childCodeIdee!'?')?left_pad(6, "0")} : ${link.childTitle!'?'}</a> 
+		                (${link.childId!'?'}) <a href="jsp/site/Portal.jsp?page=proposal&campagne=${link.childCodeCampagne!}&proposal=${link.childCodeProposal!}" target="_blank">${link.childCodeCampagne!'?'}-${(link.childCodeProposal!'?')?left_pad(6, "0")} : ${link.childTitle!'?'}</a> 
 		            </td>
 		        <td>
-		            <a href="jsp/admin/plugins/participatoryideation/ManageIdeeLinks.jsp?view=modifyLink&id=${link.id}"
+		            <a href="jsp/admin/plugins/participatoryideation/ManageProposalLinks.jsp?view=modifyLink&id=${link.id}"
 		               class="btn btn-primary btn-small" title="#i18n{portal.util.labelModify}">
 		                <i class="fa fa-pencil"></i>
 		            </a>
 		
-		            <a href="jsp/admin/plugins/participatoryideation/ManageIdeeLinks.jsp?action=confirmRemoveLink&id=${link.id}"
+		            <a href="jsp/admin/plugins/participatoryideation/ManageProposalLinks.jsp?action=confirmRemoveLink&id=${link.id}"
 		               class="btn btn-danger btn-small" title="#i18n{portal.util.labelDelete}" >
 		                <i class="fa fa-trash"></i>
 		            </a>

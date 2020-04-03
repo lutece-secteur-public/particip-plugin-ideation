@@ -20,7 +20,7 @@ INSERT INTO ideation_depositaire_types_values (id_depositaire_type_value, code_d
 	(2, 'COUNCIL', '01PALAI', '1er - Palais Royal'),
 	(3, 'COUNCIL', '02VIVIE', '2e - Vivienne Gaillon');
 
-INSERT INTO task_change_idee_status_cf (id_task, idee_status) VALUES
+INSERT INTO task_change_proposal_status_cf (id_task, proposal_status) VALUES
 	(1, 'SUBMITTED'),
 	(2, 'UNDER_STUDY'),
 	(3, 'UNDER_COBUILDING'),

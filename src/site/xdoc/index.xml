@@ -71,7 +71,7 @@ participatoryideation.campaign.rest.webapp.url=http://localhost:8080/site-test
                 <p>Before accessing the SOLR search page, you must index the pre-created proposals : go to the Solr Indexing back-office page, and click on 'Start indexing' button.</p>
                 <p>Now you can access to the search page :</p>
                 <pre>
-http://localhost:8080/pb/jsp/site/Portal.jsp?page=search-solr&amp;conf=list_idees
+http://localhost:8080/pb/jsp/site/Portal.jsp?page=search-solr&amp;conf=list_proposals
                 </pre>
                 <p>To submit a new proposal, you have to verify that dates of 'ideation' phase are right (see 'Manage campaign' back-office page).</p>
                 <p>Then access to the following page :</p>

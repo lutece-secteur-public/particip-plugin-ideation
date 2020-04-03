@@ -37,12 +37,12 @@ import fr.paris.lutece.plugins.extend.modules.comment.service.CommentListenerSer
 import fr.paris.lutece.plugins.extend.modules.extendablecomment.business.ExtendableComment;
 import fr.paris.lutece.plugins.extend.modules.follow.service.FollowListenerService;
 import fr.paris.lutece.plugins.extend.modules.rating.service.RatingListenerService;
-import fr.paris.lutece.plugins.participatoryideation.business.proposal.Idee;
+import fr.paris.lutece.plugins.participatoryideation.business.proposal.Proposal;
 import fr.paris.lutece.plugins.participatoryideation.service.fileimage.IdeationFileImageService;
 import fr.paris.lutece.portal.service.plugin.Plugin;
 
 /**
- * IdeePlugin
+ * ProposalPlugin
  */
 public class IdeationPlugin extends Plugin
 {
@@ -54,10 +54,10 @@ public class IdeationPlugin extends Plugin
     @Override
     public void init( )
     {
-        CommentListenerService.registerListener( Idee.PROPERTY_RESOURCE_TYPE, new IdeeCommentListener( ) );
+        CommentListenerService.registerListener( Proposal.PROPERTY_RESOURCE_TYPE, new ProposalCommentListener( ) );
         RatingListenerService.registerListener( ExtendableComment.RESOURCE_TYPE, new ExtendableCommentRatingListener( ) );
-        RatingListenerService.registerListener( Idee.PROPERTY_RESOURCE_TYPE, new IdeeRatingListener( ) );
-        FollowListenerService.registerListener( Idee.PROPERTY_RESOURCE_TYPE, new IdeeFollowListener( ) );
+        RatingListenerService.registerListener( Proposal.PROPERTY_RESOURCE_TYPE, new ProposalRatingListener( ) );
+        FollowListenerService.registerListener( Proposal.PROPERTY_RESOURCE_TYPE, new ProposalFollowListener( ) );
 
         // ImageResourceManager registering.
         IdeationFileImageService.getInstance( ).register( );

@@ -50,8 +50,8 @@ import org.hibernate.validator.constraints.NotEmpty;
 import fr.paris.lutece.plugins.leaflet.business.GeolocItem;
 import fr.paris.lutece.plugins.participatoryideation.business.depositary.DepositaireType;
 import fr.paris.lutece.plugins.participatoryideation.business.depositary.DepositaireTypeHome;
-import fr.paris.lutece.plugins.participatoryideation.business.proposal.Idee;
-import fr.paris.lutece.plugins.participatoryideation.service.IdeeService;
+import fr.paris.lutece.plugins.participatoryideation.business.proposal.Proposal;
+import fr.paris.lutece.plugins.participatoryideation.service.ProposalService;
 import fr.paris.lutece.portal.service.i18n.I18nService;
 import fr.paris.lutece.portal.service.security.LuteceUser;
 import fr.paris.lutece.portal.service.security.SecurityService;
@@ -60,27 +60,27 @@ import fr.paris.lutece.portal.service.util.AppLogService;
 public class FormEtapeLocation extends AbstractFormEtape
 {
 
-    private static final String I18N_ERROR_ARRONDISSEMENT_EMPTY = "participatoryideation.validation.idee.FormEtapeLocation.Arrondissement.notEmpty";
-    private static final String I18N_ERROR_ADRESS_FORMAT = "participatoryideation.validation.idee.FormEtapeLocation.AdressFormat";
-    private static final String I18N_ERROR_ADRESS_NOT_VALID = "participatoryideation.validation.idee.FormEtapeLocation.AdressNotValid";
-    private static final String I18N_ERROR_ADRESS_ARDT_MISMATCH = "participatoryideation.validation.idee.FormEtapeLocation.ArdtMismatch";
-    private static final String I18N_ERROR_COMPLEMENT_EMPTY = "participatoryideation.validation.idee.FormEtapeLocation.depositaire_complement.notEmpty";
+    private static final String I18N_ERROR_ARRONDISSEMENT_EMPTY = "participatoryideation.validation.proposal.FormEtapeLocation.Arrondissement.notEmpty";
+    private static final String I18N_ERROR_ADRESS_FORMAT = "participatoryideation.validation.proposal.FormEtapeLocation.AdressFormat";
+    private static final String I18N_ERROR_ADRESS_NOT_VALID = "participatoryideation.validation.proposal.FormEtapeLocation.AdressNotValid";
+    private static final String I18N_ERROR_ADRESS_ARDT_MISMATCH = "participatoryideation.validation.proposal.FormEtapeLocation.ArdtMismatch";
+    private static final String I18N_ERROR_COMPLEMENT_EMPTY = "participatoryideation.validation.proposal.FormEtapeLocation.depositaire_complement.notEmpty";
 
-    @NotEmpty( message = "#i18n{participatoryideation.validation.idee.FormEtapeLocation.CodeTheme.notEmpty}" )
-    @Size( max = 50, message = "#i18n{participatoryideation.validation.idee.FormEtapeLocation.CodeTheme.size}" )
+    @NotEmpty( message = "#i18n{participatoryideation.validation.proposal.FormEtapeLocation.CodeTheme.notEmpty}" )
+    @Size( max = 50, message = "#i18n{participatoryideation.validation.proposal.FormEtapeLocation.CodeTheme.size}" )
     private String _strCodeTheme;
 
-    @NotEmpty( message = "#i18n{participatoryideation.validation.idee.FormEtapeLocation.localisationTypeNotEmpty}" )
+    @NotEmpty( message = "#i18n{participatoryideation.validation.proposal.FormEtapeLocation.localisationTypeNotEmpty}" )
     private String _strLocalisationType;
 
     private String _strLocalisationArdt;
     private String _strGeojson;
     private String _strAdress;
 
-    @NotEmpty( message = "#i18n{participatoryideation.validation.idee.FormEtapeLocation.depositaireType.notEmpty}" )
+    @NotEmpty( message = "#i18n{participatoryideation.validation.proposal.FormEtapeLocation.depositaireType.notEmpty}" )
     private String _strDepositaireType;
 
-    @Size( max = 50, message = "#i18n{participatoryideation.validation.idee.Depositaire.size}" )
+    @Size( max = 50, message = "#i18n{participatoryideation.validation.proposal.Depositaire.size}" )
     private String _strDepositaire;
 
     /**
@@ -155,7 +155,7 @@ public class FormEtapeLocation extends AbstractFormEtape
             listErrors.add( I18N_ERROR_COMPLEMENT_EMPTY );
         }
 
-        if ( getLocalisationType( ).equals( Idee.LOCALISATION_TYPE_ARDT ) && StringUtils.isEmpty( getLocalisationArdt( ) ) )
+        if ( getLocalisationType( ).equals( Proposal.LOCALISATION_TYPE_ARDT ) && StringUtils.isEmpty( getLocalisationArdt( ) ) )
         {
             listErrors.add( I18N_ERROR_ARRONDISSEMENT_EMPTY );
         }
@@ -177,8 +177,8 @@ public class FormEtapeLocation extends AbstractFormEtape
         // m.find();
         // int nArdt;
         // nArdt = Integer.parseInt(m.group(1));
-        // String strArdt = IdeeService.getInstance().getArrondissementCode(nArdt);
-        // if (getLocalisationType().equals(Idee.LOCALISATION_TYPE_ARDT) &&
+        // String strArdt = ProposalService.getInstance().getArrondissementCode(nArdt);
+        // if (getLocalisationType().equals(Proposal.LOCALISATION_TYPE_ARDT) &&
         // StringUtils.isNotEmpty( getLocalisationArdt()) &&
         // (!strArdt.equals(getLocalisationArdt())) ) {
         // listErrors.add(I18N_ERROR_ADRESS_ARDT_MISMATCH);
