@@ -69,7 +69,7 @@ public interface IProposalWSService
      * Load the data of all the proposal objects searched and returns them in form of a collection
      * 
      * @param proposalSearcher
-     *            an ProposalSearcher
+     *            a ProposalSearcher
      * @return the collection which contains the data of all the proposal objects
      */
     public Collection<Proposal> getProposalsListSearch( ProposalSearcher proposalSearcher );

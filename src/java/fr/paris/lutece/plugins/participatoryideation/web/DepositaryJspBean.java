@@ -58,48 +58,48 @@ public class DepositaryJspBean extends ManageIdeationJspBean
     // Constants
 
     // templates
-    private static final String TEMPLATE_MANAGE_CAMPAIGNDEPOSITARIES = "/admin/plugins/participatoryideation/manage_campaigndepositaries.html";
-    private static final String TEMPLATE_CREATE_CAMPAIGNDEPOSITARY = "/admin/plugins/participatoryideation/create_campaigndepositary.html";
-    private static final String TEMPLATE_MODIFY_CAMPAIGNDEPOSITARY = "/admin/plugins/participatoryideation/modify_campaigndepositary.html";
+    private static final String TEMPLATE_MANAGE_DEPOSITARIES = "/admin/plugins/participatoryideation/manage_depositaries.html";
+    private static final String TEMPLATE_CREATE_DEPOSITARY = "/admin/plugins/participatoryideation/create_depositary.html";
+    private static final String TEMPLATE_MODIFY_DEPOSITARY = "/admin/plugins/participatoryideation/modify_depositary.html";
 
     // Parameters
-    private static final String PARAMETER_ID_CAMPAIGNDEPOSITARY = "id";
+    private static final String PARAMETER_ID_DEPOSITARY = "id";
 
     // Properties for page titles
-    private static final String PROPERTY_PAGE_TITLE_MANAGE_CAMPAIGNDEPOSITARIES = "participatoryideation.manage_campaigndepositaries.pageTitle";
-    private static final String PROPERTY_PAGE_TITLE_MODIFY_CAMPAIGNDEPOSITARY = "participatoryideation.modify_campaigndepositary.pageTitle";
-    private static final String PROPERTY_PAGE_TITLE_CREATE_CAMPAIGNDEPOSITARY = "participatoryideation.create_campaigndepositary.pageTitle";
+    private static final String PROPERTY_PAGE_TITLE_MANAGE_DEPOSITARIES = "participatoryideation.manage_depositaries.pageTitle";
+    private static final String PROPERTY_PAGE_TITLE_MODIFY_DEPOSITARY = "participatoryideation.modify_depositary.pageTitle";
+    private static final String PROPERTY_PAGE_TITLE_CREATE_DEPOSITARY = "participatoryideation.create_depositary.pageTitle";
 
     // Markers
-    private static final String MARK_CAMPAIGNDEPOSITARY_LIST = "campaigndepositary_list";
-    private static final String MARK_CAMPAIGNDEPOSITARY = "campaigndepositary";
+    private static final String MARK_DEPOSITARY_LIST = "depositary_list";
+    private static final String MARK_DEPOSITARY = "depositary";
 
-    private static final String JSP_MANAGE_CAMPAIGNDEPOSITARIES = "jsp/admin/plugins/participatoryideation/ManageDepositaries.jsp";
+    private static final String JSP_MANAGE_DEPOSITARIES = "jsp/admin/plugins/participatoryideation/ManageDepositaries.jsp";
 
     // Properties
-    private static final String MESSAGE_CONFIRM_REMOVE_CAMPAIGNDEPOSITARY = "participatoryideation.message.confirmRemoveDepositary";
-    private static final String PROPERTY_DEFAULT_LIST_CAMPAIGNDEPOSITARY_PER_PAGE = "participatoryideation.listDepositaries.itemsPerPage";
+    private static final String MESSAGE_CONFIRM_REMOVE_DEPOSITARY = "participatoryideation.message.confirmRemoveDepositary";
+    private static final String PROPERTY_DEFAULT_LIST_DEPOSITARY_PER_PAGE = "participatoryideation.listDepositaries.itemsPerPage";
 
-    private static final String VALIDATION_ATTRIBUTES_PREFIX = "participatoryideation.model.entity.campaigndepositary.attribute.";
+    private static final String VALIDATION_ATTRIBUTES_PREFIX = "participatoryideation.model.entity.depositary.attribute.";
 
     // Views
-    private static final String VIEW_MANAGE_CAMPAIGNDEPOSITARIES = "manageDepositaries";
-    private static final String VIEW_CREATE_CAMPAIGNDEPOSITARY = "createDepositary";
-    private static final String VIEW_MODIFY_CAMPAIGNDEPOSITARY = "modifyDepositary";
+    private static final String VIEW_MANAGE_DEPOSITARIES = "manageDepositaries";
+    private static final String VIEW_CREATE_DEPOSITARY = "createDepositary";
+    private static final String VIEW_MODIFY_DEPOSITARY = "modifyDepositary";
 
     // Actions
-    private static final String ACTION_CREATE_CAMPAIGNDEPOSITARY = "createDepositary";
-    private static final String ACTION_MODIFY_CAMPAIGNDEPOSITARY = "modifyDepositary";
-    private static final String ACTION_REMOVE_CAMPAIGNDEPOSITARY = "removeDepositary";
-    private static final String ACTION_CONFIRM_REMOVE_CAMPAIGNDEPOSITARY = "confirmRemoveDepositary";
+    private static final String ACTION_CREATE_DEPOSITARY = "createDepositary";
+    private static final String ACTION_MODIFY_DEPOSITARY = "modifyDepositary";
+    private static final String ACTION_REMOVE_DEPOSITARY = "removeDepositary";
+    private static final String ACTION_CONFIRM_REMOVE_DEPOSITARY = "confirmRemoveDepositary";
 
     // Infos
-    private static final String INFO_CAMPAIGNDEPOSITARY_CREATED = "participatoryideation.info.campaigndepositary.created";
-    private static final String INFO_CAMPAIGNDEPOSITARY_UPDATED = "participatoryideation.info.campaigndepositary.updated";
-    private static final String INFO_CAMPAIGNDEPOSITARY_REMOVED = "participatoryideation.info.campaigndepositary.removed";
+    private static final String INFO_DEPOSITARY_CREATED = "participatoryideation.info.depositary.created";
+    private static final String INFO_DEPOSITARY_UPDATED = "participatoryideation.info.depositary.updated";
+    private static final String INFO_DEPOSITARY_REMOVED = "participatoryideation.info.depositary.removed";
 
     // Session variable to store working values
-    private Depositary _campaigndepositary;
+    private Depositary _depositary;
 
     /**
      * Build the Manage View
@@ -108,139 +108,139 @@ public class DepositaryJspBean extends ManageIdeationJspBean
      *            The HTTP request
      * @return The page
      */
-    @View( value = VIEW_MANAGE_CAMPAIGNDEPOSITARIES, defaultView = true )
+    @View( value = VIEW_MANAGE_DEPOSITARIES, defaultView = true )
     public String getManageDepositaries( HttpServletRequest request )
     {
-        _campaigndepositary = null;
+    	_depositary = null;
         List<Depositary> listDepositaries = (List<Depositary>) DepositaryHome.getDepositariesList( );
-        Map<String, Object> model = getPaginatedListModel( request, MARK_CAMPAIGNDEPOSITARY_LIST, listDepositaries, JSP_MANAGE_CAMPAIGNDEPOSITARIES );
+        Map<String, Object> model = getPaginatedListModel( request, MARK_DEPOSITARY_LIST, listDepositaries, JSP_MANAGE_DEPOSITARIES );
 
-        return getPage( PROPERTY_PAGE_TITLE_MANAGE_CAMPAIGNDEPOSITARIES, TEMPLATE_MANAGE_CAMPAIGNDEPOSITARIES, model );
+        return getPage( PROPERTY_PAGE_TITLE_MANAGE_DEPOSITARIES, TEMPLATE_MANAGE_DEPOSITARIES, model );
     }
 
     /**
-     * Returns the form to create a campaigndepositary
+     * Returns the form to create a depositary
      *
      * @param request
      *            The Http request
-     * @return the html code of the campaigndepositary form
+     * @return the html code of the depositary form
      */
-    @View( VIEW_CREATE_CAMPAIGNDEPOSITARY )
+    @View( VIEW_CREATE_DEPOSITARY )
     public String getCreateDepositary( HttpServletRequest request )
     {
-        _campaigndepositary = ( _campaigndepositary != null ) ? _campaigndepositary : new Depositary( );
+    	_depositary = ( _depositary != null ) ? _depositary : new Depositary( );
 
         Map<String, Object> model = getModel( );
-        model.put( MARK_CAMPAIGNDEPOSITARY, _campaigndepositary );
+        model.put( MARK_DEPOSITARY, _depositary );
 
-        return getPage( PROPERTY_PAGE_TITLE_CREATE_CAMPAIGNDEPOSITARY, TEMPLATE_CREATE_CAMPAIGNDEPOSITARY, model );
+        return getPage( PROPERTY_PAGE_TITLE_CREATE_DEPOSITARY, TEMPLATE_CREATE_DEPOSITARY, model );
     }
 
     /**
-     * Process the data capture form of a new campaigndepositary
+     * Process the data capture form of a new depositary
      *
      * @param request
      *            The Http Request
      * @return The Jsp URL of the process result
      */
-    @Action( ACTION_CREATE_CAMPAIGNDEPOSITARY )
+    @Action( ACTION_CREATE_DEPOSITARY )
     public String doCreateDepositary( HttpServletRequest request )
     {
-        populate( _campaigndepositary, request );
+        populate( _depositary, request );
 
         // Check constraints
-        if ( !validateBean( _campaigndepositary, VALIDATION_ATTRIBUTES_PREFIX ) )
+        if ( !validateBean( _depositary, VALIDATION_ATTRIBUTES_PREFIX ) )
         {
-            return redirectView( request, VIEW_CREATE_CAMPAIGNDEPOSITARY );
+            return redirectView( request, VIEW_CREATE_DEPOSITARY );
         }
 
-        DepositaryHome.create( _campaigndepositary );
-        addInfo( INFO_CAMPAIGNDEPOSITARY_CREATED, getLocale( ) );
+        DepositaryHome.create( _depositary );
+        addInfo( INFO_DEPOSITARY_CREATED, getLocale( ) );
 
-        return redirectView( request, VIEW_MANAGE_CAMPAIGNDEPOSITARIES );
+        return redirectView( request, VIEW_MANAGE_DEPOSITARIES );
     }
 
     /**
-     * Manages the removal form of a campaigndepositary whose identifier is in the http request
+     * Manages the removal form of a depositary whose identifier is in the http request
      *
      * @param request
      *            The Http request
      * @return the html code to confirm
      */
-    @Action( ACTION_CONFIRM_REMOVE_CAMPAIGNDEPOSITARY )
+    @Action( ACTION_CONFIRM_REMOVE_DEPOSITARY )
     public String getConfirmRemoveDepositary( HttpServletRequest request )
     {
-        int nId = Integer.parseInt( request.getParameter( PARAMETER_ID_CAMPAIGNDEPOSITARY ) );
-        UrlItem url = new UrlItem( getActionUrl( ACTION_REMOVE_CAMPAIGNDEPOSITARY ) );
-        url.addParameter( PARAMETER_ID_CAMPAIGNDEPOSITARY, nId );
+        int nId = Integer.parseInt( request.getParameter( PARAMETER_ID_DEPOSITARY ) );
+        UrlItem url = new UrlItem( getActionUrl( ACTION_REMOVE_DEPOSITARY ) );
+        url.addParameter( PARAMETER_ID_DEPOSITARY, nId );
 
-        String strMessageUrl = AdminMessageService.getMessageUrl( request, MESSAGE_CONFIRM_REMOVE_CAMPAIGNDEPOSITARY, url.getUrl( ),
+        String strMessageUrl = AdminMessageService.getMessageUrl( request, MESSAGE_CONFIRM_REMOVE_DEPOSITARY, url.getUrl( ),
                 AdminMessage.TYPE_CONFIRMATION );
 
         return redirect( request, strMessageUrl );
     }
 
     /**
-     * Handles the removal form of a campaigndepositary
+     * Handles the removal form of a depositary
      *
      * @param request
      *            The Http request
-     * @return the jsp URL to display the form to manage campaigndepositaries
+     * @return the jsp URL to display the form to manage depositaries
      */
-    @Action( ACTION_REMOVE_CAMPAIGNDEPOSITARY )
+    @Action( ACTION_REMOVE_DEPOSITARY )
     public String doRemoveDepositary( HttpServletRequest request )
     {
-        int nId = Integer.parseInt( request.getParameter( PARAMETER_ID_CAMPAIGNDEPOSITARY ) );
+        int nId = Integer.parseInt( request.getParameter( PARAMETER_ID_DEPOSITARY ) );
         DepositaryHome.remove( nId );
-        addInfo( INFO_CAMPAIGNDEPOSITARY_REMOVED, getLocale( ) );
+        addInfo( INFO_DEPOSITARY_REMOVED, getLocale( ) );
 
-        return redirectView( request, VIEW_MANAGE_CAMPAIGNDEPOSITARIES );
+        return redirectView( request, VIEW_MANAGE_DEPOSITARIES );
     }
 
     /**
-     * Returns the form to update info about a campaigndepositary
+     * Returns the form to update info about a depositary
      *
      * @param request
      *            The Http request
      * @return The HTML form to update info
      */
-    @View( VIEW_MODIFY_CAMPAIGNDEPOSITARY )
+    @View( VIEW_MODIFY_DEPOSITARY )
     public String getModifyDepositary( HttpServletRequest request )
     {
-        int nId = Integer.parseInt( request.getParameter( PARAMETER_ID_CAMPAIGNDEPOSITARY ) );
+        int nId = Integer.parseInt( request.getParameter( PARAMETER_ID_DEPOSITARY ) );
 
-        if ( _campaigndepositary == null || ( _campaigndepositary.getId( ) != nId ) )
+        if ( _depositary == null || ( _depositary.getId( ) != nId ) )
         {
-            _campaigndepositary = DepositaryHome.findByPrimaryKey( nId );
+        	_depositary = DepositaryHome.findByPrimaryKey( nId );
         }
 
         Map<String, Object> model = getModel( );
-        model.put( MARK_CAMPAIGNDEPOSITARY, _campaigndepositary );
+        model.put( MARK_DEPOSITARY, _depositary );
 
-        return getPage( PROPERTY_PAGE_TITLE_MODIFY_CAMPAIGNDEPOSITARY, TEMPLATE_MODIFY_CAMPAIGNDEPOSITARY, model );
+        return getPage( PROPERTY_PAGE_TITLE_MODIFY_DEPOSITARY, TEMPLATE_MODIFY_DEPOSITARY, model );
     }
 
     /**
-     * Process the change form of a campaigndepositary
+     * Process the change form of a depositary
      *
      * @param request
      *            The Http request
      * @return The Jsp URL of the process result
      */
-    @Action( ACTION_MODIFY_CAMPAIGNDEPOSITARY )
+    @Action( ACTION_MODIFY_DEPOSITARY )
     public String doModifyDepositary( HttpServletRequest request )
     {
-        populate( _campaigndepositary, request );
+        populate( _depositary, request );
 
         // Check constraints
-        if ( !validateBean( _campaigndepositary, VALIDATION_ATTRIBUTES_PREFIX ) )
+        if ( !validateBean( _depositary, VALIDATION_ATTRIBUTES_PREFIX ) )
         {
-            return redirect( request, VIEW_MODIFY_CAMPAIGNDEPOSITARY, PARAMETER_ID_CAMPAIGNDEPOSITARY, _campaigndepositary.getId( ) );
+            return redirect( request, VIEW_MODIFY_DEPOSITARY, PARAMETER_ID_DEPOSITARY, _depositary.getId( ) );
         }
 
-        DepositaryHome.update( _campaigndepositary );
-        addInfo( INFO_CAMPAIGNDEPOSITARY_UPDATED, getLocale( ) );
+        DepositaryHome.update( _depositary );
+        addInfo( INFO_DEPOSITARY_UPDATED, getLocale( ) );
 
-        return redirectView( request, VIEW_MANAGE_CAMPAIGNDEPOSITARIES );
+        return redirectView( request, VIEW_MANAGE_DEPOSITARIES );
     }
 }

@@ -48,12 +48,12 @@ public class Depositary implements Serializable
     // Variables declarations
     private int _nId;
 
-    @NotEmpty( message = "#i18n{participatoryideation.validation.campaigndepositary.CodeCampaign.notEmpty}" )
-    @Size( max = 50, message = "#i18n{participatoryideation.validation.campaigndepositary.CodeCampaign.size}" )
+    @NotEmpty( message = "#i18n{participatoryideation.validation.depositary.CodeCampaign.notEmpty}" )
+    @Size( max = 50, message = "#i18n{participatoryideation.validation.depositary.CodeCampaign.size}" )
     private String _strCodeCampaign;
 
-    @NotEmpty( message = "#i18n{participatoryideation.validation.campaigndepositary.CodeDepositaryType.notEmpty}" )
-    @Size( max = 50, message = "#i18n{participatoryideation.validation.campaigndepositary.CodeDepositaryType.size}" )
+    @NotEmpty( message = "#i18n{participatoryideation.validation.depositary.CodeDepositaryType.notEmpty}" )
+    @Size( max = 50, message = "#i18n{participatoryideation.validation.depositary.CodeDepositaryType.size}" )
     private String _strCodeDepositaryType;
 
     /**

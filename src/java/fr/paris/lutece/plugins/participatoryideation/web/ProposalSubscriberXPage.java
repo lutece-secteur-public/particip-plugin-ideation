@@ -174,7 +174,7 @@ public class ProposalSubscriberXPage extends MVCApplication
     }
 
     /**
-     * Get the confirmation page before removing an proposal
+     * Get the confirmation page before removing a proposal
      * 
      * @param request
      *            The request

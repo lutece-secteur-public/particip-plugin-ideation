@@ -1,0 +1,14 @@
+<#include "manageideation_tabs.html" />
+<@tabs tab="depositary" />
+
+<@rowBoxHeader i18nTitleKey="participatoryideation.modify_depositary.pageTitle">
+    <form class="form-horizontal" method="post" name="modify_depositary" action="jsp/admin/plugins/participatoryideation/ManageDepositaries.jsp">
+        <@messages errors=errors />
+        <input type="hidden" id="id" name="id" value="${depositary.id}"/>
+        
+        <@fieldInputText i18nLabelKey="participatoryideation.modify_depositary.labelCodeCampaign" inputName="code_campaign" mandatory=true value="${depositary.codeCampaign}" i18nHelpBlockKey="participatoryideation.modify_depositary.labelCodeCampaign.help" />
+        <@fieldInputText i18nLabelKey="participatoryideation.modify_depositary.labelCodeDepositary" inputName="code_depositary_type" mandatory=true value="${depositary.codeDepositaryType}" i18nHelpBlockKey="participatoryideation.modify_depositary.labelCodeDepositary.help" />
+        <@actionButtons button1Name="action_modifyDepositary" button2Name="view_manageDepositaries"/>
+    </form>
+</@rowBoxHeader>
+

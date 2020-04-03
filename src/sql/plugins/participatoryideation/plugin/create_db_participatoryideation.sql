@@ -37,10 +37,10 @@ ALTER TABLE participatoryideation_depositaries_types_values ADD CONSTRAINT uc_co
 ALTER TABLE participatoryideation_depositaries_types_values ADD CONSTRAINT fk_ideation_depositary_type_values_depositary  FOREIGN KEY (code_depositary_type) REFERENCES participatoryideation_depositaries_types (code_depositary_type);
 
 CREATE TABLE IF NOT EXISTS participatoryideation_depositaries (
-  id_campaign_depositary int NOT NULL,
+  id_depositary int NOT NULL,
   code_campaign varchar(50) NOT NULL,
   code_depositary_type varchar(50) NOT NULL,
-  PRIMARY KEY (id_campaign_depositary)
+  PRIMARY KEY (id_depositary)
 );
 ALTER TABLE participatoryideation_depositaries ADD CONSTRAINT fk_participatoryideation_depositaries_depositary  FOREIGN KEY (code_depositary_type) REFERENCES participatoryideation_depositaries_types (code_depositary_type);
 

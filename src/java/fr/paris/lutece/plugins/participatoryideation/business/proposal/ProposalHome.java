@@ -132,7 +132,7 @@ public final class ProposalHome
      * Load the data of all the proposal objects searched and returns them in form of a collection
      * 
      * @param proposalSearcher
-     *            an ProposalSearcher
+     *            a ProposalSearcher
      * @return the collection which contains the data of all the proposal objects
      */
     public static Collection<Proposal> getProposalsListSearch( ProposalSearcher proposalSearcher )
@@ -192,7 +192,7 @@ public final class ProposalHome
      */
     public static void loadMissingLinkedProposals( Proposal proposal )
     {
-        // Use the mandatory title to check if an proposal has been fully loaded from the database.
+        // Use the mandatory title to check if a proposal has been fully loaded from the database.
         List<Proposal> listChildProposals = proposal.getChildProposals( );
         for ( int i = 0; i < listChildProposals.size( ); i++ )
         {

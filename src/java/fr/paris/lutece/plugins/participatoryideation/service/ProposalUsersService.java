@@ -242,7 +242,7 @@ public class ProposalUsersService implements IProposalUsersService
     }
 
     /**
-     * Check if a user is a follower of an proposal
+     * Check if a user is a follower of a proposal
      * 
      * @param strId_Proposal
      * @param userId

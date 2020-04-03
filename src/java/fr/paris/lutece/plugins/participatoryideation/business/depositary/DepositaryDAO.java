@@ -46,15 +46,15 @@ import fr.paris.lutece.util.sql.DAOUtil;
 public final class DepositaryDAO implements IDepositaryDAO
 {
     // Constants
-    private static final String SQL_QUERY_NEW_PK = "SELECT max( id_campaign_depositary ) FROM participatoryideation_depositaries";
-    private static final String SQL_QUERY_SELECT = "SELECT id_campaign_depositary, code_campaign, code_depositary_type FROM participatoryideation_depositaries WHERE id_campaign_depositary = ?";
-    private static final String SQL_QUERY_INSERT = "INSERT INTO participatoryideation_depositaries ( id_campaign_depositary, code_campaign, code_depositary_type ) VALUES ( ?, ?, ? ) ";
-    private static final String SQL_QUERY_DELETE = "DELETE FROM participatoryideation_depositaries WHERE id_campaign_depositary = ? ";
-    private static final String SQL_QUERY_UPDATE = "UPDATE participatoryideation_depositaries SET id_campaign_depositary = ?, code_campaign = ?, code_depositary_type = ? WHERE id_campaign_depositary = ?";
+    private static final String SQL_QUERY_NEW_PK = "SELECT max( id_depositary ) FROM participatoryideation_depositaries";
+    private static final String SQL_QUERY_SELECT = "SELECT id_depositary, code_campaign, code_depositary_type FROM participatoryideation_depositaries WHERE id_depositary = ?";
+    private static final String SQL_QUERY_INSERT = "INSERT INTO participatoryideation_depositaries ( id_depositary, code_campaign, code_depositary_type ) VALUES ( ?, ?, ? ) ";
+    private static final String SQL_QUERY_DELETE = "DELETE FROM participatoryideation_depositaries WHERE id_depositary = ? ";
+    private static final String SQL_QUERY_UPDATE = "UPDATE participatoryideation_depositaries SET id_depositary = ?, code_campaign = ?, code_depositary_type = ? WHERE id_depositary = ?";
     private static final String SQL_QUERY_CHANGEALL_CAMPAIGN_CODE = "UPDATE participatoryideation_depositaries SET code_campaign = ? WHERE code_campaign = ?";
-    private static final String SQL_QUERY_SELECTALL = "SELECT id_campaign_depositary, code_campaign, code_depositary_type FROM participatoryideation_depositaries";
-    private static final String SQL_QUERY_SELECTALL_BY_CAMPAIGN = "SELECT id_campaign_depositary, code_campaign, code_depositary_type FROM participatoryideation_depositaries WHERE code_campaign = ?";
-    private static final String SQL_QUERY_SELECTALL_ID = "SELECT id_campaign_depositary FROM participatoryideation_depositaries";
+    private static final String SQL_QUERY_SELECTALL = "SELECT id_depositary, code_campaign, code_depositary_type FROM participatoryideation_depositaries";
+    private static final String SQL_QUERY_SELECTALL_BY_CAMPAIGN = "SELECT id_depositary, code_campaign, code_depositary_type FROM participatoryideation_depositaries WHERE code_campaign = ?";
+    private static final String SQL_QUERY_SELECTALL_ID = "SELECT id_depositary FROM participatoryideation_depositaries";
 
     /**
      * Generates a new primary key

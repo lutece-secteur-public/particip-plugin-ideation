@@ -9,7 +9,7 @@ INSERT INTO participatoryideation_depositaries_types (id_depositary_type, code_d
 	(3, 'COUNCIL'    , 'District council', 'LIST'),
 	(4, 'ASSOCIATION', 'Association'     , 'FREE');
 
-INSERT INTO participatoryideation_depositaries (id_campaign_depositary, code_campaign, code_depositary_type) VALUES
+INSERT INTO participatoryideation_depositaries (id_depositary, code_campaign, code_depositary_type) VALUES
 	(1, 'A', 'INDIVIDUAL'),
 	(2, 'A', 'COUNCIL'),
 	(3, 'A', 'ASSOCIATION'),
