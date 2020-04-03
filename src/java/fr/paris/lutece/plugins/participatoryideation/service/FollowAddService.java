@@ -89,7 +89,7 @@ public class FollowAddService implements IResourceDisplayManager
                 Idee ideeParent = IdeeHome.findByPrimaryKey( Integer.parseInt( attr.getTextValue( ) ) );
                 if ( ideeParent != null )
                 {
-                    Follow follow = _followService.findByResource( String.valueOf( ideeParent.getId( ) ), "IDEE" );
+                    Follow follow = _followService.findByResource( String.valueOf( ideeParent.getId( ) ), Idee.PROPERTY_RESOURCE_TYPE );
 
                     listChilds = ideeParent.getChildIdees( );
                     if ( follow != null )
@@ -98,7 +98,7 @@ public class FollowAddService implements IResourceDisplayManager
                     }
                     for ( Idee ideeChild : listChilds )
                     {
-                        follow = _followService.findByResource( String.valueOf( ideeChild.getId( ) ), "IDEE" );
+                        follow = _followService.findByResource( String.valueOf( ideeChild.getId( ) ), Idee.PROPERTY_RESOURCE_TYPE );
                         if ( follow != null )
                         {
                             nCountFollowers += follow.getFollowCount( );

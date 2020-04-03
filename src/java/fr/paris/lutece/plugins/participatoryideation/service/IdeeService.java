@@ -279,7 +279,7 @@ public class IdeeService implements IIdeeService
             ResourceExtenderHistoryFilter filter = new ResourceExtenderHistoryFilter( );
 
             filter.setExtenderType( FollowResourceExtender.RESOURCE_EXTENDER );
-            filter.setExtendableResourceType( "IDEE" );
+            filter.setExtendableResourceType( Idee.PROPERTY_RESOURCE_TYPE );
             filter.setIdExtendableResource( propId.toString( ) );
 
             List<ResourceExtenderHistory> listHistories = _resourceExtenderHistoryService.findByFilter( filter );
