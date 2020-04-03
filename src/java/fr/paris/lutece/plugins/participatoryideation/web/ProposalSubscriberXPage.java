@@ -108,7 +108,7 @@ public class ProposalSubscriberXPage extends MVCApplication
     private static final String PROPERTY_CONFIRM_REMOVE_PROPOSAL = "participatoryideation.messages.confirmRemoveProposal";
     private static final String MESSAGE_INFO_PROPOSAL_REMOVED = "participatoryideation.message.removed.succes";
     private static final String MESSAGE_NOT_AUTHORIZED = "participatoryideation.messages.not.authorized";
-    private static final String MESSAGE_CAMPAGNE_IDEATION_CLOSED_DELETE = "participatoryideation.messages.campagne.ideation.closed.delete";
+    private static final String MESSAGE_CAMPAIGN_IDEATION_CLOSED_DELETE = "participatoryideation.messages.campaign.ideation.closed.delete";
 
     // Views
 
@@ -195,9 +195,9 @@ public class ProposalSubscriberXPage extends MVCApplication
 
         Proposal proposal = ProposalHome.findByPrimaryKey( nIdProposal );
 
-        if ( !IdeationCampaignService.getInstance( ).isDuring( proposal.getCodeCampagne( ), Constants.IDEATION ) )
+        if ( !IdeationCampaignService.getInstance( ).isDuring( proposal.getCodeCampaign( ), Constants.IDEATION ) )
         {
-            SiteMessageService.setMessage( request, MESSAGE_CAMPAGNE_IDEATION_CLOSED_DELETE, SiteMessage.TYPE_ERROR );
+            SiteMessageService.setMessage( request, MESSAGE_CAMPAIGN_IDEATION_CLOSED_DELETE, SiteMessage.TYPE_ERROR );
         }
 
         if ( strConfirmRemoveProposal != null )

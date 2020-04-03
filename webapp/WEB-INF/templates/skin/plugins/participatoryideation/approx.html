@@ -2,7 +2,7 @@
 <#assign keyword_label            = "#i18n{participatoryideation.submit_project.steps.approx.keyword_label}">
 <#assign location_label           = "#i18n{participatoryideation.submit_project.steps.approx.location_label}">
 <#assign list_names               = [previous_campaigns_label, keyword_label, location_label] >
-<#assign current_campagne_code    = campagne_static["campagne"].code!'' >
+<#assign current_campaign_code    = campaign_static["campaign"].code!'' >
 
 <#if (((results_previous_campaigns_list?size)!0) == 0)  && (((results_keyword_list?size)!0) == 0) && (((results_location_list?size)!0) == 0)>
 	<h4>#i18n{participatoryideation.submit_project.steps.approx.notfound}</h4>
@@ -59,7 +59,7 @@
 						</#if>
 
 						<#if (result.dynamicFields.code_theme_string)??>
-							<#assign theme_libelle = (campagne_static.themes_map[result.dynamicFields.code_theme_string].title)!result.dynamicFields.code_theme_string>
+							<#assign theme_libelle = (campaign_static.themes_map[result.dynamicFields.code_theme_string].title)!result.dynamicFields.code_theme_string>
 						<#elseif (result.dynamicFields.thematique_text)??>
 							<#assign theme_libelle = result.dynamicFields.thematique_text>
 						</#if>
@@ -86,17 +86,17 @@
 								
 								
 								<#-- Informations concernant l'ancien projet (non retenu, lauréat...) identifié -->
-								<#if result.dynamicFields.campagne_text?string != current_campagne_code >
+								<#if result.dynamicFields.campaign_text?string != current_campaign_code >
 									<div class="panel-footer because text-center">
 										<#assign statut_project = ""> 
 										<#if result.dynamicFields?? && result.dynamicFields.statut_publique_project_text??>
 											<span class="text-danger">
-												<strong>${i18n("participatoryideation.submit_project.steps.approx.not_selected", 2014 + "ABCDEFGHIJKLMNOPQRSTUVWXYZ"?index_of(result.dynamicFields.campagne_text))} </strong>
+												<strong>${i18n("participatoryideation.submit_project.steps.approx.not_selected", 2014 + "ABCDEFGHIJKLMNOPQRSTUVWXYZ"?index_of(result.dynamicFields.campaign_text))} </strong>
 											</span>
 										</#if>
 										<#if result.dynamicFields?? && result.dynamicFields.statut_project_text??>
 											<span class="text-success"> 
-												<i class="fa fa-trophy"></i> #i18n{participatoryideation.submit_project.steps.approx.winning} <#list result.dynamicFields.campagne_text?split(' ') as x><#if x?matches('[2-9][0-9][0-9][0-9]')>${x}</#if></#list>
+												<i class="fa fa-trophy"></i> #i18n{participatoryideation.submit_project.steps.approx.winning} <#list result.dynamicFields.campaign_text?split(' ') as x><#if x?matches('[2-9][0-9][0-9][0-9]')>${x}</#if></#list>
 											</span>
 										</#if>
 									</div>

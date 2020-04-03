@@ -41,7 +41,7 @@
 		<div class="form-group">
 			<label class="col-xs-12 col-sm-3" for="codeTheme">#i18n{participatoryideation.modify_proposal.labelCodeTheme} :</label>
 			<div class="col-xs-12 col-sm-9">			
-					<p class="form-control-static" >${(campagne_static.themes_map[proposal.codeTheme].title)!proposal.codeTheme} (Code : ${proposal.codeTheme!})</p>
+					<p class="form-control-static" >${(campaign_static.themes_map[proposal.codeTheme].title)!proposal.codeTheme} (Code : ${proposal.codeTheme!})</p>
 					<p class="help-block">#i18n{participatoryideation.modify_proposal.labelCodeTheme.help}</p>
 			</div>
 		</div>
@@ -55,27 +55,27 @@
 		</div>
 
 		<div class="form-group">
-			<label class="col-xs-12 col-sm-3" for="depositaireType">#i18n{participatoryideation.modify_proposal.labelDepositaireType} :</label>
+			<label class="col-xs-12 col-sm-3" for="depositaryType">#i18n{participatoryideation.modify_proposal.labelDepositaryType} :</label>
 			<div class="col-xs-12 col-sm-9">			
-					<p class="form-control-static" >  ${(campagne_static.depositaires_types_map[proposal.depositaireType].libelle)!proposal.depositaireType!}  </p>
-					<p class="help-block">#i18n{participatoryideation.modify_proposal.labelDepositaireType.help}</p>
+					<p class="form-control-static" >  ${(campaign_static.depositaries_types_map[proposal.depositaryType].libelle)!proposal.depositaryType!}  </p>
+					<p class="help-block">#i18n{participatoryideation.modify_proposal.labelDepositaryType.help}</p>
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="col-xs-12 col-sm-3" for="depositaire">#i18n{participatoryideation.modify_proposal.labelDepositaire} :</label>
+			<label class="col-xs-12 col-sm-3" for="depositary">#i18n{participatoryideation.modify_proposal.labelDepositary} :</label>
 			<div class="col-xs-12 col-sm-9">			
 					<p class="form-control-static" >
-                    <#if (campagne_static.depositaire_types_map[proposal.depositaireType])??>
-                        <#assign depositaire_type = campagne_static.depositaire_types_map[proposal.depositaireType]>
+                    <#if (campaign_static.depositary_types_map[proposal.depositaryType])??>
+                        <#assign depositary_type = campaign_static.depositary_types_map[proposal.depositaryType]>
                     </#if>
-                    <#if depositaire_type?? && depositaire_type["codeComplementType"] == "LIST">
-                    ${depositaire_type.name!proposal.depositaire!} (Code : ${proposal.depositaire!})
+                    <#if depositary_type?? && depositary_type["codeComplementType"] == "LIST">
+                    ${depositary_type.name!proposal.depositary!} (Code : ${proposal.depositary!})
                     <#else>
-                    ${proposal.depositaire!}
+                    ${proposal.depositary!}
                     </#if>
                     </p>
-					<p class="help-block">#i18n{participatoryideation.modify_proposal.labelDepositaire.help}</p>
+					<p class="help-block">#i18n{participatoryideation.modify_proposal.labelDepositary.help}</p>
 			</div>
 		</div>
 
@@ -97,10 +97,10 @@
 		
 
 		<div class="form-group">
-			<label class="col-xs-12 col-sm-3" for="codeCampagne">#i18n{participatoryideation.modify_proposal.labelCodeCampagne} :</label>
+			<label class="col-xs-12 col-sm-3" for="codeCampaign">#i18n{participatoryideation.modify_proposal.labelCodeCampaign} :</label>
 			<div class="col-xs-12 col-sm-9">			
-					<p class="form-control-static" >${(campagne_static.campagne.title)!proposal.codeCampagne} (Code : ${proposal.codeCampagne!})</p>
-					<p class="help-block">#i18n{participatoryideation.modify_proposal.labelCodeCampagne.help}</p>
+					<p class="form-control-static" >${(campaign_static.campaign.title)!proposal.codeCampaign} (Code : ${proposal.codeCampaign!})</p>
+					<p class="help-block">#i18n{participatoryideation.modify_proposal.labelCodeCampaign.help}</p>
 			</div>
 		</div>
 

@@ -47,8 +47,11 @@ import javax.servlet.http.HttpServletRequest;
  */
 public abstract class ManageIdeationJspBean extends MVCAdminJspBean
 {
+
+    private static final long serialVersionUID = 2660180980511825109L;
+
     // Right
-    public static final String RIGHT_MANAGEIDEATION = "IDEATION_MANAGEMENT";
+    public static final String RIGHT_MANAGEIDEATION = "PARTICIPATORYIDEATION_MANAGEMENT";
 
     private static final String PROPERTY_DEFAULT_LIST_ITEM_PER_PAGE = "participatoryideation.listItems.itemsPerPage";
     private static final String PARAMETER_PAGE_INDEX = "page_index";

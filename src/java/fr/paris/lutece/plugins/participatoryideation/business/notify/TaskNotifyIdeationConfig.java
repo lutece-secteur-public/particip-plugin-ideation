@@ -49,7 +49,7 @@ public class TaskNotifyIdeationConfig extends TaskConfig
     private String _strRecipientsCc;
     private String _strRecipientsBcc;
     private boolean _bFollowers;
-    private boolean _bDepositaire;
+    private boolean _bDepositary;
 
     /**
      * Get the subject
@@ -199,23 +199,23 @@ public class TaskNotifyIdeationConfig extends TaskConfig
     }
 
     /**
-     * Returns is Depositaire
+     * Returns is Depositary
      * 
-     * @return Is Depositaire
+     * @return Is Depositary
      */
-    public boolean isDepositaire( )
+    public boolean isDepositary( )
     {
-        return _bDepositaire;
+        return _bDepositary;
     }
 
     /**
-     * Sets is Depositaire
+     * Sets is Depositary
      * 
-     * @param bDepositaire
-     *            Is Depositaire
+     * @param bDepositary
+     *            Is Depositary
      */
-    public void setDepositaire( boolean bDepositaire )
+    public void setDepositary( boolean bDepositary )
     {
-        this._bDepositaire = bDepositaire;
+        this._bDepositary = bDepositary;
     }
 }

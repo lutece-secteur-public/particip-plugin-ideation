@@ -171,14 +171,14 @@ public class IdeationApp extends MVCApplication
     private static final String MARK_RECAP_LOCALISATION_ARDT = "recap_localisation_ardt";
     private static final String MARK_RECAP_LOCALISATION_ADRESS = "recap_localisation_adress";
     private static final String MARK_RECAP_TITLE = "recap_title";
-    private static final String MARK_RECAP_DEPOSITAIRE_TYPE = "recap_depositaire_type";
-    private static final String MARK_RECAP_DEPOSITAIRE = "recap_depositaire";
+    private static final String MARK_RECAP_DEPOSITARY_TYPE = "recap_depositary_type";
+    private static final String MARK_RECAP_DEPOSITARY = "recap_depositary";
     private static final String MARK_RECAP_DESCRIPTION = "recap_description";
     private static final String MARK_RECAP_COUT = "recap_cout";
     private static final String MARK_RECAP_DOCS = "recap_docs";
     private static final String MARK_RECAP_IMGS = "recap_imgs";
     private static final String MARK_RECAP_PROPOSAL_CREATED_CODE = "proposal_created_code";
-    private static final String MARK_RECAP_PROPOSAL_CREATED_CAMPAGNE = "proposal_created_campagne";
+    private static final String MARK_RECAP_PROPOSAL_CREATED_CAMPAIGN = "proposal_created_campaign";
     private static final String MARK_RECAP_PROPOSAL_CREATED_REFERENCE = "proposal_created_reference";
 
     private static final String MARK_CAMPAIGN_THEMES = "themes";
@@ -314,10 +314,10 @@ public class IdeationApp extends MVCApplication
         model.put( MARK_STEPS_INDEX, STEPS.LOCATION_INDEX.ordinal( ) );
         model.put( MARK_STEPS_CONTENT, TEMPLATE_LOCATION );
 
-        model.put( MARK_CAMPAIGN_THEMES, IdeationCampaignService.getInstance( ).getCampaignThemes( _proposalCreate.getCodeCampagne( ) ) );
-        model.put( MARK_NUMBER_LOCALIZED_AREAS, IdeationCampaignService.getInstance( ).getCampaignNumberLocalizedAreas( _proposalCreate.getCodeCampagne( ) ) );
-        model.put( MARK_LOCALIZED_AREAS, IdeationCampaignService.getInstance( ).getCampaignLocalizedAreas( _proposalCreate.getCodeCampagne( ) ) );
-        model.put( MARK_WHOLE_AREA, IdeationCampaignService.getInstance( ).getCampaignWholeArea( _proposalCreate.getCodeCampagne( ) ) );
+        model.put( MARK_CAMPAIGN_THEMES, IdeationCampaignService.getInstance( ).getCampaignThemes( _proposalCreate.getCodeCampaign( ) ) );
+        model.put( MARK_NUMBER_LOCALIZED_AREAS, IdeationCampaignService.getInstance( ).getCampaignNumberLocalizedAreas( _proposalCreate.getCodeCampaign( ) ) );
+        model.put( MARK_LOCALIZED_AREAS, IdeationCampaignService.getInstance( ).getCampaignLocalizedAreas( _proposalCreate.getCodeCampaign( ) ) );
+        model.put( MARK_WHOLE_AREA, IdeationCampaignService.getInstance( ).getCampaignWholeArea( _proposalCreate.getCodeCampaign( ) ) );
 
         return getXPage( TEMPLATE_ETAPES, request.getLocale( ), model );
     }
@@ -551,7 +551,7 @@ public class IdeationApp extends MVCApplication
 
         ArrayList<String> listFQ = new ArrayList<String>( );
         // listFQ.add( SOLR_FQ_ALLPROJECTS );
-        listFQ.add( "(type:proposal AND campagne_text:\"" + _proposalCreate.getCodeCampagne( ) + "\")" );
+        listFQ.add( "(type:proposal AND campaign_text:\"" + _proposalCreate.getCodeCampaign( ) + "\")" );
         String strGeofiltFq = getDistanceFQ( );
         if ( strGeofiltFq != null )
         {
@@ -608,7 +608,7 @@ public class IdeationApp extends MVCApplication
         Double [ ] dLatLon = null;
         ArrayList<String> listFQ = new ArrayList<String>( );
         // listFQ.add( SOLR_FQ_ALLPROJECTS );
-        listFQ.add( "(type:proposal AND campagne_text:\"" + _proposalCreate.getCodeCampagne( ) + "\")" );
+        listFQ.add( "(type:proposal AND campaign_text:\"" + _proposalCreate.getCodeCampaign( ) + "\")" );
         if ( _proposalCreate.getLongitude( ) != null && _proposalCreate.getLatitude( ) != null )
         {
             dLatLon = new Double [ ] {
@@ -1068,7 +1068,7 @@ public class IdeationApp extends MVCApplication
 
         model.put( MARK_IDEATION_CAMPAIGN_SERVICE_IMPLEMENTATION, IdeationCampaignService.getInstance( ).getClass( ).getName( ) );
 
-        IdeationStaticService.getInstance( ).fillCampaignStaticContent( model, _proposalCreate.getCodeCampagne( ) );
+        IdeationStaticService.getInstance( ).fillCampaignStaticContent( model, _proposalCreate.getCodeCampaign( ) );
         fillFormEtapes( model );
         fillRecap( model, isConfirmed ? _proposalDisplay : _proposalCreate, request );
 
@@ -1088,8 +1088,8 @@ public class IdeationApp extends MVCApplication
     protected void fillRecap( Map<String, Object> model, Proposal proposal, HttpServletRequest request )
     {
         // Step 1
-        model.put( MARK_RECAP_DEPOSITAIRE_TYPE, proposal.getDepositaireType( ) );
-        model.put( MARK_RECAP_DEPOSITAIRE, proposal.getDepositaire( ) );
+        model.put( MARK_RECAP_DEPOSITARY_TYPE, proposal.getDepositaryType( ) );
+        model.put( MARK_RECAP_DEPOSITARY, proposal.getDepositary( ) );
         model.put( MARK_RECAP_CODE_THEME, proposal.getCodeTheme( ) );
         model.put( MARK_RECAP_LOCALISATION_TYPE, proposal.getLocalisationType( ) );
         model.put( MARK_RECAP_LOCALISATION_ARDT, proposal.getLocalisationArdt( ) );
@@ -1108,7 +1108,7 @@ public class IdeationApp extends MVCApplication
 
         // step 6
         model.put( MARK_RECAP_PROPOSAL_CREATED_CODE, proposal.getCodeProposal( ) );
-        model.put( MARK_RECAP_PROPOSAL_CREATED_CAMPAGNE, proposal.getCodeCampagne( ) );
+        model.put( MARK_RECAP_PROPOSAL_CREATED_CAMPAIGN, proposal.getCodeCampaign( ) );
         model.put( MARK_RECAP_PROPOSAL_CREATED_REFERENCE, proposal.getReference( ) );
     }
 
@@ -1132,17 +1132,17 @@ public class IdeationApp extends MVCApplication
     private void checkIdeationCampaignPhase( HttpServletRequest request ) throws SiteMessageException
     {
         // Verify a campaign is specified.
-        if ( StringUtils.isBlank( _proposalCreate.getCodeCampagne( ) ) )
+        if ( StringUtils.isBlank( _proposalCreate.getCodeCampaign( ) ) )
         {
-            _proposalCreate.setCodeCampagne( request.getParameter( PARAMETER_CAMPAIGN ) );
+            _proposalCreate.setCodeCampaign( request.getParameter( PARAMETER_CAMPAIGN ) );
         }
 
-        if ( StringUtils.isBlank( _proposalCreate.getCodeCampagne( ) ) )
+        if ( StringUtils.isBlank( _proposalCreate.getCodeCampaign( ) ) )
         {
             SiteMessageService.setMessage( request, MESSAGE_CAMPAIGN_UNSPECIFIED, SiteMessage.TYPE_ERROR, JSP_PORTAL );
         }
         else
-            if ( !IdeationCampaignService.getInstance( ).isDuring( _proposalCreate.getCodeCampagne( ), Constants.IDEATION ) )
+            if ( !IdeationCampaignService.getInstance( ).isDuring( _proposalCreate.getCodeCampaign( ), Constants.IDEATION ) )
             {
                 Map<String, Object> requestParameters = new HashMap<String, Object>( );
                 requestParameters.put( PARAMETER_PAGE, "search-solr" );
@@ -1219,14 +1219,14 @@ public class IdeationApp extends MVCApplication
     {
         proposal.setLocalisationType( formEtapeLocation.getLocalisationType( ) );
         proposal.setCodeTheme( formEtapeLocation.getCodeTheme( ) );
-        proposal.setDepositaireType( formEtapeLocation.getDepositaireType( ) );
-        if ( formEtapeLocation.mustCopyDepositaire( ) )
+        proposal.setDepositaryType( formEtapeLocation.getDepositaryType( ) );
+        if ( formEtapeLocation.mustCopyDepositary( ) )
         {
-            proposal.setDepositaire( formEtapeLocation.getDepositaire( ).trim( ) );
+            proposal.setDepositary( formEtapeLocation.getDepositary( ).trim( ) );
         }
         else
         {
-            proposal.setDepositaire( null );
+            proposal.setDepositary( null );
         }
         if ( StringUtils.isNotEmpty( formEtapeLocation.getGeojson( ) ) )
         {

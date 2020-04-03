@@ -91,7 +91,7 @@ public class TaskNotifyIdeation extends SimpleTask
     private static final String MARK_PROPOSAL = "proposal";
     private static final String MARK_PSEUDO = "pseudo_declencheur";
     private static final String MARK_EMAIL = "email_declencheur";
-    private static final String MARK_PSEUDO_DEPOSITAIRE = "pseudo_depositaire";
+    private static final String MARK_PSEUDO_DEPOSITARY = "pseudo_depositary";
     private static final String MARK_PSEUDO_DESTINATAIRE = "pseudo_destinataire";
     private static final String MARK_COMMENT_CONTENT = "comment_content";
     private static final String MARK_IS_BACK_USER = "comment_is_back_user";
@@ -159,7 +159,7 @@ public class TaskNotifyIdeation extends SimpleTask
             Proposal proposal = ProposalHome.findByPrimaryKey( resourceHistory.getIdResource( ) );
 
             String strProposalLuteceUsername = proposal.getLuteceUserName( );
-            String strNickNameDepositaire = UserPreferencesService.instance( ).getNickname( strProposalLuteceUsername );
+            String strNickNameDepositary = UserPreferencesService.instance( ).getNickname( strProposalLuteceUsername );
             String strNickNameDestinataire = StringUtils.EMPTY;
 
             if ( StringUtils.isNotBlank( strComment ) )
@@ -171,7 +171,7 @@ public class TaskNotifyIdeation extends SimpleTask
             model.put( MARK_PROPOSAL, proposal );
             model.put( MARK_PSEUDO, strNickNameUser );
             model.put( MARK_EMAIL, strEmailUser );
-            model.put( MARK_PSEUDO_DEPOSITAIRE, strNickNameDepositaire );
+            model.put( MARK_PSEUDO_DEPOSITARY, strNickNameDepositary );
             model.put( MARK_COMMENT_CONTENT, strComment );
             model.put( MARK_IS_BACK_USER, bBackUser );
 
@@ -277,7 +277,7 @@ public class TaskNotifyIdeation extends SimpleTask
                 }
             }
 
-            if ( config.isDepositaire( ) )
+            if ( config.isDepositary( ) )
             {
 
                 List<Subscription> subDepoPart = null;
@@ -307,7 +307,7 @@ public class TaskNotifyIdeation extends SimpleTask
                         subDepoPart = SubscriptionService.getInstance( ).findByFilter( filterSubDepo );
 
                     }
-                model.put( MARK_PSEUDO_DESTINATAIRE, strNickNameDepositaire );
+                model.put( MARK_PSEUDO_DESTINATAIRE, strNickNameDepositary );
                 if ( actionName.equals( ACTION_NAME_CREATE_PROPOSAL ) )
                 {
 

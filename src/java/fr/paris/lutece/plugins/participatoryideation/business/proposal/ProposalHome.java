@@ -107,15 +107,15 @@ public final class ProposalHome
     /**
      * Returns an instance of a proposal whose codes is specified in parameters
      * 
-     * @param strCodeCampagne
-     *            The campagne code
+     * @param strCodeCampaign
+     *            The campaign code
      * @param nCodeProposal
      *            The proposal code
      * @return an instance of Proposal
      */
-    public static Proposal findByCodes( String strCodeCampagne, int nCodeProposal )
+    public static Proposal findByCodes( String strCodeCampaign, int nCodeProposal )
     {
-        return _dao.loadByCodes( strCodeCampagne, nCodeProposal, _plugin );
+        return _dao.loadByCodes( strCodeCampaign, nCodeProposal, _plugin );
     }
 
     /**
@@ -285,19 +285,19 @@ public final class ProposalHome
 
             childrenPseudos.append( UserPreferencesService.instance( ).getNickname( _proposal.getLuteceUserName( ) ) );
 
-            switch( _proposal.getDepositaireType( ) )
+            switch( _proposal.getDepositaryType( ) )
             {
                 case "PARTICULIER":
                     childrenPseudos.append( " (particulier)" ).append( separator );
                     break;
                 case "ASSO":
-                    childrenPseudos.append( " (association " + _proposal.getDepositaire( ) + ")" ).append( separator );
+                    childrenPseudos.append( " (association " + _proposal.getDepositary( ) + ")" ).append( separator );
                     break;
                 case "CONSEIL":
-                    childrenPseudos.append( " (conseil de quartier " + _proposal.getDepositaire( ) + ")" ).append( separator );
+                    childrenPseudos.append( " (conseil de quartier " + _proposal.getDepositary( ) + ")" ).append( separator );
                     break;
                 case "AUTRE":
-                    childrenPseudos.append( " (autre " + _proposal.getDepositaire( ) + ")" ).append( separator );
+                    childrenPseudos.append( " (autre " + _proposal.getDepositary( ) + ")" ).append( separator );
                     break;
             }
 
@@ -324,7 +324,7 @@ public final class ProposalHome
         int nbAutr = 0;
         for ( int nId : _nIds )
         {
-            switch( ProposalHome.findByPrimaryKey( nId ).getDepositaireType( ) )
+            switch( ProposalHome.findByPrimaryKey( nId ).getDepositaryType( ) )
             {
                 case "PARTICULIER":
                     nbPart++;
@@ -361,15 +361,15 @@ public final class ProposalHome
         else
             if ( nbPart == 0 && nbAsso == 1 && nbCons == 0 && nbAutr == 0 )
                 childrenPseudos.append( "Ce projet a été élaboré sur proposition de l’association « "
-                        + ProposalHome.findByPrimaryKey( _nIds.get( 0 ) ).getDepositaire( ) + " »" );
+                        + ProposalHome.findByPrimaryKey( _nIds.get( 0 ) ).getDepositary( ) + " »" );
             else
                 if ( nbPart == 0 && nbAsso == 0 && nbCons == 1 && nbAutr == 0 )
                     childrenPseudos.append( "Ce projet a été élaboré sur proposition du conseil de quartier « "
-                            + ProposalHome.findByPrimaryKey( _nIds.get( 0 ) ).getDepositaire( ) + " »" );
+                            + ProposalHome.findByPrimaryKey( _nIds.get( 0 ) ).getDepositary( ) + " »" );
                 else
                     if ( nbPart == 0 && nbAsso == 0 && nbCons == 0 && nbAutr == 1 )
                         childrenPseudos.append( "Ce projet a été élaboré sur proposition du collectif « "
-                                + ProposalHome.findByPrimaryKey( _nIds.get( 0 ) ).getDepositaire( ) + " »" );
+                                + ProposalHome.findByPrimaryKey( _nIds.get( 0 ) ).getDepositary( ) + " »" );
                     else
                     {
                         childrenPseudos.append( "Ce projet a été élaboré sur proposition de ... " );

@@ -24,12 +24,12 @@
 		        <div class="row">
         		    <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
                 		 <div class="form-group">
-		                    <label for="filter_code_campagne">#i18n{participatoryideation.manage_links.searchLabelCodeCampagne} :</label>
-		                    <select id="filter_code_campagne" name="filter_code_campagne" class="form-control input-xs">
-		                    <option value="" <#if !filter_code_campagne??>selected="selected"</#if>>#i18n{participatoryideation.manage_links.searchLabelAll}</option>
+		                    <label for="filter_code_campaign">#i18n{participatoryideation.manage_links.searchLabelCodeCampaign} :</label>
+		                    <select id="filter_code_campaign" name="filter_code_campaign" class="form-control input-xs">
+		                    <option value="" <#if !filter_code_campaign??>selected="selected"</#if>>#i18n{participatoryideation.manage_links.searchLabelAll}</option>
 		                    <#list global_static?keys as key>
-			                    <#assign campaign = global_static[key]['campagne'] >
-			                    <option value="${campaign.code}" <#if filter_code_campagne?? && campaign.code==filter_code_campagne> selected="selected"</#if>>${campaign.name}</option>
+			                    <#assign campaign = global_static[key]['campaign'] >
+			                    <option value="${campaign.code}" <#if filter_code_campaign?? && campaign.code==filter_code_campaign> selected="selected"</#if>>${campaign.name}</option>
 		                    </#list>
 		                    </select>
                 		</div>
@@ -75,10 +75,10 @@
 		        <tr>
 		            <input type="hidden" id="id" name="id"/>
 		            <td>
-		                (${link.parentId!'?'}) <a href="jsp/site/Portal.jsp?page=proposal&campagne=${link.parentCodeCampagne!}&proposal=${link.parentCodeProposal!}" target="_blank">${link.parentCodeCampagne!'?'}-${(link.parentCodeProposal!'?')?left_pad(6, "0")} : ${link.parentTitle!'?'}</a> 
+		                (${link.parentId!'?'}) <a href="jsp/site/Portal.jsp?page=proposal&campaign=${link.parentCodeCampaign!}&proposal=${link.parentCodeProposal!}" target="_blank">${link.parentCodeCampaign!'?'}-${(link.parentCodeProposal!'?')?left_pad(6, "0")} : ${link.parentTitle!'?'}</a> 
 		            </td>
 		            <td>
-		                (${link.childId!'?'}) <a href="jsp/site/Portal.jsp?page=proposal&campagne=${link.childCodeCampagne!}&proposal=${link.childCodeProposal!}" target="_blank">${link.childCodeCampagne!'?'}-${(link.childCodeProposal!'?')?left_pad(6, "0")} : ${link.childTitle!'?'}</a> 
+		                (${link.childId!'?'}) <a href="jsp/site/Portal.jsp?page=proposal&campaign=${link.childCodeCampaign!}&proposal=${link.childCodeProposal!}" target="_blank">${link.childCodeCampaign!'?'}-${(link.childCodeProposal!'?')?left_pad(6, "0")} : ${link.childTitle!'?'}</a> 
 		            </td>
 		        <td>
 		            <a href="jsp/admin/plugins/participatoryideation/ManageProposalLinks.jsp?view=modifyLink&id=${link.id}"

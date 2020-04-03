@@ -31,22 +31,22 @@
 				<#-- if proposal.codeTheme = "CADRE">							 <#assign theme_class = "cadre_vie"></#if -->
 				
 				<#if (proposal.codeTheme)??>
-					<#assign proposal_theme_libelle = (campagne_static.themes_map[proposal.codeTheme].title)!proposal.codeTheme>
+					<#assign proposal_theme_libelle = (campaign_static.themes_map[proposal.codeTheme].title)!proposal.codeTheme>
 				</#if>
 				
-				<#if (campagne_static.depositaires_types_map[proposal.depositaireType])??>
-					<#assign proposal_depositaire_type_object = campagne_static.depositaires_types_map[proposal.depositaireType]>
+				<#if (campaign_static.depositaries_types_map[proposal.depositaryType])??>
+					<#assign proposal_depositary_type_object = campaign_static.depositaries_types_map[proposal.depositaryType]>
 				</#if>
 				
-				<#if (proposal.depositaireType)??>
-					<#assign proposal_depositaire_type_libelle = (proposal_depositaire_type_object.libelle)!proposal.depositaireType>
+				<#if (proposal.depositaryType)??>
+					<#assign proposal_depositary_type_libelle = (proposal_depositary_type_object.libelle)!proposal.depositaryType>
 				</#if>
 				
-				<#if (proposal.depositaire)??>
-					<#if (proposal_depositaire_type_object.codeComplementType)?? && proposal_depositaire_type_object.codeComplementType == "LIST">
-						<#assign proposal_depositaire_libelle = (campagne_static.depositaires_types_list_values_map[proposal.depositaireType + "-" + proposal.depositaire])!proposal.depositaire>
+				<#if (proposal.depositary)??>
+					<#if (proposal_depositary_type_object.codeComplementType)?? && proposal_depositary_type_object.codeComplementType == "LIST">
+						<#assign proposal_depositary_libelle = (campaign_static.depositaries_types_list_values_map[proposal.depositaryType + "-" + proposal.depositary])!proposal.depositary>
 					<#else>
-						<#assign proposal_depositaire_libelle = proposal.depositaire>
+						<#assign proposal_depositary_libelle = proposal.depositary>
 					</#if>
 				</#if>
 
@@ -60,9 +60,9 @@
 				<#elseif proposal.statusPublic = "STATUS_NON_RETENU">        <#assign status_text = i18n("participatoryideation.message.labelNonRetenu")>              <#assign status_icon = "prop-statut-ko.png">
 				</#if>
 
-				<#assign campagne_year = "&#160;">
-				<#if proposal.codeCampagne??>
-					<#assign campagne_year = proposal.codeCampagne>
+				<#assign campaign_year = "&#160;">
+				<#if proposal.codeCampaign??>
+					<#assign campaign_year = proposal.codeCampaign>
 				</#if>
 
 				<#-- *********************************************************************************** -->
@@ -78,9 +78,9 @@
 						<div id="prop-vote-result" class="winner">
 							<div class="msg">
 								<#if proposal.parentProposals?has_content>
-									<p>This proposal, grouped with other ones, is a winner of <strong>${campagne_year}</strong> !</p>
+									<p>This proposal, grouped with other ones, is a winner of <strong>${campaign_year}</strong> !</p>
 								<#else>
-									<p>This proposal is a winner of <strong>${campagne_year}</strong> !</p>
+									<p>This proposal is a winner of <strong>${campaign_year}</strong> !</p>
 								</#if>
 							</div>
 							
@@ -98,9 +98,9 @@
 						<div id="prop-vote-result" class="looser">
 							<div class="msg">
 								<#if proposal.parentProposals?has_content>
-									<p>This proposal, grouped with other ones, is not a winner of <strong>${campagne_year}</strong>.</p>
+									<p>This proposal, grouped with other ones, is not a winner of <strong>${campaign_year}</strong>.</p>
 								<#else>
-									<p>This proposal is not a winner of <strong>${campagne_year}</strong>.</p>
+									<p>This proposal is not a winner of <strong>${campaign_year}</strong>.</p>
 								</#if>
 							</div>
 							
@@ -119,9 +119,9 @@
 						<div id="prop-vote-result" class="winner">
 							<div class="msg">
 								<#if proposal.parentProposals?has_content>
-									<p>This proposal, grouped with other ones, takes part in <strong>${campagne_year}</strong>.</p>
+									<p>This proposal, grouped with other ones, takes part in <strong>${campaign_year}</strong>.</p>
 								<#else>
-									<p>This proposal takes part in <strong>${campagne_year}</strong>.</p>
+									<p>This proposal takes part in <strong>${campaign_year}</strong>.</p>
 								</#if>
 							</div>
 							
@@ -271,7 +271,7 @@
 							<div class="prop-data-key">
 							</div>
 							<div class="prop-data-value">
-								#i18n{participatoryideation.view_idea.data.campaign} ${campagne_year!"&#160;"}
+								#i18n{participatoryideation.view_idea.data.campaign} ${campaign_year!"&#160;"}
 							</div>
 						</div>
 						
@@ -324,11 +324,11 @@
 							<h2>#i18n{participatoryideation.view_idea.data.author}</h2>
 							<p class="prop-data-author-type">
 								<img src="images/local/skin/author-type-${theme_class}.png" alt="" title="" />
-								${proposal_depositaire_type_libelle!''}
+								${proposal_depositary_type_libelle!''}
 							</p>
-							<#if proposal_depositaire_libelle??>
+							<#if proposal_depositary_libelle??>
 								<img src="images/local/skin/trophy-empty.png" alt="" title="" />
-								(${proposal_depositaire_libelle})
+								(${proposal_depositary_libelle})
 							</#if>
 						</div>
 						
@@ -346,7 +346,7 @@
 							<div id="prop-data-contact">
 								<p>
 									<#if proposal.acceptContact == true >
-										<a class="btn btn-14rem btn-black-on-white" href="jsp/site/Portal.jsp?page=proposal&view=viewProposal&proposal=${proposal.codeProposal!}&campagne=${proposal.codeCampagne!}&showContact=true" title="Contact the submitter">Contact</a>
+										<a class="btn btn-14rem btn-black-on-white" href="jsp/site/Portal.jsp?page=proposal&view=viewProposal&proposal=${proposal.codeProposal!}&campaign=${proposal.codeCampaign!}&showContact=true" title="Contact the submitter">Contact</a>
 									<#else>
 										<span class="btn btn-14rem btn-black-on-white btn-unactive" title="${message_not_accept!}">Contact</span>
 									</#if>
@@ -362,14 +362,14 @@
 									<#if proposal.childProposals?size &gt; 0 >
 										<p><span>Proposal built from :</span></p>
 										<#list proposal.childProposals as childProposal>
-											<p><a href="jsp/site/Portal.jsp?page=proposal&amp;campagne=${proposal.codeCampagne}&amp;proposal=${childProposal.codeProposal}">${childProposal.titre?lower_case?cap_first}</a></p>
+											<p><a href="jsp/site/Portal.jsp?page=proposal&amp;campaign=${proposal.codeCampaign}&amp;proposal=${childProposal.codeProposal}">${childProposal.titre?lower_case?cap_first}</a></p>
 										</#list>
 									</#if>
 								</#if>
 								<#if proposal.parentProposals?has_content>
 									<p><span>Project grouped into :</span></p>
 									<#list proposal.parentProposals as parentProposal>
-										<p><a href="jsp/site/Portal.jsp?page=proposal&amp;campagne=${proposal.codeCampagne}&amp;proposal=${parentProposal.codeProposal}">${parentProposal.titre?lower_case?cap_first}</a></p>
+										<p><a href="jsp/site/Portal.jsp?page=proposal&amp;campaign=${proposal.codeCampaign}&amp;proposal=${parentProposal.codeProposal}">${parentProposal.titre?lower_case?cap_first}</a></p>
 									</#list>
 								</#if>
 							</div>
@@ -418,18 +418,18 @@
 
 <#-- Modal de contact entre usagers -->
 
-<div class="modal fade" id="modalContactDepositaire" tabindex="-1" role="dialog" aria-labelledby="modalContactDepositaireLabel" aria-hidden="true">
+<div class="modal fade" id="modalContactDepositary" tabindex="-1" role="dialog" aria-labelledby="modalContactDepositaryLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<#if proposal??>
 				<form id="idForm" action="jsp/site/Portal.jsp?page=proposal" method="post">
-				<input type="hidden" name="campagne" id="campagne" value="${proposal.codeCampagne!}">
+				<input type="hidden" name="campaign" id="campaign" value="${proposal.codeCampaign!}">
 				<input type="hidden" name="proposal" id="proposal" value="${proposal.codeProposal!}">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
-					<h3 class="modal-title" id="modalContactDepositaireLabel"><strong>Contacter ${nickname!''}</strong></h3>
+					<h3 class="modal-title" id="modalContactDepositaryLabel"><strong>Contacter ${nickname!''}</strong></h3>
 				</div>
 				<div class="modal-body">
 					<div>Your message will be sent by email. So y our email address will be known to ${nickname!''}.</div><br>
@@ -447,7 +447,7 @@
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button type="submit" class="btn btn-14rem btn-black-on-white" name="action_contacterDepositaire">Send the message</button>
+					<button type="submit" class="btn btn-14rem btn-black-on-white" name="action_contacterDepositary">Send the message</button>
 					<button type="button" class="btn btn-14rem btn-black-on-white" data-dismiss="modal">Cancel</button>
 				</div>
 				</form>
@@ -458,7 +458,7 @@
 
 <#-- Modal de contact entre usagers désactivé -->
 
-<div class="modal fade" id="modalContactDepositaireDesactive" tabindex="-1" role="dialog" aria-labelledby="modalContactDepositaireLabel" aria-hidden="true">
+<div class="modal fade" id="modalContactDepositaryDesactive" tabindex="-1" role="dialog" aria-labelledby="modalContactDepositaryLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-body">
@@ -498,7 +498,7 @@
 <script type="text/javascript">
 	<#if show_contact?? && show_contact=="true">
 		$(window).load(function(){
-			$('#modalContactDepositaire').modal('show');
+			$('#modalContactDepositary').modal('show');
 		});
 	</#if>
 </script>

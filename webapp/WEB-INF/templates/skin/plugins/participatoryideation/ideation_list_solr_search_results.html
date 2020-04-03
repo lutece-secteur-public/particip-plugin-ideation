@@ -41,12 +41,12 @@
 					<#elseif result.dynamicFields.code_theme_string = "SANTE">																	<#assign theme_class = "sante">
 					</#if>
 				</#if>
-				<#if result.dynamicFields?? && result.dynamicFields.campagne_text??>
-					<#assign campaign = i18n('participatoryideation.view.list.card.campaign', result.dynamicFields.campagne_text)>
+				<#if result.dynamicFields?? && result.dynamicFields.campaign_text??>
+					<#assign campaign = i18n('participatoryideation.view.list.card.campaign', result.dynamicFields.campaign_text)>
 				</#if>
 				
 				<#if (result.dynamicFields.code_theme_string)??>
-					<#assign theme_libelle = (campagne_static.themes_map[result.dynamicFields.code_theme_string].title)!result.dynamicFields.code_theme_string >
+					<#assign theme_libelle = (campaign_static.themes_map[result.dynamicFields.code_theme_string].title)!result.dynamicFields.code_theme_string >
 				</#if>
 
 			
@@ -80,8 +80,8 @@
 									</h3>
 								</div>
 	
-								<#-- Campagne -->
-								<div class="prop-card-campagne">
+								<#-- Campaign -->
+								<div class="prop-card-campaign">
 									<p class="pull-right">
 										${campaign}
 									</p>
@@ -119,9 +119,9 @@
 										<span>
 											<a href="jsp/site/Portal.jsp?page=search-solr&conf=list_proposals&query=(pseudo_string:&quot;${result.dynamicFields.pseudo_string?html!''}&quot;)" title="Voir les propositions déposées par ${result.dynamicFields.pseudo_string?html!''} (nouvel onglet)">
 												${result.dynamicFields.pseudo_string?html} 
-												<#if result.dynamicFields?? && result.dynamicFields.code_depositaire_type_string??>
-													<#if     result.dynamicFields.code_depositaire_type_string = 'CONSEIL'> #i18n{participatoryideation.view.list.card.submitted.council}
-													<#elseif result.dynamicFields.code_depositaire_type_string = 'ASSO'   > #i18n{participatoryideation.view.list.card.submitted.association}
+												<#if result.dynamicFields?? && result.dynamicFields.code_depositary_type_string??>
+													<#if     result.dynamicFields.code_depositary_type_string = 'CONSEIL'> #i18n{participatoryideation.view.list.card.submitted.council}
+													<#elseif result.dynamicFields.code_depositary_type_string = 'ASSO'   > #i18n{participatoryideation.view.list.card.submitted.association}
 													</#if>
 												</#if>
 											</a>

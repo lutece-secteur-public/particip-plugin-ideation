@@ -84,14 +84,14 @@ public class Proposal implements Serializable, IExtendableResource
     private Double _dLatitude;
     private String _strAdress;
     private Status _statusPublic;
-    private String _strDepositaireType;
-    private String _strDepositaire;
+    private String _strDepositaryType;
+    private String _strDepositary;
     private boolean _bAcceptExploit;
     private boolean _bAcceptContact;
     private List<File> _listImgs;
     private List<File> _listDocs;
     private Timestamp _creationTimestamp;
-    private String _strCodeCampagne;
+    private String _strCodeCampaign;
     private int _nExportedTag;
     private int _nCodeProposal;
     private String _strTypeQpvQva;
@@ -191,15 +191,15 @@ public class Proposal implements Serializable, IExtendableResource
     /**
      * Returns the reference of idea, formatted as "X-001234".
      */
-    public static String constructsReference( String strCodeCampagne, int intCodeProposal )
+    public static String constructsReference( String strCodeCampaign, int intCodeProposal )
     {
-        if ( StringUtils.isBlank( strCodeCampagne ) )
+        if ( StringUtils.isBlank( strCodeCampaign ) )
         {
             return "?" + SEPARATOR_REFERENCE + String.format( "%06d", intCodeProposal );
         }
         else
         {
-            return strCodeCampagne + SEPARATOR_REFERENCE + String.format( "%06d", intCodeProposal );
+            return strCodeCampaign + SEPARATOR_REFERENCE + String.format( "%06d", intCodeProposal );
         }
     }
 
@@ -471,14 +471,14 @@ public class Proposal implements Serializable, IExtendableResource
         this._strLocalisationArdt = _strLocalisationArdt;
     }
 
-    public String getDepositaireType( )
+    public String getDepositaryType( )
     {
-        return _strDepositaireType;
+        return _strDepositaryType;
     }
 
-    public void setDepositaireType( String _strDepositaireType )
+    public void setDepositaryType( String _strDepositaryType )
     {
-        this._strDepositaireType = _strDepositaireType;
+        this._strDepositaryType = _strDepositaryType;
     }
 
     public Double getLongitude( )
@@ -511,14 +511,14 @@ public class Proposal implements Serializable, IExtendableResource
         this._bAcceptContact = bAcceptContact;
     }
 
-    public String getDepositaire( )
+    public String getDepositary( )
     {
-        return _strDepositaire;
+        return _strDepositary;
     }
 
-    public void setDepositaire( String _strDepositaire )
+    public void setDepositary( String _strDepositary )
     {
-        this._strDepositaire = _strDepositaire;
+        this._strDepositary = _strDepositary;
     }
 
     /**
@@ -778,7 +778,7 @@ public class Proposal implements Serializable, IExtendableResource
 
     public String getReference( )
     {
-        return constructsReference( getCodeCampagne( ), getCodeProposal( ) );
+        return constructsReference( getCodeCampaign( ), getCodeProposal( ) );
     }
 
     public Status getStatusPublic( )
@@ -846,11 +846,11 @@ public class Proposal implements Serializable, IExtendableResource
     }
 
     /**
-     * Retourne true si l'proposal peut etre supprimee par l'usager. Une proposal ne peut etre supprimee que si la phase de SA campagne est ouverte.
+     * Returns trie if the proposal can be removed by its submitter. Removing nedd ideation phase to be open.
      */
     public boolean canDelete( )
     {
-        return IdeationCampaignService.getInstance( ).isDuring( _strCodeCampagne, Constants.IDEATION );
+        return IdeationCampaignService.getInstance( ).isDuring( _strCodeCampaign, Constants.IDEATION );
     }
 
     /**
@@ -864,27 +864,27 @@ public class Proposal implements Serializable, IExtendableResource
     }
 
     /* ********************************************************************************************* */
-    /* * CAMPAGNE CAMPAGNE CAMPAGNE CAMPAGNE CAMPAGNE CAMPAGNE CAMPAGNE CAMPAGNE CAMPAGNE CAMPAGNE * */
-    /* * CAMPAGNE CAMPAGNE CAMPAGNE CAMPAGNE CAMPAGNE CAMPAGNE CAMPAGNE CAMPAGNE CAMPAGNE CAMPAGNE * */
+    /* * CAMPAIGN CAMPAIGN CAMPAIGN CAMPAIGN CAMPAIGN CAMPAIGN CAMPAIGN CAMPAIGN CAMPAIGN CAMPAIGN * */
+    /* * CAMPAIGN CAMPAIGN CAMPAIGN CAMPAIGN CAMPAIGN CAMPAIGN CAMPAIGN CAMPAIGN CAMPAIGN CAMPAIGN * */
     /* ********************************************************************************************* */
     /* * Each campaign is represented by a character : A = 2014, B = 2015, etc. * */
     /* ********************************************************************************************* */
 
     /**
-     * @return the CodeCampagne
+     * @return the CodeCampaign
      */
-    public String getCodeCampagne( )
+    public String getCodeCampaign( )
     {
-        return _strCodeCampagne;
+        return _strCodeCampaign;
     }
 
     /**
-     * @param _strCodeCampagne
-     *            the CodeCampagne to set
+     * @param _strCodeCampaign
+     *            the CodeCampaign to set
      */
-    public void setCodeCampagne( String _strCodeCampagne )
+    public void setCodeCampaign( String _strCodeCampaign )
     {
-        this._strCodeCampagne = _strCodeCampagne;
+        this._strCodeCampaign = _strCodeCampaign;
     }
 
 }

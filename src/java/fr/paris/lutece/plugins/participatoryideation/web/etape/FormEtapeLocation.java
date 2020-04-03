@@ -48,8 +48,8 @@ import org.apache.commons.lang.StringUtils;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import fr.paris.lutece.plugins.leaflet.business.GeolocItem;
-import fr.paris.lutece.plugins.participatoryideation.business.depositary.DepositaireType;
-import fr.paris.lutece.plugins.participatoryideation.business.depositary.DepositaireTypeHome;
+import fr.paris.lutece.plugins.participatoryideation.business.depositary.DepositaryType;
+import fr.paris.lutece.plugins.participatoryideation.business.depositary.DepositaryTypeHome;
 import fr.paris.lutece.plugins.participatoryideation.business.proposal.Proposal;
 import fr.paris.lutece.plugins.participatoryideation.service.ProposalService;
 import fr.paris.lutece.portal.service.i18n.I18nService;
@@ -64,7 +64,7 @@ public class FormEtapeLocation extends AbstractFormEtape
     private static final String I18N_ERROR_ADRESS_FORMAT = "participatoryideation.validation.proposal.FormEtapeLocation.AdressFormat";
     private static final String I18N_ERROR_ADRESS_NOT_VALID = "participatoryideation.validation.proposal.FormEtapeLocation.AdressNotValid";
     private static final String I18N_ERROR_ADRESS_ARDT_MISMATCH = "participatoryideation.validation.proposal.FormEtapeLocation.ArdtMismatch";
-    private static final String I18N_ERROR_COMPLEMENT_EMPTY = "participatoryideation.validation.proposal.FormEtapeLocation.depositaire_complement.notEmpty";
+    private static final String I18N_ERROR_COMPLEMENT_EMPTY = "participatoryideation.validation.proposal.FormEtapeLocation.depositary_complement.notEmpty";
 
     @NotEmpty( message = "#i18n{participatoryideation.validation.proposal.FormEtapeLocation.CodeTheme.notEmpty}" )
     @Size( max = 50, message = "#i18n{participatoryideation.validation.proposal.FormEtapeLocation.CodeTheme.size}" )
@@ -77,11 +77,11 @@ public class FormEtapeLocation extends AbstractFormEtape
     private String _strGeojson;
     private String _strAdress;
 
-    @NotEmpty( message = "#i18n{participatoryideation.validation.proposal.FormEtapeLocation.depositaireType.notEmpty}" )
-    private String _strDepositaireType;
+    @NotEmpty( message = "#i18n{participatoryideation.validation.proposal.FormEtapeLocation.depositaryType.notEmpty}" )
+    private String _strDepositaryType;
 
-    @Size( max = 50, message = "#i18n{participatoryideation.validation.proposal.Depositaire.size}" )
-    private String _strDepositaire;
+    @Size( max = 50, message = "#i18n{participatoryideation.validation.proposal.Depositary.size}" )
+    private String _strDepositary;
 
     /**
      * Returns the LocalisationArdt
@@ -148,9 +148,9 @@ public class FormEtapeLocation extends AbstractFormEtape
     public List<String> checkValidationErrors( HttpServletRequest request )
     {
         List<String> listErrors = new ArrayList<>( );
-        String strComplementType = DepositaireTypeHome.findByCode( getDepositaireType( ) ).getCodeComplementType( );
+        String strComplementType = DepositaryTypeHome.findByCode( getDepositaryType( ) ).getCodeComplementType( );
 
-        if ( !DepositaireType.CODE_COMPLEMENT_TYPE_NONE.equals( strComplementType ) && StringUtils.isBlank( getDepositaire( ) ) )
+        if ( !DepositaryType.CODE_COMPLEMENT_TYPE_NONE.equals( strComplementType ) && StringUtils.isBlank( getDepositary( ) ) )
         {
             listErrors.add( I18N_ERROR_COMPLEMENT_EMPTY );
         }
@@ -218,29 +218,29 @@ public class FormEtapeLocation extends AbstractFormEtape
         this._strAdress = _strAdress;
     }
 
-    public String getDepositaireType( )
+    public String getDepositaryType( )
     {
-        return _strDepositaireType;
+        return _strDepositaryType;
     }
 
-    public void setDepositaireType( String _strDepositaireType )
+    public void setDepositaryType( String _strDepositaryType )
     {
-        this._strDepositaireType = _strDepositaireType;
+        this._strDepositaryType = _strDepositaryType;
     }
 
-    public String getDepositaire( )
+    public String getDepositary( )
     {
-        return _strDepositaire;
+        return _strDepositary;
     }
 
-    public void setDepositaire( String _strConseilQuartier )
+    public void setDepositary( String _strConseilQuartier )
     {
-        this._strDepositaire = _strConseilQuartier;
+        this._strDepositary = _strConseilQuartier;
     }
 
-    public boolean mustCopyDepositaire( )
+    public boolean mustCopyDepositary( )
     {
-        String strComplementType = DepositaireTypeHome.findByCode( getDepositaireType( ) ).getCodeComplementType( );
-        return !DepositaireType.CODE_COMPLEMENT_TYPE_NONE.equals( strComplementType );
+        String strComplementType = DepositaryTypeHome.findByCode( getDepositaryType( ) ).getCodeComplementType( );
+        return !DepositaryType.CODE_COMPLEMENT_TYPE_NONE.equals( strComplementType );
     }
 }

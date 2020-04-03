@@ -1,20 +1,20 @@
-DELETE FROM core_admin_right WHERE id_right = 'IDEATION_MANAGEMENT';
+DELETE FROM core_admin_right WHERE id_right = 'PARTICIPATORYIDEATION_MANAGEMENT';
 INSERT INTO core_admin_right (id_right,name,level_right,admin_url,description,is_updatable,plugin_name,id_feature_group,icon_url,documentation_url, id_order ) VALUES 
-('IDEATION_MANAGEMENT','participatoryideation.adminFeature.ManageIdeation.name',1,'jsp/admin/plugins/participatoryideation/ManageCampagneDepositaires.jsp','participatoryideation.adminFeature.ManageIdeation.description',0,'ideation',NULL,NULL,NULL,4);
+('PARTICIPATORYIDEATION_MANAGEMENT','participatoryideation.adminFeature.ManageIdeation.name',1,'jsp/admin/plugins/participatoryideation/ManageDepositaries.jsp','participatoryideation.adminFeature.ManageIdeation.description',0,'ideation',NULL,NULL,NULL,4);
 
-DELETE FROM core_user_right WHERE id_right = 'IDEATION_MANAGEMENT';
-INSERT INTO core_user_right (id_right,id_user) VALUES ('IDEATION_MANAGEMENT',1);
+DELETE FROM core_user_right WHERE id_right = 'PARTICIPATORYIDEATION_MANAGEMENT';
+INSERT INTO core_user_right (id_right,id_user) VALUES ('PARTICIPATORYIDEATION_MANAGEMENT',1);
 
-DELETE FROM core_admin_right WHERE id_right = 'IDEATION_PROPOSALS_MANAGEMENT';
+DELETE FROM core_admin_right WHERE id_right = 'PARTICIPATORYIDEATION_PROPOSALS_MANAGEMENT';
 INSERT INTO core_admin_right (id_right,name,level_right,admin_url,description,is_updatable,plugin_name,id_feature_group,icon_url,documentation_url, id_order ) VALUES 
-('IDEATION_PROPOSALS_MANAGEMENT','participatoryideation.adminFeature.ManageIdeationProposals.name',1,'jsp/admin/plugins/participatoryideation/ManageProposals.jsp','participatoryideation.adminFeature.ManageIdeationProposals.description',0,'ideation',NULL,NULL,NULL,4);
+('PARTICIPATORYIDEATION_PROPOSALS_MANAGEMENT','participatoryideation.adminFeature.ManageIdeationProposals.name',1,'jsp/admin/plugins/participatoryideation/ManageProposals.jsp','participatoryideation.adminFeature.ManageIdeationProposals.description',0,'ideation',NULL,NULL,NULL,4);
 
-DELETE FROM core_user_right WHERE id_right = 'IDEATION_PROPOSALS_MANAGEMENT';
-INSERT INTO core_user_right (id_right,id_user) VALUES ('IDEATION_PROPOSALS_MANAGEMENT',1);
+DELETE FROM core_user_right WHERE id_right = 'PARTICIPATORYIDEATION_PROPOSALS_MANAGEMENT';
+INSERT INTO core_user_right (id_right,id_user) VALUES ('PARTICIPATORYIDEATION_PROPOSALS_MANAGEMENT',1);
 
-DELETE FROM core_admin_right WHERE id_right = 'IDEATION_LINKS_MANAGEMENT';
+DELETE FROM core_admin_right WHERE id_right = 'PARTICIPATORYIDEATION_LINKS_MANAGEMENT';
 INSERT INTO core_admin_right (id_right,name,level_right,admin_url,description,is_updatable,plugin_name,id_feature_group,icon_url,documentation_url, id_order ) VALUES 
-('IDEATION_LINKS_MANAGEMENT','participatoryideation.adminFeature.ManageProposalLinks.name',1,'jsp/admin/plugins/participatoryideation/ManageProposalLinks.jsp','participatoryideation.adminFeature.ManageProposalLinks.description',0,'ideation',NULL,NULL,NULL,4);
+('PARTICIPATORYIDEATION_LINKS_MANAGEMENT','participatoryideation.adminFeature.ManageProposalLinks.name',1,'jsp/admin/plugins/participatoryideation/ManageProposalLinks.jsp','participatoryideation.adminFeature.ManageProposalLinks.description',0,'ideation',NULL,NULL,NULL,4);
 
 INSERT INTO core_datastore VALUES ('participatoryideation.site_property.form.titre.minLength','15');
 INSERT INTO core_datastore VALUES ('participatoryideation.site_property.form.titre.maxLength','60');

@@ -42,9 +42,9 @@ import org.hibernate.validator.constraints.NotEmpty;
 import fr.paris.lutece.util.ReferenceList;
 
 /**
- * This is the business class for the object DepositaireType
+ * This is the business class for the object DepositaryType
  */
-public class DepositaireType implements Serializable
+public class DepositaryType implements Serializable
 {
     public static final String CODE_COMPLEMENT_TYPE_NONE = "NONE";
     public static final String CODE_COMPLEMENT_TYPE_LIST = "LIST";
@@ -55,15 +55,15 @@ public class DepositaireType implements Serializable
     // Variables declarations
     private int _nId;
 
-    @NotEmpty( message = "#i18n{participatoryideation.validation.depositaire.Code.notEmpty}" )
-    @Size( max = 50, message = "#i18n{participatoryideation.validation.depositaire.Code.size}" )
+    @NotEmpty( message = "#i18n{participatoryideation.validation.depositary.Code.notEmpty}" )
+    @Size( max = 50, message = "#i18n{participatoryideation.validation.depositary.Code.size}" )
     private String _strCode;
 
-    @NotEmpty( message = "#i18n{participatoryideation.validation.depositaire.Libelle.notEmpty}" )
-    @Size( max = 50, message = "#i18n{participatoryideation.validation.depositaire.Libelle.size}" )
+    @NotEmpty( message = "#i18n{participatoryideation.validation.depositary.Libelle.notEmpty}" )
+    @Size( max = 50, message = "#i18n{participatoryideation.validation.depositary.Libelle.size}" )
     private String _strLibelle;
 
-    @NotEmpty( message = "#i18n{participatoryideation.validation.depositaire.CodeComplementType.notEmpty}" )
+    @NotEmpty( message = "#i18n{participatoryideation.validation.depositary.CodeComplementType.notEmpty}" )
     private String _strCodeComplementType;
 
     // Non null when codeComplementType is "LIST"

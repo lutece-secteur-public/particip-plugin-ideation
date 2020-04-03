@@ -54,7 +54,7 @@ public class ProposalCommentListener implements ICommentListener
     /**
      * {@inheritDoc}
      */
-    private static final String MESSAGE_CAMPAGNE_IDEATION_CLOSED_COMMENT = "participatoryideation.messages.campagne.ideation.closed.comment";
+    private static final String MESSAGE_CAMPAIGN_IDEATION_CLOSED_COMMENT = "participatoryideation.messages.campaign.ideation.closed.comment";
     private static final String PROPERTY_ACTIVATION_COMMENTAIRES = "participatoryideation.site_property.form.forcer_activation_commentaires";
 
     @Override
@@ -112,7 +112,7 @@ public class ProposalCommentListener implements ICommentListener
 
         if ( !IdeationCampaignService.getInstance( ).isDuring( Constants.IDEATION ) && strDataStoreValue.equals( "0" ) )
         {
-            sbError.append( I18nService.getLocalizedString( MESSAGE_CAMPAGNE_IDEATION_CLOSED_COMMENT, new Locale( "fr", "FR" ) ) );
+            sbError.append( I18nService.getLocalizedString( MESSAGE_CAMPAIGN_IDEATION_CLOSED_COMMENT, new Locale( "fr", "FR" ) ) );
             sbError.append( ", " );
         }
         else
@@ -150,10 +150,10 @@ public class ProposalCommentListener implements ICommentListener
         Proposal proposal = ProposalHome.findByPrimaryKey( nId_Proposal );
         String strDataStoreValue = DatastoreService.getDataValue( PROPERTY_ACTIVATION_COMMENTAIRES, "0" );
 
-        if ( proposal != null && !IdeationCampaignService.getInstance( ).isDuring( proposal.getCodeCampagne( ), Constants.IDEATION )
+        if ( proposal != null && !IdeationCampaignService.getInstance( ).isDuring( proposal.getCodeCampaign( ), Constants.IDEATION )
                 && strDataStoreValue.equals( "0" ) )
         {
-            sbError.append( I18nService.getLocalizedString( MESSAGE_CAMPAGNE_IDEATION_CLOSED_COMMENT, new Locale( "fr", "FR" ) ) );
+            sbError.append( I18nService.getLocalizedString( MESSAGE_CAMPAIGN_IDEATION_CLOSED_COMMENT, new Locale( "fr", "FR" ) ) );
             sbError.append( ", " );
         }
         else
@@ -178,7 +178,7 @@ public class ProposalCommentListener implements ICommentListener
         Proposal proposal = ProposalHome.findByPrimaryKey( nIdProposal );
         String strDataStoreValue = DatastoreService.getDataValue( PROPERTY_ACTIVATION_COMMENTAIRES, "0" );
 
-        if ( proposal != null && !IdeationCampaignService.getInstance( ).isDuring( proposal.getCodeCampagne( ), Constants.IDEATION )
+        if ( proposal != null && !IdeationCampaignService.getInstance( ).isDuring( proposal.getCodeCampaign( ), Constants.IDEATION )
                 && strDataStoreValue.equals( "0" ) )
         {
             return false;

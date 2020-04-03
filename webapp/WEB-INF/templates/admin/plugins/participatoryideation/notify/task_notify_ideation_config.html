@@ -48,13 +48,13 @@
                 <span class="help-block">#i18n{module.workflow.ideation.task_notify_ideation_config.label_recipients_bcc_comment}</span>
             </div>
         </div>
-        <#assign depositaireChecked= config?? && config.depositaire>
+        <#assign depositaryChecked= config?? && config.depositary>
         <#assign followersChecked= config?? && config.followers>
         
         <div class="form-group">
-			<label class="control-label col-xs-12 col-sm-12 col-md-3 col-lg-3" for="depositaire">#i18n{module.workflow.ideation.task_notify_ideation_config.label_depositaire} </label>
+			<label class="control-label col-xs-12 col-sm-12 col-md-3 col-lg-3" for="depositary">#i18n{module.workflow.ideation.task_notify_ideation_config.label_depositary} </label>
 			<div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
-				<input style="-webkit-appearance: checkbox;" type="checkbox" name="depositaire" value="true" class="form-control" <#if depositaireChecked> checked="checked"</#if>/>
+				<input style="-webkit-appearance: checkbox;" type="checkbox" name="depositary" value="true" class="form-control" <#if depositaryChecked> checked="checked"</#if>/>
 			</div>
 		</div>
 		

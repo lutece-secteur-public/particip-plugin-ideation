@@ -10,29 +10,29 @@
 </#if>
 
 <#if recap_code_theme??>
-  <#assign recap_theme_libelle = (campagne_static.themes_map[recap_code_theme].title)!recap_code_theme>
+  <#assign recap_theme_libelle = (campaign_static.themes_map[recap_code_theme].title)!recap_code_theme>
 </#if>
 
-<#if (campagne_static.depositaires_types_map[recap_depositaire_type])??>
-  <#assign recap_depositaire_type_object = campagne_static.depositaires_types_map[recap_depositaire_type]>
+<#if (campaign_static.depositaries_types_map[recap_depositary_type])??>
+  <#assign recap_depositary_type_object = campaign_static.depositaries_types_map[recap_depositary_type]>
 </#if>
 
-<#if recap_depositaire_type??>
-  <#assign recap_depositaire_type_libelle = (recap_depositaire_type_object.libelle)!recap_depositaire_type>
+<#if recap_depositary_type??>
+  <#assign recap_depositary_type_libelle = (recap_depositary_type_object.libelle)!recap_depositary_type>
 </#if>
 
-<#if recap_depositaire??>
-<#if (recap_depositaire_type_object.codeComplementType)?? && recap_depositaire_type_object.codeComplementType == "LIST">
-	<#assign recap_depositaire_libelle = (campagne_static.depositaires_types_list_values_map[recap_depositaire_type + "-" + recap_depositaire])!recap_depositaire>
+<#if recap_depositary??>
+<#if (recap_depositary_type_object.codeComplementType)?? && recap_depositary_type_object.codeComplementType == "LIST">
+	<#assign recap_depositary_libelle = (campaign_static.depositaries_types_list_values_map[recap_depositary_type + "-" + recap_depositary])!recap_depositary>
 <#else>
-	<#assign recap_depositaire_libelle = recap_depositaire>
+	<#assign recap_depositary_libelle = recap_depositary>
 </#if>
 </#if>
 
-<#if recap_depositaire_libelle??>
-	<#assign step_recap_depositaire = "${recap_depositaire_type_libelle!''}">
+<#if recap_depositary_libelle??>
+	<#assign step_recap_depositary = "${recap_depositary_type_libelle!''}">
 <#else>
-  <#assign step_recap_depositaire = "${recap_depositaire_type_libelle!''}">
+  <#assign step_recap_depositary = "${recap_depositary_type_libelle!''}">
 </#if>
 
 <#if recap_description??>
@@ -51,7 +51,7 @@
 </#if>
 
 <#assign etapes = [
-    { "title": "#i18n{participatoryideation.submit_project.steps.location.title}", "link_querystring": "view=location", "recap": "${step_recap_depositaire!}, ${recap_theme_libelle!}, ${recap_localisation_text!''}" },
+    { "title": "#i18n{participatoryideation.submit_project.steps.location.title}", "link_querystring": "view=location", "recap": "${step_recap_depositary!}, ${recap_theme_libelle!}, ${recap_localisation_text!''}" },
     { "title": "#i18n{participatoryideation.submit_project.steps.title.title}", "link_querystring":  "view=title", "recap": "${recap_title!}" },
     { "title": "#i18n{participatoryideation.submit_project.steps.approx.title}", "recap": "#i18n{participatoryideation.submit_project.steps.approx.title}" },
     { "title": "#i18n{participatoryideation.submit_project.steps.description.title}", "link_querystring":  "view=description" , "recap": steps_recap_description },
@@ -71,7 +71,7 @@
 		    	<div>
 		    		Technical informations :
 		    		<ul>
-		    			<li>Ideation campaign : ${proposal_created_campagne!'?'}</li>
+		    			<li>Ideation campaign : ${proposal_created_campaign!'?'}</li>
 		    			<li>IdeationCampaignService implementation : ${ideation_campaign_service_implementation!'?'}</li>
 		    		</ul>
 		    	</div>

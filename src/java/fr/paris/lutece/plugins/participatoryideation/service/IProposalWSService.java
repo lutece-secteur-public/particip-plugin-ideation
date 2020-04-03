@@ -60,10 +60,10 @@ public interface IProposalWSService
     /**
      * 
      * @param nKey
-     * @param strCampagne
+     * @param strCampaign
      * @return
      */
-    Proposal getProposalByIdentifiantAndCampagne( int nKey, String strCampagne );
+    Proposal getProposalByIdentifiantAndCampaign( int nKey, String strCampaign );
 
     /**
      * Load the data of all the proposal objects searched and returns them in form of a collection

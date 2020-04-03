@@ -75,7 +75,7 @@ public interface IIdeationCampaignService
 
     public boolean isAfterEnd( String codeCampaign, String phase );
 
-    // Same as precedent, for last campagne.
+    // Same as precedent, for last campaign.
     public boolean isBeforeBeginning( String phase );
 
     public boolean isAfterBeginning( String phase );
@@ -100,7 +100,7 @@ public interface IIdeationCampaignService
 
     public int getCampaignNumberLocalizedAreas( String codeCampaign );
 
-    // Same as precedent, for last campagne.
+    // Same as precedent, for last campaign.
     public ReferenceList getCampaignAllAreas( );
 
     public String getCampaignWholeArea( );
@@ -116,7 +116,7 @@ public interface IIdeationCampaignService
 
     public ReferenceList getCampaignThemes( String codeCampaign );
 
-    // Same as precedent, for last campagne.
+    // Same as precedent, for last campaign.
     public ReferenceList getCampaignThemes( );
 
 }

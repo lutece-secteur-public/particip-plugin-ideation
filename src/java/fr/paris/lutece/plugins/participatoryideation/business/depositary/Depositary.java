@@ -39,22 +39,22 @@ import org.hibernate.validator.constraints.*;
 import java.io.Serializable;
 
 /**
- * This is the business class for the object CampagneDepositaire
+ * This is the business class for the object Depositary
  */
-public class CampagneDepositaire implements Serializable
+public class Depositary implements Serializable
 {
     private static final long serialVersionUID = 1L;
 
     // Variables declarations
     private int _nId;
 
-    @NotEmpty( message = "#i18n{participatoryideation.validation.campagnedepositaire.CodeCampagne.notEmpty}" )
-    @Size( max = 50, message = "#i18n{participatoryideation.validation.campagnedepositaire.CodeCampagne.size}" )
-    private String _strCodeCampagne;
+    @NotEmpty( message = "#i18n{participatoryideation.validation.campaigndepositary.CodeCampaign.notEmpty}" )
+    @Size( max = 50, message = "#i18n{participatoryideation.validation.campaigndepositary.CodeCampaign.size}" )
+    private String _strCodeCampaign;
 
-    @NotEmpty( message = "#i18n{participatoryideation.validation.campagnedepositaire.CodeDepositaireType.notEmpty}" )
-    @Size( max = 50, message = "#i18n{participatoryideation.validation.campagnedepositaire.CodeDepositaireType.size}" )
-    private String _strCodeDepositaireType;
+    @NotEmpty( message = "#i18n{participatoryideation.validation.campaigndepositary.CodeDepositaryType.notEmpty}" )
+    @Size( max = 50, message = "#i18n{participatoryideation.validation.campaigndepositary.CodeDepositaryType.size}" )
+    private String _strCodeDepositaryType;
 
     /**
      * Returns the Id
@@ -78,44 +78,44 @@ public class CampagneDepositaire implements Serializable
     }
 
     /**
-     * Returns the CodeCampagne
+     * Returns the CodeCampaign
      * 
-     * @return The CodeCampagne
+     * @return The CodeCampaign
      */
-    public String getCodeCampagne( )
+    public String getCodeCampaign( )
     {
-        return _strCodeCampagne;
+        return _strCodeCampaign;
     }
 
     /**
-     * Sets the CodeCampagne
+     * Sets the CodeCampaign
      * 
-     * @param strCodeCampagne
-     *            The CodeCampagne
+     * @param strCodeCampaign
+     *            The CodeCampaign
      */
-    public void setCodeCampagne( String strCodeCampagne )
+    public void setCodeCampaign( String strCodeCampaign )
     {
-        _strCodeCampagne = strCodeCampagne;
+        _strCodeCampaign = strCodeCampaign;
     }
 
     /**
-     * Returns the CodeDepositaireType
+     * Returns the CodeDepositaryType
      * 
-     * @return The CodeDepositaireType
+     * @return The CodeDepositaryType
      */
-    public String getCodeDepositaireType( )
+    public String getCodeDepositaryType( )
     {
-        return _strCodeDepositaireType;
+        return _strCodeDepositaryType;
     }
 
     /**
-     * Sets the CodeDepositaireType
+     * Sets the CodeDepositaryType
      * 
-     * @param strCodeDepositaireType
-     *            The CodeDepositaireType
+     * @param strCodeDepositaryType
+     *            The CodeDepositaryType
      */
-    public void setCodeDepositaireType( String strCodeDepositaireType )
+    public void setCodeDepositaryType( String strCodeDepositaryType )
     {
-        _strCodeDepositaireType = strCodeDepositaireType;
+        _strCodeDepositaryType = strCodeDepositaryType;
     }
 }

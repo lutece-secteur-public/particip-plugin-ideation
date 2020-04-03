@@ -10,32 +10,32 @@
         <input type="hidden" id="id" name="id"/>
 
         <div class="form-group">
-			<label class="col-xs-12 col-sm-3 col-md-3" for="parentCodeCampagne">#i18n{participatoryideation.create_link.labelParentCodeCampagne} * : </label>
+			<label class="col-xs-12 col-sm-3 col-md-3" for="parentCodeCampaign">#i18n{participatoryideation.create_link.labelParentCodeCampaign} * : </label>
 			<div class="col-xs-12 col-sm-9 col-md-9">
- 				<select id="parentCodeCampagne" name="parentCodeCampagne" class="form-control">
+ 				<select id="parentCodeCampaign" name="parentCodeCampaign" class="form-control">
 					<option value=""></option>					         
 					<#list global_static?keys as key>
-						<#assign campagne = global_static[key].campagne>
-						<option value="${campagne.code}" <#if link.parentCodeCampagne?? && campagne.code == link.parentCodeCampagne> selected="selected"</#if>>${campagne.title}</option>
+						<#assign campaign = global_static[key].campaign>
+						<option value="${campaign.code}" <#if link.parentCodeCampaign?? && campaign.code == link.parentCodeCampaign> selected="selected"</#if>>${campaign.title}</option>
 					</#list>
            		</select>
-				<p class="help-block">#i18n{participatoryideation.create_link.labelParentCodeCampagne.help}</p>
+				<p class="help-block">#i18n{participatoryideation.create_link.labelParentCodeCampaign.help}</p>
 			</div>               
         </div>
 
 		<@fieldInputText i18nLabelKey="participatoryideation.create_link.labelParentCodeProposal" inputName="parentCodeProposal" value="${link.parentCodeProposal!}" i18nHelpBlockKey='ideation.create_link.labelParentCodeProposal.help' />
 
         <div class="form-group">
-			<label class="col-xs-12 col-sm-3 col-md-3" for="childCodeCampagne">#i18n{participatoryideation.create_link.labelChildCodeCampagne} * : </label>
+			<label class="col-xs-12 col-sm-3 col-md-3" for="childCodeCampaign">#i18n{participatoryideation.create_link.labelChildCodeCampaign} * : </label>
 			<div class="col-xs-12 col-sm-9 col-md-9">
- 				<select id="childCodeCampagne" name="childCodeCampagne" class="form-control">
+ 				<select id="childCodeCampaign" name="childCodeCampaign" class="form-control">
 					<option value=""></option>					         
 					<#list global_static?keys as key>
-						<#assign campagne = global_static[key].campagne>
-              			<option value="${campagne.code}" <#if link.childCodeCampagne?? && campagne.code == link.childCodeCampagne> selected="selected"</#if>>${campagne.title}</option>
+						<#assign campaign = global_static[key].campaign>
+              			<option value="${campaign.code}" <#if link.childCodeCampaign?? && campaign.code == link.childCodeCampaign> selected="selected"</#if>>${campaign.title}</option>
 					</#list>
            		</select>
-				<p class="help-block">#i18n{participatoryideation.create_link.labelChildCodeCampagne.help}</p>
+				<p class="help-block">#i18n{participatoryideation.create_link.labelChildCodeCampaign.help}</p>
 			</div>               
         </div>
 

@@ -1,62 +1,62 @@
 DROP TABLE IF EXISTS task_notify_ideation_cf;
 DROP TABLE IF EXISTS task_change_proposal_status_cf;
-DROP TABLE IF EXISTS ideation_proposals_links;
-DROP TABLE IF EXISTS ideation_proposals_files;
-DROP TABLE IF EXISTS ideation_proposals;
-DROP TABLE IF EXISTS ideation_campagnes_depositaires;
-DROP TABLE IF EXISTS ideation_depositaire_types_values;
-DROP TABLE IF EXISTS ideation_depositaire_types;
-DROP TABLE IF EXISTS ideation_depositaire_complement_types;
+DROP TABLE IF EXISTS participatoryideation_proposals_links;
+DROP TABLE IF EXISTS participatoryideation_proposals_files;
+DROP TABLE IF EXISTS participatoryideation_proposals;
+DROP TABLE IF EXISTS participatoryideation_depositaries;
+DROP TABLE IF EXISTS participatoryideation_depositaries_types_values;
+DROP TABLE IF EXISTS participatoryideation_depositaries_types;
+DROP TABLE IF EXISTS participatoryideation_depositaries_complement_types;
 
-CREATE TABLE IF NOT EXISTS ideation_depositaire_complement_types (
-  id_depositaire_complement_type int NOT NULL,
-  code_depositaire_complement_type varchar(50) NOT NULL,
+CREATE TABLE IF NOT EXISTS participatoryideation_depositaries_complement_types (
+  id_depositary_complement_type int NOT NULL,
+  code_depositary_complement_type varchar(50) NOT NULL,
   libelle varchar(255) NOT NULL,
-  PRIMARY KEY (id_depositaire_complement_type)
+  PRIMARY KEY (id_depositary_complement_type)
 );
-ALTER TABLE ideation_depositaire_complement_types ADD CONSTRAINT uc_code_depositaire_complement_type UNIQUE (code_depositaire_complement_type);
+ALTER TABLE participatoryideation_depositaries_complement_types ADD CONSTRAINT uc_code_depositary_complement_type UNIQUE (code_depositary_complement_type);
 
-CREATE TABLE IF NOT EXISTS ideation_depositaire_types (
-  id_depositaire_type int NOT NULL,
-  code_depositaire_type varchar(50) NOT NULL,
+CREATE TABLE IF NOT EXISTS participatoryideation_depositaries_types (
+  id_depositary_type int NOT NULL,
+  code_depositary_type varchar(50) NOT NULL,
   libelle varchar(255) NOT NULL,
   code_complement_type varchar(50) NOT NULL,
-  PRIMARY KEY (id_depositaire_type)
+  PRIMARY KEY (id_depositary_type)
 );
-ALTER TABLE ideation_depositaire_types ADD CONSTRAINT uc_code_depositaire_type UNIQUE (code_depositaire_type);
-ALTER TABLE ideation_depositaire_types ADD CONSTRAINT fk_ideation_depositaire_types_complement  FOREIGN KEY (code_complement_type) REFERENCES ideation_depositaire_complement_types (code_depositaire_complement_type);
+ALTER TABLE participatoryideation_depositaries_types ADD CONSTRAINT uc_code_depositary_type UNIQUE (code_depositary_type);
+ALTER TABLE participatoryideation_depositaries_types ADD CONSTRAINT fk_participatoryideation_depositaries_types_complement  FOREIGN KEY (code_complement_type) REFERENCES participatoryideation_depositaries_complement_types (code_depositary_complement_type);
 
-CREATE TABLE IF NOT EXISTS ideation_depositaire_types_values (
-  id_depositaire_type_value int NOT NULL,
-  code_depositaire_type varchar(50) NOT NULL,
+CREATE TABLE IF NOT EXISTS participatoryideation_depositaries_types_values (
+  id_depositary_type_value int NOT NULL,
+  code_depositary_type varchar(50) NOT NULL,
   code varchar(50) NOT NULL,
   libelle varchar(255) NOT NULL,
-  PRIMARY KEY (id_depositaire_type_value)
+  PRIMARY KEY (id_depositary_type_value)
 );
-ALTER TABLE ideation_depositaire_types_values ADD CONSTRAINT uc_code_depositaire_type_code UNIQUE (code_depositaire_type,code);
-ALTER TABLE ideation_depositaire_types_values ADD CONSTRAINT fk_ideation_depositaire_type_values_depositaire  FOREIGN KEY (code_depositaire_type) REFERENCES ideation_depositaire_types (code_depositaire_type);
+ALTER TABLE participatoryideation_depositaries_types_values ADD CONSTRAINT uc_code_depositary_type_code UNIQUE (code_depositary_type,code);
+ALTER TABLE participatoryideation_depositaries_types_values ADD CONSTRAINT fk_ideation_depositary_type_values_depositary  FOREIGN KEY (code_depositary_type) REFERENCES participatoryideation_depositaries_types (code_depositary_type);
 
-CREATE TABLE IF NOT EXISTS ideation_campagnes_depositaires (
-  id_campagne_depositaire int NOT NULL,
-  code_campagne varchar(50) NOT NULL,
-  code_depositaire_type varchar(50) NOT NULL,
-  PRIMARY KEY (id_campagne_depositaire)
+CREATE TABLE IF NOT EXISTS participatoryideation_depositaries (
+  id_campaign_depositary int NOT NULL,
+  code_campaign varchar(50) NOT NULL,
+  code_depositary_type varchar(50) NOT NULL,
+  PRIMARY KEY (id_campaign_depositary)
 );
-ALTER TABLE ideation_campagnes_depositaires ADD CONSTRAINT fk_ideation_campagnes_depositaires_depositaire  FOREIGN KEY (code_depositaire_type) REFERENCES ideation_depositaire_types (code_depositaire_type);
+ALTER TABLE participatoryideation_depositaries ADD CONSTRAINT fk_participatoryideation_depositaries_depositary  FOREIGN KEY (code_depositary_type) REFERENCES participatoryideation_depositaries_types (code_depositary_type);
 
-CREATE TABLE IF NOT EXISTS ideation_proposals (
+CREATE TABLE IF NOT EXISTS participatoryideation_proposals (
   id_proposal int NOT NULL,
   lutece_user_name varchar(255) NOT NULL,
   titre VARCHAR(255) NOT NULL,
   description VARCHAR(4000) NOT NULL,
   cout bigint DEFAULT NULL,
-  code_campagne varchar(50) NOT NULL,
+  code_campaign varchar(50) NOT NULL,
   code_proposal int NOT NULL,
   code_theme varchar(50) NOT NULL,
   localisation_type varchar(50) NOT NULL,
   localisation_ardt varchar(50) DEFAULT NULL,
-  depositaire_type varchar(50) NOT NULL,
-  depositaire VARCHAR(255),
+  depositary_type varchar(50) NOT NULL,
+  depositary VARCHAR(255),
   accept_exploit smallint DEFAULT '0' NOT NULL,
   address VARCHAR(4000),
   longitude float DEFAULT NULL,
@@ -81,27 +81,27 @@ CREATE TABLE IF NOT EXISTS ideation_proposals (
   handicap_complement varchar(255) NOT NULL,
   PRIMARY KEY (id_proposal)
 );
-ALTER TABLE ideation_proposals ADD CONSTRAINT uc_code_campagne_code_proposal UNIQUE (code_campagne,code_proposal);
+ALTER TABLE participatoryideation_proposals ADD CONSTRAINT uc_code_campaign_code_proposal UNIQUE (code_campaign,code_proposal);
 
-CREATE TABLE IF NOT EXISTS ideation_proposals_files (
+CREATE TABLE IF NOT EXISTS participatoryideation_proposals_files (
   id_proposal_file int NOT NULL,
   id_file int NOT NULL,
   id_proposal int NOT NULL,
   type varchar(50) NOT NULL,
   PRIMARY KEY (id_proposal_file)
 );
-ALTER TABLE ideation_proposals_files ADD CONSTRAINT fk_ideation_proposals_files_proposal  FOREIGN KEY (id_proposal) REFERENCES ideation_proposals (id_proposal);
-CREATE INDEX ideation_proposals_files_index_id_proposal ON ideation_proposals_files ( id_proposal,type,id_file );
-CREATE INDEX ideation_proposals_files_index_id_file ON ideation_proposals_files ( id_file );
+ALTER TABLE participatoryideation_proposals_files ADD CONSTRAINT fk_participatoryideation_proposals_files_proposal  FOREIGN KEY (id_proposal) REFERENCES participatoryideation_proposals (id_proposal);
+CREATE INDEX participatoryideation_proposals_files_index_id_proposal ON participatoryideation_proposals_files ( id_proposal,type,id_file );
+CREATE INDEX participatoryideation_proposals_files_index_id_file ON participatoryideation_proposals_files ( id_file );
 
-CREATE TABLE IF NOT EXISTS ideation_proposals_links (
+CREATE TABLE IF NOT EXISTS participatoryideation_proposals_links (
   id_proposal_link int NOT NULL,
   id_proposal_parent int NOT NULL,
   id_proposal_child int NOT NULL,
   PRIMARY KEY (id_proposal_link)
 );
-ALTER TABLE ideation_proposals_links ADD CONSTRAINT uc_id_proposal_child_id_proposal_parent UNIQUE (id_proposal_child,id_proposal_parent);
-CREATE INDEX ideation_proposals_links_index_id_proposal_parent ON ideation_proposals_links ( id_proposal_parent );
+ALTER TABLE participatoryideation_proposals_links ADD CONSTRAINT uc_id_proposal_child_id_proposal_parent UNIQUE (id_proposal_child,id_proposal_parent);
+CREATE INDEX participatoryideation_proposals_links_index_id_proposal_parent ON participatoryideation_proposals_links ( id_proposal_parent );
 
 CREATE TABLE IF NOT EXISTS task_change_proposal_status_cf (
   id_task int NOT NULL,
@@ -118,6 +118,6 @@ CREATE TABLE IF NOT EXISTS task_notify_ideation_cf (
   recipients_cc varchar(255) DEFAULT '' NOT NULL,
   recipients_bcc varchar(255) DEFAULT '' NOT NULL,
   isFollowers smallint NOT NULL,
-  isDepositaire smallint NOT NULL,
+  isDepositary smallint NOT NULL,
   PRIMARY KEY (id_task)
 );

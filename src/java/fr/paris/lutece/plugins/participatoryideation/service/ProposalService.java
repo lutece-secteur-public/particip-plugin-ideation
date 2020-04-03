@@ -135,7 +135,7 @@ public class ProposalService implements IProposalService
     }
 
     // Don't forget to use InnoDB tables for the following tables!
-    // core_file, core_physical_file, ideation_proposals, ideation_proposals_files
+    // core_file, core_physical_file, participatoryideation_proposals, participatoryideation_proposals_files
     // Check with:
     // sql> show table status ;
     @Transactional( BEAN_TRANSACTION_MANAGER )
@@ -241,7 +241,7 @@ public class ProposalService implements IProposalService
      * {@inheritDoc}
      */
     @Override
-    public Set<String> getUniqueUserGuidsProposalsDepositaires( List<Integer> propIds )
+    public Set<String> getUniqueUserGuidsProposalsDepositaries( List<Integer> propIds )
     {
         Set<String> userGuids = new HashSet<String>( );
 

@@ -16,7 +16,7 @@
 </#if>
 
 <#if proposal.codeTheme??>
-  <#assign theme_libelle = (campagne_static.themes_map[proposal.codeTheme].title)!proposal.codeTheme>
+  <#assign theme_libelle = (campaign_static.themes_map[proposal.codeTheme].title)!proposal.codeTheme>
 </#if>
 
 <div class="popup-proposal">
@@ -27,7 +27,7 @@
 			<#assign theme_class = "notheme">${theme_class}">PAS DE THEME</#if>
 	</div>
 	<div class="popup-proposal-content">
-    <a href="jsp/site/Portal.jsp?page=proposal&campagne=${proposal.codeCampagne}&proposal=${proposal.codeProposal}" target="_blank" alt="${proposal.titre}" title="${proposal.titre}">
+    <a href="jsp/site/Portal.jsp?page=proposal&campaign=${proposal.codeCampaign}&proposal=${proposal.codeProposal}" target="_blank" alt="${proposal.titre}" title="${proposal.titre}">
 			<#if proposal.titre?length &gt; 50>${proposal.titre?substring(0,50)}...<#else>${proposal.titre}</#if>
 		</a>
 	</div>

@@ -44,15 +44,15 @@
 					</#if>
 					
 					<#if proposal.codeTheme??>
-						<#assign campagne_year = "Budget Participatif " + (2014 + "ABCDEFGHIJKLMNOPQRSTUVWXYZ"?index_of(proposal.codeCampagne))>
+						<#assign campaign_year = "Budget Participatif " + (2014 + "ABCDEFGHIJKLMNOPQRSTUVWXYZ"?index_of(proposal.codeCampaign))>
 					</#if>
 					
 					<#if (proposal.codeTheme)??>
-						<#assign theme_libelle = (global_static[proposal.codeCampagne].themes_map[proposal.codeTheme].title)!proposal.codeTheme>
+						<#assign theme_libelle = (global_static[proposal.codeCampaign].themes_map[proposal.codeTheme].title)!proposal.codeTheme>
 					</#if>
 					
-					<#assign url_proposal = "jsp/site/Portal.jsp?page=proposal&campagne="+proposal.codeCampagne+"&proposal="+proposal.codeProposal>
-					<#assign url_proposal = "jsp/site/Portal.jsp?page=proposal&campagne="+proposal.codeCampagne+"&proposal="+proposal.codeProposal>
+					<#assign url_proposal = "jsp/site/Portal.jsp?page=proposal&campaign="+proposal.codeCampaign+"&proposal="+proposal.codeProposal>
+					<#assign url_proposal = "jsp/site/Portal.jsp?page=proposal&campaign="+proposal.codeCampaign+"&proposal="+proposal.codeProposal>
 
 					<div class="col-xs-12 col-sm-4 col-md-3 prop-panel">
 						<div class="prop-card bordered-4px-theme-${theme_class}">
@@ -74,10 +74,10 @@
 								<h3>${proposal.titre!''}</h3>
 							</div>
 
-							<#-- Campagne -->
-							<div class="prop-card-campagne">
+							<#-- Campaign -->
+							<div class="prop-card-campaign">
 								<p class="pull-right">
-									${campagne_year}
+									${campaign_year}
 								</p>
 							</div>
 
@@ -143,15 +143,15 @@
 					</#if>
 					
 					<#if proposal.codeTheme??>
-						<#assign campagne_year = "Budget Participatif " + (2014 + "ABCDEFGHIJKLMNOPQRSTUVWXYZ"?index_of(proposal.codeCampagne))>
+						<#assign campaign_year = "Budget Participatif " + (2014 + "ABCDEFGHIJKLMNOPQRSTUVWXYZ"?index_of(proposal.codeCampaign))>
 					</#if>
 					
 					<#if (proposal.codeTheme)??>
-						<#assign theme_libelle = (global_static[proposal.codeCampagne].themes_map[proposal.codeTheme].title)!proposal.codeTheme>
+						<#assign theme_libelle = (global_static[proposal.codeCampaign].themes_map[proposal.codeTheme].title)!proposal.codeTheme>
 					</#if>
 					
-					<#assign url_proposal = "jsp/site/Portal.jsp?page=proposal&campagne="+proposal.codeCampagne+"&proposal="+proposal.codeProposal>
-					<#assign url_proposal = "jsp/site/Portal.jsp?page=proposal&campagne="+proposal.codeCampagne+"&proposal="+proposal.codeProposal>
+					<#assign url_proposal = "jsp/site/Portal.jsp?page=proposal&campaign="+proposal.codeCampaign+"&proposal="+proposal.codeProposal>
+					<#assign url_proposal = "jsp/site/Portal.jsp?page=proposal&campaign="+proposal.codeCampaign+"&proposal="+proposal.codeProposal>
 
 					<div class="col-xs-12 col-sm-4 col-md-3 prop-panel">
 						<div class="prop-card bordered-4px-theme-${theme_class}">
@@ -173,10 +173,10 @@
 								<h3>${proposal.titre!''}</h3>
 							</div>
 
-							<#-- Campagne -->
-							<div class="prop-card-campagne">
+							<#-- Campaign -->
+							<div class="prop-card-campaign">
 								<p class="pull-right">
-									${campagne_year}
+									${campaign_year}
 								</p>
 							</div>
 
@@ -242,15 +242,15 @@
 					</#if>
 					
 					<#if proposal.codeTheme??>
-						<#assign campagne_year = "Budget Participatif " + (2014 + "ABCDEFGHIJKLMNOPQRSTUVWXYZ"?index_of(proposal.codeCampagne))>
+						<#assign campaign_year = "Budget Participatif " + (2014 + "ABCDEFGHIJKLMNOPQRSTUVWXYZ"?index_of(proposal.codeCampaign))>
 					</#if>
 					
 					<#if (proposal.codeTheme)??>
-						<#assign theme_libelle = (global_static[proposal.codeCampagne].themes_map[proposal.codeTheme].title)!proposal.codeTheme>
+						<#assign theme_libelle = (global_static[proposal.codeCampaign].themes_map[proposal.codeTheme].title)!proposal.codeTheme>
 					</#if>
 					
-					<#assign url_proposal = "jsp/site/Portal.jsp?page=proposal&campagne="+proposal.codeCampagne+"&proposal="+proposal.codeProposal>
-					<#assign url_proposal = "jsp/site/Portal.jsp?page=proposal&campagne="+proposal.codeCampagne+"&proposal="+proposal.codeProposal>
+					<#assign url_proposal = "jsp/site/Portal.jsp?page=proposal&campaign="+proposal.codeCampaign+"&proposal="+proposal.codeProposal>
+					<#assign url_proposal = "jsp/site/Portal.jsp?page=proposal&campaign="+proposal.codeCampaign+"&proposal="+proposal.codeProposal>
 
 					<div class="col-xs-12 col-sm-4 col-md-3 prop-panel">
 						<div class="prop-card bordered-4px-theme-${theme_class}">
@@ -272,10 +272,10 @@
 								<h3>${proposal.titre!''}</h3>
 							</div>
 
-							<#-- Campagne -->
-							<div class="prop-card-campagne">
+							<#-- Campaign -->
+							<div class="prop-card-campaign">
 								<p class="pull-right">
-									${campagne_year}
+									${campaign_year}
 								</p>
 							</div>
 

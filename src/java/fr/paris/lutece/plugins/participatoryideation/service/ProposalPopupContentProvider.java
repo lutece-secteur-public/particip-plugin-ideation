@@ -59,7 +59,7 @@ public class ProposalPopupContentProvider implements IPopupContentProvider
         Proposal proposal = ProposalHome.findByPrimaryKey( nId );
         Map<String, Object> model = new HashMap<String, Object>( );
         model.put( MARK_PROPOSAL, proposal );
-        IdeationStaticService.getInstance( ).fillCampaignStaticContent( model, proposal.getCodeCampagne( ) );
+        IdeationStaticService.getInstance( ).fillCampaignStaticContent( model, proposal.getCodeCampaign( ) );
         HtmlTemplate t = AppTemplateService.getTemplate( TEMPLATE_PROPOSAL_POPUP, request.getLocale( ), model );
         return t.getHtml( );
     }

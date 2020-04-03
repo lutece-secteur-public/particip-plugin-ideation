@@ -122,10 +122,10 @@ public class ProposalWSService implements IProposalWSService
     }
 
     @Override
-    public Proposal getProposalByIdentifiantAndCampagne( int nKey, String strCampagne )
+    public Proposal getProposalByIdentifiantAndCampaign( int nKey, String strCampaign )
     {
 
-        return ProposalHome.findByCodes( strCampagne, nKey );
+        return ProposalHome.findByCodes( strCampaign, nKey );
 
     }
 
@@ -231,7 +231,7 @@ public class ProposalWSService implements IProposalWSService
 
         ResourceExtenderHistory history = new ResourceExtenderHistory( );
         history.setExtenderType( CommentResourceExtender.EXTENDER_TYPE_COMMENT );
-        // history.setIdExtendableResource( proposal.getCodeCampagne() + "-" + String.format("%06d", proposal.getCodeProposal()) );
+        // history.setIdExtendableResource( proposal.getCodeCampaign() + "-" + String.format("%06d", proposal.getCodeProposal()) );
         history.setIdExtendableResource( "" + proposal.getId( ) );
         history.setExtendableResourceType( Proposal.PROPERTY_RESOURCE_TYPE );
         history.setIpAddress( StringUtils.EMPTY );

@@ -36,71 +36,71 @@ package fr.paris.lutece.plugins.participatoryideation.business;
 import java.util.Collection;
 import java.util.Iterator;
 
-import fr.paris.lutece.plugins.participatoryideation.business.depositary.CampagneDepositaire;
-import fr.paris.lutece.plugins.participatoryideation.business.depositary.CampagneDepositaireHome;
+import fr.paris.lutece.plugins.participatoryideation.business.depositary.Depositary;
+import fr.paris.lutece.plugins.participatoryideation.business.depositary.DepositaryHome;
 import fr.paris.lutece.test.LuteceTestCase;
 
 /**
- * DepositaireTypeTest
+ * DepositaryTypeTest
  */
-public class CampagneDepositaireHomeTest extends LuteceTestCase
+public class DepositaryHomeTest extends LuteceTestCase
 {
     private final static String CODE_CAMPAIGN = "XYZ";
-    private final static String CODE_DEPOSITAIRE_TYPE = "ABCD1234";
+    private final static String CODE_DEPOSITARY_TYPE = "ABCD1234";
 
     public void testBusiness( )
     {
         // Initialize an object
-        CampagneDepositaire instance = new CampagneDepositaire( );
-        instance.setCodeCampagne( CODE_CAMPAIGN );
-        instance.setCodeDepositaireType( CODE_DEPOSITAIRE_TYPE );
+        Depositary instance = new Depositary( );
+        instance.setCodeCampaign( CODE_CAMPAIGN );
+        instance.setCodeDepositaryType( CODE_DEPOSITARY_TYPE );
 
         // Create test
-        CampagneDepositaireHome.create( instance );
+        DepositaryHome.create( instance );
         int id = instance.getId( );
 
         // List test
-        Collection<Integer> idList = CampagneDepositaireHome.getIdCampagneDepositairesList( );
+        Collection<Integer> idList = DepositaryHome.getIdDepositariesList( );
         assertTrue( idList.size( ) > 0 );
-        boolean campagneDepositaireFound = false;
+        boolean depositaryFound = false;
         for ( Integer integer : idList )
         {
-            campagneDepositaireFound = ( campagneDepositaireFound || ( integer == id ) );
+            depositaryFound = ( depositaryFound || ( integer == id ) );
         }
-        assertTrue( campagneDepositaireFound );
+        assertTrue( depositaryFound );
 
         // List by campaign test
-        Collection<CampagneDepositaire> campagneDepositaireList = CampagneDepositaireHome.getCampagneDepositaireListByCampagne( CODE_CAMPAIGN );
+        Collection<Depositary> depositaryList = DepositaryHome.getDepositaryListByCampaign( CODE_CAMPAIGN );
 
-        assertEquals( 1, campagneDepositaireList.size( ) );
+        assertEquals( 1, depositaryList.size( ) );
 
-        CampagneDepositaire [ ] campagneDepositaireArray = new CampagneDepositaire [ 1];
-        campagneDepositaireList.toArray( campagneDepositaireArray );
-        checkAssertsOnInstance( campagneDepositaireArray [0], instance );
+        Depositary [ ] depositaryArray = new Depositary [ 1];
+        depositaryList.toArray( depositaryArray );
+        checkAssertsOnInstance( depositaryArray [0], instance );
 
         // List by campaign test
-        campagneDepositaireList = CampagneDepositaireHome.getCampagneDepositaireListByCampagne( CODE_CAMPAIGN + "123" );
-        assertEquals( 0, campagneDepositaireList.size( ) );
+        depositaryList = DepositaryHome.getDepositaryListByCampaign( CODE_CAMPAIGN + "123" );
+        assertEquals( 0, depositaryList.size( ) );
 
         // Find test
-        CampagneDepositaire instanceStored = CampagneDepositaireHome.findByPrimaryKey( id );
+        Depositary instanceStored = DepositaryHome.findByPrimaryKey( id );
         assertTrue( instanceStored != null );
         checkAssertsOnInstance( instanceStored, instance );
 
         // Delete test
-        CampagneDepositaireHome.remove( instance.getId( ) );
+        DepositaryHome.remove( instance.getId( ) );
 
-        campagneDepositaireList = CampagneDepositaireHome.getCampagneDepositaireListByCampagne( CODE_CAMPAIGN );
-        assertEquals( 0, campagneDepositaireList.size( ) );
+        depositaryList = DepositaryHome.getDepositaryListByCampaign( CODE_CAMPAIGN );
+        assertEquals( 0, depositaryList.size( ) );
 
-        Collection<Integer> idListAfterDelete = CampagneDepositaireHome.getIdCampagneDepositairesList( );
+        Collection<Integer> idListAfterDelete = DepositaryHome.getIdDepositariesList( );
         assertEquals( idList.size( ) - 1, idListAfterDelete.size( ) );
     }
 
-    private void checkAssertsOnInstance( CampagneDepositaire instanceStored, CampagneDepositaire instance )
+    private void checkAssertsOnInstance( Depositary instanceStored, Depositary instance )
     {
         assertEquals( instanceStored.getId( ), instance.getId( ) );
-        assertEquals( instanceStored.getCodeDepositaireType( ), instance.getCodeDepositaireType( ) );
-        assertEquals( instanceStored.getCodeCampagne( ), instance.getCodeCampagne( ) );
+        assertEquals( instanceStored.getCodeDepositaryType( ), instance.getCodeDepositaryType( ) );
+        assertEquals( instanceStored.getCodeCampaign( ), instance.getCodeCampaign( ) );
     }
 }

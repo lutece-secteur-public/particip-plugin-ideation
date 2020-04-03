@@ -39,7 +39,7 @@ import fr.paris.lutece.plugins.participatoryideation.util.Constants;
 import fr.paris.lutece.test.LuteceTestCase;
 
 /**
- * DepositaireTypeTest
+ * DepositaryTypeTest
  */
 public class IdeationCampaignServiceTest extends LuteceTestCase
 {

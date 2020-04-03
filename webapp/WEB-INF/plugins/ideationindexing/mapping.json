@@ -2,7 +2,7 @@
     "mappings": {
       "proposaledataobject": {
         "properties": {
-          "campagne": {
+          "campaign": {
             "type": "text",
             "fields": {
               "keyword": {

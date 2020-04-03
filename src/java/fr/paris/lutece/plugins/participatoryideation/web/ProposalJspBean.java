@@ -78,7 +78,7 @@ import fr.paris.lutece.portal.util.mvc.commons.annotations.View;
 /**
  * This class provides the user interface to manage Proposal features ( manage, create, modify, remove )
  */
-@Controller( controllerJsp = "ManageProposals.jsp", controllerPath = "jsp/admin/plugins/participatoryideation/", right = "IDEATION_PROPOSALS_MANAGEMENT" )
+@Controller( controllerJsp = "ManageProposals.jsp", controllerPath = "jsp/admin/plugins/participatoryideation/", right = "PARTICIPATORYIDEATION_PROPOSALS_MANAGEMENT" )
 public class ProposalJspBean extends ManageIdeationProposalsJspBean
 {
 
@@ -97,7 +97,7 @@ public class ProposalJspBean extends ManageIdeationProposalsJspBean
     private static final String PARAMETER_ID_PROPOSAL = "id";
     private static final String PARAMETER_ID_ACTION = "id_action";
     private static final String PARAMETER_ID_RESOURCE = "id_resource";
-    private static final String PARAMETER_FILTER_CODE_CAMPAGNE = "filter_code_campagne";
+    private static final String PARAMETER_FILTER_CODE_CAMPAIGN = "filter_code_campaign";
     private static final String PARAMETER_FILTER_CODE_THEME = "filter_code_theme";
     private static final String PARAMETER_FILTER_TITRE_OU_DESCRIPTION = "filter_titre_ou_description";
     private static final String PARAMETER_FILTER_PUBLIC_STATE = "filter_status";
@@ -119,12 +119,12 @@ public class ProposalJspBean extends ManageIdeationProposalsJspBean
     // Markers
     private static final String MARK_CAMPAIGN_CODE = "campaign_code";
     private static final String MARK_CAMPAIGN_LIST = "campaign_list";
-    private static final String MARK_CAMPAGNETHEME_LIST = "campagnetheme_list";
+    private static final String MARK_CAMPAIGNTHEME_LIST = "campaigntheme_list";
     private static final String MARK_HANDICAP_LIST = "handicap_list";
     private static final String MARK_PROPOSAL_LIST = "proposal_list";
     private static final String MARK_PROPOSAL = "proposal";
     private static final String MARK_PROPOSAL_BO_FORM = "proposal_bo_form";
-    private static final String MARK_FILTER_CODE_CAMPAGNE = "filter_code_campagne";
+    private static final String MARK_FILTER_CODE_CAMPAIGN = "filter_code_campaign";
     private static final String MARK_FILTER_CODE_THEME = "filter_code_theme";
     private static final String MARK_FILTER_TITRE_OU_DESCRIPTION = "filter_titre_ou_description";
     private static final String MARK_FILTER_QPVQVA = "filter_qpvqva";
@@ -220,9 +220,9 @@ public class ProposalJspBean extends ManageIdeationProposalsJspBean
 
         if ( _proposalSearcher != null )
         {
-            if ( StringUtils.isNotBlank( _proposalSearcher.getCodeCampagne( ) ) )
+            if ( StringUtils.isNotBlank( _proposalSearcher.getCodeCampaign( ) ) )
             {
-                model.put( MARK_FILTER_CODE_CAMPAGNE, _proposalSearcher.getCodeCampagne( ) );
+                model.put( MARK_FILTER_CODE_CAMPAIGN, _proposalSearcher.getCodeCampaign( ) );
             }
 
             if ( StringUtils.isNotBlank( _proposalSearcher.getCodeTheme( ) ) )
@@ -326,16 +326,16 @@ public class ProposalJspBean extends ManageIdeationProposalsJspBean
             _proposalSearcher = new ProposalSearcher( );
         }
 
-        String strCodeCampagne = request.getParameter( PARAMETER_FILTER_CODE_CAMPAGNE );
-        if ( strCodeCampagne != null )
+        String strCodeCampaign = request.getParameter( PARAMETER_FILTER_CODE_CAMPAIGN );
+        if ( strCodeCampaign != null )
         {
-            if ( StringUtils.isBlank( strCodeCampagne ) )
+            if ( StringUtils.isBlank( strCodeCampaign ) )
             {
-                _proposalSearcher.setCodeCampagne( null );
+                _proposalSearcher.setCodeCampaign( null );
             }
             else
             {
-                _proposalSearcher.setCodeCampagne( strCodeCampagne );
+                _proposalSearcher.setCodeCampaign( strCodeCampaign );
             }
         }
 
@@ -500,10 +500,10 @@ public class ProposalJspBean extends ManageIdeationProposalsJspBean
         Map<String, Object> model = getModel( );
 
         // If no campaign specified, expect it in request.
-        if ( StringUtils.isBlank( _proposal.getCodeCampagne( ) ) )
+        if ( StringUtils.isBlank( _proposal.getCodeCampaign( ) ) )
         {
-            _proposal.setCodeCampagne( request.getParameter( PARAMETER_CAMPAIGN_CODE ) );
-            if ( StringUtils.isBlank( _proposal.getCodeCampagne( ) ) )
+            _proposal.setCodeCampaign( request.getParameter( PARAMETER_CAMPAIGN_CODE ) );
+            if ( StringUtils.isBlank( _proposal.getCodeCampaign( ) ) )
             {
                 Map<String, Object> requestParameters = new HashMap<String, Object>( );
                 requestParameters.put( PARAMETER_PLUGIN_NAME, "participatoryideation" );
@@ -514,9 +514,9 @@ public class ProposalJspBean extends ManageIdeationProposalsJspBean
         }
 
         // Data depending of specified campaign
-        String campaignCode = _proposal.getCodeCampagne( );
+        String campaignCode = _proposal.getCodeCampaign( );
         model.put( MARK_CAMPAIGN_CODE, campaignCode );
-        model.put( MARK_CAMPAGNETHEME_LIST, IdeationCampaignService.getInstance( ).getCampaignThemes( campaignCode ) );
+        model.put( MARK_CAMPAIGNTHEME_LIST, IdeationCampaignService.getInstance( ).getCampaignThemes( campaignCode ) );
         model.put( MARK_AREA_LIST, IdeationCampaignService.getInstance( ).getCampaignAllAreas( campaignCode ) );
 
         // Data NOT depending of specified campaign
@@ -546,9 +546,9 @@ public class ProposalJspBean extends ManageIdeationProposalsJspBean
         }
 
         _proposal.setCodeProposal( 0 );
-        // _proposal.setCodeCampagne( CampagneHome.getLastCampagne( ).getCode( ) );
-        _proposal.setDepositaireType( AppPropertiesService.getProperty( Constants.PROPERTY_GENERATE_PROPOSAL_DEPOSITAIRE_TYPE ) );
-        _proposal.setDepositaire( AppPropertiesService.getProperty( Constants.PROPERTY_GENERATE_PROPOSAL_DEPOSITAIRE ) );
+        // _proposal.setCodeCampaign( CampaignHome.getLastCampaign( ).getCode( ) );
+        _proposal.setDepositaryType( AppPropertiesService.getProperty( Constants.PROPERTY_GENERATE_PROPOSAL_DEPOSITARY_TYPE ) );
+        _proposal.setDepositary( AppPropertiesService.getProperty( Constants.PROPERTY_GENERATE_PROPOSAL_DEPOSITARY ) );
         _proposal.setLuteceUserName( AppPropertiesService.getProperty( Constants.PROPERTY_GENERATE_PROPOSAL_LUTECE_USER_NAME ) );
         _proposal.setCreationTimestamp( new java.sql.Timestamp( ( new java.util.Date( ) ).getTime( ) ) );
         _proposal.setStatusPublic( Proposal.Status.STATUS_SUBMITTED );
@@ -676,9 +676,9 @@ public class ProposalJspBean extends ManageIdeationProposalsJspBean
         model.put( MARK_PROPOSAL, _proposal );
         model.put( MARK_PROPOSAL_BO_FORM, _proposalBoForm );
 
-        if ( _proposal.getCodeCampagne( ) != null )
+        if ( _proposal.getCodeCampaign( ) != null )
         {
-            IdeationStaticService.getInstance( ).fillCampaignStaticContent( model, _proposal.getCodeCampagne( ) );
+            IdeationStaticService.getInstance( ).fillCampaignStaticContent( model, _proposal.getCodeCampaign( ) );
         }
         else
         {

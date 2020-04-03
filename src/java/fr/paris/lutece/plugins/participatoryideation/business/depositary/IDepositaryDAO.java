@@ -37,29 +37,29 @@ import fr.paris.lutece.portal.service.plugin.Plugin;
 import java.util.Collection;
 
 /**
- * ICampagneDepositaireDAO Interface
+ * IDepositaryDAO Interface
  */
-public interface ICampagneDepositaireDAO
+public interface IDepositaryDAO
 {
     /**
      * Insert a new record in the table.
      * 
-     * @param campagneDepositaire
-     *            instance of the CampagneDepositaire object to insert
+     * @param depositary
+     *            instance of the Depositary object to insert
      * @param plugin
      *            the Plugin
      */
-    void insert( CampagneDepositaire campagneDepositaire, Plugin plugin );
+    void insert( Depositary depositary, Plugin plugin );
 
     /**
      * Update the record in the table
      * 
-     * @param campagneDepositaire
-     *            the reference of the CampagneDepositaire
+     * @param depositary
+     *            the reference of the Depositary
      * @param plugin
      *            the Plugin
      */
-    void store( CampagneDepositaire campagneDepositaire, Plugin plugin );
+    void store( Depositary depositary, Plugin plugin );
 
     /**
      * Change a campaign code
@@ -77,7 +77,7 @@ public interface ICampagneDepositaireDAO
      * Delete a record from the table
      * 
      * @param nKey
-     *            The identifier of the CampagneDepositaire to delete
+     *            The identifier of the Depositary to delete
      * @param plugin
      *            the Plugin
      */
@@ -90,38 +90,38 @@ public interface ICampagneDepositaireDAO
      * Load the data from the table
      * 
      * @param nKey
-     *            The identifier of the campagneDepositaire
+     *            The identifier of the depositary
      * @param plugin
      *            the Plugin
-     * @return The instance of the campagneDepositaire
+     * @return The instance of the depositary
      */
-    CampagneDepositaire load( int nKey, Plugin plugin );
+    Depositary load( int nKey, Plugin plugin );
 
     /**
-     * Load the data of all the campagneDepositaire objects and returns them as a collection
+     * Load the data of all the depositary objects and returns them as a collection
      * 
      * @param plugin
      *            the Plugin
-     * @return The collection which contains the data of all the campagneDepositaire objects
+     * @return The collection which contains the data of all the depositary objects
      */
-    Collection<CampagneDepositaire> selectCampagneDepositairesList( Plugin plugin );
+    Collection<Depositary> selectDepositariesList( Plugin plugin );
 
     /**
-     * Load the data of all the campagneDepositaire objects for a campagne and returns them as a collection
+     * Load the data of all the depositary objects for a campaign and returns them as a collection
      * 
      * @param plugin
      *            the Plugin
-     * @return The collection which contains the data of all the {@link CampagneDepositaire} objects
+     * @return The collection which contains the data of all the {@link Depositary} objects
      */
-    Collection<CampagneDepositaire> selectCampagneDepositaireListByCampagne( String codeCampagne, Plugin plugin );
+    Collection<Depositary> selectDepositaryListByCampaign( String codeCampaign, Plugin plugin );
 
     /**
-     * Load the id of all the campagneDepositaire objects and returns them as a collection
+     * Load the id of all the depositary objects and returns them as a collection
      * 
      * @param plugin
      *            the Plugin
-     * @return The collection which contains the id of all the campagneDepositaire objects
+     * @return The collection which contains the id of all the depositary objects
      */
-    Collection<Integer> selectIdCampagneDepositairesList( Plugin plugin );
+    Collection<Integer> selectIdDepositariesList( Plugin plugin );
 
 }

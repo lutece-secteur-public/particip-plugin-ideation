@@ -56,8 +56,8 @@ public final class Constants
     public static final String PROPERTY_WORKFLOW_ACTION_NAME_DELETE_PROPOSAL = "participatoryideation.workFlowActionNameDeleteProposal";
     public static final String PROPERTY_WORKFLOW_ACTION_NAME_DELETE_PROPOSAL_BY_MDP = "participatoryideation.workFlowActionNameDeleteProposalByMdp";
 
-    public static final String PROPERTY_GENERATE_PROPOSAL_DEPOSITAIRE_TYPE = "participatoryideation.atelier.generateProposal.depositaire_type";
-    public static final String PROPERTY_GENERATE_PROPOSAL_DEPOSITAIRE = "participatoryideation.atelier.generateProposal.depositaire";
+    public static final String PROPERTY_GENERATE_PROPOSAL_DEPOSITARY_TYPE = "participatoryideation.atelier.generateProposal.depositary_type";
+    public static final String PROPERTY_GENERATE_PROPOSAL_DEPOSITARY = "participatoryideation.atelier.generateProposal.depositary";
     public static final String PROPERTY_GENERATE_PROPOSAL_LUTECE_USER_NAME = "participatoryideation.atelier.generateProposal.luteceUserName";
 
     // Constructor

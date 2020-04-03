@@ -88,7 +88,7 @@ public class ProposalXPage extends MVCApplication
     private static final String PARAM_BP_EMAIL = "participatorybudget.email";
     private static final String PARAM_BP_NICKNAME = "portal.nickname";
     private static final String PARAMETER_CODE_PROPOSAL = "proposal";
-    private static final String PARAMETER_CODE_CAMPAGNE = "campagne";
+    private static final String PARAMETER_CODE_CAMPAIGN = "campaign";
     private static final String PARAMETER_SHOW_CONTACT = "showContact";
 
     private static final String PARAMETER_LAST_NAME_USAGER = "last_name_usager";
@@ -103,14 +103,14 @@ public class ProposalXPage extends MVCApplication
     private static final String MARK_IS_EXTEND_INSTALLED = "isExtendInstalled";
 
     private static final String MARK_CODE_PROPOSAL = "proposal";
-    private static final String MARK_CODE_CAMPAGNE = "campagne";
+    private static final String MARK_CODE_CAMPAIGN = "campaign";
     private static final String MARK_WHOLE_AREA = "whole_area";
 
     private static final String MARK_LASTNAME_USER = "lastNameUser";
     private static final String MARK_FIRSTNAME_USER = "firstNameUser";
     private static final String MARK_EMAIL_USER = "emailUser";
 
-    private static final String MARK_NOM_DEP = "nom_depositaire";
+    private static final String MARK_NOM_DEP = "nom_depositary";
     private static final String MARK_NOM_CONTACT = "nom_contacteur";
     private static final String MARK_MESSAGE = "message";
     private static final String MARK_SHOW_CONTACT = "show_contact";
@@ -127,7 +127,7 @@ public class ProposalXPage extends MVCApplication
     private static final String VIEW_VIEW_PROPOSAL = "viewProposal";
 
     // Actions
-    private static final String ACTION_CONTACTER_DEPOSITAIRE = "contacterDepositaire";
+    private static final String ACTION_CONTACTER_DEPOSITARY = "contacterDepositary";
 
     // CONSTANTS
     private static final String CONSTANT_CONTACT_EXTENDER_TYPE = "contact";
@@ -142,7 +142,7 @@ public class ProposalXPage extends MVCApplication
     @View( value = VIEW_VIEW_PROPOSAL, defaultView = true )
     public XPage getViewProposal( HttpServletRequest request ) throws UserNotSignedException, SiteMessageException
     {
-        String strCodeCampagne = request.getParameter( PARAMETER_CODE_CAMPAGNE );
+        String strCodeCampaign = request.getParameter( PARAMETER_CODE_CAMPAIGN );
         Integer nCodeProposal;
         try
         {
@@ -154,9 +154,9 @@ public class ProposalXPage extends MVCApplication
         }
 
         Proposal _proposal;
-        if ( strCodeCampagne != null && nCodeProposal != null )
+        if ( strCodeCampaign != null && nCodeProposal != null )
         {
-            _proposal = ProposalHome.findByCodes( strCodeCampagne, nCodeProposal );
+            _proposal = ProposalHome.findByCodes( strCodeCampaign, nCodeProposal );
         }
         else
         {
@@ -217,7 +217,7 @@ public class ProposalXPage extends MVCApplication
             }
         }
         model.put( MARK_IS_EXTEND_INSTALLED, PortalService.isExtendActivated( ) );
-        IdeationStaticService.getInstance( ).fillCampaignStaticContent( model, _proposal.getCodeCampagne( ) );
+        IdeationStaticService.getInstance( ).fillCampaignStaticContent( model, _proposal.getCodeCampaign( ) );
 
         XPage xpage = getXPage( TEMPLATE_VIEW_PROPOSAL, request.getLocale( ), model );
         xpage.setTitle( _proposal.getTitre( ) );
@@ -225,10 +225,10 @@ public class ProposalXPage extends MVCApplication
         return xpage;
     }
 
-    @Action( value = ACTION_CONTACTER_DEPOSITAIRE )
-    public XPage doContacterDepositaire( HttpServletRequest request )
+    @Action( value = ACTION_CONTACTER_DEPOSITARY )
+    public XPage doContacterDepositary( HttpServletRequest request )
     {
-        String strCodeCampagne = request.getParameter( PARAMETER_CODE_CAMPAGNE );
+        String strCodeCampaign = request.getParameter( PARAMETER_CODE_CAMPAIGN );
 
         Integer nCodeProposal;
         try
@@ -241,9 +241,9 @@ public class ProposalXPage extends MVCApplication
         }
 
         Proposal _proposal;
-        if ( strCodeCampagne != null && nCodeProposal != null )
+        if ( strCodeCampaign != null && nCodeProposal != null )
         {
-            _proposal = ProposalHome.findByCodes( strCodeCampagne, nCodeProposal );
+            _proposal = ProposalHome.findByCodes( strCodeCampaign, nCodeProposal );
         }
         else
         {
@@ -251,18 +251,18 @@ public class ProposalXPage extends MVCApplication
         }
 
         Map<String, String> viewModel = new HashMap<String, String>( );
-        viewModel.put( MARK_CODE_CAMPAGNE, strCodeCampagne );
+        viewModel.put( MARK_CODE_CAMPAIGN, strCodeCampaign );
         viewModel.put( MARK_CODE_PROPOSAL, "" + nCodeProposal );
 
-        String strEmailDepositaire = "";
-        String strNomDepositaire = "";
+        String strEmailDepositary = "";
+        String strNomDepositary = "";
         if ( _proposal != null )
         {
             String strEmail = UserPreferencesService.instance( ).get( _proposal.getLuteceUserName( ), PARAM_BP_EMAIL, StringUtils.EMPTY );
             String strNickname = UserPreferencesService.instance( ).get( _proposal.getLuteceUserName( ), PARAM_BP_NICKNAME, StringUtils.EMPTY );
 
-            strEmailDepositaire = strEmail;
-            strNomDepositaire = strNickname;
+            strEmailDepositary = strEmail;
+            strNomDepositary = strNickname;
         }
 
         String strLastNameUsager = request.getParameter( PARAMETER_LAST_NAME_USAGER );
@@ -292,7 +292,7 @@ public class ProposalXPage extends MVCApplication
             }
         }
 
-        model.put( MARK_NOM_DEP, strNomDepositaire );
+        model.put( MARK_NOM_DEP, strNomDepositary );
         model.put( MARK_NOM_CONTACT, strLastNameUsager );
         model.put( MARK_MESSAGE, strQuestionUsager );
 
@@ -312,10 +312,10 @@ public class ProposalXPage extends MVCApplication
             }
         }
 
-        if ( !strEmailDepositaire.isEmpty( ) && !strEmailUsager.isEmpty( ) && !strEmailContent.isEmpty( ) )
+        if ( !strEmailDepositary.isEmpty( ) && !strEmailUsager.isEmpty( ) && !strEmailContent.isEmpty( ) )
         {
             String strInfoMessageSend = DatastoreService.getDataValue( INFO_MESSAGE_SEND, "" );
-            MailService.sendMailHtml( strEmailDepositaire, "", "", "", strEmailUsager, strSubject, strEmailContent );
+            MailService.sendMailHtml( strEmailDepositary, "", "", "", strEmailUsager, strSubject, strEmailContent );
             contactDepHistory( _proposal, strLuteceUserName );
             addInfo( strInfoMessageSend );
         }
@@ -351,7 +351,7 @@ public class ProposalXPage extends MVCApplication
         ResourceExtenderHistory history = new ResourceExtenderHistory( );
 
         history.setExtenderType( CONSTANT_CONTACT_EXTENDER_TYPE );
-        // history.setIdExtendableResource( proposal.getCodeCampagne() + "-" + String.format("%06d", proposal.getCodeProposal()));
+        // history.setIdExtendableResource( proposal.getCodeCampaign() + "-" + String.format("%06d", proposal.getCodeProposal()));
         history.setIdExtendableResource( ( proposal != null ) ? ( "" + proposal.getId( ) ) : "proposal is null" );
         history.setExtendableResourceType( Proposal.PROPERTY_RESOURCE_TYPE );
         history.setIpAddress( StringUtils.EMPTY );

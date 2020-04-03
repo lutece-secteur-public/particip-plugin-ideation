@@ -61,32 +61,32 @@ public final class ProposalDAO implements IProposalDAO
 {
 
     // Constants
-    private static final String SQL_QUERY_NEW_PK = "SELECT max( id_proposal ) FROM ideation_proposals";
-    private static final String SQL_QUERY_NEW_CODE_PROPOSAL = "SELECT max( code_proposal ) FROM ideation_proposals where code_campagne = ?";
+    private static final String SQL_QUERY_NEW_PK = "SELECT max( id_proposal ) FROM participatoryideation_proposals";
+    private static final String SQL_QUERY_NEW_CODE_PROPOSAL = "SELECT max( code_proposal ) FROM participatoryideation_proposals where code_campaign = ?";
 
-    private static final String SQL_QUERY_INSERT = "INSERT INTO ideation_proposals ( id_proposal, lutece_user_name, titre, dejadepose, description, cout, code_theme, localisation_type, localisation_ardt, depositaire_type, depositaire, accept_exploit, accept_contact, address,longitude,latitude,creation_timestamp,code_campagne,code_proposal,type_nqpv_qva,id_nqpv_qva,libelle_nqpv_qva, status_public, status_eudonet, motif_recev,id_project, titre_projet, url_projet, winner_projet, creationmethod, operatingbudget, handicap, handicap_complement) VALUES ( ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,? ) ";
-    private static final String SQL_QUERY_UPDATE = "UPDATE ideation_proposals SET eudonet_exported_tag=?, status_public=?, status_eudonet=?, motif_recev=?, type_nqpv_qva=?, id_nqpv_qva=?, libelle_nqpv_qva=?, id_project = ?, titre_projet = ?, url_projet =?, winner_projet =?, titre =? , description =? , cout =? , localisation_type =? , localisation_ardt =?, handicap=?, handicap_complement=? WHERE id_proposal = ?";
-    private static final String SQL_QUERY_SELECTALL = "SELECT proposals.id_proposal, proposals.lutece_user_name, proposals.titre, proposals.dejadepose, proposals.description, proposals.cout, proposals.code_theme, proposals.localisation_type, proposals.localisation_ardt, proposals.depositaire_type, proposals.depositaire, proposals.accept_exploit, proposals.accept_contact, proposals.address, proposals.longitude, proposals.latitude, proposals.creation_timestamp, proposals.code_campagne, proposals.code_proposal, proposals.eudonet_exported_tag, proposals.type_nqpv_qva, proposals.id_nqpv_qva, proposals.libelle_nqpv_qva, proposals.status_public, proposals.status_eudonet, proposals.motif_recev, proposals.id_project, proposals.titre_projet, proposals.url_projet, proposals.winner_projet, proposals.creationmethod, proposals.operatingbudget, proposals.handicap, proposals.handicap_complement FROM ideation_proposals proposals";
+    private static final String SQL_QUERY_INSERT = "INSERT INTO participatoryideation_proposals ( id_proposal, lutece_user_name, titre, dejadepose, description, cout, code_theme, localisation_type, localisation_ardt, depositary_type, depositary, accept_exploit, accept_contact, address,longitude,latitude,creation_timestamp,code_campaign,code_proposal,type_nqpv_qva,id_nqpv_qva,libelle_nqpv_qva, status_public, status_eudonet, motif_recev,id_project, titre_projet, url_projet, winner_projet, creationmethod, operatingbudget, handicap, handicap_complement) VALUES ( ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,? ) ";
+    private static final String SQL_QUERY_UPDATE = "UPDATE participatoryideation_proposals SET eudonet_exported_tag=?, status_public=?, status_eudonet=?, motif_recev=?, type_nqpv_qva=?, id_nqpv_qva=?, libelle_nqpv_qva=?, id_project = ?, titre_projet = ?, url_projet =?, winner_projet =?, titre =? , description =? , cout =? , localisation_type =? , localisation_ardt =?, handicap=?, handicap_complement=? WHERE id_proposal = ?";
+    private static final String SQL_QUERY_SELECTALL = "SELECT proposals.id_proposal, proposals.lutece_user_name, proposals.titre, proposals.dejadepose, proposals.description, proposals.cout, proposals.code_theme, proposals.localisation_type, proposals.localisation_ardt, proposals.depositary_type, proposals.depositary, proposals.accept_exploit, proposals.accept_contact, proposals.address, proposals.longitude, proposals.latitude, proposals.creation_timestamp, proposals.code_campaign, proposals.code_proposal, proposals.eudonet_exported_tag, proposals.type_nqpv_qva, proposals.id_nqpv_qva, proposals.libelle_nqpv_qva, proposals.status_public, proposals.status_eudonet, proposals.motif_recev, proposals.id_project, proposals.titre_projet, proposals.url_projet, proposals.winner_projet, proposals.creationmethod, proposals.operatingbudget, proposals.handicap, proposals.handicap_complement FROM participatoryideation_proposals proposals";
     private static final String SQL_QUERY_SELECT = SQL_QUERY_SELECTALL + " WHERE proposals.id_proposal = ?";
-    private static final String SQL_QUERY_SELECT_BY_CODES = SQL_QUERY_SELECTALL + " WHERE proposals.code_campagne = ? and proposals.code_proposal = ?";
-    private static final String SQL_QUERY_SELECTALL_ID = "SELECT id_proposal FROM ideation_proposals";
+    private static final String SQL_QUERY_SELECT_BY_CODES = SQL_QUERY_SELECTALL + " WHERE proposals.code_campaign = ? and proposals.code_proposal = ?";
+    private static final String SQL_QUERY_SELECTALL_ID = "SELECT id_proposal FROM participatoryideation_proposals";
 
-    private static final String SQL_QUERY_NEW_PK_FILE = "SELECT max( id_proposal_file ) FROM ideation_proposals_files";
-    private static final String SQL_QUERY_INSERT_FILE = "INSERT INTO ideation_proposals_files (id_proposal_file, id_file, id_proposal, type) values ( ?, ? , ? , ? )";
-    private static final String SQL_QUERY_SELECTALL_FILES = "SELECT id_file, id_proposal, type FROM ideation_proposals_files";
+    private static final String SQL_QUERY_NEW_PK_FILE = "SELECT max( id_proposal_file ) FROM participatoryideation_proposals_files";
+    private static final String SQL_QUERY_INSERT_FILE = "INSERT INTO participatoryideation_proposals_files (id_proposal_file, id_file, id_proposal, type) values ( ?, ? , ? , ? )";
+    private static final String SQL_QUERY_SELECTALL_FILES = "SELECT id_file, id_proposal, type FROM participatoryideation_proposals_files";
     private static final String SQL_QUERY_SELECT_FILE = SQL_QUERY_SELECTALL_FILES + " WHERE id_proposal = ?";
 
-    private static final String SQL_QUERY_NEW_PK_PROPOSAL_LINK = "SELECT max( id_proposal_link ) FROM ideation_proposals_links";
-    private static final String SQL_QUERY_INSERT_LINK = "INSERT INTO ideation_proposals_links ( id_proposal_link, id_proposal_parent, id_proposal_child ) VALUES ( ?, ?, ? ) ";
-    private static final String SQL_QUERY_SELECT_LINKED_PROPOSALS = "SELECT proposals.id_proposal, proposals.code_campagne, proposals.code_proposal FROM ideation_proposals_links links INNER JOIN ideation_proposals proposals ON";
+    private static final String SQL_QUERY_NEW_PK_PROPOSAL_LINK = "SELECT max( id_proposal_link ) FROM participatoryideation_proposals_links";
+    private static final String SQL_QUERY_INSERT_LINK = "INSERT INTO participatoryideation_proposals_links ( id_proposal_link, id_proposal_parent, id_proposal_child ) VALUES ( ?, ?, ? ) ";
+    private static final String SQL_QUERY_SELECT_LINKED_PROPOSALS = "SELECT proposals.id_proposal, proposals.code_campaign, proposals.code_proposal FROM participatoryideation_proposals_links links INNER JOIN participatoryideation_proposals proposals ON";
     private static final String SQL_QUERY_SELECT_CHILD_PROPOSALS = SQL_QUERY_SELECT_LINKED_PROPOSALS
             + " links.id_proposal_child = proposals.id_proposal WHERE links.id_proposal_parent = ?";
     private static final String SQL_QUERY_SELECT_PARENT_PROPOSALS = SQL_QUERY_SELECT_LINKED_PROPOSALS
             + " links.id_proposal_parent = proposals.id_proposal WHERE links.id_proposal_child = ?";
 
-    private static final String SQL_QUERY_DELETE_LINK_BY_PARENT = "DELETE FROM ideation_proposals_links WHERE id_proposal_parent = ?";
-    private static final String SQL_QUERY_DELETE_LINK_BY_CHILD = "DELETE FROM ideation_proposals_links WHERE id_proposal_child = ?";
-    private static final String SQL_QUERY_SELECTALL_LINKS = "SELECT child_proposals.id_proposal, child_proposals.code_campagne, child_proposals.code_proposal, parent_proposals.id_proposal, parent_proposals.code_campagne, parent_proposals.code_proposal FROM ideation_proposals_links links inner join ideation_proposals child_proposals ON links.id_proposal_child = child_proposals.id_proposal inner join ideation_proposals parent_proposals ON links.id_proposal_parent = parent_proposals.id_proposal";
+    private static final String SQL_QUERY_DELETE_LINK_BY_PARENT = "DELETE FROM participatoryideation_proposals_links WHERE id_proposal_parent = ?";
+    private static final String SQL_QUERY_DELETE_LINK_BY_CHILD = "DELETE FROM participatoryideation_proposals_links WHERE id_proposal_child = ?";
+    private static final String SQL_QUERY_SELECTALL_LINKS = "SELECT child_proposals.id_proposal, child_proposals.code_campaign, child_proposals.code_proposal, parent_proposals.id_proposal, parent_proposals.code_campaign, parent_proposals.code_proposal FROM participatoryideation_proposals_links links inner join participatoryideation_proposals child_proposals ON links.id_proposal_child = child_proposals.id_proposal inner join participatoryideation_proposals parent_proposals ON links.id_proposal_parent = parent_proposals.id_proposal";
 
     /**
      * Generates a new primary key
@@ -113,19 +113,19 @@ public final class ProposalDAO implements IProposalDAO
     }
 
     /**
-     * Generates a new code proposal for this campagne
+     * Generates a new code proposal for this campaign
      * 
      * @param plugin
      *            The Plugin
      * @return The new primary key
      */
-    public int newCodeProposal( String strCodeCampagne, Plugin plugin )
+    public int newCodeProposal( String strCodeCampaign, Plugin plugin )
     {
         int nKey = 1;
 
         try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_NEW_CODE_PROPOSAL, plugin ) )
         {
-            daoUtil.setString( 1, strCodeCampagne );
+            daoUtil.setString( 1, strCodeCampaign );
             daoUtil.executeQuery( );
 
             if ( daoUtil.next( ) )
@@ -148,7 +148,7 @@ public final class ProposalDAO implements IProposalDAO
             int nCpt = 1;
 
             proposal.setId( newPrimaryKey( plugin ) );
-            proposal.setCodeProposal( newCodeProposal( proposal.getCodeCampagne( ), plugin ) );
+            proposal.setCodeProposal( newCodeProposal( proposal.getCodeCampaign( ), plugin ) );
 
             daoUtil.setInt( nCpt++, proposal.getId( ) );
             daoUtil.setString( nCpt++, proposal.getLuteceUserName( ) );
@@ -168,8 +168,8 @@ public final class ProposalDAO implements IProposalDAO
             daoUtil.setString( nCpt++, proposal.getCodeTheme( ) );
             daoUtil.setString( nCpt++, proposal.getLocalisationType( ) );
             daoUtil.setString( nCpt++, proposal.getLocalisationArdt( ) );
-            daoUtil.setString( nCpt++, proposal.getDepositaireType( ) );
-            daoUtil.setString( nCpt++, proposal.getDepositaire( ) );
+            daoUtil.setString( nCpt++, proposal.getDepositaryType( ) );
+            daoUtil.setString( nCpt++, proposal.getDepositary( ) );
             daoUtil.setBoolean( nCpt++, proposal.isAcceptExploit( ) );
             daoUtil.setBoolean( nCpt++, proposal.isAcceptContact( ) );
             daoUtil.setString( nCpt++, proposal.getAdress( ) );
@@ -193,7 +193,7 @@ public final class ProposalDAO implements IProposalDAO
             }
 
             daoUtil.setTimestamp( nCpt++, proposal.getCreationTimestamp( ) );
-            daoUtil.setString( nCpt++, proposal.getCodeCampagne( ) );
+            daoUtil.setString( nCpt++, proposal.getCodeCampaign( ) );
             daoUtil.setInt( nCpt++, proposal.getCodeProposal( ) );
             daoUtil.setString( nCpt++, proposal.getTypeQpvQva( ) );
             daoUtil.setString( nCpt++, proposal.getIdQpvQva( ) );
@@ -299,13 +299,13 @@ public final class ProposalDAO implements IProposalDAO
      * {@inheritDoc }
      */
     @Override
-    public Proposal loadByCodes( String strCodeCampagne, int nCodeProposal, Plugin plugin )
+    public Proposal loadByCodes( String strCodeCampaign, int nCodeProposal, Plugin plugin )
     {
         Proposal proposal = null;
 
         try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT_BY_CODES, plugin ) )
         {
-            daoUtil.setString( 1, strCodeCampagne );
+            daoUtil.setString( 1, strCodeCampaign );
             daoUtil.setInt( 2, nCodeProposal );
             daoUtil.executeQuery( );
 
@@ -407,7 +407,7 @@ public final class ProposalDAO implements IProposalDAO
     {
         Proposal otherProposal = new Proposal( );
         otherProposal.setId( daoUtil.getInt( nCpt++ ) );
-        otherProposal.setCodeCampagne( daoUtil.getString( nCpt++ ) );
+        otherProposal.setCodeCampaign( daoUtil.getString( nCpt++ ) );
         otherProposal.setCodeProposal( daoUtil.getInt( nCpt++ ) );
         return otherProposal;
     }
@@ -646,8 +646,8 @@ public final class ProposalDAO implements IProposalDAO
         proposal.setCodeTheme( daoUtil.getString( nCpt++ ) );
         proposal.setLocalisationType( daoUtil.getString( nCpt++ ) );
         proposal.setLocalisationArdt( daoUtil.getString( nCpt++ ) );
-        proposal.setDepositaireType( daoUtil.getString( nCpt++ ) );
-        proposal.setDepositaire( daoUtil.getString( nCpt++ ) );
+        proposal.setDepositaryType( daoUtil.getString( nCpt++ ) );
+        proposal.setDepositary( daoUtil.getString( nCpt++ ) );
         proposal.setAcceptExploit( daoUtil.getBoolean( nCpt++ ) );
         proposal.setAcceptContact( daoUtil.getBoolean( nCpt++ ) );
         proposal.setAdress( daoUtil.getString( nCpt++ ) );
@@ -665,7 +665,7 @@ public final class ProposalDAO implements IProposalDAO
         }
 
         proposal.setCreationTimestamp( daoUtil.getTimestamp( nCpt++ ) );
-        proposal.setCodeCampagne( daoUtil.getString( nCpt++ ) );
+        proposal.setCodeCampaign( daoUtil.getString( nCpt++ ) );
         proposal.setCodeProposal( daoUtil.getInt( nCpt++ ) );
         proposal.setExportedTag( daoUtil.getInt( nCpt++ ) );
         proposal.setTypeQpvQva( daoUtil.getString( nCpt++ ) );
@@ -703,9 +703,9 @@ public final class ProposalDAO implements IProposalDAO
 
         // Create the where clause
         StringBuilder stringBuilder = new StringBuilder( );
-        if ( proposalSearcher.getCodeCampagne( ) != null )
+        if ( proposalSearcher.getCodeCampaign( ) != null )
         {
-            stringBuilder.append( " proposals.code_campagne = ? AND" );
+            stringBuilder.append( " proposals.code_campaign = ? AND" );
         }
         if ( proposalSearcher.getCodeTheme( ) != null )
         {
@@ -779,8 +779,8 @@ public final class ProposalDAO implements IProposalDAO
         StringBuilder stringBuilderOrderBy = new StringBuilder( );
         if ( ProposalSearcher.COLUMN_REFERENCE.equals( proposalSearcher.getOrderColumn( ) ) )
         {
-            // COLUMN_REFERENCE means lexicographic sort on code_campagne, code_proposal
-            stringBuilderOrderBy.append( "proposals.code_campagne" );
+            // COLUMN_REFERENCE means lexicographic sort on code_campaign, code_proposal
+            stringBuilderOrderBy.append( "proposals.code_campaign" );
             if ( strOrder != null )
             {
                 stringBuilderOrderBy.append( " " );
@@ -840,9 +840,9 @@ public final class ProposalDAO implements IProposalDAO
     private void setFilterValues( DAOUtil daoUtil, ProposalSearcher proposalSearcher )
     {
         int nCpt = 1;
-        if ( proposalSearcher.getCodeCampagne( ) != null )
+        if ( proposalSearcher.getCodeCampaign( ) != null )
         {
-            daoUtil.setString( nCpt++, proposalSearcher.getCodeCampagne( ) );
+            daoUtil.setString( nCpt++, proposalSearcher.getCodeCampaign( ) );
         }
         if ( proposalSearcher.getCodeTheme( ) != null )
         {

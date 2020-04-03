@@ -97,11 +97,11 @@
         iconCreateFunction: createProjetCluster
     });
     var layergroup_arrondissements = L.layerGroup();
-    var layergroup_currentcampagne = L.layerGroup();
+    var layergroup_currentcampaign = L.layerGroup();
     var layergroup_qpvqva = L.layerGroup();
-    layergroup_currentcampagne.addLayer(markers);
-    layergroup_currentcampagne.addLayer(layergroup_arrondissements);
-    map.addLayer(layergroup_currentcampagne)
+    layergroup_currentcampaign.addLayer(markers);
+    layergroup_currentcampaign.addLayer(layergroup_arrondissements);
+    map.addLayer(layergroup_currentcampaign)
     var markers_oldprojects = new L.MarkerClusterGroup({
         iconCreateFunction: createOldProjetCluster
     });
@@ -305,7 +305,7 @@
   };
 
   var overlayMaps = {
-      "#i18n{participatoryideation.view.map.legend.map_layer.currentSearch}" : layergroup_currentcampagne,
+      "#i18n{participatoryideation.view.map.legend.map_layer.currentSearch}" : layergroup_currentcampaign,
       "#i18n{participatoryideation.view.map.legend.map_layer.previousCampaigns}" : layergroup_qpvqva,
       "#i18n{participatoryideation.view.map.legend.map_layer.popularDistricts}" : markers_oldprojects
   };

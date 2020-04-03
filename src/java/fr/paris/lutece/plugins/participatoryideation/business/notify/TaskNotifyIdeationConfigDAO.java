@@ -42,11 +42,11 @@ import fr.paris.lutece.util.sql.DAOUtil;
  */
 public class TaskNotifyIdeationConfigDAO implements ITaskNotifyIdeationConfigDAO
 {
-    private static final String SQL_QUERY_FIND_BY_PRIMARY_KEY = "SELECT id_task, sender_name, sender_email, subject, message, recipients_cc, recipients_bcc, isFollowers, isDepositaire FROM task_notify_ideation_cf  WHERE id_task=?";
+    private static final String SQL_QUERY_FIND_BY_PRIMARY_KEY = "SELECT id_task, sender_name, sender_email, subject, message, recipients_cc, recipients_bcc, isFollowers, isDepositary FROM task_notify_ideation_cf  WHERE id_task=?";
     private static final String SQL_QUERY_INSERT = "INSERT INTO task_notify_ideation_cf( "
-            + "id_task,sender_name,sender_email,subject,message,recipients_cc,recipients_bcc,isFollowers,isDepositaire)" + "VALUES (?,?,?,?,?,?,?,?,?)";
+            + "id_task,sender_name,sender_email,subject,message,recipients_cc,recipients_bcc,isFollowers,isDepositary)" + "VALUES (?,?,?,?,?,?,?,?,?)";
     private static final String SQL_QUERY_UPDATE = "UPDATE task_notify_ideation_cf "
-            + " SET id_task = ?, sender_name = ?, sender_email = ?, subject = ?, message = ?, recipients_cc = ?, recipients_bcc = ? , isFollowers = ?, isDepositaire = ? "
+            + " SET id_task = ?, sender_name = ?, sender_email = ?, subject = ?, message = ?, recipients_cc = ?, recipients_bcc = ? , isFollowers = ?, isDepositary = ? "
             + " WHERE id_task = ? ";
     private static final String SQL_QUERY_DELETE = "DELETE FROM task_notify_ideation_cf WHERE id_task = ? ";
 
@@ -69,7 +69,7 @@ public class TaskNotifyIdeationConfigDAO implements ITaskNotifyIdeationConfigDAO
             daoUtil.setString( ++nPos, config.getRecipientsCc( ) );
             daoUtil.setString( ++nPos, config.getRecipientsBcc( ) );
             daoUtil.setBoolean( ++nPos, config.isFollowers( ) );
-            daoUtil.setBoolean( ++nPos, config.isDepositaire( ) );
+            daoUtil.setBoolean( ++nPos, config.isDepositary( ) );
 
             daoUtil.executeUpdate( );
         }
@@ -93,7 +93,7 @@ public class TaskNotifyIdeationConfigDAO implements ITaskNotifyIdeationConfigDAO
             daoUtil.setString( ++nPos, config.getRecipientsCc( ) );
             daoUtil.setString( ++nPos, config.getRecipientsBcc( ) );
             daoUtil.setBoolean( ++nPos, config.isFollowers( ) );
-            daoUtil.setBoolean( ++nPos, config.isDepositaire( ) );
+            daoUtil.setBoolean( ++nPos, config.isDepositary( ) );
 
             daoUtil.setInt( ++nPos, config.getIdTask( ) );
             daoUtil.executeUpdate( );
@@ -127,7 +127,7 @@ public class TaskNotifyIdeationConfigDAO implements ITaskNotifyIdeationConfigDAO
                 config.setRecipientsCc( daoUtil.getString( ++nPos ) );
                 config.setRecipientsBcc( daoUtil.getString( ++nPos ) );
                 config.setFollowers( daoUtil.getBoolean( ++nPos ) );
-                config.setDepositaire( daoUtil.getBoolean( ++nPos ) );
+                config.setDepositary( daoUtil.getBoolean( ++nPos ) );
             }
         }
 

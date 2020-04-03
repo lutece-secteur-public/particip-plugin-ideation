@@ -46,7 +46,7 @@ public class ProposalSearcher
 
     public static final String QPVQVA_UNKNOWN = "UNKNOWN";
 
-    private String _strCodeCampagne;
+    private String _strCodeCampaign;
     private String _strCodeTheme;
     private Integer _nExportedTag;
     private String _strTitreOuDescriptionOuRef;
@@ -63,20 +63,20 @@ public class ProposalSearcher
     private Boolean _bIsPublished;
 
     /**
-     * @return the CodeCampagne
+     * @return the CodeCampaign
      */
-    public String getCodeCampagne( )
+    public String getCodeCampaign( )
     {
-        return _strCodeCampagne;
+        return _strCodeCampaign;
     }
 
     /**
-     * @param CodeCampagne
-     *            the CodeCampagne to set
+     * @param CodeCampaign
+     *            the CodeCampaign to set
      */
-    public void setCodeCampagne( String CodeCampagne )
+    public void setCodeCampaign( String CodeCampaign )
     {
-        this._strCodeCampagne = CodeCampagne;
+        this._strCodeCampaign = CodeCampaign;
     }
 
     /**

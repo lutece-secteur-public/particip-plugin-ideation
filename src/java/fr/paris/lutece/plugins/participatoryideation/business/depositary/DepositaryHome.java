@@ -39,49 +39,49 @@ import fr.paris.lutece.portal.service.spring.SpringContextService;
 import java.util.Collection;
 
 /**
- * This class provides instances management methods (create, find, ...) for CampagneDepositaire objects
+ * This class provides instances management methods (create, find, ...) for Depositary objects
  */
 
-public final class CampagneDepositaireHome
+public final class DepositaryHome
 {
     // Static variable pointed at the DAO instance
 
-    private static ICampagneDepositaireDAO _dao = SpringContextService.getBean( "participatoryideation.campagneDepositaireDAO" );
+    private static IDepositaryDAO _dao = SpringContextService.getBean( "participatoryideation.depositaryDAO" );
     private static Plugin _plugin = PluginService.getPlugin( "participatoryideation" );
 
     /**
      * Private constructor - this class need not be instantiated
      */
-    private CampagneDepositaireHome( )
+    private DepositaryHome( )
     {
     }
 
     /**
-     * Create an instance of the campagneDepositaire class
+     * Create an instance of the depositary class
      * 
-     * @param campagneDepositaire
-     *            The instance of the CampagneDepositaire which contains the informations to store
-     * @return The instance of campagneDepositaire which has been created with its primary key.
+     * @param depositary
+     *            The instance of the Depositary which contains the informations to store
+     * @return The instance of depositary which has been created with its primary key.
      */
-    public static CampagneDepositaire create( CampagneDepositaire campagneDepositaire )
+    public static Depositary create( Depositary depositary )
     {
-        _dao.insert( campagneDepositaire, _plugin );
+        _dao.insert( depositary, _plugin );
 
-        return campagneDepositaire;
+        return depositary;
     }
 
     /**
-     * Update of the campagneDepositaire which is specified in parameter
+     * Update of the depositary which is specified in parameter
      * 
-     * @param campagneDepositaire
-     *            The instance of the CampagneDepositaire which contains the data to store
-     * @return The instance of the campagneDepositaire which has been updated
+     * @param depositary
+     *            The instance of the Depositary which contains the data to store
+     * @return The instance of the depositary which has been updated
      */
-    public static CampagneDepositaire update( CampagneDepositaire campagneDepositaire )
+    public static Depositary update( Depositary depositary )
     {
-        _dao.store( campagneDepositaire, _plugin );
+        _dao.store( depositary, _plugin );
 
-        return campagneDepositaire;
+        return depositary;
     }
 
     /**
@@ -98,10 +98,10 @@ public final class CampagneDepositaireHome
     }
 
     /**
-     * Remove the campagneDepositaire whose identifier is specified in parameter
+     * Remove the depositary whose identifier is specified in parameter
      * 
      * @param nKey
-     *            The campagneDepositaire Id
+     *            The depositary Id
      */
     public static void remove( int nKey )
     {
@@ -112,44 +112,44 @@ public final class CampagneDepositaireHome
     // Finders
 
     /**
-     * Returns an instance of a campagneDepositaire whose identifier is specified in parameter
+     * Returns an instance of a depositary whose identifier is specified in parameter
      * 
      * @param nKey
-     *            The campagneDepositaire primary key
-     * @return an instance of CampagneDepositaire
+     *            The depositary primary key
+     * @return an instance of Depositary
      */
-    public static CampagneDepositaire findByPrimaryKey( int nKey )
+    public static Depositary findByPrimaryKey( int nKey )
     {
         return _dao.load( nKey, _plugin );
     }
 
     /**
-     * Load the data of all the campagneDepositaire objects and returns them in form of a collection
+     * Load the data of all the depositary objects and returns them in form of a collection
      * 
-     * @return the collection which contains the data of all the campagneDepositaire objects
+     * @return the collection which contains the data of all the depositary objects
      */
-    public static Collection<CampagneDepositaire> getCampagneDepositairesList( )
+    public static Collection<Depositary> getDepositariesList( )
     {
-        return _dao.selectCampagneDepositairesList( _plugin );
+        return _dao.selectDepositariesList( _plugin );
     }
 
     /**
-     * Load the id of all the campagneDepositaire objects and returns them in form of a collection
+     * Load the id of all the depositary objects and returns them in form of a collection
      * 
-     * @return the collection which contains the id of all the campagneDepositaire objects
+     * @return the collection which contains the id of all the depositary objects
      */
-    public static Collection<Integer> getIdCampagneDepositairesList( )
+    public static Collection<Integer> getIdDepositariesList( )
     {
-        return _dao.selectIdCampagneDepositairesList( _plugin );
+        return _dao.selectIdDepositariesList( _plugin );
     }
 
     /**
-     * Load the data of all the campagneDepositaire objects for a campagne and returns them in form of a collection
+     * Load the data of all the depositary objects for a campaign and returns them in form of a collection
      * 
-     * @return the collection which contains the data of all the campagneDepositaire objects
+     * @return the collection which contains the data of all the depositary objects
      */
-    public static Collection<CampagneDepositaire> getCampagneDepositaireListByCampagne( String codeCampagne )
+    public static Collection<Depositary> getDepositaryListByCampaign( String codeCampaign )
     {
-        return _dao.selectCampagneDepositaireListByCampagne( codeCampagne, _plugin );
+        return _dao.selectDepositaryListByCampaign( codeCampaign, _plugin );
     }
 }

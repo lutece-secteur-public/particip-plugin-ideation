@@ -57,7 +57,7 @@ import fr.paris.lutece.util.url.UrlItem;
 /**
  * This class provides the user interface to manage proposal links features ( manage, create, modify, remove )
  */
-@Controller( controllerJsp = "ManageProposalLinks.jsp", controllerPath = "jsp/admin/plugins/participatoryideation/", right = "IDEATION_LINKS_MANAGEMENT" )
+@Controller( controllerJsp = "ManageProposalLinks.jsp", controllerPath = "jsp/admin/plugins/participatoryideation/", right = "PARTICIPATORYIDEATION_LINKS_MANAGEMENT" )
 public class ProposalLinksJspBean extends ManageProposalLinksJspBean
 {
 
@@ -74,7 +74,7 @@ public class ProposalLinksJspBean extends ManageProposalLinksJspBean
 
     // Parameters
     private static final String PARAMETER_ID_LINK = "id";
-    private static final String PARAMETER_FILTER_CODE_CAMPAGNE = "filter_code_campagne";
+    private static final String PARAMETER_FILTER_CODE_CAMPAIGN = "filter_code_campaign";
     private static final String PARAMETER_FILTER_CODE_PROPOSAL = "filter_code_proposal";
     private static final String PARAMETER_FILTER_TITLE = "filter_title";
 
@@ -91,9 +91,9 @@ public class ProposalLinksJspBean extends ManageProposalLinksJspBean
     private static final String MARK_SEVERAL_LINKS_PARENT_CODE_PROPOSAL = "severalLinksParentCodeProposal";
     private static final String MARK_SEVERAL_LINKS_CHILD_CODE_CAMPAIN = "severalLinksChildCodeCampain";
     private static final String MARK_SEVERAL_LINKS_CHILD_CODES_PROPOSALS = "severalLinksChildCodesProposals";
-    // private static final String MARK_LIST_CAMPAGNES = "listCampagnes";
+    // private static final String MARK_LIST_CAMPAIGNS = "listCampaigns";
 
-    private static final String MARK_FILTER_CODE_CAMPAGNE = "filter_code_campagne";
+    private static final String MARK_FILTER_CODE_CAMPAIGN = "filter_code_campaign";
     private static final String MARK_FILTER_CODE_PROPOSAL = "filter_code_proposal";
     private static final String MARK_FILTER_TITLE = "filter_title";
 
@@ -129,9 +129,9 @@ public class ProposalLinksJspBean extends ManageProposalLinksJspBean
 
     // Session variable to store working values
     private Link _link;
-    private String _parentCodeCampagne;
+    private String _parentCodeCampaign;
     private int _parentCodeProposal;
-    private String _childCodeCampagne;
+    private String _childCodeCampaign;
     private String _childCodesProposals;
 
     private LinkSearcher _linkSearcher;
@@ -162,13 +162,13 @@ public class ProposalLinksJspBean extends ManageProposalLinksJspBean
         List<Link> listLinks = (List<Link>) LinkHome.getLinksListSearch( currentSearcher );
         Map<String, Object> model = getPaginatedListModel( request, MARK_LINKS_LIST, listLinks, JSP_MANAGE_LINKS );
 
-        // Collection<Campagne> listCampagnes = CampagneHome.getCampagnesList( );
+        // Collection<Campaign> listCampaigns = CampaignHome.getCampaignsList( );
 
         if ( _linkSearcher != null )
         {
-            if ( StringUtils.isNotBlank( _linkSearcher.getCodeCampagne( ) ) )
+            if ( StringUtils.isNotBlank( _linkSearcher.getCodeCampaign( ) ) )
             {
-                model.put( MARK_FILTER_CODE_CAMPAGNE, _linkSearcher.getCodeCampagne( ) );
+                model.put( MARK_FILTER_CODE_CAMPAIGN, _linkSearcher.getCodeCampaign( ) );
             }
 
             if ( _linkSearcher.getCodeProposal( ) != null )
@@ -258,10 +258,10 @@ public class ProposalLinksJspBean extends ManageProposalLinksJspBean
     {
         Map<String, Object> model = getModel( );
 
-        model.put( MARK_SEVERAL_LINKS_PARENT_CODE_CAMPAIN, _parentCodeCampagne );
+        model.put( MARK_SEVERAL_LINKS_PARENT_CODE_CAMPAIN, _parentCodeCampaign );
         model.put( MARK_SEVERAL_LINKS_PARENT_CODE_PROPOSAL, _parentCodeProposal ); // Si -1, mettre ""
 
-        model.put( MARK_SEVERAL_LINKS_CHILD_CODE_CAMPAIN, _childCodeCampagne );
+        model.put( MARK_SEVERAL_LINKS_CHILD_CODE_CAMPAIN, _childCodeCampaign );
         model.put( MARK_SEVERAL_LINKS_CHILD_CODES_PROPOSALS, _childCodesProposals );
 
         IdeationStaticService.getInstance( ).fillAllStaticContent( model );
@@ -279,9 +279,9 @@ public class ProposalLinksJspBean extends ManageProposalLinksJspBean
     @Action( ACTION_CREATE_SEVERAL_LINKS )
     public String doCreateSeveralLinks( HttpServletRequest request )
     {
-        _parentCodeCampagne = request.getParameter( "parentCodeCampagne" );
+        _parentCodeCampaign = request.getParameter( "parentCodeCampaign" );
         _parentCodeProposal = parseLinkProposalCode( request.getParameter( "parentCodeProposal" ) );
-        _childCodeCampagne = request.getParameter( "childCodeCampagne" );
+        _childCodeCampaign = request.getParameter( "childCodeCampaign" );
         _childCodesProposals = request.getParameter( "childCodesProposals" );
 
         List<Link> linksToCreate = new ArrayList<Link>( );
@@ -307,9 +307,9 @@ public class ProposalLinksJspBean extends ManageProposalLinksJspBean
             else
             {
                 Link link = new Link( );
-                link.setParentCodeCampagne( _parentCodeCampagne );
+                link.setParentCodeCampaign( _parentCodeCampaign );
                 link.setParentCodeProposal( _parentCodeProposal );
-                link.setChildCodeCampagne( _childCodeCampagne );
+                link.setChildCodeCampaign( _childCodeCampaign );
                 link.setChildCodeProposal( childCodeProposal );
 
                 if ( determineProposalsIdFromCodes( link, request ) )
@@ -458,16 +458,16 @@ public class ProposalLinksJspBean extends ManageProposalLinksJspBean
             _linkSearcher = new LinkSearcher( );
         }
 
-        String strCodeCampagne = request.getParameter( PARAMETER_FILTER_CODE_CAMPAGNE );
-        if ( strCodeCampagne != null )
+        String strCodeCampaign = request.getParameter( PARAMETER_FILTER_CODE_CAMPAIGN );
+        if ( strCodeCampaign != null )
         {
-            if ( StringUtils.isBlank( strCodeCampagne ) )
+            if ( StringUtils.isBlank( strCodeCampaign ) )
             {
-                _linkSearcher.setCodeCampagne( null );
+                _linkSearcher.setCodeCampaign( null );
             }
             else
             {
-                _linkSearcher.setCodeCampagne( strCodeCampagne );
+                _linkSearcher.setCodeCampaign( strCodeCampaign );
             }
         }
 
@@ -537,7 +537,7 @@ public class ProposalLinksJspBean extends ManageProposalLinksJspBean
     }
 
     /**
-     * Populate parentId and childId of link, from codeCampagnes and codeProposals
+     * Populate parentId and childId of link, from codeCampaigns and codeProposals
      * 
      * @param _link
      *            The link
@@ -550,11 +550,11 @@ public class ProposalLinksJspBean extends ManageProposalLinksJspBean
         boolean isError = false;
 
         // Calculating technical ids from campaign and idea codes
-        Proposal parentProposal = ProposalHome.findByCodes( _link.getParentCodeCampagne( ), _link.getParentCodeProposal( ) );
+        Proposal parentProposal = ProposalHome.findByCodes( _link.getParentCodeCampaign( ), _link.getParentCodeProposal( ) );
         if ( parentProposal == null )
         {
             // addError( MESSAGE_ERROR_NO_SUCH_PARENT, request.getLocale());
-            addError( "Can not find parent proposal : " + _link.getParentCodeCampagne( ) + "-" + _link.getParentCodeProposal( ) + "." );
+            addError( "Can not find parent proposal : " + _link.getParentCodeCampaign( ) + "-" + _link.getParentCodeProposal( ) + "." );
             isError = true;
         }
         else
@@ -562,11 +562,11 @@ public class ProposalLinksJspBean extends ManageProposalLinksJspBean
             _link.setParentId( parentProposal.getId( ) );
         }
 
-        Proposal childProposal = ProposalHome.findByCodes( _link.getChildCodeCampagne( ), _link.getChildCodeProposal( ) );
+        Proposal childProposal = ProposalHome.findByCodes( _link.getChildCodeCampaign( ), _link.getChildCodeProposal( ) );
         if ( childProposal == null )
         {
             // addError( MESSAGE_ERROR_NO_SUCH_CHILD, request.getLocale());
-            addError( "Can not find child proposal : " + _link.getChildCodeCampagne( ) + "-" + _link.getChildCodeProposal( ) + "." );
+            addError( "Can not find child proposal : " + _link.getChildCodeCampaign( ) + "-" + _link.getChildCodeProposal( ) + "." );
             isError = true;
         }
         else

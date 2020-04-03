@@ -57,7 +57,7 @@ import fr.paris.lutece.util.url.UrlItem;
 public abstract class ManageIdeationProposalsJspBean extends MVCAdminJspBean
 {
     // Right
-    public static final String RIGHT_MANAGE_IDEATION_PROPOSALS = "IDEATION_PROPOSALS_MANAGEMENT";
+    public static final String RIGHT_MANAGE_participatoryideation_proposals = "PARTICIPATORYIDEATION_PROPOSALS_MANAGEMENT";
 
     private static final String PROPERTY_DEFAULT_LIST_ITEM_PER_PAGE = "participatoryideation.listItems.itemsPerPage";
     private static final String PARAMETER_PAGE_INDEX = "page_index";

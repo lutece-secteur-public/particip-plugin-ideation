@@ -21,15 +21,15 @@
     <!-- Admin features parameters -->
     <admin-features>
         <admin-feature>
-            <feature-id>IDEATION_MANAGEMENT</feature-id>
+            <feature-id>PARTICIPATORYIDEATION_MANAGEMENT</feature-id>
             <feature-title>ideation.adminFeature.ManageIdeation.name</feature-title>
             <feature-description>ideation.adminFeature.ManageIdeation.description</feature-description>
             <feature-level>0</feature-level>
-            <feature-url>jsp/admin/plugins/participatoryideation/ManageIdeationCampagnes.jsp</feature-url>
+            <feature-url>jsp/admin/plugins/participatoryideation/ManageIdeationCampaigns.jsp</feature-url>
             <feature-icon-url/>
       </admin-feature>
       <admin-feature>
-          <feature-id>IDEATION_PROPOSAL_MANAGEMENT</feature-id>
+          <feature-id>PARTICIPATORYIDEATION_PROPOSALS_MANAGEMENT</feature-id>
           <feature-title>ideation.adminFeature.ManageIdeationProposals.name</feature-title>
           <feature-description>ideation.adminFeature.ManageIdeationProposals.description</feature-description>
           <feature-level>0</feature-level>

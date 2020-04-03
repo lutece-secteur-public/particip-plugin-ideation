@@ -42,22 +42,22 @@ public class LinkSearcher
 {
 
     // public static final String COLUMN_ID = "id_link";
-    // public static final String COLUMN_CODE_CAMPAGNE = "code_campagne";
+    // public static final String COLUMN_CODE_CAMPAIGN = "code_campaign";
     // public static final String COLUMN_CODE_PROPOSAL = "code_proposal";
     // public static final String COLUMN_TITLE = "title";
 
-    private String _strCodeCampagne;
+    private String _strCodeCampaign;
     private Integer _nCodeProposal;
     private String _strTitle;
 
-    public String getCodeCampagne( )
+    public String getCodeCampaign( )
     {
-        return _strCodeCampagne;
+        return _strCodeCampaign;
     }
 
-    public void setCodeCampagne( String codeCampagne )
+    public void setCodeCampaign( String codeCampaign )
     {
-        this._strCodeCampagne = codeCampagne;
+        this._strCodeCampaign = codeCampaign;
     }
 
     public Integer getCodeProposal( )

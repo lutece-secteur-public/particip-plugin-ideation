@@ -1,15 +1,15 @@
 <#include "manageideation_tabs.html" />
-<@tabs tab="depositairetype" />
+<@tabs tab="depositarytype" />
 
-<@rowBoxHeader i18nTitleKey="participatoryideation.modify_depositairetype.pageTitle">
-    <form class="form-horizontal" method="post" name="modify_depositairetype" action="jsp/admin/plugins/participatoryideation/ManageDepositaireTypes.jsp">
+<@rowBoxHeader i18nTitleKey="participatoryideation.modify_depositarytype.pageTitle">
+    <form class="form-horizontal" method="post" name="modify_depositarytype" action="jsp/admin/plugins/participatoryideation/ManageDepositaryTypes.jsp">
         <@messages errors=errors />
-        <input type="hidden" id="id" name="id" value="${depositairetype.id}"/>
+        <input type="hidden" id="id" name="id" value="${depositarytype.id}"/>
         
-        <@fieldInputText i18nLabelKey="participatoryideation.modify_depositairetype.labelCode" inputName="code" mandatory=true value="${depositairetype.code}" i18nHelpBlockKey="participatoryideation.modify_depositairetype.labelCode.help" />
-        <@fieldInputText i18nLabelKey="participatoryideation.modify_depositairetype.labelLibelle" inputName="libelle" mandatory=true value="${depositairetype.libelle}" i18nHelpBlockKey="participatoryideation.modify_depositairetype.labelLibelle.help" />
-        <@fieldInputText i18nLabelKey="participatoryideation.modify_depositairetype.labelCodeComplementType" inputName="code_complement_type" mandatory=true value="${depositairetype.codeComplementType}" i18nHelpBlockKey="participatoryideation.modify_depositairetype.labelCodeComplementType.help" />
-        <@actionButtons button1Name="action_modifyDepositaireType" button2Name="view_manageDepositaireTypes"/>
+        <@fieldInputText i18nLabelKey="participatoryideation.modify_depositarytype.labelCode" inputName="code" mandatory=true value="${depositarytype.code}" i18nHelpBlockKey="participatoryideation.modify_depositarytype.labelCode.help" />
+        <@fieldInputText i18nLabelKey="participatoryideation.modify_depositarytype.labelLibelle" inputName="libelle" mandatory=true value="${depositarytype.libelle}" i18nHelpBlockKey="participatoryideation.modify_depositarytype.labelLibelle.help" />
+        <@fieldInputText i18nLabelKey="participatoryideation.modify_depositarytype.labelCodeComplementType" inputName="code_complement_type" mandatory=true value="${depositarytype.codeComplementType}" i18nHelpBlockKey="participatoryideation.modify_depositarytype.labelCodeComplementType.help" />
+        <@actionButtons button1Name="action_modifyDepositaryType" button2Name="view_manageDepositaryTypes"/>
     </form>
 </@rowBoxHeader>
 

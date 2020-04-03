@@ -88,8 +88,8 @@ public class ExtendableCommentRatingListener implements IRatingListener
             {
                 Proposal proposal = ProposalHome.findByPrimaryKey( Integer.parseInt( comment.getIdExtendableResource( ) ) );
 
-                // Can not rate an proposal if not during its ideation campagne
-                if ( proposal == null || !IdeationCampaignService.getInstance( ).isDuring( proposal.getCodeCampagne( ), Constants.IDEATION ) )
+                // Can not rate an proposal if not during its ideation campaign
+                if ( proposal == null || !IdeationCampaignService.getInstance( ).isDuring( proposal.getCodeCampaign( ), Constants.IDEATION ) )
                 {
                     return false;
                 }

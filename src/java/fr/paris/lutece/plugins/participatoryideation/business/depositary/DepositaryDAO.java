@@ -33,28 +33,28 @@
  */
 package fr.paris.lutece.plugins.participatoryideation.business.depositary;
 
-import fr.paris.lutece.portal.service.plugin.Plugin;
-import fr.paris.lutece.util.sql.DAOUtil;
-
 import java.util.ArrayList;
 import java.util.Collection;
 
+import fr.paris.lutece.portal.service.plugin.Plugin;
+import fr.paris.lutece.util.sql.DAOUtil;
+
 /**
- * This class provides Data Access methods for CampagneDepositaire objects
+ * This class provides Data Access methods for Depositary objects
  */
 
-public final class CampagneDepositaireDAO implements ICampagneDepositaireDAO
+public final class DepositaryDAO implements IDepositaryDAO
 {
     // Constants
-    private static final String SQL_QUERY_NEW_PK = "SELECT max( id_campagne_depositaire ) FROM ideation_campagnes_depositaires";
-    private static final String SQL_QUERY_SELECT = "SELECT id_campagne_depositaire, code_campagne, code_depositaire_type FROM ideation_campagnes_depositaires WHERE id_campagne_depositaire = ?";
-    private static final String SQL_QUERY_INSERT = "INSERT INTO ideation_campagnes_depositaires ( id_campagne_depositaire, code_campagne, code_depositaire_type ) VALUES ( ?, ?, ? ) ";
-    private static final String SQL_QUERY_DELETE = "DELETE FROM ideation_campagnes_depositaires WHERE id_campagne_depositaire = ? ";
-    private static final String SQL_QUERY_UPDATE = "UPDATE ideation_campagnes_depositaires SET id_campagne_depositaire = ?, code_campagne = ?, code_depositaire_type = ? WHERE id_campagne_depositaire = ?";
-    private static final String SQL_QUERY_CHANGEALL_CAMPAIGN_CODE = "UPDATE ideation_campagnes_depositaires SET code_campagne = ? WHERE code_campagne = ?";
-    private static final String SQL_QUERY_SELECTALL = "SELECT id_campagne_depositaire, code_campagne, code_depositaire_type FROM ideation_campagnes_depositaires";
-    private static final String SQL_QUERY_SELECTALL_BY_CAMPAGNE = "SELECT id_campagne_depositaire, code_campagne, code_depositaire_type FROM ideation_campagnes_depositaires WHERE code_campagne = ?";
-    private static final String SQL_QUERY_SELECTALL_ID = "SELECT id_campagne_depositaire FROM ideation_campagnes_depositaires";
+    private static final String SQL_QUERY_NEW_PK = "SELECT max( id_campaign_depositary ) FROM participatoryideation_depositaries";
+    private static final String SQL_QUERY_SELECT = "SELECT id_campaign_depositary, code_campaign, code_depositary_type FROM participatoryideation_depositaries WHERE id_campaign_depositary = ?";
+    private static final String SQL_QUERY_INSERT = "INSERT INTO participatoryideation_depositaries ( id_campaign_depositary, code_campaign, code_depositary_type ) VALUES ( ?, ?, ? ) ";
+    private static final String SQL_QUERY_DELETE = "DELETE FROM participatoryideation_depositaries WHERE id_campaign_depositary = ? ";
+    private static final String SQL_QUERY_UPDATE = "UPDATE participatoryideation_depositaries SET id_campaign_depositary = ?, code_campaign = ?, code_depositary_type = ? WHERE id_campaign_depositary = ?";
+    private static final String SQL_QUERY_CHANGEALL_CAMPAIGN_CODE = "UPDATE participatoryideation_depositaries SET code_campaign = ? WHERE code_campaign = ?";
+    private static final String SQL_QUERY_SELECTALL = "SELECT id_campaign_depositary, code_campaign, code_depositary_type FROM participatoryideation_depositaries";
+    private static final String SQL_QUERY_SELECTALL_BY_CAMPAIGN = "SELECT id_campaign_depositary, code_campaign, code_depositary_type FROM participatoryideation_depositaries WHERE code_campaign = ?";
+    private static final String SQL_QUERY_SELECTALL_ID = "SELECT id_campaign_depositary FROM participatoryideation_depositaries";
 
     /**
      * Generates a new primary key
@@ -83,15 +83,15 @@ public final class CampagneDepositaireDAO implements ICampagneDepositaireDAO
      * {@inheritDoc }
      */
     @Override
-    public void insert( CampagneDepositaire campagneDepositaire, Plugin plugin )
+    public void insert( Depositary depositary, Plugin plugin )
     {
         try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT, plugin ) )
         {
-            campagneDepositaire.setId( newPrimaryKey( plugin ) );
+            depositary.setId( newPrimaryKey( plugin ) );
 
-            daoUtil.setInt( 1, campagneDepositaire.getId( ) );
-            daoUtil.setString( 2, campagneDepositaire.getCodeCampagne( ) );
-            daoUtil.setString( 3, campagneDepositaire.getCodeDepositaireType( ) );
+            daoUtil.setInt( 1, depositary.getId( ) );
+            daoUtil.setString( 2, depositary.getCodeCampaign( ) );
+            daoUtil.setString( 3, depositary.getCodeDepositaryType( ) );
 
             daoUtil.executeUpdate( );
         }
@@ -101,9 +101,9 @@ public final class CampagneDepositaireDAO implements ICampagneDepositaireDAO
      * {@inheritDoc }
      */
     @Override
-    public CampagneDepositaire load( int nKey, Plugin plugin )
+    public Depositary load( int nKey, Plugin plugin )
     {
-        CampagneDepositaire campagneDepositaire = null;
+        Depositary depositary = null;
 
         try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT, plugin ) )
         {
@@ -112,14 +112,14 @@ public final class CampagneDepositaireDAO implements ICampagneDepositaireDAO
 
             if ( daoUtil.next( ) )
             {
-                campagneDepositaire = new CampagneDepositaire( );
-                campagneDepositaire.setId( daoUtil.getInt( 1 ) );
-                campagneDepositaire.setCodeCampagne( daoUtil.getString( 2 ) );
-                campagneDepositaire.setCodeDepositaireType( daoUtil.getString( 3 ) );
+                depositary = new Depositary( );
+                depositary.setId( daoUtil.getInt( 1 ) );
+                depositary.setCodeCampaign( daoUtil.getString( 2 ) );
+                depositary.setCodeDepositaryType( daoUtil.getString( 3 ) );
             }
         }
 
-        return campagneDepositaire;
+        return depositary;
     }
 
     /**
@@ -153,14 +153,14 @@ public final class CampagneDepositaireDAO implements ICampagneDepositaireDAO
      * {@inheritDoc }
      */
     @Override
-    public void store( CampagneDepositaire campagneDepositaire, Plugin plugin )
+    public void store( Depositary depositary, Plugin plugin )
     {
         try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE, plugin ) )
         {
-            daoUtil.setInt( 1, campagneDepositaire.getId( ) );
-            daoUtil.setString( 2, campagneDepositaire.getCodeCampagne( ) );
-            daoUtil.setString( 3, campagneDepositaire.getCodeDepositaireType( ) );
-            daoUtil.setInt( 4, campagneDepositaire.getId( ) );
+            daoUtil.setInt( 1, depositary.getId( ) );
+            daoUtil.setString( 2, depositary.getCodeCampaign( ) );
+            daoUtil.setString( 3, depositary.getCodeDepositaryType( ) );
+            daoUtil.setInt( 4, depositary.getId( ) );
 
             daoUtil.executeUpdate( );
         }
@@ -170,9 +170,9 @@ public final class CampagneDepositaireDAO implements ICampagneDepositaireDAO
      * {@inheritDoc }
      */
     @Override
-    public Collection<CampagneDepositaire> selectCampagneDepositairesList( Plugin plugin )
+    public Collection<Depositary> selectDepositariesList( Plugin plugin )
     {
-        Collection<CampagneDepositaire> campagneDepositaireList = new ArrayList<>( );
+        Collection<Depositary> depositaryList = new ArrayList<>( );
 
         try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL, plugin ) )
         {
@@ -180,44 +180,44 @@ public final class CampagneDepositaireDAO implements ICampagneDepositaireDAO
 
             while ( daoUtil.next( ) )
             {
-                CampagneDepositaire campagneDepositaire = getRow( daoUtil );
-                campagneDepositaireList.add( campagneDepositaire );
+                Depositary depositary = getRow( daoUtil );
+                depositaryList.add( depositary );
             }
         }
 
-        return campagneDepositaireList;
+        return depositaryList;
     }
 
     /**
      * {@inheritDoc }
      */
     @Override
-    public Collection<CampagneDepositaire> selectCampagneDepositaireListByCampagne( String codeCampagne, Plugin plugin )
+    public Collection<Depositary> selectDepositaryListByCampaign( String codeCampaign, Plugin plugin )
     {
-        Collection<CampagneDepositaire> campagneDepositaireList = new ArrayList<>( );
+        Collection<Depositary> depositaryList = new ArrayList<>( );
 
-        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL_BY_CAMPAGNE, plugin ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL_BY_CAMPAIGN, plugin ) )
         {
-            daoUtil.setString( 1, codeCampagne );
+            daoUtil.setString( 1, codeCampaign );
             daoUtil.executeQuery( );
 
             while ( daoUtil.next( ) )
             {
-                CampagneDepositaire campagneDepositaire = getRow( daoUtil );
-                campagneDepositaireList.add( campagneDepositaire );
+                Depositary depositary = getRow( daoUtil );
+                depositaryList.add( depositary );
             }
         }
 
-        return campagneDepositaireList;
+        return depositaryList;
     }
 
     /**
      * {@inheritDoc }
      */
     @Override
-    public Collection<Integer> selectIdCampagneDepositairesList( Plugin plugin )
+    public Collection<Integer> selectIdDepositariesList( Plugin plugin )
     {
-        Collection<Integer> campagneDepositaireList = new ArrayList<Integer>( );
+        Collection<Integer> depositaryList = new ArrayList<Integer>( );
 
         try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL_ID, plugin ) )
         {
@@ -225,11 +225,11 @@ public final class CampagneDepositaireDAO implements ICampagneDepositaireDAO
 
             while ( daoUtil.next( ) )
             {
-                campagneDepositaireList.add( daoUtil.getInt( 1 ) );
+                depositaryList.add( daoUtil.getInt( 1 ) );
             }
         }
 
-        return campagneDepositaireList;
+        return depositaryList;
     }
 
     // ***********************************************************************************
@@ -237,16 +237,16 @@ public final class CampagneDepositaireDAO implements ICampagneDepositaireDAO
     // * GETROW GETROW GETROW GETROW GETROW GETROW GETROW GETROW GETROW GETROW GETROW GE *
     // ***********************************************************************************
 
-    private CampagneDepositaire getRow( DAOUtil daoUtil )
+    private Depositary getRow( DAOUtil daoUtil )
     {
         int nCpt = 1;
 
-        CampagneDepositaire campagneDepositaire = new CampagneDepositaire( );
+        Depositary depositary = new Depositary( );
 
-        campagneDepositaire.setId( daoUtil.getInt( nCpt++ ) );
-        campagneDepositaire.setCodeCampagne( daoUtil.getString( nCpt++ ) );
-        campagneDepositaire.setCodeDepositaireType( daoUtil.getString( nCpt ) );
+        depositary.setId( daoUtil.getInt( nCpt++ ) );
+        depositary.setCodeCampaign( daoUtil.getString( nCpt++ ) );
+        depositary.setCodeDepositaryType( daoUtil.getString( nCpt ) );
 
-        return campagneDepositaire;
+        return depositary;
     }
 }

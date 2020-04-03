@@ -74,7 +74,7 @@ public class SolrProposalIndexer implements SolrIndexer
     private static final String SHORT_NAME = "proposal";
     private static final String PARAMETER_XPAGE = "page";
     private static final String XPAGE_PROPOSAL = "proposal";
-    private static final String PARAMETER_CODE_CAMPAGNE = "campagne";
+    private static final String PARAMETER_CODE_CAMPAIGN = "campaign";
     private static final String PARAMETER_CODE_PROPOSAL = "proposal";
 
     @Inject
@@ -153,8 +153,8 @@ public class SolrProposalIndexer implements SolrIndexer
         item.addDynamicField( "proposal_status", String.valueOf( proposal.getStatusPublic( ).isPublished( ) ) );
         item.addDynamicFieldNotAnalysed( "status", String.valueOf( proposal.getStatusPublic( ).getValeur( ) ) );
         item.addDynamicFieldNotAnalysed( "code_theme", proposal.getCodeTheme( ) );
-        item.addDynamicFieldNotAnalysed( "code_depositaire_type", proposal.getDepositaireType( ) );
-        item.addDynamicField( "campagne", proposal.getCodeCampagne( ) );
+        item.addDynamicFieldNotAnalysed( "code_depositary_type", proposal.getDepositaryType( ) );
+        item.addDynamicField( "campaign", proposal.getCodeCampaign( ) );
         item.addDynamicField( "code_projet", (long) proposal.getCodeProposal( ) );
         item.addDynamicField( "localisation", ( ( proposal.getAdress( ) != null ) && ( !"".equals( proposal.getAdress( ).trim( ) ) ) ) ? proposal.getAdress( )
                 : ( Proposal.LOCALISATION_TYPE_ARDT.equals( proposal.getLocalisationType( ).trim( ) ) ? proposal.getLocalisationArdt( ) : "whole city" // TODO :
@@ -206,7 +206,7 @@ public class SolrProposalIndexer implements SolrIndexer
         item.setXmlContent( "" );
         UrlItem url = new UrlItem( SolrIndexerService.getBaseUrl( ) );
         url.addParameter( PARAMETER_XPAGE, XPAGE_PROPOSAL );
-        url.addParameter( PARAMETER_CODE_CAMPAGNE, proposal.getCodeCampagne( ) );
+        url.addParameter( PARAMETER_CODE_CAMPAIGN, proposal.getCodeCampaign( ) );
         url.addParameter( PARAMETER_CODE_PROPOSAL, proposal.getCodeProposal( ) );
 
         // Date Hierarchy

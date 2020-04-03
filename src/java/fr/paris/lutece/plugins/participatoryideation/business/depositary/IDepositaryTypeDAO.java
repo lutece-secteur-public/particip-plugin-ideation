@@ -39,35 +39,35 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * IDepositaireTypeDAO Interface
+ * IDepositaryTypeDAO Interface
  */
-public interface IDepositaireTypeDAO
+public interface IDepositaryTypeDAO
 {
     /**
      * Insert a new record in the table.
      * 
-     * @param depositaireType
-     *            instance of the DepositaireType object to insert
+     * @param depositaryType
+     *            instance of the DepositaryType object to insert
      * @param plugin
      *            the Plugin
      */
-    void insert( DepositaireType depositaireType, Plugin plugin );
+    void insert( DepositaryType depositaryType, Plugin plugin );
 
     /**
      * Update the record in the table
      * 
-     * @param depositaireType
-     *            the reference of the DepositaireType
+     * @param depositaryType
+     *            the reference of the DepositaryType
      * @param plugin
      *            the Plugin
      */
-    void store( DepositaireType depositaireType, Plugin plugin );
+    void store( DepositaryType depositaryType, Plugin plugin );
 
     /**
      * Delete a record from the table
      * 
      * @param nKey
-     *            The identifier of the DepositaireType to delete
+     *            The identifier of the DepositaryType to delete
      * @param plugin
      *            the Plugin
      */
@@ -80,58 +80,58 @@ public interface IDepositaireTypeDAO
      * Load the data from the table
      * 
      * @param nKey
-     *            The identifier of the depositaireType
+     *            The identifier of the depositaryType
      * @param plugin
      *            the Plugin
-     * @return The instance of the depositaireType
+     * @return The instance of the depositaryType
      */
-    DepositaireType load( int nKey, Plugin plugin );
+    DepositaryType load( int nKey, Plugin plugin );
 
     /**
-     * Load the data of all the depositaireType objects and returns them as a collection
+     * Load the data of all the depositaryType objects and returns them as a collection
      * 
      * @param plugin
      *            the Plugin
-     * @return The collection which contains the data of all the depositaireType objects
+     * @return The collection which contains the data of all the depositaryType objects
      */
-    Collection<DepositaireType> selectDepositaireTypesList( Plugin plugin );
+    Collection<DepositaryType> selectDepositaryTypesList( Plugin plugin );
 
     /**
-     * Load the id of all the depositaireType objects and returns them as a collection
+     * Load the id of all the depositaryType objects and returns them as a collection
      * 
      * @param plugin
      *            the Plugin
-     * @return The collection which contains the id of all the depositaireType objects
+     * @return The collection which contains the id of all the depositaryType objects
      */
-    Collection<Integer> selectIdDepositaireTypesList( Plugin plugin );
+    Collection<Integer> selectIdDepositaryTypesList( Plugin plugin );
 
     /**
-     * Load the data of all the depositaireType objects for campagne and returns them as a collection
+     * Load the data of all the depositaryType objects for campaign and returns them as a collection
      * 
      * @param plugin
      *            the Plugin
-     * @return The collection which contains the data of all the depositaireType objects
+     * @return The collection which contains the data of all the depositaryType objects
      */
-    Collection<DepositaireType> selectDepositaireTypesListByCampagne( String strCodeCampagne, Plugin plugin );
+    Collection<DepositaryType> selectDepositaryTypesListByCampaign( String strCodeCampaign, Plugin plugin );
 
     /**
      * Load the data from the table
      * 
      * @param strCode
-     *            The depositaire type code
+     *            The depositary type code
      * @param plugin
      *            the Plugin
-     * @return The instance of the depositaireType
+     * @return The instance of the depositaryType
      */
-    DepositaireType load( String strCode, Plugin plugin );
+    DepositaryType load( String strCode, Plugin plugin );
 
     /**
-     * Load the data of all the depositaireType objects mapped to a campagne and returns them as a map
+     * Load the data of all the depositaryType objects mapped to a campaign and returns them as a map
      * 
      * @param plugin
      *            the Plugin
-     * @return The collection which contains the data of all the depositaireType objects
+     * @return The collection which contains the data of all the depositaryType objects
      */
-    Map<String, List<DepositaireType>> selectDepositaireTypesMapByCampagne( Plugin plugin );
+    Map<String, List<DepositaryType>> selectDepositaryTypesMapByCampaign( Plugin plugin );
 
 }

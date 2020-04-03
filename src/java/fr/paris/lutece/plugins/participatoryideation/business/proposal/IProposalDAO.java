@@ -78,15 +78,15 @@ public interface IProposalDAO
     /**
      * Load the data from the table
      * 
-     * @param strCodeCampagne
-     *            The campagne code
+     * @param strCodeCampaign
+     *            The campaign code
      * @param nCodeProposal
      *            The proposal code
      * @param plugin
      *            the Plugin
      * @return The instance of the proposal
      */
-    Proposal loadByCodes( String strCodeCampagne, int nCodeProposal, Plugin plugin );
+    Proposal loadByCodes( String strCodeCampaign, int nCodeProposal, Plugin plugin );
 
     /**
      * Load the data of all the proposal objects and returns them as a collection

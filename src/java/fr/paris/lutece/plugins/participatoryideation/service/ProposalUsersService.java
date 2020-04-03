@@ -61,7 +61,7 @@ public class ProposalUsersService implements IProposalUsersService
     private static ICommentService _commentService;
     private static IResourceExtenderHistoryService _resourceHistoryService;
     public static final String EXTENDER_TYPE_CSV = "extender_type";
-    public static final String EXTENDER_VALUE_DEPOSITAIRE_CSV = "depositaire";
+    public static final String EXTENDER_VALUE_DEPOSITARY_CSV = "depositary";
 
     /**
      * Get the comment service
@@ -218,7 +218,7 @@ public class ProposalUsersService implements IProposalUsersService
             {
                 usersList.add( proposal.getLuteceUserName( ) );
             }
-            infosList.addAll( getValuesFromUsers( proposal, usersList, prefKeysList, EXTENDER_VALUE_DEPOSITAIRE_CSV ) );
+            infosList.addAll( getValuesFromUsers( proposal, usersList, prefKeysList, EXTENDER_VALUE_DEPOSITARY_CSV ) );
 
             usersList = getCommentators( proposalId );
             infosList.addAll( getValuesFromUsers( proposal, usersList, prefKeysList, CommentResourceExtender.EXTENDER_TYPE_COMMENT ) );
@@ -275,7 +275,7 @@ public class ProposalUsersService implements IProposalUsersService
      * @param userId
      * @return
      */
-    public static boolean isDepositaire( int nId_Proposal, String userId )
+    public static boolean isDepositary( int nId_Proposal, String userId )
     {
         Proposal proposal = ProposalHome.findByPrimaryKey( nId_Proposal );
 

@@ -39,12 +39,12 @@
         <div class="row">
         <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
             <div class="form-group">
-                <label for="filter_code_campagne">Campaign :</label>
-                <select id="filter_code_campagne" name="filter_code_campagne" class="form-control input-xs">
-                <option value="" <#if !filter_code_campagne??>selected="selected"</#if><option>
+                <label for="filter_code_campaign">Campaign :</label>
+                <select id="filter_code_campaign" name="filter_code_campaign" class="form-control input-xs">
+                <option value="" <#if !filter_code_campaign??>selected="selected"</#if><option>
                 <#list global_static?keys as key>
-	                <#assign campaign = global_static[key].campagne>
-	                <option value="${campaign.code}" <#if filter_code_campagne?? && campaign.code==filter_code_campagne> selected="selected"</#if>>${campaign.name}</option>
+	                <#assign campaign = global_static[key].campaign>
+	                <option value="${campaign.code}" <#if filter_code_campaign?? && campaign.code==filter_code_campaign> selected="selected"</#if>>${campaign.name}</option>
                 </#list>
                 </select>
             </div>
@@ -149,13 +149,13 @@
             <input type="hidden" id="id" name="id"/>
             <th>#i18n{participatoryideation.manage_proposals.columnCreationTimestamp}</th>
             <th>#i18n{participatoryideation.manage_proposals.columnReference}</th>
-            <th>#i18n{participatoryideation.manage_proposals.columnCampagne}</th>
+            <th>#i18n{participatoryideation.manage_proposals.columnCampaign}</th>
             <th>#i18n{participatoryideation.manage_proposals.columnTheme}</th>
             <th>#i18n{participatoryideation.manage_proposals.columnTitre}</th>
             <th>#i18n{participatoryideation.manage_proposals.columnLocalisationType}</th>
             <th>#i18n{participatoryideation.manage_proposals.columnLocalisationArdt}</th>
             <th>#i18n{participatoryideation.manage_proposals.columnAdress}</th>
-            <th>#i18n{participatoryideation.manage_proposals.columnDepositaireType}</th>
+            <th>#i18n{participatoryideation.manage_proposals.columnDepositaryType}</th>
             <th>#i18n{participatoryideation.manage_proposals.columnQpvQva}</th>
             <th>#i18n{participatoryideation.manage_proposals.columnParents}</th>
             <th>#i18n{participatoryideation.manage_proposals.columnChilds}</th>
@@ -177,11 +177,11 @@
                 ${proposal.reference}
             </td>
             <td>
-                ${(global_static[proposal.codeCampagne].campagne.title)!proposal.codeCampagne}
+                ${(global_static[proposal.codeCampaign].campaign.title)!proposal.codeCampaign}
             </td>
             <td>
                 <#if (proposal.codeTheme)??>
-                <#assign theme_title = (global_static[proposal.codeCampagne].themes_map[proposal.codeTheme].title)!proposal.codeTheme>
+                <#assign theme_title = (global_static[proposal.codeCampaign].themes_map[proposal.codeTheme].title)!proposal.codeTheme>
                 </#if>
                 ${theme_title!''}
             </td>
@@ -198,10 +198,10 @@
                 ${proposal.adress!''}
             </td>
             <td>
-                <#if (proposal.depositaireType)??>
-                <#assign depositaire_type_libelle = (global_static[proposal.codeCampagne].depositaires_types_map[proposal.depositaireType].libelle)!proposal.depositaireType>
+                <#if (proposal.depositaryType)??>
+                <#assign depositary_type_libelle = (global_static[proposal.codeCampaign].depositaries_types_map[proposal.depositaryType].libelle)!proposal.depositaryType>
                 </#if>
-                ${depositaire_type_libelle!''}
+                ${depositary_type_libelle!''}
             </td>
             <td>
                 <#if proposal.typeQpvQva??>${(qpvqva_map[proposal.typeQpvQva])!proposal.typeQpvQva}<#if proposal.libelleQpvQva??> : ${proposal.libelleQpvQva!}</#if></#if>

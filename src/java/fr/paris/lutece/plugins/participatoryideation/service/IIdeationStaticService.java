@@ -39,17 +39,17 @@ public interface IIdeationStaticService
 {
 
     /**
-     * Fill the model with commons objects used in templates for this campagne
+     * Fill the model with commons objects used in templates for this campaign
      * 
      * @param model
      *            The model
-     * @param strCampagneCode
-     *            The CampagneCode
+     * @param strCampaignCode
+     *            The CampaignCode
      */
-    public void fillCampaignStaticContent( Map<String, Object> model, String strCampagneCode );
+    public void fillCampaignStaticContent( Map<String, Object> model, String strCampaignCode );
 
     /**
-     * Fill the model with commons objects used in templates for all campagnes
+     * Fill the model with commons objects used in templates for all campaigns
      * 
      * @param model
      *            The model

@@ -33,15 +33,15 @@
  */
 package fr.paris.lutece.plugins.participatoryideation.business;
 
-import fr.paris.lutece.plugins.participatoryideation.business.depositary.DepositaireType;
-import fr.paris.lutece.plugins.participatoryideation.business.depositary.DepositaireTypeHome;
+import fr.paris.lutece.plugins.participatoryideation.business.depositary.DepositaryType;
+import fr.paris.lutece.plugins.participatoryideation.business.depositary.DepositaryTypeHome;
 import fr.paris.lutece.test.LuteceTestCase;
 import fr.paris.lutece.util.ReferenceList;
 
 /**
- * DepositaireTypeTest
+ * DepositaryTypeTest
  */
-public class DepositaireTypeHomeTest extends LuteceTestCase
+public class DepositaryTypeHomeTest extends LuteceTestCase
 {
     private final static String CODE = "0";
     private final static String LIBELLE = "Libelle";
@@ -53,31 +53,31 @@ public class DepositaireTypeHomeTest extends LuteceTestCase
         REFERENCE_LIST.addItem( "123", "abc" );
 
         // Create an object
-        DepositaireType instance = new DepositaireType( );
+        DepositaryType instance = new DepositaryType( );
         instance.setCode( CODE );
         instance.setLibelle( LIBELLE );
         instance.setCodeComplementType( CODE_COMPLEMENT );
         instance.setValues( REFERENCE_LIST );
-        DepositaireTypeHome.create( instance );
+        DepositaryTypeHome.create( instance );
 
         // Test findByCode method
-        DepositaireType storedInstance = DepositaireTypeHome.findByCode( CODE );
+        DepositaryType storedInstance = DepositaryTypeHome.findByCode( CODE );
         assertTrue( instanceEquals( instance, storedInstance ) );
 
         // Test findBy method
-        storedInstance = DepositaireTypeHome.findByPrimaryKey( instance.getId( ) );
+        storedInstance = DepositaryTypeHome.findByPrimaryKey( instance.getId( ) );
         assertTrue( instanceEquals( instance, storedInstance ) );
         assertNull( storedInstance.getValues( ) );
 
         // List test
-        DepositaireTypeHome.getDepositaireTypesList( );
+        DepositaryTypeHome.getDepositaryTypesList( );
 
         // Delete test
-        DepositaireTypeHome.remove( instance.getId( ) );
+        DepositaryTypeHome.remove( instance.getId( ) );
 
     }
 
-    private boolean instanceEquals( DepositaireType instance1, DepositaireType instance2 )
+    private boolean instanceEquals( DepositaryType instance1, DepositaryType instance2 )
     {
         if ( !instance1.getCode( ).equals( instance2.getCode( ) ) )
         {

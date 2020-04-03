@@ -43,7 +43,7 @@ import fr.paris.lutece.test.LuteceTestCase;
 import fr.paris.lutece.util.ReferenceList;
 
 /**
- * DepositaireTypeTest
+ * DepositaryTypeTest
  */
 public class LinkHomeTest extends LuteceTestCase
 {
@@ -72,37 +72,37 @@ public class LinkHomeTest extends LuteceTestCase
         // *********************************************************************************************
 
         Proposal proposalParent = ProposalHomeTest.getMockProposalInstance( );
-        proposalParent.setCodeCampagne( PARENT_CAMPAIGN );
+        proposalParent.setCodeCampaign( PARENT_CAMPAIGN );
         proposalParent.setCodeProposal( PARENT_CODE_ID );
         proposalParent.setTitre( PARENT_TITLE );
         ProposalHome.create( proposalParent );
 
         Proposal proposalChild = ProposalHomeTest.getMockProposalInstance( );
-        proposalChild.setCodeCampagne( CHILD_CAMPAIGN );
+        proposalChild.setCodeCampaign( CHILD_CAMPAIGN );
         proposalChild.setCodeProposal( CHILD_CODE_ID );
         proposalChild.setTitre( CHILD_TITLE );
         ProposalHome.create( proposalChild );
 
         Proposal proposalParent2 = ProposalHomeTest.getMockProposalInstance( );
-        proposalParent2.setCodeCampagne( PARENT_CAMPAIGN_2 );
+        proposalParent2.setCodeCampaign( PARENT_CAMPAIGN_2 );
         proposalParent2.setCodeProposal( PARENT_CODE_ID_2 );
         proposalParent2.setTitre( PARENT_TITLE_2 );
         ProposalHome.create( proposalParent2 );
 
         Proposal proposalChild2 = ProposalHomeTest.getMockProposalInstance( );
-        proposalChild2.setCodeCampagne( CHILD_CAMPAIGN_2 );
+        proposalChild2.setCodeCampaign( CHILD_CAMPAIGN_2 );
         proposalChild2.setCodeProposal( CHILD_CODE_ID_2 );
         proposalChild2.setTitre( CHILD_TITLE_2 );
         ProposalHome.create( proposalChild2 );
 
         Link link = new Link( );
 
-        link.setChildCodeCampagne( CHILD_CAMPAIGN );
+        link.setChildCodeCampaign( CHILD_CAMPAIGN );
         link.setChildId( proposalChild.getId( ) );
         link.setChildCodeProposal( CHILD_CODE_ID );
         link.setChildTitle( CHILD_TITLE );
 
-        link.setParentCodeCampagne( PARENT_CAMPAIGN );
+        link.setParentCodeCampaign( PARENT_CAMPAIGN );
         link.setParentId( proposalParent.getId( ) );
         link.setParentCodeProposal( PARENT_CODE_ID );
         link.setParentTitle( PARENT_TITLE );
@@ -126,12 +126,12 @@ public class LinkHomeTest extends LuteceTestCase
         assertEquals( link, storedLink );
 
         // Test update method
-        link.setChildCodeCampagne( CHILD_CAMPAIGN_2 );
+        link.setChildCodeCampaign( CHILD_CAMPAIGN_2 );
         link.setChildId( proposalChild2.getId( ) );
         link.setChildCodeProposal( CHILD_CODE_ID_2 );
         link.setChildTitle( CHILD_TITLE_2 );
 
-        link.setParentCodeCampagne( PARENT_CAMPAIGN_2 );
+        link.setParentCodeCampaign( PARENT_CAMPAIGN_2 );
         link.setParentId( proposalParent2.getId( ) );
         link.setParentCodeProposal( PARENT_CODE_ID_2 );
         link.setParentTitle( PARENT_TITLE_2 );
@@ -157,14 +157,14 @@ public class LinkHomeTest extends LuteceTestCase
     {
         assertEquals( link1.getId( ), link2.getId( ) );
 
-        assertEquals( link1.getChildCodeCampagne( ), link2.getChildCodeCampagne( ) );
+        assertEquals( link1.getChildCodeCampaign( ), link2.getChildCodeCampaign( ) );
 
         assertEquals( link1.getChildId( ), link2.getChildId( ) );
 
         assertEquals( link1.getChildCodeProposal( ), link2.getChildCodeProposal( ) );
         assertEquals( link1.getChildTitle( ), link2.getChildTitle( ) );
 
-        assertEquals( link1.getParentCodeCampagne( ), link2.getParentCodeCampagne( ) );
+        assertEquals( link1.getParentCodeCampaign( ), link2.getParentCodeCampaign( ) );
         assertEquals( link1.getParentId( ), link2.getParentId( ) );
         assertEquals( link1.getParentCodeProposal( ), link2.getParentCodeProposal( ) );
         assertEquals( link1.getParentTitle( ), link2.getParentTitle( ) );

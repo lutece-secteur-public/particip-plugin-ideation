@@ -48,7 +48,7 @@ import javax.servlet.http.HttpServletRequest;
 public abstract class ManageProposalLinksJspBean extends MVCAdminJspBean
 {
     // Right
-    public static final String RIGHT_MANAGEPROPOSALLINKS = "IDEATION_LINKS_MANAGEMENT";
+    public static final String RIGHT_MANAGEPROPOSALLINKS = "PARTICIPATORYIDEATION_LINKS_MANAGEMENT";
 
     private static final String PROPERTY_DEFAULT_LIST_ITEM_PER_PAGE = "participatoryideation.listItems.itemsPerPage";
     private static final String PARAMETER_PAGE_INDEX = "page_index";

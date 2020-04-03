@@ -88,7 +88,7 @@ public interface IProposalService
     /**
      * Returns a Set containing guid of depositaries, from proposition ids.
      */
-    public Set<String> getUniqueUserGuidsProposalsDepositaires( List<Integer> propIds );
+    public Set<String> getUniqueUserGuidsProposalsDepositaries( List<Integer> propIds );
 
     /**
      * Returns a Set containing guid of followers, from proposition ids.

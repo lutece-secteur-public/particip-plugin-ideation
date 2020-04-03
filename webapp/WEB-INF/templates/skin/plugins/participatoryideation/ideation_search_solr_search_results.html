@@ -64,10 +64,10 @@
 <#-- Retreiving current facets filters -->
 <#assign arr= "">
 <#assign facet_theme= "">
-<#assign facet_campagne= "">
+<#assign facet_campaign= "">
 <#assign facet_handicap= "">
 <#assign facet_qpop= "">
-<#assign facet_depositaire_type= "">
+<#assign facet_depositary_type= "">
 <#assign facet_status="">
 <#assign monTri ="">
 <#assign ordre_aleatoire= "true">
@@ -82,10 +82,10 @@
 		<!-- <input type="hidden" name="fq" value="${facet}" /> -->
 		<#if     facet?starts_with("localisation_text:")>				<#assign arr = facet?split(":")?last>
 		<#elseif facet?starts_with("code_theme_string:")>				<#assign facet_theme = facet?split(":")?last>
-		<#elseif facet?starts_with("campagne_text:")>					<#assign facet_campagne = facet?split(":")?last>
+		<#elseif facet?starts_with("campaign_text:")>					<#assign facet_campaign = facet?split(":")?last>
 		<#elseif facet?starts_with("handicap_string")>					<#assign facet_handicap = facet?split(":")?last>
 		<#elseif facet?starts_with("type_qpvqva_string")>				<#assign facet_qpop = facet?split(":")?last>
-		<#elseif facet?starts_with("code_depositaire_type_string:")>	<#assign facet_depositaire_type = facet?split(":")?last>
+		<#elseif facet?starts_with("code_depositary_type_string:")>	<#assign facet_depositary_type = facet?split(":")?last>
 		<#elseif facet?starts_with("statut_publique_project_text:")>	<#assign facet_status = facet?split(":")?last>
 		</#if>
 	</#list>
@@ -94,10 +94,10 @@
 <#--
 	arr = <strong>${arr!'?'}</strong><br>
 	facet_theme = <strong>${facet_theme!'?'}</strong><br>
-	facet_campagne = <strong>${facet_campagne!'?'}</strong><br>
+	facet_campaign = <strong>${facet_campaign!'?'}</strong><br>
 	facet_handicap = <strong>${facet_handicap!'?'}</strong><br>
 	facet_qpop = <strong>${facet_qpop!'?'}</strong><br>
-	facet_depositaire_type = <strong>${facet_depositaire_type!'?'}</strong><br>
+	facet_depositary_type = <strong>${facet_depositary_type!'?'}</strong><br>
 	facet_status = <strong>${facet_status!'?'}</strong><br>
 -->
 
@@ -142,9 +142,9 @@
 
 						<div class="col-md-3 col-xs-12">
 							<#-- Campaign-based search -->
-							<label class="select" for="campagne">
-								<select name="fq" id="campagne" onChange="searchArrond()" class="form-control <#if facet_campagne != "">selected</#if>">
-									<#if facet_campagne="">
+							<label class="select" for="campaign">
+								<select name="fq" id="campaign" onChange="searchArrond()" class="form-control <#if facet_campaign != "">selected</#if>">
+									<#if facet_campaign="">
 										<option value="" selected="selected">#i18n{participatoryideation.search.form.field.campaign.label}</option>
 									<#else>
 										<option value="" >#i18n{participatoryideation.search.form.field.campaign.reset}</option>
@@ -154,13 +154,13 @@
 									
 									<#if facets??>
 										<#list facets as facet>
-											<#if facet.name == "campagne_text">
+											<#if facet.name == "campaign_text">
 												<#list facet.values?sort as value>
 													<#if value.count != 0>
-														<#if facet_campagne == value.name>
-															<option value="campagne_text:${(value.name)!''}" selected="selected" >${(value.name)!''} (${(value.count)!''})</option>
+														<#if facet_campaign == value.name>
+															<option value="campaign_text:${(value.name)!''}" selected="selected" >${(value.name)!''} (${(value.count)!''})</option>
 														<#else>
-															<option value="campagne_text:${(value.name)!''}" >${(value.name)!''} (${(value.count)!''})</option>
+															<option value="campaign_text:${(value.name)!''}" >${(value.name)!''} (${(value.count)!''})</option>
 														</#if>
 													</#if>
 												</#list>
@@ -236,9 +236,9 @@
 						
 						<div class="col-md-3 col-xs-12">
 							<#-- SubmitterType-based search -->
-							<label class="select" for="depositaire_type">
-								<select name="fq" id="depositaire_type" onChange="searchArrond()" class="form-control <#if facet_depositaire_type != "">selected</#if>">
-									<#if facet_depositaire_type="">
+							<label class="select" for="depositary_type">
+								<select name="fq" id="depositary_type" onChange="searchArrond()" class="form-control <#if facet_depositary_type != "">selected</#if>">
+									<#if facet_depositary_type="">
 										<option value="" selected="selected">#i18n{participatoryideation.search.form.field.submitter_type.label}</option>
 									<#else>
 										<option value="">#i18n{participatoryideation.search.form.field.submitter_type.reset}</option>
@@ -248,13 +248,13 @@
 									
 									<#if facets??>
 										<#list facets as facet>
-											<#if facet.name == "code_depositaire_type_string">
+											<#if facet.name == "code_depositary_type_string">
 												<#list facet.values?sort as value>
 													<#if value.count != 0>
-														<#if facet_depositaire_type == value.name>
-															<option value="code_depositaire_type_string:${(value.name)!''}" selected="selected" >${(value.name)!''} (${(value.count)!''})</option>
+														<#if facet_depositary_type == value.name>
+															<option value="code_depositary_type_string:${(value.name)!''}" selected="selected" >${(value.name)!''} (${(value.count)!''})</option>
 														<#else>
-															<option value="code_depositaire_type_string:${(value.name)!''}" >${(value.name)!''} (${(value.count)!''})</option>
+															<option value="code_depositary_type_string:${(value.name)!''}" >${(value.name)!''} (${(value.count)!''})</option>
 														</#if>
 													</#if>
 												</#list>

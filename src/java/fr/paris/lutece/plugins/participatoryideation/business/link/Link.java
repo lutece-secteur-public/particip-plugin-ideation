@@ -48,8 +48,8 @@ public class Link implements Serializable
     private int _parentId;
     private int _childId;
 
-    private String _parentCodeCampagne;
-    private String _childCodeCampagne;
+    private String _parentCodeCampaign;
+    private String _childCodeCampaign;
 
     private int _parentCodeProposal;
     private int _childCodeProposal;
@@ -87,24 +87,24 @@ public class Link implements Serializable
         this._childId = _childId;
     }
 
-    public String getParentCodeCampagne( )
+    public String getParentCodeCampaign( )
     {
-        return _parentCodeCampagne;
+        return _parentCodeCampaign;
     }
 
-    public void setParentCodeCampagne( String _parentCodeCampagne )
+    public void setParentCodeCampaign( String _parentCodeCampaign )
     {
-        this._parentCodeCampagne = _parentCodeCampagne;
+        this._parentCodeCampaign = _parentCodeCampaign;
     }
 
-    public String getChildCodeCampagne( )
+    public String getChildCodeCampaign( )
     {
-        return _childCodeCampagne;
+        return _childCodeCampaign;
     }
 
-    public void setChildCodeCampagne( String _childCodeCampagne )
+    public void setChildCodeCampaign( String _childCodeCampaign )
     {
-        this._childCodeCampagne = _childCodeCampagne;
+        this._childCodeCampaign = _childCodeCampaign;
     }
 
     public int getParentCodeProposal( )

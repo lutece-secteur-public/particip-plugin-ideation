@@ -39,8 +39,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import fr.paris.lutece.plugins.participatoryideation.business.depositary.DepositaireType;
-import fr.paris.lutece.plugins.participatoryideation.business.depositary.DepositaireTypeHome;
+import fr.paris.lutece.plugins.participatoryideation.business.depositary.DepositaryType;
+import fr.paris.lutece.plugins.participatoryideation.business.depositary.DepositaryTypeHome;
 import fr.paris.lutece.plugins.participatoryideation.business.proposal.Proposal;
 import fr.paris.lutece.plugins.participatoryideation.service.campaign.IdeationCampaignService;
 import fr.paris.lutece.portal.service.cache.AbstractCacheableService;
@@ -59,11 +59,11 @@ public class IdeationStaticService extends AbstractCacheableService implements I
     private static final String SERVICE_NAME = "Ideation Static Cache";
 
     private static final String MARK_GLOBAL_STATIC = "global_static";
-    private static final String MARK_CAMPAGNE_STATIC = "campagne_static";
-    private static final String MARK_LIST_CAMPAGNE = "list_campagne";
+    private static final String MARK_CAMPAIGN_STATIC = "campaign_static";
+    private static final String MARK_LIST_CAMPAIGN = "list_campaign";
     private static final String MARK_LIST_STATUS_STATIC = "status_static_list";
 
-    private static final String MARK_CAMPAGNE = "campagne";
+    private static final String MARK_CAMPAIGN = "campaign";
 
     private static final String MARK_AREA_LIST = "area_list";
 
@@ -78,9 +78,9 @@ public class IdeationStaticService extends AbstractCacheableService implements I
     private static final String MARK_LOCALISATION_TYPE_LIST = "type_localisation_list";
     private static final String MARK_LOCALISATION_TYPE_MAP = "type_localisation_map";
 
-    private static final String MARK_DEPOSITAIRES_TYPES_LIST = "depositaire_types_list";
-    private static final String MARK_DEPOSITAIRES_TYPES_MAP = "depositaires_types_map";
-    private static final String MARK_DEPOSITAIRES_TYPES_LIST_VALUES_MAP = "depositaires_types_list_values_map";
+    private static final String MARK_DEPOSITARIES_TYPES_LIST = "depositary_types_list";
+    private static final String MARK_DEPOSITARIES_TYPES_MAP = "depositaries_types_map";
+    private static final String MARK_DEPOSITARIES_TYPES_LIST_VALUES_MAP = "depositaries_types_list_values_map";
 
     public static final String CACHE_KEY = "[ideationStatic]";
 
@@ -127,7 +127,7 @@ public class IdeationStaticService extends AbstractCacheableService implements I
         model.put( MARK_LOCALISATION_TYPE_MAP, ProposalService.getInstance( ).getTypeLocalisationMap( ) );
 
         // Add list of campaigns
-        model.put( MARK_LIST_CAMPAGNE, IdeationCampaignService.getInstance( ).getCampaigns( ) );
+        model.put( MARK_LIST_CAMPAIGN, IdeationCampaignService.getInstance( ).getCampaigns( ) );
 
         // Add list of proposal status
         if ( WorkflowService.getInstance( ).isAvailable( ) )
@@ -152,7 +152,7 @@ public class IdeationStaticService extends AbstractCacheableService implements I
         {
             cached = putAllStaticContentInCache( );
         }
-        model.put( MARK_CAMPAGNE_STATIC, cached.get( strCampaignCode ) );
+        model.put( MARK_CAMPAIGN_STATIC, cached.get( strCampaignCode ) );
     }
 
     // *********************************************************************************************
@@ -197,45 +197,45 @@ public class IdeationStaticService extends AbstractCacheableService implements I
         Map<String, Object> content = new HashMap<String, Object>( );
 
         // For each campaign, add data about submitters
-        Map<String, List<DepositaireType>> mapDepositairesTypes = DepositaireTypeHome.getDepositaireTypesMapByCampagne( );
+        Map<String, List<DepositaryType>> mapDepositariesTypes = DepositaryTypeHome.getDepositaryTypesMapByCampaign( );
         ReferenceList listCampaign = IdeationCampaignService.getInstance( ).getCampaigns( );
         for ( ReferenceItem campaign : listCampaign )
         {
-            Map<String, Object> campagneContent = new HashMap<String, Object>( );
+            Map<String, Object> campaignContent = new HashMap<String, Object>( );
 
             // Data about campaign
-            campagneContent.put( MARK_CAMPAGNE, campaign );
+            campaignContent.put( MARK_CAMPAIGN, campaign );
 
             // Add themes of the campaign
-            campagneContent.put( MARK_THEME_LIST, IdeationCampaignService.getInstance( ).getCampaignThemes( campaign.getCode( ) ) );
+            campaignContent.put( MARK_THEME_LIST, IdeationCampaignService.getInstance( ).getCampaignThemes( campaign.getCode( ) ) );
 
             // Add areas of the campaign
-            campagneContent.put( MARK_AREA_LIST, IdeationCampaignService.getInstance( ).getCampaignAllAreas( campaign.getCode( ) ) );
+            campaignContent.put( MARK_AREA_LIST, IdeationCampaignService.getInstance( ).getCampaignAllAreas( campaign.getCode( ) ) );
 
             // Types of submitter of the campaign
-            campagneContent.put( MARK_DEPOSITAIRES_TYPES_LIST, mapDepositairesTypes.get( campaign.getCode( ) ) );
-            Map<String, DepositaireType> mapDepositairesTypesByCode = new HashMap<String, DepositaireType>( );
-            for ( DepositaireType depositaireType : mapDepositairesTypes.get( campaign.getCode( ) ) )
+            campaignContent.put( MARK_DEPOSITARIES_TYPES_LIST, mapDepositariesTypes.get( campaign.getCode( ) ) );
+            Map<String, DepositaryType> mapDepositariesTypesByCode = new HashMap<String, DepositaryType>( );
+            for ( DepositaryType depositaryType : mapDepositariesTypes.get( campaign.getCode( ) ) )
             {
-                mapDepositairesTypesByCode.put( depositaireType.getCode( ), depositaireType );
+                mapDepositariesTypesByCode.put( depositaryType.getCode( ), depositaryType );
             }
-            campagneContent.put( MARK_DEPOSITAIRES_TYPES_MAP, mapDepositairesTypesByCode );
+            campaignContent.put( MARK_DEPOSITARIES_TYPES_MAP, mapDepositariesTypesByCode );
 
             // Values of list-typed submitters of the campaign
-            Map<String, String> mapDepositairesTypesListValuesByCode = new HashMap<String, String>( );
-            for ( DepositaireType depositaireType : mapDepositairesTypes.get( campaign.getCode( ) ) )
+            Map<String, String> mapDepositariesTypesListValuesByCode = new HashMap<String, String>( );
+            for ( DepositaryType depositaryType : mapDepositariesTypes.get( campaign.getCode( ) ) )
             {
-                if ( DepositaireType.CODE_COMPLEMENT_TYPE_LIST.equals( depositaireType.getCodeComplementType( ) ) )
+                if ( DepositaryType.CODE_COMPLEMENT_TYPE_LIST.equals( depositaryType.getCodeComplementType( ) ) )
                 {
-                    for ( ReferenceItem referenceItem : depositaireType.getValues( ) )
+                    for ( ReferenceItem referenceItem : depositaryType.getValues( ) )
                     {
-                        mapDepositairesTypesListValuesByCode.put( depositaireType.getCode( ) + "-" + referenceItem.getCode( ), referenceItem.getName( ) );
+                        mapDepositariesTypesListValuesByCode.put( depositaryType.getCode( ) + "-" + referenceItem.getCode( ), referenceItem.getName( ) );
                     }
                 }
             }
-            campagneContent.put( MARK_DEPOSITAIRES_TYPES_LIST_VALUES_MAP, mapDepositairesTypesListValuesByCode );
+            campaignContent.put( MARK_DEPOSITARIES_TYPES_LIST_VALUES_MAP, mapDepositariesTypesListValuesByCode );
 
-            content.put( campaign.getCode( ), campagneContent );
+            content.put( campaign.getCode( ), campaignContent );
         }
 
         putInCache( CACHE_KEY, content );
