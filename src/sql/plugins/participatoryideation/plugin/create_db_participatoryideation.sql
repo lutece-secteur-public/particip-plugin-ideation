@@ -14,7 +14,6 @@ CREATE TABLE IF NOT EXISTS participatoryideation_depositaries_complement_types (
   libelle varchar(255) NOT NULL,
   PRIMARY KEY (id_depositary_complement_type)
 );
-ALTER TABLE participatoryideation_depositaries_complement_types ADD CONSTRAINT uc_code_depositary_complement_type UNIQUE (code_depositary_complement_type);
 
 CREATE TABLE IF NOT EXISTS participatoryideation_depositaries_types (
   id_depositary_type int NOT NULL,
@@ -23,8 +22,6 @@ CREATE TABLE IF NOT EXISTS participatoryideation_depositaries_types (
   code_complement_type varchar(50) NOT NULL,
   PRIMARY KEY (id_depositary_type)
 );
-ALTER TABLE participatoryideation_depositaries_types ADD CONSTRAINT uc_code_depositary_type UNIQUE (code_depositary_type);
-ALTER TABLE participatoryideation_depositaries_types ADD CONSTRAINT fk_participatoryideation_depositaries_types_complement  FOREIGN KEY (code_complement_type) REFERENCES participatoryideation_depositaries_complement_types (code_depositary_complement_type);
 
 CREATE TABLE IF NOT EXISTS participatoryideation_depositaries_types_values (
   id_depositary_type_value int NOT NULL,
@@ -33,8 +30,6 @@ CREATE TABLE IF NOT EXISTS participatoryideation_depositaries_types_values (
   libelle varchar(255) NOT NULL,
   PRIMARY KEY (id_depositary_type_value)
 );
-ALTER TABLE participatoryideation_depositaries_types_values ADD CONSTRAINT uc_code_depositary_type_code UNIQUE (code_depositary_type,code);
-ALTER TABLE participatoryideation_depositaries_types_values ADD CONSTRAINT fk_ideation_depositary_type_values_depositary  FOREIGN KEY (code_depositary_type) REFERENCES participatoryideation_depositaries_types (code_depositary_type);
 
 CREATE TABLE IF NOT EXISTS participatoryideation_depositaries (
   id_depositary int NOT NULL,
@@ -81,7 +76,6 @@ CREATE TABLE IF NOT EXISTS participatoryideation_proposals (
   handicap_complement varchar(255) NOT NULL,
   PRIMARY KEY (id_proposal)
 );
-ALTER TABLE participatoryideation_proposals ADD CONSTRAINT uc_code_campaign_code_proposal UNIQUE (code_campaign,code_proposal);
 
 CREATE TABLE IF NOT EXISTS participatoryideation_proposals_files (
   id_proposal_file int NOT NULL,
@@ -90,7 +84,6 @@ CREATE TABLE IF NOT EXISTS participatoryideation_proposals_files (
   type varchar(50) NOT NULL,
   PRIMARY KEY (id_proposal_file)
 );
-ALTER TABLE participatoryideation_proposals_files ADD CONSTRAINT fk_participatoryideation_proposals_files_proposal  FOREIGN KEY (id_proposal) REFERENCES participatoryideation_proposals (id_proposal);
 CREATE INDEX participatoryideation_proposals_files_index_id_proposal ON participatoryideation_proposals_files ( id_proposal,type,id_file );
 CREATE INDEX participatoryideation_proposals_files_index_id_file ON participatoryideation_proposals_files ( id_file );
 
@@ -100,7 +93,6 @@ CREATE TABLE IF NOT EXISTS participatoryideation_proposals_links (
   id_proposal_child int NOT NULL,
   PRIMARY KEY (id_proposal_link)
 );
-ALTER TABLE participatoryideation_proposals_links ADD CONSTRAINT uc_id_proposal_child_id_proposal_parent UNIQUE (id_proposal_child,id_proposal_parent);
 CREATE INDEX participatoryideation_proposals_links_index_id_proposal_parent ON participatoryideation_proposals_links ( id_proposal_parent );
 
 CREATE TABLE IF NOT EXISTS task_change_proposal_status_cf (
