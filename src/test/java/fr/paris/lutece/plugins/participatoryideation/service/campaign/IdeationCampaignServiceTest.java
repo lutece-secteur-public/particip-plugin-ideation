@@ -35,7 +35,7 @@ package fr.paris.lutece.plugins.participatoryideation.service.campaign;
 
 import fr.paris.lutece.plugins.participatoryideation.service.campaign.IIdeationCampaignService;
 import fr.paris.lutece.plugins.participatoryideation.service.campaign.IdeationCampaignService;
-import fr.paris.lutece.plugins.participatoryideation.util.Constants;
+import fr.paris.lutece.plugins.participatoryideation.util.ParticipatoryIdeationConstants;
 import fr.paris.lutece.test.LuteceTestCase;
 
 /**
@@ -57,20 +57,20 @@ public class IdeationCampaignServiceTest extends LuteceTestCase
         assertEquals( "Ideation", instance.getCampaigns( ).iterator( ).next( ).getName( ) );
 
         // Methods about phases
-        assertEquals( true, instance.isAfterBeginning( Constants.IDEATION ) );
-        assertEquals( true, instance.isAfterBeginning( "123", Constants.IDEATION ) );
+        assertEquals( true, instance.isAfterBeginning( ParticipatoryIdeationConstants.IDEATION ) );
+        assertEquals( true, instance.isAfterBeginning( "123", ParticipatoryIdeationConstants.IDEATION ) );
 
-        assertEquals( false, instance.isAfterEnd( Constants.IDEATION ) );
-        assertEquals( false, instance.isAfterEnd( "123", Constants.IDEATION ) );
+        assertEquals( false, instance.isAfterEnd( ParticipatoryIdeationConstants.IDEATION ) );
+        assertEquals( false, instance.isAfterEnd( "123", ParticipatoryIdeationConstants.IDEATION ) );
 
-        assertEquals( false, instance.isBeforeBeginning( Constants.IDEATION ) );
-        assertEquals( false, instance.isBeforeBeginning( "123", Constants.IDEATION ) );
+        assertEquals( false, instance.isBeforeBeginning( ParticipatoryIdeationConstants.IDEATION ) );
+        assertEquals( false, instance.isBeforeBeginning( "123", ParticipatoryIdeationConstants.IDEATION ) );
 
-        assertEquals( true, instance.isBeforeEnd( Constants.IDEATION ) );
-        assertEquals( true, instance.isBeforeEnd( "123", Constants.IDEATION ) );
+        assertEquals( true, instance.isBeforeEnd( ParticipatoryIdeationConstants.IDEATION ) );
+        assertEquals( true, instance.isBeforeEnd( "123", ParticipatoryIdeationConstants.IDEATION ) );
 
-        assertEquals( true, instance.isDuring( Constants.IDEATION ) );
-        assertEquals( true, instance.isDuring( "123", Constants.IDEATION ) );
+        assertEquals( true, instance.isDuring( ParticipatoryIdeationConstants.IDEATION ) );
+        assertEquals( true, instance.isDuring( "123", ParticipatoryIdeationConstants.IDEATION ) );
 
         // Methods about areas
         assertEquals( 1, instance.getCampaignAllAreas( ).size( ) );

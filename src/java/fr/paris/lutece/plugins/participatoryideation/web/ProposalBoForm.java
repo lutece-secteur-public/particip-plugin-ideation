@@ -48,7 +48,7 @@ public class ProposalBoForm
     private String _strTitre;
     private String _strDescription;
     private String _strCout;
-    private String _strLocalisationArdt;
+    private String _strLocationArdt;
 
     private String _strTypeQpvQva;
     private String _strIdQpvQva;
@@ -255,14 +255,14 @@ public class ProposalBoForm
         this._strCout = _strCout;
     }
 
-    public String getLocalisationArdt( )
+    public String getLocationArdt( )
     {
-        return _strLocalisationArdt;
+        return _strLocationArdt;
     }
 
-    public void setLocalisationArdt( String _strLocalisationArdt )
+    public void setLocationArdt( String _strLocationArdt )
     {
-        this._strLocalisationArdt = _strLocalisationArdt;
+        this._strLocationArdt = _strLocationArdt;
     }
 
 }

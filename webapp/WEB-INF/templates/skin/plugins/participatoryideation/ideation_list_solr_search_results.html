@@ -63,14 +63,14 @@
 									<span>${theme_libelle}</span>
 								</div>
 	
-								<#-- Localisation -->
+								<#-- Location -->
 								<div class="prop-card-loc">
 									<#if result.dynamicFields.status_string?? && (result.dynamicFields.status_string = "NONRETENU")>
 										<img src="images/local/skin/marker.png" class="img-responsive pull-left" alt="" title="">
 									<#else>
 										<img src="images/local/skin/marker-${theme_class}.png" class="img-responsive pull-left" alt="" title="">
 									</#if>
-									<#if result.dynamicFields?? ><p>&#160;${result.dynamicFields.localisation_text!''}</p></#if>
+									<#if result.dynamicFields?? ><p>&#160;${result.dynamicFields.location_text!''}</p></#if>
 								</div>
 								
 								<#-- Titre -->

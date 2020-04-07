@@ -58,7 +58,7 @@ import fr.paris.lutece.plugins.participatoryideation.business.proposal.ProposalS
 import fr.paris.lutece.plugins.participatoryideation.service.IdeationStaticService;
 import fr.paris.lutece.plugins.participatoryideation.service.ProposalService;
 import fr.paris.lutece.plugins.participatoryideation.service.campaign.IdeationCampaignService;
-import fr.paris.lutece.plugins.participatoryideation.util.Constants;
+import fr.paris.lutece.plugins.participatoryideation.util.ParticipatoryIdeationConstants;
 import fr.paris.lutece.portal.service.message.SiteMessage;
 import fr.paris.lutece.portal.service.message.SiteMessageException;
 import fr.paris.lutece.portal.service.message.SiteMessageService;
@@ -195,7 +195,7 @@ public class ProposalSubscriberXPage extends MVCApplication
 
         Proposal proposal = ProposalHome.findByPrimaryKey( nIdProposal );
 
-        if ( !IdeationCampaignService.getInstance( ).isDuring( proposal.getCodeCampaign( ), Constants.IDEATION ) )
+        if ( !IdeationCampaignService.getInstance( ).isDuring( proposal.getCodeCampaign( ), ParticipatoryIdeationConstants.IDEATION ) )
         {
             SiteMessageService.setMessage( request, MESSAGE_CAMPAIGN_IDEATION_CLOSED_DELETE, SiteMessage.TYPE_ERROR );
         }

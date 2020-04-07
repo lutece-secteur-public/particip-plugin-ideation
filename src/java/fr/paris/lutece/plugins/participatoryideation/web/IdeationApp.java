@@ -64,7 +64,7 @@ import fr.paris.lutece.plugins.participatoryideation.service.ProposalWSService;
 import fr.paris.lutece.plugins.participatoryideation.service.campaign.IdeationCampaignService;
 import fr.paris.lutece.plugins.participatoryideation.service.capgeo.QpvQvaService;
 import fr.paris.lutece.plugins.participatoryideation.service.myinfos.MyInfosService;
-import fr.paris.lutece.plugins.participatoryideation.util.Constants;
+import fr.paris.lutece.plugins.participatoryideation.util.ParticipatoryIdeationConstants;
 import fr.paris.lutece.plugins.participatoryideation.web.etape.FormEtapeApprox;
 import fr.paris.lutece.plugins.participatoryideation.web.etape.FormEtapeDescription;
 import fr.paris.lutece.plugins.participatoryideation.web.etape.FormEtapeLocation;
@@ -167,9 +167,9 @@ public class IdeationApp extends MVCApplication
     private static final String MARK_UPLOAD_IMGS = "imgs";
 
     private static final String MARK_RECAP_CODE_THEME = "recap_code_theme";
-    private static final String MARK_RECAP_LOCALISATION_TYPE = "recap_localisation_type";
-    private static final String MARK_RECAP_LOCALISATION_ARDT = "recap_localisation_ardt";
-    private static final String MARK_RECAP_LOCALISATION_ADRESS = "recap_localisation_adress";
+    private static final String MARK_RECAP_LOCATION_TYPE = "recap_location_type";
+    private static final String MARK_RECAP_LOCATION_ARDT = "recap_location_ardt";
+    private static final String MARK_RECAP_LOCATION_ADRESS = "recap_location_adress";
     private static final String MARK_RECAP_TITLE = "recap_title";
     private static final String MARK_RECAP_DEPOSITARY_TYPE = "recap_depositary_type";
     private static final String MARK_RECAP_DEPOSITARY = "recap_depositary";
@@ -204,8 +204,8 @@ public class IdeationApp extends MVCApplication
     private static final String MESSAGE_CAMPAIGN_IDEATION_CLOSED_SUBMIT = "participatoryideation.messages.campaign.ideation.closed.submit";
 
     private static final String SOLR_NEWPROJECTS_GEOLOC_FIELD = AppPropertiesService.getProperty( PROPERTY_NEWPROJECTS_GEOLOC_FIELD, "proposal_geoloc" );
-    private static final String SOLR_NEWPROJECTS_ARDT_FIELD = AppPropertiesService.getProperty( PROPERTY_NEWPROJECTS_ARDT_FIELD, "localisation_ardt_text" );
-    private static final String SOLR_OLDPROJECTS_ARDT_FIELD = AppPropertiesService.getProperty( PROPERTY_OLDPROJECTS_ARDT_FIELD, "localisation_text" );
+    private static final String SOLR_NEWPROJECTS_ARDT_FIELD = AppPropertiesService.getProperty( PROPERTY_NEWPROJECTS_ARDT_FIELD, "location_ardt_text" );
+    private static final String SOLR_OLDPROJECTS_ARDT_FIELD = AppPropertiesService.getProperty( PROPERTY_OLDPROJECTS_ARDT_FIELD, "location_text" );
     private static final String SOLR_NEWPROJECTS_TYPE = AppPropertiesService.getProperty( PROPERTY_NEWPROJECTS_TYPE, "proposal" );
 
     private static final String SOLR_PREVIOUS_CAMPAIGNS = "((type:proposal AND statut_publique_project_text:\"NONRETENU\") OR (type:\"PB Project\" AND statut_project_text:\"SUIVI\"))";
@@ -620,10 +620,10 @@ public class IdeationApp extends MVCApplication
                 listFQ.add( strGeofiltFq );
             }
         }
-        if ( _proposalCreate.getLocalisationArdt( ) != null )
+        if ( _proposalCreate.getLocationArdt( ) != null )
         {
-            String strArdtFQ = "(" + SOLR_NEWPROJECTS_ARDT_FIELD + ":" + _proposalCreate.getLocalisationArdt( ) + " OR " + SOLR_OLDPROJECTS_ARDT_FIELD + ":\""
-                    + getOldArdtText( _proposalCreate.getLocalisationArdt( ) ) + "\")";
+            String strArdtFQ = "(" + SOLR_NEWPROJECTS_ARDT_FIELD + ":" + _proposalCreate.getLocationArdt( ) + " OR " + SOLR_OLDPROJECTS_ARDT_FIELD + ":\""
+                    + getOldArdtText( _proposalCreate.getLocationArdt( ) ) + "\")";
             listFQ.add( strArdtFQ );
         }
         query.setFilterQueries( listFQ.toArray( new String [ listFQ.size( )] ) );
@@ -641,11 +641,11 @@ public class IdeationApp extends MVCApplication
             // - means that for 10km, the score is multiplied by 1/(0.25*10+0.75) = 0.30
             // So a match that is further away needs to be a better match according to solr's "edismax" score
             // From empirical tests, this means that a 0km match can match on 3 times less words than a 10km match.
-            // A match with a very close localisation (<1km) is better than a match without localisation which is in turn better
-            // than a match with a far localisation (>1km)
+            // A match with a very close location (<1km) is better than a match without location which is in turn better
+            // than a match with a far location (>1km)
             // Boost according to different fields depending on the type of the document..
             query.set( "boost", "product(if(termfreq(type,'proposal'), recip(geodist(proposal_geoloc," + solrLatLon
-                    + "),0.25,1,0.75), 1),if(termfreq(type,'PB Project'), recip(geodist(localisation_precise_geoloc," + solrLatLon + "),0.25,1,0.75), 1))" );
+                    + "),0.25,1,0.75), 1),if(termfreq(type,'PB Project'), recip(geodist(location_precise_geoloc," + solrLatLon + "),0.25,1,0.75), 1))" );
         }
         query.setIncludeScore( true );
 
@@ -717,12 +717,12 @@ public class IdeationApp extends MVCApplication
     }
 
     // These are in the old projects
-    private String getOldArdtText( String strLocalisationArdt )
+    private String getOldArdtText( String strLocationArdt )
     {
         // 7500X -> "Xe arrondissement"
         // 750XX -> "XXe arrondissement"
-        // return (Integer.parseInt(strLocalisationArdt) - 75000) + "e arrondissement" ;
-        return strLocalisationArdt;
+        // return (Integer.parseInt(strLocationArdt) - 75000) + "e arrondissement" ;
+        return strLocationArdt;
     }
 
     /**
@@ -1006,8 +1006,8 @@ public class IdeationApp extends MVCApplication
     private void createWorkflowResource( Proposal proposal, HttpServletRequest request )
     {
 
-        int idWorkflow = AppPropertiesService.getPropertyInt( Constants.PROPERTY_WORKFLOW_ID, -1 );
-        String strWorkflowActionNameCreateProposal = AppPropertiesService.getProperty( Constants.PROPERTY_WORKFLOW_ACTION_NAME_CREATE_PROPOSAL );
+        int idWorkflow = AppPropertiesService.getPropertyInt( ParticipatoryIdeationConstants.PROPERTY_WORKFLOW_ID, -1 );
+        String strWorkflowActionNameCreateProposal = AppPropertiesService.getProperty( ParticipatoryIdeationConstants.PROPERTY_WORKFLOW_ACTION_NAME_CREATE_PROPOSAL );
 
         if ( idWorkflow != -1 )
         {
@@ -1091,9 +1091,9 @@ public class IdeationApp extends MVCApplication
         model.put( MARK_RECAP_DEPOSITARY_TYPE, proposal.getDepositaryType( ) );
         model.put( MARK_RECAP_DEPOSITARY, proposal.getDepositary( ) );
         model.put( MARK_RECAP_CODE_THEME, proposal.getCodeTheme( ) );
-        model.put( MARK_RECAP_LOCALISATION_TYPE, proposal.getLocalisationType( ) );
-        model.put( MARK_RECAP_LOCALISATION_ARDT, proposal.getLocalisationArdt( ) );
-        model.put( MARK_RECAP_LOCALISATION_ADRESS, proposal.getAdress( ) );
+        model.put( MARK_RECAP_LOCATION_TYPE, proposal.getLocationType( ) );
+        model.put( MARK_RECAP_LOCATION_ARDT, proposal.getLocationArdt( ) );
+        model.put( MARK_RECAP_LOCATION_ADRESS, proposal.getAdress( ) );
 
         // Step 2
         model.put( MARK_RECAP_TITLE, proposal.getTitre( ) );
@@ -1142,7 +1142,7 @@ public class IdeationApp extends MVCApplication
             SiteMessageService.setMessage( request, MESSAGE_CAMPAIGN_UNSPECIFIED, SiteMessage.TYPE_ERROR, JSP_PORTAL );
         }
         else
-            if ( !IdeationCampaignService.getInstance( ).isDuring( _proposalCreate.getCodeCampaign( ), Constants.IDEATION ) )
+            if ( !IdeationCampaignService.getInstance( ).isDuring( _proposalCreate.getCodeCampaign( ), ParticipatoryIdeationConstants.IDEATION ) )
             {
                 Map<String, Object> requestParameters = new HashMap<String, Object>( );
                 requestParameters.put( PARAMETER_PAGE, "search-solr" );
@@ -1217,7 +1217,7 @@ public class IdeationApp extends MVCApplication
 
     private void convertFormEtapeLocation( FormEtapeLocation formEtapeLocation, Proposal proposal )
     {
-        proposal.setLocalisationType( formEtapeLocation.getLocalisationType( ) );
+        proposal.setLocationType( formEtapeLocation.getLocationType( ) );
         proposal.setCodeTheme( formEtapeLocation.getCodeTheme( ) );
         proposal.setDepositaryType( formEtapeLocation.getDepositaryType( ) );
         if ( formEtapeLocation.mustCopyDepositary( ) )
@@ -1237,7 +1237,7 @@ public class IdeationApp extends MVCApplication
                 proposal.setLatitude( geolocItem.getLat( ) );
                 proposal.setLongitude( geolocItem.getLon( ) );
                 proposal.setAdress( geolocItem.getAddress( ) );
-                proposal.setLocalisationArdt( formEtapeLocation.getLocalisationArdt( ) );
+                proposal.setLocationArdt( formEtapeLocation.getLocationArdt( ) );
                 List<QpvQva> listQpvqva;
                 try
                 {
@@ -1311,7 +1311,7 @@ public class IdeationApp extends MVCApplication
                 proposal.setLatitude( null );
                 proposal.setLongitude( null );
                 proposal.setAdress( null );
-                proposal.setLocalisationArdt( null );
+                proposal.setLocationArdt( null );
                 AppLogService.error( e );
             }
         }
@@ -1323,13 +1323,13 @@ public class IdeationApp extends MVCApplication
             proposal.setLatitude( null );
             proposal.setLongitude( null );
             proposal.setAdress( null );
-            if ( formEtapeLocation.getLocalisationType( ).equals( Proposal.LOCALISATION_TYPE_ARDT ) && formEtapeLocation.getLocalisationArdt( ) != null )
+            if ( formEtapeLocation.getLocationType( ).equals( Proposal.LOCATION_TYPE_ARDT ) && formEtapeLocation.getLocationArdt( ) != null )
             {
-                proposal.setLocalisationArdt( formEtapeLocation.getLocalisationArdt( ) );
+                proposal.setLocationArdt( formEtapeLocation.getLocationArdt( ) );
             }
             else
             {
-                proposal.setLocalisationArdt( null );
+                proposal.setLocationArdt( null );
             }
         }
     }

@@ -42,7 +42,7 @@ import fr.paris.lutece.plugins.extend.modules.comment.service.ICommentListener;
 import fr.paris.lutece.plugins.participatoryideation.business.proposal.Proposal;
 import fr.paris.lutece.plugins.participatoryideation.business.proposal.ProposalHome;
 import fr.paris.lutece.plugins.participatoryideation.service.campaign.IdeationCampaignService;
-import fr.paris.lutece.plugins.participatoryideation.util.Constants;
+import fr.paris.lutece.plugins.participatoryideation.util.ParticipatoryIdeationConstants;
 import fr.paris.lutece.portal.service.datastore.DatastoreService;
 import fr.paris.lutece.portal.service.i18n.I18nService;
 import fr.paris.lutece.portal.service.security.LuteceUser;
@@ -67,7 +67,7 @@ public class ProposalCommentListener implements ICommentListener
             proposal.setExportedTag( 2 );
             ProposalHome.updateBO( proposal );
         }
-        // String strWorkflowActionNameCreateComment=AppPropertiesService.getProperty(Constants.PROPERTY_WORKFLOW_ACTION_NAME_CREATE_COMMENT);
+        // String strWorkflowActionNameCreateComment=AppPropertiesService.getProperty(ParticipatoryIdeationConstants.PROPERTY_WORKFLOW_ACTION_NAME_CREATE_COMMENT);
         // ProposalWSService.getInstance().processActionByName(strWorkflowActionNameCreateComment, Integer.parseInt(strIdExtendableResource) );
 
     }
@@ -87,7 +87,7 @@ public class ProposalCommentListener implements ICommentListener
             ProposalHome.updateBO( proposal );
         }
 
-        String strWorkflowActionNameCreateComment = AppPropertiesService.getProperty( Constants.PROPERTY_WORKFLOW_ACTION_NAME_CREATE_COMMENT );
+        String strWorkflowActionNameCreateComment = AppPropertiesService.getProperty( ParticipatoryIdeationConstants.PROPERTY_WORKFLOW_ACTION_NAME_CREATE_COMMENT );
         ProposalWSService.getInstance( ).processActionByName( strWorkflowActionNameCreateComment, Integer.parseInt( strIdExtendableResource ), request );
 
     }
@@ -110,7 +110,7 @@ public class ProposalCommentListener implements ICommentListener
         StringBuilder sbError = new StringBuilder( );
         String strDataStoreValue = DatastoreService.getDataValue( PROPERTY_ACTIVATION_COMMENTAIRES, "0" );
 
-        if ( !IdeationCampaignService.getInstance( ).isDuring( Constants.IDEATION ) && strDataStoreValue.equals( "0" ) )
+        if ( !IdeationCampaignService.getInstance( ).isDuring( ParticipatoryIdeationConstants.IDEATION ) && strDataStoreValue.equals( "0" ) )
         {
             sbError.append( I18nService.getLocalizedString( MESSAGE_CAMPAIGN_IDEATION_CLOSED_COMMENT, new Locale( "fr", "FR" ) ) );
             sbError.append( ", " );
@@ -150,7 +150,7 @@ public class ProposalCommentListener implements ICommentListener
         Proposal proposal = ProposalHome.findByPrimaryKey( nId_Proposal );
         String strDataStoreValue = DatastoreService.getDataValue( PROPERTY_ACTIVATION_COMMENTAIRES, "0" );
 
-        if ( proposal != null && !IdeationCampaignService.getInstance( ).isDuring( proposal.getCodeCampaign( ), Constants.IDEATION )
+        if ( proposal != null && !IdeationCampaignService.getInstance( ).isDuring( proposal.getCodeCampaign( ), ParticipatoryIdeationConstants.IDEATION )
                 && strDataStoreValue.equals( "0" ) )
         {
             sbError.append( I18nService.getLocalizedString( MESSAGE_CAMPAIGN_IDEATION_CLOSED_COMMENT, new Locale( "fr", "FR" ) ) );
@@ -178,7 +178,7 @@ public class ProposalCommentListener implements ICommentListener
         Proposal proposal = ProposalHome.findByPrimaryKey( nIdProposal );
         String strDataStoreValue = DatastoreService.getDataValue( PROPERTY_ACTIVATION_COMMENTAIRES, "0" );
 
-        if ( proposal != null && !IdeationCampaignService.getInstance( ).isDuring( proposal.getCodeCampaign( ), Constants.IDEATION )
+        if ( proposal != null && !IdeationCampaignService.getInstance( ).isDuring( proposal.getCodeCampaign( ), ParticipatoryIdeationConstants.IDEATION )
                 && strDataStoreValue.equals( "0" ) )
         {
             return false;

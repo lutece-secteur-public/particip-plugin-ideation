@@ -50,7 +50,7 @@ import fr.paris.lutece.plugins.extend.service.extender.history.IResourceExtender
 import fr.paris.lutece.plugins.participatoryideation.business.proposal.Proposal;
 import fr.paris.lutece.plugins.participatoryideation.business.proposal.ProposalHome;
 import fr.paris.lutece.plugins.participatoryideation.business.proposal.ProposalSearcher;
-import fr.paris.lutece.plugins.participatoryideation.util.Constants;
+import fr.paris.lutece.plugins.participatoryideation.util.ParticipatoryIdeationConstants;
 import fr.paris.lutece.plugins.participatoryideation.web.IdeationApp;
 import fr.paris.lutece.portal.business.file.File;
 import fr.paris.lutece.portal.business.file.FileHome;
@@ -70,8 +70,8 @@ public class ProposalService implements IProposalService
     private static final String PROPERTY_LABEL_ERR = "participatoryideation.qpvqva.err.label";
     private static final String PROPERTY_LABEL_NON = "participatoryideation.qpvqva.non.label";
     private static final String PROPERTY_LABEL_UNK = "participatoryideation.qpvqva.unk.label";
-    private static final String PROPERTY_LABEL_ARDT = "participatoryideation.localisation_type.ardt.label";
-    private static final String PROPERTY_LABEL_PARIS = "participatoryideation.localisation_type.paris.label";
+    private static final String PROPERTY_LABEL_ARDT = "participatoryideation.location_type.ardt.label";
+    private static final String PROPERTY_LABEL_PARIS = "participatoryideation.location_type.paris.label";
 
     private static final String PROPERTY_HANDICAP_LABEL_YES = "participatoryideation.handicap.yes.label";
     private static final String PROPERTY_HANDICAP_LABEL_NO = "participatoryideation.handicap.no.label";
@@ -82,8 +82,8 @@ public class ProposalService implements IProposalService
     private static volatile ReferenceList _listHandicapCodes;
     private static volatile Map<String, String> _mapHandicapCodes;
 
-    private static volatile ReferenceList _listTypeLocalisation;
-    private static volatile Map<String, String> _mapTypeLocalisation;
+    private static volatile ReferenceList _listTypeLocation;
+    private static volatile Map<String, String> _mapTypeLocation;
 
     private static IProposalService _singleton;
     private static SolrProposalIndexer _solrProposalIndexer;
@@ -116,10 +116,10 @@ public class ProposalService implements IProposalService
             _listHandicapCodes.addItem( IdeationApp.HANDICAP_LABEL_NO, I18nService.getLocalizedString( PROPERTY_HANDICAP_LABEL_NO, Locale.FRENCH ) );
             _mapHandicapCodes = _listHandicapCodes.toMap( );
 
-            _listTypeLocalisation = new ReferenceList( );
-            _listTypeLocalisation.addItem( Proposal.LOCALISATION_TYPE_ARDT, I18nService.getLocalizedString( PROPERTY_LABEL_ARDT, Locale.FRENCH ) );
-            _listTypeLocalisation.addItem( Proposal.LOCALISATION_TYPE_PARIS, I18nService.getLocalizedString( PROPERTY_LABEL_PARIS, Locale.FRENCH ) );
-            _mapTypeLocalisation = _listTypeLocalisation.toMap( );
+            _listTypeLocation = new ReferenceList( );
+            _listTypeLocation.addItem( Proposal.LOCATION_TYPE_ARDT, I18nService.getLocalizedString( PROPERTY_LABEL_ARDT, Locale.FRENCH ) );
+            _listTypeLocation.addItem( Proposal.LOCATION_TYPE_PARIS, I18nService.getLocalizedString( PROPERTY_LABEL_PARIS, Locale.FRENCH ) );
+            _mapTypeLocation = _listTypeLocation.toMap( );
 
         }
 
@@ -163,14 +163,14 @@ public class ProposalService implements IProposalService
     public void removeProposal( Proposal proposal )
     {
         removeProposalCommon( proposal );
-        String strWorkflowActionNameDeleteProposal = AppPropertiesService.getProperty( Constants.PROPERTY_WORKFLOW_ACTION_NAME_DELETE_PROPOSAL );
+        String strWorkflowActionNameDeleteProposal = AppPropertiesService.getProperty( ParticipatoryIdeationConstants.PROPERTY_WORKFLOW_ACTION_NAME_DELETE_PROPOSAL );
         ProposalWSService.getInstance( ).processActionByName( strWorkflowActionNameDeleteProposal, proposal.getId( ) );
     }
 
     public void removeProposalByMdp( Proposal proposal )
     {
         removeProposalCommon( proposal );
-        String strWorkflowActionNameDeleteProposalByMdp = AppPropertiesService.getProperty( Constants.PROPERTY_WORKFLOW_ACTION_NAME_DELETE_PROPOSAL_BY_MDP );
+        String strWorkflowActionNameDeleteProposalByMdp = AppPropertiesService.getProperty( ParticipatoryIdeationConstants.PROPERTY_WORKFLOW_ACTION_NAME_DELETE_PROPOSAL_BY_MDP );
         ProposalWSService.getInstance( ).processActionByName( strWorkflowActionNameDeleteProposalByMdp, proposal.getId( ) );
     }
 
@@ -217,19 +217,19 @@ public class ProposalService implements IProposalService
     }
 
     /**
-     * @return the TypeLocalisation
+     * @return the TypeLocation
      */
-    public ReferenceList getTypeLocalisationList( )
+    public ReferenceList getTypeLocationList( )
     {
-        return _listTypeLocalisation;
+        return _listTypeLocation;
     }
 
     /**
-     * @return the TypeLocalisation
+     * @return the TypeLocation
      */
-    public Map<String, String> getTypeLocalisationMap( )
+    public Map<String, String> getTypeLocationMap( )
     {
-        return _mapTypeLocalisation;
+        return _mapTypeLocation;
     }
 
     // *********************************************************************************************

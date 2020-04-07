@@ -160,11 +160,11 @@
 					<div id="prop-desc" class="col-xs-12 col-sm-8">
 					
 						<#-- Location -->
-						<div class="prop-desc-localisation">
+						<div class="prop-desc-location">
 							<img src="images/local/skin/marker.png" alt="#i18n{participatoryideation.view_idea.desc.location}" title="#i18n{participatoryideation.view_idea.desc.location}" />
-							<div class="prop-desc-localisation-addr">
+							<div class="prop-desc-location-addr">
 								<#if proposal.adress?? && proposal.adress != '' >${proposal.adress?html}<br></#if>
-								<#if proposal.localisationType == "whole">${whole_area}<#elseif proposal.localisationType == "ardt">${i18n("participatoryideation.view_idea.desc.location.area", (arrondissements_map[proposal.localisationArdt])!proposal.localisationArdt)}</#if>
+								<#if proposal.locationType == "whole">${whole_area}<#elseif proposal.locationType == "ardt">${i18n("participatoryideation.view_idea.desc.location.area", (arrondissements_map[proposal.locationArdt])!proposal.locationArdt)}</#if>
 							</div>
 						</div>
 

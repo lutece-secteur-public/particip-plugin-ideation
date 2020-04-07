@@ -71,11 +71,11 @@
                 </select>
             </div>
             <div class="form-group">
-                <label for="filter_type_localisation">#i18n{participatoryideation.manage_proposals.columnLocalisationType} :</label>
-                <select id="filter_type_localisation" name="filter_type_localisation" class="form-control input-xs">
-	                <option value="" <#if !filter_type_localisation??>selected="selected"</#if><option>
-	                <#list type_localisation_list as type_localisation >
-		                <option value="${type_localisation.code}" <#if filter_type_localisation?? && type_localisation.code==filter_type_localisation> selected="selected"</#if>>${type_localisation.name}</option>
+                <label for="filter_type_location">#i18n{participatoryideation.manage_proposals.columnLocationType} :</label>
+                <select id="filter_type_location" name="filter_type_location" class="form-control input-xs">
+	                <option value="" <#if !filter_type_location??>selected="selected"</#if><option>
+	                <#list type_location_list as type_location >
+		                <option value="${type_location.code}" <#if filter_type_location?? && type_location.code==filter_type_location> selected="selected"</#if>>${type_location.name}</option>
 	                </#list>
                 </select>
             </div>
@@ -152,8 +152,8 @@
             <th>#i18n{participatoryideation.manage_proposals.columnCampaign}</th>
             <th>#i18n{participatoryideation.manage_proposals.columnTheme}</th>
             <th>#i18n{participatoryideation.manage_proposals.columnTitre}</th>
-            <th>#i18n{participatoryideation.manage_proposals.columnLocalisationType}</th>
-            <th>#i18n{participatoryideation.manage_proposals.columnLocalisationArdt}</th>
+            <th>#i18n{participatoryideation.manage_proposals.columnLocationType}</th>
+            <th>#i18n{participatoryideation.manage_proposals.columnLocationArdt}</th>
             <th>#i18n{participatoryideation.manage_proposals.columnAdress}</th>
             <th>#i18n{participatoryideation.manage_proposals.columnDepositaryType}</th>
             <th>#i18n{participatoryideation.manage_proposals.columnQpvQva}</th>
@@ -189,10 +189,10 @@
                 ${proposal.titre} 
             </td>
             <td>
-                ${proposal.localisationType!''}
+                ${proposal.locationType!''}
             </td>
             <td>
-                ${proposal.localisationArdt!''}
+                ${proposal.locationArdt!''}
             </td>
             <td>
                 ${proposal.adress!''}

@@ -53,7 +53,7 @@ public class ProposalHomeTest extends LuteceTestCase
     public final static String MOCK_DESCRIPTION = "mockDescription";
     public final static String MOCK_LUTECE_USER_NAME = "mockLuteceUserName";
     public final static String MOCK_CODE_THEME = "mockCodeTheme";
-    public final static String MOCK_LOCALISATION_TYPE = "mockLocalisationType";
+    public final static String MOCK_LOCATION_TYPE = "mockLocationType";
     public final static String MOCK_DEPOSITARY_TYPE = "mockDepositaryType";
     public final static boolean MOCK_ACCEPT_EXPLOIT = true;
     public final static String MOCK_TYPE_QPV_QVA = "mockTypeQpvQva";
@@ -91,7 +91,7 @@ public class ProposalHomeTest extends LuteceTestCase
         proposal.setDescription( MOCK_DESCRIPTION );
         proposal.setLuteceUserName( MOCK_LUTECE_USER_NAME );
         proposal.setCodeTheme( MOCK_CODE_THEME );
-        proposal.setLocalisationType( MOCK_LOCALISATION_TYPE );
+        proposal.setLocationType( MOCK_LOCATION_TYPE );
         proposal.setDepositaryType( MOCK_DEPOSITARY_TYPE );
         proposal.setAcceptExploit( MOCK_ACCEPT_EXPLOIT );
         proposal.setTypeQpvQva( MOCK_TYPE_QPV_QVA );

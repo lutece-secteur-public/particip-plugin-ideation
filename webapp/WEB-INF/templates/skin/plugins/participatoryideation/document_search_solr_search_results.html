@@ -12,8 +12,8 @@
 
 <#setting url_escaping_charset=encoding>
 <#-- Encode facet queries -->
-<#assign allParisCity = "-localisation_text:whole_city"> 
-<#assign allArrParisCity = "localisation_text:"> 
+<#assign allParisCity = "-location_text:whole_city"> 
+<#assign allArrParisCity = "location_text:"> 
 <#macro EncodeFQ list_fq  optionalParam1="" optionalParam2="">
 	<#assign bCheck = false>
     <#assign encoded_facets_queries = ""> 
@@ -39,7 +39,7 @@ ${encoded_facets_queries}</#macro>
     <#assign encoded_facets_queries = "">
 		
     <#list list_fq as facet>
-	<#if facet?starts_with("localisation_text") || facet?starts_with("type") || facet?starts_with("-localisation_text")>
+	<#if facet?starts_with("location_text") || facet?starts_with("type") || facet?starts_with("-location_text")>
         	<#assign encoded_facets_queries = encoded_facets_queries+"&fq="+facet?url>
 	</#if>
     </#list>
@@ -90,13 +90,13 @@ ${encoded_facets_queries}
 				 <#if facets_list??>
 				    <#list facets_list as facet>
 				        <!-- <input type="hidden" name="fq" value="${facet}" /> -->
-				        <#if facet?starts_with("localisation_text:")>
+				        <#if facet?starts_with("location_text:")>
 				            <#assign arr = facet?split(":")?last>
-				        <#elseif facet?starts_with("-localisation_text:whole_city")>
+				        <#elseif facet?starts_with("-location_text:whole_city")>
 				            <#assign arr = "all_arr">
-				        <#elseif facet?starts_with("localisation_text:whole_city")>
+				        <#elseif facet?starts_with("location_text:whole_city")>
 				            <#assign arr = "whole_city">
-					<#elseif facet?starts_with("thematique_text:")>
+					<#elseif facet?starts_with("theme_text:")>
 					    <#assign facet_theme = facet?split(":")?last>
 				        </#if>
 				    </#list>
@@ -117,29 +117,29 @@ ${encoded_facets_queries}
 					<SELECT name="fq" id="arrondissement" onChange="searchArrond()" class="form-control">
 					    <#if arr=="">
 						<OPTION value="type:PB Project" selected="selected" >Tous les projets </option>
-						<OPTION value="localisation_text:whole_city">Projets Tout Paris</option>
-						<OPTION value="-localisation_text:whole_city">Projets Tous Arrondissements</option>
+						<OPTION value="location_text:whole_city">Projets Tout Paris</option>
+						<OPTION value="-location_text:whole_city">Projets Tous Arrondissements</option>
 					    <#elseif arr=="whole_city">
 						<OPTION value="type:PB Project">Tous les projets </option>
-						<OPTION value="localisation_text:whole_city" selected="selected" >Projets Tout Paris</option>
-						<OPTION value="-localisation_text:paris">Projets Tous Arrondissements</option>
+						<OPTION value="location_text:whole_city" selected="selected" >Projets Tout Paris</option>
+						<OPTION value="-location_text:paris">Projets Tous Arrondissements</option>
 					    <#elseif arr=="all_arr">
 						<OPTION value="type:PB Project">Tous les projets </option>
-						<OPTION value="localisation_text:whole_city">Projets Tout Paris</option>
-						<OPTION value="-localisation_text:whole_city" selected="selected">Projets Tous Arrondissements</option>
+						<OPTION value="location_text:whole_city">Projets Tout Paris</option>
+						<OPTION value="-location_text:whole_city" selected="selected">Projets Tous Arrondissements</option>
 					    <#else>
 						<OPTION value="type:PB Project">Tous les projets </option>
-						<OPTION value="localisation_text:whole_city">Projets Tout Paris</option>
-						<OPTION value="-localisation_text:whole_city">Projets Tous Arrondissements</option>        
+						<OPTION value="location_text:whole_city">Projets Tout Paris</option>
+						<OPTION value="-location_text:whole_city">Projets Tous Arrondissements</option>        
 					    </#if>
 					    
 
 					    <#assign nbArr=20>
 					    <#list 1..nbArr as i>
 						<#if arr==i+"e arrondissement">
-							<OPTION value="localisation_text:${i!}e arrondissement" selected="selected" >Projets du ${i!}e arrdt.
+							<OPTION value="location_text:${i!}e arrondissement" selected="selected" >Projets du ${i!}e arrdt.
 						<#else>
-							<OPTION value="localisation_text:${i!}e arrondissement">Projets du ${i!}e arrdt.</option>
+							<OPTION value="location_text:${i!}e arrondissement">Projets du ${i!}e arrdt.</option>
 						</#if>
        					    </#list>
 
@@ -154,10 +154,10 @@ ${encoded_facets_queries}
 					      <#list facets as facet>
 						<#if facet.values??>
 
-						<#if solr_fields[facet.name].label?? && solr_fields[facet.name].label= "Thematique">	
+						<#if solr_fields[facet.name].label?? && solr_fields[facet.name].label= "Theme">	
 							    <OPTION value="type:PB Project" <#if facet_theme='tout_theme'>selected="selected"</#if> >Rechercher par thème</option>
 							<#list facet.values?sort as count>
-							    <OPTION value="thematique_text:${count.name}" <#if facet_theme=count.name>selected="selected"</#if> >${count.name}</option>
+							    <OPTION value="theme_text:${count.name}" <#if facet_theme=count.name>selected="selected"</#if> >${count.name}</option>
 							</#list>
 						</#if>
 						</#if> 

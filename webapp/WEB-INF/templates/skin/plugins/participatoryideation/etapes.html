@@ -1,11 +1,11 @@
 <#setting date_format="dd/MM/yyyy">
 <#setting locale="fr_FR">
 
-<#if recap_localisation_type??>
-	<#if  recap_localisation_type == "paris" >
-	<#assign recap_localisation_text = "Paris">
-	<#elseif recap_localisation_type == "ardt" && recap_localisation_ardt??>
-	<#assign recap_localisation_text = (arrondissements_map[recap_localisation_ardt])!recap_localisation_ardt>
+<#if recap_location_type??>
+	<#if  recap_location_type == "paris" >
+	<#assign recap_location_text = "Paris">
+	<#elseif recap_location_type == "ardt" && recap_location_ardt??>
+	<#assign recap_location_text = (arrondissements_map[recap_location_ardt])!recap_location_ardt>
 	</#if>
 </#if>
 
@@ -51,7 +51,7 @@
 </#if>
 
 <#assign etapes = [
-    { "title": "#i18n{participatoryideation.submit_project.steps.location.title}", "link_querystring": "view=location", "recap": "${step_recap_depositary!}, ${recap_theme_libelle!}, ${recap_localisation_text!''}" },
+    { "title": "#i18n{participatoryideation.submit_project.steps.location.title}", "link_querystring": "view=location", "recap": "${step_recap_depositary!}, ${recap_theme_libelle!}, ${recap_location_text!''}" },
     { "title": "#i18n{participatoryideation.submit_project.steps.title.title}", "link_querystring":  "view=title", "recap": "${recap_title!}" },
     { "title": "#i18n{participatoryideation.submit_project.steps.approx.title}", "recap": "#i18n{participatoryideation.submit_project.steps.approx.title}" },
     { "title": "#i18n{participatoryideation.submit_project.steps.description.title}", "link_querystring":  "view=description" , "recap": steps_recap_description },

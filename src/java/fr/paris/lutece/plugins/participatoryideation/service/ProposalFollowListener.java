@@ -36,7 +36,7 @@ package fr.paris.lutece.plugins.participatoryideation.service;
 import javax.servlet.http.HttpServletRequest;
 
 import fr.paris.lutece.plugins.extend.modules.follow.service.IFollowListener;
-import fr.paris.lutece.plugins.participatoryideation.util.Constants;
+import fr.paris.lutece.plugins.participatoryideation.util.ParticipatoryIdeationConstants;
 import fr.paris.lutece.portal.service.security.LuteceUser;
 import fr.paris.lutece.portal.service.util.AppPropertiesService;
 
@@ -46,7 +46,7 @@ public class ProposalFollowListener implements IFollowListener
     @Override
     public void follow( String strExtendableResourceType, String strIdExtendableResource, HttpServletRequest request )
     {
-        String strWorkflowActionNameFollow = AppPropertiesService.getProperty( Constants.PROPERTY_WORKFLOW_ACTION_NAME_FOLLOW );
+        String strWorkflowActionNameFollow = AppPropertiesService.getProperty( ParticipatoryIdeationConstants.PROPERTY_WORKFLOW_ACTION_NAME_FOLLOW );
         ProposalWSService.getInstance( ).processActionByName( strWorkflowActionNameFollow, Integer.parseInt( strIdExtendableResource ), request );
 
     }
@@ -54,7 +54,7 @@ public class ProposalFollowListener implements IFollowListener
     @Override
     public void cancelFollow( String strExtendableResourceType, String strIdExtendableResource, HttpServletRequest request )
     {
-        String strWorkflowActionNameFollow = AppPropertiesService.getProperty( Constants.PROPERTY_WORKFLOW_ACTION_NAME_CANCEL_FOLLOW );
+        String strWorkflowActionNameFollow = AppPropertiesService.getProperty( ParticipatoryIdeationConstants.PROPERTY_WORKFLOW_ACTION_NAME_CANCEL_FOLLOW );
         ProposalWSService.getInstance( ).processActionByName( strWorkflowActionNameFollow, Integer.parseInt( strIdExtendableResource ), request );
     }
 

@@ -58,7 +58,7 @@ import fr.paris.lutece.plugins.participatoryideation.service.ProposalUsersServic
 import fr.paris.lutece.plugins.participatoryideation.service.SolrProposalIndexer;
 import fr.paris.lutece.plugins.participatoryideation.service.campaign.IdeationCampaignService;
 import fr.paris.lutece.plugins.participatoryideation.service.capgeo.QpvQvaService;
-import fr.paris.lutece.plugins.participatoryideation.util.Constants;
+import fr.paris.lutece.plugins.participatoryideation.util.ParticipatoryIdeationConstants;
 import fr.paris.lutece.plugins.participatoryideation.util.CsvUtils;
 import fr.paris.lutece.plugins.participatoryideation.util.ProposalExportUtils;
 import fr.paris.lutece.plugins.workflowcore.business.state.State;
@@ -83,7 +83,7 @@ public class ProposalJspBean extends ManageIdeationProposalsJspBean
 {
 
     // //////////////////////////////////////////////////////////////////////////
-    // Constants
+    // ParticipatoryIdeationConstants
 
     // templates
     private static final String TEMPLATE_MANAGE_PROPOSALS = "/admin/plugins/participatoryideation/manage_proposals.html";
@@ -103,7 +103,7 @@ public class ProposalJspBean extends ManageIdeationProposalsJspBean
     private static final String PARAMETER_FILTER_PUBLIC_STATE = "filter_status";
     private static final String PARAMETER_FILTER_QPVQVA = "filter_qpvqva";
     private static final String PARAMETER_FILTER_HANDICAP = "filter_handicap";
-    private static final String PARAMETER_FILTER_TYPE_LOCALISATION = "filter_type_localisation";
+    private static final String PARAMETER_FILTER_TYPE_LOCATION = "filter_type_location";
     private static final String PARAMETER_FILTER_AREA = "filter_arrondissement";
     private static final String PARAMETER_SORT_COLUMN = "sort_column";
     private static final String PARAMETER_SORT_ORDER = "sort_order";
@@ -129,10 +129,10 @@ public class ProposalJspBean extends ManageIdeationProposalsJspBean
     private static final String MARK_FILTER_TITRE_OU_DESCRIPTION = "filter_titre_ou_description";
     private static final String MARK_FILTER_QPVQVA = "filter_qpvqva";
     private static final String MARK_FILTER_HANDICAP = "filter_handicap";
-    private static final String MARK_FILTER_TYPE_LOCALISATION = "filter_type_localisation";
+    private static final String MARK_FILTER_TYPE_LOCATION = "filter_type_location";
     private static final String MARK_FILTER_ARRONDISSEMENT = "filter_arrondissement";
     private static final String MARK_LANGUAGE = "language";
-    private static final String MARK_LOCALISATION_TYPE_LIST = "type_localisation_list";
+    private static final String MARK_LOCATION_TYPE_LIST = "type_location_list";
     private static final String MARK_AREA_LIST = "area_list";
     private static final String MARK_SORT_COLUMN = "sort_column";
     private static final String MARK_SORT_ORDER = "sort_order";
@@ -149,7 +149,7 @@ public class ProposalJspBean extends ManageIdeationProposalsJspBean
     private static final String MESSAGE_ERROR_CAMPAIGN_NOT_SPECIFIED = "participatoryideation.message.error.campaign.notSpecified";
     private static final String MESSAGE_ERROR_ARRONDISSEMENT_EMPTY = "participatoryideation.validation.proposal.Arrondissement.notEmpty";
     private static final String MESSAGE_ERROR_ADDRESS_FORMAT = "participatoryideation.validation.proposal.Address.Format";
-    private static final String MESSAGE_ERROR_ADDRESS_LOCALISATION_TYPE_EMPTY = "participatoryideation.validation.proposal.LocalisationType.NotEmpty";
+    private static final String MESSAGE_ERROR_ADDRESS_LOCATION_TYPE_EMPTY = "participatoryideation.validation.proposal.LocationType.NotEmpty";
     private static final String MESSAGE_ERROR_PROPOSAL_NO_SUCH_WORKFLOW_ACTION = "participatoryideation.message.error.workflow.noSuchAction";
     private static final String MESSAGE_ERROR_PROPOSAL_NO_SUCH_WORKFLOW_RESOURCE = "participatoryideation.message.error.workflow.noSuchResource";
 
@@ -182,7 +182,7 @@ public class ProposalJspBean extends ManageIdeationProposalsJspBean
 
     // Workflow
     private static final String WORKFLOW_ID_DEFAULT = "100";
-    private static final String WORKFLOW_ID = AppPropertiesService.getProperty( Constants.PROPERTY_WORKFLOW_ID, WORKFLOW_ID_DEFAULT );
+    private static final String WORKFLOW_ID = AppPropertiesService.getProperty( ParticipatoryIdeationConstants.PROPERTY_WORKFLOW_ID, WORKFLOW_ID_DEFAULT );
 
     // Session variable to store working values
     private ProposalBoForm _proposalBoForm;
@@ -250,9 +250,9 @@ public class ProposalJspBean extends ManageIdeationProposalsJspBean
                 model.put( MARK_FILTER_HANDICAP, _proposalSearcher.getHandicap( ) );
             }
 
-            if ( StringUtils.isNotBlank( _proposalSearcher.getTypeLocalisation( ) ) )
+            if ( StringUtils.isNotBlank( _proposalSearcher.getTypeLocation( ) ) )
             {
-                model.put( MARK_FILTER_TYPE_LOCALISATION, _proposalSearcher.getTypeLocalisation( ) );
+                model.put( MARK_FILTER_TYPE_LOCATION, _proposalSearcher.getTypeLocation( ) );
             }
 
             if ( StringUtils.isNotBlank( _proposalSearcher.getArrondissement( ) ) )
@@ -404,16 +404,16 @@ public class ProposalJspBean extends ManageIdeationProposalsJspBean
             }
         }
 
-        String strTypeLocalisation = request.getParameter( PARAMETER_FILTER_TYPE_LOCALISATION );
-        if ( strTypeLocalisation != null )
+        String strTypeLocation = request.getParameter( PARAMETER_FILTER_TYPE_LOCATION );
+        if ( strTypeLocation != null )
         {
-            if ( StringUtils.isBlank( strTypeLocalisation ) )
+            if ( StringUtils.isBlank( strTypeLocation ) )
             {
-                _proposalSearcher.setTypeLocalisation( null );
+                _proposalSearcher.setTypeLocation( null );
             }
             else
             {
-                _proposalSearcher.setTypeLocalisation( strTypeLocalisation );
+                _proposalSearcher.setTypeLocation( strTypeLocation );
             }
         }
 
@@ -520,7 +520,7 @@ public class ProposalJspBean extends ManageIdeationProposalsJspBean
         model.put( MARK_AREA_LIST, IdeationCampaignService.getInstance( ).getCampaignAllAreas( campaignCode ) );
 
         // Data NOT depending of specified campaign
-        model.put( MARK_LOCALISATION_TYPE_LIST, ProposalService.getInstance( ).getTypeLocalisationList( ) );
+        model.put( MARK_LOCATION_TYPE_LIST, ProposalService.getInstance( ).getTypeLocationList( ) );
         model.put( MARK_HANDICAP_LIST, ProposalService.getInstance( ).getHandicapCodesList( ) );
         model.put( MARK_PROPOSAL, _proposal );
         model.put( MARK_LANGUAGE, getLocale( ) );
@@ -540,16 +540,16 @@ public class ProposalJspBean extends ManageIdeationProposalsJspBean
             return redirectView( request, VIEW_COMPLETE_PROPOSAL );
         }
 
-        if ( Proposal.LOCALISATION_TYPE_PARIS.equals( _proposal.getLocalisationType( ) ) && StringUtils.isEmpty( _proposal.getGeoJson( ) ) )
+        if ( Proposal.LOCATION_TYPE_PARIS.equals( _proposal.getLocationType( ) ) && StringUtils.isEmpty( _proposal.getGeoJson( ) ) )
         {
-            _proposal.setLocalisationArdt( null );
+            _proposal.setLocationArdt( null );
         }
 
         _proposal.setCodeProposal( 0 );
         // _proposal.setCodeCampaign( CampaignHome.getLastCampaign( ).getCode( ) );
-        _proposal.setDepositaryType( AppPropertiesService.getProperty( Constants.PROPERTY_GENERATE_PROPOSAL_DEPOSITARY_TYPE ) );
-        _proposal.setDepositary( AppPropertiesService.getProperty( Constants.PROPERTY_GENERATE_PROPOSAL_DEPOSITARY ) );
-        _proposal.setLuteceUserName( AppPropertiesService.getProperty( Constants.PROPERTY_GENERATE_PROPOSAL_LUTECE_USER_NAME ) );
+        _proposal.setDepositaryType( AppPropertiesService.getProperty( ParticipatoryIdeationConstants.PROPERTY_GENERATE_PROPOSAL_DEPOSITARY_TYPE ) );
+        _proposal.setDepositary( AppPropertiesService.getProperty( ParticipatoryIdeationConstants.PROPERTY_GENERATE_PROPOSAL_DEPOSITARY ) );
+        _proposal.setLuteceUserName( AppPropertiesService.getProperty( ParticipatoryIdeationConstants.PROPERTY_GENERATE_PROPOSAL_LUTECE_USER_NAME ) );
         _proposal.setCreationTimestamp( new java.sql.Timestamp( ( new java.util.Date( ) ).getTime( ) ) );
         _proposal.setStatusPublic( Proposal.Status.STATUS_SUBMITTED );
         _proposal.setTypeQpvQva( IdeationApp.QPV_QVA_NO );
@@ -687,7 +687,7 @@ public class ProposalJspBean extends ManageIdeationProposalsJspBean
 
         if ( WorkflowService.getInstance( ).isAvailable( ) )
         {
-            int idWorkflow = AppPropertiesService.getPropertyInt( Constants.PROPERTY_WORKFLOW_ID, -1 );
+            int idWorkflow = AppPropertiesService.getPropertyInt( ParticipatoryIdeationConstants.PROPERTY_WORKFLOW_ID, -1 );
             model.put( MARK_RESOURCE_HISTORY, WorkflowService.getInstance( ).getDisplayDocumentHistory( _proposal.getId( ), Proposal.WORKFLOW_RESOURCE_TYPE,
                     idWorkflow, request, getLocale( ) ) );
         }
@@ -976,17 +976,17 @@ public class ProposalJspBean extends ManageIdeationProposalsJspBean
             proposal.setCout( null );
         }
 
-        // Trying to determine LocalisationType using LocalisationArdt.
-        proposal.setLocalisationType(
-                StringUtils.isNotEmpty( proposalBoForm.getLocalisationArdt( ) ) ? Proposal.LOCALISATION_TYPE_ARDT : Proposal.LOCALISATION_TYPE_PARIS );
+        // Trying to determine LocationType using LocationArdt.
+        proposal.setLocationType(
+                StringUtils.isNotEmpty( proposalBoForm.getLocationArdt( ) ) ? Proposal.LOCATION_TYPE_ARDT : Proposal.LOCATION_TYPE_PARIS );
 
-        if ( StringUtils.isNotEmpty( proposalBoForm.getLocalisationArdt( ) ) )
+        if ( StringUtils.isNotEmpty( proposalBoForm.getLocationArdt( ) ) )
         {
-            proposal.setLocalisationArdt( proposalBoForm.getLocalisationArdt( ) );
+            proposal.setLocationArdt( proposalBoForm.getLocationArdt( ) );
         }
         else
         {
-            proposal.setLocalisationArdt( null );
+            proposal.setLocationArdt( null );
         }
 
         proposal.setTypeQpvQva( proposalBoForm.getTypeQpvQva( ) );
@@ -1045,7 +1045,7 @@ public class ProposalJspBean extends ManageIdeationProposalsJspBean
     {
         boolean bIsValid = true;
 
-        if ( _proposal.getLocalisationType( ).equals( Proposal.LOCALISATION_TYPE_ARDT ) && StringUtils.isEmpty( _proposal.getLocalisationArdt( ) ) )
+        if ( _proposal.getLocationType( ).equals( Proposal.LOCATION_TYPE_ARDT ) && StringUtils.isEmpty( _proposal.getLocationArdt( ) ) )
         {
             addError( MESSAGE_ERROR_ARRONDISSEMENT_EMPTY, request.getLocale( ) );
             bIsValid = false;
@@ -1053,9 +1053,9 @@ public class ProposalJspBean extends ManageIdeationProposalsJspBean
 
         if ( StringUtils.isNotBlank( _proposal.getAdress( ) ) )
         {
-            if ( StringUtils.isEmpty( _proposal.getLocalisationType( ) ) )
+            if ( StringUtils.isEmpty( _proposal.getLocationType( ) ) )
             {
-                addError( MESSAGE_ERROR_ADDRESS_LOCALISATION_TYPE_EMPTY, request.getLocale( ) );
+                addError( MESSAGE_ERROR_ADDRESS_LOCATION_TYPE_EMPTY, request.getLocale( ) );
                 bIsValid = false;
             }
 
@@ -1093,16 +1093,16 @@ public class ProposalJspBean extends ManageIdeationProposalsJspBean
                 // if ( m.find( ) ) {
                 // int nArdt = Integer.parseInt( m.group( 1 ) );
                 // String strArdt = ProposalService.getInstance( ).getArrondissementCode( nArdt );
-                // if ( _proposal.getLocalisationType( ).equals( Proposal.LOCALISATION_TYPE_ARDT )
-                // && StringUtils.isNotEmpty( _proposal.getLocalisationArdt( ) )
-                // && ( !strArdt.equals( _proposal.getLocalisationArdt( ) ) ) )
+                // if ( _proposal.getLocationType( ).equals( Proposal.LOCATION_TYPE_ARDT )
+                // && StringUtils.isNotEmpty( _proposal.getLocationArdt( ) )
+                // && ( !strArdt.equals( _proposal.getLocationArdt( ) ) ) )
                 // {
                 // addError( MESSAGE_ERROR_ADDRESS_ARDT_MISMATCH, request.getLocale( ) );
                 // bIsValid = false;
                 // }
                 // else
                 // {
-                // _proposal.setLocalisationArdt( strArdt );
+                // _proposal.setLocationArdt( strArdt );
                 // }
                 // }
 

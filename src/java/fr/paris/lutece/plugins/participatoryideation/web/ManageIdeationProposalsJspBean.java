@@ -42,7 +42,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import fr.paris.lutece.plugins.participatoryideation.business.proposal.Proposal;
-import fr.paris.lutece.plugins.participatoryideation.util.Constants;
+import fr.paris.lutece.plugins.participatoryideation.util.ParticipatoryIdeationConstants;
 import fr.paris.lutece.plugins.workflowcore.business.state.State;
 import fr.paris.lutece.portal.service.util.AppPropertiesService;
 import fr.paris.lutece.portal.service.workflow.WorkflowService;
@@ -115,7 +115,7 @@ public abstract class ManageIdeationProposalsJspBean extends MVCAdminJspBean
      */
     private List<Map<String, Object>> getExtraInfos( Collection<Proposal> proposals )
     {
-        int idWorkflow = AppPropertiesService.getPropertyInt( Constants.PROPERTY_WORKFLOW_ID, -1 );
+        int idWorkflow = AppPropertiesService.getPropertyInt( ParticipatoryIdeationConstants.PROPERTY_WORKFLOW_ID, -1 );
         List<Map<String, Object>> listProposalsWithWorkflow = new ArrayList<Map<String, Object>>( );
         WorkflowService workflowService = WorkflowService.getInstance( );
         boolean bWorkflowAvailable = workflowService.isAvailable( );

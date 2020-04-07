@@ -36,7 +36,7 @@ package fr.paris.lutece.plugins.participatoryideation.util;
 /**
  * This class provides constants.
  */
-public final class Constants
+public final class ParticipatoryIdeationConstants
 {
 
     // Campaign phases
@@ -61,7 +61,7 @@ public final class Constants
     public static final String PROPERTY_GENERATE_PROPOSAL_LUTECE_USER_NAME = "participatoryideation.atelier.generateProposal.luteceUserName";
 
     // Constructor
-    private Constants( )
+    private ParticipatoryIdeationConstants( )
     {
         throw new UnsupportedOperationException( "This class must not be instanciated !" );
     }

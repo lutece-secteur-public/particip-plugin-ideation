@@ -53,7 +53,7 @@ public class ProposalSearcher
     private Integer _nIdWorkflowState;
     private String _strTypeQpvQva;
     private String _strHandicap;
-    private String _strTypeLocalisation;
+    private String _strTypeLocation;
     private String _strArrondissement;
     private String _strLuteceUserName;
 
@@ -180,20 +180,20 @@ public class ProposalSearcher
     }
 
     /**
-     * @return the TypeLocalisation
+     * @return the TypeLocation
      */
-    public String getTypeLocalisation( )
+    public String getTypeLocation( )
     {
-        return _strTypeLocalisation;
+        return _strTypeLocation;
     }
 
     /**
-     * @param strTypeLocalisation
-     *            the TypeLocalisation to set
+     * @param strTypeLocation
+     *            the TypeLocation to set
      */
-    public void setTypeLocalisation( String strTypeLocalisation )
+    public void setTypeLocation( String strTypeLocation )
     {
-        this._strTypeLocalisation = strTypeLocalisation;
+        this._strTypeLocation = strTypeLocation;
     }
 
     /**

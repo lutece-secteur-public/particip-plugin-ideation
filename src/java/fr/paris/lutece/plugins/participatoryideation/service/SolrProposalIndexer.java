@@ -129,9 +129,9 @@ public class SolrProposalIndexer implements SolrIndexer
         {
             dLongitude = proposal.getLongitude( );
             dLatitude = proposal.getLatitude( );
-            if ( Proposal.LOCALISATION_TYPE_ARDT.equals( proposal.getLocalisationType( ) ) )
+            if ( Proposal.LOCATION_TYPE_ARDT.equals( proposal.getLocationType( ) ) )
             {
-                strCodeGeoloc = "proposal_geoloc-ardt-" + proposal.getLocalisationArdt( );
+                strCodeGeoloc = "proposal_geoloc-ardt-" + proposal.getLocationArdt( );
             }
             else
             {
@@ -140,9 +140,9 @@ public class SolrProposalIndexer implements SolrIndexer
         }
         else
         {
-            if ( Proposal.LOCALISATION_TYPE_ARDT.equals( proposal.getLocalisationType( ) ) )
+            if ( Proposal.LOCATION_TYPE_ARDT.equals( proposal.getLocationType( ) ) )
             {
-                strCodeGeoloc = "proposal_ardt-" + proposal.getLocalisationArdt( );
+                strCodeGeoloc = "proposal_ardt-" + proposal.getLocationArdt( );
             }
             else
             {
@@ -156,19 +156,19 @@ public class SolrProposalIndexer implements SolrIndexer
         item.addDynamicFieldNotAnalysed( "code_depositary_type", proposal.getDepositaryType( ) );
         item.addDynamicField( "campaign", proposal.getCodeCampaign( ) );
         item.addDynamicField( "code_projet", (long) proposal.getCodeProposal( ) );
-        item.addDynamicField( "localisation", ( ( proposal.getAdress( ) != null ) && ( !"".equals( proposal.getAdress( ).trim( ) ) ) ) ? proposal.getAdress( )
-                : ( Proposal.LOCALISATION_TYPE_ARDT.equals( proposal.getLocalisationType( ).trim( ) ) ? proposal.getLocalisationArdt( ) : "whole city" // TODO :
+        item.addDynamicField( "location", ( ( proposal.getAdress( ) != null ) && ( !"".equals( proposal.getAdress( ).trim( ) ) ) ) ? proposal.getAdress( )
+                : ( Proposal.LOCATION_TYPE_ARDT.equals( proposal.getLocationType( ).trim( ) ) ? proposal.getLocationArdt( ) : "whole city" // TODO :
                                                                                                                                                        // Must
                                                                                                                                                        // get
                 // this string from
                 // campaign area
                 // service
                 ) );
-        item.addDynamicFieldNotAnalysed( "localisation_type", proposal.getLocalisationType( ) );
+        item.addDynamicFieldNotAnalysed( "location_type", proposal.getLocationType( ) );
 
-        if ( Proposal.LOCALISATION_TYPE_ARDT.equals( proposal.getLocalisationType( ).trim( ) ) )
+        if ( Proposal.LOCATION_TYPE_ARDT.equals( proposal.getLocationType( ).trim( ) ) )
         {
-            item.addDynamicField( "localisation_ardt", proposal.getLocalisationArdt( ) );
+            item.addDynamicField( "location_ardt", proposal.getLocationArdt( ) );
         }
 
         item.addDynamicField( "budget", proposal.getCout( ) );

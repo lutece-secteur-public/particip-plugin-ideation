@@ -6,7 +6,7 @@ INSERT INTO participatoryideation_depositaries_complement_types (id_depositary_c
 INSERT INTO participatoryideation_depositaries_types (id_depositary_type, code_depositary_type, libelle, code_complement_type) VALUES
 	(1, 'INDIVIDUAL' , 'Individual'      , 'NONE'),
 	(2, 'OTHER'      , 'Other'           , 'FREE'),
-	(3, 'COUNCIL'    , 'District council', 'LIST'),
+	(3, 'COUNCIL'    , 'Location council', 'LIST'),
 	(4, 'ASSOCIATION', 'Association'     , 'FREE');
 
 INSERT INTO participatoryideation_depositaries (id_depositary, code_campaign, code_depositary_type) VALUES

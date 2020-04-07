@@ -43,7 +43,7 @@ import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 
 import fr.paris.lutece.plugins.participatoryideation.service.campaign.IdeationCampaignService;
-import fr.paris.lutece.plugins.participatoryideation.util.Constants;
+import fr.paris.lutece.plugins.participatoryideation.util.ParticipatoryIdeationConstants;
 import fr.paris.lutece.portal.business.file.File;
 import fr.paris.lutece.portal.service.resource.IExtendableResource;
 
@@ -56,8 +56,8 @@ public class Proposal implements Serializable, IExtendableResource
     public static final String PROPERTY_RESOURCE_TYPE = "PROPOSAL";
     public static final String WORKFLOW_RESOURCE_TYPE = "PARTICIPATORYIDEATION_PROPOSAL";
 
-    public static final String LOCALISATION_TYPE_ARDT = "localized";
-    public static final String LOCALISATION_TYPE_PARIS = "whole";
+    public static final String LOCATION_TYPE_ARDT = "localized";
+    public static final String LOCATION_TYPE_PARIS = "whole";
 
     public static final String ATTACHED_FILE_TYPE_DOC = "doc";
     public static final String ATTACHED_FILE_TYPE_IMG = "img";
@@ -77,8 +77,8 @@ public class Proposal implements Serializable, IExtendableResource
     private String _strDescription;
     private Long _nCout;
     private String _strCodeTheme;
-    private String _strLocalisationType;
-    private String _strLocalisationArdt;
+    private String _strLocationType;
+    private String _strLocationArdt;
     private String _strGeoJson;
     private Double _dLongitude;
     private Double _dLatitude;
@@ -441,14 +441,14 @@ public class Proposal implements Serializable, IExtendableResource
         this._nCout = _nCout;
     }
 
-    public String getLocalisationType( )
+    public String getLocationType( )
     {
-        return _strLocalisationType;
+        return _strLocationType;
     }
 
-    public void setLocalisationType( String _strLocalisationType )
+    public void setLocationType( String _strLocationType )
     {
-        this._strLocalisationType = _strLocalisationType;
+        this._strLocationType = _strLocationType;
     }
 
     public String getAdress( )
@@ -461,14 +461,14 @@ public class Proposal implements Serializable, IExtendableResource
         this._strAdress = _strAdress;
     }
 
-    public String getLocalisationArdt( )
+    public String getLocationArdt( )
     {
-        return _strLocalisationArdt;
+        return _strLocationArdt;
     }
 
-    public void setLocalisationArdt( String _strLocalisationArdt )
+    public void setLocationArdt( String _strLocationArdt )
     {
-        this._strLocalisationArdt = _strLocalisationArdt;
+        this._strLocationArdt = _strLocationArdt;
     }
 
     public String getDepositaryType( )
@@ -850,7 +850,7 @@ public class Proposal implements Serializable, IExtendableResource
      */
     public boolean canDelete( )
     {
-        return IdeationCampaignService.getInstance( ).isDuring( _strCodeCampaign, Constants.IDEATION );
+        return IdeationCampaignService.getInstance( ).isDuring( _strCodeCampaign, ParticipatoryIdeationConstants.IDEATION );
     }
 
     /**

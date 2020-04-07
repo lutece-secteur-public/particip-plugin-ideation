@@ -64,9 +64,9 @@ public final class ProposalDAO implements IProposalDAO
     private static final String SQL_QUERY_NEW_PK = "SELECT max( id_proposal ) FROM participatoryideation_proposals";
     private static final String SQL_QUERY_NEW_CODE_PROPOSAL = "SELECT max( code_proposal ) FROM participatoryideation_proposals where code_campaign = ?";
 
-    private static final String SQL_QUERY_INSERT = "INSERT INTO participatoryideation_proposals ( id_proposal, lutece_user_name, titre, dejadepose, description, cout, code_theme, localisation_type, localisation_ardt, depositary_type, depositary, accept_exploit, accept_contact, address,longitude,latitude,creation_timestamp,code_campaign,code_proposal,type_nqpv_qva,id_nqpv_qva,libelle_nqpv_qva, status_public, status_eudonet, motif_recev,id_project, titre_projet, url_projet, winner_projet, creationmethod, operatingbudget, handicap, handicap_complement) VALUES ( ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,? ) ";
-    private static final String SQL_QUERY_UPDATE = "UPDATE participatoryideation_proposals SET eudonet_exported_tag=?, status_public=?, status_eudonet=?, motif_recev=?, type_nqpv_qva=?, id_nqpv_qva=?, libelle_nqpv_qva=?, id_project = ?, titre_projet = ?, url_projet =?, winner_projet =?, titre =? , description =? , cout =? , localisation_type =? , localisation_ardt =?, handicap=?, handicap_complement=? WHERE id_proposal = ?";
-    private static final String SQL_QUERY_SELECTALL = "SELECT proposals.id_proposal, proposals.lutece_user_name, proposals.titre, proposals.dejadepose, proposals.description, proposals.cout, proposals.code_theme, proposals.localisation_type, proposals.localisation_ardt, proposals.depositary_type, proposals.depositary, proposals.accept_exploit, proposals.accept_contact, proposals.address, proposals.longitude, proposals.latitude, proposals.creation_timestamp, proposals.code_campaign, proposals.code_proposal, proposals.eudonet_exported_tag, proposals.type_nqpv_qva, proposals.id_nqpv_qva, proposals.libelle_nqpv_qva, proposals.status_public, proposals.status_eudonet, proposals.motif_recev, proposals.id_project, proposals.titre_projet, proposals.url_projet, proposals.winner_projet, proposals.creationmethod, proposals.operatingbudget, proposals.handicap, proposals.handicap_complement FROM participatoryideation_proposals proposals";
+    private static final String SQL_QUERY_INSERT = "INSERT INTO participatoryideation_proposals ( id_proposal, lutece_user_name, titre, dejadepose, description, cout, code_theme, location_type, location_ardt, depositary_type, depositary, accept_exploit, accept_contact, address,longitude,latitude,creation_timestamp,code_campaign,code_proposal,type_nqpv_qva,id_nqpv_qva,libelle_nqpv_qva, status_public, status_eudonet, motif_recev,id_project, titre_projet, url_projet, winner_projet, creationmethod, operatingbudget, handicap, handicap_complement) VALUES ( ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,? ) ";
+    private static final String SQL_QUERY_UPDATE = "UPDATE participatoryideation_proposals SET eudonet_exported_tag=?, status_public=?, status_eudonet=?, motif_recev=?, type_nqpv_qva=?, id_nqpv_qva=?, libelle_nqpv_qva=?, id_project = ?, titre_projet = ?, url_projet =?, winner_projet =?, titre =? , description =? , cout =? , location_type =? , location_ardt =?, handicap=?, handicap_complement=? WHERE id_proposal = ?";
+    private static final String SQL_QUERY_SELECTALL = "SELECT proposals.id_proposal, proposals.lutece_user_name, proposals.titre, proposals.dejadepose, proposals.description, proposals.cout, proposals.code_theme, proposals.location_type, proposals.location_ardt, proposals.depositary_type, proposals.depositary, proposals.accept_exploit, proposals.accept_contact, proposals.address, proposals.longitude, proposals.latitude, proposals.creation_timestamp, proposals.code_campaign, proposals.code_proposal, proposals.eudonet_exported_tag, proposals.type_nqpv_qva, proposals.id_nqpv_qva, proposals.libelle_nqpv_qva, proposals.status_public, proposals.status_eudonet, proposals.motif_recev, proposals.id_project, proposals.titre_projet, proposals.url_projet, proposals.winner_projet, proposals.creationmethod, proposals.operatingbudget, proposals.handicap, proposals.handicap_complement FROM participatoryideation_proposals proposals";
     private static final String SQL_QUERY_SELECT = SQL_QUERY_SELECTALL + " WHERE proposals.id_proposal = ?";
     private static final String SQL_QUERY_SELECT_BY_CODES = SQL_QUERY_SELECTALL + " WHERE proposals.code_campaign = ? and proposals.code_proposal = ?";
     private static final String SQL_QUERY_SELECTALL_ID = "SELECT id_proposal FROM participatoryideation_proposals";
@@ -166,8 +166,8 @@ public final class ProposalDAO implements IProposalDAO
             }
 
             daoUtil.setString( nCpt++, proposal.getCodeTheme( ) );
-            daoUtil.setString( nCpt++, proposal.getLocalisationType( ) );
-            daoUtil.setString( nCpt++, proposal.getLocalisationArdt( ) );
+            daoUtil.setString( nCpt++, proposal.getLocationType( ) );
+            daoUtil.setString( nCpt++, proposal.getLocationArdt( ) );
             daoUtil.setString( nCpt++, proposal.getDepositaryType( ) );
             daoUtil.setString( nCpt++, proposal.getDepositary( ) );
             daoUtil.setBoolean( nCpt++, proposal.isAcceptExploit( ) );
@@ -483,8 +483,8 @@ public final class ProposalDAO implements IProposalDAO
 
             }
 
-            daoUtil.setString( nCpt++, proposal.getLocalisationType( ) );
-            daoUtil.setString( nCpt++, proposal.getLocalisationArdt( ) );
+            daoUtil.setString( nCpt++, proposal.getLocationType( ) );
+            daoUtil.setString( nCpt++, proposal.getLocationArdt( ) );
 
             daoUtil.setString( nCpt++, proposal.getHandicap( ) );
             daoUtil.setString( nCpt++, proposal.getHandicapComplement( ) );
@@ -644,8 +644,8 @@ public final class ProposalDAO implements IProposalDAO
         proposal.setDescription( daoUtil.getString( nCpt++ ) );
         proposal.setCout( (Long) daoUtil.getObject( nCpt++ ) );
         proposal.setCodeTheme( daoUtil.getString( nCpt++ ) );
-        proposal.setLocalisationType( daoUtil.getString( nCpt++ ) );
-        proposal.setLocalisationArdt( daoUtil.getString( nCpt++ ) );
+        proposal.setLocationType( daoUtil.getString( nCpt++ ) );
+        proposal.setLocationArdt( daoUtil.getString( nCpt++ ) );
         proposal.setDepositaryType( daoUtil.getString( nCpt++ ) );
         proposal.setDepositary( daoUtil.getString( nCpt++ ) );
         proposal.setAcceptExploit( daoUtil.getBoolean( nCpt++ ) );
@@ -745,13 +745,13 @@ public final class ProposalDAO implements IProposalDAO
                 stringBuilder.append( " ( (proposals.handicap IS NULL) OR (proposals.handicap = ?) ) AND" );
             }
 
-        if ( proposalSearcher.getTypeLocalisation( ) != null )
+        if ( proposalSearcher.getTypeLocation( ) != null )
         {
-            stringBuilder.append( " proposals.localisation_type = ? AND" );
+            stringBuilder.append( " proposals.location_type = ? AND" );
         }
         if ( proposalSearcher.getArrondissement( ) != null )
         {
-            stringBuilder.append( " proposals.localisation_ardt = ? AND" );
+            stringBuilder.append( " proposals.location_ardt = ? AND" );
         }
         if ( proposalSearcher.getStatusPublic( ) != null )
         {
@@ -886,9 +886,9 @@ public final class ProposalDAO implements IProposalDAO
         {
             daoUtil.setString( nCpt++, proposalSearcher.getHandicap( ) );
         }
-        if ( proposalSearcher.getTypeLocalisation( ) != null )
+        if ( proposalSearcher.getTypeLocation( ) != null )
         {
-            daoUtil.setString( nCpt++, proposalSearcher.getTypeLocalisation( ) );
+            daoUtil.setString( nCpt++, proposalSearcher.getTypeLocation( ) );
         }
         if ( proposalSearcher.getArrondissement( ) != null )
         {

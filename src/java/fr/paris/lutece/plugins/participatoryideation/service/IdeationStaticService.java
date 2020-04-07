@@ -75,8 +75,8 @@ public class IdeationStaticService extends AbstractCacheableService implements I
     private static final String MARK_HANDICAP_LIST = "handicap_list";
     private static final String MARK_HANDICAP_MAP = "handicap_map";
 
-    private static final String MARK_LOCALISATION_TYPE_LIST = "type_localisation_list";
-    private static final String MARK_LOCALISATION_TYPE_MAP = "type_localisation_map";
+    private static final String MARK_LOCATION_TYPE_LIST = "type_location_list";
+    private static final String MARK_LOCATION_TYPE_MAP = "type_location_map";
 
     private static final String MARK_DEPOSITARIES_TYPES_LIST = "depositary_types_list";
     private static final String MARK_DEPOSITARIES_TYPES_MAP = "depositaries_types_map";
@@ -123,8 +123,8 @@ public class IdeationStaticService extends AbstractCacheableService implements I
         model.put( MARK_QPVQVA_MAP, ProposalService.getInstance( ).getQpvQvaCodesMap( ) );
         model.put( MARK_HANDICAP_LIST, ProposalService.getInstance( ).getHandicapCodesList( ) );
         model.put( MARK_HANDICAP_MAP, ProposalService.getInstance( ).getHandicapCodesMap( ) );
-        model.put( MARK_LOCALISATION_TYPE_LIST, ProposalService.getInstance( ).getTypeLocalisationList( ) );
-        model.put( MARK_LOCALISATION_TYPE_MAP, ProposalService.getInstance( ).getTypeLocalisationMap( ) );
+        model.put( MARK_LOCATION_TYPE_LIST, ProposalService.getInstance( ).getTypeLocationList( ) );
+        model.put( MARK_LOCATION_TYPE_MAP, ProposalService.getInstance( ).getTypeLocationMap( ) );
 
         // Add list of campaigns
         model.put( MARK_LIST_CAMPAIGN, IdeationCampaignService.getInstance( ).getCampaigns( ) );
@@ -170,8 +170,8 @@ public class IdeationStaticService extends AbstractCacheableService implements I
         model.put( MARK_QPVQVA_MAP, ProposalService.getInstance( ).getQpvQvaCodesMap( ) );
         model.put( MARK_HANDICAP_LIST, ProposalService.getInstance( ).getHandicapCodesList( ) );
         model.put( MARK_HANDICAP_MAP, ProposalService.getInstance( ).getHandicapCodesMap( ) );
-        model.put( MARK_LOCALISATION_TYPE_LIST, ProposalService.getInstance( ).getTypeLocalisationList( ) );
-        model.put( MARK_LOCALISATION_TYPE_MAP, ProposalService.getInstance( ).getTypeLocalisationMap( ) );
+        model.put( MARK_LOCATION_TYPE_LIST, ProposalService.getInstance( ).getTypeLocationList( ) );
+        model.put( MARK_LOCATION_TYPE_MAP, ProposalService.getInstance( ).getTypeLocationMap( ) );
 
         // Add static data of all campaigns
         @SuppressWarnings( "unchecked" )

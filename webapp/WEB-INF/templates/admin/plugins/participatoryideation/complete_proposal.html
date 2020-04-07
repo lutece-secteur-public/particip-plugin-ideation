@@ -16,13 +16,13 @@
 		<@fieldInputText  i18nLabelKey="participatoryideation.complete_proposal.labelTitre"       mandatory=true inputName="titre"       value="${proposal.titre!}"       i18nHelpBlockKey='ideation.create_proposal.labelTitre.help'       />
 		<@fieldTextArea   i18nLabelKey="participatoryideation.complete_proposal.labelDescription" mandatory=true inputName="description" value="${proposal.description!}" i18nHelpBlockKey='ideation.create_proposal.labelDescription.help' />
 		<@fieldInputText  i18nLabelKey="participatoryideation.complete_proposal.labelCout"        inputName="cout"        value="${proposal.cout!}"       i18nHelpBlockKey='ideation.create_proposal.labelCout.help'        />
-		<@fieldInputCombo i18nLabelKey="participatoryideation.complete_proposal.labelLocalisationType" inputName="localisationType" items=type_localisation_list value="${(proposal.localisationType)!}" i18nHelpBlockKey="participatoryideation.complete_proposal.labelLocalisationType.help" />
-		<@fieldInputCombo i18nLabelKey="participatoryideation.complete_proposal.labelLocalisationArdt" inputName="localisationArdt" items=area_list value="${(proposal.localisationArdt)!}" i18nHelpBlockKey="participatoryideation.complete_proposal.labelLocalisationArdt.help" />
+		<@fieldInputCombo i18nLabelKey="participatoryideation.complete_proposal.labelLocationType" inputName="locationType" items=type_location_list value="${(proposal.locationType)!}" i18nHelpBlockKey="participatoryideation.complete_proposal.labelLocationType.help" />
+		<@fieldInputCombo i18nLabelKey="participatoryideation.complete_proposal.labelLocationArdt" inputName="locationArdt" items=area_list value="${(proposal.locationArdt)!}" i18nHelpBlockKey="participatoryideation.complete_proposal.labelLocationArdt.help" />
 
 		<div class="form-group">
-			<label class="col-xs-12 col-sm-3 col-md-3" for="thematique">#i18n{participatoryideation.complete_proposal.labelCodeTheme} : </label>
+			<label class="col-xs-12 col-sm-3 col-md-3" for="theme">#i18n{participatoryideation.complete_proposal.labelCodeTheme} : </label>
 			<div class="col-xs-12 col-sm-9 col-md-9">
-				<select id="thematique" name="codeTheme" class="form-control">
+				<select id="theme" name="codeTheme" class="form-control">
 					<#list campaigntheme_list as campaigntheme >
 						<option value="${campaigntheme.code}" <#if proposal.codeTheme?? && campaigntheme.code==proposal.codeTheme> selected="selected"</#if>>${campaigntheme.code!} - ${campaigntheme.name!}</option>
 					</#list>

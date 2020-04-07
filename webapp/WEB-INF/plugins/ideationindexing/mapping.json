@@ -32,7 +32,7 @@
           "isQPop": {
             "type": "boolean"
           },
-          "localisationType": {
+          "locationType": {
             "type": "text",
             "fields": {
               "keyword": {

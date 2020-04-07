@@ -37,6 +37,6 @@
 		<#else>
 			<img src="images/local/skin/marker.png" alt="" title="">
 		</#if>
-		<#if proposal.localisationType == "paris" >Tout Paris<#elseif proposal.localisationType == "ardt"  >${proposal.localisationArdt}<#else><#if proposal.adress?length &gt; 40>${proposal.adress?substring(0,40)?html}...<#else>${proposal.adress?html}</#if></#if>
+		<#if proposal.locationType == "paris" >Tout Paris<#elseif proposal.locationType == "ardt"  >${proposal.locationArdt}<#else><#if proposal.adress?length &gt; 40>${proposal.adress?substring(0,40)?html}...<#else>${proposal.adress?html}</#if></#if>
 	</div>
 </div>

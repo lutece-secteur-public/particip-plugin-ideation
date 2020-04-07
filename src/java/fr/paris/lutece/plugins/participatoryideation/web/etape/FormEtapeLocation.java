@@ -70,10 +70,10 @@ public class FormEtapeLocation extends AbstractFormEtape
     @Size( max = 50, message = "#i18n{participatoryideation.validation.proposal.FormEtapeLocation.CodeTheme.size}" )
     private String _strCodeTheme;
 
-    @NotEmpty( message = "#i18n{participatoryideation.validation.proposal.FormEtapeLocation.localisationTypeNotEmpty}" )
-    private String _strLocalisationType;
+    @NotEmpty( message = "#i18n{participatoryideation.validation.proposal.FormEtapeLocation.locationTypeNotEmpty}" )
+    private String _strLocationType;
 
-    private String _strLocalisationArdt;
+    private String _strLocationArdt;
     private String _strGeojson;
     private String _strAdress;
 
@@ -84,34 +84,34 @@ public class FormEtapeLocation extends AbstractFormEtape
     private String _strDepositary;
 
     /**
-     * Returns the LocalisationArdt
+     * Returns the LocationArdt
      * 
-     * @return The LocalisationArdt
+     * @return The LocationArdt
      */
-    public String getLocalisationArdt( )
+    public String getLocationArdt( )
     {
-        return _strLocalisationArdt;
+        return _strLocationArdt;
     }
 
     /**
-     * Sets the LocalisationArdt
+     * Sets the LocationArdt
      * 
-     * @param strLocalisationArdt
-     *            The LocalisationArdt
+     * @param strLocationArdt
+     *            The LocationArdt
      */
-    public void setLocalisationArdt( String strLocalisationArdt )
+    public void setLocationArdt( String strLocationArdt )
     {
-        _strLocalisationArdt = strLocalisationArdt;
+        _strLocationArdt = strLocationArdt;
     }
 
-    public String getLocalisationType( )
+    public String getLocationType( )
     {
-        return _strLocalisationType;
+        return _strLocationType;
     }
 
-    public void setLocalisationType( String strLocalisationType )
+    public void setLocationType( String strLocationType )
     {
-        this._strLocalisationType = strLocalisationType;
+        this._strLocationType = strLocationType;
     }
 
     /**
@@ -155,7 +155,7 @@ public class FormEtapeLocation extends AbstractFormEtape
             listErrors.add( I18N_ERROR_COMPLEMENT_EMPTY );
         }
 
-        if ( getLocalisationType( ).equals( Proposal.LOCALISATION_TYPE_ARDT ) && StringUtils.isEmpty( getLocalisationArdt( ) ) )
+        if ( getLocationType( ).equals( Proposal.LOCATION_TYPE_ARDT ) && StringUtils.isEmpty( getLocationArdt( ) ) )
         {
             listErrors.add( I18N_ERROR_ARRONDISSEMENT_EMPTY );
         }
@@ -178,12 +178,12 @@ public class FormEtapeLocation extends AbstractFormEtape
         // int nArdt;
         // nArdt = Integer.parseInt(m.group(1));
         // String strArdt = ProposalService.getInstance().getArrondissementCode(nArdt);
-        // if (getLocalisationType().equals(Proposal.LOCALISATION_TYPE_ARDT) &&
-        // StringUtils.isNotEmpty( getLocalisationArdt()) &&
-        // (!strArdt.equals(getLocalisationArdt())) ) {
+        // if (getLocationType().equals(Proposal.LOCATION_TYPE_ARDT) &&
+        // StringUtils.isNotEmpty( getLocationArdt()) &&
+        // (!strArdt.equals(getLocationArdt())) ) {
         // listErrors.add(I18N_ERROR_ADRESS_ARDT_MISMATCH);
         // } else {
-        // setLocalisationArdt(strArdt);
+        // setLocationArdt(strArdt);
         // }
         // } catch (IOException e) {
         // listErrors.add(I18N_ERROR_ADRESS_FORMAT);

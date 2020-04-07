@@ -72,9 +72,9 @@ public interface IProposalService
 
     Map<String, String> getHandicapCodesMap( );
 
-    ReferenceList getTypeLocalisationList( );
+    ReferenceList getTypeLocationList( );
 
-    Map<String, String> getTypeLocalisationMap( );
+    Map<String, String> getTypeLocationMap( );
 
     /**
      * return true if the proposal is published

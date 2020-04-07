@@ -57,7 +57,7 @@ import fr.paris.lutece.plugins.extend.service.extender.history.ResourceExtenderH
 import fr.paris.lutece.plugins.participatoryideation.business.proposal.Proposal;
 import fr.paris.lutece.plugins.participatoryideation.business.proposal.ProposalHome;
 import fr.paris.lutece.plugins.participatoryideation.business.proposal.ProposalSearcher;
-import fr.paris.lutece.plugins.participatoryideation.util.Constants;
+import fr.paris.lutece.plugins.participatoryideation.util.ParticipatoryIdeationConstants;
 import fr.paris.lutece.plugins.workflowcore.business.action.Action;
 import fr.paris.lutece.plugins.workflowcore.business.state.State;
 import fr.paris.lutece.plugins.workflowcore.service.workflow.IWorkflowService;
@@ -235,7 +235,7 @@ public class ProposalWSService implements IProposalWSService
         history.setIdExtendableResource( "" + proposal.getId( ) );
         history.setExtendableResourceType( Proposal.PROPERTY_RESOURCE_TYPE );
         history.setIpAddress( StringUtils.EMPTY );
-        history.setUserGuid( AppPropertiesService.getProperty( Constants.PROPERTY_GENERATE_PROPOSAL_LUTECE_USER_NAME ) ); // Le commentaire est déposé par
+        history.setUserGuid( AppPropertiesService.getProperty( ParticipatoryIdeationConstants.PROPERTY_GENERATE_PROPOSAL_LUTECE_USER_NAME ) ); // Le commentaire est déposé par
                                                                                                                           // l'équipe
         // du Budget Participatif.
         _resourceHistoryService.create( history );
@@ -245,7 +245,7 @@ public class ProposalWSService implements IProposalWSService
     {
 
         boolean foundAction = false;
-        int nIdWorkflow = AppPropertiesService.getPropertyInt( Constants.PROPERTY_WORKFLOW_ID, -1 );
+        int nIdWorkflow = AppPropertiesService.getPropertyInt( ParticipatoryIdeationConstants.PROPERTY_WORKFLOW_ID, -1 );
         String proposalStatutLibelle = removeAccent(
                 I18nService.getLocalizedString( ( Proposal.Status.getByValue( proposalStatut ).getLibelle( ) ), new Locale( "fr", "FR" ) ) )
                 + ( notify ? " (avec notification)" : " (sans notification)" );
@@ -286,7 +286,7 @@ public class ProposalWSService implements IProposalWSService
     public void processActionByName( String strWorkflowProposalActionName, int nIdProposal, HttpServletRequest request )
     {
 
-        int nIdWorkflow = AppPropertiesService.getPropertyInt( Constants.PROPERTY_WORKFLOW_ID, -1 );
+        int nIdWorkflow = AppPropertiesService.getPropertyInt( ParticipatoryIdeationConstants.PROPERTY_WORKFLOW_ID, -1 );
 
         if ( nIdWorkflow != -1 && WorkflowService.getInstance( ).isAvailable( ) && !StringUtils.isEmpty( strWorkflowProposalActionName ) )
         {
@@ -312,7 +312,7 @@ public class ProposalWSService implements IProposalWSService
     public void processActionByName( String strWorkflowProposalActionName, int nIdProposal )
     {
 
-        int nIdWorkflow = AppPropertiesService.getPropertyInt( Constants.PROPERTY_WORKFLOW_ID, -1 );
+        int nIdWorkflow = AppPropertiesService.getPropertyInt( ParticipatoryIdeationConstants.PROPERTY_WORKFLOW_ID, -1 );
 
         if ( nIdWorkflow != -1 && WorkflowService.getInstance( ).isAvailable( ) && !StringUtils.isEmpty( strWorkflowProposalActionName ) )
         {

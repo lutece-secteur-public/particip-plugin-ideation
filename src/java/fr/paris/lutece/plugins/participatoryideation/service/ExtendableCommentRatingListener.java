@@ -40,7 +40,7 @@ import fr.paris.lutece.plugins.extend.modules.rating.service.IRatingListener;
 import fr.paris.lutece.plugins.participatoryideation.business.proposal.Proposal;
 import fr.paris.lutece.plugins.participatoryideation.business.proposal.ProposalHome;
 import fr.paris.lutece.plugins.participatoryideation.service.campaign.IdeationCampaignService;
-import fr.paris.lutece.plugins.participatoryideation.util.Constants;
+import fr.paris.lutece.plugins.participatoryideation.util.ParticipatoryIdeationConstants;
 import fr.paris.lutece.portal.service.security.LuteceUser;
 import fr.paris.lutece.portal.service.spring.SpringContextService;
 
@@ -89,7 +89,7 @@ public class ExtendableCommentRatingListener implements IRatingListener
                 Proposal proposal = ProposalHome.findByPrimaryKey( Integer.parseInt( comment.getIdExtendableResource( ) ) );
 
                 // Can not rate a proposal if not during its ideation campaign
-                if ( proposal == null || !IdeationCampaignService.getInstance( ).isDuring( proposal.getCodeCampaign( ), Constants.IDEATION ) )
+                if ( proposal == null || !IdeationCampaignService.getInstance( ).isDuring( proposal.getCodeCampaign( ), ParticipatoryIdeationConstants.IDEATION ) )
                 {
                     return false;
                 }
