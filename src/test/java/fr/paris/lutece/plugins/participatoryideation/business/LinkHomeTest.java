@@ -43,7 +43,7 @@ import fr.paris.lutece.test.LuteceTestCase;
 import fr.paris.lutece.util.ReferenceList;
 
 /**
- * DepositaryTypeTest
+ * SubmitterTypeTest
  */
 public class LinkHomeTest extends LuteceTestCase
 {

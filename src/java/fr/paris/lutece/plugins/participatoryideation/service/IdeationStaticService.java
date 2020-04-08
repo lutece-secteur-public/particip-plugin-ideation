@@ -39,8 +39,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import fr.paris.lutece.plugins.participatoryideation.business.depositary.DepositaryType;
-import fr.paris.lutece.plugins.participatoryideation.business.depositary.DepositaryTypeHome;
+import fr.paris.lutece.plugins.participatoryideation.business.submitter.SubmitterType;
+import fr.paris.lutece.plugins.participatoryideation.business.submitter.SubmitterTypeHome;
 import fr.paris.lutece.plugins.participatoryideation.business.proposal.Proposal;
 import fr.paris.lutece.plugins.participatoryideation.service.campaign.IdeationCampaignService;
 import fr.paris.lutece.portal.service.cache.AbstractCacheableService;
@@ -78,9 +78,9 @@ public class IdeationStaticService extends AbstractCacheableService implements I
     private static final String MARK_LOCATION_TYPE_LIST = "type_location_list";
     private static final String MARK_LOCATION_TYPE_MAP = "type_location_map";
 
-    private static final String MARK_DEPOSITARIES_TYPES_LIST = "depositary_types_list";
-    private static final String MARK_DEPOSITARIES_TYPES_MAP = "depositaries_types_map";
-    private static final String MARK_DEPOSITARIES_TYPES_LIST_VALUES_MAP = "depositaries_types_list_values_map";
+    private static final String MARK_SUBMITTERS_TYPES_LIST = "submitter_types_list";
+    private static final String MARK_SUBMITTERS_TYPES_MAP = "submitters_types_map";
+    private static final String MARK_SUBMITTERS_TYPES_LIST_VALUES_MAP = "submitters_types_list_values_map";
 
     public static final String CACHE_KEY = "[ideationStatic]";
 
@@ -197,7 +197,7 @@ public class IdeationStaticService extends AbstractCacheableService implements I
         Map<String, Object> content = new HashMap<String, Object>( );
 
         // For each campaign, add data about submitters
-        Map<String, List<DepositaryType>> mapDepositariesTypes = DepositaryTypeHome.getDepositaryTypesMapByCampaign( );
+        Map<String, List<SubmitterType>> mapSubmittersTypes = SubmitterTypeHome.getSubmitterTypesMapByCampaign( );
         ReferenceList listCampaign = IdeationCampaignService.getInstance( ).getCampaigns( );
         for ( ReferenceItem campaign : listCampaign )
         {
@@ -213,27 +213,27 @@ public class IdeationStaticService extends AbstractCacheableService implements I
             campaignContent.put( MARK_AREA_LIST, IdeationCampaignService.getInstance( ).getCampaignAllAreas( campaign.getCode( ) ) );
 
             // Types of submitter of the campaign
-            campaignContent.put( MARK_DEPOSITARIES_TYPES_LIST, mapDepositariesTypes.get( campaign.getCode( ) ) );
-            Map<String, DepositaryType> mapDepositariesTypesByCode = new HashMap<String, DepositaryType>( );
-            for ( DepositaryType depositaryType : mapDepositariesTypes.get( campaign.getCode( ) ) )
+            campaignContent.put( MARK_SUBMITTERS_TYPES_LIST, mapSubmittersTypes.get( campaign.getCode( ) ) );
+            Map<String, SubmitterType> mapSubmittersTypesByCode = new HashMap<String, SubmitterType>( );
+            for ( SubmitterType submitterType : mapSubmittersTypes.get( campaign.getCode( ) ) )
             {
-                mapDepositariesTypesByCode.put( depositaryType.getCode( ), depositaryType );
+                mapSubmittersTypesByCode.put( submitterType.getCode( ), submitterType );
             }
-            campaignContent.put( MARK_DEPOSITARIES_TYPES_MAP, mapDepositariesTypesByCode );
+            campaignContent.put( MARK_SUBMITTERS_TYPES_MAP, mapSubmittersTypesByCode );
 
             // Values of list-typed submitters of the campaign
-            Map<String, String> mapDepositariesTypesListValuesByCode = new HashMap<String, String>( );
-            for ( DepositaryType depositaryType : mapDepositariesTypes.get( campaign.getCode( ) ) )
+            Map<String, String> mapSubmittersTypesListValuesByCode = new HashMap<String, String>( );
+            for ( SubmitterType submitterType : mapSubmittersTypes.get( campaign.getCode( ) ) )
             {
-                if ( DepositaryType.CODE_COMPLEMENT_TYPE_LIST.equals( depositaryType.getCodeComplementType( ) ) )
+                if ( SubmitterType.CODE_COMPLEMENT_TYPE_LIST.equals( submitterType.getCodeComplementType( ) ) )
                 {
-                    for ( ReferenceItem referenceItem : depositaryType.getValues( ) )
+                    for ( ReferenceItem referenceItem : submitterType.getValues( ) )
                     {
-                        mapDepositariesTypesListValuesByCode.put( depositaryType.getCode( ) + "-" + referenceItem.getCode( ), referenceItem.getName( ) );
+                        mapSubmittersTypesListValuesByCode.put( submitterType.getCode( ) + "-" + referenceItem.getCode( ), referenceItem.getName( ) );
                     }
                 }
             }
-            campaignContent.put( MARK_DEPOSITARIES_TYPES_LIST_VALUES_MAP, mapDepositariesTypesListValuesByCode );
+            campaignContent.put( MARK_SUBMITTERS_TYPES_LIST_VALUES_MAP, mapSubmittersTypesListValuesByCode );
 
             content.put( campaign.getCode( ), campaignContent );
         }

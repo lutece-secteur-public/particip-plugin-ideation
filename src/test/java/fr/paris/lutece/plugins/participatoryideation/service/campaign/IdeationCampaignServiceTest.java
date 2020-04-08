@@ -39,7 +39,7 @@ import fr.paris.lutece.plugins.participatoryideation.util.ParticipatoryIdeationC
 import fr.paris.lutece.test.LuteceTestCase;
 
 /**
- * DepositaryTypeTest
+ * SubmitterTypeTest
  */
 public class IdeationCampaignServiceTest extends LuteceTestCase
 {

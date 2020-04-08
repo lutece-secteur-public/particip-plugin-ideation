@@ -547,15 +547,15 @@ public class ProposalJspBean extends ManageIdeationProposalsJspBean
 
         _proposal.setCodeProposal( 0 );
         // _proposal.setCodeCampaign( CampaignHome.getLastCampaign( ).getCode( ) );
-        _proposal.setDepositaryType( AppPropertiesService.getProperty( ParticipatoryIdeationConstants.PROPERTY_GENERATE_PROPOSAL_DEPOSITARY_TYPE ) );
-        _proposal.setDepositary( AppPropertiesService.getProperty( ParticipatoryIdeationConstants.PROPERTY_GENERATE_PROPOSAL_DEPOSITARY ) );
+        _proposal.setSubmitterType( AppPropertiesService.getProperty( ParticipatoryIdeationConstants.PROPERTY_GENERATE_PROPOSAL_SUBMITTER_TYPE ) );
+        _proposal.setSubmitter( AppPropertiesService.getProperty( ParticipatoryIdeationConstants.PROPERTY_GENERATE_PROPOSAL_SUBMITTER ) );
         _proposal.setLuteceUserName( AppPropertiesService.getProperty( ParticipatoryIdeationConstants.PROPERTY_GENERATE_PROPOSAL_LUTECE_USER_NAME ) );
         _proposal.setCreationTimestamp( new java.sql.Timestamp( ( new java.util.Date( ) ).getTime( ) ) );
         _proposal.setStatusPublic( Proposal.Status.STATUS_SUBMITTED );
         _proposal.setTypeQpvQva( IdeationApp.QPV_QVA_NO );
         _proposal.setDocs( new ArrayList<File>( ) );
         _proposal.setImgs( new ArrayList<File>( ) );
-        _proposal.setDejadepose( "" );
+        _proposal.setField1( "" );
         _proposal.setCreationmethod( "" );
         _proposal.setOperatingbudget( "" );
 
@@ -728,8 +728,8 @@ public class ProposalJspBean extends ManageIdeationProposalsJspBean
         }
         catch( Exception e )
         {
-            addInfo( "Erreur d'écriture dans Solr, mais l'idée est correctement modifiée." );
-            AppLogService.error( "Ideation, error writing proposal to solr", e );
+            addInfo( "The proposal modify is done, but Solr was unable to index the document due to exception '" + e.getClass().getSimpleName() + " : " + e.getMessage() + "'." );
+            AppLogService.error( "An error occured during SOLR indexation of proposal #" + _proposalBoForm.getId() + " '" + _proposalBoForm.getTitre() +"'.", e );
         }
 
         return redirectView( request, VIEW_MANAGE_PROPOSALS );

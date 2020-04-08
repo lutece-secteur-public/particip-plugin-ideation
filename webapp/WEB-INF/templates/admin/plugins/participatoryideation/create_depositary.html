@@ -1,14 +1,14 @@
 <#include "manageideation_tabs.html" />
-<@tabs tab="depositary" />
+<@tabs tab="submitter" />
 
-<@rowBoxHeader i18nTitleKey="participatoryideation.create_depositary.pageTitle">
-    <form class="form-horizontal" method="post" name="create_depositary" action="jsp/admin/plugins/participatoryideation/ManageDepositaries.jsp">
+<@rowBoxHeader i18nTitleKey="participatoryideation.create_submitter.pageTitle">
+    <form class="form-horizontal" method="post" name="create_submitter" action="jsp/admin/plugins/participatoryideation/ManageSubmitters.jsp">
         <@messages errors=errors />
         <input type="hidden" id="id" name="id"/>
         
-        <@fieldInputText i18nLabelKey="participatoryideation.create_depositary.labelCodeCampaign" inputName="code_campaign" mandatory=true value="${depositary.codeCampaign!''}" i18nHelpBlockKey="participatoryideation.create_depositary.labelCodeCampaign.help" />
-        <@fieldInputText i18nLabelKey="participatoryideation.create_depositary.labelCodeDepositary" inputName="code_depositary_type" mandatory=true value="${depositary.codeDepositaryType!''}" i18nHelpBlockKey="participatoryideation.create_depositary.labelCodeDepositary.help" />
-        <@actionButtons button1Name="action_createDepositary" button2Name="view_manageDepositaries"/>
+        <@fieldInputText i18nLabelKey="participatoryideation.create_submitter.labelCodeCampaign" inputName="code_campaign" mandatory=true value="${submitter.codeCampaign!''}" i18nHelpBlockKey="participatoryideation.create_submitter.labelCodeCampaign.help" />
+        <@fieldInputText i18nLabelKey="participatoryideation.create_submitter.labelCodeSubmitter" inputName="code_submitter_type" mandatory=true value="${submitter.codeSubmitterType!''}" i18nHelpBlockKey="participatoryideation.create_submitter.labelCodeSubmitter.help" />
+        <@actionButtons button1Name="action_createSubmitter" button2Name="view_manageSubmitters"/>
     </form>
 </@rowBoxHeader>
 

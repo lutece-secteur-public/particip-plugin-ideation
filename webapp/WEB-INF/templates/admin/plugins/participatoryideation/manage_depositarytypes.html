@@ -1,14 +1,14 @@
 <#include "manageideation_tabs.html" />
-<@tabs tab="depositarytype" />
+<@tabs tab="submittertype" />
 
 <@rowBox>
-    <@boxHeader i18nTitleKey="participatoryideation.manage_depositarytypes.tableLabel">
+    <@boxHeader i18nTitleKey="participatoryideation.manage_submittertypes.tableLabel">
         <@headerButtons>
 
         
-        <form class="form-inline pull-right" method="post" name="manage_depositarytypes" action="jsp/admin/plugins/participatoryideation/ManageDepositaryTypes.jsp">
+        <form class="form-inline pull-right" method="post" name="manage_submittertypes" action="jsp/admin/plugins/participatoryideation/ManageSubmitterTypes.jsp">
             <!-- Add pull-right to class1 -->
-            <@actionButtons button1Name="view_createDepositaryType" icon1="icon-plus icon-white" i18nValue1Key="participatoryideation.manage_depositarytypes.buttonAdd" />
+            <@actionButtons button1Name="view_createSubmitterType" icon1="icon-plus icon-white" i18nValue1Key="participatoryideation.manage_submittertypes.buttonAdd" />
         </form>
         
     </@headerButtons>
@@ -20,31 +20,31 @@
     <@table>
         <tr>
             <input type="hidden" id="id" name="id"/>
-            <th>#i18n{participatoryideation.manage_depositarytypes.columnCode}</th>
-            <th>#i18n{participatoryideation.manage_depositarytypes.columnLibelle}</th>
-            <th>#i18n{participatoryideation.manage_depositarytypes.columnCodeComplementType}</th>
+            <th>#i18n{participatoryideation.manage_submittertypes.columnCode}</th>
+            <th>#i18n{participatoryideation.manage_submittertypes.columnLibelle}</th>
+            <th>#i18n{participatoryideation.manage_submittertypes.columnCodeComplementType}</th>
             <th>#i18n{portal.util.labelActions}</th>
         </tr>
         <@tableHeadBodySeparator />
-            <#list depositarytype_list as depositarytype >
+            <#list submittertype_list as submittertype >
         <tr>
             <input type="hidden" id="id" name="id"/>
             <td>
-                ${depositarytype.code}
+                ${submittertype.code}
             </td>
             <td>
-                ${depositarytype.libelle}
+                ${submittertype.libelle}
             </td>
             <td>
-                ${depositarytype.codeComplementType}
+                ${submittertype.codeComplementType}
             </td>
         <td>
-            <a href="jsp/admin/plugins/participatoryideation/ManageDepositaryTypes.jsp?view=modifyDepositaryType&id=${depositarytype.id}"
+            <a href="jsp/admin/plugins/participatoryideation/ManageSubmitterTypes.jsp?view=modifySubmitterType&id=${submittertype.id}"
                class="btn btn-primary btn-small" title="#i18n{portal.util.labelModify}">
                 <i class="fa fa-pencil"></i>
             </a>
 
-            <a href="jsp/admin/plugins/participatoryideation/ManageDepositaryTypes.jsp?action=confirmRemoveDepositaryType&id=${depositarytype.id}"
+            <a href="jsp/admin/plugins/participatoryideation/ManageSubmitterTypes.jsp?action=confirmRemoveSubmitterType&id=${submittertype.id}"
                class="btn btn-danger btn-small" title="#i18n{portal.util.labelDelete}" >
                 <i class="fa fa-trash"></i>
             </a>

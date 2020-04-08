@@ -153,7 +153,7 @@ public class SolrProposalIndexer implements SolrIndexer
         item.addDynamicField( "proposal_status", String.valueOf( proposal.getStatusPublic( ).isPublished( ) ) );
         item.addDynamicFieldNotAnalysed( "status", String.valueOf( proposal.getStatusPublic( ).getValeur( ) ) );
         item.addDynamicFieldNotAnalysed( "code_theme", proposal.getCodeTheme( ) );
-        item.addDynamicFieldNotAnalysed( "code_depositary_type", proposal.getDepositaryType( ) );
+        item.addDynamicFieldNotAnalysed( "code_submitter_type", proposal.getSubmitterType( ) );
         item.addDynamicField( "campaign", proposal.getCodeCampaign( ) );
         item.addDynamicField( "code_projet", (long) proposal.getCodeProposal( ) );
         item.addDynamicField( "location", ( ( proposal.getAdress( ) != null ) && ( !"".equals( proposal.getAdress( ).trim( ) ) ) ) ? proposal.getAdress( )

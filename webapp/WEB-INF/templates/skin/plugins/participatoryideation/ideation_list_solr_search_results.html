@@ -119,9 +119,9 @@
 										<span>
 											<a href="jsp/site/Portal.jsp?page=search-solr&conf=list_proposals&query=(pseudo_string:&quot;${result.dynamicFields.pseudo_string?html!''}&quot;)" title="Voir les propositions déposées par ${result.dynamicFields.pseudo_string?html!''} (nouvel onglet)">
 												${result.dynamicFields.pseudo_string?html} 
-												<#if result.dynamicFields?? && result.dynamicFields.code_depositary_type_string??>
-													<#if     result.dynamicFields.code_depositary_type_string = 'CONSEIL'> #i18n{participatoryideation.view.list.card.submitted.council}
-													<#elseif result.dynamicFields.code_depositary_type_string = 'ASSO'   > #i18n{participatoryideation.view.list.card.submitted.association}
+												<#if result.dynamicFields?? && result.dynamicFields.code_submitter_type_string??>
+													<#if     result.dynamicFields.code_submitter_type_string = 'CONSEIL'> #i18n{participatoryideation.view.list.card.submitted.council}
+													<#elseif result.dynamicFields.code_submitter_type_string = 'ASSO'   > #i18n{participatoryideation.view.list.card.submitted.association}
 													</#if>
 												</#if>
 											</a>

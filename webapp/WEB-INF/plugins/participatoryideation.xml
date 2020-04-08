@@ -25,7 +25,7 @@
             <feature-title>ideation.adminFeature.ManageIdeation.name</feature-title>
             <feature-description>ideation.adminFeature.ManageIdeation.description</feature-description>
             <feature-level>0</feature-level>
-            <feature-url>jsp/admin/plugins/participatoryideation/ManageIdeationCampaigns.jsp</feature-url>
+            <feature-url>jsp/admin/plugins/participatoryideation/ManageIdeation.jsp</feature-url>
             <feature-icon-url/>
       </admin-feature>
       <admin-feature>

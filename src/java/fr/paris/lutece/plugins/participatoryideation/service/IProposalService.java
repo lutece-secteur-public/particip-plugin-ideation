@@ -86,9 +86,9 @@ public interface IProposalService
     boolean isPublished( Proposal proposal );
 
     /**
-     * Returns a Set containing guid of depositaries, from proposition ids.
+     * Returns a Set containing guid of submitters, from proposition ids.
      */
-    public Set<String> getUniqueUserGuidsProposalsDepositaries( List<Integer> propIds );
+    public Set<String> getUniqueUserGuidsProposalsSubmitters( List<Integer> propIds );
 
     /**
      * Returns a Set containing guid of followers, from proposition ids.

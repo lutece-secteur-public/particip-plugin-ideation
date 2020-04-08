@@ -16,8 +16,8 @@
 
 	<!-- DAO beans -->
 
-    <bean id="participatoryideation.depositaryTypeDAO"       class="fr.paris.lutece.plugins.participatoryideation.business.depositary.DepositaryTypeDAO" />  
-    <bean id="participatoryideation.depositaryDAO"   class="fr.paris.lutece.plugins.participatoryideation.business.depositary.DepositaryDAO" />  
+    <bean id="participatoryideation.submitterTypeDAO"       class="fr.paris.lutece.plugins.participatoryideation.business.submitter.SubmitterTypeDAO" />  
+    <bean id="participatoryideation.submitterDAO"   class="fr.paris.lutece.plugins.participatoryideation.business.submitter.SubmitterDAO" />  
     <bean id="participatoryideation.proposalDAO"              class="fr.paris.lutece.plugins.participatoryideation.business.proposal.ProposalDAO" />  
     <bean id="participatoryideation.linkDAO"                  class="fr.paris.lutece.plugins.participatoryideation.business.link.LinkDAO" />  
     

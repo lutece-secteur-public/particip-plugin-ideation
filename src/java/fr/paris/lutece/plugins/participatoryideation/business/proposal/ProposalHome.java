@@ -285,19 +285,19 @@ public final class ProposalHome
 
             childrenPseudos.append( UserPreferencesService.instance( ).getNickname( _proposal.getLuteceUserName( ) ) );
 
-            switch( _proposal.getDepositaryType( ) )
+            switch( _proposal.getSubmitterType( ) )
             {
                 case "PARTICULIER":
                     childrenPseudos.append( " (particulier)" ).append( separator );
                     break;
                 case "ASSO":
-                    childrenPseudos.append( " (association " + _proposal.getDepositary( ) + ")" ).append( separator );
+                    childrenPseudos.append( " (association " + _proposal.getSubmitter( ) + ")" ).append( separator );
                     break;
                 case "CONSEIL":
-                    childrenPseudos.append( " (conseil de quartier " + _proposal.getDepositary( ) + ")" ).append( separator );
+                    childrenPseudos.append( " (conseil de quartier " + _proposal.getSubmitter( ) + ")" ).append( separator );
                     break;
                 case "AUTRE":
-                    childrenPseudos.append( " (autre " + _proposal.getDepositary( ) + ")" ).append( separator );
+                    childrenPseudos.append( " (autre " + _proposal.getSubmitter( ) + ")" ).append( separator );
                     break;
             }
 
@@ -317,14 +317,14 @@ public final class ProposalHome
 
         List<Integer> _nIds = getSubProposalsId( nProposalId, method );
 
-        // How many depositaries, by type ?
+        // How many submitters, by type ?
         int nbPart = 0;
         int nbAsso = 0;
         int nbCons = 0;
         int nbAutr = 0;
         for ( int nId : _nIds )
         {
-            switch( ProposalHome.findByPrimaryKey( nId ).getDepositaryType( ) )
+            switch( ProposalHome.findByPrimaryKey( nId ).getSubmitterType( ) )
             {
                 case "PARTICULIER":
                     nbPart++;
@@ -343,7 +343,7 @@ public final class ProposalHome
 
         if ( nbPart + nbAsso + nbCons + nbAutr == 0 )
         {
-            AppLogService.error( "ProposalHome.getSubProposalsNicknamesNiceText says 'Unable to find depositaries for proposition #" + nProposalId + "'." );
+            AppLogService.error( "ProposalHome.getSubProposalsNicknamesNiceText says 'Unable to find submitters for proposition #" + nProposalId + "'." );
             return "Aucun dépositaire n'a été identifié pour ce projet";
         }
 
@@ -361,15 +361,15 @@ public final class ProposalHome
         else
             if ( nbPart == 0 && nbAsso == 1 && nbCons == 0 && nbAutr == 0 )
                 childrenPseudos.append( "Ce projet a été élaboré sur proposition de l’association « "
-                        + ProposalHome.findByPrimaryKey( _nIds.get( 0 ) ).getDepositary( ) + " »" );
+                        + ProposalHome.findByPrimaryKey( _nIds.get( 0 ) ).getSubmitter( ) + " »" );
             else
                 if ( nbPart == 0 && nbAsso == 0 && nbCons == 1 && nbAutr == 0 )
                     childrenPseudos.append( "Ce projet a été élaboré sur proposition du conseil de quartier « "
-                            + ProposalHome.findByPrimaryKey( _nIds.get( 0 ) ).getDepositary( ) + " »" );
+                            + ProposalHome.findByPrimaryKey( _nIds.get( 0 ) ).getSubmitter( ) + " »" );
                 else
                     if ( nbPart == 0 && nbAsso == 0 && nbCons == 0 && nbAutr == 1 )
                         childrenPseudos.append( "Ce projet a été élaboré sur proposition du collectif « "
-                                + ProposalHome.findByPrimaryKey( _nIds.get( 0 ) ).getDepositary( ) + " »" );
+                                + ProposalHome.findByPrimaryKey( _nIds.get( 0 ) ).getSubmitter( ) + " »" );
                     else
                     {
                         childrenPseudos.append( "Ce projet a été élaboré sur proposition de ... " );

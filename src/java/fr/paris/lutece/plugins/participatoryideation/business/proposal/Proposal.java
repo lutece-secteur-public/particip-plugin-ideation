@@ -69,7 +69,7 @@ public class Proposal implements Serializable, IExtendableResource
     private int _nId;
     private String _strLuteceUserName;
     private String _strTitre;
-    private String _strDejadepose;
+    private String _strField1;
     private String _strCreationmethod;
     private String _strHandicap;
     private String _strHandicapComplement;
@@ -84,8 +84,8 @@ public class Proposal implements Serializable, IExtendableResource
     private Double _dLatitude;
     private String _strAdress;
     private Status _statusPublic;
-    private String _strDepositaryType;
-    private String _strDepositary;
+    private String _strSubmitterType;
+    private String _strSubmitter;
     private boolean _bAcceptExploit;
     private boolean _bAcceptContact;
     private List<File> _listImgs;
@@ -277,24 +277,24 @@ public class Proposal implements Serializable, IExtendableResource
     }
 
     /**
-     * Returns the Dejadepose
+     * Returns the Field1
      * 
-     * @return The Dejadepose
+     * @return The Field1
      */
-    public String getDejadepose( )
+    public String getField1( )
     {
-        return _strDejadepose;
+        return _strField1;
     }
 
     /**
-     * Sets the Dejadepose
+     * Sets the Field1
      * 
-     * @param strDejadepose
-     *            The Dejadepose
+     * @param strField1
+     *            The Field1
      */
-    public void setDejadepose( String strDejadepose )
+    public void setField1( String strField1 )
     {
-        _strDejadepose = strDejadepose;
+        _strField1 = strField1;
     }
 
     /**
@@ -471,14 +471,14 @@ public class Proposal implements Serializable, IExtendableResource
         this._strLocationArdt = _strLocationArdt;
     }
 
-    public String getDepositaryType( )
+    public String getSubmitterType( )
     {
-        return _strDepositaryType;
+        return _strSubmitterType;
     }
 
-    public void setDepositaryType( String _strDepositaryType )
+    public void setSubmitterType( String _strSubmitterType )
     {
-        this._strDepositaryType = _strDepositaryType;
+        this._strSubmitterType = _strSubmitterType;
     }
 
     public Double getLongitude( )
@@ -511,14 +511,14 @@ public class Proposal implements Serializable, IExtendableResource
         this._bAcceptContact = bAcceptContact;
     }
 
-    public String getDepositary( )
+    public String getSubmitter( )
     {
-        return _strDepositary;
+        return _strSubmitter;
     }
 
-    public void setDepositary( String _strDepositary )
+    public void setSubmitter( String _strSubmitter )
     {
-        this._strDepositary = _strDepositary;
+        this._strSubmitter = _strSubmitter;
     }
 
     /**

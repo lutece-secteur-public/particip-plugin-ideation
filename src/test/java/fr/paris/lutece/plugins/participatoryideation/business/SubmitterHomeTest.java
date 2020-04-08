@@ -36,71 +36,71 @@ package fr.paris.lutece.plugins.participatoryideation.business;
 import java.util.Collection;
 import java.util.Iterator;
 
-import fr.paris.lutece.plugins.participatoryideation.business.depositary.Depositary;
-import fr.paris.lutece.plugins.participatoryideation.business.depositary.DepositaryHome;
+import fr.paris.lutece.plugins.participatoryideation.business.submitter.Submitter;
+import fr.paris.lutece.plugins.participatoryideation.business.submitter.SubmitterHome;
 import fr.paris.lutece.test.LuteceTestCase;
 
 /**
- * DepositaryTypeTest
+ * SubmitterTypeTest
  */
-public class DepositaryHomeTest extends LuteceTestCase
+public class SubmitterHomeTest extends LuteceTestCase
 {
     private final static String CODE_CAMPAIGN = "XYZ";
-    private final static String CODE_DEPOSITARY_TYPE = "ABCD1234";
+    private final static String CODE_SUBMITTER_TYPE = "ABCD1234";
 
     public void testBusiness( )
     {
         // Initialize an object
-        Depositary instance = new Depositary( );
+        Submitter instance = new Submitter( );
         instance.setCodeCampaign( CODE_CAMPAIGN );
-        instance.setCodeDepositaryType( CODE_DEPOSITARY_TYPE );
+        instance.setCodeSubmitterType( CODE_SUBMITTER_TYPE );
 
         // Create test
-        DepositaryHome.create( instance );
+        SubmitterHome.create( instance );
         int id = instance.getId( );
 
         // List test
-        Collection<Integer> idList = DepositaryHome.getIdDepositariesList( );
+        Collection<Integer> idList = SubmitterHome.getIdSubmittersList( );
         assertTrue( idList.size( ) > 0 );
-        boolean depositaryFound = false;
+        boolean submitterFound = false;
         for ( Integer integer : idList )
         {
-            depositaryFound = ( depositaryFound || ( integer == id ) );
+            submitterFound = ( submitterFound || ( integer == id ) );
         }
-        assertTrue( depositaryFound );
+        assertTrue( submitterFound );
 
         // List by campaign test
-        Collection<Depositary> depositaryList = DepositaryHome.getDepositaryListByCampaign( CODE_CAMPAIGN );
+        Collection<Submitter> submitterList = SubmitterHome.getSubmitterListByCampaign( CODE_CAMPAIGN );
 
-        assertEquals( 1, depositaryList.size( ) );
+        assertEquals( 1, submitterList.size( ) );
 
-        Depositary [ ] depositaryArray = new Depositary [ 1];
-        depositaryList.toArray( depositaryArray );
-        checkAssertsOnInstance( depositaryArray [0], instance );
+        Submitter [ ] submitterArray = new Submitter [ 1];
+        submitterList.toArray( submitterArray );
+        checkAssertsOnInstance( submitterArray [0], instance );
 
         // List by campaign test
-        depositaryList = DepositaryHome.getDepositaryListByCampaign( CODE_CAMPAIGN + "123" );
-        assertEquals( 0, depositaryList.size( ) );
+        submitterList = SubmitterHome.getSubmitterListByCampaign( CODE_CAMPAIGN + "123" );
+        assertEquals( 0, submitterList.size( ) );
 
         // Find test
-        Depositary instanceStored = DepositaryHome.findByPrimaryKey( id );
+        Submitter instanceStored = SubmitterHome.findByPrimaryKey( id );
         assertTrue( instanceStored != null );
         checkAssertsOnInstance( instanceStored, instance );
 
         // Delete test
-        DepositaryHome.remove( instance.getId( ) );
+        SubmitterHome.remove( instance.getId( ) );
 
-        depositaryList = DepositaryHome.getDepositaryListByCampaign( CODE_CAMPAIGN );
-        assertEquals( 0, depositaryList.size( ) );
+        submitterList = SubmitterHome.getSubmitterListByCampaign( CODE_CAMPAIGN );
+        assertEquals( 0, submitterList.size( ) );
 
-        Collection<Integer> idListAfterDelete = DepositaryHome.getIdDepositariesList( );
+        Collection<Integer> idListAfterDelete = SubmitterHome.getIdSubmittersList( );
         assertEquals( idList.size( ) - 1, idListAfterDelete.size( ) );
     }
 
-    private void checkAssertsOnInstance( Depositary instanceStored, Depositary instance )
+    private void checkAssertsOnInstance( Submitter instanceStored, Submitter instance )
     {
         assertEquals( instanceStored.getId( ), instance.getId( ) );
-        assertEquals( instanceStored.getCodeDepositaryType( ), instance.getCodeDepositaryType( ) );
+        assertEquals( instanceStored.getCodeSubmitterType( ), instance.getCodeSubmitterType( ) );
         assertEquals( instanceStored.getCodeCampaign( ), instance.getCodeCampaign( ) );
     }
 }

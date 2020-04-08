@@ -1,6 +1,6 @@
 DELETE FROM core_admin_right WHERE id_right = 'PARTICIPATORYIDEATION_MANAGEMENT';
 INSERT INTO core_admin_right (id_right,name,level_right,admin_url,description,is_updatable,plugin_name,id_feature_group,icon_url,documentation_url, id_order ) VALUES 
-('PARTICIPATORYIDEATION_MANAGEMENT','participatoryideation.adminFeature.ManageIdeation.name',1,'jsp/admin/plugins/participatoryideation/ManageDepositaries.jsp','participatoryideation.adminFeature.ManageIdeation.description',0,'ideation',NULL,NULL,NULL,4);
+('PARTICIPATORYIDEATION_MANAGEMENT','participatoryideation.adminFeature.ManageIdeation.name',1,'jsp/admin/plugins/participatoryideation/ManageSubmitters.jsp','participatoryideation.adminFeature.ManageIdeation.description',0,'ideation',NULL,NULL,NULL,4);
 
 DELETE FROM core_user_right WHERE id_right = 'PARTICIPATORYIDEATION_MANAGEMENT';
 INSERT INTO core_user_right (id_right,id_user) VALUES ('PARTICIPATORYIDEATION_MANAGEMENT',1);

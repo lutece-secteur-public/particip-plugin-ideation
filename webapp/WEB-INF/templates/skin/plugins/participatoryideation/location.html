@@ -34,49 +34,49 @@
 	</div>
 
 	<#-- *********************************************************************************** -->
-	<#-- * DEPOSITARY DEPOSITARY DEPOSITARY DEPOSITARY DEPOSITARY DEPOSITARY DEPOSIT * -->
-	<#-- * DEPOSITARY DEPOSITARY DEPOSITARY DEPOSITARY DEPOSITARY DEPOSITARY DEPOSIT * -->
+	<#-- * SUBMITTER SUBMITTER SUBMITTER SUBMITTER SUBMITTER SUBMITTER DEPOSIT * -->
+	<#-- * SUBMITTER SUBMITTER SUBMITTER SUBMITTER SUBMITTER SUBMITTER DEPOSIT * -->
 	<#-- *********************************************************************************** -->
 	
-	<div id="depositary_row" class="form-group">
-		<p>#i18n{participatoryideation.submit_project.steps.location.depositary_label}</p>
+	<div id="submitter_row" class="form-group">
+		<p>#i18n{participatoryideation.submit_project.steps.location.submitter_label}</p>
 		<#assign autre = 0> <#-- L'option 'Autre' sera insérée en fin de liste -->
 		
 		<div class="alert alert-warning">FIXME : Submitters must be recovered from ideation campaign</div>
 			
-		<#list campaign_static.depositary_types_list?sort_by("id") as depositary_type>
-			<#if depositary_type["libelle"] = 'Autre'>
+		<#list campaign_static.submitter_types_list?sort_by("id") as submitter_type>
+			<#if submitter_type["libelle"] = 'Autre'>
 				<#assign autre = 1>
-				<#assign autre_code    = depositary_type["code"]>
-				<#assign autre_libelle = depositary_type["libelle"]>
+				<#assign autre_code    = submitter_type["code"]>
+				<#assign autre_libelle = submitter_type["libelle"]>
 			<#else>
 				<label class="radio-inline">
-					<input class="depositary" type="radio" name="depositary_type" id="radio_depositary_${depositary_type["code"]}" value="${depositary_type["code"]}" <#if form_etape_location.depositaryType??&&depositary_type["code"] == form_etape_location.depositaryType>checked="checked"</#if>>
-					${depositary_type["libelle"]}
+					<input class="submitter" type="radio" name="submitter_type" id="radio_submitter_${submitter_type["code"]}" value="${submitter_type["code"]}" <#if form_etape_location.submitterType??&&submitter_type["code"] == form_etape_location.submitterType>checked="checked"</#if>>
+					${submitter_type["libelle"]}
 				</label>
 			</#if>
 		</#list>
 
 		<#if autre == 1>
 			<label class="radio-inline">
-				<input class="depositary" type="radio" name="depositary_type" id="radio_depositary_${autre_code}" value="${autre_code}" <#if form_etape_location.depositaryType?? && autre_code == form_etape_location.depositaryType>checked="checked"</#if>>
+				<input class="submitter" type="radio" name="submitter_type" id="radio_submitter_${autre_code}" value="${autre_code}" <#if form_etape_location.submitterType?? && autre_code == form_etape_location.submitterType>checked="checked"</#if>>
 				${autre_libelle}
 			</label>
 		</#if>
 
-		<#list campaign_static.depositary_types_list as depositary_type>
-    		<div id="complement_${depositary_type["code"]}" class="depositary-complement">
-      			<#if depositary_type["codeComplementType"] != "NONE">
-          			<label for="complement_depositary_${depositary_type["code"]}">${depositary_type["libelle"]} :</label>
+		<#list campaign_static.submitter_types_list as submitter_type>
+    		<div id="complement_${submitter_type["code"]}" class="submitter-complement">
+      			<#if submitter_type["codeComplementType"] != "NONE">
+          			<label for="complement_submitter_${submitter_type["code"]}">${submitter_type["libelle"]} :</label>
         		</#if>
-        		<#if depositary_type["codeComplementType"] == "LIST">
-          			<select id="complement_depositary_${depositary_type["code"]}" name="depositary" class="form-control">
-          				<#list depositary_type["values"] as value>
-            				<option value="${value["code"]}"<#if form_etape_location.depositaryType?? && form_etape_location.depositaryType=depositary_type["code"]&&form_etape_location.depositary??&&value.code == form_etape_location.depositary> selected="selected"</#if>>${value["name"]}</option>
+        		<#if submitter_type["codeComplementType"] == "LIST">
+          			<select id="complement_submitter_${submitter_type["code"]}" name="submitter" class="form-control">
+          				<#list submitter_type["values"] as value>
+            				<option value="${value["code"]}"<#if form_etape_location.submitterType?? && form_etape_location.submitterType=submitter_type["code"]&&form_etape_location.submitter??&&value.code == form_etape_location.submitter> selected="selected"</#if>>${value["name"]}</option>
           				</#list>
           			</select>
-        		<#elseif depositary_type["codeComplementType"] == "FREE">
-          			<input type="text" class="form-control" name="depositary" <#if form_etape_location.depositaryType?? && form_etape_location.depositaryType=depositary_type["code"]>value="${form_etape_location["depositary"]!''}"</#if> id="complement_depositary_${depositary_type["code"]}">
+        		<#elseif submitter_type["codeComplementType"] == "FREE">
+          			<input type="text" class="form-control" name="submitter" <#if form_etape_location.submitterType?? && form_etape_location.submitterType=submitter_type["code"]>value="${form_etape_location["submitter"]!''}"</#if> id="complement_submitter_${submitter_type["code"]}">
         		</#if>
     		</div>
   		</#list>
@@ -137,7 +137,7 @@
 
 // Ajout
 $( function(){
-	$(".depositary-complement").toggle();
+	$(".submitter-complement").toggle();
   
 	$('[id ^= code_theme_]').on("click", function(e){
 		if ($('#code_theme_CADRE').prop('checked')) {
@@ -157,24 +157,24 @@ $( function(){
 		$('#col_ardt').hide();
 	}
 
-	$(".depositary").on("click", function(e){
-		clickRadioDepositary( this );
+	$(".submitter").on("click", function(e){
+		clickRadioSubmitter( this );
 	});
 
-	var checked_elem = $('#depositary_row').find("input[type=radio]:checked")[0];
+	var checked_elem = $('#submitter_row').find("input[type=radio]:checked")[0];
 	if ( typeof(checked_elem) != 'undefined' ) {
-		clickRadioDepositary( checked_elem );
+		clickRadioSubmitter( checked_elem );
 	}
 	
 });
 // Fin ajout
 
-function clickRadioDepositary( elem ) {
-  $('.depositary-complement').hide();
+function clickRadioSubmitter( elem ) {
+  $('.submitter-complement').hide();
   $('#complement_' + elem.value ).toggle();
-  $('.depositary-complement').find('input').removeAttr('name');
-  $('.depositary-complement').find('select').removeAttr('name');
-  $('#complement_depositary_' + elem.value ).attr('name', 'depositary');
+  $('.submitter-complement').find('input').removeAttr('name');
+  $('.submitter-complement').find('select').removeAttr('name');
+  $('#complement_submitter_' + elem.value ).attr('name', 'submitter');
 }
 
 var loadresource = document.createElement('link');

@@ -55,27 +55,27 @@
 		</div>
 
 		<div class="form-group">
-			<label class="col-xs-12 col-sm-3" for="depositaryType">#i18n{participatoryideation.modify_proposal.labelDepositaryType} :</label>
+			<label class="col-xs-12 col-sm-3" for="submitterType">#i18n{participatoryideation.modify_proposal.labelSubmitterType} :</label>
 			<div class="col-xs-12 col-sm-9">			
-					<p class="form-control-static" >  ${(campaign_static.depositaries_types_map[proposal.depositaryType].libelle)!proposal.depositaryType!}  </p>
-					<p class="help-block">#i18n{participatoryideation.modify_proposal.labelDepositaryType.help}</p>
+					<p class="form-control-static" >  ${(campaign_static.submitters_types_map[proposal.submitterType].libelle)!proposal.submitterType!}  </p>
+					<p class="help-block">#i18n{participatoryideation.modify_proposal.labelSubmitterType.help}</p>
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="col-xs-12 col-sm-3" for="depositary">#i18n{participatoryideation.modify_proposal.labelDepositary} :</label>
+			<label class="col-xs-12 col-sm-3" for="submitter">#i18n{participatoryideation.modify_proposal.labelSubmitter} :</label>
 			<div class="col-xs-12 col-sm-9">			
 					<p class="form-control-static" >
-                    <#if (campaign_static.depositary_types_map[proposal.depositaryType])??>
-                        <#assign depositary_type = campaign_static.depositary_types_map[proposal.depositaryType]>
+                    <#if (campaign_static.submitter_types_map[proposal.submitterType])??>
+                        <#assign submitter_type = campaign_static.submitter_types_map[proposal.submitterType]>
                     </#if>
-                    <#if depositary_type?? && depositary_type["codeComplementType"] == "LIST">
-                    ${depositary_type.name!proposal.depositary!} (Code : ${proposal.depositary!})
+                    <#if submitter_type?? && submitter_type["codeComplementType"] == "LIST">
+                    ${submitter_type.name!proposal.submitter!} (Code : ${proposal.submitter!})
                     <#else>
-                    ${proposal.depositary!}
+                    ${proposal.submitter!}
                     </#if>
                     </p>
-					<p class="help-block">#i18n{participatoryideation.modify_proposal.labelDepositary.help}</p>
+					<p class="help-block">#i18n{participatoryideation.modify_proposal.labelSubmitter.help}</p>
 			</div>
 		</div>
 

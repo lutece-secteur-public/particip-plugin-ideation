@@ -9,7 +9,7 @@
 	
 	<div class="form-group">
 		<p>#i18n{participatoryideation.submit_project.steps.title.text1}</strong> (${i18n("participatoryideation.submit_project.steps.title.text1_validation", 0, 200)})</p>
-		<input type="text" class="form-control" name="dejadepose" value="${form_etape_title.dejadepose!''}" id="dejadepose">
+		<input type="text" class="form-control" name="field1" value="${form_etape_title.field1!''}" id="field1">
 	</div>
 	 
 	<div class="form-group">
@@ -38,17 +38,17 @@ $(function(){
 	$("#titre").on("input keyup paste cut", lutece_update_count_titre);
 });
 	
-function lutece_update_count_dejadepose() {
-	var cnt = $.trim($("#dejadepose").val()).length;
+function lutece_update_count_field1() {
+	var cnt = $.trim($("#field1").val()).length;
 	var text = cnt + " caract&egrave;re";
 	if (cnt >= 2) { text += "s"; }
 		text = "(" + text + ")";
 		$("#cnt2").html( text );
 };
 $(function(){
-	$("#dejadepose").after('<p id="cnt2" class="cnt"></p>');
-	lutece_update_count_dejadepose();
-	$("#dejadepose").on("input keyup paste cut", lutece_update_count_dejadepose);
+	$("#field1").after('<p id="cnt2" class="cnt"></p>');
+	lutece_update_count_field1();
+	$("#field1").on("input keyup paste cut", lutece_update_count_field1);
 });
 	
 function lutece_update_count_creationmethod() {

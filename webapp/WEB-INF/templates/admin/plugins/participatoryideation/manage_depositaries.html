@@ -1,14 +1,14 @@
 <#include "manageideation_tabs.html" />
-<@tabs tab="depositary" />
+<@tabs tab="submitter" />
 
 <@rowBox>
-    <@boxHeader i18nTitleKey="participatoryideation.manage_depositaries.tableLabel">
+    <@boxHeader i18nTitleKey="participatoryideation.manage_submitters.tableLabel">
         <@headerButtons>
 
         
-        <form class="form-inline pull-right" method="post" name="manage_depositaries" action="jsp/admin/plugins/participatoryideation/ManageDepositaries.jsp">
+        <form class="form-inline pull-right" method="post" name="manage_submitters" action="jsp/admin/plugins/participatoryideation/ManageSubmitters.jsp">
             <!-- Add pull-right to class1 -->
-            <@actionButtons button1Name="view_createDepositary" icon1="icon-plus icon-white" i18nValue1Key="participatoryideation.manage_depositaries.buttonAdd" />
+            <@actionButtons button1Name="view_createSubmitter" icon1="icon-plus icon-white" i18nValue1Key="participatoryideation.manage_submitters.buttonAdd" />
         </form>
         
     </@headerButtons>
@@ -20,27 +20,27 @@
     <@table>
         <tr>
             <input type="hidden" id="id" name="id"/>
-            <th>#i18n{participatoryideation.manage_depositaries.columnCodeCampaign}</th>
-            <th>#i18n{participatoryideation.manage_depositaries.columnCodeDepositary}</th>
+            <th>#i18n{participatoryideation.manage_submitters.columnCodeCampaign}</th>
+            <th>#i18n{participatoryideation.manage_submitters.columnCodeSubmitter}</th>
             <th>#i18n{portal.util.labelActions}</th>
         </tr>
         <@tableHeadBodySeparator />
-            <#list depositary_list as depositary >
+            <#list submitter_list as submitter >
         <tr>
             <input type="hidden" id="id" name="id"/>
             <td>
-                ${depositary.codeCampaign}
+                ${submitter.codeCampaign}
             </td>
             <td>
-                ${depositary.codeDepositaryType}
+                ${submitter.codeSubmitterType}
             </td>
         <td>
-            <a href="jsp/admin/plugins/participatoryideation/ManageDepositaries.jsp?view=modifyDepositary&id=${depositary.id}"
+            <a href="jsp/admin/plugins/participatoryideation/ManageSubmitters.jsp?view=modifySubmitter&id=${submitter.id}"
                class="btn btn-primary btn-small" title="#i18n{portal.util.labelModify}">
                 <i class="fa fa-pencil"></i>
             </a>
 
-            <a href="jsp/admin/plugins/participatoryideation/ManageDepositaries.jsp?action=confirmRemoveDepositary&id=${depositary.id}"
+            <a href="jsp/admin/plugins/participatoryideation/ManageSubmitters.jsp?action=confirmRemoveSubmitter&id=${submitter.id}"
                class="btn btn-danger btn-small" title="#i18n{portal.util.labelDelete}" >
                 <i class="fa fa-trash"></i>
             </a>

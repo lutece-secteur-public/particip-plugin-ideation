@@ -31,7 +31,7 @@
  *
  * License 1.0
  */
-package fr.paris.lutece.plugins.participatoryideation.business.depositary;
+package fr.paris.lutece.plugins.participatoryideation.business.submitter;
 
 import java.io.Serializable;
 
@@ -42,9 +42,9 @@ import org.hibernate.validator.constraints.NotEmpty;
 import fr.paris.lutece.util.ReferenceList;
 
 /**
- * This is the business class for the object DepositaryType
+ * This is the business class for the object SubmitterType
  */
-public class DepositaryType implements Serializable
+public class SubmitterType implements Serializable
 {
     public static final String CODE_COMPLEMENT_TYPE_NONE = "NONE";
     public static final String CODE_COMPLEMENT_TYPE_LIST = "LIST";
@@ -55,15 +55,15 @@ public class DepositaryType implements Serializable
     // Variables declarations
     private int _nId;
 
-    @NotEmpty( message = "#i18n{participatoryideation.validation.depositary.Code.notEmpty}" )
-    @Size( max = 50, message = "#i18n{participatoryideation.validation.depositary.Code.size}" )
+    @NotEmpty( message = "#i18n{participatoryideation.validation.submitter.Code.notEmpty}" )
+    @Size( max = 50, message = "#i18n{participatoryideation.validation.submitter.Code.size}" )
     private String _strCode;
 
-    @NotEmpty( message = "#i18n{participatoryideation.validation.depositary.Libelle.notEmpty}" )
-    @Size( max = 50, message = "#i18n{participatoryideation.validation.depositary.Libelle.size}" )
+    @NotEmpty( message = "#i18n{participatoryideation.validation.submitter.Libelle.notEmpty}" )
+    @Size( max = 50, message = "#i18n{participatoryideation.validation.submitter.Libelle.size}" )
     private String _strLibelle;
 
-    @NotEmpty( message = "#i18n{participatoryideation.validation.depositary.CodeComplementType.notEmpty}" )
+    @NotEmpty( message = "#i18n{participatoryideation.validation.submitter.CodeComplementType.notEmpty}" )
     private String _strCodeComplementType;
 
     // Non null when codeComplementType is "LIST"

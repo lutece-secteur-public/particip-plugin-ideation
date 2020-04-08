@@ -31,43 +31,53 @@
  *
  * License 1.0
  */
-package fr.paris.lutece.plugins.participatoryideation.business.depositary;
+package fr.paris.lutece.plugins.participatoryideation.business.submitter;
 
 import fr.paris.lutece.portal.service.plugin.Plugin;
 import java.util.Collection;
-import java.util.List;
-import java.util.Map;
 
 /**
- * IDepositaryTypeDAO Interface
+ * ISubmitterDAO Interface
  */
-public interface IDepositaryTypeDAO
+public interface ISubmitterDAO
 {
     /**
      * Insert a new record in the table.
      * 
-     * @param depositaryType
-     *            instance of the DepositaryType object to insert
+     * @param submitter
+     *            instance of the Submitter object to insert
      * @param plugin
      *            the Plugin
      */
-    void insert( DepositaryType depositaryType, Plugin plugin );
+    void insert( Submitter submitter, Plugin plugin );
 
     /**
      * Update the record in the table
      * 
-     * @param depositaryType
-     *            the reference of the DepositaryType
+     * @param submitter
+     *            the reference of the Submitter
      * @param plugin
      *            the Plugin
      */
-    void store( DepositaryType depositaryType, Plugin plugin );
+    void store( Submitter submitter, Plugin plugin );
+
+    /**
+     * Change a campaign code
+     * 
+     * @param oldCampaignCode
+     *            The campaign code to change
+     * @param newCampaignCode
+     *            The new campaign code
+     * @param plugin
+     *            the Plugin
+     */
+    void changeCampainCode( String oldCampaignCode, String newCampaignCode, Plugin plugin );
 
     /**
      * Delete a record from the table
      * 
      * @param nKey
-     *            The identifier of the DepositaryType to delete
+     *            The identifier of the Submitter to delete
      * @param plugin
      *            the Plugin
      */
@@ -80,58 +90,38 @@ public interface IDepositaryTypeDAO
      * Load the data from the table
      * 
      * @param nKey
-     *            The identifier of the depositaryType
+     *            The identifier of the submitter
      * @param plugin
      *            the Plugin
-     * @return The instance of the depositaryType
+     * @return The instance of the submitter
      */
-    DepositaryType load( int nKey, Plugin plugin );
+    Submitter load( int nKey, Plugin plugin );
 
     /**
-     * Load the data of all the depositaryType objects and returns them as a collection
+     * Load the data of all the submitter objects and returns them as a collection
      * 
      * @param plugin
      *            the Plugin
-     * @return The collection which contains the data of all the depositaryType objects
+     * @return The collection which contains the data of all the submitter objects
      */
-    Collection<DepositaryType> selectDepositaryTypesList( Plugin plugin );
+    Collection<Submitter> selectSubmittersList( Plugin plugin );
 
     /**
-     * Load the id of all the depositaryType objects and returns them as a collection
+     * Load the data of all the submitter objects for a campaign and returns them as a collection
      * 
      * @param plugin
      *            the Plugin
-     * @return The collection which contains the id of all the depositaryType objects
+     * @return The collection which contains the data of all the {@link Submitter} objects
      */
-    Collection<Integer> selectIdDepositaryTypesList( Plugin plugin );
+    Collection<Submitter> selectSubmitterListByCampaign( String codeCampaign, Plugin plugin );
 
     /**
-     * Load the data of all the depositaryType objects for campaign and returns them as a collection
+     * Load the id of all the submitter objects and returns them as a collection
      * 
      * @param plugin
      *            the Plugin
-     * @return The collection which contains the data of all the depositaryType objects
+     * @return The collection which contains the id of all the submitter objects
      */
-    Collection<DepositaryType> selectDepositaryTypesListByCampaign( String strCodeCampaign, Plugin plugin );
-
-    /**
-     * Load the data from the table
-     * 
-     * @param strCode
-     *            The depositary type code
-     * @param plugin
-     *            the Plugin
-     * @return The instance of the depositaryType
-     */
-    DepositaryType load( String strCode, Plugin plugin );
-
-    /**
-     * Load the data of all the depositaryType objects mapped to a campaign and returns them as a map
-     * 
-     * @param plugin
-     *            the Plugin
-     * @return The collection which contains the data of all the depositaryType objects
-     */
-    Map<String, List<DepositaryType>> selectDepositaryTypesMapByCampaign( Plugin plugin );
+    Collection<Integer> selectIdSubmittersList( Plugin plugin );
 
 }

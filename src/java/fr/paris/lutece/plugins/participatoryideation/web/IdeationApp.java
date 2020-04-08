@@ -171,8 +171,8 @@ public class IdeationApp extends MVCApplication
     private static final String MARK_RECAP_LOCATION_ARDT = "recap_location_ardt";
     private static final String MARK_RECAP_LOCATION_ADRESS = "recap_location_adress";
     private static final String MARK_RECAP_TITLE = "recap_title";
-    private static final String MARK_RECAP_DEPOSITARY_TYPE = "recap_depositary_type";
-    private static final String MARK_RECAP_DEPOSITARY = "recap_depositary";
+    private static final String MARK_RECAP_SUBMITTER_TYPE = "recap_submitter_type";
+    private static final String MARK_RECAP_SUBMITTER = "recap_submitter";
     private static final String MARK_RECAP_DESCRIPTION = "recap_description";
     private static final String MARK_RECAP_COUT = "recap_cout";
     private static final String MARK_RECAP_DOCS = "recap_docs";
@@ -1088,8 +1088,8 @@ public class IdeationApp extends MVCApplication
     protected void fillRecap( Map<String, Object> model, Proposal proposal, HttpServletRequest request )
     {
         // Step 1
-        model.put( MARK_RECAP_DEPOSITARY_TYPE, proposal.getDepositaryType( ) );
-        model.put( MARK_RECAP_DEPOSITARY, proposal.getDepositary( ) );
+        model.put( MARK_RECAP_SUBMITTER_TYPE, proposal.getSubmitterType( ) );
+        model.put( MARK_RECAP_SUBMITTER, proposal.getSubmitter( ) );
         model.put( MARK_RECAP_CODE_THEME, proposal.getCodeTheme( ) );
         model.put( MARK_RECAP_LOCATION_TYPE, proposal.getLocationType( ) );
         model.put( MARK_RECAP_LOCATION_ARDT, proposal.getLocationArdt( ) );
@@ -1219,14 +1219,14 @@ public class IdeationApp extends MVCApplication
     {
         proposal.setLocationType( formEtapeLocation.getLocationType( ) );
         proposal.setCodeTheme( formEtapeLocation.getCodeTheme( ) );
-        proposal.setDepositaryType( formEtapeLocation.getDepositaryType( ) );
-        if ( formEtapeLocation.mustCopyDepositary( ) )
+        proposal.setSubmitterType( formEtapeLocation.getSubmitterType( ) );
+        if ( formEtapeLocation.mustCopySubmitter( ) )
         {
-            proposal.setDepositary( formEtapeLocation.getDepositary( ).trim( ) );
+            proposal.setSubmitter( formEtapeLocation.getSubmitter( ).trim( ) );
         }
         else
         {
-            proposal.setDepositary( null );
+            proposal.setSubmitter( null );
         }
         if ( StringUtils.isNotEmpty( formEtapeLocation.getGeojson( ) ) )
         {
@@ -1337,7 +1337,7 @@ public class IdeationApp extends MVCApplication
     private void convertFormEtapeTitle( FormEtapeTitle formEtapeTitle, Proposal proposal )
     {
         proposal.setTitre( formEtapeTitle.getTitre( ).trim( ) );
-        proposal.setDejadepose( formEtapeTitle.getDejadepose( ).trim( ) );
+        proposal.setField1( formEtapeTitle.getField1( ).trim( ) );
         proposal.setCreationmethod( formEtapeTitle.getCreationmethod( ).trim( ) );
     }
 

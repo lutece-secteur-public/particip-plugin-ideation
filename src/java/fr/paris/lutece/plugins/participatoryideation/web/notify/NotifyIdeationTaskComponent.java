@@ -73,7 +73,7 @@ public class NotifyIdeationTaskComponent extends NoFormTaskComponent
     public static final String PARAMETER_RECIPIENTS_CC = "recipients_cc";
     public static final String PARAMETER_RECIPIENTS_BCC = "recipients_bcc";
     public static final String PARAMETER_FOLLOWERS = "followers";
-    public static final String PARAMETER_DEPOSITARY = "depositary";
+    public static final String PARAMETER_SUBMITTER = "submitter";
 
     // For rich text editor
     public static final String MARK_WEBAPP_URL = "webapp_url";
@@ -106,7 +106,7 @@ public class NotifyIdeationTaskComponent extends NoFormTaskComponent
         String strRecipientsCc = request.getParameter( PARAMETER_RECIPIENTS_CC );
         String strRecipientsBcc = request.getParameter( PARAMETER_RECIPIENTS_BCC );
         String strFollowers = ( request.getParameter( PARAMETER_FOLLOWERS ) == null ) ? MARK_FALSE : request.getParameter( PARAMETER_FOLLOWERS );
-        String strSumbitters = ( request.getParameter( PARAMETER_DEPOSITARY ) == null ) ? MARK_FALSE : request.getParameter( PARAMETER_DEPOSITARY );
+        String strSumbitters = ( request.getParameter( PARAMETER_SUBMITTER ) == null ) ? MARK_FALSE : request.getParameter( PARAMETER_SUBMITTER );
 
         TaskNotifyIdeationConfig config = _taskNotifyIdeationConfigService.findByPrimaryKey( task.getId( ) );
         Boolean bCreate = false;
@@ -125,7 +125,7 @@ public class NotifyIdeationTaskComponent extends NoFormTaskComponent
         config.setRecipientsCc( StringUtils.isNotEmpty( strRecipientsCc ) ? strRecipientsCc : StringUtils.EMPTY );
         config.setRecipientsBcc( StringUtils.isNotEmpty( strRecipientsBcc ) ? strRecipientsBcc : StringUtils.EMPTY );
         config.setFollowers( Boolean.parseBoolean( strFollowers ) );
-        config.setDepositary( Boolean.parseBoolean( strSumbitters ) );
+        config.setSubmitter( Boolean.parseBoolean( strSumbitters ) );
 
         if ( bCreate )
         {

@@ -43,7 +43,7 @@ import fr.paris.lutece.portal.business.file.File;
 import fr.paris.lutece.test.LuteceTestCase;
 
 /**
- * DepositaryTypeTest
+ * SubmitterTypeTest
  */
 public class ProposalHomeTest extends LuteceTestCase
 {
@@ -54,7 +54,7 @@ public class ProposalHomeTest extends LuteceTestCase
     public final static String MOCK_LUTECE_USER_NAME = "mockLuteceUserName";
     public final static String MOCK_CODE_THEME = "mockCodeTheme";
     public final static String MOCK_LOCATION_TYPE = "mockLocationType";
-    public final static String MOCK_DEPOSITARY_TYPE = "mockDepositaryType";
+    public final static String MOCK_SUBMITTER_TYPE = "mockSubmitterType";
     public final static boolean MOCK_ACCEPT_EXPLOIT = true;
     public final static String MOCK_TYPE_QPV_QVA = "mockTypeQpvQva";
     public final static Timestamp MOCK_CREATION_TIMESTAMP = new Timestamp( System.currentTimeMillis( ) );
@@ -92,7 +92,7 @@ public class ProposalHomeTest extends LuteceTestCase
         proposal.setLuteceUserName( MOCK_LUTECE_USER_NAME );
         proposal.setCodeTheme( MOCK_CODE_THEME );
         proposal.setLocationType( MOCK_LOCATION_TYPE );
-        proposal.setDepositaryType( MOCK_DEPOSITARY_TYPE );
+        proposal.setSubmitterType( MOCK_SUBMITTER_TYPE );
         proposal.setAcceptExploit( MOCK_ACCEPT_EXPLOIT );
         proposal.setTypeQpvQva( MOCK_TYPE_QPV_QVA );
         proposal.setCreationTimestamp( MOCK_CREATION_TIMESTAMP );

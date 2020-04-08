@@ -155,7 +155,7 @@
             <th>#i18n{participatoryideation.manage_proposals.columnLocationType}</th>
             <th>#i18n{participatoryideation.manage_proposals.columnLocationArdt}</th>
             <th>#i18n{participatoryideation.manage_proposals.columnAdress}</th>
-            <th>#i18n{participatoryideation.manage_proposals.columnDepositaryType}</th>
+            <th>#i18n{participatoryideation.manage_proposals.columnSubmitterType}</th>
             <th>#i18n{participatoryideation.manage_proposals.columnQpvQva}</th>
             <th>#i18n{participatoryideation.manage_proposals.columnParents}</th>
             <th>#i18n{participatoryideation.manage_proposals.columnChilds}</th>
@@ -198,10 +198,10 @@
                 ${proposal.adress!''}
             </td>
             <td>
-                <#if (proposal.depositaryType)??>
-                <#assign depositary_type_libelle = (global_static[proposal.codeCampaign].depositaries_types_map[proposal.depositaryType].libelle)!proposal.depositaryType>
+                <#if (proposal.submitterType)??>
+                <#assign submitter_type_libelle = (global_static[proposal.codeCampaign].submitters_types_map[proposal.submitterType].libelle)!proposal.submitterType>
                 </#if>
-                ${depositary_type_libelle!''}
+                ${submitter_type_libelle!''}
             </td>
             <td>
                 <#if proposal.typeQpvQva??>${(qpvqva_map[proposal.typeQpvQva])!proposal.typeQpvQva}<#if proposal.libelleQpvQva??> : ${proposal.libelleQpvQva!}</#if></#if>

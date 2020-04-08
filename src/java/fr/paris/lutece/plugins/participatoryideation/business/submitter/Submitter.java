@@ -31,7 +31,7 @@
  *
  * License 1.0
  */
-package fr.paris.lutece.plugins.participatoryideation.business.depositary;
+package fr.paris.lutece.plugins.participatoryideation.business.submitter;
 
 import javax.validation.constraints.*;
 import org.hibernate.validator.constraints.*;
@@ -39,22 +39,22 @@ import org.hibernate.validator.constraints.*;
 import java.io.Serializable;
 
 /**
- * This is the business class for the object Depositary
+ * This is the business class for the object Submitter
  */
-public class Depositary implements Serializable
+public class Submitter implements Serializable
 {
     private static final long serialVersionUID = 1L;
 
     // Variables declarations
     private int _nId;
 
-    @NotEmpty( message = "#i18n{participatoryideation.validation.depositary.CodeCampaign.notEmpty}" )
-    @Size( max = 50, message = "#i18n{participatoryideation.validation.depositary.CodeCampaign.size}" )
+    @NotEmpty( message = "#i18n{participatoryideation.validation.submitter.CodeCampaign.notEmpty}" )
+    @Size( max = 50, message = "#i18n{participatoryideation.validation.submitter.CodeCampaign.size}" )
     private String _strCodeCampaign;
 
-    @NotEmpty( message = "#i18n{participatoryideation.validation.depositary.CodeDepositaryType.notEmpty}" )
-    @Size( max = 50, message = "#i18n{participatoryideation.validation.depositary.CodeDepositaryType.size}" )
-    private String _strCodeDepositaryType;
+    @NotEmpty( message = "#i18n{participatoryideation.validation.submitter.CodeSubmitterType.notEmpty}" )
+    @Size( max = 50, message = "#i18n{participatoryideation.validation.submitter.CodeSubmitterType.size}" )
+    private String _strCodeSubmitterType;
 
     /**
      * Returns the Id
@@ -99,23 +99,23 @@ public class Depositary implements Serializable
     }
 
     /**
-     * Returns the CodeDepositaryType
+     * Returns the CodeSubmitterType
      * 
-     * @return The CodeDepositaryType
+     * @return The CodeSubmitterType
      */
-    public String getCodeDepositaryType( )
+    public String getCodeSubmitterType( )
     {
-        return _strCodeDepositaryType;
+        return _strCodeSubmitterType;
     }
 
     /**
-     * Sets the CodeDepositaryType
+     * Sets the CodeSubmitterType
      * 
-     * @param strCodeDepositaryType
-     *            The CodeDepositaryType
+     * @param strCodeSubmitterType
+     *            The CodeSubmitterType
      */
-    public void setCodeDepositaryType( String strCodeDepositaryType )
+    public void setCodeSubmitterType( String strCodeSubmitterType )
     {
-        _strCodeDepositaryType = strCodeDepositaryType;
+        _strCodeSubmitterType = strCodeSubmitterType;
     }
 }

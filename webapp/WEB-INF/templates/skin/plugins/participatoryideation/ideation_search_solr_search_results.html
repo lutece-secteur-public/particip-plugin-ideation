@@ -67,7 +67,7 @@
 <#assign facet_campaign= "">
 <#assign facet_handicap= "">
 <#assign facet_qpop= "">
-<#assign facet_depositary_type= "">
+<#assign facet_submitter_type= "">
 <#assign facet_status="">
 <#assign monTri ="">
 <#assign ordre_aleatoire= "true">
@@ -85,7 +85,7 @@
 		<#elseif facet?starts_with("campaign_text:")>					<#assign facet_campaign = facet?split(":")?last>
 		<#elseif facet?starts_with("handicap_string")>					<#assign facet_handicap = facet?split(":")?last>
 		<#elseif facet?starts_with("type_qpvqva_string")>				<#assign facet_qpop = facet?split(":")?last>
-		<#elseif facet?starts_with("code_depositary_type_string:")>	<#assign facet_depositary_type = facet?split(":")?last>
+		<#elseif facet?starts_with("code_submitter_type_string:")>	<#assign facet_submitter_type = facet?split(":")?last>
 		<#elseif facet?starts_with("statut_publique_project_text:")>	<#assign facet_status = facet?split(":")?last>
 		</#if>
 	</#list>
@@ -97,7 +97,7 @@
 	facet_campaign = <strong>${facet_campaign!'?'}</strong><br>
 	facet_handicap = <strong>${facet_handicap!'?'}</strong><br>
 	facet_qpop = <strong>${facet_qpop!'?'}</strong><br>
-	facet_depositary_type = <strong>${facet_depositary_type!'?'}</strong><br>
+	facet_submitter_type = <strong>${facet_submitter_type!'?'}</strong><br>
 	facet_status = <strong>${facet_status!'?'}</strong><br>
 -->
 
@@ -236,9 +236,9 @@
 						
 						<div class="col-md-3 col-xs-12">
 							<#-- SubmitterType-based search -->
-							<label class="select" for="depositary_type">
-								<select name="fq" id="depositary_type" onChange="searchArrond()" class="form-control <#if facet_depositary_type != "">selected</#if>">
-									<#if facet_depositary_type="">
+							<label class="select" for="submitter_type">
+								<select name="fq" id="submitter_type" onChange="searchArrond()" class="form-control <#if facet_submitter_type != "">selected</#if>">
+									<#if facet_submitter_type="">
 										<option value="" selected="selected">#i18n{participatoryideation.search.form.field.submitter_type.label}</option>
 									<#else>
 										<option value="">#i18n{participatoryideation.search.form.field.submitter_type.reset}</option>
@@ -248,13 +248,13 @@
 									
 									<#if facets??>
 										<#list facets as facet>
-											<#if facet.name == "code_depositary_type_string">
+											<#if facet.name == "code_submitter_type_string">
 												<#list facet.values?sort as value>
 													<#if value.count != 0>
-														<#if facet_depositary_type == value.name>
-															<option value="code_depositary_type_string:${(value.name)!''}" selected="selected" >${(value.name)!''} (${(value.count)!''})</option>
+														<#if facet_submitter_type == value.name>
+															<option value="code_submitter_type_string:${(value.name)!''}" selected="selected" >${(value.name)!''} (${(value.count)!''})</option>
 														<#else>
-															<option value="code_depositary_type_string:${(value.name)!''}" >${(value.name)!''} (${(value.count)!''})</option>
+															<option value="code_submitter_type_string:${(value.name)!''}" >${(value.name)!''} (${(value.count)!''})</option>
 														</#if>
 													</#if>
 												</#list>

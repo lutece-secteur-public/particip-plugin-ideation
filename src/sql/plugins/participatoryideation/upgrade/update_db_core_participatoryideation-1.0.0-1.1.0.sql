@@ -1,5 +1,5 @@
 INSERT INTO `core_datastore` (`entity_key`, `entity_value`) VALUES ('participatoryideation.site_property.view_proposal.non_existing.htmlblock', '<p class="text-center">No such proposal.</p>');
-INSERT INTO `core_datastore` (`entity_key`, `entity_value`) VALUES ('participatoryideation.site_property.view_proposal.site_properties.contact_message_content.textblock', '${nom_depositary}, ${nom_contacteur}, ${message}');
+INSERT INTO `core_datastore` (`entity_key`, `entity_value`) VALUES ('participatoryideation.site_property.view_proposal.site_properties.contact_message_content.textblock', '${nom_submitter}, ${nom_contacteur}, ${message}');
 INSERT INTO `core_datastore` (`entity_key`, `entity_value`) VALUES ('participatoryideation.site_property.view_proposal.site_properties.contact_message_not_accept', 'Unable to sent the message.');
 INSERT INTO `core_datastore` (`entity_key`, `entity_value`) VALUES ('participatoryideation.site_property.view_proposal.site_properties.contact_subject', 'contact submitter');
 INSERT INTO `core_datastore` (`entity_key`, `entity_value`) VALUES ('participatoryideation.site_property.view_my_subscriptions.buttonSave', 'Save my subscriptions');

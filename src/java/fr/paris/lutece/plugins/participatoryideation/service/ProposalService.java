@@ -233,15 +233,15 @@ public class ProposalService implements IProposalService
     }
 
     // *********************************************************************************************
-    // * DEPOSIT DEPOSIT DEPOSIT DEPOSIT DEPOSIT DEPOSIT DEPOSIT DEPOSIT DEPOSIT DEPOSIT DEPOSIT D *
-    // * DEPOSIT DEPOSIT DEPOSIT DEPOSIT DEPOSIT DEPOSIT DEPOSIT DEPOSIT DEPOSIT DEPOSIT DEPOSIT D *
+    // * SUBMITTER SUBMITTER SUBMITTER SUBMITTER SUBMITTER SUBMITTER SUBMITTER SUBMITTER SUBMITTER *
+    // * SUBMITTER SUBMITTER SUBMITTER SUBMITTER SUBMITTER SUBMITTER SUBMITTER SUBMITTER SUBMITTER *
     // *********************************************************************************************
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public Set<String> getUniqueUserGuidsProposalsDepositaries( List<Integer> propIds )
+    public Set<String> getUniqueUserGuidsProposalsSubmitters( List<Integer> propIds )
     {
         Set<String> userGuids = new HashSet<String>( );
 

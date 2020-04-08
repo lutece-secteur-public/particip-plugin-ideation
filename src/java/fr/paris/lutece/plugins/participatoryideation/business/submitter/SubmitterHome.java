@@ -31,7 +31,7 @@
  *
  * License 1.0
  */
-package fr.paris.lutece.plugins.participatoryideation.business.depositary;
+package fr.paris.lutece.plugins.participatoryideation.business.submitter;
 
 import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.portal.service.plugin.PluginService;
@@ -39,49 +39,49 @@ import fr.paris.lutece.portal.service.spring.SpringContextService;
 import java.util.Collection;
 
 /**
- * This class provides instances management methods (create, find, ...) for Depositary objects
+ * This class provides instances management methods (create, find, ...) for Submitter objects
  */
 
-public final class DepositaryHome
+public final class SubmitterHome
 {
     // Static variable pointed at the DAO instance
 
-    private static IDepositaryDAO _dao = SpringContextService.getBean( "participatoryideation.depositaryDAO" );
+    private static ISubmitterDAO _dao = SpringContextService.getBean( "participatoryideation.submitterDAO" );
     private static Plugin _plugin = PluginService.getPlugin( "participatoryideation" );
 
     /**
      * Private constructor - this class need not be instantiated
      */
-    private DepositaryHome( )
+    private SubmitterHome( )
     {
     }
 
     /**
-     * Create an instance of the depositary class
+     * Create an instance of the submitter class
      * 
-     * @param depositary
-     *            The instance of the Depositary which contains the informations to store
-     * @return The instance of depositary which has been created with its primary key.
+     * @param submitter
+     *            The instance of the Submitter which contains the informations to store
+     * @return The instance of submitter which has been created with its primary key.
      */
-    public static Depositary create( Depositary depositary )
+    public static Submitter create( Submitter submitter )
     {
-        _dao.insert( depositary, _plugin );
+        _dao.insert( submitter, _plugin );
 
-        return depositary;
+        return submitter;
     }
 
     /**
-     * Update of the depositary which is specified in parameter
+     * Update of the submitter which is specified in parameter
      * 
-     * @param depositary
-     *            The instance of the Depositary which contains the data to store
-     * @return The instance of the depositary which has been updated
+     * @param submitter
+     *            The instance of the Submitter which contains the data to store
+     * @return The instance of the submitter which has been updated
      */
-    public static Depositary update( Depositary depositary )
+    public static Submitter update( Submitter submitter )
     {
-        _dao.store( depositary, _plugin );
+        _dao.store( submitter, _plugin );
 
-        return depositary;
+        return submitter;
     }
 
     /**
@@ -98,10 +98,10 @@ public final class DepositaryHome
     }
 
     /**
-     * Remove the depositary whose identifier is specified in parameter
+     * Remove the submitter whose identifier is specified in parameter
      * 
      * @param nKey
-     *            The depositary Id
+     *            The submitter Id
      */
     public static void remove( int nKey )
     {
@@ -112,44 +112,44 @@ public final class DepositaryHome
     // Finders
 
     /**
-     * Returns an instance of a depositary whose identifier is specified in parameter
+     * Returns an instance of a submitter whose identifier is specified in parameter
      * 
      * @param nKey
-     *            The depositary primary key
-     * @return an instance of Depositary
+     *            The submitter primary key
+     * @return an instance of Submitter
      */
-    public static Depositary findByPrimaryKey( int nKey )
+    public static Submitter findByPrimaryKey( int nKey )
     {
         return _dao.load( nKey, _plugin );
     }
 
     /**
-     * Load the data of all the depositary objects and returns them in form of a collection
+     * Load the data of all the submitter objects and returns them in form of a collection
      * 
-     * @return the collection which contains the data of all the depositary objects
+     * @return the collection which contains the data of all the submitter objects
      */
-    public static Collection<Depositary> getDepositariesList( )
+    public static Collection<Submitter> getSubmittersList( )
     {
-        return _dao.selectDepositariesList( _plugin );
+        return _dao.selectSubmittersList( _plugin );
     }
 
     /**
-     * Load the id of all the depositary objects and returns them in form of a collection
+     * Load the id of all the submitter objects and returns them in form of a collection
      * 
-     * @return the collection which contains the id of all the depositary objects
+     * @return the collection which contains the id of all the submitter objects
      */
-    public static Collection<Integer> getIdDepositariesList( )
+    public static Collection<Integer> getIdSubmittersList( )
     {
-        return _dao.selectIdDepositariesList( _plugin );
+        return _dao.selectIdSubmittersList( _plugin );
     }
 
     /**
-     * Load the data of all the depositary objects for a campaign and returns them in form of a collection
+     * Load the data of all the submitter objects for a campaign and returns them in form of a collection
      * 
-     * @return the collection which contains the data of all the depositary objects
+     * @return the collection which contains the data of all the submitter objects
      */
-    public static Collection<Depositary> getDepositaryListByCampaign( String codeCampaign )
+    public static Collection<Submitter> getSubmitterListByCampaign( String codeCampaign )
     {
-        return _dao.selectDepositaryListByCampaign( codeCampaign, _plugin );
+        return _dao.selectSubmitterListByCampaign( codeCampaign, _plugin );
     }
 }

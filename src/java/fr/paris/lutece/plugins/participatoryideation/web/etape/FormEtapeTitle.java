@@ -55,8 +55,8 @@ public class FormEtapeTitle extends AbstractFormEtape
     private static final String I18N_ERROR_TITRE_MIN_LENGTH = "participatoryideation.validation.proposal.Titre.sizeMin";
     private static final String I18N_ERROR_TITRE_MAX_LENGTH = "participatoryideation.validation.proposal.Titre.sizeMax";
 
-    private static final String I18N_ERROR_DEJADEPOSE_MIN_LENGTH = "participatoryideation.validation.proposal.Dejadepose.sizeMin";
-    private static final String I18N_ERROR_DEJADEPOSE_MAX_LENGTH = "participatoryideation.validation.proposal.Dejadepose.sizeMax";
+    private static final String I18N_ERROR_FIELD1_MIN_LENGTH = "participatoryideation.validation.proposal.Field1.sizeMin";
+    private static final String I18N_ERROR_FIELD1_MAX_LENGTH = "participatoryideation.validation.proposal.Field1.sizeMax";
 
     private static final String I18N_ERROR_CREATIONMETHOD_MIN_LENGTH = "participatoryideation.validation.proposal.Creationmethod.sizeMin";
     private static final String I18N_ERROR_CREATIONMETHOD_MAX_LENGTH = "participatoryideation.validation.proposal.Creationmethod.sizeMax";
@@ -64,8 +64,8 @@ public class FormEtapeTitle extends AbstractFormEtape
     private static final String DSKEY_TITRE_MIN_LENGTH = "participatoryideation.site_property.form.titre.minLength";
     private static final String DSKEY_TITRE_MAX_LENGTH = "participatoryideation.site_property.form.titre.maxLength";
 
-    private static final String DSKEY_DEJADEPOSE_MIN_LENGTH = "participatoryideation.site_property.form.dejadepose.minLength";
-    private static final String DSKEY_DEJADEPOSE_MAX_LENGTH = "participatoryideation.site_property.form.dejadepose.maxLength";
+    private static final String DSKEY_FIELD1_MIN_LENGTH = "participatoryideation.site_property.form.field1.minLength";
+    private static final String DSKEY_FIELD1_MAX_LENGTH = "participatoryideation.site_property.form.field1.maxLength";
 
     private static final String DSKEY_CREATIONMETHOD_MIN_LENGTH = "participatoryideation.site_property.form.creationmethod.minLength";
     private static final String DSKEY_CREATIONMETHOD_MAX_LENGTH = "participatoryideation.site_property.form.creationmethod.maxLength";
@@ -74,7 +74,7 @@ public class FormEtapeTitle extends AbstractFormEtape
     @Size( max = 255, message = "#i18n{participatoryideation.validation.proposal.Titre.size}" )
     private String _strTitre;
 
-    private String _strDejadepose;
+    private String _strField1;
 
     private String _strCreationmethod;
 
@@ -88,14 +88,14 @@ public class FormEtapeTitle extends AbstractFormEtape
         this._strTitre = strTitre;
     }
 
-    public String getDejadepose( )
+    public String getField1( )
     {
-        return _strDejadepose;
+        return _strField1;
     }
 
-    public void setDejadepose( String strDejadepose )
+    public void setField1( String strField1 )
     {
-        this._strDejadepose = strDejadepose;
+        this._strField1 = strField1;
     }
 
     public String getCreationmethod( )
@@ -157,17 +157,17 @@ public class FormEtapeTitle extends AbstractFormEtape
             }
         }
 
-        if ( getDejadepose( ).trim( ).length( ) > 0 )
+        if ( getField1( ).trim( ).length( ) > 0 )
         {
-            String strMinDejadepose = DatastoreService.getDataValue( DSKEY_DEJADEPOSE_MIN_LENGTH, "" );
-            if ( !"".equals( strMinDejadepose ) )
+            String strMinField1 = DatastoreService.getDataValue( DSKEY_FIELD1_MIN_LENGTH, "" );
+            if ( !"".equals( strMinField1 ) )
             {
                 try
                 {
-                    int nMin = Integer.parseInt( strMinDejadepose );
-                    if ( getDejadepose( ).trim( ).length( ) < nMin )
+                    int nMin = Integer.parseInt( strMinField1 );
+                    if ( getField1( ).trim( ).length( ) < nMin )
                     {
-                        listErrors.add( I18nService.getLocalizedString( I18N_ERROR_DEJADEPOSE_MIN_LENGTH, new String [ ] {
+                        listErrors.add( I18nService.getLocalizedString( I18N_ERROR_FIELD1_MIN_LENGTH, new String [ ] {
                                 Integer.toString( nMin )
                         }, locale ) );
                     }
@@ -175,19 +175,19 @@ public class FormEtapeTitle extends AbstractFormEtape
                 catch( NumberFormatException nfe )
                 {
                     AppLogService.error(
-                            "IdeationApp: NumberFormatException when parsing min Dejadepose length from datastore, key " + DSKEY_DEJADEPOSE_MIN_LENGTH, nfe );
+                            "IdeationApp: NumberFormatException when parsing min Field1 length from datastore, key " + DSKEY_FIELD1_MIN_LENGTH, nfe );
                 }
             }
 
-            String strMaxDejadepose = DatastoreService.getDataValue( DSKEY_DEJADEPOSE_MAX_LENGTH, "" );
-            if ( !"".equals( strMaxDejadepose ) )
+            String strMaxField1 = DatastoreService.getDataValue( DSKEY_FIELD1_MAX_LENGTH, "" );
+            if ( !"".equals( strMaxField1 ) )
             {
                 try
                 {
-                    int nMax = Integer.parseInt( strMaxDejadepose );
-                    if ( getDejadepose( ).trim( ).length( ) > nMax )
+                    int nMax = Integer.parseInt( strMaxField1 );
+                    if ( getField1( ).trim( ).length( ) > nMax )
                     {
-                        listErrors.add( I18nService.getLocalizedString( I18N_ERROR_DEJADEPOSE_MAX_LENGTH, new String [ ] {
+                        listErrors.add( I18nService.getLocalizedString( I18N_ERROR_FIELD1_MAX_LENGTH, new String [ ] {
                                 Integer.toString( nMax )
                         }, locale ) );
                     }
@@ -195,7 +195,7 @@ public class FormEtapeTitle extends AbstractFormEtape
                 catch( NumberFormatException nfe )
                 {
                     AppLogService.error(
-                            "IdeationApp: NumberFormatException when parsing max Dejadepose length from datastore, key " + DSKEY_DEJADEPOSE_MAX_LENGTH, nfe );
+                            "IdeationApp: NumberFormatException when parsing max Field1 length from datastore, key " + DSKEY_FIELD1_MAX_LENGTH, nfe );
                 }
             }
         }

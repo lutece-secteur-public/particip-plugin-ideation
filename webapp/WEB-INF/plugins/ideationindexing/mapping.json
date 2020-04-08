@@ -14,7 +14,7 @@
           "cost": {
             "type": "long"
           },
-          "depositaryType": {
+          "submitterType": {
             "type": "text",
             "fields": {
               "keyword": {

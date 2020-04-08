@@ -1,5 +1,5 @@
-<jsp:useBean id="manageideationDepositary" scope="session" class="fr.paris.lutece.plugins.participatoryideation.web.DepositaryJspBean" />
-<% String strContent = manageideationDepositary.processController ( request , response ); %>
+<jsp:useBean id="manageideationSubmitter" scope="session" class="fr.paris.lutece.plugins.participatoryideation.web.SubmitterJspBean" />
+<% String strContent = manageideationSubmitter.processController ( request , response ); %>
 
 <%@ page errorPage="../../ErrorPage.jsp" %>
 <jsp:include page="../../AdminHeader.jsp" />

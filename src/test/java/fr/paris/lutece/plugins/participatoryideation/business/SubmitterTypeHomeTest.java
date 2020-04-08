@@ -33,15 +33,15 @@
  */
 package fr.paris.lutece.plugins.participatoryideation.business;
 
-import fr.paris.lutece.plugins.participatoryideation.business.depositary.DepositaryType;
-import fr.paris.lutece.plugins.participatoryideation.business.depositary.DepositaryTypeHome;
+import fr.paris.lutece.plugins.participatoryideation.business.submitter.SubmitterType;
+import fr.paris.lutece.plugins.participatoryideation.business.submitter.SubmitterTypeHome;
 import fr.paris.lutece.test.LuteceTestCase;
 import fr.paris.lutece.util.ReferenceList;
 
 /**
- * DepositaryTypeTest
+ * SubmitterTypeTest
  */
-public class DepositaryTypeHomeTest extends LuteceTestCase
+public class SubmitterTypeHomeTest extends LuteceTestCase
 {
     private final static String CODE = "0";
     private final static String LIBELLE = "Libelle";
@@ -53,31 +53,31 @@ public class DepositaryTypeHomeTest extends LuteceTestCase
         REFERENCE_LIST.addItem( "123", "abc" );
 
         // Create an object
-        DepositaryType instance = new DepositaryType( );
+        SubmitterType instance = new SubmitterType( );
         instance.setCode( CODE );
         instance.setLibelle( LIBELLE );
         instance.setCodeComplementType( CODE_COMPLEMENT );
         instance.setValues( REFERENCE_LIST );
-        DepositaryTypeHome.create( instance );
+        SubmitterTypeHome.create( instance );
 
         // Test findByCode method
-        DepositaryType storedInstance = DepositaryTypeHome.findByCode( CODE );
+        SubmitterType storedInstance = SubmitterTypeHome.findByCode( CODE );
         assertTrue( instanceEquals( instance, storedInstance ) );
 
         // Test findBy method
-        storedInstance = DepositaryTypeHome.findByPrimaryKey( instance.getId( ) );
+        storedInstance = SubmitterTypeHome.findByPrimaryKey( instance.getId( ) );
         assertTrue( instanceEquals( instance, storedInstance ) );
         assertNull( storedInstance.getValues( ) );
 
         // List test
-        DepositaryTypeHome.getDepositaryTypesList( );
+        SubmitterTypeHome.getSubmitterTypesList( );
 
         // Delete test
-        DepositaryTypeHome.remove( instance.getId( ) );
+        SubmitterTypeHome.remove( instance.getId( ) );
 
     }
 
-    private boolean instanceEquals( DepositaryType instance1, DepositaryType instance2 )
+    private boolean instanceEquals( SubmitterType instance1, SubmitterType instance2 )
     {
         if ( !instance1.getCode( ).equals( instance2.getCode( ) ) )
         {

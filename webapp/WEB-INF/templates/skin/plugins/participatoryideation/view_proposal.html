@@ -34,19 +34,19 @@
 					<#assign proposal_theme_libelle = (campaign_static.themes_map[proposal.codeTheme].title)!proposal.codeTheme>
 				</#if>
 				
-				<#if (campaign_static.depositaries_types_map[proposal.depositaryType])??>
-					<#assign proposal_depositary_type_object = campaign_static.depositaries_types_map[proposal.depositaryType]>
+				<#if (campaign_static.submitters_types_map[proposal.submitterType])??>
+					<#assign proposal_submitter_type_object = campaign_static.submitters_types_map[proposal.submitterType]>
 				</#if>
 				
-				<#if (proposal.depositaryType)??>
-					<#assign proposal_depositary_type_libelle = (proposal_depositary_type_object.libelle)!proposal.depositaryType>
+				<#if (proposal.submitterType)??>
+					<#assign proposal_submitter_type_libelle = (proposal_submitter_type_object.libelle)!proposal.submitterType>
 				</#if>
 				
-				<#if (proposal.depositary)??>
-					<#if (proposal_depositary_type_object.codeComplementType)?? && proposal_depositary_type_object.codeComplementType == "LIST">
-						<#assign proposal_depositary_libelle = (campaign_static.depositaries_types_list_values_map[proposal.depositaryType + "-" + proposal.depositary])!proposal.depositary>
+				<#if (proposal.submitter)??>
+					<#if (proposal_submitter_type_object.codeComplementType)?? && proposal_submitter_type_object.codeComplementType == "LIST">
+						<#assign proposal_submitter_libelle = (campaign_static.submitters_types_list_values_map[proposal.submitterType + "-" + proposal.submitter])!proposal.submitter>
 					<#else>
-						<#assign proposal_depositary_libelle = proposal.depositary>
+						<#assign proposal_submitter_libelle = proposal.submitter>
 					</#if>
 				</#if>
 
@@ -324,11 +324,11 @@
 							<h2>#i18n{participatoryideation.view_idea.data.author}</h2>
 							<p class="prop-data-author-type">
 								<img src="images/local/skin/author-type-${theme_class}.png" alt="" title="" />
-								${proposal_depositary_type_libelle!''}
+								${proposal_submitter_type_libelle!''}
 							</p>
-							<#if proposal_depositary_libelle??>
+							<#if proposal_submitter_libelle??>
 								<img src="images/local/skin/trophy-empty.png" alt="" title="" />
-								(${proposal_depositary_libelle})
+								(${proposal_submitter_libelle})
 							</#if>
 						</div>
 						
@@ -418,7 +418,7 @@
 
 <#-- Modal de contact entre usagers -->
 
-<div class="modal fade" id="modalContactDepositary" tabindex="-1" role="dialog" aria-labelledby="modalContactDepositaryLabel" aria-hidden="true">
+<div class="modal fade" id="modalContactSubmitter" tabindex="-1" role="dialog" aria-labelledby="modalContactSubmitterLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<#if proposal??>
@@ -429,7 +429,7 @@
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
-					<h3 class="modal-title" id="modalContactDepositaryLabel"><strong>Contacter ${nickname!''}</strong></h3>
+					<h3 class="modal-title" id="modalContactSubmitterLabel"><strong>Contacter ${nickname!''}</strong></h3>
 				</div>
 				<div class="modal-body">
 					<div>Your message will be sent by email. So y our email address will be known to ${nickname!''}.</div><br>
@@ -447,7 +447,7 @@
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button type="submit" class="btn btn-14rem btn-black-on-white" name="action_contacterDepositary">Send the message</button>
+					<button type="submit" class="btn btn-14rem btn-black-on-white" name="action_contacterSubmitter">Send the message</button>
 					<button type="button" class="btn btn-14rem btn-black-on-white" data-dismiss="modal">Cancel</button>
 				</div>
 				</form>
@@ -458,7 +458,7 @@
 
 <#-- Modal de contact entre usagers désactivé -->
 
-<div class="modal fade" id="modalContactDepositaryDesactive" tabindex="-1" role="dialog" aria-labelledby="modalContactDepositaryLabel" aria-hidden="true">
+<div class="modal fade" id="modalContactSubmitterDesactive" tabindex="-1" role="dialog" aria-labelledby="modalContactSubmitterLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-body">
@@ -498,7 +498,7 @@
 <script type="text/javascript">
 	<#if show_contact?? && show_contact=="true">
 		$(window).load(function(){
-			$('#modalContactDepositary').modal('show');
+			$('#modalContactSubmitter').modal('show');
 		});
 	</#if>
 </script>
