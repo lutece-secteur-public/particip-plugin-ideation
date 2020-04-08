@@ -174,8 +174,8 @@ public class FormEtapeTitle extends AbstractFormEtape
                 }
                 catch( NumberFormatException nfe )
                 {
-                    AppLogService.error(
-                            "IdeationApp: NumberFormatException when parsing min Field1 length from datastore, key " + DSKEY_FIELD1_MIN_LENGTH, nfe );
+                    AppLogService.error( "IdeationApp: NumberFormatException when parsing min Field1 length from datastore, key " + DSKEY_FIELD1_MIN_LENGTH,
+                            nfe );
                 }
             }
 
@@ -194,8 +194,8 @@ public class FormEtapeTitle extends AbstractFormEtape
                 }
                 catch( NumberFormatException nfe )
                 {
-                    AppLogService.error(
-                            "IdeationApp: NumberFormatException when parsing max Field1 length from datastore, key " + DSKEY_FIELD1_MAX_LENGTH, nfe );
+                    AppLogService.error( "IdeationApp: NumberFormatException when parsing max Field1 length from datastore, key " + DSKEY_FIELD1_MAX_LENGTH,
+                            nfe );
                 }
             }
         }
@@ -217,8 +217,7 @@ public class FormEtapeTitle extends AbstractFormEtape
                 }
                 catch( NumberFormatException nfe )
                 {
-                    AppLogService.error(
-                            "IdeationApp: NumberFormatException when parsing min field2 length from datastore, key " + DSKEY_FIELD2_MIN_LENGTH,
+                    AppLogService.error( "IdeationApp: NumberFormatException when parsing min field2 length from datastore, key " + DSKEY_FIELD2_MIN_LENGTH,
                             nfe );
                 }
             }
@@ -238,8 +237,8 @@ public class FormEtapeTitle extends AbstractFormEtape
                 }
                 catch( NumberFormatException nfe )
                 {
-                    AppLogService.error( "IdeationApp: NumberFormatException when parsing max field2 length from datastore, key "
-                            + I18N_ERROR_FIELD2_MAX_LENGTH, nfe );
+                    AppLogService.error(
+                            "IdeationApp: NumberFormatException when parsing max field2 length from datastore, key " + I18N_ERROR_FIELD2_MAX_LENGTH, nfe );
                 }
             }
         }

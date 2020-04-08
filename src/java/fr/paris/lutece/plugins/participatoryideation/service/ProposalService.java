@@ -163,14 +163,16 @@ public class ProposalService implements IProposalService
     public void removeProposal( Proposal proposal )
     {
         removeProposalCommon( proposal );
-        String strWorkflowActionNameDeleteProposal = AppPropertiesService.getProperty( ParticipatoryIdeationConstants.PROPERTY_WORKFLOW_ACTION_NAME_DELETE_PROPOSAL );
+        String strWorkflowActionNameDeleteProposal = AppPropertiesService
+                .getProperty( ParticipatoryIdeationConstants.PROPERTY_WORKFLOW_ACTION_NAME_DELETE_PROPOSAL );
         ProposalWSService.getInstance( ).processActionByName( strWorkflowActionNameDeleteProposal, proposal.getId( ) );
     }
 
     public void removeProposalByMdp( Proposal proposal )
     {
         removeProposalCommon( proposal );
-        String strWorkflowActionNameDeleteProposalByMdp = AppPropertiesService.getProperty( ParticipatoryIdeationConstants.PROPERTY_WORKFLOW_ACTION_NAME_DELETE_PROPOSAL_BY_MDP );
+        String strWorkflowActionNameDeleteProposalByMdp = AppPropertiesService
+                .getProperty( ParticipatoryIdeationConstants.PROPERTY_WORKFLOW_ACTION_NAME_DELETE_PROPOSAL_BY_MDP );
         ProposalWSService.getInstance( ).processActionByName( strWorkflowActionNameDeleteProposalByMdp, proposal.getId( ) );
     }
 

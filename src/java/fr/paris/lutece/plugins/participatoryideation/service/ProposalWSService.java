@@ -235,8 +235,9 @@ public class ProposalWSService implements IProposalWSService
         history.setIdExtendableResource( "" + proposal.getId( ) );
         history.setExtendableResourceType( Proposal.PROPERTY_RESOURCE_TYPE );
         history.setIpAddress( StringUtils.EMPTY );
-        history.setUserGuid( AppPropertiesService.getProperty( ParticipatoryIdeationConstants.PROPERTY_GENERATE_PROPOSAL_LUTECE_USER_NAME ) ); // Le commentaire est déposé par
-                                                                                                                          // l'équipe
+        history.setUserGuid( AppPropertiesService.getProperty( ParticipatoryIdeationConstants.PROPERTY_GENERATE_PROPOSAL_LUTECE_USER_NAME ) ); // Le commentaire
+                                                                                                                                               // est déposé par
+        // l'équipe
         // du Budget Participatif.
         _resourceHistoryService.create( history );
     }

@@ -728,8 +728,10 @@ public class ProposalJspBean extends ManageIdeationProposalsJspBean
         }
         catch( Exception e )
         {
-            addInfo( "The proposal modify is done, but Solr was unable to index the document due to exception '" + e.getClass().getSimpleName() + " : " + e.getMessage() + "'." );
-            AppLogService.error( "An error occured during SOLR indexation of proposal #" + _proposalBoForm.getId() + " '" + _proposalBoForm.getTitre() +"'.", e );
+            addInfo( "The proposal modify is done, but Solr was unable to index the document due to exception '" + e.getClass( ).getSimpleName( ) + " : "
+                    + e.getMessage( ) + "'." );
+            AppLogService.error( "An error occured during SOLR indexation of proposal #" + _proposalBoForm.getId( ) + " '" + _proposalBoForm.getTitre( ) + "'.",
+                    e );
         }
 
         return redirectView( request, VIEW_MANAGE_PROPOSALS );
@@ -977,8 +979,7 @@ public class ProposalJspBean extends ManageIdeationProposalsJspBean
         }
 
         // Trying to determine LocationType using LocationArdt.
-        proposal.setLocationType(
-                StringUtils.isNotEmpty( proposalBoForm.getLocationArdt( ) ) ? Proposal.LOCATION_TYPE_ARDT : Proposal.LOCATION_TYPE_PARIS );
+        proposal.setLocationType( StringUtils.isNotEmpty( proposalBoForm.getLocationArdt( ) ) ? Proposal.LOCATION_TYPE_ARDT : Proposal.LOCATION_TYPE_PARIS );
 
         if ( StringUtils.isNotEmpty( proposalBoForm.getLocationArdt( ) ) )
         {

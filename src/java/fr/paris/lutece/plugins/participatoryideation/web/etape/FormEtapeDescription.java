@@ -251,8 +251,8 @@ public class FormEtapeDescription extends AbstractFormEtape
                 }
                 catch( NumberFormatException nfe )
                 {
-                    AppLogService.error( "IdeationApp: NumberFormatException when parsing min Field3 length from datastore, key "
-                            + DSKEY_FIELD3_MIN_LENGTH, nfe );
+                    AppLogService.error( "IdeationApp: NumberFormatException when parsing min Field3 length from datastore, key " + DSKEY_FIELD3_MIN_LENGTH,
+                            nfe );
                 }
             }
 
@@ -271,8 +271,8 @@ public class FormEtapeDescription extends AbstractFormEtape
                 }
                 catch( NumberFormatException nfe )
                 {
-                    AppLogService.error( "IdeationApp: NumberFormatException when parsing max Field3 length from datastore, key "
-                            + I18N_ERROR_FIELD3_MAX_LENGTH, nfe );
+                    AppLogService.error(
+                            "IdeationApp: NumberFormatException when parsing max Field3 length from datastore, key " + I18N_ERROR_FIELD3_MAX_LENGTH, nfe );
                 }
             }
         }

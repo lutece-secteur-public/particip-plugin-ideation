@@ -1007,7 +1007,8 @@ public class IdeationApp extends MVCApplication
     {
 
         int idWorkflow = AppPropertiesService.getPropertyInt( ParticipatoryIdeationConstants.PROPERTY_WORKFLOW_ID, -1 );
-        String strWorkflowActionNameCreateProposal = AppPropertiesService.getProperty( ParticipatoryIdeationConstants.PROPERTY_WORKFLOW_ACTION_NAME_CREATE_PROPOSAL );
+        String strWorkflowActionNameCreateProposal = AppPropertiesService
+                .getProperty( ParticipatoryIdeationConstants.PROPERTY_WORKFLOW_ACTION_NAME_CREATE_PROPOSAL );
 
         if ( idWorkflow != -1 )
         {

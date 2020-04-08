@@ -111,7 +111,7 @@ public class SubmitterJspBean extends ManageIdeationJspBean
     @View( value = VIEW_MANAGE_SUBMITTERS, defaultView = true )
     public String getManageSubmitters( HttpServletRequest request )
     {
-    	_submitter = null;
+        _submitter = null;
         List<Submitter> listSubmitters = (List<Submitter>) SubmitterHome.getSubmittersList( );
         Map<String, Object> model = getPaginatedListModel( request, MARK_SUBMITTER_LIST, listSubmitters, JSP_MANAGE_SUBMITTERS );
 
@@ -128,7 +128,7 @@ public class SubmitterJspBean extends ManageIdeationJspBean
     @View( VIEW_CREATE_SUBMITTER )
     public String getCreateSubmitter( HttpServletRequest request )
     {
-    	_submitter = ( _submitter != null ) ? _submitter : new Submitter( );
+        _submitter = ( _submitter != null ) ? _submitter : new Submitter( );
 
         Map<String, Object> model = getModel( );
         model.put( MARK_SUBMITTER, _submitter );
@@ -174,8 +174,7 @@ public class SubmitterJspBean extends ManageIdeationJspBean
         UrlItem url = new UrlItem( getActionUrl( ACTION_REMOVE_SUBMITTER ) );
         url.addParameter( PARAMETER_ID_SUBMITTER, nId );
 
-        String strMessageUrl = AdminMessageService.getMessageUrl( request, MESSAGE_CONFIRM_REMOVE_SUBMITTER, url.getUrl( ),
-                AdminMessage.TYPE_CONFIRMATION );
+        String strMessageUrl = AdminMessageService.getMessageUrl( request, MESSAGE_CONFIRM_REMOVE_SUBMITTER, url.getUrl( ), AdminMessage.TYPE_CONFIRMATION );
 
         return redirect( request, strMessageUrl );
     }
@@ -211,7 +210,7 @@ public class SubmitterJspBean extends ManageIdeationJspBean
 
         if ( _submitter == null || ( _submitter.getId( ) != nId ) )
         {
-        	_submitter = SubmitterHome.findByPrimaryKey( nId );
+            _submitter = SubmitterHome.findByPrimaryKey( nId );
         }
 
         Map<String, Object> model = getModel( );

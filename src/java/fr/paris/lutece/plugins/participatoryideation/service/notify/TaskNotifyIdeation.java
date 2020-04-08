@@ -100,10 +100,13 @@ public class TaskNotifyIdeation extends SimpleTask
     private static final String HTML_BR = "<br/>";
     private static final String HTML_R = "\r";
     private static final String ID_ALL = "*";
-    private static final String ACTION_NAME_CREATE_PROPOSAL = AppPropertiesService.getProperty( ParticipatoryIdeationConstants.PROPERTY_WORKFLOW_ACTION_NAME_CREATE_PROPOSAL );
-    private static final String ACTION_NAME_CREATE_COMMENT = AppPropertiesService.getProperty( ParticipatoryIdeationConstants.PROPERTY_WORKFLOW_ACTION_NAME_CREATE_COMMENT );
+    private static final String ACTION_NAME_CREATE_PROPOSAL = AppPropertiesService
+            .getProperty( ParticipatoryIdeationConstants.PROPERTY_WORKFLOW_ACTION_NAME_CREATE_PROPOSAL );
+    private static final String ACTION_NAME_CREATE_COMMENT = AppPropertiesService
+            .getProperty( ParticipatoryIdeationConstants.PROPERTY_WORKFLOW_ACTION_NAME_CREATE_COMMENT );
     private static final String ACTION_NAME_FOLLOW = AppPropertiesService.getProperty( ParticipatoryIdeationConstants.PROPERTY_WORKFLOW_ACTION_NAME_FOLLOW );
-    private static final String ACTION_NAME_CANCEL_FOLLOW = AppPropertiesService.getProperty( ParticipatoryIdeationConstants.PROPERTY_WORKFLOW_ACTION_NAME_CANCEL_FOLLOW );
+    private static final String ACTION_NAME_CANCEL_FOLLOW = AppPropertiesService
+            .getProperty( ParticipatoryIdeationConstants.PROPERTY_WORKFLOW_ACTION_NAME_CANCEL_FOLLOW );
 
     // ERRORS
     private static final String ERROR_GET_EMAIL = "Ideation, failed to get email";

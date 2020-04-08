@@ -67,7 +67,8 @@ public class ProposalCommentListener implements ICommentListener
             proposal.setExportedTag( 2 );
             ProposalHome.updateBO( proposal );
         }
-        // String strWorkflowActionNameCreateComment=AppPropertiesService.getProperty(ParticipatoryIdeationConstants.PROPERTY_WORKFLOW_ACTION_NAME_CREATE_COMMENT);
+        // String
+        // strWorkflowActionNameCreateComment=AppPropertiesService.getProperty(ParticipatoryIdeationConstants.PROPERTY_WORKFLOW_ACTION_NAME_CREATE_COMMENT);
         // ProposalWSService.getInstance().processActionByName(strWorkflowActionNameCreateComment, Integer.parseInt(strIdExtendableResource) );
 
     }
@@ -87,7 +88,8 @@ public class ProposalCommentListener implements ICommentListener
             ProposalHome.updateBO( proposal );
         }
 
-        String strWorkflowActionNameCreateComment = AppPropertiesService.getProperty( ParticipatoryIdeationConstants.PROPERTY_WORKFLOW_ACTION_NAME_CREATE_COMMENT );
+        String strWorkflowActionNameCreateComment = AppPropertiesService
+                .getProperty( ParticipatoryIdeationConstants.PROPERTY_WORKFLOW_ACTION_NAME_CREATE_COMMENT );
         ProposalWSService.getInstance( ).processActionByName( strWorkflowActionNameCreateComment, Integer.parseInt( strIdExtendableResource ), request );
 
     }
