@@ -22,44 +22,27 @@
 				<#else>
 					<#assign status_class = "">
 				</#if>
-				
-				<#if result.dynamicFields?? && result.dynamicFields.code_theme_string??>
-				
-					<#if     result.dynamicFields.code_theme_string = "CADRE">																	<#assign theme_class = "cadre_vie">
-					<#elseif result.dynamicFields.code_theme_string = "CULTURE">																<#assign theme_class = "culture">
-					<#elseif result.dynamicFields.code_theme_string = "ECO">																	<#assign theme_class = "economie_emploi">
-					<#elseif result.dynamicFields.code_theme_string = "EDU">																	<#assign theme_class = "education">
-					<#elseif result.dynamicFields.code_theme_string = "ENVIRONNEMENT" || result.dynamicFields.code_theme_string = "NAT">		<#assign theme_class = "environnement">
-					<#elseif result.dynamicFields.code_theme_string = "LOGEMENT">																<#assign theme_class = "logement">
-					<#elseif result.dynamicFields.code_theme_string = "PARTICIPATION">															<#assign theme_class = "participation_citoyenne">
-					<#elseif result.dynamicFields.code_theme_string = "SECURITE">																<#assign theme_class = "prevention_securite">
-					<#elseif result.dynamicFields.code_theme_string = "PROPRETE">																<#assign theme_class = "proprete">
-					<#elseif result.dynamicFields.code_theme_string = "SOLIDARITE" || result.dynamicFields.code_theme_string = "VIVREENSEMBLE">	<#assign theme_class = "solidarite">
-					<#elseif result.dynamicFields.code_theme_string = "SPORT">																	<#assign theme_class = "sport">
-					<#elseif result.dynamicFields.code_theme_string = "TRANSPORT">																<#assign theme_class = "transport">
-					<#elseif result.dynamicFields.code_theme_string = "NUMERIQUE">																<#assign theme_class = "ville_numerique">
-					<#elseif result.dynamicFields.code_theme_string = "SANTE">																	<#assign theme_class = "sante">
-					</#if>
-				</#if>
+
 				<#if result.dynamicFields?? && result.dynamicFields.campaign_text??>
 					<#assign campaign = i18n('participatoryideation.view.list.card.campaign', result.dynamicFields.campaign_text)>
 				</#if>
 				
+				<#assign theme_front_color = '#3c67ff' >
 				<#if (result.dynamicFields.code_theme_string)??>
 					<#assign theme_libelle = (campaign_static.themes_map[result.dynamicFields.code_theme_string].title)!result.dynamicFields.code_theme_string >
+					<#assign theme_front_color = (campaign_static.themes_map[result.dynamicFields.code_theme_string].front_rgb)!'#3c67ff' >
 				</#if>
-
 			
 				<div class="col-xs-12 col-sm-6 col-md-4">
 					
-					<div class="prop-panel bordered-4px-theme-${theme_class} ${status_class}">
+					<div class="prop-panel ${status_class}" style="border: 4px solid ${theme_front_color}">
 
 						<div class="prop-card">
 							
 							<a id="title-${id_document}" href="${result.url}" alt="${result.title}" title="">
 
 								<#-- Thématique -->
-								<div class="prop-card-theme bgcolor-theme-${theme_class}">
+								<div class="prop-card-theme" style="background-color: ${theme_front_color}">
 									<span>${theme_libelle}</span>
 								</div>
 	
@@ -88,7 +71,7 @@
 								</div>
 	
 								<#-- Ligne séparatrice colorée -->
-								<div class="prop-card-line bgcolor-theme-${theme_class}"></div>
+								<div class="prop-card-line" style="background-color: ${theme_front_color}"></div>
 	
 								<#-- Entrevue du descriptif / Dépend de l'affichage ou non des pastilles -->
 								<div class="prop-card-txt ">
