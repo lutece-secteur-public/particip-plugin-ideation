@@ -70,10 +70,10 @@ public class Proposal implements Serializable, IExtendableResource
     private String _strLuteceUserName;
     private String _strTitre;
     private String _strField1;
-    private String _strCreationmethod;
+    private String _strfield2;
     private String _strHandicap;
     private String _strHandicapComplement;
-    private String _strOperatingbudget;
+    private String _strField3;
     private String _strDescription;
     private Long _nCout;
     private String _strCodeTheme;
@@ -298,24 +298,24 @@ public class Proposal implements Serializable, IExtendableResource
     }
 
     /**
-     * Sets the Creationmethod
+     * Sets the field2
      * 
-     * @param strCreationmethod
-     *            The Creationmethod
+     * @param strfield2
+     *            The field2
      */
-    public void setCreationmethod( String strCreationmethod )
+    public void setfield2( String strfield2 )
     {
-        _strCreationmethod = strCreationmethod;
+        _strfield2 = strfield2;
     }
 
     /**
-     * Returns the Creationmethod
+     * Returns the field2
      * 
-     * @return The Creationmethod
+     * @return The field2
      */
-    public String getCreationmethod( )
+    public String getfield2( )
     {
-        return _strCreationmethod;
+        return _strfield2;
     }
 
     public String getHandicap( )
@@ -339,24 +339,24 @@ public class Proposal implements Serializable, IExtendableResource
     }
 
     /**
-     * Sets the Operatingbudget
+     * Sets the Field3
      * 
-     * @param strOperatingbudget
-     *            The Operatingbudget
+     * @param strField3
+     *            The Field3
      */
-    public void setOperatingbudget( String strOperatingbudget )
+    public void setField3( String strField3 )
     {
-        _strOperatingbudget = strOperatingbudget;
+        _strField3 = strField3;
     }
 
     /**
-     * Returns the Operatingbudget
+     * Returns the Field3
      * 
-     * @return The Operatingbudget
+     * @return The Field3
      */
-    public String getOperatingbudget( )
+    public String getField3( )
     {
-        return _strOperatingbudget;
+        return _strField3;
     }
 
     /**

@@ -58,8 +58,8 @@ public class FormEtapeTitle extends AbstractFormEtape
     private static final String I18N_ERROR_FIELD1_MIN_LENGTH = "participatoryideation.validation.proposal.Field1.sizeMin";
     private static final String I18N_ERROR_FIELD1_MAX_LENGTH = "participatoryideation.validation.proposal.Field1.sizeMax";
 
-    private static final String I18N_ERROR_CREATIONMETHOD_MIN_LENGTH = "participatoryideation.validation.proposal.Creationmethod.sizeMin";
-    private static final String I18N_ERROR_CREATIONMETHOD_MAX_LENGTH = "participatoryideation.validation.proposal.Creationmethod.sizeMax";
+    private static final String I18N_ERROR_FIELD2_MIN_LENGTH = "participatoryideation.validation.proposal.field2.sizeMin";
+    private static final String I18N_ERROR_FIELD2_MAX_LENGTH = "participatoryideation.validation.proposal.field2.sizeMax";
 
     private static final String DSKEY_TITRE_MIN_LENGTH = "participatoryideation.site_property.form.titre.minLength";
     private static final String DSKEY_TITRE_MAX_LENGTH = "participatoryideation.site_property.form.titre.maxLength";
@@ -67,8 +67,8 @@ public class FormEtapeTitle extends AbstractFormEtape
     private static final String DSKEY_FIELD1_MIN_LENGTH = "participatoryideation.site_property.form.field1.minLength";
     private static final String DSKEY_FIELD1_MAX_LENGTH = "participatoryideation.site_property.form.field1.maxLength";
 
-    private static final String DSKEY_CREATIONMETHOD_MIN_LENGTH = "participatoryideation.site_property.form.creationmethod.minLength";
-    private static final String DSKEY_CREATIONMETHOD_MAX_LENGTH = "participatoryideation.site_property.form.creationmethod.maxLength";
+    private static final String DSKEY_FIELD2_MIN_LENGTH = "participatoryideation.site_property.form.field2.minLength";
+    private static final String DSKEY_FIELD2_MAX_LENGTH = "participatoryideation.site_property.form.field2.maxLength";
 
     @NotEmpty( message = "#i18n{participatoryideation.validation.proposal.Titre.notEmpty}" )
     @Size( max = 255, message = "#i18n{participatoryideation.validation.proposal.Titre.size}" )
@@ -76,7 +76,7 @@ public class FormEtapeTitle extends AbstractFormEtape
 
     private String _strField1;
 
-    private String _strCreationmethod;
+    private String _strfield2;
 
     public String getTitre( )
     {
@@ -98,14 +98,14 @@ public class FormEtapeTitle extends AbstractFormEtape
         this._strField1 = strField1;
     }
 
-    public String getCreationmethod( )
+    public String getfield2( )
     {
-        return _strCreationmethod;
+        return _strfield2;
     }
 
-    public void setCreationmethod( String strCreationmethod )
+    public void setfield2( String strfield2 )
     {
-        this._strCreationmethod = strCreationmethod;
+        this._strfield2 = strfield2;
     }
 
     public List<String> checkValidationErrorsLocalized( HttpServletRequest request, Locale locale )
@@ -200,17 +200,17 @@ public class FormEtapeTitle extends AbstractFormEtape
             }
         }
 
-        if ( getCreationmethod( ).trim( ).length( ) > 0 )
+        if ( getfield2( ).trim( ).length( ) > 0 )
         {
-            String strMinCreationmethod = DatastoreService.getDataValue( DSKEY_CREATIONMETHOD_MIN_LENGTH, "" );
-            if ( !"".equals( strMinCreationmethod ) )
+            String strMinfield2 = DatastoreService.getDataValue( DSKEY_FIELD2_MIN_LENGTH, "" );
+            if ( !"".equals( strMinfield2 ) )
             {
                 try
                 {
-                    int nMin = Integer.parseInt( strMinCreationmethod );
-                    if ( getCreationmethod( ).trim( ).length( ) < nMin )
+                    int nMin = Integer.parseInt( strMinfield2 );
+                    if ( getfield2( ).trim( ).length( ) < nMin )
                     {
-                        listErrors.add( I18nService.getLocalizedString( I18N_ERROR_CREATIONMETHOD_MIN_LENGTH, new String [ ] {
+                        listErrors.add( I18nService.getLocalizedString( I18N_ERROR_FIELD2_MIN_LENGTH, new String [ ] {
                                 Integer.toString( nMin )
                         }, locale ) );
                     }
@@ -218,28 +218,28 @@ public class FormEtapeTitle extends AbstractFormEtape
                 catch( NumberFormatException nfe )
                 {
                     AppLogService.error(
-                            "IdeationApp: NumberFormatException when parsing min Creationmethod length from datastore, key " + DSKEY_CREATIONMETHOD_MIN_LENGTH,
+                            "IdeationApp: NumberFormatException when parsing min field2 length from datastore, key " + DSKEY_FIELD2_MIN_LENGTH,
                             nfe );
                 }
             }
 
-            String strMaxCreationmethod = DatastoreService.getDataValue( DSKEY_CREATIONMETHOD_MAX_LENGTH, "" );
-            if ( !"".equals( strMaxCreationmethod ) )
+            String strMaxfield2 = DatastoreService.getDataValue( DSKEY_FIELD2_MAX_LENGTH, "" );
+            if ( !"".equals( strMaxfield2 ) )
             {
                 try
                 {
-                    int nMax = Integer.parseInt( strMaxCreationmethod );
-                    if ( getCreationmethod( ).trim( ).length( ) > nMax )
+                    int nMax = Integer.parseInt( strMaxfield2 );
+                    if ( getfield2( ).trim( ).length( ) > nMax )
                     {
-                        listErrors.add( I18nService.getLocalizedString( I18N_ERROR_CREATIONMETHOD_MAX_LENGTH, new String [ ] {
+                        listErrors.add( I18nService.getLocalizedString( I18N_ERROR_FIELD2_MAX_LENGTH, new String [ ] {
                                 Integer.toString( nMax )
                         }, locale ) );
                     }
                 }
                 catch( NumberFormatException nfe )
                 {
-                    AppLogService.error( "IdeationApp: NumberFormatException when parsing max Creationmethod length from datastore, key "
-                            + I18N_ERROR_CREATIONMETHOD_MAX_LENGTH, nfe );
+                    AppLogService.error( "IdeationApp: NumberFormatException when parsing max field2 length from datastore, key "
+                            + I18N_ERROR_FIELD2_MAX_LENGTH, nfe );
                 }
             }
         }

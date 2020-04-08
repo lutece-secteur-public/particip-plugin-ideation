@@ -35,8 +35,8 @@
 			#i18n{participatoryideation.submit_project.steps.description.text2}
 			(${i18n("participatoryideation.submit_project.steps.description.text2_validation", 0, 200)})
 		</p>
-		<textarea id="operatingbudget_textarea" name="operatingbudget"
-			class="form-control" rows="2">${form_etape_description.operatingbudget!''}</textarea>
+		<textarea id="field3_textarea" name="field3"
+			class="form-control" rows="2">${form_etape_description.field3!''}</textarea>
 	</div>
 
 	<div class="form-button text-center">
@@ -62,17 +62,17 @@
   		$("#description_textarea").on("input keyup paste cut", lutece_update_count_description);
 	});
 
-	function lutece_update_count_operatingbudget() {
-  		var cnt2 = $.trim($("#operatingbudget_textarea").val()).length;
+	function lutece_update_count_field3() {
+  		var cnt2 = $.trim($("#field3_textarea").val()).length;
   		var text = cnt2 + " #i18n{participatoryideation.submit_project.nbChars}";
   		if (cnt2 >= 2) { text += "s"; }
   		text = "(" + text + ")";
   		$("#cnt2").html( text );
 	}
 	$(function(){
-  		$("#operatingbudget_textarea").after('<p id="cnt2" class="cnt"></p>');
-  		lutece_update_count_operatingbudget();
-  		$("#operatingbudget_textarea").on("input keyup paste cut", lutece_update_count_operatingbudget);
+  		$("#field3_textarea").after('<p id="cnt2" class="cnt"></p>');
+  		lutece_update_count_field3();
+  		$("#field3_textarea").on("input keyup paste cut", lutece_update_count_field3);
 	});
 
 	function lutece_update_count_handicap() {

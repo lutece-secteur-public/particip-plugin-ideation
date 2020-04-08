@@ -1338,7 +1338,7 @@ public class IdeationApp extends MVCApplication
     {
         proposal.setTitre( formEtapeTitle.getTitre( ).trim( ) );
         proposal.setField1( formEtapeTitle.getField1( ).trim( ) );
-        proposal.setCreationmethod( formEtapeTitle.getCreationmethod( ).trim( ) );
+        proposal.setfield2( formEtapeTitle.getfield2( ).trim( ) );
     }
 
     private void convertFormEtapeDescription( FormEtapeDescription formEtapeDescription, Proposal proposal )
@@ -1354,7 +1354,7 @@ public class IdeationApp extends MVCApplication
         }
         proposal.setHandicap( formEtapeDescription.getHandicap( ).trim( ) );
         proposal.setHandicapComplement( formEtapeDescription.getHandicapComplement( ).trim( ) );
-        proposal.setOperatingbudget( formEtapeDescription.getOperatingbudget( ).trim( ) );
+        proposal.setField3( formEtapeDescription.getField3( ).trim( ) );
     }
 
     private void convertFormEtapeUpload( HttpServletRequest request, FormEtapeUpload formEtapeUpload, Proposal proposal )

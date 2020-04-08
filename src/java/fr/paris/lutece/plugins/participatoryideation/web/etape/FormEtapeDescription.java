@@ -56,15 +56,15 @@ public class FormEtapeDescription extends AbstractFormEtape
     private static final String I18N_ERROR_DESCRIPTION_MAX_LENGTH = "participatoryideation.validation.proposal.Description.sizeMax";
     private static final String I18N_ERROR_HANDICAP_COMPLEMENT_MIN_LENGTH = "participatoryideation.validation.proposal.HandicapComplement.sizeMin";
     private static final String I18N_ERROR_HANDICAP_COMPLEMENT_MAX_LENGTH = "participatoryideation.validation.proposal.HandicapComplement.sizeMax";
-    private static final String I18N_ERROR_OPERATINGBUDGET_MIN_LENGTH = "participatoryideation.validation.proposal.Operatingbudget.sizeMin";
-    private static final String I18N_ERROR_OPERATINGBUDGET_MAX_LENGTH = "participatoryideation.validation.proposal.Operatingbudget.sizeMax";
+    private static final String I18N_ERROR_FIELD3_MIN_LENGTH = "participatoryideation.validation.proposal.Field3.sizeMin";
+    private static final String I18N_ERROR_FIELD3_MAX_LENGTH = "participatoryideation.validation.proposal.Field3.sizeMax";
 
     private static final String DSKEY_DESCRIPTION_MIN_LENGTH = "participatoryideation.site_property.form.description.minLength";
     private static final String DSKEY_DESCRIPTION_MAX_LENGTH = "participatoryideation.site_property.form.description.maxLength";
     private static final String DSKEY_HANDICAP_COMPLEMENT_MIN_LENGTH = "participatoryideation.site_property.form.handicap_complement.minLength";
     private static final String DSKEY_HANDICAP_COMPLEMENT_MAX_LENGTH = "participatoryideation.site_property.form.handicap_complement.maxLength";
-    private static final String DSKEY_OPERATINGBUDGET_MIN_LENGTH = "participatoryideation.site_property.form.operatingbudget.minLength";
-    private static final String DSKEY_OPERATINGBUDGET_MAX_LENGTH = "participatoryideation.site_property.form.operatingbudget.maxLength";
+    private static final String DSKEY_FIELD3_MIN_LENGTH = "participatoryideation.site_property.form.field3.minLength";
+    private static final String DSKEY_FIELD3_MAX_LENGTH = "participatoryideation.site_property.form.field3.maxLength";
 
     @NotEmpty( message = "#i18n{participatoryideation.validation.proposal.FormEtapeDescription.description.notEmpty}" )
     @Size( max = 10000, message = "#i18n{participatoryideation.validation.proposal.Description.size}" )
@@ -127,16 +127,16 @@ public class FormEtapeDescription extends AbstractFormEtape
 
     // ------------------------------------------------------------
 
-    private String _strOperatingbudget;
+    private String _strField3;
 
-    public String getOperatingbudget( )
+    public String getField3( )
     {
-        return _strOperatingbudget;
+        return _strField3;
     }
 
-    public void setOperatingbudget( String strOperatingbudget )
+    public void setField3( String strField3 )
     {
-        this._strOperatingbudget = strOperatingbudget;
+        this._strField3 = strField3;
     }
 
     // ------------------------------------------------------------
@@ -234,45 +234,45 @@ public class FormEtapeDescription extends AbstractFormEtape
             }
         }
 
-        if ( getOperatingbudget( ).trim( ).length( ) > 0 )
+        if ( getField3( ).trim( ).length( ) > 0 )
         {
-            String strMinOperatingbudget = DatastoreService.getDataValue( DSKEY_OPERATINGBUDGET_MIN_LENGTH, "" );
-            if ( !"".equals( strMinOperatingbudget ) )
+            String strMinField3 = DatastoreService.getDataValue( DSKEY_FIELD3_MIN_LENGTH, "" );
+            if ( !"".equals( strMinField3 ) )
             {
                 try
                 {
-                    int nMin = Integer.parseInt( strMinOperatingbudget );
-                    if ( getOperatingbudget( ).trim( ).length( ) < nMin )
+                    int nMin = Integer.parseInt( strMinField3 );
+                    if ( getField3( ).trim( ).length( ) < nMin )
                     {
-                        listErrors.add( I18nService.getLocalizedString( I18N_ERROR_OPERATINGBUDGET_MIN_LENGTH, new String [ ] {
+                        listErrors.add( I18nService.getLocalizedString( I18N_ERROR_FIELD3_MIN_LENGTH, new String [ ] {
                                 Integer.toString( nMin )
                         }, locale ) );
                     }
                 }
                 catch( NumberFormatException nfe )
                 {
-                    AppLogService.error( "IdeationApp: NumberFormatException when parsing min Operatingbudget length from datastore, key "
-                            + DSKEY_OPERATINGBUDGET_MIN_LENGTH, nfe );
+                    AppLogService.error( "IdeationApp: NumberFormatException when parsing min Field3 length from datastore, key "
+                            + DSKEY_FIELD3_MIN_LENGTH, nfe );
                 }
             }
 
-            String strMaxOperatingbudget = DatastoreService.getDataValue( DSKEY_OPERATINGBUDGET_MAX_LENGTH, "" );
-            if ( !"".equals( strMaxOperatingbudget ) )
+            String strMaxField3 = DatastoreService.getDataValue( DSKEY_FIELD3_MAX_LENGTH, "" );
+            if ( !"".equals( strMaxField3 ) )
             {
                 try
                 {
-                    int nMax = Integer.parseInt( strMaxOperatingbudget );
-                    if ( getOperatingbudget( ).trim( ).length( ) > nMax )
+                    int nMax = Integer.parseInt( strMaxField3 );
+                    if ( getField3( ).trim( ).length( ) > nMax )
                     {
-                        listErrors.add( I18nService.getLocalizedString( I18N_ERROR_OPERATINGBUDGET_MAX_LENGTH, new String [ ] {
+                        listErrors.add( I18nService.getLocalizedString( I18N_ERROR_FIELD3_MAX_LENGTH, new String [ ] {
                                 Integer.toString( nMax )
                         }, locale ) );
                     }
                 }
                 catch( NumberFormatException nfe )
                 {
-                    AppLogService.error( "IdeationApp: NumberFormatException when parsing max Operatingbudget length from datastore, key "
-                            + I18N_ERROR_OPERATINGBUDGET_MAX_LENGTH, nfe );
+                    AppLogService.error( "IdeationApp: NumberFormatException when parsing max Field3 length from datastore, key "
+                            + I18N_ERROR_FIELD3_MAX_LENGTH, nfe );
                 }
             }
         }

@@ -70,8 +70,8 @@ CREATE TABLE IF NOT EXISTS participatoryideation_proposals (
   field1 VARCHAR(255),
   accept_contact smallint DEFAULT '0' NOT NULL,
   winner_projet varchar(50) DEFAULT NULL,
-  creationmethod VARCHAR(255),
-  operatingbudget VARCHAR(255),
+  field2 VARCHAR(255),
+  field3 VARCHAR(255),
   handicap varchar(3) NOT NULL,
   handicap_complement varchar(255) NOT NULL,
   PRIMARY KEY (id_proposal)

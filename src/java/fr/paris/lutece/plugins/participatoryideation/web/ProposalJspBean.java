@@ -556,8 +556,8 @@ public class ProposalJspBean extends ManageIdeationProposalsJspBean
         _proposal.setDocs( new ArrayList<File>( ) );
         _proposal.setImgs( new ArrayList<File>( ) );
         _proposal.setField1( "" );
-        _proposal.setCreationmethod( "" );
-        _proposal.setOperatingbudget( "" );
+        _proposal.setfield2( "" );
+        _proposal.setField3( "" );
 
         /* Identifying QPV from address if GeoJSON available */
         if ( StringUtils.isNotEmpty( _proposal.getGeoJson( ) ) )

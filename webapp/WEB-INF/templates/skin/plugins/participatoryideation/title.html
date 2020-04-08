@@ -14,7 +14,7 @@
 	 
 	<div class="form-group">
 		<p>#i18n{participatoryideation.submit_project.steps.title.text2} (${i18n("participatoryideation.submit_project.steps.title.text2_validation", 0, 200)})</p>
-		<textarea id="creationmethod" name="creationmethod" class="form-control" rows="2">${form_etape_title.creationmethod!''}</textarea>
+		<textarea id="field2" name="field2" class="form-control" rows="2">${form_etape_title.field2!''}</textarea>
 	</div>
 	
   <div class="form-button text-center">
@@ -51,16 +51,16 @@ $(function(){
 	$("#field1").on("input keyup paste cut", lutece_update_count_field1);
 });
 	
-function lutece_update_count_creationmethod() {
-	var cnt = $.trim($("#creationmethod").val()).length;
+function lutece_update_count_field2() {
+	var cnt = $.trim($("#field2").val()).length;
 	var text = cnt + " caract&egrave;re";
 	if (cnt >= 2) { text += "s"; }
 		text = "(" + text + ")";
 		$("#cnt3").html( text );
 };
 $(function(){
-	$("#creationmethod").after('<p id="cnt3" class="cnt"></p>');
-	lutece_update_count_creationmethod();
-	$("#creationmethod").on("input keyup paste cut", lutece_update_count_creationmethod);
+	$("#field2").after('<p id="cnt3" class="cnt"></p>');
+	lutece_update_count_field2();
+	$("#field2").on("input keyup paste cut", lutece_update_count_field2);
 });
 </script>
