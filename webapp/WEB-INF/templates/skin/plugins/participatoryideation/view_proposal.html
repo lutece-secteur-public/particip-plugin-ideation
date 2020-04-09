@@ -26,14 +26,19 @@
 				
 				<#-- A few variables are pre-calculated. -->
 				
-				<#assign theme_class = "autre">
 				<#if (proposal?? && (proposal.statusPublic = "STATUS_NON_RETENU")) > <#assign theme_class = "nonretenu"></#if>
-				<#-- if proposal.codeTheme = "CADRE">							 <#assign theme_class = "cadre_vie"></#if -->
-				
-				<#if (proposal.codeTheme)??>
-					<#assign proposal_theme_libelle = (campaign_static.themes_map[proposal.codeTheme].title)!proposal.codeTheme>
+
+				<#assign campaign_year = "&#160;">
+				<#if proposal.codeCampaign??>
+					<#assign campaign_year = proposal.codeCampaign>
 				</#if>
-				
+
+				<#if proposal.codeTheme??>
+					<#assign campaign = i18n('participatoryideation.view.list.card.campaign', proposal.codeTheme)>
+					<#assign proposal_theme_libelle = (campaign_static['theme_list']?filter( i -> i.code = proposal.codeTheme )[0].name)!proposal.codeTheme >
+					<#assign theme_front_color = (campaign_static['theme_front_rgb_list']?filter( i -> i.code = proposal.codeTheme )[0].name)!'#3c67ff' >
+				</#if>
+
 				<#if (campaign_static.submitters_types_map[proposal.submitterType])??>
 					<#assign proposal_submitter_type_object = campaign_static.submitters_types_map[proposal.submitterType]>
 				</#if>
@@ -52,19 +57,14 @@
 
 				<#assign status_text = "">
 				<#assign status_icon = "">
-				<#if     proposal.statusPublic = "STATUS_DEPOSE">            <#assign status_text = i18n("participatoryideation.message.labelStatusPublished")>        <#assign status_icon = "prop-statut-ok.png">
+				<#if     proposal.statusPublic = "STATUS_SUBMITTED">         <#assign status_text = i18n("participatoryideation.message.labelStatusPublished")>        <#assign status_icon = "prop-statut-ok.png">
 				<#elseif proposal.statusPublic = "STATUS_EN_CO_CONSTRUCTION"><#assign status_text = i18n("participatoryideation.message.labelStatusEnCoConstruction")> <#assign status_icon = "prop-statut-ok.png">
 				<#elseif proposal.statusPublic = "STATUS_REGROUPE">          <#assign status_text = i18n("participatoryideation.message.labelStatusRegroupe")>         <#assign status_icon = "prop-statut-ok.png">
 				<#elseif proposal.statusPublic = "STATUS_A_ETUDE">           <#assign status_text = i18n("participatoryideation.message.labelAEtude")>                 <#assign status_icon = "prop-statut-ok.png">
 				<#elseif proposal.statusPublic = "STATUS_RETENU">            <#assign status_text = i18n("participatoryideation.message.labelRetenu")>                 <#assign status_icon = "prop-statut-ok.png">
 				<#elseif proposal.statusPublic = "STATUS_NON_RETENU">        <#assign status_text = i18n("participatoryideation.message.labelNonRetenu")>              <#assign status_icon = "prop-statut-ko.png">
 				</#if>
-
-				<#assign campaign_year = "&#160;">
-				<#if proposal.codeCampaign??>
-					<#assign campaign_year = proposal.codeCampaign>
-				</#if>
-
+				
 				<#-- *********************************************************************************** -->
 				<#-- * HEADER HEADER HEADER HEADER HEADER HEADER HEADER HEADER HEADER HEADER HEADER HE * -->
 				<#-- * HEADER HEADER HEADER HEADER HEADER HEADER HEADER HEADER HEADER HEADER HEADER HE * -->
@@ -136,7 +136,7 @@
 					</#if>
 				</#if>
 
-				<div id="prop-header" class="row bgcolor-theme-${theme_class}">
+				<div id="prop-header" class="row" style="background-color: ${theme_front_color}">
 					<span>${proposal_theme_libelle!""}</span>
 			
 					<#if isExtendInstalled?? && isExtendInstalled>
@@ -151,7 +151,7 @@
 					</#if>
 				</div>
 
-				<div id="prop-body" class="row bg-color0 bordered-4px-theme-${theme_class}">
+				<div id="prop-body" class="row" style="border: 4px solid ${theme_front_color}">
 				
 					<#-- *********************************************************************************** -->
 					<#-- * DESC DESC DESC DESC DESC DESC DESC DESC DESC DESC DESC DESC DESC DESC DESC DESC * -->
@@ -170,7 +170,7 @@
 
 						<#-- Title -->
 						<div class="prop-desc-titre">
-							<h1><p class="color-theme-${theme_class}">${proposal.titre}</p></h1>
+							<h1><p style="color: ${theme_front_color}">${proposal.titre}</p></h1>
 						</div>
 
 						<#-- Description -->
@@ -178,7 +178,7 @@
 						<div class="prop-desc-txt">${proposal.description?html}</div>
 			            <p class="prop-desc-cout">
 							<#if proposal.cout?? && (proposal.cout != -1)>
-								<span class="color-theme-${theme_class}">${nickname!''}</span> ${i18n("participatoryideation.view_idea.desc.cost.estimated", proposal.cout?string.number!'')}
+								<span style="color: ${theme_front_color}">${nickname!''}</span> ${i18n("participatoryideation.view_idea.desc.cost.estimated", proposal.cout?string.number!'')}
 							<#else>
 								#i18n{participatoryideation.view_idea.desc.cost.not_estimated}
 							</#if>
@@ -323,7 +323,7 @@
 						<div id="prop-data-author" class="separator-horiz-4px">
 							<h2>#i18n{participatoryideation.view_idea.data.author}</h2>
 							<p class="prop-data-author-type">
-								<img src="images/local/skin/author-type-${theme_class}.png" alt="" title="" />
+								<img src="images/local/skin/author-type-autre.png" alt="" title="" />
 								${proposal_submitter_type_libelle!''}
 							</p>
 							<#if proposal_submitter_libelle??>
@@ -336,7 +336,7 @@
 						<div id="prop-data-avatar">
 							<a href="${avatar_url!''}" target="_blank" title="Voir l'avatar de ${nickname!''} (nouvel onglet)"><div class="prop-data-avatar-img pull-left" style="background-image:url(${avatar_url!''});"></div></a>
 							#i18n{participatoryideation.message.labelStatusPublished} ${proposal.creationTimestamp?date?string.long}<br/>
-							<a href="jsp/site/Portal.jsp?page=search-solr&conf=list_proposals&query=(pseudo_string:&quot;${(nickname!'')?url('UTF-8')}&quot;)" class="color-theme-${theme_class}" target="_blank" title="Voir les propositions déposées par ${nickname!''} (nouvel onglet)">
+							<a href="jsp/site/Portal.jsp?page=search-solr&conf=list_proposals&query=(pseudo_string:&quot;${(nickname!'')?url('UTF-8')}&quot;)" class="color-theme-autre" target="_blank" title="Voir les propositions déposées par ${nickname!''} (nouvel onglet)">
 								${nickname!''}
 							</a>
 						</div>

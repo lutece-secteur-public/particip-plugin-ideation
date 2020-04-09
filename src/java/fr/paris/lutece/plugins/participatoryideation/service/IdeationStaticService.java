@@ -68,6 +68,7 @@ public class IdeationStaticService extends AbstractCacheableService implements I
     private static final String MARK_AREA_LIST = "area_list";
 
     private static final String MARK_THEME_LIST = "theme_list";
+    private static final String MARK_THEME_FRONT_RGB_LIST = "theme_front_rgb_list";
 
     private static final String MARK_QPVQVA_LIST = "qpvqva_list";
     private static final String MARK_QPVQVA_MAP = "qpvqva_map";
@@ -208,6 +209,7 @@ public class IdeationStaticService extends AbstractCacheableService implements I
 
             // Add themes of the campaign
             campaignContent.put( MARK_THEME_LIST, IdeationCampaignService.getInstance( ).getCampaignThemes( campaign.getCode( ) ) );
+            campaignContent.put( MARK_THEME_FRONT_RGB_LIST, IdeationCampaignService.getInstance( ).getCampaignThemesFrontRgb( campaign.getCode( ) ) );
 
             // Add areas of the campaign
             campaignContent.put( MARK_AREA_LIST, IdeationCampaignService.getInstance( ).getCampaignAllAreas( campaign.getCode( ) ) );

@@ -114,9 +114,13 @@ public interface IIdeationCampaignService
     // * THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEME *
     // *********************************************************************************************
 
+    // Return theme names of a campaign
     public ReferenceList getCampaignThemes( String codeCampaign );
 
-    // Same as precedent, for last campaign.
+    // Return theme names of last campaign
     public ReferenceList getCampaignThemes( );
+
+    // Return theme front rgb of a campaign
+    public ReferenceList getCampaignThemesFrontRgb( String codeCampaign );
 
 }
