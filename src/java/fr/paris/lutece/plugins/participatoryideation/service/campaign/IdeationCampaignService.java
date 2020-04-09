@@ -33,6 +33,8 @@
  */
 package fr.paris.lutece.plugins.participatoryideation.service.campaign;
 
+import java.util.List;
+
 import fr.paris.lutece.portal.service.spring.SpringContextService;
 import fr.paris.lutece.util.ReferenceList;
 
@@ -217,6 +219,18 @@ public class IdeationCampaignService implements IIdeationCampaignService
         items.addItem( "GENERAL", "General" );
         items.addItem( "SOCIAL", "Social issues" );
         items.addItem( "SPORT", "Spooort !" );
+
+        return items;
+    }
+
+    @Override
+    public ReferenceList getCampaignThemesFrontRgb( String codeCampaign )
+    {
+        ReferenceList items = new ReferenceList( );
+
+        items.addItem( "GENERAL", "#C00000" );
+        items.addItem( "SOCIAL", "#00C000" );
+        items.addItem( "SPORT", "#0000C0" );
 
         return items;
     }

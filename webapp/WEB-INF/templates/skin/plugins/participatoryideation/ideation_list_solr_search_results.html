@@ -25,12 +25,13 @@
 
 				<#if result.dynamicFields?? && result.dynamicFields.campaign_text??>
 					<#assign campaign = i18n('participatoryideation.view.list.card.campaign', result.dynamicFields.campaign_text)>
+					<#assign campaign_data = global_static[result.dynamicFields.campaign_text]>
 				</#if>
-				
+	
 				<#assign theme_front_color = '#3c67ff' >
 				<#if (result.dynamicFields.code_theme_string)??>
-					<#assign theme_libelle = (campaign_static.themes_map[result.dynamicFields.code_theme_string].title)!result.dynamicFields.code_theme_string >
-					<#assign theme_front_color = (campaign_static.themes_map[result.dynamicFields.code_theme_string].front_rgb)!'#3c67ff' >
+					<#assign theme_libelle = (campaign_data['theme_list']?filter( i -> i.code = result.dynamicFields.code_theme_string )[0].name)!result.dynamicFields.code_theme_string >
+					<#assign theme_front_color = (campaign_data['theme_front_rgb_list']?filter( i -> i.code = result.dynamicFields.code_theme_string )[0].name)!'#3c67ff' >
 				</#if>
 			
 				<div class="col-xs-12 col-sm-6 col-md-4">
@@ -48,11 +49,7 @@
 	
 								<#-- Location -->
 								<div class="prop-card-loc">
-									<#if result.dynamicFields.status_string?? && (result.dynamicFields.status_string = "NONRETENU")>
-										<img src="images/local/skin/marker.png" class="img-responsive pull-left" alt="" title="">
-									<#else>
-										<img src="images/local/skin/marker-${theme_class}.png" class="img-responsive pull-left" alt="" title="">
-									</#if>
+									<img src="images/local/skin/marker.png" class="img-responsive pull-left" alt="" title="">
 									<#if result.dynamicFields?? ><p>&#160;${result.dynamicFields.location_text!''}</p></#if>
 								</div>
 								
