@@ -2,10 +2,10 @@
 <#setting locale="fr_FR">
 
 <#if recap_location_type??>
-	<#if  recap_location_type == "paris" >
-	<#assign recap_location_text = "Paris">
-	<#elseif recap_location_type == "ardt" && recap_location_ardt??>
-	<#assign recap_location_text = (arrondissements_map[recap_location_ardt])!recap_location_ardt>
+	<#if  recap_location_type == "whole" >
+		<#assign recap_location_text = recap_location_type>
+	<#elseif recap_location_type == "localized" && recap_location_ardt??>
+		<#assign recap_location_text = (arrondissements_map[recap_location_ardt])!recap_location_ardt>
 	</#if>
 </#if>
 
