@@ -33,14 +33,9 @@
  */
 package fr.paris.lutece.plugins.participatoryideation.service.campaign;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
+import java.util.Collection;
 
+import fr.paris.lutece.plugins.participatoryideation.business.submitter.SubmitterType;
 import fr.paris.lutece.util.ReferenceList;
 
 /**
@@ -108,6 +103,14 @@ public interface IIdeationCampaignService
     public ReferenceList getCampaignLocalizedAreas( );
 
     public int getCampaignNumberLocalizedAreas( );
+
+    // *********************************************************************************************
+    // * SUBMITTER SUBMITTER SUBMITTER SUBMITTER SUBMITTER SUBMITTER SUBMITTER SUBMITTER SUBMITTER *
+    // * SUBMITTER SUBMITTER SUBMITTER SUBMITTER SUBMITTER SUBMITTER SUBMITTER SUBMITTER SUBMITTER *
+    // *********************************************************************************************
+
+    // Provides informations about submitter types
+    public Collection<SubmitterType> getCampaignSubmitterTypes( String codeCampaign );
 
     // *********************************************************************************************
     // * THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEMES THEME *

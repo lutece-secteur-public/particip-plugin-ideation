@@ -33,10 +33,11 @@
  */
 package fr.paris.lutece.plugins.participatoryideation.business.submitter;
 
+import java.util.Collection;
+
 import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.portal.service.plugin.PluginService;
 import fr.paris.lutece.portal.service.spring.SpringContextService;
-import java.util.Collection;
 
 /**
  * This class provides instances management methods (create, find, ...) for Submitter objects

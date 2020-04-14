@@ -40,41 +40,30 @@
 	
 	<div id="submitter_row" class="form-group">
 		<p>#i18n{participatoryideation.submit_project.steps.location.submitter_label}</p>
-		<#assign autre = 0> <#-- L'option 'Autre' sera insérée en fin de liste -->
 		
-		<div class="alert alert-warning">FIXME : Submitters must be recovered from ideation campaign</div>
-			
-		<#list campaign_static.submitter_types_list?sort_by("id") as submitter_type>
-			<#if submitter_type["libelle"] = 'Autre'>
-				<#assign autre = 1>
-				<#assign autre_code    = submitter_type["code"]>
-				<#assign autre_libelle = submitter_type["libelle"]>
-			<#else>
-				<label class="radio-inline">
-					<input class="submitter" type="radio" name="submitter_type" id="radio_submitter_${submitter_type["code"]}" value="${submitter_type["code"]}" <#if form_etape_location.submitterType??&&submitter_type["code"] == form_etape_location.submitterType>checked="checked"</#if>>
-					${submitter_type["libelle"]}
-				</label>
-			</#if>
+		<#-- Radio buttons -->
+		<#list submitter_types?sort_by("id") as submitter_type>
+			<label class="radio-inline">
+				<input class="submitter" type="radio" name="submitter_type" id="radio_submitter_${submitter_type["code"]}" value="${submitter_type["code"]}" <#if form_etape_location.submitterType??&&submitter_type["code"] == form_etape_location.submitterType>checked="checked"</#if>>
+				${submitter_type["libelle"]}
+			</label>
 		</#list>
 
-		<#if autre == 1>
-			<label class="radio-inline">
-				<input class="submitter" type="radio" name="submitter_type" id="radio_submitter_${autre_code}" value="${autre_code}" <#if form_etape_location.submitterType?? && autre_code == form_etape_location.submitterType>checked="checked"</#if>>
-				${autre_libelle}
-			</label>
-		</#if>
-
-		<#list campaign_static.submitter_types_list as submitter_type>
+		<#-- Complement fields -->
+		<#list submitter_types as submitter_type>
     		<div id="complement_${submitter_type["code"]}" class="submitter-complement">
+    		
       			<#if submitter_type["codeComplementType"] != "NONE">
           			<label for="complement_submitter_${submitter_type["code"]}">${submitter_type["libelle"]} :</label>
         		</#if>
+        	
         		<#if submitter_type["codeComplementType"] == "LIST">
           			<select id="complement_submitter_${submitter_type["code"]}" name="submitter" class="form-control">
           				<#list submitter_type["values"] as value>
             				<option value="${value["code"]}"<#if form_etape_location.submitterType?? && form_etape_location.submitterType=submitter_type["code"]&&form_etape_location.submitter??&&value.code == form_etape_location.submitter> selected="selected"</#if>>${value["name"]}</option>
           				</#list>
           			</select>
+        	
         		<#elseif submitter_type["codeComplementType"] == "FREE">
           			<input type="text" class="form-control" name="submitter" <#if form_etape_location.submitterType?? && form_etape_location.submitterType=submitter_type["code"]>value="${form_etape_location["submitter"]!''}"</#if> id="complement_submitter_${submitter_type["code"]}">
         		</#if>
@@ -98,7 +87,7 @@
 	    </#if>
 	    <#if number_localized_areas != 0 >
 	    	<label class="radio-inline">
-	        	<input type="radio" name="location_type" id="mode_radio_ardt" value="ardt" <#if form_etape_location.locationType??&& form_etape_location.locationType=='ardt'>checked</#if>>
+	        	<input type="radio" name="location_type" id="mode_radio_ardt" value="ardt" <#if form_etape_location.locationType??&& form_etape_location.locationType=='localized'>checked</#if>>
 				#i18n{participatoryideation.submit_project.steps.location.location_label_area}
 	    	</label>
 	    	<div id="col_ardt">
@@ -110,12 +99,16 @@
 
   	<div id="col_geoloc" class="form-group">
 		<p>#i18n{participatoryideation.submit_project.steps.location.address_label}</p>
+    	
+    	<div class="alert alert-warning">FIXME : Need to have a generic geoloc mecanism</div>
+
     	<div class="input-group">
       		<input type="text" class="form-control input-sm" name="adress" id="adress" value="${form_etape_location.adress!''}">
       		<span class="input-group-btn">
         		<button class="btn btn-default btn-xs" type="button" title="effacer" id="button_delete_adress"><i class="fa fa-times"></i></button>
       		</span>
     	</div>
+    	
     	<input id="geojson" type="hidden" name="geojson" value="${(form_etape_location.geojson?html)!''}">
     	<input id="geojson_state" type="hidden">
 		<br/>

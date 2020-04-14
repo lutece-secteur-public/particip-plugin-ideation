@@ -35,23 +35,19 @@ package fr.paris.lutece.plugins.participatoryideation.service;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.GregorianCalendar;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.lucene.index.CorruptIndexException;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.common.SolrInputDocument;
 
 import fr.paris.lutece.plugins.extend.modules.rating.business.Rating;
 import fr.paris.lutece.plugins.extend.modules.rating.service.IRatingService;
-import fr.paris.lutece.plugins.leaflet.business.GeolocItem;
 import fr.paris.lutece.plugins.participatoryideation.business.proposal.Proposal;
 import fr.paris.lutece.plugins.participatoryideation.business.proposal.ProposalHome;
 import fr.paris.lutece.plugins.participatoryideation.business.proposal.ProposalSearcher;
@@ -65,7 +61,6 @@ import fr.paris.lutece.plugins.search.solr.util.SolrConstants;
 import fr.paris.lutece.portal.service.prefs.UserPreferencesService;
 import fr.paris.lutece.portal.service.search.SearchItem;
 import fr.paris.lutece.portal.service.util.AppLogService;
-import fr.paris.lutece.util.ReferenceList;
 import fr.paris.lutece.util.url.UrlItem;
 
 public class SolrProposalIndexer implements SolrIndexer

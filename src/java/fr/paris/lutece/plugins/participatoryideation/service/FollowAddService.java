@@ -33,16 +33,6 @@
  */
 package fr.paris.lutece.plugins.participatoryideation.service;
 
-import fr.paris.lutece.plugins.document.business.Document;
-import fr.paris.lutece.plugins.document.business.DocumentHome;
-import fr.paris.lutece.plugins.document.business.attributes.DocumentAttribute;
-import fr.paris.lutece.plugins.extend.modules.follow.business.Follow;
-import fr.paris.lutece.plugins.extend.modules.follow.service.IFollowService;
-import fr.paris.lutece.plugins.participatoryideation.business.proposal.Proposal;
-import fr.paris.lutece.plugins.participatoryideation.business.proposal.ProposalHome;
-import fr.paris.lutece.portal.business.resourceenhancer.IResourceDisplayManager;
-import fr.paris.lutece.util.xml.XmlUtil;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -52,6 +42,15 @@ import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
+
+import fr.paris.lutece.plugins.document.business.Document;
+import fr.paris.lutece.plugins.document.business.DocumentHome;
+import fr.paris.lutece.plugins.document.business.attributes.DocumentAttribute;
+import fr.paris.lutece.plugins.extend.modules.follow.business.Follow;
+import fr.paris.lutece.plugins.extend.modules.follow.service.IFollowService;
+import fr.paris.lutece.plugins.participatoryideation.business.proposal.Proposal;
+import fr.paris.lutece.plugins.participatoryideation.business.proposal.ProposalHome;
+import fr.paris.lutece.portal.business.resourceenhancer.IResourceDisplayManager;
 
 /**
  * Manager for add on display TODO : move this class into a document specific class !

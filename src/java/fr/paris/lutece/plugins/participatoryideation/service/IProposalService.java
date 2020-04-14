@@ -33,14 +33,11 @@
  */
 package fr.paris.lutece.plugins.participatoryideation.service;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import fr.paris.lutece.plugins.participatoryideation.business.proposal.Proposal;
-import fr.paris.lutece.plugins.participatoryideation.business.proposal.ProposalHome;
-import fr.paris.lutece.portal.service.util.AppLogService;
 import fr.paris.lutece.util.ReferenceList;
 
 public interface IProposalService

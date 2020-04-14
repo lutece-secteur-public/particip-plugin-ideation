@@ -43,7 +43,6 @@ import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -59,7 +58,6 @@ import fr.paris.lutece.plugins.participatoryideation.business.proposal.ProposalH
 import fr.paris.lutece.plugins.participatoryideation.business.proposal.ProposalSearcher;
 import fr.paris.lutece.plugins.participatoryideation.util.ParticipatoryIdeationConstants;
 import fr.paris.lutece.plugins.workflowcore.business.action.Action;
-import fr.paris.lutece.plugins.workflowcore.business.state.State;
 import fr.paris.lutece.plugins.workflowcore.service.workflow.IWorkflowService;
 import fr.paris.lutece.portal.service.datastore.DatastoreService;
 import fr.paris.lutece.portal.service.i18n.I18nService;
@@ -69,7 +67,6 @@ import fr.paris.lutece.portal.service.util.AppLogService;
 import fr.paris.lutece.portal.service.util.AppPropertiesService;
 import fr.paris.lutece.portal.service.workflow.WorkflowService;
 import fr.paris.lutece.util.html.HtmlTemplate;
-import fr.paris.lutece.util.http.SecurityUtil;
 
 public class ProposalWSService implements IProposalWSService
 {

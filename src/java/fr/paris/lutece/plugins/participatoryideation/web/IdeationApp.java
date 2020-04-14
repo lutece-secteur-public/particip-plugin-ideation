@@ -182,9 +182,10 @@ public class IdeationApp extends MVCApplication
     private static final String MARK_RECAP_PROPOSAL_CREATED_REFERENCE = "proposal_created_reference";
 
     private static final String MARK_CAMPAIGN_THEMES = "themes";
-    private static final String MARK_WHOLE_AREA = "whole_area";
-    private static final String MARK_NUMBER_LOCALIZED_AREAS = "number_localized_areas";
-    private static final String MARK_LOCALIZED_AREAS = "localized_areas";
+    private static final String MARK_CAMPAIGN_NUMBER_LOCALIZED_AREAS = "number_localized_areas";
+    private static final String MARK_CAMPAIGN_LOCALIZED_AREAS = "localized_areas";
+    private static final String MARK_CAMPAIGN_WHOLE_AREA = "whole_area";
+    private static final String MARK_CAMPAIGN_SUBMITTER_TYPES = "submitter_types";
 
     public static final String QPV_QVA_QPV = "NQPV";
     public static final String QPV_QVA_QVA = "QVA";
@@ -315,9 +316,13 @@ public class IdeationApp extends MVCApplication
         model.put( MARK_STEPS_CONTENT, TEMPLATE_LOCATION );
 
         model.put( MARK_CAMPAIGN_THEMES, IdeationCampaignService.getInstance( ).getCampaignThemes( _proposalCreate.getCodeCampaign( ) ) );
-        model.put( MARK_NUMBER_LOCALIZED_AREAS, IdeationCampaignService.getInstance( ).getCampaignNumberLocalizedAreas( _proposalCreate.getCodeCampaign( ) ) );
-        model.put( MARK_LOCALIZED_AREAS, IdeationCampaignService.getInstance( ).getCampaignLocalizedAreas( _proposalCreate.getCodeCampaign( ) ) );
-        model.put( MARK_WHOLE_AREA, IdeationCampaignService.getInstance( ).getCampaignWholeArea( _proposalCreate.getCodeCampaign( ) ) );
+
+        model.put( MARK_CAMPAIGN_NUMBER_LOCALIZED_AREAS,
+                IdeationCampaignService.getInstance( ).getCampaignNumberLocalizedAreas( _proposalCreate.getCodeCampaign( ) ) );
+        model.put( MARK_CAMPAIGN_LOCALIZED_AREAS, IdeationCampaignService.getInstance( ).getCampaignLocalizedAreas( _proposalCreate.getCodeCampaign( ) ) );
+        model.put( MARK_CAMPAIGN_WHOLE_AREA, IdeationCampaignService.getInstance( ).getCampaignWholeArea( _proposalCreate.getCodeCampaign( ) ) );
+
+        model.put( MARK_CAMPAIGN_SUBMITTER_TYPES, IdeationCampaignService.getInstance( ).getCampaignSubmitterTypes( _proposalCreate.getCodeCampaign( ) ) );
 
         return getXPage( TEMPLATE_ETAPES, request.getLocale( ), model );
     }

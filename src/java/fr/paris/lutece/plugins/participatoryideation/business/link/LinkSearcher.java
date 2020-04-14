@@ -33,8 +33,6 @@
  */
 package fr.paris.lutece.plugins.participatoryideation.business.link;
 
-import java.sql.Date;
-
 /**
  * This is the business class for storing search infos
  */

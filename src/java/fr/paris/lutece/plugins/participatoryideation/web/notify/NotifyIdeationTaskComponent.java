@@ -33,6 +33,16 @@
  */
 package fr.paris.lutece.plugins.participatoryideation.web.notify;
 
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+
+import javax.inject.Inject;
+import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.lang.StringUtils;
+
 import fr.paris.lutece.plugins.participatoryideation.business.notify.TaskNotifyIdeationConfig;
 import fr.paris.lutece.plugins.participatoryideation.service.notify.TaskNotifyIdeation;
 import fr.paris.lutece.plugins.workflow.web.task.NoFormTaskComponent;
@@ -42,16 +52,6 @@ import fr.paris.lutece.portal.service.template.AppTemplateService;
 import fr.paris.lutece.portal.service.util.AppPathService;
 import fr.paris.lutece.portal.service.util.AppPropertiesService;
 import fr.paris.lutece.util.html.HtmlTemplate;
-
-import org.apache.commons.lang.StringUtils;
-
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
-
-import javax.inject.Inject;
-import javax.inject.Named;
-import javax.servlet.http.HttpServletRequest;
 
 /**
  *

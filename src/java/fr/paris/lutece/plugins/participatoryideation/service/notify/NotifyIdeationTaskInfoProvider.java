@@ -33,9 +33,9 @@
  */
 package fr.paris.lutece.plugins.participatoryideation.service.notify;
 
-import fr.paris.lutece.plugins.workflow.service.taskinfo.AbstractTaskInfoProvider;
-
 import javax.servlet.http.HttpServletRequest;
+
+import fr.paris.lutece.plugins.workflow.service.taskinfo.AbstractTaskInfoProvider;
 
 /**
  *

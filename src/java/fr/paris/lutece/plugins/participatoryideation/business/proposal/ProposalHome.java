@@ -33,15 +33,15 @@
  */
 package fr.paris.lutece.plugins.participatoryideation.business.proposal;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.portal.service.plugin.PluginService;
 import fr.paris.lutece.portal.service.prefs.UserPreferencesService;
 import fr.paris.lutece.portal.service.spring.SpringContextService;
 import fr.paris.lutece.portal.service.util.AppLogService;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 /**
  * This class provides instances management methods (create, find, ...) for Proposal objects

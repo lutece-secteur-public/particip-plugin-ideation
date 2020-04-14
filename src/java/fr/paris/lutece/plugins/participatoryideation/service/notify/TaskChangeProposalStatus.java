@@ -33,6 +33,14 @@
  */
 package fr.paris.lutece.plugins.participatoryideation.service.notify;
 
+import java.util.Locale;
+
+import javax.inject.Inject;
+import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.lang.StringUtils;
+
 import fr.paris.lutece.plugins.participatoryideation.business.notify.TaskChangeProposalStatusConfig;
 import fr.paris.lutece.plugins.participatoryideation.business.proposal.Proposal;
 import fr.paris.lutece.plugins.participatoryideation.business.proposal.ProposalHome;
@@ -44,15 +52,6 @@ import fr.paris.lutece.plugins.workflowcore.service.resource.IResourceHistorySer
 import fr.paris.lutece.plugins.workflowcore.service.task.SimpleTask;
 import fr.paris.lutece.portal.service.i18n.I18nService;
 import fr.paris.lutece.portal.service.spring.SpringContextService;
-
-import org.apache.commons.lang.StringUtils;
-
-import java.util.Locale;
-
-import javax.inject.Inject;
-import javax.inject.Named;
-
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * 

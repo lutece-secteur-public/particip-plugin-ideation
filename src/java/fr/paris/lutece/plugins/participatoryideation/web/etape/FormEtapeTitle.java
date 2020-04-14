@@ -40,7 +40,6 @@ import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.Size;
 
-import org.apache.commons.lang.StringUtils;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import fr.paris.lutece.portal.service.datastore.DatastoreService;

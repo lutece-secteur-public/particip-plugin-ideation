@@ -58,8 +58,8 @@ import fr.paris.lutece.plugins.participatoryideation.service.ProposalUsersServic
 import fr.paris.lutece.plugins.participatoryideation.service.SolrProposalIndexer;
 import fr.paris.lutece.plugins.participatoryideation.service.campaign.IdeationCampaignService;
 import fr.paris.lutece.plugins.participatoryideation.service.capgeo.QpvQvaService;
-import fr.paris.lutece.plugins.participatoryideation.util.ParticipatoryIdeationConstants;
 import fr.paris.lutece.plugins.participatoryideation.util.CsvUtils;
+import fr.paris.lutece.plugins.participatoryideation.util.ParticipatoryIdeationConstants;
 import fr.paris.lutece.plugins.participatoryideation.util.ProposalExportUtils;
 import fr.paris.lutece.plugins.workflowcore.business.state.State;
 import fr.paris.lutece.portal.business.file.File;

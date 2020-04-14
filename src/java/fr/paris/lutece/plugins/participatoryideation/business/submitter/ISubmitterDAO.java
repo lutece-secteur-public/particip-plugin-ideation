@@ -33,8 +33,9 @@
  */
 package fr.paris.lutece.plugins.participatoryideation.business.submitter;
 
-import fr.paris.lutece.portal.service.plugin.Plugin;
 import java.util.Collection;
+
+import fr.paris.lutece.portal.service.plugin.Plugin;
 
 /**
  * ISubmitterDAO Interface

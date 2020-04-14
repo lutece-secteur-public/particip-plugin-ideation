@@ -33,13 +33,17 @@
  */
 package fr.paris.lutece.plugins.participatoryideation.service.campaign;
 
-import java.util.List;
+import java.util.Collection;
 
+import fr.paris.lutece.plugins.participatoryideation.business.submitter.SubmitterType;
+import fr.paris.lutece.plugins.participatoryideation.business.submitter.SubmitterTypeHome;
 import fr.paris.lutece.portal.service.spring.SpringContextService;
 import fr.paris.lutece.util.ReferenceList;
 
 /**
- * This class provides very simple ideation campaign services : - One 'whole city' area - No 'localized' area - Ideation is always open
+ * This class provides ideation campaign data.
+ *
+ * TODO : some data should be configurable in a simple way in BO (for example, string with list of values separated by comma...)
  */
 public class IdeationCampaignService implements IIdeationCampaignService
 {
@@ -198,6 +202,17 @@ public class IdeationCampaignService implements IIdeationCampaignService
         ReferenceList allAreas = new ReferenceList( );
         allAreas.addItem( WHOLE_AREA, WHOLE_AREA );
         return allAreas;
+    }
+
+    // *********************************************************************************************
+    // * SUBMITTER SUBMITTER SUBMITTER SUBMITTER SUBMITTER SUBMITTER SUBMITTER SUBMITTER SUBMITTER *
+    // * SUBMITTER SUBMITTER SUBMITTER SUBMITTER SUBMITTER SUBMITTER SUBMITTER SUBMITTER SUBMITTER *
+    // *********************************************************************************************
+
+    @Override
+    public Collection<SubmitterType> getCampaignSubmitterTypes( String codeCampaign )
+    {
+        return SubmitterTypeHome.getSubmitterTypesListByCampaign( codeCampaign );
     }
 
     // *********************************************************************************************

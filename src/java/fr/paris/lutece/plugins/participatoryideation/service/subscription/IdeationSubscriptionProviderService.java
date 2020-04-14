@@ -36,8 +36,6 @@ package fr.paris.lutece.plugins.participatoryideation.service.subscription;
 import java.util.List;
 import java.util.Locale;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.lang.StringUtils;
 
 import fr.paris.lutece.plugins.subscribe.business.Subscription;

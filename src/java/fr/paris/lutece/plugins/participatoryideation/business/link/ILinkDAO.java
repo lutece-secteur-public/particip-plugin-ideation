@@ -33,8 +33,9 @@
  */
 package fr.paris.lutece.plugins.participatoryideation.business.link;
 
-import fr.paris.lutece.portal.service.plugin.Plugin;
 import java.util.Collection;
+
+import fr.paris.lutece.portal.service.plugin.Plugin;
 
 /**
  * ILinkDAO Interface

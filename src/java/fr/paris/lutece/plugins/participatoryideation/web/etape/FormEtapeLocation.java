@@ -33,29 +33,21 @@
  */
 package fr.paris.lutece.plugins.participatoryideation.web.etape;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.Set;
-import java.util.regex.Matcher;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import fr.paris.lutece.plugins.leaflet.business.GeolocItem;
+import fr.paris.lutece.plugins.participatoryideation.business.proposal.Proposal;
 import fr.paris.lutece.plugins.participatoryideation.business.submitter.SubmitterType;
 import fr.paris.lutece.plugins.participatoryideation.business.submitter.SubmitterTypeHome;
-import fr.paris.lutece.plugins.participatoryideation.business.proposal.Proposal;
-import fr.paris.lutece.plugins.participatoryideation.service.ProposalService;
-import fr.paris.lutece.portal.service.i18n.I18nService;
 import fr.paris.lutece.portal.service.security.LuteceUser;
 import fr.paris.lutece.portal.service.security.SecurityService;
-import fr.paris.lutece.portal.service.util.AppLogService;
 
 public class FormEtapeLocation extends AbstractFormEtape
 {
