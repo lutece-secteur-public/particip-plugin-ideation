@@ -1,92 +1,109 @@
-<?xml version="1.0" encoding="UTF-8"?><plug-in>
-    <name>participatoryideation</name>
-    <class>fr.paris.lutece.plugins.participatoryideation.service.IdeationPlugin</class>
-    <version>1.0.0-SNAPSHOT</version>
-    <documentation/>
-    <installation/>
-    <changes/>
-    <user-guide/>
-    <description>ideation.plugin.description</description>
-    <provider>ideation.plugin.provider</provider>
-    <provider-url>http://dev.lutece.paris.fr</provider-url>
-    <icon-url>images/admin/skin/feature_default_icon.png</icon-url>
-    <copyright>Copyright (c) 2015 Mairie de Paris</copyright>
-    <db-pool-required>1</db-pool-required>
-    
-    <core-version-dependency>
-        <min-core-version>6.1.0</min-core-version>
-        <max-core-version/>	
-    </core-version-dependency>
+<?xml version="1.0" encoding="UTF-8"?>
+<plug-in>
+	<name>participatoryideation</name>
+	<class>fr.paris.lutece.plugins.participatoryideation.service.IdeationPlugin
+	</class>
+	<version>1.0.0-SNAPSHOT</version>
+	<documentation />
+	<installation />
+	<changes />
+	<user-guide />
+	<description>ideation.plugin.description</description>
+	<provider>ideation.plugin.provider</provider>
+	<provider-url>http://dev.lutece.paris.fr</provider-url>
+	<icon-url>images/admin/skin/feature_default_icon.png</icon-url>
+	<copyright>Copyright (c) 2015 Mairie de Paris</copyright>
+	<db-pool-required>1</db-pool-required>
 
-    <!-- Admin features parameters -->
-    <admin-features>
-        <admin-feature>
-            <feature-id>PARTICIPATORYIDEATION_MANAGEMENT</feature-id>
-            <feature-title>ideation.adminFeature.ManageIdeation.name</feature-title>
-            <feature-description>ideation.adminFeature.ManageIdeation.description</feature-description>
-            <feature-level>0</feature-level>
-            <feature-url>jsp/admin/plugins/participatoryideation/ManageIdeation.jsp</feature-url>
-            <feature-icon-url/>
-      </admin-feature>
-      <admin-feature>
-          <feature-id>PARTICIPATORYIDEATION_PROPOSALS_MANAGEMENT</feature-id>
-          <feature-title>ideation.adminFeature.ManageIdeationProposals.name</feature-title>
-          <feature-description>ideation.adminFeature.ManageIdeationProposals.description</feature-description>
-          <feature-level>0</feature-level>
-          <feature-url>jsp/admin/plugins/participatoryideation/ManageProposals.jsp</feature-url>
-          <feature-icon-url/>
-      </admin-feature>
-    </admin-features>    
+	<core-version-dependency>
+		<min-core-version>6.1.0</min-core-version>
+		<max-core-version />
+	</core-version-dependency>
 
-    <css-stylesheets>
-        <css-stylesheets-scope>portal</css-stylesheets-scope>
-        <css-stylesheet>participatoryideation/participatoryideation.css</css-stylesheet>
-    </css-stylesheets>
+	<!-- Admin features parameters -->
+	<admin-features>
+		<admin-feature>
+			<feature-id>PARTICIPATORYIDEATION_MANAGEMENT</feature-id>
+			<feature-title>participatoryideation.adminFeature.ManageIdeation.name
+			</feature-title>
+			<feature-description>participatoryideation.adminFeature.ManageIdeation.description
+			</feature-description>
+			<feature-level>0</feature-level>
+			<feature-url>jsp/admin/plugins/participatoryideation/ManageIdeation.jsp
+			</feature-url>
+			<feature-icon-url />
+		</admin-feature>
+		<admin-feature>
+			<feature-id>PARTICIPATORYIDEATION_PROPOSALS_MANAGEMENT</feature-id>
+			<feature-title>participatoryideation.adminFeature.ManageIdeationProposals.name
+			</feature-title>
+			<feature-description>participatoryideation.adminFeature.ManageIdeationProposals.description
+			</feature-description>
+			<feature-level>0</feature-level>
+			<feature-url>jsp/admin/plugins/participatoryideation/ManageProposals.jsp
+			</feature-url>
+			<feature-icon-url />
+		</admin-feature>
+	</admin-features>
 
-    <!-- XPages parameters -->
-    <applications>
-        <application>
-            <application-id>ideation</application-id>
-            <application-class>fr.paris.lutece.plugins.participatoryideation.web.IdeationApp</application-class>
-        </application>
-        <application>
-            <application-id>proposal</application-id>
-            <application-class>fr.paris.lutece.plugins.participatoryideation.web.ProposalXPage</application-class>
-        </application>
+	<css-stylesheets>
+		<css-stylesheets-scope>portal</css-stylesheets-scope>
+		<css-stylesheet>participatoryideation/participatoryideation.css
+		</css-stylesheet>
+	</css-stylesheets>
+
+	<!-- XPages parameters -->
+	<applications>
+		<application>
+			<application-id>ideation</application-id>
+			<application-class>fr.paris.lutece.plugins.participatoryideation.web.IdeationApp
+			</application-class>
+		</application>
+		<application>
+			<application-id>proposal</application-id>
+			<application-class>fr.paris.lutece.plugins.participatoryideation.web.ProposalXPage
+			</application-class>
+		</application>
+		<application>
+			<application-id>mySubscriptions</application-id>
+			<application-class>fr.paris.lutece.plugins.participatoryideation.web.ProposalSubscriptionXPage
+			</application-class>
+		</application>
+		<application>
+			<application-id>myProjects</application-id>
+			<application-class>fr.paris.lutece.plugins.participatoryideation.web.ProposalSubscriberXPage
+			</application-class>
+		</application>
          <application>
-            <application-id>mySubscriptions</application-id>
-            <application-class>fr.paris.lutece.plugins.participatoryideation.web.ProposalSubscriptionXPage</application-class>
-        </application>
-         <application>
-            <application-id>myProjects</application-id>
-            <application-class>fr.paris.lutece.plugins.participatoryideation.web.ProposalSubscriberXPage</application-class>
-        </application>
-    </applications>
-    
-    <!-- Page Includes -->
-    <!-- page-include-services>
-        	<page-include-service>
-            	<page-include-service-id>headerIdeation</page-include-service-id>
-            	<page-include-service-class>fr.paris.lutece.plugins.participatoryideation.web.include.HeaderInclude</page-include-service-class>
-        </page-include-service> 
-    </page-include-services -->
+        	<application-id>solrProposalSearch</application-id>
+            <application-class>fr.paris.lutece.plugins.participatoryideation.web.ProposalsXpage</application-class>
+          </application>
+	</applications>
 
-    <!-- Portlet parameters -->
-    <portlets>
-   </portlets>
+	<!-- Page Includes -->
+	<!-- page-include-services> <page-include-service> <page-include-service-id>headerIdeation</page-include-service-id> 
+		<page-include-service-class>fr.paris.lutece.plugins.participatoryideation.web.include.HeaderInclude</page-include-service-class> 
+		</page-include-service> </page-include-services -->
 
-    <listeners>
-        <listener>
-            <listener-class>fr.paris.lutece.plugins.participatoryideation.service.IdeationSessionListener</listener-class>
-        </listener>
-    </listeners>
+	<!-- Portlet parameters -->
+	<portlets>
+	</portlets>
+
+	<listeners>
+		<listener>
+			<listener-class>fr.paris.lutece.plugins.participatoryideation.service.IdeationSessionListener
+			</listener-class>
+		</listener>
+	</listeners>
 
 	<servlets>
 		<servlet>
 			<servlet-name>downloadServlet</servlet-name>
-			<url-pattern>/servlet/plugins/participatoryideation/download</url-pattern>
-			<servlet-class>fr.paris.lutece.plugins.participatoryideation.web.DownloadServlet</servlet-class>
+			<url-pattern>/servlet/plugins/participatoryideation/download
+			</url-pattern>
+			<servlet-class>fr.paris.lutece.plugins.participatoryideation.web.DownloadServlet
+			</servlet-class>
 		</servlet>
 	</servlets>
-	
+
 </plug-in>

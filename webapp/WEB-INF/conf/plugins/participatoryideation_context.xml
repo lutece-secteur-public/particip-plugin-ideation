@@ -66,10 +66,6 @@
 	<bean id="participatoryideation.proposalExtendableResourceService"       class="fr.paris.lutece.plugins.participatoryideation.service.ProposalExtendableResourceService" />
 	<bean id="participatoryideation.ideationSubscriptionProviderService" class="fr.paris.lutece.plugins.participatoryideation.service.subscription.IdeationSubscriptionProviderService"/>
 
-	<!-- Components -->
-	
-	<bean id="participatoryideation.followAddon" class="fr.paris.lutece.plugins.participatoryideation.service.FollowAddService" />
-
     <!-- WS REST -->
     
     <bean id='participatoryideation.hashService' class='fr.paris.lutece.util.signrequest.security.Sha1HashService' />

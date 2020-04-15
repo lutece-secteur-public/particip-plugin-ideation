@@ -41,7 +41,7 @@ import fr.paris.lutece.portal.service.spring.SpringContextService;
 import fr.paris.lutece.util.ReferenceList;
 
 /**
- * This class provides ideation campaign data.
+ * This class provides ideation campaign default data. Campaign phases are considered as opened.
  *
  * TODO : some data should be configurable in a simple way in BO (for example, string with list of values separated by comma...)
  */
