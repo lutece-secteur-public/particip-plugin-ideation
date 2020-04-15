@@ -45,7 +45,7 @@ import fr.paris.lutece.util.ReferenceList;
  *
  * TODO : some data should be configurable in a simple way in BO (for example, string with list of values separated by comma...)
  */
-public class IdeationCampaignService implements IIdeationCampaignService
+public class IdeationCampaignDataProvider implements IIdeationCampaignDataProvider
 {
 
     private static final String CAMPAIGN_CODE = "A";
@@ -56,15 +56,15 @@ public class IdeationCampaignService implements IIdeationCampaignService
     // * SINGLETON SINGLETON SINGLETON SINGLETON SINGLETON SINGLETON SINGLETON SINGLETON SINGLETON *
     // *********************************************************************************************
 
-    private static final String BEAN_IDEATIONCAMPAIGN_SERVICE = "participatoryideation.ideationCampaignService";
+    private static final String BEAN_IDEATIONCAMPAIGN_DATA_PROVIDER = "participatoryideation.ideationCampaignDataProvider";
 
-    private static IIdeationCampaignService _singleton;
+    private static IIdeationCampaignDataProvider _singleton;
 
-    public static IIdeationCampaignService getInstance( )
+    public static IIdeationCampaignDataProvider getInstance( )
     {
         if ( _singleton == null )
         {
-            _singleton = SpringContextService.getBean( BEAN_IDEATIONCAMPAIGN_SERVICE );
+            _singleton = SpringContextService.getBean( BEAN_IDEATIONCAMPAIGN_DATA_PROVIDER );
         }
         return _singleton;
     }

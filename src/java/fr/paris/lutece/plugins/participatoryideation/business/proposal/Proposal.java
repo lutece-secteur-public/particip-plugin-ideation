@@ -42,7 +42,7 @@ import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 
-import fr.paris.lutece.plugins.participatoryideation.service.campaign.IdeationCampaignService;
+import fr.paris.lutece.plugins.participatoryideation.service.campaign.IdeationCampaignDataProvider;
 import fr.paris.lutece.plugins.participatoryideation.util.ParticipatoryIdeationConstants;
 import fr.paris.lutece.portal.business.file.File;
 import fr.paris.lutece.portal.service.resource.IExtendableResource;
@@ -850,7 +850,7 @@ public class Proposal implements Serializable, IExtendableResource
      */
     public boolean canDelete( )
     {
-        return IdeationCampaignService.getInstance( ).isDuring( _strCodeCampaign, ParticipatoryIdeationConstants.IDEATION );
+        return IdeationCampaignDataProvider.getInstance( ).isDuring( _strCodeCampaign, ParticipatoryIdeationConstants.IDEATION );
     }
 
     /**

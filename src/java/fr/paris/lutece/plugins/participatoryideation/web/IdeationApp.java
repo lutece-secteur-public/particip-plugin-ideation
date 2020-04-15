@@ -61,7 +61,7 @@ import fr.paris.lutece.plugins.participatoryideation.service.IdeationStaticServi
 import fr.paris.lutece.plugins.participatoryideation.service.IdeationUploadHandler;
 import fr.paris.lutece.plugins.participatoryideation.service.ProposalService;
 import fr.paris.lutece.plugins.participatoryideation.service.ProposalWSService;
-import fr.paris.lutece.plugins.participatoryideation.service.campaign.IdeationCampaignService;
+import fr.paris.lutece.plugins.participatoryideation.service.campaign.IdeationCampaignDataProvider;
 import fr.paris.lutece.plugins.participatoryideation.service.capgeo.QpvQvaService;
 import fr.paris.lutece.plugins.participatoryideation.service.myinfos.MyInfosService;
 import fr.paris.lutece.plugins.participatoryideation.util.ParticipatoryIdeationConstants;
@@ -144,7 +144,7 @@ public class IdeationApp extends MVCApplication
     private static final String PARAMETER_CAMPAIGN = "campaign";
 
     // Markers
-    private static final String MARK_IDEATION_CAMPAIGN_SERVICE_IMPLEMENTATION = "ideation_campaign_service_implementation";
+    private static final String MARK_IDEATION_CAMPAIGN_DATA_PROVIDER_IMPLEMENTATION = "ideation_campaign_data_provider_implementation";
 
     private static final String MARK_APPROX_KEYWORD_LIST = "results_keyword_list";
     private static final String MARK_APPROX_PREVIOUS_CAMPAIGNS_LIST = "results_previous_campaigns_list";
@@ -315,14 +315,14 @@ public class IdeationApp extends MVCApplication
         model.put( MARK_STEPS_INDEX, STEPS.LOCATION_INDEX.ordinal( ) );
         model.put( MARK_STEPS_CONTENT, TEMPLATE_LOCATION );
 
-        model.put( MARK_CAMPAIGN_THEMES, IdeationCampaignService.getInstance( ).getCampaignThemes( _proposalCreate.getCodeCampaign( ) ) );
+        model.put( MARK_CAMPAIGN_THEMES, IdeationCampaignDataProvider.getInstance( ).getCampaignThemes( _proposalCreate.getCodeCampaign( ) ) );
 
         model.put( MARK_CAMPAIGN_NUMBER_LOCALIZED_AREAS,
-                IdeationCampaignService.getInstance( ).getCampaignNumberLocalizedAreas( _proposalCreate.getCodeCampaign( ) ) );
-        model.put( MARK_CAMPAIGN_LOCALIZED_AREAS, IdeationCampaignService.getInstance( ).getCampaignLocalizedAreas( _proposalCreate.getCodeCampaign( ) ) );
-        model.put( MARK_CAMPAIGN_WHOLE_AREA, IdeationCampaignService.getInstance( ).getCampaignWholeArea( _proposalCreate.getCodeCampaign( ) ) );
+                IdeationCampaignDataProvider.getInstance( ).getCampaignNumberLocalizedAreas( _proposalCreate.getCodeCampaign( ) ) );
+        model.put( MARK_CAMPAIGN_LOCALIZED_AREAS, IdeationCampaignDataProvider.getInstance( ).getCampaignLocalizedAreas( _proposalCreate.getCodeCampaign( ) ) );
+        model.put( MARK_CAMPAIGN_WHOLE_AREA, IdeationCampaignDataProvider.getInstance( ).getCampaignWholeArea( _proposalCreate.getCodeCampaign( ) ) );
 
-        model.put( MARK_CAMPAIGN_SUBMITTER_TYPES, IdeationCampaignService.getInstance( ).getCampaignSubmitterTypes( _proposalCreate.getCodeCampaign( ) ) );
+        model.put( MARK_CAMPAIGN_SUBMITTER_TYPES, IdeationCampaignDataProvider.getInstance( ).getCampaignSubmitterTypes( _proposalCreate.getCodeCampaign( ) ) );
 
         return getXPage( TEMPLATE_ETAPES, request.getLocale( ), model );
     }
@@ -1072,7 +1072,7 @@ public class IdeationApp extends MVCApplication
     {
         Map<String, Object> model = super.getModel( );
 
-        model.put( MARK_IDEATION_CAMPAIGN_SERVICE_IMPLEMENTATION, IdeationCampaignService.getInstance( ).getClass( ).getName( ) );
+        model.put( MARK_IDEATION_CAMPAIGN_DATA_PROVIDER_IMPLEMENTATION, IdeationCampaignDataProvider.getInstance( ).getClass( ).getName( ) );
 
         IdeationStaticService.getInstance( ).fillCampaignStaticContent( model, _proposalCreate.getCodeCampaign( ) );
         fillFormEtapes( model );
@@ -1148,7 +1148,7 @@ public class IdeationApp extends MVCApplication
             SiteMessageService.setMessage( request, MESSAGE_CAMPAIGN_UNSPECIFIED, SiteMessage.TYPE_ERROR, JSP_PORTAL );
         }
         else
-            if ( !IdeationCampaignService.getInstance( ).isDuring( _proposalCreate.getCodeCampaign( ), ParticipatoryIdeationConstants.IDEATION ) )
+            if ( !IdeationCampaignDataProvider.getInstance( ).isDuring( _proposalCreate.getCodeCampaign( ), ParticipatoryIdeationConstants.IDEATION ) )
             {
                 Map<String, Object> requestParameters = new HashMap<String, Object>( );
                 requestParameters.put( PARAMETER_PAGE, "search-solr" );

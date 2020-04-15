@@ -41,7 +41,7 @@ import fr.paris.lutece.util.ReferenceList;
 /**
  * Interface for providing informations about ideation campaign.
  */
-public interface IIdeationCampaignService
+public interface IIdeationCampaignDataProvider
 {
 
     public static final String WHOLE_AREA = "whole city";

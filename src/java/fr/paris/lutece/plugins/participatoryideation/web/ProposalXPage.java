@@ -48,7 +48,7 @@ import fr.paris.lutece.plugins.participatoryideation.business.proposal.Proposal;
 import fr.paris.lutece.plugins.participatoryideation.business.proposal.ProposalHome;
 import fr.paris.lutece.plugins.participatoryideation.service.IdeationStaticService;
 import fr.paris.lutece.plugins.participatoryideation.service.ProposalService;
-import fr.paris.lutece.plugins.participatoryideation.service.campaign.IdeationCampaignService;
+import fr.paris.lutece.plugins.participatoryideation.service.campaign.IdeationCampaignDataProvider;
 import fr.paris.lutece.plugins.participatoryideation.service.myinfos.MyInfosService;
 import fr.paris.lutece.portal.service.datastore.DatastoreService;
 import fr.paris.lutece.portal.service.mail.MailService;
@@ -179,7 +179,7 @@ public class ProposalXPage extends MVCApplication
 
         model.put( MARK_SHOW_CONTACT, strShowContact );
         model.put( MARK_MESSAGE_NOT_ACCEPT, strContactMessageNotAccept );
-        model.put( MARK_WHOLE_AREA, IdeationCampaignService.getInstance( ).getCampaignWholeArea( ) );
+        model.put( MARK_WHOLE_AREA, IdeationCampaignDataProvider.getInstance( ).getCampaignWholeArea( ) );
 
         if ( _proposal == null || !ProposalService.getInstance( ).isPublished( _proposal ) )
         {

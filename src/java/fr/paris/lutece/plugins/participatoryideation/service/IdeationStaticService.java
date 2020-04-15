@@ -42,7 +42,7 @@ import java.util.Map;
 import fr.paris.lutece.plugins.participatoryideation.business.proposal.Proposal;
 import fr.paris.lutece.plugins.participatoryideation.business.submitter.SubmitterType;
 import fr.paris.lutece.plugins.participatoryideation.business.submitter.SubmitterTypeHome;
-import fr.paris.lutece.plugins.participatoryideation.service.campaign.IdeationCampaignService;
+import fr.paris.lutece.plugins.participatoryideation.service.campaign.IdeationCampaignDataProvider;
 import fr.paris.lutece.portal.service.cache.AbstractCacheableService;
 import fr.paris.lutece.portal.service.i18n.I18nService;
 import fr.paris.lutece.portal.service.spring.SpringContextService;
@@ -128,7 +128,7 @@ public class IdeationStaticService extends AbstractCacheableService implements I
         model.put( MARK_LOCATION_TYPE_MAP, ProposalService.getInstance( ).getTypeLocationMap( ) );
 
         // Add list of campaigns
-        model.put( MARK_LIST_CAMPAIGN, IdeationCampaignService.getInstance( ).getCampaigns( ) );
+        model.put( MARK_LIST_CAMPAIGN, IdeationCampaignDataProvider.getInstance( ).getCampaigns( ) );
 
         // Add list of proposal status
         if ( WorkflowService.getInstance( ).isAvailable( ) )
@@ -199,7 +199,7 @@ public class IdeationStaticService extends AbstractCacheableService implements I
 
         // For each campaign, add data about submitters
         Map<String, List<SubmitterType>> mapSubmittersTypes = SubmitterTypeHome.getSubmitterTypesMapByCampaign( );
-        ReferenceList listCampaign = IdeationCampaignService.getInstance( ).getCampaigns( );
+        ReferenceList listCampaign = IdeationCampaignDataProvider.getInstance( ).getCampaigns( );
         for ( ReferenceItem campaign : listCampaign )
         {
             Map<String, Object> campaignContent = new HashMap<String, Object>( );
@@ -208,11 +208,11 @@ public class IdeationStaticService extends AbstractCacheableService implements I
             campaignContent.put( MARK_CAMPAIGN, campaign );
 
             // Add themes of the campaign
-            campaignContent.put( MARK_THEME_LIST, IdeationCampaignService.getInstance( ).getCampaignThemes( campaign.getCode( ) ) );
-            campaignContent.put( MARK_THEME_FRONT_RGB_LIST, IdeationCampaignService.getInstance( ).getCampaignThemesFrontRgb( campaign.getCode( ) ) );
+            campaignContent.put( MARK_THEME_LIST, IdeationCampaignDataProvider.getInstance( ).getCampaignThemes( campaign.getCode( ) ) );
+            campaignContent.put( MARK_THEME_FRONT_RGB_LIST, IdeationCampaignDataProvider.getInstance( ).getCampaignThemesFrontRgb( campaign.getCode( ) ) );
 
             // Add areas of the campaign
-            campaignContent.put( MARK_AREA_LIST, IdeationCampaignService.getInstance( ).getCampaignAllAreas( campaign.getCode( ) ) );
+            campaignContent.put( MARK_AREA_LIST, IdeationCampaignDataProvider.getInstance( ).getCampaignAllAreas( campaign.getCode( ) ) );
 
             // Types of submitter of the campaign
             campaignContent.put( MARK_SUBMITTERS_TYPES_LIST, mapSubmittersTypes.get( campaign.getCode( ) ) );

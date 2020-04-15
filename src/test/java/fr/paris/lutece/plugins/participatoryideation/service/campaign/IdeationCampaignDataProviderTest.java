@@ -33,23 +33,23 @@
  */
 package fr.paris.lutece.plugins.participatoryideation.service.campaign;
 
-import fr.paris.lutece.plugins.participatoryideation.service.campaign.IIdeationCampaignService;
-import fr.paris.lutece.plugins.participatoryideation.service.campaign.IdeationCampaignService;
+import fr.paris.lutece.plugins.participatoryideation.service.campaign.IIdeationCampaignDataProvider;
+import fr.paris.lutece.plugins.participatoryideation.service.campaign.IdeationCampaignDataProvider;
 import fr.paris.lutece.plugins.participatoryideation.util.ParticipatoryIdeationConstants;
 import fr.paris.lutece.test.LuteceTestCase;
 
 /**
  * SubmitterTypeTest
  */
-public class IdeationCampaignServiceTest extends LuteceTestCase
+public class IdeationCampaignDataProviderTest extends LuteceTestCase
 {
     public void testBusiness( )
     {
         // Initialize an object
-        IIdeationCampaignService instance = IdeationCampaignService.getInstance( );
+        IIdeationCampaignDataProvider instance = IdeationCampaignDataProvider.getInstance( );
 
         // Spring bean instantiation
-        assertEquals( IdeationCampaignService.class, instance.getClass( ) );
+        assertEquals( IdeationCampaignDataProvider.class, instance.getClass( ) );
 
         // Methods about campaign
         assertEquals( 1, instance.getCampaigns( ).size( ) );
@@ -82,8 +82,8 @@ public class IdeationCampaignServiceTest extends LuteceTestCase
         assertEquals( 0, instance.getCampaignNumberLocalizedAreas( ) );
         assertEquals( 0, instance.getCampaignNumberLocalizedAreas( "123" ) );
 
-        assertEquals( IIdeationCampaignService.WHOLE_AREA, instance.getCampaignWholeArea( ) );
-        assertEquals( IIdeationCampaignService.WHOLE_AREA, instance.getCampaignWholeArea( "123" ) );
+        assertEquals( IIdeationCampaignDataProvider.WHOLE_AREA, instance.getCampaignWholeArea( ) );
+        assertEquals( IIdeationCampaignDataProvider.WHOLE_AREA, instance.getCampaignWholeArea( "123" ) );
 
         // Methods about themes
         assertEquals( 3, instance.getCampaignThemes( ).size( ) );

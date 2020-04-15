@@ -27,7 +27,7 @@
 	<bean id="participatoryideation.proposalService"          class="fr.paris.lutece.plugins.participatoryideation.service.ProposalService" />  
 	<bean id="participatoryideation.ideationStaticService"    class="fr.paris.lutece.plugins.participatoryideation.service.IdeationStaticService" />
 	<bean id="participatoryideation.proposalWSService"        class="fr.paris.lutece.plugins.participatoryideation.service.ProposalWSService" /> 
-	<bean id="participatoryideation.ideationCampaignService"  class="fr.paris.lutece.plugins.participatoryideation.service.campaign.IdeationCampaignService" />
+	<bean id="participatoryideation.ideationCampaignDataProvider"  class="fr.paris.lutece.plugins.participatoryideation.service.campaign.IdeationCampaignDataProvider" />
 	<bean id="participatoryideation.myInfosService"           class="fr.paris.lutece.plugins.participatoryideation.service.myinfos.MyInfosService" />
 
     <!-- Site properties -->

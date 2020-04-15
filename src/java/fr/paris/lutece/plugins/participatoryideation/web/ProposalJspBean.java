@@ -56,7 +56,7 @@ import fr.paris.lutece.plugins.participatoryideation.service.IdeationStaticServi
 import fr.paris.lutece.plugins.participatoryideation.service.ProposalService;
 import fr.paris.lutece.plugins.participatoryideation.service.ProposalUsersService;
 import fr.paris.lutece.plugins.participatoryideation.service.SolrProposalIndexer;
-import fr.paris.lutece.plugins.participatoryideation.service.campaign.IdeationCampaignService;
+import fr.paris.lutece.plugins.participatoryideation.service.campaign.IdeationCampaignDataProvider;
 import fr.paris.lutece.plugins.participatoryideation.service.capgeo.QpvQvaService;
 import fr.paris.lutece.plugins.participatoryideation.util.CsvUtils;
 import fr.paris.lutece.plugins.participatoryideation.util.ParticipatoryIdeationConstants;
@@ -487,7 +487,7 @@ public class ProposalJspBean extends ManageIdeationProposalsJspBean
         _proposal = new Proposal( );
 
         Map<String, Object> model = getModel( );
-        model.put( MARK_CAMPAIGN_LIST, IdeationCampaignService.getInstance( ).getCampaigns( ) );
+        model.put( MARK_CAMPAIGN_LIST, IdeationCampaignDataProvider.getInstance( ).getCampaigns( ) );
         model.put( MARK_PROPOSAL, _proposal );
         model.put( MARK_LANGUAGE, getLocale( ) );
 
@@ -516,8 +516,8 @@ public class ProposalJspBean extends ManageIdeationProposalsJspBean
         // Data depending of specified campaign
         String campaignCode = _proposal.getCodeCampaign( );
         model.put( MARK_CAMPAIGN_CODE, campaignCode );
-        model.put( MARK_CAMPAIGNTHEME_LIST, IdeationCampaignService.getInstance( ).getCampaignThemes( campaignCode ) );
-        model.put( MARK_AREA_LIST, IdeationCampaignService.getInstance( ).getCampaignAllAreas( campaignCode ) );
+        model.put( MARK_CAMPAIGNTHEME_LIST, IdeationCampaignDataProvider.getInstance( ).getCampaignThemes( campaignCode ) );
+        model.put( MARK_AREA_LIST, IdeationCampaignDataProvider.getInstance( ).getCampaignAllAreas( campaignCode ) );
 
         // Data NOT depending of specified campaign
         model.put( MARK_LOCATION_TYPE_LIST, ProposalService.getInstance( ).getTypeLocationList( ) );
