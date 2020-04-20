@@ -179,7 +179,7 @@ public class ProposalXPage extends MVCApplication
 
         model.put( MARK_SHOW_CONTACT, strShowContact );
         model.put( MARK_MESSAGE_NOT_ACCEPT, strContactMessageNotAccept );
-        model.put( MARK_WHOLE_AREA, IdeationCampaignDataProvider.getInstance( ).getCampaignWholeArea( ) );
+        model.put( MARK_WHOLE_AREA, IdeationCampaignDataProvider.getInstance( ).getCampaignWholeArea( strCodeCampaign ) );
 
         if ( _proposal == null || !ProposalService.getInstance( ).isPublished( _proposal ) )
         {

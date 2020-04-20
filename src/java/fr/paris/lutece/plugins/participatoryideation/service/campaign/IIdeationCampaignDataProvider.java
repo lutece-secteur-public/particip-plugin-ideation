@@ -36,6 +36,7 @@ package fr.paris.lutece.plugins.participatoryideation.service.campaign;
 import java.util.Collection;
 
 import fr.paris.lutece.plugins.participatoryideation.business.submitter.SubmitterType;
+import fr.paris.lutece.util.ReferenceItem;
 import fr.paris.lutece.util.ReferenceList;
 
 /**
@@ -53,6 +54,9 @@ public interface IIdeationCampaignDataProvider
 
     // Provides list of campaigns
     public ReferenceList getCampaigns( );
+
+    // Provides last campaign, sorted by code
+    public ReferenceItem getLastCampaign( );
 
     // *********************************************************************************************
     // * PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASES PHASE *
@@ -89,20 +93,20 @@ public interface IIdeationCampaignDataProvider
     // Provides informations about area.
     public ReferenceList getCampaignAllAreas( String codeCampaign );
 
-    public String getCampaignWholeArea( String codeCampaign );
+    public ReferenceItem getCampaignWholeArea( String codeCampaign );
 
     public ReferenceList getCampaignLocalizedAreas( String codeCampaign );
 
     public int getCampaignNumberLocalizedAreas( String codeCampaign );
 
     // Same as precedent, for last campaign.
-    public ReferenceList getCampaignAllAreas( );
+    public ReferenceList getLastCampaignAllAreas( );
 
-    public String getCampaignWholeArea( );
+    public ReferenceItem getLastCampaignWholeArea( );
 
-    public ReferenceList getCampaignLocalizedAreas( );
+    public ReferenceList getLastCampaignLocalizedAreas( );
 
-    public int getCampaignNumberLocalizedAreas( );
+    public int getLastCampaignNumberLocalizedAreas( );
 
     // *********************************************************************************************
     // * SUBMITTER SUBMITTER SUBMITTER SUBMITTER SUBMITTER SUBMITTER SUBMITTER SUBMITTER SUBMITTER *
@@ -121,7 +125,7 @@ public interface IIdeationCampaignDataProvider
     public ReferenceList getCampaignThemes( String codeCampaign );
 
     // Return theme names of last campaign
-    public ReferenceList getCampaignThemes( );
+    public ReferenceList getLastCampaignThemes( );
 
     // Return theme front rgb of a campaign
     public ReferenceList getCampaignThemesFrontRgb( String codeCampaign );

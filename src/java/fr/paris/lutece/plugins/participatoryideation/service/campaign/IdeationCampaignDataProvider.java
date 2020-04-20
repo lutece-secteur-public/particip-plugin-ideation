@@ -33,11 +33,24 @@
  */
 package fr.paris.lutece.plugins.participatoryideation.service.campaign;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
+
+import fr.paris.lutece.plugins.participatoryideation.business.proposal.Proposal;
 import fr.paris.lutece.plugins.participatoryideation.business.submitter.SubmitterType;
 import fr.paris.lutece.plugins.participatoryideation.business.submitter.SubmitterTypeHome;
+import fr.paris.lutece.plugins.participatoryideation.util.ParticipatoryIdeationConstants;
 import fr.paris.lutece.portal.service.spring.SpringContextService;
+import fr.paris.lutece.portal.service.util.AppLogService;
+import fr.paris.lutece.portal.service.util.AppPropertiesService;
+import fr.paris.lutece.util.ReferenceItem;
 import fr.paris.lutece.util.ReferenceList;
 
 /**
@@ -48,8 +61,35 @@ import fr.paris.lutece.util.ReferenceList;
 public class IdeationCampaignDataProvider implements IIdeationCampaignDataProvider
 {
 
-    private static final String CAMPAIGN_CODE = "A";
-    private static final String CAMPAIGN_TITLE = "Ideation";
+    private static String PROPERTY_PREFIX = "participatoryideation.campaign.";
+    private static String PROPERTY_SEP = ";";
+
+    // Campaigns
+    private static ReferenceList campaigns = null;
+
+    // Themes
+    // Map :
+    // Key = campaign code
+    // Value = Reference list with code and label
+    private static Map<String, ReferenceList> themes = null;
+
+    // Themes
+    // Map :
+    // Key = campaign code
+    // Value = Reference list with code and front color rgb
+    private static Map<String, ReferenceList> themeFrontRgbs = null;
+
+    // Areas
+    // Map :
+    // Key = campaign code
+    // Value = Reference list with code and label
+    private static Map<String, ReferenceList> areas = null;
+
+    // Phase date
+    // Map :
+    // Key = campaign code
+    // Value = Array with two values : begin datetime, end datetime
+    private static Map<String, Timestamp [ ]> dates = null;
 
     // *********************************************************************************************
     // * SINGLETON SINGLETON SINGLETON SINGLETON SINGLETON SINGLETON SINGLETON SINGLETON SINGLETON *
@@ -65,6 +105,7 @@ public class IdeationCampaignDataProvider implements IIdeationCampaignDataProvid
         if ( _singleton == null )
         {
             _singleton = SpringContextService.getBean( BEAN_IDEATIONCAMPAIGN_DATA_PROVIDER );
+            loadProperties( );
         }
         return _singleton;
     }
@@ -74,12 +115,23 @@ public class IdeationCampaignDataProvider implements IIdeationCampaignDataProvid
     // * CAMPAIGN CAMPAIGN CAMPAIGN CAMPAIGN CAMPAIGN CAMPAIGN CAMPAIGN CAMPAIGN CAMPAIGN CAMPAIGN *
     // *********************************************************************************************
 
-    // Provides list of campaigns
+    @Override
     public ReferenceList getCampaigns( )
     {
-        ReferenceList allAreas = new ReferenceList( );
-        allAreas.addItem( CAMPAIGN_CODE, CAMPAIGN_TITLE );
-        return allAreas;
+        return campaigns;
+    }
+
+    @Override
+    public ReferenceItem getLastCampaign( )
+    {
+        return getCampaigns( ).stream( ).sorted( new Comparator<ReferenceItem>( )
+        {
+            @Override
+            public int compare( ReferenceItem c1, ReferenceItem c2 )
+            {
+                return c2.getCode( ).compareTo( c1.getCode( ) );
+            }
+        } ).findFirst( ).get( );
     }
 
     // *********************************************************************************************
@@ -90,61 +142,81 @@ public class IdeationCampaignDataProvider implements IIdeationCampaignDataProvid
     @Override
     public boolean isBeforeBeginning( String codeCampaign, String phase )
     {
+        if ( ParticipatoryIdeationConstants.IDEATION.equals( phase ) )
+        {
+            return new Date( ).before( dates.get( codeCampaign ) [0] );
+        }
+        AppLogService.error( "Unexpected phase code '" + phase + "'." );
         return false;
     }
 
     @Override
     public boolean isAfterBeginning( String codeCampaign, String phase )
     {
-        return true;
+        if ( ParticipatoryIdeationConstants.IDEATION.equals( phase ) )
+        {
+            return new Date( ).after( dates.get( codeCampaign ) [0] );
+        }
+        AppLogService.error( "Unexpected phase code '" + phase + "'." );
+        return false;
     }
 
     @Override
     public boolean isDuring( String codeCampaign, String phase )
     {
-        return true;
+        return isAfterBeginning( codeCampaign, phase ) && isBeforeEnd( codeCampaign, phase );
     }
 
     @Override
     public boolean isBeforeEnd( String codeCampaign, String phase )
     {
-        return true;
+        if ( ParticipatoryIdeationConstants.IDEATION.equals( phase ) )
+        {
+            return new Date( ).before( dates.get( codeCampaign ) [1] );
+        }
+        AppLogService.error( "Unexpected phase code '" + phase + "'." );
+        return false;
     }
 
     @Override
     public boolean isAfterEnd( String codeCampaign, String phase )
     {
+        if ( ParticipatoryIdeationConstants.IDEATION.equals( phase ) )
+        {
+            return new Date( ).after( dates.get( codeCampaign ) [1] );
+        }
+        AppLogService.error( "Unexpected phase code '" + phase + "'." );
         return false;
     }
 
     @Override
     public boolean isBeforeBeginning( String phase )
     {
-        return false;
+        return isBeforeBeginning( getLastCampaign( ).getCode( ), phase );
     }
 
     @Override
     public boolean isAfterBeginning( String phase )
     {
-        return true;
+        return isAfterBeginning( getLastCampaign( ).getCode( ), phase );
     }
 
     @Override
     public boolean isDuring( String phase )
     {
-        return true;
+        return isDuring( getLastCampaign( ).getCode( ), phase );
     }
 
     @Override
     public boolean isBeforeEnd( String phase )
     {
-        return true;
+        return isBeforeEnd( getLastCampaign( ).getCode( ), phase );
     }
 
     @Override
     public boolean isAfterEnd( String phase )
     {
-        return false;
+        return isAfterEnd( getLastCampaign( ).getCode( ), phase );
     }
 
     // *********************************************************************************************
@@ -153,55 +225,69 @@ public class IdeationCampaignDataProvider implements IIdeationCampaignDataProvid
     // *********************************************************************************************
 
     @Override
-    public String getCampaignWholeArea( String codeCampaign )
+    public ReferenceItem getCampaignWholeArea( String codeCampaign )
     {
-        return WHOLE_AREA;
+        // Assuming there should be only one whole-typed item
+        return areas.get( codeCampaign ).stream( ).filter( r -> Proposal.LOCATION_TYPE_PARIS.contentEquals( r.getName( ) ) ).findFirst( ).get( );
     }
 
     @Override
     public ReferenceList getCampaignLocalizedAreas( String codeCampaign )
     {
-        return new ReferenceList( );
+        ReferenceList result = new ReferenceList( );
+        for ( ReferenceItem item : areas.get( codeCampaign ) )
+        {
+            if ( Proposal.LOCATION_TYPE_ARDT.equals( item.getName( ) ) )
+            {
+                result.add( item );
+            }
+        }
+        return result;
     }
 
     @Override
     public int getCampaignNumberLocalizedAreas( String codeCampaign )
     {
-        return 0;
+        return getCampaignLocalizedAreas( codeCampaign ).size( );
     }
 
     @Override
-    public String getCampaignWholeArea( )
+    public ReferenceItem getLastCampaignWholeArea( )
     {
-        return WHOLE_AREA;
+        return areas.get( getLastCampaign( ).getCode( ) ).stream( ).filter( r -> Proposal.LOCATION_TYPE_PARIS.contentEquals( r.getName( ) ) ).findFirst( )
+                .get( );
     }
 
     @Override
-    public ReferenceList getCampaignLocalizedAreas( )
+    public ReferenceList getLastCampaignLocalizedAreas( )
     {
-        return new ReferenceList( );
+        return getCampaignLocalizedAreas( getLastCampaign( ).getCode( ) );
     }
 
     @Override
-    public int getCampaignNumberLocalizedAreas( )
+    public int getLastCampaignNumberLocalizedAreas( )
     {
-        return 0;
+        return getLastCampaignLocalizedAreas( ).size( );
     }
 
     @Override
     public ReferenceList getCampaignAllAreas( String codeCampaign )
     {
-        ReferenceList allAreas = new ReferenceList( );
-        allAreas.addItem( WHOLE_AREA, WHOLE_AREA );
-        return allAreas;
+        ReferenceList result = new ReferenceList( );
+        for ( ReferenceItem item : areas.get( codeCampaign ) )
+        {
+            if ( Proposal.LOCATION_TYPE_ARDT.equals( item.getName( ) ) )
+            {
+                result.add( item );
+            }
+        }
+        return result;
     }
 
     @Override
-    public ReferenceList getCampaignAllAreas( )
+    public ReferenceList getLastCampaignAllAreas( )
     {
-        ReferenceList allAreas = new ReferenceList( );
-        allAreas.addItem( WHOLE_AREA, WHOLE_AREA );
-        return allAreas;
+        return getCampaignAllAreas( getLastCampaign( ).getCode( ) );
     }
 
     // *********************************************************************************************
@@ -223,31 +309,140 @@ public class IdeationCampaignDataProvider implements IIdeationCampaignDataProvid
     @Override
     public ReferenceList getCampaignThemes( String codeCampaign )
     {
-        return getCampaignThemes( );
+        return themes.get( codeCampaign );
     }
 
     @Override
-    public ReferenceList getCampaignThemes( )
+    public ReferenceList getLastCampaignThemes( )
     {
-        ReferenceList items = new ReferenceList( );
+        ReferenceList allThemes = new ReferenceList( );
 
-        items.addItem( "GENERAL", "General" );
-        items.addItem( "SOCIAL", "Social issues" );
-        items.addItem( "SPORT", "Spooort !" );
+        for ( ReferenceList campaignThemes : themes.values( ) )
+        {
+            allThemes.addAll( campaignThemes );
+        }
 
-        return items;
+        return allThemes;
     }
 
     @Override
     public ReferenceList getCampaignThemesFrontRgb( String codeCampaign )
     {
-        ReferenceList items = new ReferenceList( );
+        return themeFrontRgbs.get( codeCampaign );
+    }
 
-        items.addItem( "GENERAL", "#C00000" );
-        items.addItem( "SOCIAL", "#00C000" );
-        items.addItem( "SPORT", "#0000C0" );
+    // *********************************************************************************************
+    // * LOAD LOAD LOAD LOAD LOAD LOAD LOAD LOAD LOAD LOAD LOAD LOAD LOAD LOAD LOAD LOAD LOAD LOAD *
+    // * LOAD LOAD LOAD LOAD LOAD LOAD LOAD LOAD LOAD LOAD LOAD LOAD LOAD LOAD LOAD LOAD LOAD LOAD *
+    // *********************************************************************************************
 
-        return items;
+    private static void loadProperties( )
+    {
+        // Campaigns
+        campaigns = new ReferenceList( );
+        for ( int i = 1; true; i++ )
+        {
+            String propName = PROPERTY_PREFIX + i;
+            String propValue = AppPropertiesService.getProperty( propName );
+            if ( StringUtils.isBlank( propValue ) )
+            {
+                break;
+            }
+
+            String [ ] campaign = propValue.split( PROPERTY_SEP );
+            if ( campaign.length != 2 )
+            {
+                AppLogService.error( "The property '" + propName + "' should be formated as 'code" + PROPERTY_SEP + "label' but is '" + propValue + "'." );
+                break;
+            }
+
+            campaigns.addItem( campaign [0], campaign [1] );
+        }
+
+        // Themes for each campaign
+        themes = new HashMap<>( );
+        themeFrontRgbs = new HashMap<>( );
+        for ( ReferenceItem campaign : campaigns )
+        {
+            ReferenceList campaignThemes = new ReferenceList( );
+            ReferenceList campaignThemeFrontRgbs = new ReferenceList( );
+            for ( int i = 1; true; i++ )
+            {
+                String propName = PROPERTY_PREFIX + campaign.getCode( ) + ".theme." + i;
+                String propValue = AppPropertiesService.getProperty( propName );
+                if ( StringUtils.isBlank( propValue ) )
+                {
+                    break;
+                }
+
+                String [ ] theme = propValue.split( PROPERTY_SEP );
+                if ( theme.length != 3 )
+                {
+                    AppLogService.error( "The property '" + propName + "' should be formated as 'code" + PROPERTY_SEP + "label" + PROPERTY_SEP
+                            + "color' but is '" + propValue + "'." );
+                    break;
+                }
+
+                campaignThemes.addItem( theme [0], theme [1] );
+                campaignThemeFrontRgbs.addItem( theme [0], theme [2] );
+            }
+            themes.put( campaign.getCode( ), campaignThemes );
+            themeFrontRgbs.put( campaign.getCode( ), campaignThemeFrontRgbs );
+        }
+
+        // Areas for each campaign
+        areas = new HashMap<>( );
+        for ( ReferenceItem campaign : campaigns )
+        {
+            ReferenceList campaignAreas = new ReferenceList( );
+            for ( int i = 1; true; i++ )
+            {
+                String propName = PROPERTY_PREFIX + campaign.getCode( ) + ".area." + i;
+                String propValue = AppPropertiesService.getProperty( propName );
+                if ( StringUtils.isBlank( propValue ) )
+                {
+                    break;
+                }
+
+                String [ ] area = propValue.split( PROPERTY_SEP );
+                if ( area.length != 2 )
+                {
+                    AppLogService.error( "The property '" + propName + "' should be formated as 'code" + PROPERTY_SEP + "label' but is '" + propValue + "'." );
+                    break;
+                }
+
+                campaignAreas.addItem( area [0], area [1] );
+            }
+            areas.put( campaign.getCode( ), campaignAreas );
+        }
+
+        // Phase dates for each campaign
+        dates = new HashMap<>( );
+        for ( ReferenceItem campaign : campaigns )
+        {
+            Timestamp [ ] beginEnd = new Timestamp [ 2];
+
+            String propName = PROPERTY_PREFIX + campaign.getCode( ) + ".ideation";
+            String propValue = AppPropertiesService.getProperty( propName );
+            if ( StringUtils.isBlank( propValue ) )
+            {
+                break;
+            }
+
+            String [ ] beginEndStr = propValue.split( PROPERTY_SEP );
+            if ( beginEndStr.length != 2 )
+            {
+                AppLogService
+                        .error( "The property '" + propName + "' should be formated as 'timestamp" + PROPERTY_SEP + "timestamp' but is '" + propValue + "'." );
+                break;
+            }
+
+            beginEnd [0] = Timestamp.valueOf(  LocalDateTime.parse( beginEndStr [0] ) );
+            beginEnd [1] = Timestamp.valueOf(  LocalDateTime.parse( beginEndStr [1] ) );
+
+            dates.put( campaign.getCode( ), beginEnd );
+        }
+
     }
 
 }

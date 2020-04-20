@@ -73,20 +73,20 @@ public class IdeationCampaignDataProviderTest extends LuteceTestCase
         assertEquals( true, instance.isDuring( "123", ParticipatoryIdeationConstants.IDEATION ) );
 
         // Methods about areas
-        assertEquals( 1, instance.getCampaignAllAreas( ).size( ) );
+        assertEquals( 1, instance.getLastCampaignAllAreas( ).size( ) );
         assertEquals( 1, instance.getCampaignAllAreas( "123" ).size( ) );
 
-        assertEquals( 0, instance.getCampaignLocalizedAreas( ).size( ) );
+        assertEquals( 0, instance.getLastCampaignLocalizedAreas( ).size( ) );
         assertEquals( 0, instance.getCampaignLocalizedAreas( "123" ).size( ) );
 
-        assertEquals( 0, instance.getCampaignNumberLocalizedAreas( ) );
+        assertEquals( 0, instance.getLastCampaignNumberLocalizedAreas( ) );
         assertEquals( 0, instance.getCampaignNumberLocalizedAreas( "123" ) );
 
-        assertEquals( IIdeationCampaignDataProvider.WHOLE_AREA, instance.getCampaignWholeArea( ) );
+        assertEquals( IIdeationCampaignDataProvider.WHOLE_AREA, instance.getLastCampaignWholeArea( ) );
         assertEquals( IIdeationCampaignDataProvider.WHOLE_AREA, instance.getCampaignWholeArea( "123" ) );
 
         // Methods about themes
-        assertEquals( 3, instance.getCampaignThemes( ).size( ) );
+        assertEquals( 3, instance.getLastCampaignThemes( ).size( ) );
         assertEquals( 3, instance.getCampaignThemes( "123" ).size( ) );
     }
 }

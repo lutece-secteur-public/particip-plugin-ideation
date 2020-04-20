@@ -56,9 +56,9 @@ import fr.paris.lutece.portal.web.xpages.XPage;
 @Controller( xpageName = ProposalsXpage.PAGE_SOLR_PROPOSAL_SEARCH, pageTitleI18nKey = "participatoryideation.xpage.solrProposalSearch.pageTitle", pagePathI18nKey = "participatoryideation.xpage.solrProposalSearch.pagePathLabel" )
 public class ProposalsXpage extends MVCApplication
 {
-	private static final long serialVersionUID = -7345931721575088511L;
+    private static final long serialVersionUID = -7345931721575088511L;
 
-	private static final Logger LOGGER = Logger.getLogger( ProposalsXpage.class );
+    private static final Logger LOGGER = Logger.getLogger( ProposalsXpage.class );
 
     // Views
     public static final String PAGE_SOLR_PROPOSAL_SEARCH = "solrProposalSearch";

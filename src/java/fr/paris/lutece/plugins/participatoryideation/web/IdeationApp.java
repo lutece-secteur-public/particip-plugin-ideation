@@ -202,6 +202,7 @@ public class IdeationApp extends MVCApplication
     private static final String PROPERTY_OLDPROJECTS_ARDT_FIELD = "participatoryideation.approx.oldprojects.ardt_field";
     private static final String PROPERTY_NEWPROJECTS_TYPE = "participatoryideation.approx.newprojects.type";
     private static final String MESSAGE_CAMPAIGN_UNSPECIFIED = "participatoryideation.messages.campaign.unspecified";
+    private static final String MESSAGE_CAMPAIGN_UNKNOWN = "participatoryideation.messages.campaign.unknown";
     private static final String MESSAGE_CAMPAIGN_IDEATION_CLOSED_SUBMIT = "participatoryideation.messages.campaign.ideation.closed.submit";
 
     private static final String SOLR_NEWPROJECTS_GEOLOC_FIELD = AppPropertiesService.getProperty( PROPERTY_NEWPROJECTS_GEOLOC_FIELD, "proposal_geoloc" );
@@ -1137,7 +1138,7 @@ public class IdeationApp extends MVCApplication
      */
     private void checkIdeationCampaignPhase( HttpServletRequest request ) throws SiteMessageException
     {
-        // Verify a campaign is specified.
+        // Verify a campaign is specified
         if ( StringUtils.isBlank( _proposalCreate.getCodeCampaign( ) ) )
         {
             _proposalCreate.setCodeCampaign( request.getParameter( PARAMETER_CAMPAIGN ) );
@@ -1148,6 +1149,13 @@ public class IdeationApp extends MVCApplication
             SiteMessageService.setMessage( request, MESSAGE_CAMPAIGN_UNSPECIFIED, SiteMessage.TYPE_ERROR, JSP_PORTAL );
         }
         else
+        {
+        	// Verify the campaign exists
+            if ( IdeationCampaignDataProvider.getInstance().getCampaigns().stream().filter( i -> i.getCode().equals( _proposalCreate.getCodeCampaign( ) ) ).count() < 1 )
+            {
+                SiteMessageService.setMessage( request, MESSAGE_CAMPAIGN_UNKNOWN, new String[] { _proposalCreate.getCodeCampaign( ) }, SiteMessage.TYPE_ERROR );
+            }
+        	
             if ( !IdeationCampaignDataProvider.getInstance( ).isDuring( _proposalCreate.getCodeCampaign( ), ParticipatoryIdeationConstants.IDEATION ) )
             {
                 Map<String, Object> requestParameters = new HashMap<String, Object>( );
@@ -1155,6 +1163,7 @@ public class IdeationApp extends MVCApplication
                 requestParameters.put( PARAMETER_CONF, "list_proposals" );
                 SiteMessageService.setMessage( request, MESSAGE_CAMPAIGN_IDEATION_CLOSED_SUBMIT, SiteMessage.TYPE_ERROR, JSP_PORTAL, requestParameters );
             }
+        }
     }
 
     private boolean allValidBeforeEtape( String strEtape )
