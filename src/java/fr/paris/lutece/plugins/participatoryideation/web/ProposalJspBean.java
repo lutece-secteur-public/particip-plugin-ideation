@@ -86,11 +86,11 @@ public class ProposalJspBean extends ManageIdeationProposalsJspBean
     // ParticipatoryIdeationConstants
 
     // templates
-    private static final String TEMPLATE_MANAGE_PROPOSALS = "/admin/plugins/participatoryideation/manage_proposals.html";
-    private static final String TEMPLATE_INIT_PROPOSAL = "/admin/plugins/participatoryideation/init_proposal.html";
-    private static final String TEMPLATE_COMPLETE_PROPOSAL = "/admin/plugins/participatoryideation/complete_proposal.html";
-    private static final String TEMPLATE_MODIFY_PROPOSAL = "/admin/plugins/participatoryideation/modify_proposal.html";
-    private static final String TEMPLATE_CONFIRM_REMOVE_PROPOSAL = "/admin/plugins/participatoryideation/confirm_remove_proposal.html";
+    private static final String TEMPLATE_MANAGE_PROPOSALS = "/admin/plugins/participatoryideation/manage_proposals.ftl";
+    private static final String TEMPLATE_INIT_PROPOSAL = "/admin/plugins/participatoryideation/init_proposal.ftl";
+    private static final String TEMPLATE_COMPLETE_PROPOSAL = "/admin/plugins/participatoryideation/complete_proposal.ftl";
+    private static final String TEMPLATE_MODIFY_PROPOSAL = "/admin/plugins/participatoryideation/modify_proposal.ftl";
+    private static final String TEMPLATE_CONFIRM_REMOVE_PROPOSAL = "/admin/plugins/participatoryideation/confirm_remove_proposal.ftl";
 
     // Parameters
     private static final String PARAMETER_CAMPAIGN_CODE = "campaign_code";

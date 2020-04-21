@@ -1,4 +1,4 @@
-<#include "manageideation_proposal_tabs.html" />
+<#include "manageideation_proposal_tabs.ftl" />
 <@tabs tab="proposal" />
 
 <@rowBoxHeader i18nTitleKey="participatoryideation.modify_proposal.pageTitle">

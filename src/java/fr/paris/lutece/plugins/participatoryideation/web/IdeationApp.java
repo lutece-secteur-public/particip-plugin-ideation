@@ -115,14 +115,14 @@ public class IdeationApp extends MVCApplication
 
     private static final long serialVersionUID = -3590277455677622883L;
 
-    private static final String TEMPLATE_ETAPES = "/skin/plugins/participatoryideation/etapes.html";
-    private static final String TEMPLATE_LOCATION = "/skin/plugins/participatoryideation/location.html";
-    private static final String TEMPLATE_TITLE = "/skin/plugins/participatoryideation/title.html";
-    private static final String TEMPLATE_APPROX = "/skin/plugins/participatoryideation/approx.html";
-    private static final String TEMPLATE_DESCRIPTION = "/skin/plugins/participatoryideation/description.html";
-    private static final String TEMPLATE_UPLOAD = "/skin/plugins/participatoryideation/upload.html";
-    private static final String TEMPLATE_RECAP = "/skin/plugins/participatoryideation/recap.html";
-    private static final String TEMPLATE_CONFIRMED = "/skin/plugins/participatoryideation/confirmed.html";
+    private static final String TEMPLATE_ETAPES = "/skin/plugins/participatoryideation/etapes.ftl";
+    private static final String TEMPLATE_LOCATION = "/skin/plugins/participatoryideation/location.ftl";
+    private static final String TEMPLATE_TITLE = "/skin/plugins/participatoryideation/title.ftl";
+    private static final String TEMPLATE_APPROX = "/skin/plugins/participatoryideation/approx.ftl";
+    private static final String TEMPLATE_DESCRIPTION = "/skin/plugins/participatoryideation/description.ftl";
+    private static final String TEMPLATE_UPLOAD = "/skin/plugins/participatoryideation/upload.ftl";
+    private static final String TEMPLATE_RECAP = "/skin/plugins/participatoryideation/recap.ftl";
+    private static final String TEMPLATE_CONFIRMED = "/skin/plugins/participatoryideation/confirmed.ftl";
 
     // Jsp redirections
     private static final String JSP_PORTAL = "jsp/site/Portal.jsp";

@@ -1,4 +1,4 @@
-<#include "manageproposallinks_tabs.html" />
+<#include "manageproposallinks_tabs.ftl" />
 <@tabs tab="link" />
 
 <@rowBox>

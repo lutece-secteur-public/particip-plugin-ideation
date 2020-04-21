@@ -48,7 +48,7 @@ public class ProposalPopupContentProvider implements IPopupContentProvider
 {
 
     // Templates
-    private static final String TEMPLATE_PROPOSAL_POPUP = "/skin/plugins/participatoryideation/popup_proposal.html";
+    private static final String TEMPLATE_PROPOSAL_POPUP = "/skin/plugins/participatoryideation/popup_proposal.ftl";
 
     // Markers
     private static final String MARK_PROPOSAL = "proposal";

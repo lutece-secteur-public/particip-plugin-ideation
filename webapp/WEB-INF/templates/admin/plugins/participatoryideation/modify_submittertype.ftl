@@ -1,4 +1,4 @@
-<#include "manageideation_tabs.html" />
+<#include "manageideation_tabs.ftl" />
 <@tabs tab="submittertype" />
 
 <@rowBoxHeader i18nTitleKey="participatoryideation.modify_submittertype.pageTitle">

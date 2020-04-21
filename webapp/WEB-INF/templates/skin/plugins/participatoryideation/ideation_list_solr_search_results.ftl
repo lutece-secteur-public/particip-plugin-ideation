@@ -1,7 +1,7 @@
 <div id="prop-list-container">
 
 	<h2 class="visuallyhidden">Search bar</h2>
-	<#include "ideation_search_solr_search_results.html">
+	<#include "ideation_search_solr_search_results.ftl">
 
 	<div class="container">
 

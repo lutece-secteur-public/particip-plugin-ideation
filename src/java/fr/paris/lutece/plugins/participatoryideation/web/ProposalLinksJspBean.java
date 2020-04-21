@@ -67,10 +67,10 @@ public class ProposalLinksJspBean extends ManageProposalLinksJspBean
     private static final long serialVersionUID = 1L;
 
     // templates
-    private static final String TEMPLATE_MANAGE_LINKS = "/admin/plugins/participatoryideation/manage_links.html";
-    private static final String TEMPLATE_CREATE_LINK = "/admin/plugins/participatoryideation/create_link.html";
-    private static final String TEMPLATE_CREATE_SEVERAL_LINKS = "/admin/plugins/participatoryideation/create_several_links.html";
-    private static final String TEMPLATE_MODIFY_LINK = "/admin/plugins/participatoryideation/modify_link.html";
+    private static final String TEMPLATE_MANAGE_LINKS = "/admin/plugins/participatoryideation/manage_links.ftl";
+    private static final String TEMPLATE_CREATE_LINK = "/admin/plugins/participatoryideation/create_link.ftl";
+    private static final String TEMPLATE_CREATE_SEVERAL_LINKS = "/admin/plugins/participatoryideation/create_several_links.ftl";
+    private static final String TEMPLATE_MODIFY_LINK = "/admin/plugins/participatoryideation/modify_link.ftl";
 
     // Parameters
     private static final String PARAMETER_ID_LINK = "id";

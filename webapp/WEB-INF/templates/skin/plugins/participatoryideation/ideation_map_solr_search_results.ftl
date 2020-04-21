@@ -1,6 +1,6 @@
 <section id="map-result">
 	
-	<#include "ideation_search_solr_search_results.html">
+	<#include "ideation_search_solr_search_results.ftl">
 	
 	<div class="container">
     	<div id="map" class="clearfix" ></div>
