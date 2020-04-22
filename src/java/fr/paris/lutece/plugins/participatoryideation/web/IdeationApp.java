@@ -142,6 +142,8 @@ public class IdeationApp extends MVCApplication
     private static final String PARAMETER_PAGE = "page";
     private static final String PARAMETER_CONF = "conf";
     private static final String PARAMETER_CAMPAIGN = "campaign";
+    private static final String PARAMETER_REINIT = "init";
+    private static final String PARAMETER_REINIT_VALUE = "true";
 
     // Markers
     private static final String MARK_IDEATION_CAMPAIGN_DATA_PROVIDER_IMPLEMENTATION = "ideation_campaign_data_provider_implementation";
@@ -253,7 +255,13 @@ public class IdeationApp extends MVCApplication
     @Override
     public XPage getPage( HttpServletRequest request, int nMode, Plugin plugin ) throws SiteMessageException, UserNotSignedException
     {
-        // Verify campaign is specified and open
+        // Reinit the form if requested
+    	if ( PARAMETER_REINIT_VALUE.equals( request.getParameter( PARAMETER_REINIT ) ) )
+		{
+    		reInitFormSession( request );
+		}
+
+    	// Verify campaign is specified and open
         checkIdeationCampaignPhase( request );
 
         // If user's personal infos not filled, then redirect to the 'complete myinfos' webpage

@@ -33,7 +33,9 @@
  */
 package fr.paris.lutece.plugins.participatoryideation.service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -46,6 +48,7 @@ import fr.paris.lutece.plugins.participatoryideation.service.campaign.IdeationCa
 import fr.paris.lutece.portal.service.cache.AbstractCacheableService;
 import fr.paris.lutece.portal.service.i18n.I18nService;
 import fr.paris.lutece.portal.service.spring.SpringContextService;
+import fr.paris.lutece.portal.service.util.AppLogService;
 import fr.paris.lutece.portal.service.workflow.WorkflowService;
 import fr.paris.lutece.util.ReferenceItem;
 import fr.paris.lutece.util.ReferenceList;
@@ -215,9 +218,16 @@ public class IdeationStaticService extends AbstractCacheableService implements I
             campaignContent.put( MARK_AREA_LIST, IdeationCampaignDataProvider.getInstance( ).getCampaignAllAreas( campaign.getCode( ) ) );
 
             // Types of submitter of the campaign
-            campaignContent.put( MARK_SUBMITTERS_TYPES_LIST, mapSubmittersTypes.get( campaign.getCode( ) ) );
+            Collection<SubmitterType> submitterTypes = mapSubmittersTypes.get( campaign.getCode( ) );
+            if ( submitterTypes == null )
+            {
+            	AppLogService.error( "No submitter type found for campaign '" + campaign.getCode( ) + "'." );
+            	submitterTypes = new ArrayList<>();
+            }
+
+            campaignContent.put( MARK_SUBMITTERS_TYPES_LIST, submitterTypes );
             Map<String, SubmitterType> mapSubmittersTypesByCode = new HashMap<String, SubmitterType>( );
-            for ( SubmitterType submitterType : mapSubmittersTypes.get( campaign.getCode( ) ) )
+            for ( SubmitterType submitterType : submitterTypes )
             {
                 mapSubmittersTypesByCode.put( submitterType.getCode( ), submitterType );
             }
@@ -225,7 +235,7 @@ public class IdeationStaticService extends AbstractCacheableService implements I
 
             // Values of list-typed submitters of the campaign
             Map<String, String> mapSubmittersTypesListValuesByCode = new HashMap<String, String>( );
-            for ( SubmitterType submitterType : mapSubmittersTypes.get( campaign.getCode( ) ) )
+            for ( SubmitterType submitterType : submitterTypes	 )
             {
                 if ( SubmitterType.CODE_COMPLEMENT_TYPE_LIST.equals( submitterType.getCodeComplementType( ) ) )
                 {

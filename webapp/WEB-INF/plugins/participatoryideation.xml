@@ -24,12 +24,12 @@
 	<admin-features>
 		<admin-feature>
 			<feature-id>PARTICIPATORYIDEATION_MANAGEMENT</feature-id>
-			<feature-title>participatoryideation.adminFeature.ManageIdeation.name
+			<feature-title>participatoryideation.adminFeature.ManageSubmitters.name
 			</feature-title>
-			<feature-description>participatoryideation.adminFeature.ManageIdeation.description
+			<feature-description>participatoryideation.adminFeature.ManageSubmitters.description
 			</feature-description>
 			<feature-level>0</feature-level>
-			<feature-url>jsp/admin/plugins/participatoryideation/ManageIdeation.jsp
+			<feature-url>jsp/admin/plugins/participatoryideation/ManageSubmitters.jsp
 			</feature-url>
 			<feature-icon-url />
 		</admin-feature>
