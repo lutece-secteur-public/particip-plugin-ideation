@@ -221,8 +221,8 @@ public class IdeationStaticService extends AbstractCacheableService implements I
             Collection<SubmitterType> submitterTypes = mapSubmittersTypes.get( campaign.getCode( ) );
             if ( submitterTypes == null )
             {
-            	AppLogService.error( "No submitter type found for campaign '" + campaign.getCode( ) + "'." );
-            	submitterTypes = new ArrayList<>();
+                AppLogService.error( "No submitter type found for campaign '" + campaign.getCode( ) + "'." );
+                submitterTypes = new ArrayList<>( );
             }
 
             campaignContent.put( MARK_SUBMITTERS_TYPES_LIST, submitterTypes );
@@ -235,7 +235,7 @@ public class IdeationStaticService extends AbstractCacheableService implements I
 
             // Values of list-typed submitters of the campaign
             Map<String, String> mapSubmittersTypesListValuesByCode = new HashMap<String, String>( );
-            for ( SubmitterType submitterType : submitterTypes	 )
+            for ( SubmitterType submitterType : submitterTypes )
             {
                 if ( SubmitterType.CODE_COMPLEMENT_TYPE_LIST.equals( submitterType.getCodeComplementType( ) ) )
                 {

@@ -437,8 +437,8 @@ public class IdeationCampaignDataProvider implements IIdeationCampaignDataProvid
                 break;
             }
 
-            beginEnd [0] = Timestamp.valueOf(  LocalDateTime.parse( beginEndStr [0] ) );
-            beginEnd [1] = Timestamp.valueOf(  LocalDateTime.parse( beginEndStr [1] ) );
+            beginEnd [0] = Timestamp.valueOf( LocalDateTime.parse( beginEndStr [0] ) );
+            beginEnd [1] = Timestamp.valueOf( LocalDateTime.parse( beginEndStr [1] ) );
 
             dates.put( campaign.getCode( ), beginEnd );
         }

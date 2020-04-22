@@ -256,12 +256,12 @@ public class IdeationApp extends MVCApplication
     public XPage getPage( HttpServletRequest request, int nMode, Plugin plugin ) throws SiteMessageException, UserNotSignedException
     {
         // Reinit the form if requested
-    	if ( PARAMETER_REINIT_VALUE.equals( request.getParameter( PARAMETER_REINIT ) ) )
-		{
-    		reInitFormSession( request );
-		}
+        if ( PARAMETER_REINIT_VALUE.equals( request.getParameter( PARAMETER_REINIT ) ) )
+        {
+            reInitFormSession( request );
+        }
 
-    	// Verify campaign is specified and open
+        // Verify campaign is specified and open
         checkIdeationCampaignPhase( request );
 
         // If user's personal infos not filled, then redirect to the 'complete myinfos' webpage
@@ -1158,12 +1158,15 @@ public class IdeationApp extends MVCApplication
         }
         else
         {
-        	// Verify the campaign exists
-            if ( IdeationCampaignDataProvider.getInstance().getCampaigns().stream().filter( i -> i.getCode().equals( _proposalCreate.getCodeCampaign( ) ) ).count() < 1 )
+            // Verify the campaign exists
+            if ( IdeationCampaignDataProvider.getInstance( ).getCampaigns( ).stream( ).filter( i -> i.getCode( ).equals( _proposalCreate.getCodeCampaign( ) ) )
+                    .count( ) < 1 )
             {
-                SiteMessageService.setMessage( request, MESSAGE_CAMPAIGN_UNKNOWN, new String[] { _proposalCreate.getCodeCampaign( ) }, SiteMessage.TYPE_ERROR );
+                SiteMessageService.setMessage( request, MESSAGE_CAMPAIGN_UNKNOWN, new String [ ] {
+                        _proposalCreate.getCodeCampaign( )
+                }, SiteMessage.TYPE_ERROR );
             }
-        	
+
             if ( !IdeationCampaignDataProvider.getInstance( ).isDuring( _proposalCreate.getCodeCampaign( ), ParticipatoryIdeationConstants.IDEATION ) )
             {
                 Map<String, Object> requestParameters = new HashMap<String, Object>( );
@@ -1436,8 +1439,13 @@ public class IdeationApp extends MVCApplication
      */
     enum STEPS
     {
-        LOCATION_INDEX( STEP_LOCATION ), TITLE_INDEX( STEP_TITLE ), APPROX_INDEX( STEP_APPROX ), DESCRIPTION_INDEX( STEP_DESCRIPTION ), UPLOAD_INDEX(
-                STEP_UPLOAD ), RECAP_INDEX( STEP_RECAP ), CONFIRMED_INDEX( STEP_CONFIRMED );
+        LOCATION_INDEX( STEP_LOCATION ),
+        TITLE_INDEX( STEP_TITLE ),
+        APPROX_INDEX( STEP_APPROX ),
+        DESCRIPTION_INDEX( STEP_DESCRIPTION ),
+        UPLOAD_INDEX( STEP_UPLOAD ),
+        RECAP_INDEX( STEP_RECAP ),
+        CONFIRMED_INDEX( STEP_CONFIRMED );
 
         String _strEtape;
         private static final Map<String, STEPS> nameMap;
