@@ -77,7 +77,7 @@ public class HeaderInclude implements PageInclude
     private static ICommentService _commentService;
 
     // Template
-    private static final String TEMPLATE_HEADER_INCLUDE = "/skin/plugins/participatoryideation/header_include.ftl";
+    private static final String TEMPLATE_HEADER_INCLUDE = "/skin/plugins/participatoryideation/header_include.html";
 
     // Properties
 

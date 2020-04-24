@@ -62,7 +62,7 @@ public class ProposalSubscriptionXPage extends MVCApplication
 {
 
     // Templates
-    private static final String TEMPLATE_VIEW_MY_SUBSCRIPTIONS = "/skin/plugins/participatoryideation/view_my_subscriptions.ftl";
+    private static final String TEMPLATE_VIEW_MY_SUBSCRIPTIONS = "/skin/plugins/participatoryideation/view_my_subscriptions.html";
 
     // Parameters
     private static final String PARAMETER_SELECT_SUBSCRIPTIONS = "select_subscriptions";

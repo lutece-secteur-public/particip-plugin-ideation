@@ -87,7 +87,7 @@ public class ProposalSubscriberXPage extends MVCApplication
      */
     private static final long serialVersionUID = 2703580251118435168L;
 
-    private static final String TEMPLATE_VIEW_SUBSCRIBER_PROPOSAL = "/skin/plugins/participatoryideation/view_subscriber_proposals.ftl";
+    private static final String TEMPLATE_VIEW_SUBSCRIBER_PROPOSAL = "/skin/plugins/participatoryideation/view_subscriber_proposals.html";
 
     // Jsp redirections
     private static final String JSP_PORTAL = "jsp/site/Portal.jsp";

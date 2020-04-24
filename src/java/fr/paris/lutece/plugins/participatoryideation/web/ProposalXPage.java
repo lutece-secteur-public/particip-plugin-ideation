@@ -82,7 +82,7 @@ public class ProposalXPage extends MVCApplication
     private static final long serialVersionUID = 2703580251118435168L;
 
     // Templates
-    private static final String TEMPLATE_VIEW_PROPOSAL = "/skin/plugins/participatoryideation/view_proposal.ftl";
+    private static final String TEMPLATE_VIEW_PROPOSAL = "/skin/plugins/participatoryideation/view_proposal.html";
 
     // Parameters
     private static final String PARAM_BP_EMAIL = "participatorybudget.email";

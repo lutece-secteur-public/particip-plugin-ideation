@@ -58,9 +58,9 @@ public class SubmitterJspBean extends ManageIdeationJspBean
     // Constants
 
     // templates
-    private static final String TEMPLATE_MANAGE_SUBMITTERS = "/admin/plugins/participatoryideation/manage_submitters.ftl";
-    private static final String TEMPLATE_CREATE_SUBMITTER = "/admin/plugins/participatoryideation/create_submitter.ftl";
-    private static final String TEMPLATE_MODIFY_SUBMITTER = "/admin/plugins/participatoryideation/modify_submitter.ftl";
+    private static final String TEMPLATE_MANAGE_SUBMITTERS = "/admin/plugins/participatoryideation/manage_submitters.html";
+    private static final String TEMPLATE_CREATE_SUBMITTER = "/admin/plugins/participatoryideation/create_submitter.html";
+    private static final String TEMPLATE_MODIFY_SUBMITTER = "/admin/plugins/participatoryideation/modify_submitter.html";
 
     // Parameters
     private static final String PARAMETER_ID_SUBMITTER = "id";

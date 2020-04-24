@@ -71,7 +71,7 @@ public class ChangeProposalStatusTaskComponent extends NoFormTaskComponent
     // MARKS
     public static final String MARK_CONFIG = "config";
     // TEMPLATES
-    private static final String TEMPLATE_CHANGE_Proposal_Status_CONFIG = "admin/plugins/participatoryideation/notify/task_change_proposal_status_config.ftl";
+    private static final String TEMPLATE_CHANGE_Proposal_Status_CONFIG = "admin/plugins/participatoryideation/notify/task_change_proposal_status_config.html";
 
     private static final String MARK_REF_LIST_STATUS = "refListStatus";
 

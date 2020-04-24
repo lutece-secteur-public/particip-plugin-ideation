@@ -115,14 +115,14 @@ public class IdeationApp extends MVCApplication
 
     private static final long serialVersionUID = -3590277455677622883L;
 
-    private static final String TEMPLATE_ETAPES = "/skin/plugins/participatoryideation/etapes.ftl";
-    private static final String TEMPLATE_LOCATION = "/skin/plugins/participatoryideation/location.ftl";
-    private static final String TEMPLATE_TITLE = "/skin/plugins/participatoryideation/title.ftl";
-    private static final String TEMPLATE_APPROX = "/skin/plugins/participatoryideation/approx.ftl";
-    private static final String TEMPLATE_DESCRIPTION = "/skin/plugins/participatoryideation/description.ftl";
-    private static final String TEMPLATE_UPLOAD = "/skin/plugins/participatoryideation/upload.ftl";
-    private static final String TEMPLATE_RECAP = "/skin/plugins/participatoryideation/recap.ftl";
-    private static final String TEMPLATE_CONFIRMED = "/skin/plugins/participatoryideation/confirmed.ftl";
+    private static final String TEMPLATE_ETAPES = "/skin/plugins/participatoryideation/etapes.html";
+    private static final String TEMPLATE_LOCATION = "/skin/plugins/participatoryideation/location.html";
+    private static final String TEMPLATE_TITLE = "/skin/plugins/participatoryideation/title.html";
+    private static final String TEMPLATE_APPROX = "/skin/plugins/participatoryideation/approx.html";
+    private static final String TEMPLATE_DESCRIPTION = "/skin/plugins/participatoryideation/description.html";
+    private static final String TEMPLATE_UPLOAD = "/skin/plugins/participatoryideation/upload.html";
+    private static final String TEMPLATE_RECAP = "/skin/plugins/participatoryideation/recap.html";
+    private static final String TEMPLATE_CONFIRMED = "/skin/plugins/participatoryideation/confirmed.html";
 
     // Jsp redirections
     private static final String JSP_PORTAL = "jsp/site/Portal.jsp";
@@ -146,8 +146,6 @@ public class IdeationApp extends MVCApplication
     private static final String PARAMETER_REINIT_VALUE = "true";
 
     // Markers
-    private static final String MARK_IDEATION_CAMPAIGN_DATA_PROVIDER_IMPLEMENTATION = "ideation_campaign_data_provider_implementation";
-
     private static final String MARK_APPROX_KEYWORD_LIST = "results_keyword_list";
     private static final String MARK_APPROX_PREVIOUS_CAMPAIGNS_LIST = "results_previous_campaigns_list";
     private static final String MARK_APPROX_LOCATION_LIST = "results_location_list";
@@ -1084,8 +1082,6 @@ public class IdeationApp extends MVCApplication
     protected Map<String, Object> getModel( HttpServletRequest request, boolean isConfirmed )
     {
         Map<String, Object> model = super.getModel( );
-
-        model.put( MARK_IDEATION_CAMPAIGN_DATA_PROVIDER_IMPLEMENTATION, IdeationCampaignDataProvider.getInstance( ).getClass( ).getName( ) );
 
         IdeationStaticService.getInstance( ).fillCampaignStaticContent( model, _proposalCreate.getCodeCampaign( ) );
         fillFormEtapes( model );
