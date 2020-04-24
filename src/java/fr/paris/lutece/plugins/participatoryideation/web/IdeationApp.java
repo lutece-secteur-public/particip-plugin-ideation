@@ -255,14 +255,21 @@ public class IdeationApp extends MVCApplication
     @Override
     public XPage getPage( HttpServletRequest request, int nMode, Plugin plugin ) throws SiteMessageException, UserNotSignedException
     {
+        String strAction = MVCUtils.getAction( request );
+        String strView = MVCUtils.getView( request );
+
         // Reinit the form if requested
         if ( PARAMETER_REINIT_VALUE.equals( request.getParameter( PARAMETER_REINIT ) ) )
         {
             reInitFormSession( request );
         }
 
-        // Verify campaign is specified and open
-        checkIdeationCampaignPhase( request );
+        // Check campaign constraints, except if confirmation step because in this case,
+        // the proposal was stored then the form reinitialized (so there is no stored campaign data anymore).
+        if ( !STEP_CONFIRMED.equals( strView ) )
+        {
+            checkIdeationCampaignPhase( request );
+        }
 
         // If user's personal infos not filled, then redirect to the 'complete myinfos' webpage
         if ( !checkUserAuthorized( request ) )
@@ -279,9 +286,6 @@ public class IdeationApp extends MVCApplication
         {
             _proposalCreate.setLuteceUserName( "guid" );
         }
-
-        String strAction = MVCUtils.getAction( request );
-        String strView = MVCUtils.getView( request );
 
         if ( STEP_CONFIRMED.equals( strView ) )
         {

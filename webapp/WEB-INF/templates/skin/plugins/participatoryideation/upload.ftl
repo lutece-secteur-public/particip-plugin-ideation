@@ -1,4 +1,4 @@
-<#include "/skin/plugins/asynchronousupload/upload_commons.ftl" />
+<#include "/skin/plugins/asynchronousupload/upload_commons.html" />
 <form onsubmit="return validateForm(this);" class="form" action="jsp/site/Portal.jsp" method="post" enctype="multipart/form-data">
 	
 	<input type="hidden" name="page" value="ideation">

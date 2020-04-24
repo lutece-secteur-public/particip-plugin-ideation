@@ -37,6 +37,14 @@ INSERT INTO core_datastore VALUES ('solr.app.conf.map_proposals.fq', 'type:propo
 INSERT INTO core_datastore VALUES ('solr.app.conf.map_proposals.mapping', 'true');
 INSERT INTO core_datastore VALUES ('solr.app.conf.map_proposals.template', 'skin/plugins/participatoryideation/ideation_map_solr_search_results.ftl');
 
+INSERT INTO solr_fields VALUES (180, 'location_text', 'Location', 'Location', 1, 1, 0, 0, 0);
+INSERT INTO solr_fields VALUES (181, 'code_theme_string', 'Theme code', 'Theme code', 1, 1, 0, 0, 0);
+INSERT INTO solr_fields VALUES (182, 'statut_publique_project_text', 'Public status', 'Public status', 1, 1, 0, 0, 0);
+INSERT INTO solr_fields VALUES (183, 'code_submitter_type_string', 'Submitter type', 'Submitter type', 1, 1, 0, 0, 0);
+INSERT INTO solr_fields VALUES (184, 'campaign_text', 'Campaign', 'Campaign code', 1, 1, 0, 0, 0);
+INSERT INTO solr_fields VALUES (185, 'type_qpvqva_string', 'Popular location', 'Popular location', 1, 1, 0, 0, 0);
+INSERT INTO solr_fields VALUES (186, 'handicap_string', 'Handicap', 'Handicap oriented', 1, 1, 0, 0, 0);
+		
 INSERT INTO workflow_action (id_action, name, description, id_workflow, id_state_before, id_state_after, id_icon, is_automatic, is_mass_action, display_order, is_automatic_reflexive_action) VALUES
 	(100, 'Submit', 'Used when a draft proposal is definitely submitted.', 100, 100, 101, 1, 0, 0, 1, 0),
 	(101, 'Reinit', 'Return to draft state. ', 100, 101, 100, 3, 0, 0, 1, 0);

@@ -82,7 +82,7 @@
 	    <#if whole_area != "" >
 		    <label class="radio-inline">
 	    	  	<input type="radio" name="location_type" id="mode_radio_paris" value="whole" <#if form_etape_location.locationType??&& form_etape_location.locationType=='whole'>checked</#if>>
-				${whole_area}
+				${whole_area.name}
 		    </label>
 	    </#if>
 	    <#if number_localized_areas != 0 >

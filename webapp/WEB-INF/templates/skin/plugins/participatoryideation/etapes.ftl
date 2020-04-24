@@ -10,15 +10,19 @@
 </#if>
 
 <#if recap_code_theme??>
-  <#assign recap_theme_libelle = (campaign_static.themes_map[recap_code_theme].title)!recap_code_theme>
+	<#attempt>
+  		<#assign recap_theme_libelle = ( (campaign_static.theme_list?filter(it -> it['code'] == recap_code_theme) )[0].name)!recap_code_theme>
+	<#recover>
+  		<#assign recap_theme_libelle = recap_code_theme>
+	</#attempt>
 </#if>
 
 <#if (campaign_static.submitters_types_map[recap_submitter_type])??>
-  <#assign recap_submitter_type_object = campaign_static.submitters_types_map[recap_submitter_type]>
+  	<#assign recap_submitter_type_object = campaign_static.submitters_types_map[recap_submitter_type]>
 </#if>
 
 <#if recap_submitter_type??>
-  <#assign recap_submitter_type_libelle = (recap_submitter_type_object.libelle)!recap_submitter_type>
+	<#assign recap_submitter_type_libelle = (recap_submitter_type_object.libelle)!recap_submitter_type>
 </#if>
 
 <#if recap_submitter??>
@@ -51,8 +55,8 @@
 </#if>
 
 <#assign etapes = [
-    { "title": "#i18n{participatoryideation.submit_project.steps.location.title}", "link_querystring": "view=location", "recap": "${step_recap_submitter!}, ${recap_theme_libelle!}, ${recap_location_text!''}" },
-    { "title": "#i18n{participatoryideation.submit_project.steps.title.title}", "link_querystring":  "view=title", "recap": "${recap_title!}" },
+    { "title": "#i18n{participatoryideation.submit_project.steps.location.title}", "link_querystring": "view=location", "recap": "${(step_recap_submitter?capitalize)!}, ${(recap_theme_libelle?capitalize)!}, ${(recap_location_text?capitalize)!''}" },
+    { "title": "#i18n{participatoryideation.submit_project.steps.title.title}", "link_querystring":  "view=title", "recap": "${(recap_title?capitalize)!}" },
     { "title": "#i18n{participatoryideation.submit_project.steps.approx.title}", "recap": "#i18n{participatoryideation.submit_project.steps.approx.title}" },
     { "title": "#i18n{participatoryideation.submit_project.steps.description.title}", "link_querystring":  "view=description" , "recap": steps_recap_description },
     { "title": "#i18n{participatoryideation.submit_project.steps.upload.title}", "link_querystring":  "view=upload" , "recap": i18n("participatoryideation.submit_project.steps.upload.recap", (recap_imgs?size)!'', (recap_docs?size)!'') },
