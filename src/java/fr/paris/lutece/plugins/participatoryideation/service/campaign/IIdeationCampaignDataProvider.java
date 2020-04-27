@@ -34,6 +34,7 @@
 package fr.paris.lutece.plugins.participatoryideation.service.campaign;
 
 import java.util.Collection;
+import java.util.Map;
 
 import fr.paris.lutece.plugins.participatoryideation.business.submitter.SubmitterType;
 import fr.paris.lutece.util.ReferenceItem;
@@ -129,5 +130,20 @@ public interface IIdeationCampaignDataProvider
 
     // Return theme front rgb of a campaign
     public ReferenceList getCampaignThemesFrontRgb( String codeCampaign );
+
+    // *********************************************************************************************
+    // * FIELDS FIELDS FIELDS FIELDS FIELDS FIELDS FIELDS FIELDS FIELDS FIELDS FIELDS FIELDS FIELD *
+    // * FIELDS FIELDS FIELDS FIELDS FIELDS FIELDS FIELDS FIELDS FIELDS FIELDS FIELDS FIELDS FIELD *
+    // *********************************************************************************************
+
+    // Return field data :
+    // data[0] = 1 if active, but 0
+    // data[1] = label of the field
+    // data[2] = description of the field
+    // data[3] = 1 if mandatory, but 0
+    public String [ ] getCampaignFieldData( String codeCampaign, String fieldCode );
+
+    // Return data of all fields of a campaign
+    public Map<String, String [ ]> getCampaignFieldsData( String codeCampaign );
 
 }

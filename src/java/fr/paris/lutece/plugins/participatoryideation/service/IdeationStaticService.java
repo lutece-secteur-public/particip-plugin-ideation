@@ -86,6 +86,8 @@ public class IdeationStaticService extends AbstractCacheableService implements I
     private static final String MARK_SUBMITTERS_TYPES_MAP = "submitters_types_map";
     private static final String MARK_SUBMITTERS_TYPES_LIST_VALUES_MAP = "submitters_types_list_values_map";
 
+    private static final String MARK_FIELD_MAP = "type_field_map";
+
     public static final String CACHE_KEY = "[ideationStatic]";
 
     // *********************************************************************************************
@@ -247,6 +249,9 @@ public class IdeationStaticService extends AbstractCacheableService implements I
             }
             campaignContent.put( MARK_SUBMITTERS_TYPES_LIST_VALUES_MAP, mapSubmittersTypesListValuesByCode );
 
+            // Optional fields
+            campaignContent.put( MARK_FIELD_MAP, IdeationCampaignDataProvider.getInstance( ).getCampaignFieldsData( campaign.getCode( ) ) );
+            
             content.put( campaign.getCode( ), campaignContent );
         }
 

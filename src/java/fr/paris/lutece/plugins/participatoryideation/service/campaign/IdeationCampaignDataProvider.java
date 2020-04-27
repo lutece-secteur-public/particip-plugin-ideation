@@ -91,6 +91,15 @@ public class IdeationCampaignDataProvider implements IIdeationCampaignDataProvid
     // Value = Array with two values : begin datetime, end datetime
     private static Map<String, Timestamp [ ]> dates = null;
 
+    //
+    // Areas Map :
+    // Key = campaign code
+    // Value = Map :
+    // Key = field code
+    // Value = data
+    //
+    private static Map<String, Map<String, String [ ]>> fields = null;
+
     // *********************************************************************************************
     // * SINGLETON SINGLETON SINGLETON SINGLETON SINGLETON SINGLETON SINGLETON SINGLETON SINGLETON *
     // * SINGLETON SINGLETON SINGLETON SINGLETON SINGLETON SINGLETON SINGLETON SINGLETON SINGLETON *
@@ -332,6 +341,23 @@ public class IdeationCampaignDataProvider implements IIdeationCampaignDataProvid
     }
 
     // *********************************************************************************************
+    // * FIELDS FIELDS FIELDS FIELDS FIELDS FIELDS FIELDS FIELDS FIELDS FIELDS FIELDS FIELDS FIELD *
+    // * FIELDS FIELDS FIELDS FIELDS FIELDS FIELDS FIELDS FIELDS FIELDS FIELDS FIELDS FIELDS FIELD *
+    // *********************************************************************************************
+
+    @Override
+    public String [ ] getCampaignFieldData( String codeCampaign, String fieldCode )
+    {
+        return getCampaignFieldsData( codeCampaign ).get( fieldCode );
+    }
+
+    @Override
+    public Map<String, String [ ]> getCampaignFieldsData( String codeCampaign )
+    {
+        return fields.get( codeCampaign );
+    }
+
+    // *********************************************************************************************
     // * LOAD LOAD LOAD LOAD LOAD LOAD LOAD LOAD LOAD LOAD LOAD LOAD LOAD LOAD LOAD LOAD LOAD LOAD *
     // * LOAD LOAD LOAD LOAD LOAD LOAD LOAD LOAD LOAD LOAD LOAD LOAD LOAD LOAD LOAD LOAD LOAD LOAD *
     // *********************************************************************************************
@@ -441,6 +467,33 @@ public class IdeationCampaignDataProvider implements IIdeationCampaignDataProvid
             beginEnd [1] = Timestamp.valueOf( LocalDateTime.parse( beginEndStr [1] ) );
 
             dates.put( campaign.getCode( ), beginEnd );
+        }
+
+        // Fields for each campaign
+        // participatoryideation.campaign.A.field1.active=0
+        // participatoryideation.campaign.A.field1.label=Field 1
+        // participatoryideation.campaign.A.field1.description=Description of field 1
+        // participatoryideation.campaign.A.field1.mandatory=0
+
+        fields = new HashMap<>( );
+        for ( ReferenceItem campaign : campaigns )
+        {
+            Map<String, String [ ]> fieldData = new HashMap<>( );
+            for ( int i = 1; i < 4; i++ )
+            {
+                String fieldName = "field" + i;
+                String propName = PROPERTY_PREFIX + campaign.getCode( ) + "." + fieldName;
+
+                String propActiveValue = AppPropertiesService.getProperty( propName + ".active" );
+                String propLabelValue = AppPropertiesService.getProperty( propName + ".label" );
+                String propDescriptionValue = AppPropertiesService.getProperty( propName + ".description" );
+                String propMandatoryValue = AppPropertiesService.getProperty( propName + ".mandatory" );
+
+                fieldData.put( fieldName, new String [ ] {
+                        propActiveValue, propLabelValue, propDescriptionValue, propMandatoryValue
+                } );
+            }
+            fields.put( campaign.getCode( ), fieldData );
         }
 
     }
