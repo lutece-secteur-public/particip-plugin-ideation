@@ -76,9 +76,6 @@ public class IdeationStaticService extends AbstractCacheableService implements I
     private static final String MARK_QPVQVA_LIST = "qpvqva_list";
     private static final String MARK_QPVQVA_MAP = "qpvqva_map";
 
-    private static final String MARK_HANDICAP_LIST = "handicap_list";
-    private static final String MARK_HANDICAP_MAP = "handicap_map";
-
     private static final String MARK_LOCATION_TYPE_LIST = "type_location_list";
     private static final String MARK_LOCATION_TYPE_MAP = "type_location_map";
 
@@ -127,8 +124,6 @@ public class IdeationStaticService extends AbstractCacheableService implements I
         // Add global static data
         model.put( MARK_QPVQVA_LIST, ProposalService.getInstance( ).getQpvQvaCodesList( ) );
         model.put( MARK_QPVQVA_MAP, ProposalService.getInstance( ).getQpvQvaCodesMap( ) );
-        model.put( MARK_HANDICAP_LIST, ProposalService.getInstance( ).getHandicapCodesList( ) );
-        model.put( MARK_HANDICAP_MAP, ProposalService.getInstance( ).getHandicapCodesMap( ) );
         model.put( MARK_LOCATION_TYPE_LIST, ProposalService.getInstance( ).getTypeLocationList( ) );
         model.put( MARK_LOCATION_TYPE_MAP, ProposalService.getInstance( ).getTypeLocationMap( ) );
 
@@ -174,8 +169,6 @@ public class IdeationStaticService extends AbstractCacheableService implements I
         // Add global static data
         model.put( MARK_QPVQVA_LIST, ProposalService.getInstance( ).getQpvQvaCodesList( ) );
         model.put( MARK_QPVQVA_MAP, ProposalService.getInstance( ).getQpvQvaCodesMap( ) );
-        model.put( MARK_HANDICAP_LIST, ProposalService.getInstance( ).getHandicapCodesList( ) );
-        model.put( MARK_HANDICAP_MAP, ProposalService.getInstance( ).getHandicapCodesMap( ) );
         model.put( MARK_LOCATION_TYPE_LIST, ProposalService.getInstance( ).getTypeLocationList( ) );
         model.put( MARK_LOCATION_TYPE_MAP, ProposalService.getInstance( ).getTypeLocationMap( ) );
 

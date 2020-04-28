@@ -43,7 +43,6 @@ INSERT INTO solr_fields VALUES (182, 'statut_publique_project_text', 'Public sta
 INSERT INTO solr_fields VALUES (183, 'code_submitter_type_string', 'Submitter type', 'Submitter type', 1, 1, 0, 0, 0);
 INSERT INTO solr_fields VALUES (184, 'campaign_text', 'Campaign', 'Campaign code', 1, 1, 0, 0, 0);
 INSERT INTO solr_fields VALUES (185, 'type_qpvqva_string', 'Popular location', 'Popular location', 1, 1, 0, 0, 0);
-INSERT INTO solr_fields VALUES (186, 'handicap_string', 'Handicap', 'Handicap oriented', 1, 1, 0, 0, 0);
 		
 INSERT INTO workflow_action (id_action, name, description, id_workflow, id_state_before, id_state_after, id_icon, is_automatic, is_mass_action, display_order, is_automatic_reflexive_action) VALUES
 	(100, 'Submit', 'Used when a draft proposal is definitely submitted.', 100, 100, 101, 1, 0, 0, 1, 0),

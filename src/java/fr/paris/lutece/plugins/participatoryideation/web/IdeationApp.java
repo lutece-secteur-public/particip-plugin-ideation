@@ -194,8 +194,8 @@ public class IdeationApp extends MVCApplication
     public static final String QPV_QVA_GPRU = "GPRU";
     public static final String QPV_QVA_QBP = "QBP";
 
-    public static final String HANDICAP_LABEL_YES = "yes";
-    public static final String HANDICAP_LABEL_NO = "no";
+    public static final String FIELD4_LABEL_YES = "yes";
+    public static final String FIELD4_LABEL_NO = "no";
 
     private static final String PROPERTY_NEWPROJECTS_GEOLOC_FIELD = "participatoryideation.approx.newprojects.geoloc_field";
     private static final String PROPERTY_NEWPROJECTS_ARDT_FIELD = "participatoryideation.approx.newprojects.ardt_field";
@@ -1378,10 +1378,12 @@ public class IdeationApp extends MVCApplication
         {
             proposal.setCout( null );
         }
-        proposal.setHandicap( formEtapeDescription.getHandicap( ).trim( ) );
-        proposal.setHandicapComplement( formEtapeDescription.getHandicapComplement( ).trim( ) );
-        proposal.setField3( formEtapeDescription.getField3( ).trim( ) );
-    }
+
+        proposal.setField3( StringUtils.trimToEmpty( formEtapeDescription.getField3( ) ) );
+
+        proposal.setField4( StringUtils.trimToEmpty( formEtapeDescription.getField4( ) ) );
+        proposal.setField4Complement( StringUtils.trimToEmpty( formEtapeDescription.getField4( ) ) );
+}
 
     private void convertFormEtapeUpload( HttpServletRequest request, FormEtapeUpload formEtapeUpload, Proposal proposal )
     {

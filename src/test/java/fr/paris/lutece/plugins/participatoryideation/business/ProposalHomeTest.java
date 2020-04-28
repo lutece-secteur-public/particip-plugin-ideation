@@ -59,8 +59,8 @@ public class ProposalHomeTest extends LuteceTestCase
     public final static String MOCK_TYPE_QPV_QVA = "mockTypeQpvQva";
     public final static Timestamp MOCK_CREATION_TIMESTAMP = new Timestamp( System.currentTimeMillis( ) );
     public final static boolean MOCK_ACCEPT_CONTACT = false;
-    public final static String MOCK_HANDICAP = "yes";
-    public final static String MOCK_HANDICAP_COMPLEMENT = "mockHandicapComplement";
+    public final static String MOCK_FIELD4 = "yes";
+    public final static String MOCK_FIELD4_COMPLEMENT = "mockField4Complement";
     public final static Status MOCK_STATUS_PUBLIC = Status.STATUS_A_ETUDE;
     public final static Status MOCK_STATUS_EUDONET = Status.STATUS_EN_CO_CONSTRUCTION;
     public final static List<File> MOCK_IMGS = new ArrayList<>( );
@@ -97,8 +97,8 @@ public class ProposalHomeTest extends LuteceTestCase
         proposal.setTypeQpvQva( MOCK_TYPE_QPV_QVA );
         proposal.setCreationTimestamp( MOCK_CREATION_TIMESTAMP );
         proposal.setAcceptContact( MOCK_ACCEPT_CONTACT );
-        proposal.setHandicap( MOCK_HANDICAP );
-        proposal.setHandicapComplement( MOCK_HANDICAP_COMPLEMENT );
+        proposal.setField4( MOCK_FIELD4 );
+        proposal.setField4Complement( MOCK_FIELD4_COMPLEMENT );
         proposal.setStatusPublic( MOCK_STATUS_PUBLIC );
         proposal.setStatusEudonet( MOCK_STATUS_EUDONET );
         proposal.setImgs( MOCK_IMGS );

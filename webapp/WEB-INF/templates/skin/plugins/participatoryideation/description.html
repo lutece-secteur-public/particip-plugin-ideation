@@ -17,27 +17,26 @@
 			style="width: 100px">
 	</div>
 
-	<div class="form-group">
-		#i18n{participatoryideation.submit_project.steps.description.text1}
-		<label class="radio-inline"><input type="radio" name="handicap" id="handicap_yes" value="yes" <#if form_etape_description.handicap?? && form_etape_description.handicap == 'yes'>checked</#if>>Yes</label> 
-		<label class="radio-inline"><input type="radio" name="handicap" id="handicap_no"  value="no"  <#if form_etape_description.handicap?? && form_etape_description.handicap == 'no' >checked</#if>>No</label> 
-		<div id="handicapComplement_div">
-        	<label for="handicapcomplement">#i18n{participatoryideation.submit_project.steps.description.text1_complement}</label>
-        	<p>(${i18n("participatoryideation.submit_project.steps.description.text1_validation", 0, 100)})</p>
-    		<input type="text" class="form-control" name="handicapComplement" value="${form_etape_description.handicapComplement!''}" id="handicapComplement"/>
+	<#if campaign_static['type_field_map']['field3'][0]?? && campaign_static['type_field_map']['field3'][0] == '1'>
+		<div class="form-group">
+			<p><strong>${campaign_static['type_field_map']['field3'][1]!'Field 1'}</strong> (${i18n("participatoryideation.submit_project.steps.description.text3_validation", 0, 200)})</p>
+			<p>${campaign_static['type_field_map']['field3'][2]!''}</p>
+			<input type="text" class="form-control" name="field3" value="${form_etape_title.field3!''}" id="field3">
 		</div>
-	</div>
+	</#if>
 
-
-
-	<div class="form-group">
-		<p>
-			#i18n{participatoryideation.submit_project.steps.description.text2}
-			(${i18n("participatoryideation.submit_project.steps.description.text2_validation", 0, 200)})
-		</p>
-		<textarea id="field3_textarea" name="field3"
-			class="form-control" rows="2">${form_etape_description.field3!''}</textarea>
-	</div>
+	<#if campaign_static['type_field_map']['field4'][0]?? && campaign_static['type_field_map']['field4'][0] == '1'>
+		<div class="form-group">
+			<p><strong>${campaign_static['type_field_map']['field4'][1]!'Field 4'}</strong></p>
+			<label class="radio-inline"><input type="radio" name="field4" id="field4_yes" value="yes" <#if form_etape_description.field4?? && form_etape_description.field4 == 'yes'>checked</#if>>Yes</label> 
+			<label class="radio-inline"><input type="radio" name="field4" id="field4_no"  value="no"  <#if form_etape_description.field4?? && form_etape_description.field4 == 'no' >checked</#if>>No</label> 
+			<div id="field4Complement_div">
+	        	<label for="field4complement">#i18n{participatoryideation.submit_project.steps.description.text4_complement}</label>
+	        	<p>(${i18n("participatoryideation.submit_project.steps.description.text4_validation", 0, 200)})</p>
+	    		<input type="text" class="form-control" name="field4Complement" value="${form_etape_description.field4Complement!''}" id="field4Complement"/>
+			</div>
+		</div>
+	</#if>
 
 	<div class="form-button text-center">
 		<button
@@ -75,34 +74,34 @@
   		$("#field3_textarea").on("input keyup paste cut", lutece_update_count_field3);
 	});
 
-	function lutece_update_count_handicap() {
-  		var cnt3 = $.trim($("#handicapComplement").val()).length;
+	function lutece_update_count_field4() {
+  		var cnt3 = $.trim($("#field4Complement").val()).length;
   		var text = cnt3 + " #i18n{participatoryideation.submit_project.nbChars}";
   		if (cnt3 >= 2) { text += "s"; }
   		text = "(" + text + ")";
   		$("#cnt3").html( text );
 	}
 	$(function(){
-  		$("#handicapComplement").after('<p id="cnt3" class="cnt"></p>');
-  		lutece_update_count_handicap();
-  		$("#handicapComplement").on("input keyup paste cut", lutece_update_count_handicap);
+  		$("#field4Complement").after('<p id="cnt3" class="cnt"></p>');
+  		lutece_update_count_field4();
+  		$("#field4Complement").on("input keyup paste cut", lutece_update_count_field4);
 	});
 
 	$(function(){
-		$('#handicap_yes').on( "click", function(e){ 
-			$('#handicapComplement_div').show(); 
+		$('#field4_yes').on( "click", function(e){ 
+			$('#field4Complement_div').show(); 
 		} );
-		$('#handicap_no' ).on( "click", function(e){ 
-			$('#handicapComplement_div').hide(); 
-			$('#handicapComplement').val(""); 
-			lutece_update_count_handicap();
+		$('#field4_no' ).on( "click", function(e){ 
+			$('#field4Complement_div').hide(); 
+			$('#field4Complement').val(""); 
+			lutece_update_count_field4();
 		} );
-		if ($('#handicap_yes').is(":checked")){
-			$('#handicapComplement_div').show();
+		if ($('#field4_yes').is(":checked")){
+			$('#field4Complement_div').show();
 		} else{
-			$('#handicapComplement_div').hide();
-			$('#handicapComplement').val("");
-			lutece_update_count_handicap();
+			$('#field4Complement_div').hide();
+			$('#field4Complement').val("");
+			lutece_update_count_field4();
 		}
 	});
 

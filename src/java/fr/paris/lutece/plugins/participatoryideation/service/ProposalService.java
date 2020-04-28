@@ -73,14 +73,14 @@ public class ProposalService implements IProposalService
     private static final String PROPERTY_LABEL_ARDT = "participatoryideation.location_type.ardt.label";
     private static final String PROPERTY_LABEL_PARIS = "participatoryideation.location_type.paris.label";
 
-    private static final String PROPERTY_HANDICAP_LABEL_YES = "participatoryideation.handicap.yes.label";
-    private static final String PROPERTY_HANDICAP_LABEL_NO = "participatoryideation.handicap.no.label";
+    private static final String PROPERTY_FIELD4_LABEL_YES = "participatoryideation.field4.yes.label";
+    private static final String PROPERTY_FIELD4_LABEL_NO = "participatoryideation.field4.no.label";
 
     private static volatile ReferenceList _listQpvQvaCodes;
     private static volatile Map<String, String> _mapQpvQvaCodes;
 
-    private static volatile ReferenceList _listHandicapCodes;
-    private static volatile Map<String, String> _mapHandicapCodes;
+    private static volatile ReferenceList _listField4Codes;
+    private static volatile Map<String, String> _mapField4Codes;
 
     private static volatile ReferenceList _listTypeLocation;
     private static volatile Map<String, String> _mapTypeLocation;
@@ -111,10 +111,10 @@ public class ProposalService implements IProposalService
             _listQpvQvaCodes.addItem( ProposalSearcher.QPVQVA_UNKNOWN, I18nService.getLocalizedString( PROPERTY_LABEL_UNK, Locale.FRENCH ) );
             _mapQpvQvaCodes = _listQpvQvaCodes.toMap( );
 
-            _listHandicapCodes = new ReferenceList( );
-            _listHandicapCodes.addItem( IdeationApp.HANDICAP_LABEL_YES, I18nService.getLocalizedString( PROPERTY_HANDICAP_LABEL_YES, Locale.FRENCH ) );
-            _listHandicapCodes.addItem( IdeationApp.HANDICAP_LABEL_NO, I18nService.getLocalizedString( PROPERTY_HANDICAP_LABEL_NO, Locale.FRENCH ) );
-            _mapHandicapCodes = _listHandicapCodes.toMap( );
+            _listField4Codes = new ReferenceList( );
+            _listField4Codes.addItem( IdeationApp.FIELD4_LABEL_YES, I18nService.getLocalizedString( PROPERTY_FIELD4_LABEL_YES, Locale.FRENCH ) );
+            _listField4Codes.addItem( IdeationApp.FIELD4_LABEL_NO, I18nService.getLocalizedString( PROPERTY_FIELD4_LABEL_NO, Locale.FRENCH ) );
+            _mapField4Codes = _listField4Codes.toMap( );
 
             _listTypeLocation = new ReferenceList( );
             _listTypeLocation.addItem( Proposal.LOCATION_TYPE_ARDT, I18nService.getLocalizedString( PROPERTY_LABEL_ARDT, Locale.FRENCH ) );
@@ -203,19 +203,19 @@ public class ProposalService implements IProposalService
     }
 
     /**
-     * @return the handicapCodes as a list
+     * @return the field4Codes as a list
      */
-    public ReferenceList getHandicapCodesList( )
+    public ReferenceList getField4CodesList( )
     {
-        return _listHandicapCodes;
+        return _listField4Codes;
     }
 
     /**
-     * @return the HandicapCodes as a map
+     * @return the Field4Codes as a map
      */
-    public Map<String, String> getHandicapCodesMap( )
+    public Map<String, String> getField4CodesMap( )
     {
-        return _mapHandicapCodes;
+        return _mapField4Codes;
     }
 
     /**

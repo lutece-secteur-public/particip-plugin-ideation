@@ -474,7 +474,7 @@ public class IdeationCampaignDataProvider implements IIdeationCampaignDataProvid
         for ( ReferenceItem campaign : campaigns )
         {
             Map<String, String [ ]> fieldData = new HashMap<>( );
-            for ( int i = 1; i < 4; i++ )
+            for ( int i = 1; i < 5; i++ ) // TODO : add unlimited fields in the last form step
             {
                 String fieldName = "field" + i;
                 String propName = PROPERTY_PREFIX + campaign.getCode( ) + "." + fieldName;

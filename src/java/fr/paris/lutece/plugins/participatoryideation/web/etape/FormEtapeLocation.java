@@ -137,7 +137,8 @@ public class FormEtapeLocation extends AbstractFormEtape
         this._strGeojson = _strGeojson;
     }
 
-    public List<String> checkValidationErrors( HttpServletRequest request )
+    @Override
+    public List<String> checkValidationErrors( HttpServletRequest request, Proposal proposal )
     {
         List<String> listErrors = new ArrayList<>( );
         String strComplementType = SubmitterTypeHome.findByCode( getSubmitterType( ) ).getCodeComplementType( );
@@ -186,19 +187,18 @@ public class FormEtapeLocation extends AbstractFormEtape
         return listErrors;
     }
 
-    public List<String> checkValidationErrorsLocalized( HttpServletRequest request, Locale locale )
-    {
-        List<String> listErrors = new ArrayList<>( );
-        String userUid = "guid";
-
-        if ( SecurityService.getInstance( ).getRegisteredUser( request ) != null )
-        {
-            LuteceUser user = SecurityService.getInstance( ).getRegisteredUser( request );
-            userUid = user.getName( );
-        }
-
-        return listErrors;
-    }
+//    @Override
+//    public List<String> checkValidationErrorsLocalized( HttpServletRequest request, Proposal proposal, Locale locale )
+//    {
+//        List<String> listErrors = new ArrayList<>( );
+//
+//        if ( SecurityService.getInstance( ).getRegisteredUser( request ) != null )
+//        {
+//            LuteceUser user = SecurityService.getInstance( ).getRegisteredUser( request );
+//        }
+//
+//        return listErrors;
+//    }
 
     public String getAdress( )
     {

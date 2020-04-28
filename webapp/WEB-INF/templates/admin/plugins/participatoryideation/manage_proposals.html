@@ -49,11 +49,11 @@
                 </select>
             </div>
             <div class="form-group">
-                <label for="filter_handicap">Handicap :</label>
-                <select id="filter_handicap" name="filter_handicap" class="form-control input-xs">
-	                <option value="" <#if !filter_handicap??>selected="selected"</#if><option>
-	                <#list handicap_list as handicap >
-		                <option value="${handicap.code}" <#if filter_handicap?? && handicap.code==filter_handicap> selected="selected"</#if>>${handicap.name}</option>
+                <label for="filter_field4">Field4 :</label>
+                <select id="filter_field4" name="filter_field4" class="form-control input-xs">
+	                <option value="" <#if !filter_field4??>selected="selected"</#if><option>
+	                <#list field4_list as field4 >
+		                <option value="${field4.code}" <#if filter_field4?? && field4.code==filter_field4> selected="selected"</#if>>${field4.name}</option>
 	                </#list>
                 </select>
             </div>

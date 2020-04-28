@@ -47,8 +47,6 @@ import fr.paris.lutece.plugins.participatoryideation.business.proposal.Proposal;
 import fr.paris.lutece.plugins.participatoryideation.service.campaign.IdeationCampaignDataProvider;
 import fr.paris.lutece.portal.service.datastore.DatastoreService;
 import fr.paris.lutece.portal.service.i18n.I18nService;
-import fr.paris.lutece.portal.service.security.LuteceUser;
-import fr.paris.lutece.portal.service.security.SecurityService;
 import fr.paris.lutece.portal.service.util.AppLogService;
 
 public class FormEtapeTitle extends AbstractFormEtape
@@ -106,16 +104,10 @@ public class FormEtapeTitle extends AbstractFormEtape
         this._strfield2 = strfield2;
     }
 
+    @Override
     public List<String> checkValidationErrorsLocalized( HttpServletRequest request, Proposal proposal, Locale locale )
     {
         List<String> listErrors = new ArrayList<>( );
-        String userUid = "guid";
-
-        LuteceUser user = SecurityService.getInstance( ).getRegisteredUser( request );
-        if ( user != null )
-        {
-            userUid = user.getName( );
-        }
 
         // ---------------------------------------------------------------------- Check length of title
 
@@ -162,8 +154,8 @@ public class FormEtapeTitle extends AbstractFormEtape
         String [ ] fieldData = null;
 
         // TODO : Move these values into field data properties
-        int fieldMinLenght = 0;
-        int fieldMaxLenght = 200;
+        int fieldMinLength = 0;
+        int fieldMaxLength = 200;
 
         fieldData = IdeationCampaignDataProvider.getInstance( ).getCampaignFieldData( proposal.getCodeCampaign( ), "field1" );
         if ( "1".contentEquals( fieldData [0] ) )
@@ -176,17 +168,17 @@ public class FormEtapeTitle extends AbstractFormEtape
             }
             else
             {
-                if ( getField1( ) != null && getField1( ).trim( ).length( ) < fieldMinLenght )
+                if ( getField1( ) != null && getField1( ).trim( ).length( ) < fieldMinLength )
                 {
                     listErrors.add( I18nService.getLocalizedString( I18N_ERROR_FIELD1_MIN_LENGTH, new String [ ] {
-                            fieldData [1], "" + fieldMinLenght
+                            fieldData [1], "" + fieldMinLength
                     }, locale ) );
                 }
 
-                if ( getField1( ) != null && getField1( ).trim( ).length( ) > fieldMaxLenght )
+                if ( getField1( ) != null && getField1( ).trim( ).length( ) > fieldMaxLength )
                 {
                     listErrors.add( I18nService.getLocalizedString( I18N_ERROR_FIELD1_MAX_LENGTH, new String [ ] {
-                            fieldData [1], "" + fieldMaxLenght
+                            fieldData [1], "" + fieldMaxLength
                     }, locale ) );
                 }
             }
@@ -203,17 +195,17 @@ public class FormEtapeTitle extends AbstractFormEtape
             }
             else
             {
-                if ( getField2( ) != null && getField2( ).trim( ).length( ) < fieldMinLenght )
+                if ( getField2( ) != null && getField2( ).trim( ).length( ) < fieldMinLength )
                 {
                     listErrors.add( I18nService.getLocalizedString( I18N_ERROR_FIELD2_MIN_LENGTH, new String [ ] {
-                            fieldData [1], "" + fieldMinLenght
+                            fieldData [1], "" + fieldMinLength
                     }, locale ) );
                 }
 
-                if ( getField2( ) != null && getField2( ).trim( ).length( ) > fieldMaxLenght )
+                if ( getField2( ) != null && getField2( ).trim( ).length( ) > fieldMaxLength )
                 {
                     listErrors.add( I18nService.getLocalizedString( I18N_ERROR_FIELD2_MAX_LENGTH, new String [ ] {
-                            fieldData [1], "" + fieldMaxLenght
+                            fieldData [1], "" + fieldMaxLength
                     }, locale ) );
                 }
             }

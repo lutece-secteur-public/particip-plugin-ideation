@@ -102,7 +102,7 @@ public class ProposalJspBean extends ManageIdeationProposalsJspBean
     private static final String PARAMETER_FILTER_TITRE_OU_DESCRIPTION = "filter_titre_ou_description";
     private static final String PARAMETER_FILTER_PUBLIC_STATE = "filter_status";
     private static final String PARAMETER_FILTER_QPVQVA = "filter_qpvqva";
-    private static final String PARAMETER_FILTER_HANDICAP = "filter_handicap";
+    private static final String PARAMETER_FILTER_FIELD4 = "filter_field4";
     private static final String PARAMETER_FILTER_TYPE_LOCATION = "filter_type_location";
     private static final String PARAMETER_FILTER_AREA = "filter_arrondissement";
     private static final String PARAMETER_SORT_COLUMN = "sort_column";
@@ -120,7 +120,7 @@ public class ProposalJspBean extends ManageIdeationProposalsJspBean
     private static final String MARK_CAMPAIGN_CODE = "campaign_code";
     private static final String MARK_CAMPAIGN_LIST = "campaign_list";
     private static final String MARK_CAMPAIGNTHEME_LIST = "campaigntheme_list";
-    private static final String MARK_HANDICAP_LIST = "handicap_list";
+    private static final String MARK_FIELD4_LIST = "field4_list";
     private static final String MARK_PROPOSAL_LIST = "proposal_list";
     private static final String MARK_PROPOSAL = "proposal";
     private static final String MARK_PROPOSAL_BO_FORM = "proposal_bo_form";
@@ -128,7 +128,7 @@ public class ProposalJspBean extends ManageIdeationProposalsJspBean
     private static final String MARK_FILTER_CODE_THEME = "filter_code_theme";
     private static final String MARK_FILTER_TITRE_OU_DESCRIPTION = "filter_titre_ou_description";
     private static final String MARK_FILTER_QPVQVA = "filter_qpvqva";
-    private static final String MARK_FILTER_HANDICAP = "filter_handicap";
+    private static final String MARK_FILTER_FIELD4 = "filter_field4";
     private static final String MARK_FILTER_TYPE_LOCATION = "filter_type_location";
     private static final String MARK_FILTER_ARRONDISSEMENT = "filter_arrondissement";
     private static final String MARK_LANGUAGE = "language";
@@ -245,9 +245,9 @@ public class ProposalJspBean extends ManageIdeationProposalsJspBean
                 model.put( MARK_FILTER_QPVQVA, _proposalSearcher.getTypeQpvQva( ) );
             }
 
-            if ( StringUtils.isNotBlank( _proposalSearcher.getHandicap( ) ) )
+            if ( StringUtils.isNotBlank( _proposalSearcher.getField4( ) ) )
             {
-                model.put( MARK_FILTER_HANDICAP, _proposalSearcher.getHandicap( ) );
+                model.put( MARK_FILTER_FIELD4, _proposalSearcher.getField4( ) );
             }
 
             if ( StringUtils.isNotBlank( _proposalSearcher.getTypeLocation( ) ) )
@@ -391,16 +391,16 @@ public class ProposalJspBean extends ManageIdeationProposalsJspBean
             }
         }
 
-        String strHandicap = request.getParameter( PARAMETER_FILTER_HANDICAP );
-        if ( strHandicap != null )
+        String strField4 = request.getParameter( PARAMETER_FILTER_FIELD4 );
+        if ( strField4 != null )
         {
-            if ( StringUtils.isBlank( strHandicap ) )
+            if ( StringUtils.isBlank( strField4 ) )
             {
-                _proposalSearcher.setHandicap( null );
+                _proposalSearcher.setField4( null );
             }
             else
             {
-                _proposalSearcher.setHandicap( strHandicap );
+                _proposalSearcher.setField4( strField4 );
             }
         }
 
@@ -521,7 +521,7 @@ public class ProposalJspBean extends ManageIdeationProposalsJspBean
 
         // Data NOT depending of specified campaign
         model.put( MARK_LOCATION_TYPE_LIST, ProposalService.getInstance( ).getTypeLocationList( ) );
-        model.put( MARK_HANDICAP_LIST, ProposalService.getInstance( ).getHandicapCodesList( ) );
+        model.put( MARK_FIELD4_LIST, ProposalService.getInstance( ).getField4CodesList( ) );
         model.put( MARK_PROPOSAL, _proposal );
         model.put( MARK_LANGUAGE, getLocale( ) );
 
@@ -1003,7 +1003,7 @@ public class ProposalJspBean extends ManageIdeationProposalsJspBean
             proposal.setLibelleQpvQva( null );
         }
 
-        proposal.setHandicap( proposalBoForm.getHandicap( ) );
+        proposal.setField4( proposalBoForm.getField4( ) );
 
         if ( StringUtils.isNotEmpty( proposalBoForm.getIdProjet( ) ) )
         {

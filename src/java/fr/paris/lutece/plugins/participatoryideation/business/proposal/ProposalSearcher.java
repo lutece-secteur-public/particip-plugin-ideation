@@ -52,7 +52,7 @@ public class ProposalSearcher
     private String _strTitreOuDescriptionOuRef;
     private Integer _nIdWorkflowState;
     private String _strTypeQpvQva;
-    private String _strHandicap;
+    private String _strField4;
     private String _strTypeLocation;
     private String _strArrondissement;
     private String _strLuteceUserName;
@@ -169,14 +169,14 @@ public class ProposalSearcher
         this._strTypeQpvQva = strTypeQpvQva;
     }
 
-    public String getHandicap( )
+    public String getField4( )
     {
-        return _strHandicap;
+        return _strField4;
     }
 
-    public void setHandicap( String strHandicap )
+    public void setField4( String strField4 )
     {
-        this._strHandicap = strHandicap;
+        this._strField4 = strField4;
     }
 
     /**

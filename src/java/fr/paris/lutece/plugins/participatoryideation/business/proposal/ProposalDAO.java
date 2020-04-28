@@ -64,9 +64,9 @@ public final class ProposalDAO implements IProposalDAO
     private static final String SQL_QUERY_NEW_PK = "SELECT max( id_proposal ) FROM participatoryideation_proposals";
     private static final String SQL_QUERY_NEW_CODE_PROPOSAL = "SELECT max( code_proposal ) FROM participatoryideation_proposals where code_campaign = ?";
 
-    private static final String SQL_QUERY_INSERT = "INSERT INTO participatoryideation_proposals ( id_proposal, lutece_user_name, titre, field1, description, cout, code_theme, location_type, location_ardt, submitter_type, submitter, accept_exploit, accept_contact, address,longitude,latitude,creation_timestamp,code_campaign,code_proposal,type_nqpv_qva,id_nqpv_qva,libelle_nqpv_qva, status_public, status_eudonet, motif_recev,id_project, titre_projet, url_projet, winner_projet, field2, field3, handicap, handicap_complement) VALUES ( ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,? ) ";
-    private static final String SQL_QUERY_UPDATE = "UPDATE participatoryideation_proposals SET eudonet_exported_tag=?, status_public=?, status_eudonet=?, motif_recev=?, type_nqpv_qva=?, id_nqpv_qva=?, libelle_nqpv_qva=?, id_project = ?, titre_projet = ?, url_projet =?, winner_projet =?, titre =? , description =? , cout =? , location_type =? , location_ardt =?, handicap=?, handicap_complement=? WHERE id_proposal = ?";
-    private static final String SQL_QUERY_SELECTALL = "SELECT proposals.id_proposal, proposals.lutece_user_name, proposals.titre, proposals.field1, proposals.description, proposals.cout, proposals.code_theme, proposals.location_type, proposals.location_ardt, proposals.submitter_type, proposals.submitter, proposals.accept_exploit, proposals.accept_contact, proposals.address, proposals.longitude, proposals.latitude, proposals.creation_timestamp, proposals.code_campaign, proposals.code_proposal, proposals.eudonet_exported_tag, proposals.type_nqpv_qva, proposals.id_nqpv_qva, proposals.libelle_nqpv_qva, proposals.status_public, proposals.status_eudonet, proposals.motif_recev, proposals.id_project, proposals.titre_projet, proposals.url_projet, proposals.winner_projet, proposals.field2, proposals.field3, proposals.handicap, proposals.handicap_complement FROM participatoryideation_proposals proposals";
+    private static final String SQL_QUERY_INSERT = "INSERT INTO participatoryideation_proposals ( id_proposal, lutece_user_name, titre, field1, description, cout, code_theme, location_type, location_ardt, submitter_type, submitter, accept_exploit, accept_contact, address,longitude,latitude,creation_timestamp,code_campaign,code_proposal,type_nqpv_qva,id_nqpv_qva,libelle_nqpv_qva, status_public, status_eudonet, motif_recev,id_project, titre_projet, url_projet, winner_projet, field2, field3, field4, field4_complement) VALUES ( ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,? ) ";
+    private static final String SQL_QUERY_UPDATE = "UPDATE participatoryideation_proposals SET eudonet_exported_tag=?, status_public=?, status_eudonet=?, motif_recev=?, type_nqpv_qva=?, id_nqpv_qva=?, libelle_nqpv_qva=?, id_project = ?, titre_projet = ?, url_projet =?, winner_projet =?, titre =? , description =? , cout =? , location_type =? , location_ardt =?, field4=?, field4_complement=? WHERE id_proposal = ?";
+    private static final String SQL_QUERY_SELECTALL = "SELECT proposals.id_proposal, proposals.lutece_user_name, proposals.titre, proposals.field1, proposals.description, proposals.cout, proposals.code_theme, proposals.location_type, proposals.location_ardt, proposals.submitter_type, proposals.submitter, proposals.accept_exploit, proposals.accept_contact, proposals.address, proposals.longitude, proposals.latitude, proposals.creation_timestamp, proposals.code_campaign, proposals.code_proposal, proposals.eudonet_exported_tag, proposals.type_nqpv_qva, proposals.id_nqpv_qva, proposals.libelle_nqpv_qva, proposals.status_public, proposals.status_eudonet, proposals.motif_recev, proposals.id_project, proposals.titre_projet, proposals.url_projet, proposals.winner_projet, proposals.field2, proposals.field3, proposals.field4, proposals.field4_complement FROM participatoryideation_proposals proposals";
     private static final String SQL_QUERY_SELECT = SQL_QUERY_SELECTALL + " WHERE proposals.id_proposal = ?";
     private static final String SQL_QUERY_SELECT_BY_CODES = SQL_QUERY_SELECTALL + " WHERE proposals.code_campaign = ? and proposals.code_proposal = ?";
     private static final String SQL_QUERY_SELECTALL_ID = "SELECT id_proposal FROM participatoryideation_proposals";
@@ -207,8 +207,8 @@ public final class ProposalDAO implements IProposalDAO
             daoUtil.setString( nCpt++, proposal.getWinnerProjet( ) );
             daoUtil.setString( nCpt++, proposal.getfield2( ) );
             daoUtil.setString( nCpt++, proposal.getField3( ) );
-            daoUtil.setString( nCpt++, proposal.getHandicap( ) );
-            daoUtil.setString( nCpt++, ( proposal.getHandicapComplement( ) == null ? "" : proposal.getHandicapComplement( ) ) );
+            daoUtil.setString( nCpt++, proposal.getField4( ) );
+            daoUtil.setString( nCpt++, ( proposal.getField4Complement( ) == null ? "" : proposal.getField4Complement( ) ) );
 
             daoUtil.executeUpdate( );
         }
@@ -486,8 +486,8 @@ public final class ProposalDAO implements IProposalDAO
             daoUtil.setString( nCpt++, proposal.getLocationType( ) );
             daoUtil.setString( nCpt++, proposal.getLocationArdt( ) );
 
-            daoUtil.setString( nCpt++, proposal.getHandicap( ) );
-            daoUtil.setString( nCpt++, proposal.getHandicapComplement( ) );
+            daoUtil.setString( nCpt++, proposal.getField4( ) );
+            daoUtil.setString( nCpt++, proposal.getField4Complement( ) );
 
             daoUtil.setInt( nCpt++, proposal.getId( ) );
 
@@ -680,8 +680,8 @@ public final class ProposalDAO implements IProposalDAO
         proposal.setWinnerProjet( daoUtil.getString( nCpt++ ) );
         proposal.setfield2( daoUtil.getString( nCpt++ ) );
         proposal.setField3( daoUtil.getString( nCpt++ ) );
-        proposal.setHandicap( daoUtil.getString( nCpt++ ) );
-        proposal.setHandicapComplement( daoUtil.getString( nCpt++ ) );
+        proposal.setField4( daoUtil.getString( nCpt++ ) );
+        proposal.setField4Complement( daoUtil.getString( nCpt++ ) );
 
         return proposal;
     }
@@ -735,14 +735,14 @@ public final class ProposalDAO implements IProposalDAO
                 stringBuilder.append( " proposals.type_nqpv_qva = ? AND" );
             }
         }
-        if ( IdeationApp.HANDICAP_LABEL_YES.equals( proposalSearcher.getHandicap( ) ) )
+        if ( IdeationApp.FIELD4_LABEL_YES.equals( proposalSearcher.getField4( ) ) )
         {
-            stringBuilder.append( " proposals.handicap = ? AND" );
+            stringBuilder.append( " proposals.field4 = ? AND" );
         }
         else
-            if ( IdeationApp.HANDICAP_LABEL_NO.equals( proposalSearcher.getHandicap( ) ) )
+            if ( IdeationApp.FIELD4_LABEL_NO.equals( proposalSearcher.getField4( ) ) )
             {
-                stringBuilder.append( " ( (proposals.handicap IS NULL) OR (proposals.handicap = ?) ) AND" );
+                stringBuilder.append( " ( (proposals.field4 IS NULL) OR (proposals.field4 = ?) ) AND" );
             }
 
         if ( proposalSearcher.getTypeLocation( ) != null )
@@ -882,9 +882,9 @@ public final class ProposalDAO implements IProposalDAO
                 daoUtil.setString( nCpt++, proposalSearcher.getTypeQpvQva( ) );
             }
         }
-        if ( proposalSearcher.getHandicap( ) != null )
+        if ( proposalSearcher.getField4( ) != null )
         {
-            daoUtil.setString( nCpt++, proposalSearcher.getHandicap( ) );
+            daoUtil.setString( nCpt++, proposalSearcher.getField4( ) );
         }
         if ( proposalSearcher.getTypeLocation( ) != null )
         {

@@ -72,8 +72,8 @@ CREATE TABLE IF NOT EXISTS participatoryideation_proposals (
   winner_projet varchar(50) DEFAULT NULL,
   field2 VARCHAR(255),
   field3 VARCHAR(255),
-  handicap varchar(3) NOT NULL,
-  handicap_complement varchar(255) NOT NULL,
+  field4 varchar(3) NOT NULL,
+  field4_complement varchar(255) NOT NULL,
   PRIMARY KEY (id_proposal)
 );
 

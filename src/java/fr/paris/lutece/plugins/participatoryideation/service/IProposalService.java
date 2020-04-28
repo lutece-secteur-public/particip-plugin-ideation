@@ -65,9 +65,9 @@ public interface IProposalService
 
     Map<String, String> getQpvQvaCodesMap( );
 
-    ReferenceList getHandicapCodesList( );
+    ReferenceList getField4CodesList( );
 
-    Map<String, String> getHandicapCodesMap( );
+    Map<String, String> getField4CodesMap( );
 
     ReferenceList getTypeLocationList( );
 

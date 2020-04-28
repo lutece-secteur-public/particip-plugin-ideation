@@ -65,7 +65,7 @@
 <#assign arr= "">
 <#assign facet_theme= "">
 <#assign facet_campaign= "">
-<#assign facet_handicap= "">
+<#assign facet_field4= "">
 <#assign facet_qpop= "">
 <#assign facet_submitter_type= "">
 <#assign facet_status="">
@@ -83,7 +83,7 @@
 		<#if     facet?starts_with("location_text:")>				<#assign arr = facet?split(":")?last>
 		<#elseif facet?starts_with("code_theme_string:")>				<#assign facet_theme = facet?split(":")?last>
 		<#elseif facet?starts_with("campaign_text:")>					<#assign facet_campaign = facet?split(":")?last>
-		<#elseif facet?starts_with("handicap_string")>					<#assign facet_handicap = facet?split(":")?last>
+		<#elseif facet?starts_with("field4_string")>					<#assign facet_field4 = facet?split(":")?last>
 		<#elseif facet?starts_with("type_qpvqva_string")>				<#assign facet_qpop = facet?split(":")?last>
 		<#elseif facet?starts_with("code_submitter_type_string:")>	<#assign facet_submitter_type = facet?split(":")?last>
 		<#elseif facet?starts_with("statut_publique_project_text:")>	<#assign facet_status = facet?split(":")?last>
@@ -95,7 +95,7 @@
 	arr = <strong>${arr!'?'}</strong><br>
 	facet_theme = <strong>${facet_theme!'?'}</strong><br>
 	facet_campaign = <strong>${facet_campaign!'?'}</strong><br>
-	facet_handicap = <strong>${facet_handicap!'?'}</strong><br>
+	facet_field4 = <strong>${facet_field4!'?'}</strong><br>
 	facet_qpop = <strong>${facet_qpop!'?'}</strong><br>
 	facet_submitter_type = <strong>${facet_submitter_type!'?'}</strong><br>
 	facet_status = <strong>${facet_status!'?'}</strong><br>
@@ -332,25 +332,25 @@
 						</div>
 						
 						<div class="col-md-3 col-xs-12">
-							<label class="select" for="handicap">
-								<select name="fq" id="handicap" onChange="searchArrond()" class="form-control <#if facet_handicap != "">selected</#if>">
-									<#if facet_handicap="">
-										<option value="" selected="selected">#i18n{participatoryideation.search.form.field.handicap.label}</option>
+							<label class="select" for="field4">
+								<select name="fq" id="field4" onChange="searchArrond()" class="form-control <#if facet_field4 != "">selected</#if>">
+									<#if facet_field4="">
+										<option value="" selected="selected">#i18n{participatoryideation.search.form.field.field4.label}</option>
 									<#else>
-										<option value="">#i18n{participatoryideation.search.form.field.handicap.reset}</option>
+										<option value="">#i18n{participatoryideation.search.form.field.field4.reset}</option>
 									</#if>
 									
 									<option disabled="disabled">----</option>
 									
 									<#if facets??>
 										<#list facets as facet>
-											<#if facet.name == "handicap_string">
+											<#if facet.name == "field4_string">
 												<#list facet.values?sort as value>
 													<#if value.count != 0>
-														<#if facet_handicap == value.name>
-															<option value="handicap_string:${(value.name)!''}" selected="selected" >${(value.name)!''} (${(value.count)!''})</option>
+														<#if facet_field4 == value.name>
+															<option value="field4_string:${(value.name)!''}" selected="selected" >${(value.name)!''} (${(value.count)!''})</option>
 														<#else>
-															<option value="handicap_string:${(value.name)!''}" >${(value.name)!''} (${(value.count)!''})</option>
+															<option value="field4_string:${(value.name)!''}" >${(value.name)!''} (${(value.count)!''})</option>
 														</#if>
 													</#if>
 												</#list>

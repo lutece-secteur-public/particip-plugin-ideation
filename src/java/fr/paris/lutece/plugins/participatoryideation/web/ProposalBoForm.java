@@ -46,7 +46,7 @@ public class ProposalBoForm
     private String _strTypeQpvQva;
     private String _strIdQpvQva;
     private String _strLibelleQpvQva;
-    private String _strHandicap;
+    private String _strField4;
     private String _strIdProjet;
     private String _strTitreProjet;
     private String _strUrlProjet;
@@ -124,14 +124,14 @@ public class ProposalBoForm
         this._strLibelleQpvQva = strLibelleQpvQva;
     }
 
-    public String getHandicap( )
+    public String getField4( )
     {
-        return _strHandicap;
+        return _strField4;
     }
 
-    public void setHandicap( String strHandicap )
+    public void setField4( String strField4 )
     {
-        this._strHandicap = strHandicap;
+        this._strField4 = strField4;
     }
 
     /**

@@ -48,14 +48,12 @@ public abstract class AbstractFormEtape implements IFormEtape
     @Override
     public List<String> checkValidationErrors( HttpServletRequest request, Proposal proposal )
     {
-
         return null;
     }
 
     @Override
     public List<String> checkValidationErrorsLocalized( HttpServletRequest request, Proposal proposal, Locale locale )
     {
-
         return null;
     }
 

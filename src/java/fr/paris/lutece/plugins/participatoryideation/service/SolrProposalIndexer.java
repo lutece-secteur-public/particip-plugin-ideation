@@ -178,8 +178,6 @@ public class SolrProposalIndexer implements SolrIndexer
         item.addDynamicFieldNotAnalysed( "url_projet", proposal.getUrlProjet( ) );
         item.addDynamicFieldNotAnalysed( "winner_projet", proposal.getWinnerProjet( ) );
 
-        item.addDynamicFieldNotAnalysed( "handicap", proposal.getHandicap( ) );
-
         if ( proposal.getStatusPublic( ).getValeur( ) != null )
         {
             item.addDynamicField( "statut_publique_project", proposal.getStatusPublic( ).getValeur( ) );

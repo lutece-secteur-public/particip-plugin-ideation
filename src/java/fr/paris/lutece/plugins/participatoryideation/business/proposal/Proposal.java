@@ -71,8 +71,8 @@ public class Proposal implements Serializable, IExtendableResource
     private String _strTitre;
     private String _strField1;
     private String _strfield2;
-    private String _strHandicap;
-    private String _strHandicapComplement;
+    private String _strField4;
+    private String _strField4Complement;
     private String _strField3;
     private String _strDescription;
     private Long _nCout;
@@ -318,24 +318,24 @@ public class Proposal implements Serializable, IExtendableResource
         return _strfield2;
     }
 
-    public String getHandicap( )
+    public String getField4( )
     {
-        return _strHandicap;
+        return _strField4;
     }
 
-    public void setHandicap( String _strHandicap )
+    public void setField4( String _strField4 )
     {
-        this._strHandicap = _strHandicap;
+        this._strField4 = _strField4;
     }
 
-    public String getHandicapComplement( )
+    public String getField4Complement( )
     {
-        return _strHandicapComplement;
+        return _strField4Complement;
     }
 
-    public void setHandicapComplement( String _strHandicapComplement )
+    public void setField4Complement( String _strField4Complement )
     {
-        this._strHandicapComplement = _strHandicapComplement;
+        this._strField4Complement = _strField4Complement;
     }
 
     /**
