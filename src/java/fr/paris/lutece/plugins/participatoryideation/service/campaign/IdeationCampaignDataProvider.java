@@ -470,11 +470,6 @@ public class IdeationCampaignDataProvider implements IIdeationCampaignDataProvid
         }
 
         // Fields for each campaign
-        // participatoryideation.campaign.A.field1.active=0
-        // participatoryideation.campaign.A.field1.label=Field 1
-        // participatoryideation.campaign.A.field1.description=Description of field 1
-        // participatoryideation.campaign.A.field1.mandatory=0
-
         fields = new HashMap<>( );
         for ( ReferenceItem campaign : campaigns )
         {

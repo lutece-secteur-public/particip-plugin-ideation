@@ -40,8 +40,11 @@ import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.Size;
 
+import org.apache.commons.lang.StringUtils;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import fr.paris.lutece.plugins.participatoryideation.business.proposal.Proposal;
+import fr.paris.lutece.plugins.participatoryideation.service.campaign.IdeationCampaignDataProvider;
 import fr.paris.lutece.portal.service.datastore.DatastoreService;
 import fr.paris.lutece.portal.service.i18n.I18nService;
 import fr.paris.lutece.portal.service.security.LuteceUser;
@@ -54,20 +57,16 @@ public class FormEtapeTitle extends AbstractFormEtape
     private static final String I18N_ERROR_TITRE_MIN_LENGTH = "participatoryideation.validation.proposal.Titre.sizeMin";
     private static final String I18N_ERROR_TITRE_MAX_LENGTH = "participatoryideation.validation.proposal.Titre.sizeMax";
 
+    private static final String I18N_ERROR_FIELD1_EMPTY = "participatoryideation.validation.proposal.Field1.empty";
     private static final String I18N_ERROR_FIELD1_MIN_LENGTH = "participatoryideation.validation.proposal.Field1.sizeMin";
     private static final String I18N_ERROR_FIELD1_MAX_LENGTH = "participatoryideation.validation.proposal.Field1.sizeMax";
 
+    private static final String I18N_ERROR_FIELD2_EMPTY = "participatoryideation.validation.proposal.Field2.empty";
     private static final String I18N_ERROR_FIELD2_MIN_LENGTH = "participatoryideation.validation.proposal.field2.sizeMin";
     private static final String I18N_ERROR_FIELD2_MAX_LENGTH = "participatoryideation.validation.proposal.field2.sizeMax";
 
     private static final String DSKEY_TITRE_MIN_LENGTH = "participatoryideation.site_property.form.titre.minLength";
     private static final String DSKEY_TITRE_MAX_LENGTH = "participatoryideation.site_property.form.titre.maxLength";
-
-    private static final String DSKEY_FIELD1_MIN_LENGTH = "participatoryideation.site_property.form.field1.minLength";
-    private static final String DSKEY_FIELD1_MAX_LENGTH = "participatoryideation.site_property.form.field1.maxLength";
-
-    private static final String DSKEY_FIELD2_MIN_LENGTH = "participatoryideation.site_property.form.field2.minLength";
-    private static final String DSKEY_FIELD2_MAX_LENGTH = "participatoryideation.site_property.form.field2.maxLength";
 
     @NotEmpty( message = "#i18n{participatoryideation.validation.proposal.Titre.notEmpty}" )
     @Size( max = 255, message = "#i18n{participatoryideation.validation.proposal.Titre.size}" )
@@ -97,17 +96,17 @@ public class FormEtapeTitle extends AbstractFormEtape
         this._strField1 = strField1;
     }
 
-    public String getfield2( )
+    public String getField2( )
     {
         return _strfield2;
     }
 
-    public void setfield2( String strfield2 )
+    public void setField2( String strfield2 )
     {
         this._strfield2 = strfield2;
     }
 
-    public List<String> checkValidationErrorsLocalized( HttpServletRequest request, Locale locale )
+    public List<String> checkValidationErrorsLocalized( HttpServletRequest request, Proposal proposal, Locale locale )
     {
         List<String> listErrors = new ArrayList<>( );
         String userUid = "guid";
@@ -117,6 +116,8 @@ public class FormEtapeTitle extends AbstractFormEtape
         {
             userUid = user.getName( );
         }
+
+        // ---------------------------------------------------------------------- Check length of title
 
         String strMax = DatastoreService.getDataValue( DSKEY_TITRE_MAX_LENGTH, "" );
         if ( !"".equals( strMax ) )
@@ -156,88 +157,64 @@ public class FormEtapeTitle extends AbstractFormEtape
             }
         }
 
-        if ( getField1( ).trim( ).length( ) > 0 )
-        {
-            String strMinField1 = DatastoreService.getDataValue( DSKEY_FIELD1_MIN_LENGTH, "" );
-            if ( !"".equals( strMinField1 ) )
-            {
-                try
-                {
-                    int nMin = Integer.parseInt( strMinField1 );
-                    if ( getField1( ).trim( ).length( ) < nMin )
-                    {
-                        listErrors.add( I18nService.getLocalizedString( I18N_ERROR_FIELD1_MIN_LENGTH, new String [ ] {
-                                Integer.toString( nMin )
-                        }, locale ) );
-                    }
-                }
-                catch( NumberFormatException nfe )
-                {
-                    AppLogService.error( "IdeationApp: NumberFormatException when parsing min Field1 length from datastore, key " + DSKEY_FIELD1_MIN_LENGTH,
-                            nfe );
-                }
-            }
+        // ---------------------------------------------------------------------- Check mandatory and length of optional fields
 
-            String strMaxField1 = DatastoreService.getDataValue( DSKEY_FIELD1_MAX_LENGTH, "" );
-            if ( !"".equals( strMaxField1 ) )
+        String [ ] fieldData = null;
+
+        // TODO : Move these values into field data properties
+        int fieldMinLenght = 0;
+        int fieldMaxLenght = 200;
+
+        fieldData = IdeationCampaignDataProvider.getInstance( ).getCampaignFieldData( proposal.getCodeCampaign( ), "field1" );
+        if ( "1".contentEquals( fieldData [0] ) )
+        {
+            if ( "1".contentEquals( fieldData [3] ) && StringUtils.isBlank( getField1( ) ) )
             {
-                try
+                listErrors.add( I18nService.getLocalizedString( I18N_ERROR_FIELD1_EMPTY, new String [ ] {
+                        fieldData [1]
+                }, locale ) );
+            }
+            else
+            {
+                if ( getField1( ) != null && getField1( ).trim( ).length( ) < fieldMinLenght )
                 {
-                    int nMax = Integer.parseInt( strMaxField1 );
-                    if ( getField1( ).trim( ).length( ) > nMax )
-                    {
-                        listErrors.add( I18nService.getLocalizedString( I18N_ERROR_FIELD1_MAX_LENGTH, new String [ ] {
-                                Integer.toString( nMax )
-                        }, locale ) );
-                    }
+                    listErrors.add( I18nService.getLocalizedString( I18N_ERROR_FIELD1_MIN_LENGTH, new String [ ] {
+                            fieldData [1], "" + fieldMinLenght
+                    }, locale ) );
                 }
-                catch( NumberFormatException nfe )
+
+                if ( getField1( ) != null && getField1( ).trim( ).length( ) > fieldMaxLenght )
                 {
-                    AppLogService.error( "IdeationApp: NumberFormatException when parsing max Field1 length from datastore, key " + DSKEY_FIELD1_MAX_LENGTH,
-                            nfe );
+                    listErrors.add( I18nService.getLocalizedString( I18N_ERROR_FIELD1_MAX_LENGTH, new String [ ] {
+                            fieldData [1], "" + fieldMaxLenght
+                    }, locale ) );
                 }
             }
         }
 
-        if ( getfield2( ).trim( ).length( ) > 0 )
+        fieldData = IdeationCampaignDataProvider.getInstance( ).getCampaignFieldData( proposal.getCodeCampaign( ), "field2" );
+        if ( "1".contentEquals( fieldData [0] ) )
         {
-            String strMinfield2 = DatastoreService.getDataValue( DSKEY_FIELD2_MIN_LENGTH, "" );
-            if ( !"".equals( strMinfield2 ) )
+            if ( "1".contentEquals( fieldData [3] ) && StringUtils.isBlank( getField2( ) ) )
             {
-                try
-                {
-                    int nMin = Integer.parseInt( strMinfield2 );
-                    if ( getfield2( ).trim( ).length( ) < nMin )
-                    {
-                        listErrors.add( I18nService.getLocalizedString( I18N_ERROR_FIELD2_MIN_LENGTH, new String [ ] {
-                                Integer.toString( nMin )
-                        }, locale ) );
-                    }
-                }
-                catch( NumberFormatException nfe )
-                {
-                    AppLogService.error( "IdeationApp: NumberFormatException when parsing min field2 length from datastore, key " + DSKEY_FIELD2_MIN_LENGTH,
-                            nfe );
-                }
+                listErrors.add( I18nService.getLocalizedString( I18N_ERROR_FIELD2_EMPTY, new String [ ] {
+                        fieldData [1]
+                }, locale ) );
             }
-
-            String strMaxfield2 = DatastoreService.getDataValue( DSKEY_FIELD2_MAX_LENGTH, "" );
-            if ( !"".equals( strMaxfield2 ) )
+            else
             {
-                try
+                if ( getField2( ) != null && getField2( ).trim( ).length( ) < fieldMinLenght )
                 {
-                    int nMax = Integer.parseInt( strMaxfield2 );
-                    if ( getfield2( ).trim( ).length( ) > nMax )
-                    {
-                        listErrors.add( I18nService.getLocalizedString( I18N_ERROR_FIELD2_MAX_LENGTH, new String [ ] {
-                                Integer.toString( nMax )
-                        }, locale ) );
-                    }
+                    listErrors.add( I18nService.getLocalizedString( I18N_ERROR_FIELD2_MIN_LENGTH, new String [ ] {
+                            fieldData [1], "" + fieldMinLenght
+                    }, locale ) );
                 }
-                catch( NumberFormatException nfe )
+
+                if ( getField2( ) != null && getField2( ).trim( ).length( ) > fieldMaxLenght )
                 {
-                    AppLogService.error(
-                            "IdeationApp: NumberFormatException when parsing max field2 length from datastore, key " + I18N_ERROR_FIELD2_MAX_LENGTH, nfe );
+                    listErrors.add( I18nService.getLocalizedString( I18N_ERROR_FIELD2_MAX_LENGTH, new String [ ] {
+                            fieldData [1], "" + fieldMaxLenght
+                    }, locale ) );
                 }
             }
         }

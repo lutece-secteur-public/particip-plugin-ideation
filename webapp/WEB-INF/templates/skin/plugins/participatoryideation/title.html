@@ -7,15 +7,21 @@
 		<input type="text" class="form-control" name="titre" value="${form_etape_title.titre!''}" id="titre" maxlength="#dskey{participatoryideation.site_property.form.titre.maxLength}">
 	</div>
 	
-	<div class="form-group">
-		<p>#i18n{participatoryideation.submit_project.steps.title.text1}</strong> (${i18n("participatoryideation.submit_project.steps.title.text1_validation", 0, 200)})</p>
-		<input type="text" class="form-control" name="field1" value="${form_etape_title.field1!''}" id="field1">
-	</div>
-	 
-	<div class="form-group">
-		<p>#i18n{participatoryideation.submit_project.steps.title.text2} (${i18n("participatoryideation.submit_project.steps.title.text2_validation", 0, 200)})</p>
-		<textarea id="field2" name="field2" class="form-control" rows="2">${form_etape_title.field2!''}</textarea>
-	</div>
+	<#if campaign_static['type_field_map']['field1'][0]?? && campaign_static['type_field_map']['field1'][0] == '1'>
+		<div class="form-group">
+			<p><strong>${campaign_static['type_field_map']['field1'][1]!'Field 1'}</strong> (${i18n("participatoryideation.submit_project.steps.title.text1_validation", 0, 200)})</p>
+			<p>${campaign_static['type_field_map']['field1'][2]!''}</p>
+			<input type="text" class="form-control" name="field1" value="${form_etape_title.field1!''}" id="field1">
+		</div>
+	</#if>
+
+	<#if campaign_static['type_field_map']['field2'][0]?? && campaign_static['type_field_map']['field2'][0] == '1'>
+		<div class="form-group">
+			<p><strong>${campaign_static['type_field_map']['field2'][1]!'Field 1'}</strong> (${i18n("participatoryideation.submit_project.steps.title.text2_validation", 0, 200)})</p>
+			<p>${campaign_static['type_field_map']['field2'][2]!''}</p>
+			<input type="text" class="form-control" name="field2" value="${form_etape_title.field2!''}" id="field1">
+		</div>
+	</#if>
 	
   <div class="form-button text-center">
     <button type="submit" value="Continuer" class="btn btn-14rem btn-black-on-white">
@@ -27,7 +33,7 @@
 <script>
 function lutece_update_count_titre() {
 	var cnt = $.trim($("#titre").val()).length;
-	var text = cnt + " caract&egrave;re";
+	var text = cnt + " character";
 	if (cnt >= 2) { text += "s"; }
 	text = "(" + text + ")";
 	$("#cnt1").html( text );
@@ -40,7 +46,7 @@ $(function(){
 	
 function lutece_update_count_field1() {
 	var cnt = $.trim($("#field1").val()).length;
-	var text = cnt + " caract&egrave;re";
+	var text = cnt + " character";
 	if (cnt >= 2) { text += "s"; }
 		text = "(" + text + ")";
 		$("#cnt2").html( text );
@@ -53,7 +59,7 @@ $(function(){
 	
 function lutece_update_count_field2() {
 	var cnt = $.trim($("#field2").val()).length;
-	var text = cnt + " caract&egrave;re";
+	var text = cnt + " character";
 	if (cnt >= 2) { text += "s"; }
 		text = "(" + text + ")";
 		$("#cnt3").html( text );

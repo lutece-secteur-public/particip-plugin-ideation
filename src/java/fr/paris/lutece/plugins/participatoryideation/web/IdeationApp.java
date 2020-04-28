@@ -1204,8 +1204,8 @@ public class IdeationApp extends MVCApplication
         if ( validateBean( formEtape ) )
         {
 
-            List<String> listErrors = formEtape.checkValidationErrors( request );
-            List<String> listErrorsLocalized = formEtape.checkValidationErrorsLocalized( request, getLocale( request ) );
+            List<String> listErrors = formEtape.checkValidationErrors( request, _proposalCreate );
+            List<String> listErrorsLocalized = formEtape.checkValidationErrorsLocalized( request, _proposalCreate, getLocale( request ) );
 
             if ( !CollectionUtils.isEmpty( listErrors ) )
             {
@@ -1362,9 +1362,9 @@ public class IdeationApp extends MVCApplication
 
     private void convertFormEtapeTitle( FormEtapeTitle formEtapeTitle, Proposal proposal )
     {
-        proposal.setTitre( formEtapeTitle.getTitre( ).trim( ) );
-        proposal.setField1( formEtapeTitle.getField1( ).trim( ) );
-        proposal.setfield2( formEtapeTitle.getfield2( ).trim( ) );
+        proposal.setTitre( StringUtils.trimToEmpty( formEtapeTitle.getTitre( ) ) );
+        proposal.setField1( StringUtils.trimToEmpty( formEtapeTitle.getField1( ) ) );
+        proposal.setfield2( StringUtils.trimToEmpty( formEtapeTitle.getField2( ) ) );
     }
 
     private void convertFormEtapeDescription( FormEtapeDescription formEtapeDescription, Proposal proposal )

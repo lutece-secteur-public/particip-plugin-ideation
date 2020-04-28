@@ -251,7 +251,7 @@ public class IdeationStaticService extends AbstractCacheableService implements I
 
             // Optional fields
             campaignContent.put( MARK_FIELD_MAP, IdeationCampaignDataProvider.getInstance( ).getCampaignFieldsData( campaign.getCode( ) ) );
-            
+
             content.put( campaign.getCode( ), campaignContent );
         }
 

@@ -38,12 +38,14 @@ import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 
+import fr.paris.lutece.plugins.participatoryideation.business.proposal.Proposal;
+
 public interface IFormEtape
 {
 
-    List<String> checkValidationErrors( HttpServletRequest request );
+    List<String> checkValidationErrors( HttpServletRequest request, Proposal proposal );
 
-    List<String> checkValidationErrorsLocalized( HttpServletRequest request, Locale locale );
+    List<String> checkValidationErrorsLocalized( HttpServletRequest request, Proposal proposal, Locale locale );
 
     boolean isValidated( );
 
