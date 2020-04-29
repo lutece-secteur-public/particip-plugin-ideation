@@ -28,11 +28,26 @@
 					<li>A back-office to manage proposals</li>
 				</ul>
                 <p><strong>The <a href="https://github.com/lutece-secteur-public/particip-site-participatorybudget" targer="_blank">OpenPB</a> demo site uses this plugin, so you can see it in action !</strong></p>
-                <p style="color:orange">Please keep in mind that this plugin :</p>
-                <ul>
-                	<li>is in alpha version and is under development ; some features could not work properly :-/</li>
-                	<li>currently needs plugin-participatorybudget plugin to work (in medium term, the plugin will be independant, and may be connected to other plugins using mediator modules)</li>
-                </ul>
+                <p style="color:orange">Please keep in mind that this plugin is in alpha version and is under development ; some features could not work properly.</p>
+            </subsection>
+            
+            <!-- ********************************************************************************************* -->
+            <!-- * USAGE USAGE USAGE USAGE USAGE USAGE USAGE USAGE USAGE USAGE USAGE USAGE USAGE USAGE USAGE * -->
+            <!-- * USAGE USAGE USAGE USAGE USAGE USAGE USAGE USAGE USAGE USAGE USAGE USAGE USAGE USAGE USAGE * -->
+            <!-- ********************************************************************************************* -->
+            
+            <subsection name="Usage">
+            	<p>Above all, please refer to the 'configuration' section of the document to create data for you ideation campaign.</p>
+                <p>Before accessing the SOLR search page, you must index the pre-created proposals : go to the Solr Indexing back-office page, and click on 'Start indexing' button.</p>
+                <p>Now you can access to the search page :</p>
+                <pre>
+http://localhost:8080/pb/jsp/site/Portal.jsp?page=search-solr&amp;conf=list_proposals
+                </pre>
+                <p>To submit a new proposal, you have to verify that dates of 'ideation' phase are right.</p>
+                <p>Then access to the following page :</p>
+                <pre>
+http://test.paris.mdp:8080/pb/jsp/site/Portal.jsp?page=ideation&amp;init=true&amp;campaign=&lt;campaign_code&gt; where &lt;campaign_code&gt; is the code of the campaign (for example : A). 
+                </pre>
             </subsection>
             
             <!-- ********************************************************************************************* -->
@@ -50,34 +65,40 @@
 	&lt;type&gt;lutece-plugin&lt;/type&gt;
 &lt;/dependency&gt;
                 </pre>
-                <p>Then override the participatoryideation properties file to specify the URL of REST services from plugin-participatorybudget. For example :</p>
-                <pre>
-participatoryideation.campaign.rest.webapp.url=http://localhost:8080/site-test
-                </pre>
-                <p>SQL init files of both plugins create following sample data :</p>
+                <p>Then override the participatory-ideation properties file to configure ideation campaigns :</p>
+				<pre>
+# Code and label of the campaign
+participatoryideation.campaign.1=A;First ideation campaign
+
+# Code, label and color of campaign themes
+participatoryideation.campaign.A.theme.1=GENERAL;General;#C00000
+participatoryideation.campaign.A.theme.2=NUM;Digital city;#BA05E6
+participatoryideation.campaign.A.theme.3=...
+
+# Label and type of area (type : 'whole' for whole city, or 'localized' for district ; only one whole area possible)
+participatoryideation.campaign.A.area.1=whole city;whole
+participatoryideation.campaign.A.area.2=area 1;localized
+participatoryideation.campaign.A.area.3=...
+
+# Begin and end of the ideation phase
+participatoryideation.campaign.A.ideation=2020-04-05T12:00:00;2020-04-21T11:00:00 
+
+# Optional fields : 4 fields are currently handled, the third can have a complement question
+
+participatoryideation.campaign.A.field1.active=0
+participatoryideation.campaign.A.field1.label=Field 1
+participatoryideation.campaign.A.field1.description=Description of field 1
+participatoryideation.campaign.A.field1.mandatory=0
+
+participatoryideation.campaign.A.field2.active=1
+...
+				</pre>
+                <p>SQL init file of plugin creates sample data :</p>
 				<ul>
 					<li>A basic campaign with somes phases, themes and areas (see Manage Campaign back-office page)</li>
 					<li>Data about submitters (see ManageIdeation back-office page)</li>
 				</ul>
-                <p>To create these database data, please refer to the <a href="https://fr.lutece.paris.fr/fr/jsp/site/Portal.jsp?page=wiki&amp;view=page&amp;page_name=maven#H3_Initialize_database" targer="_blank">Lutece Maven process</a>.</p>
-            </subsection>
-            
-            <!-- ********************************************************************************************* -->
-            <!-- * USAGE USAGE USAGE USAGE USAGE USAGE USAGE USAGE USAGE USAGE USAGE USAGE USAGE USAGE USAGE * -->
-            <!-- * USAGE USAGE USAGE USAGE USAGE USAGE USAGE USAGE USAGE USAGE USAGE USAGE USAGE USAGE USAGE * -->
-            <!-- ********************************************************************************************* -->
-            
-            <subsection name="Usage">
-                <p>Before accessing the SOLR search page, you must index the pre-created proposals : go to the Solr Indexing back-office page, and click on 'Start indexing' button.</p>
-                <p>Now you can access to the search page :</p>
-                <pre>
-http://localhost:8080/pb/jsp/site/Portal.jsp?page=search-solr&amp;conf=list_proposals
-                </pre>
-                <p>To submit a new proposal, you have to verify that dates of 'ideation' phase are right (see 'Manage campaign' back-office page).</p>
-                <p>Then access to the following page :</p>
-                <pre>
-http://localhost:8080/pb/jsp/site/Portal.jsp?page=ideation
-                </pre>
+                <p>To use this SQL file, please refer to the <a href="https://fr.lutece.paris.fr/fr/jsp/site/Portal.jsp?page=wiki&amp;view=page&amp;page_name=maven#H3_Initialize_database" targer="_blank">Lutece Maven process</a>.</p>
             </subsection>
             
         </section>
