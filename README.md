@@ -27,43 +27,52 @@ Above all, please refer to the 'configuration' section of the document to create
 
 Before accessing the SOLR search page, you must index the pre-created proposals : go to the Solr Indexing back-office page, and click on 'Start indexing' button.
 
+ **Search page** 
+
 Now you can access to the search page :
 
 ```
-
 http://test.paris.mdp:8080/pb/jsp/site/Portal.jsp?page=solrProposalSearch&conf=list_proposals
-                
 ```
+
+![](https://dev.lutece.paris.fr/plugins/plugin-participatoryideation/images/search_page.png)
+
+![](https://dev.lutece.paris.fr/plugins/plugin-participatoryideation/images/submission_sheet.png)
+
+ **Submit form** 
 
 To submit a new proposal, you have to verify that dates of 'ideation' phase are right.
 
 Then access to the following page :
 
 ```
-
-http://test.paris.mdp:8080/pb/jsp/site/Portal.jsp?page=ideation&init=true&campaign=<campaign_code> where <campaign_code> is the code of the campaign (for example : A). 
-                
+http://test.paris.mdp:8080/pb/jsp/site/Portal.jsp?page=ideation&init=true&campaign=<campaign_code>
 ```
+
+where<campaign_code>is the code of the campaign (for example : A).
+
+![](https://dev.lutece.paris.fr/plugins/plugin-participatoryideation/images/ideation_form.png)
+
+ **Authentication MyLutece** 
+
+Submitting a proposal is subject to authentication via [MyLutece](https://github.com/lutece-platform/lutece-auth-plugin-mylutece) .
 
 ## Configuration
 
 To use the plugin into your Lutece site, first add the following code to your pom.xml
 
 ```
-
 <dependency>
 	<groupId>fr.paris.lutece.plugins</groupId>
 	<artifactId>plugin-participatoryideation</artifactId>
 	<version>[1.0.0-SNAPSHOT,)</version>
 	<type>lutece-plugin</type>
 </dependency>
-                
 ```
 
 Then override the participatory-ideation properties file to configure ideation campaigns :
 
 ```
-
 # Code and label of the campaign
 participatoryideation.campaign.1=A;First ideation campaign
 
@@ -89,12 +98,11 @@ participatoryideation.campaign.A.field1.mandatory=0
 
 participatoryideation.campaign.A.field2.active=1
 ...
-				
 ```
 
  **Java classes** 
 
-Campaign data (campaign codes, phase dates, submitter types, themes...) are provided by Java class `IdeationCampaignDataProvider` , which implements the interface `IdeationCampaignDataProvider` . It can be overrided to provide data from another system. You can view an example in [module-participatoryideation-participatorybudget](https://github.com/lutece-secteur-public/particip-module-participatoryideation-participatorybudget/blob/develop/src/java/fr/paris/lutece/plugins/participatoryideation/modules/participatorybudget/service/ideation/ParticipatoryIdeationCampaignModuleDataProvider.java) . The new data provider class has to be declared by overriding Spring context `participatoryideation_context.xml` .
+Campaign data (campaign codes, phase dates, submitter types, themes...) are provided by Java class `IdeationCampaignDataProvider` , which implements the interface `IIdeationCampaignDataProvider` . It can be overrided to provide data from another system. You can view an example in [module-participatoryideation-participatorybudget](https://github.com/lutece-secteur-public/particip-module-participatoryideation-participatorybudget/blob/develop/src/java/fr/paris/lutece/plugins/participatoryideation/modules/participatorybudget/service/ideation/ParticipatoryIdeationCampaignModuleDataProvider.java) . The new data provider class has to be declared by overriding Spring context `participatoryideation_context.xml` .
 
  **SQL file** 
 

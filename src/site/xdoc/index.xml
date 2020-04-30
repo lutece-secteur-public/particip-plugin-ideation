@@ -39,15 +39,28 @@
             <subsection name="Usage">
             	<p>Above all, please refer to the 'configuration' section of the document to create data for you ideation campaign.</p>
                 <p>Before accessing the SOLR search page, you must index the pre-created proposals : go to the Solr Indexing back-office page, and click on 'Start indexing' button.</p>
+                
+				<p>
+                     <b>Search page</b>
+                </p>
                 <p>Now you can access to the search page :</p>
-                <pre>
-http://test.paris.mdp:8080/pb/jsp/site/Portal.jsp?page=solrProposalSearch&amp;conf=list_proposals
-                </pre>
+                <pre>http://test.paris.mdp:8080/pb/jsp/site/Portal.jsp?page=solrProposalSearch&amp;conf=list_proposals</pre>
+                <p><img src="images/search_page.png"/></p>
+                <p><img src="images/submission_sheet.png"/></p>
+                
+				<p>
+                     <b>Submit form</b>
+                </p>
                 <p>To submit a new proposal, you have to verify that dates of 'ideation' phase are right.</p>
                 <p>Then access to the following page :</p>
-                <pre>
-http://test.paris.mdp:8080/pb/jsp/site/Portal.jsp?page=ideation&amp;init=true&amp;campaign=&lt;campaign_code&gt; where &lt;campaign_code&gt; is the code of the campaign (for example : A). 
-                </pre>
+                <pre>http://test.paris.mdp:8080/pb/jsp/site/Portal.jsp?page=ideation&amp;init=true&amp;campaign=&lt;campaign_code&gt;</pre>
+                <p>where &lt;campaign_code&gt; is the code of the campaign (for example : A).</p>
+                <p><img src="images/ideation_form.png"/></p>
+                
+				<p>
+                     <b>Authentication MyLutece</b>
+                </p>
+                <p>Submitting a proposal is subject to authentication via <a href="https://github.com/lutece-platform/lutece-auth-plugin-mylutece" target="_blank">MyLutece</a>.</p>
             </subsection>
             
             <!-- ********************************************************************************************* -->
@@ -58,17 +71,17 @@ http://test.paris.mdp:8080/pb/jsp/site/Portal.jsp?page=ideation&amp;init=true&am
             <subsection name="Configuration">
 
                 <p>To use the plugin into your Lutece site, first add the following code to your pom.xml </p>
-                <pre>
-&lt;dependency&gt;
+                
+<pre>&lt;dependency&gt;
 	&lt;groupId&gt;fr.paris.lutece.plugins&lt;/groupId&gt;
 	&lt;artifactId&gt;plugin-participatoryideation&lt;/artifactId&gt;
 	&lt;version&gt;[1.0.0-SNAPSHOT,)&lt;/version&gt;
 	&lt;type&gt;lutece-plugin&lt;/type&gt;
-&lt;/dependency&gt;
-                </pre>
+&lt;/dependency&gt;</pre>
+                
                 <p>Then override the participatory-ideation properties file to configure ideation campaigns :</p>
-				<pre>
-# Code and label of the campaign
+				
+<pre># Code and label of the campaign
 participatoryideation.campaign.1=A;First ideation campaign
 
 # Code, label and color of campaign themes
@@ -92,14 +105,14 @@ participatoryideation.campaign.A.field1.description=Description of field 1
 participatoryideation.campaign.A.field1.mandatory=0
 
 participatoryideation.campaign.A.field2.active=1
-...
-				</pre>
+...</pre>
+				
 
 				<p>
                      <b>Java classes</b>
                 </p>
 				<p>
-					Campaign data (campaign codes, phase dates, submitter types, themes...) are provided by Java class <code>IdeationCampaignDataProvider</code>, which implements the interface <code>IdeationCampaignDataProvider</code>. 
+					Campaign data (campaign codes, phase dates, submitter types, themes...) are provided by Java class <code>IdeationCampaignDataProvider</code>, which implements the interface <code>IIdeationCampaignDataProvider</code>. 
 					It can be overrided to provide data from another system. You can view an example in <a href="https://github.com/lutece-secteur-public/particip-module-participatoryideation-participatorybudget/blob/develop/src/java/fr/paris/lutece/plugins/participatoryideation/modules/participatorybudget/service/ideation/ParticipatoryIdeationCampaignModuleDataProvider.java" targer="_blank">module-participatoryideation-participatorybudget</a>.
 					The new data provider class has to be declared by overriding Spring context <code>participatoryideation_context.xml</code>. 
 				</p>
