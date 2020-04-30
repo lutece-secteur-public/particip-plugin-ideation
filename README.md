@@ -31,7 +31,7 @@ Now you can access to the search page :
 
 ```
 
-http://localhost:8080/pb/jsp/site/Portal.jsp?page=search-solr&conf=list_proposals
+http://test.paris.mdp:8080/pb/jsp/site/Portal.jsp?page=solrProposalSearch&conf=list_proposals
                 
 ```
 
@@ -91,6 +91,12 @@ participatoryideation.campaign.A.field2.active=1
 ...
 				
 ```
+
+ **Java classes** 
+
+Campaign data (campaign codes, phase dates, submitter types, themes...) are provided by Java class `IdeationCampaignDataProvider` , which implements the interface `IdeationCampaignDataProvider` . It can be overrided to provide data from another system. You can view an example in [module-participatoryideation-participatorybudget](https://github.com/lutece-secteur-public/particip-module-participatoryideation-participatorybudget/blob/develop/src/java/fr/paris/lutece/plugins/participatoryideation/modules/participatorybudget/service/ideation/ParticipatoryIdeationCampaignModuleDataProvider.java) . The new data provider class has to be declared by overriding Spring context `participatoryideation_context.xml` .
+
+ **SQL file** 
 
 SQL init file of plugin creates sample data :
 
