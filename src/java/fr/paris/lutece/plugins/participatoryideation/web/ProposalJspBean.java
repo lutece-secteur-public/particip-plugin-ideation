@@ -517,7 +517,7 @@ public class ProposalJspBean extends ManageIdeationProposalsJspBean
         String campaignCode = _proposal.getCodeCampaign( );
         model.put( MARK_CAMPAIGN_CODE, campaignCode );
         model.put( MARK_CAMPAIGNTHEME_LIST, IdeationCampaignDataProvider.getInstance( ).getCampaignThemes( campaignCode ) );
-        model.put( MARK_AREA_LIST, IdeationCampaignDataProvider.getInstance( ).getCampaignAllAreas( campaignCode ) );
+        model.put( MARK_AREA_LIST, IdeationCampaignDataProvider.getInstance( ).getCampaignAllAreaLabels( campaignCode ) );
 
         // Data NOT depending of specified campaign
         model.put( MARK_LOCATION_TYPE_LIST, ProposalService.getInstance( ).getTypeLocationList( ) );
@@ -540,7 +540,7 @@ public class ProposalJspBean extends ManageIdeationProposalsJspBean
             return redirectView( request, VIEW_COMPLETE_PROPOSAL );
         }
 
-        if ( Proposal.LOCATION_TYPE_PARIS.equals( _proposal.getLocationType( ) ) && StringUtils.isEmpty( _proposal.getGeoJson( ) ) )
+        if ( Proposal.LOCATION_AREA_TYPE_WHOLE.equals( _proposal.getLocationType( ) ) && StringUtils.isEmpty( _proposal.getGeoJson( ) ) )
         {
             _proposal.setLocationArdt( null );
         }
@@ -979,7 +979,7 @@ public class ProposalJspBean extends ManageIdeationProposalsJspBean
         }
 
         // Trying to determine LocationType using LocationArdt.
-        proposal.setLocationType( StringUtils.isNotEmpty( proposalBoForm.getLocationArdt( ) ) ? Proposal.LOCATION_TYPE_ARDT : Proposal.LOCATION_TYPE_PARIS );
+        proposal.setLocationType( StringUtils.isNotEmpty( proposalBoForm.getLocationArdt( ) ) ? Proposal.LOCATION_AREA_TYPE_LOCALIZED : Proposal.LOCATION_AREA_TYPE_WHOLE );
 
         if ( StringUtils.isNotEmpty( proposalBoForm.getLocationArdt( ) ) )
         {
@@ -1046,7 +1046,7 @@ public class ProposalJspBean extends ManageIdeationProposalsJspBean
     {
         boolean bIsValid = true;
 
-        if ( _proposal.getLocationType( ).equals( Proposal.LOCATION_TYPE_ARDT ) && StringUtils.isEmpty( _proposal.getLocationArdt( ) ) )
+        if ( _proposal.getLocationType( ).equals( Proposal.LOCATION_AREA_TYPE_LOCALIZED ) && StringUtils.isEmpty( _proposal.getLocationArdt( ) ) )
         {
             addError( MESSAGE_ERROR_ARRONDISSEMENT_EMPTY, request.getLocale( ) );
             bIsValid = false;

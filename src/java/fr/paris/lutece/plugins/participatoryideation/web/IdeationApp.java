@@ -182,9 +182,8 @@ public class IdeationApp extends MVCApplication
     private static final String MARK_RECAP_PROPOSAL_CREATED_REFERENCE = "proposal_created_reference";
 
     private static final String MARK_CAMPAIGN_THEMES = "themes";
-    private static final String MARK_CAMPAIGN_NUMBER_LOCALIZED_AREAS = "number_localized_areas";
-    private static final String MARK_CAMPAIGN_LOCALIZED_AREAS = "localized_areas";
-    private static final String MARK_CAMPAIGN_WHOLE_AREA = "whole_area";
+    private static final String MARK_CAMPAIGN_LOCALIZED_AREA_LABELS = "localized_area_labels";
+    private static final String MARK_CAMPAIGN_WHOLE_AREA_LABEL = "whole_area_label";
     private static final String MARK_CAMPAIGN_SUBMITTER_TYPES = "submitter_types";
 
     public static final String QPV_QVA_QPV = "NQPV";
@@ -328,10 +327,9 @@ public class IdeationApp extends MVCApplication
 
         model.put( MARK_CAMPAIGN_THEMES, IdeationCampaignDataProvider.getInstance( ).getCampaignThemes( _proposalCreate.getCodeCampaign( ) ) );
 
-        model.put( MARK_CAMPAIGN_NUMBER_LOCALIZED_AREAS,
-                IdeationCampaignDataProvider.getInstance( ).getCampaignNumberLocalizedAreas( _proposalCreate.getCodeCampaign( ) ) );
-        model.put( MARK_CAMPAIGN_LOCALIZED_AREAS, IdeationCampaignDataProvider.getInstance( ).getCampaignLocalizedAreas( _proposalCreate.getCodeCampaign( ) ) );
-        model.put( MARK_CAMPAIGN_WHOLE_AREA, IdeationCampaignDataProvider.getInstance( ).getCampaignWholeArea( _proposalCreate.getCodeCampaign( ) ) );
+        model.put( MARK_CAMPAIGN_LOCALIZED_AREA_LABELS, IdeationCampaignDataProvider.getInstance( ).getCampaignLocalizedAreaLabels( _proposalCreate.getCodeCampaign( ) ) );
+        
+        model.put( MARK_CAMPAIGN_WHOLE_AREA_LABEL, IdeationCampaignDataProvider.getInstance( ).getCampaignWholeAreaLabel( _proposalCreate.getCodeCampaign( ) ) );
 
         model.put( MARK_CAMPAIGN_SUBMITTER_TYPES, IdeationCampaignDataProvider.getInstance( ).getCampaignSubmitterTypes( _proposalCreate.getCodeCampaign( ) ) );
 
@@ -1171,7 +1169,7 @@ public class IdeationApp extends MVCApplication
             {
                 Map<String, Object> requestParameters = new HashMap<String, Object>( );
                 requestParameters.put( PARAMETER_PAGE, "search-solr" );
-                requestParameters.put( PARAMETER_CONF, "list_proposals" );
+                requestParameters.put( PARAMETER_CONF, "proposals_list" );
                 SiteMessageService.setMessage( request, MESSAGE_CAMPAIGN_IDEATION_CLOSED_SUBMIT, SiteMessage.TYPE_ERROR, JSP_PORTAL, requestParameters );
             }
         }
@@ -1349,7 +1347,7 @@ public class IdeationApp extends MVCApplication
             proposal.setLatitude( null );
             proposal.setLongitude( null );
             proposal.setAdress( null );
-            if ( formEtapeLocation.getLocationType( ).equals( Proposal.LOCATION_TYPE_ARDT ) && formEtapeLocation.getLocationArdt( ) != null )
+            if ( formEtapeLocation.getLocationType( ).equals( Proposal.LOCATION_AREA_TYPE_LOCALIZED ) && formEtapeLocation.getLocationArdt( ) != null )
             {
                 proposal.setLocationArdt( formEtapeLocation.getLocationArdt( ) );
             }

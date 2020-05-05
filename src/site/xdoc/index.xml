@@ -44,7 +44,7 @@
                      <b>Search page</b>
                 </p>
                 <p>Now you can access to the search page :</p>
-                <pre>http://test.paris.mdp:8080/pb/jsp/site/Portal.jsp?page=solrProposalSearch&amp;conf=list_proposals</pre>
+                <pre>http://test.paris.mdp:8080/pb/jsp/site/Portal.jsp?page=solrProposalSearch&amp;conf=proposals_list</pre>
                 <p><img src="images/search_page.png"/></p>
                 <p><img src="images/submission_sheet.png"/></p>
                 

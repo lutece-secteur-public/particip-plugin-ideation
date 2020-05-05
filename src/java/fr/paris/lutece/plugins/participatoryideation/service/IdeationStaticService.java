@@ -70,7 +70,7 @@ public class IdeationStaticService extends AbstractCacheableService implements I
 
     private static final String MARK_AREA_LIST = "area_list";
 
-    private static final String MARK_THEME_LIST = "theme_list";
+    private static final String MARK_THEME_LABEL_LIST = "theme_label_list";
     private static final String MARK_THEME_FRONT_RGB_LIST = "theme_front_rgb_list";
 
     private static final String MARK_QPVQVA_LIST = "qpvqva_list";
@@ -206,11 +206,11 @@ public class IdeationStaticService extends AbstractCacheableService implements I
             campaignContent.put( MARK_CAMPAIGN, campaign );
 
             // Add themes of the campaign
-            campaignContent.put( MARK_THEME_LIST, IdeationCampaignDataProvider.getInstance( ).getCampaignThemes( campaign.getCode( ) ) );
+            campaignContent.put( MARK_THEME_LABEL_LIST, IdeationCampaignDataProvider.getInstance( ).getCampaignThemes( campaign.getCode( ) ) );
             campaignContent.put( MARK_THEME_FRONT_RGB_LIST, IdeationCampaignDataProvider.getInstance( ).getCampaignThemesFrontRgb( campaign.getCode( ) ) );
 
             // Add areas of the campaign
-            campaignContent.put( MARK_AREA_LIST, IdeationCampaignDataProvider.getInstance( ).getCampaignAllAreas( campaign.getCode( ) ) );
+            campaignContent.put( MARK_AREA_LIST, IdeationCampaignDataProvider.getInstance( ).getCampaignAllAreaLabels( campaign.getCode( ) ) );
 
             // Types of submitter of the campaign
             Collection<SubmitterType> submitterTypes = mapSubmittersTypes.get( campaign.getCode( ) );

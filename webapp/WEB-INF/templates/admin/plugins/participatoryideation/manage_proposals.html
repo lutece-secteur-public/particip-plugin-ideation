@@ -64,7 +64,7 @@
                 <select id="filter_code_theme" name="filter_code_theme" class="form-control input-xs">
 	                <option value="" <#if !filter_code_theme??>selected="selected"</#if><option>
 	                <#list global_static?keys as key>
-		                <#list global_static[key].theme_list as theme>
+		                <#list global_static[key].theme_label_list as theme>
 			                <option value="${theme.code}" <#if filter_code_theme?? && theme.code==filter_code_theme> selected="selected"</#if>>${theme.name}</option>
 		                </#list>
 	                </#list>

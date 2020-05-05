@@ -35,7 +35,7 @@
 
 				<#if proposal.codeTheme??>
 					<#assign campaign = i18n('participatoryideation.view.list.card.campaign', proposal.codeTheme)>
-					<#assign proposal_theme_libelle = (campaign_static['theme_list']?filter( i -> i.code = proposal.codeTheme )[0].name)!proposal.codeTheme >
+					<#assign proposal_theme_libelle = (campaign_static['theme_label_list']?filter( i -> i.code = proposal.codeTheme )[0].name)!proposal.codeTheme >
 					<#assign theme_front_color = (campaign_static['theme_front_rgb_list']?filter( i -> i.code = proposal.codeTheme )[0].name)!'#3c67ff' >
 				</#if>
 
@@ -336,7 +336,7 @@
 						<div id="prop-data-avatar">
 							<a href="${avatar_url!''}" target="_blank" title="Voir l'avatar de ${nickname!''} (nouvel onglet)"><div class="prop-data-avatar-img pull-left" style="background-image:url(${avatar_url!''});"></div></a>
 							#i18n{participatoryideation.message.labelStatusPublished} ${proposal.creationTimestamp?date?string.long}<br/>
-							<a href="jsp/site/Portal.jsp?page=search-solr&conf=list_proposals&query=(pseudo_string:&quot;${(nickname!'')?url('UTF-8')}&quot;)" class="color-theme-autre" target="_blank" title="Voir les propositions déposées par ${nickname!''} (nouvel onglet)">
+							<a href="jsp/site/Portal.jsp?page=search-solr&conf=proposals_list&query=(pseudo_string:&quot;${(nickname!'')?url('UTF-8')}&quot;)" class="color-theme-autre" target="_blank" title="Voir les propositions déposées par ${nickname!''} (nouvel onglet)">
 								${nickname!''}
 							</a>
 						</div>

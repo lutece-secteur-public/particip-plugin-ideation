@@ -30,7 +30,7 @@
 	
 				<#assign theme_front_color = '#3c67ff' >
 				<#if (result.dynamicFields.code_theme_string)??>
-					<#assign theme_libelle = (campaign_data['theme_list']?filter( i -> i.code = result.dynamicFields.code_theme_string )[0].name)!result.dynamicFields.code_theme_string >
+					<#assign theme_libelle = (campaign_data['theme_label_list']?filter( i -> i.code = result.dynamicFields.code_theme_string )[0].name)!result.dynamicFields.code_theme_string >
 					<#assign theme_front_color = (campaign_data['theme_front_rgb_list']?filter( i -> i.code = result.dynamicFields.code_theme_string )[0].name)!'#3c67ff' >
 				</#if>
 			
@@ -97,7 +97,7 @@
 									<#if result.dynamicFields?? && result.dynamicFields.pseudo_string?? >
 										<span>#i18n{participatoryideation.view.list.card.submitted.title}</span><br>
 										<span>
-											<a href="jsp/site/Portal.jsp?page=search-solr&conf=list_proposals&query=(pseudo_string:&quot;${result.dynamicFields.pseudo_string?html!''}&quot;)" title="Voir les propositions déposées par ${result.dynamicFields.pseudo_string?html!''} (nouvel onglet)">
+											<a href="jsp/site/Portal.jsp?page=search-solr&conf=proposals_list&query=(pseudo_string:&quot;${result.dynamicFields.pseudo_string?html!''}&quot;)" title="Voir les propositions déposées par ${result.dynamicFields.pseudo_string?html!''} (nouvel onglet)">
 												${result.dynamicFields.pseudo_string?html} 
 												<#if result.dynamicFields?? && result.dynamicFields.code_submitter_type_string??>
 													<#if     result.dynamicFields.code_submitter_type_string = 'CONSEIL'> #i18n{participatoryideation.view.list.card.submitted.council}

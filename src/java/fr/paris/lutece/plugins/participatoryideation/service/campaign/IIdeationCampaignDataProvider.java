@@ -92,20 +92,26 @@ public interface IIdeationCampaignDataProvider
     // *********************************************************************************************
 
     // Provides informations about area.
-    public ReferenceList getCampaignAllAreas( String codeCampaign );
 
-    public ReferenceItem getCampaignWholeArea( String codeCampaign );
+    public ReferenceList getCampaignAllAreaLabels( String codeCampaign );
 
-    public ReferenceList getCampaignLocalizedAreas( String codeCampaign );
+    public ReferenceList getCampaignAllAreaTypes( String codeCampaign );
+
+    public ReferenceItem getCampaignWholeAreaLabel( String codeCampaign );
+
+    public ReferenceList getCampaignLocalizedAreaLabels( String codeCampaign );
 
     public int getCampaignNumberLocalizedAreas( String codeCampaign );
 
     // Same as precedent, for last campaign.
-    public ReferenceList getLastCampaignAllAreas( );
+    
+    public ReferenceList getLastCampaignAllAreaLabels( );
 
-    public ReferenceItem getLastCampaignWholeArea( );
+    public ReferenceList getLastCampaignAllAreaTypes( );
 
-    public ReferenceList getLastCampaignLocalizedAreas( );
+    public ReferenceItem getLastCampaignWholeAreaLabel( );
+
+    public ReferenceList getLastCampaignLocalizedAreaLabels( );
 
     public int getLastCampaignNumberLocalizedAreas( );
 

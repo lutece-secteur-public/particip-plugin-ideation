@@ -32,7 +32,7 @@ Before accessing the SOLR search page, you must index the pre-created proposals 
 Now you can access to the search page :
 
 ```
-http://test.paris.mdp:8080/pb/jsp/site/Portal.jsp?page=solrProposalSearch&conf=list_proposals
+http://test.paris.mdp:8080/pb/jsp/site/Portal.jsp?page=solrProposalSearch&conf=proposals_list
 ```
 
 ![](https://dev.lutece.paris.fr/plugins/plugin-participatoryideation/images/search_page.png)

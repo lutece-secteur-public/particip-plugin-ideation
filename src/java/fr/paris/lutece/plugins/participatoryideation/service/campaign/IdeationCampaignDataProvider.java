@@ -71,7 +71,7 @@ public class IdeationCampaignDataProvider implements IIdeationCampaignDataProvid
     // Map :
     // Key = campaign code
     // Value = Reference list with code and label
-    private static Map<String, ReferenceList> themes = null;
+    private static Map<String, ReferenceList> themeLabels = null;
 
     // Themes
     // Map :
@@ -83,7 +83,13 @@ public class IdeationCampaignDataProvider implements IIdeationCampaignDataProvid
     // Map :
     // Key = campaign code
     // Value = Reference list with code and label
-    private static Map<String, ReferenceList> areas = null;
+    private static Map<String, ReferenceList> areaLabels = null;
+
+    // Area types
+    // Map :
+    // Key = campaign code
+    // Value = Reference list with code and type (whole / localized)
+    private static Map<String, ReferenceList> areaTypes = null;
 
     // Phase date
     // Map :
@@ -234,19 +240,19 @@ public class IdeationCampaignDataProvider implements IIdeationCampaignDataProvid
     // *********************************************************************************************
 
     @Override
-    public ReferenceItem getCampaignWholeArea( String codeCampaign )
+    public ReferenceItem getCampaignWholeAreaLabel( String codeCampaign )
     {
         // Assuming there should be only one whole-typed item
-        return areas.get( codeCampaign ).stream( ).filter( r -> Proposal.LOCATION_TYPE_PARIS.contentEquals( r.getName( ) ) ).findFirst( ).get( );
+        return areaLabels.get( codeCampaign ).stream( ).filter( r -> Proposal.LOCATION_AREA_TYPE_WHOLE.contentEquals( r.getCode( ) ) ).findFirst( ).get( );
     }
 
     @Override
-    public ReferenceList getCampaignLocalizedAreas( String codeCampaign )
+    public ReferenceList getCampaignLocalizedAreaLabels( String codeCampaign )
     {
         ReferenceList result = new ReferenceList( );
-        for ( ReferenceItem item : areas.get( codeCampaign ) )
+        for ( ReferenceItem item : areaLabels.get( codeCampaign ) )
         {
-            if ( Proposal.LOCATION_TYPE_ARDT.equals( item.getName( ) ) )
+            if ( !Proposal.LOCATION_AREA_TYPE_WHOLE.equals( item.getCode( ) ) )
             {
                 result.add( item );
             }
@@ -257,35 +263,35 @@ public class IdeationCampaignDataProvider implements IIdeationCampaignDataProvid
     @Override
     public int getCampaignNumberLocalizedAreas( String codeCampaign )
     {
-        return getCampaignLocalizedAreas( codeCampaign ).size( );
+        return getCampaignLocalizedAreaLabels( codeCampaign ).size( );
     }
 
     @Override
-    public ReferenceItem getLastCampaignWholeArea( )
+    public ReferenceItem getLastCampaignWholeAreaLabel( )
     {
-        return areas.get( getLastCampaign( ).getCode( ) ).stream( ).filter( r -> Proposal.LOCATION_TYPE_PARIS.contentEquals( r.getName( ) ) ).findFirst( )
+        return areaLabels.get( getLastCampaign( ).getCode( ) ).stream( ).filter( r -> Proposal.LOCATION_AREA_TYPE_WHOLE.contentEquals( r.getName( ) ) ).findFirst( )
                 .get( );
     }
 
     @Override
-    public ReferenceList getLastCampaignLocalizedAreas( )
+    public ReferenceList getLastCampaignLocalizedAreaLabels( )
     {
-        return getCampaignLocalizedAreas( getLastCampaign( ).getCode( ) );
+        return getCampaignLocalizedAreaLabels( getLastCampaign( ).getCode( ) );
     }
 
     @Override
     public int getLastCampaignNumberLocalizedAreas( )
     {
-        return getLastCampaignLocalizedAreas( ).size( );
+        return getLastCampaignLocalizedAreaLabels( ).size( );
     }
 
     @Override
-    public ReferenceList getCampaignAllAreas( String codeCampaign )
+    public ReferenceList getCampaignAllAreaLabels( String codeCampaign )
     {
         ReferenceList result = new ReferenceList( );
-        for ( ReferenceItem item : areas.get( codeCampaign ) )
+        for ( ReferenceItem item : areaLabels.get( codeCampaign ) )
         {
-            if ( Proposal.LOCATION_TYPE_ARDT.equals( item.getName( ) ) )
+            if ( Proposal.LOCATION_AREA_TYPE_LOCALIZED.equals( item.getName( ) ) )
             {
                 result.add( item );
             }
@@ -294,9 +300,29 @@ public class IdeationCampaignDataProvider implements IIdeationCampaignDataProvid
     }
 
     @Override
-    public ReferenceList getLastCampaignAllAreas( )
+    public ReferenceList getCampaignAllAreaTypes( String codeCampaign )
     {
-        return getCampaignAllAreas( getLastCampaign( ).getCode( ) );
+        ReferenceList result = new ReferenceList( );
+        for ( ReferenceItem item : areaTypes.get( codeCampaign ) )
+        {
+            if ( Proposal.LOCATION_AREA_TYPE_LOCALIZED.equals( item.getName( ) ) )
+            {
+                result.add( item );
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public ReferenceList getLastCampaignAllAreaLabels( )
+    {
+        return getCampaignAllAreaLabels( getLastCampaign( ).getCode( ) );
+    }
+
+    @Override
+    public ReferenceList getLastCampaignAllAreaTypes( )
+    {
+        return getCampaignAllAreaTypes( getLastCampaign( ).getCode( ) );
     }
 
     // *********************************************************************************************
@@ -318,7 +344,7 @@ public class IdeationCampaignDataProvider implements IIdeationCampaignDataProvid
     @Override
     public ReferenceList getCampaignThemes( String codeCampaign )
     {
-        return themes.get( codeCampaign );
+        return themeLabels.get( codeCampaign );
     }
 
     @Override
@@ -326,7 +352,7 @@ public class IdeationCampaignDataProvider implements IIdeationCampaignDataProvid
     {
         ReferenceList allThemes = new ReferenceList( );
 
-        for ( ReferenceList campaignThemes : themes.values( ) )
+        for ( ReferenceList campaignThemes : themeLabels.values( ) )
         {
             allThemes.addAll( campaignThemes );
         }
@@ -386,7 +412,7 @@ public class IdeationCampaignDataProvider implements IIdeationCampaignDataProvid
         }
 
         // Themes for each campaign
-        themes = new HashMap<>( );
+        themeLabels = new HashMap<>( );
         themeFrontRgbs = new HashMap<>( );
         for ( ReferenceItem campaign : campaigns )
         {
@@ -412,15 +438,17 @@ public class IdeationCampaignDataProvider implements IIdeationCampaignDataProvid
                 campaignThemes.addItem( theme [0], theme [1] );
                 campaignThemeFrontRgbs.addItem( theme [0], theme [2] );
             }
-            themes.put( campaign.getCode( ), campaignThemes );
+            themeLabels.put( campaign.getCode( ), campaignThemes );
             themeFrontRgbs.put( campaign.getCode( ), campaignThemeFrontRgbs );
         }
 
         // Areas for each campaign
-        areas = new HashMap<>( );
+        areaLabels = new HashMap<>( );
+        areaTypes = new HashMap<>( );
         for ( ReferenceItem campaign : campaigns )
         {
             ReferenceList campaignAreas = new ReferenceList( );
+            ReferenceList campaignTypes = new ReferenceList( );
             for ( int i = 1; true; i++ )
             {
                 String propName = PROPERTY_PREFIX + campaign.getCode( ) + ".area." + i;
@@ -431,15 +459,17 @@ public class IdeationCampaignDataProvider implements IIdeationCampaignDataProvid
                 }
 
                 String [ ] area = propValue.split( PROPERTY_SEP );
-                if ( area.length != 2 )
+                if ( area.length != 3 )
                 {
-                    AppLogService.error( "The property '" + propName + "' should be formated as 'code" + PROPERTY_SEP + "label' but is '" + propValue + "'." );
+                    AppLogService.error( "The property '" + propName + "' should be formated as 'code" + PROPERTY_SEP + "label" + PROPERTY_SEP + "type' but is '" + propValue + "'." );
                     break;
                 }
 
                 campaignAreas.addItem( area [0], area [1] );
+                campaignTypes.addItem( area [0], area [2] );
             }
-            areas.put( campaign.getCode( ), campaignAreas );
+            areaLabels.put( campaign.getCode( ), campaignAreas );
+            areaTypes.put( campaign.getCode( ), campaignTypes );
         }
 
         // Phase dates for each campaign

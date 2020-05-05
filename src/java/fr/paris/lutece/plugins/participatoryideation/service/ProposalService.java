@@ -117,8 +117,8 @@ public class ProposalService implements IProposalService
             _mapField4Codes = _listField4Codes.toMap( );
 
             _listTypeLocation = new ReferenceList( );
-            _listTypeLocation.addItem( Proposal.LOCATION_TYPE_ARDT, I18nService.getLocalizedString( PROPERTY_LABEL_ARDT, Locale.FRENCH ) );
-            _listTypeLocation.addItem( Proposal.LOCATION_TYPE_PARIS, I18nService.getLocalizedString( PROPERTY_LABEL_PARIS, Locale.FRENCH ) );
+            _listTypeLocation.addItem( Proposal.LOCATION_AREA_TYPE_LOCALIZED, I18nService.getLocalizedString( PROPERTY_LABEL_ARDT, Locale.FRENCH ) );
+            _listTypeLocation.addItem( Proposal.LOCATION_AREA_TYPE_WHOLE, I18nService.getLocalizedString( PROPERTY_LABEL_PARIS, Locale.FRENCH ) );
             _mapTypeLocation = _listTypeLocation.toMap( );
 
         }

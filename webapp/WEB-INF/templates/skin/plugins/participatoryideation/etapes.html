@@ -11,7 +11,7 @@
 
 <#if recap_code_theme??>
 	<#attempt>
-  		<#assign recap_theme_libelle = ( (campaign_static.theme_list?filter(it -> it['code'] == recap_code_theme) )[0].name)!recap_code_theme>
+  		<#assign recap_theme_libelle = ( (campaign_static.theme_label_list?filter(it -> it['code'] == recap_code_theme) )[0].name)!recap_code_theme>
 	<#recover>
   		<#assign recap_theme_libelle = recap_code_theme>
 	</#attempt>

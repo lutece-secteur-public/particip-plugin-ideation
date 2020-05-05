@@ -56,8 +56,8 @@ public class Proposal implements Serializable, IExtendableResource
     public static final String PROPERTY_RESOURCE_TYPE = "PROPOSAL";
     public static final String WORKFLOW_RESOURCE_TYPE = "PARTICIPATORYIDEATION_PROPOSAL";
 
-    public static final String LOCATION_TYPE_ARDT = "localized";
-    public static final String LOCATION_TYPE_PARIS = "whole";
+    public static final String LOCATION_AREA_TYPE_LOCALIZED = "localized";
+    public static final String LOCATION_AREA_TYPE_WHOLE = "whole";
 
     public static final String ATTACHED_FILE_TYPE_DOC = "doc";
     public static final String ATTACHED_FILE_TYPE_IMG = "img";

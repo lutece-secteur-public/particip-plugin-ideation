@@ -28,14 +28,14 @@ INSERT INTO core_datastore VALUES ('participatoryideation.site_property.form.app
 INSERT INTO core_datastore VALUES ('participatoryideation.site_property.form.approx.locationResultsCount','6');
 INSERT INTO core_datastore VALUES ('participatoryideation.site_property.form.approx.previousCampaignsResultsCount','6');
 
-INSERT INTO core_datastore VALUES ('solr.app.conf.list_proposals.addonBeans.0', 'participatoryideation.IdeationSolrAddon');
-INSERT INTO core_datastore VALUES ('solr.app.conf.list_proposals.fq', 'type:proposal" AND proposal_status_text:"true');
-INSERT INTO core_datastore VALUES ('solr.app.conf.list_proposals.mapping', 'false');
-INSERT INTO core_datastore VALUES ('solr.app.conf.list_proposals.template', 'skin/plugins/participatoryideation/ideation_list_solr_search_results.html');
-INSERT INTO core_datastore VALUES ('solr.app.conf.map_proposals.addonBeans.0', 'participatoryideation.IdeationSolrAddon');
-INSERT INTO core_datastore VALUES ('solr.app.conf.map_proposals.fq', 'type:proposal" AND proposal_status_text:"true');
-INSERT INTO core_datastore VALUES ('solr.app.conf.map_proposals.mapping', 'true');
-INSERT INTO core_datastore VALUES ('solr.app.conf.map_proposals.template', 'skin/plugins/participatoryideation/ideation_map_solr_search_results.htmll');
+INSERT INTO core_datastore VALUES ('solr.app.conf.proposals_list.addonBeans.0', 'participatoryideation.IdeationSolrAddon');
+INSERT INTO core_datastore VALUES ('solr.app.conf.proposals_list.fq', 'type:proposal" AND proposal_status_text:"true');
+INSERT INTO core_datastore VALUES ('solr.app.conf.proposals_list.mapping', 'false');
+INSERT INTO core_datastore VALUES ('solr.app.conf.proposals_list.template', 'skin/plugins/participatoryideation/ideation_list_solr_search_results.html');
+INSERT INTO core_datastore VALUES ('solr.app.conf.proposals_map.addonBeans.0', 'participatoryideation.IdeationSolrAddon');
+INSERT INTO core_datastore VALUES ('solr.app.conf.proposals_map.fq', 'type:proposal" AND proposal_status_text:"true');
+INSERT INTO core_datastore VALUES ('solr.app.conf.proposals_map.mapping', 'true');
+INSERT INTO core_datastore VALUES ('solr.app.conf.proposals_map.template', 'skin/plugins/participatoryideation/ideation_map_solr_search_results.html');
 
 INSERT INTO solr_fields VALUES (180, 'location_text', 'Location', 'Location', 1, 1, 0, 0, 0);
 INSERT INTO solr_fields VALUES (181, 'code_theme_string', 'Theme code', 'Theme code', 1, 1, 0, 0, 0);

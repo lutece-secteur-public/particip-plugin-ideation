@@ -63,7 +63,7 @@ public class IdeationSolrAddon implements ISolrSearchAppAddOn
     private static final int SOLRSEARCHAPP_SOLR_RESPONSE_MAX = Integer
             .parseInt( AppPropertiesService.getProperty( SOLRSEARCHAPP_PROPERTY_SOLR_RESPONSE_MAX, "50" ) );
 
-    private static final String PARAMETER_CONF_MAP = "map_proposals";
+    private static final String PARAMETER_CONF_MAP = "proposals_map";
     private static final String SOLR_QUERY_ALL = "*:*";
     private static final String PROPERTY_OLDPROJECTS_FQ = "participatoryideation.oldprojects.fq";
     private static final String [ ] SOLR_FQ_OLDPROJECTS = {

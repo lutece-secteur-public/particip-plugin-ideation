@@ -124,7 +124,7 @@ public class SolrProposalIndexer implements SolrIndexer
         {
             dLongitude = proposal.getLongitude( );
             dLatitude = proposal.getLatitude( );
-            if ( Proposal.LOCATION_TYPE_ARDT.equals( proposal.getLocationType( ) ) )
+            if ( Proposal.LOCATION_AREA_TYPE_LOCALIZED.equals( proposal.getLocationType( ) ) )
             {
                 strCodeGeoloc = "proposal_geoloc-ardt-" + proposal.getLocationArdt( );
             }
@@ -135,7 +135,7 @@ public class SolrProposalIndexer implements SolrIndexer
         }
         else
         {
-            if ( Proposal.LOCATION_TYPE_ARDT.equals( proposal.getLocationType( ) ) )
+            if ( Proposal.LOCATION_AREA_TYPE_LOCALIZED.equals( proposal.getLocationType( ) ) )
             {
                 strCodeGeoloc = "proposal_ardt-" + proposal.getLocationArdt( );
             }
@@ -152,7 +152,7 @@ public class SolrProposalIndexer implements SolrIndexer
         item.addDynamicField( "campaign", proposal.getCodeCampaign( ) );
         item.addDynamicField( "code_projet", (long) proposal.getCodeProposal( ) );
         item.addDynamicField( "location", ( ( proposal.getAdress( ) != null ) && ( !"".equals( proposal.getAdress( ).trim( ) ) ) ) ? proposal.getAdress( )
-                : ( Proposal.LOCATION_TYPE_ARDT.equals( proposal.getLocationType( ).trim( ) ) ? proposal.getLocationArdt( ) : "whole city" // TODO :
+                : ( Proposal.LOCATION_AREA_TYPE_LOCALIZED.equals( proposal.getLocationType( ).trim( ) ) ? proposal.getLocationArdt( ) : "whole city" // TODO :
                                                                                                                                            // Must
                                                                                                                                            // get
                 // this string from
@@ -161,7 +161,7 @@ public class SolrProposalIndexer implements SolrIndexer
                 ) );
         item.addDynamicFieldNotAnalysed( "location_type", proposal.getLocationType( ) );
 
-        if ( Proposal.LOCATION_TYPE_ARDT.equals( proposal.getLocationType( ).trim( ) ) )
+        if ( Proposal.LOCATION_AREA_TYPE_LOCALIZED.equals( proposal.getLocationType( ).trim( ) ) )
         {
             item.addDynamicField( "location_ardt", proposal.getLocationArdt( ) );
         }

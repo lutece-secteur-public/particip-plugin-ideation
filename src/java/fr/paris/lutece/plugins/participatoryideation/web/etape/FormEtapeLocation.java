@@ -148,7 +148,7 @@ public class FormEtapeLocation extends AbstractFormEtape
             listErrors.add( I18N_ERROR_COMPLEMENT_EMPTY );
         }
 
-        if ( getLocationType( ).equals( Proposal.LOCATION_TYPE_ARDT ) && StringUtils.isEmpty( getLocationArdt( ) ) )
+        if ( getLocationType( ).equals( Proposal.LOCATION_AREA_TYPE_LOCALIZED ) && StringUtils.isEmpty( getLocationArdt( ) ) )
         {
             listErrors.add( I18N_ERROR_ARRONDISSEMENT_EMPTY );
         }

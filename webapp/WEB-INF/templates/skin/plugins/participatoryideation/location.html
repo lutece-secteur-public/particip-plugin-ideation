@@ -79,20 +79,20 @@
 	
   	<div class="form-group">
 		<p>#i18n{participatoryideation.submit_project.steps.location.location_type_label}</p>
-	    <#if whole_area != "" >
+	    <#if whole_area_label != "" >
 		    <label class="radio-inline">
 	    	  	<input type="radio" name="location_type" id="mode_radio_paris" value="whole" <#if form_etape_location.locationType??&& form_etape_location.locationType=='whole'>checked</#if>>
-				${whole_area.name}
+				${whole_area_label.name}
 		    </label>
 	    </#if>
-	    <#if number_localized_areas != 0 >
+	    <#if localized_area_labels?? &&  localized_area_labels?size gt 0 >
 	    	<label class="radio-inline">
-	        	<input type="radio" name="location_type" id="mode_radio_ardt" value="ardt" <#if form_etape_location.locationType??&& form_etape_location.locationType=='localized'>checked</#if>>
+	        	<input type="radio" name="location_type" id="mode_radio_ardt" value="localized" <#if form_etape_location.locationType??&& form_etape_location.locationType=='localized'>checked</#if>>
 				#i18n{participatoryideation.submit_project.steps.location.location_label_area}
 	    	</label>
 	    	<div id="col_ardt">
 		        <label class="sr-only"></label>
-	        	<@comboWithParams name="location_ardt" items=localized_areas default_value="${form_etape_location.locationArdt!''}"additionalParameters=" class=\"form-control input-sm\" " />
+	        	<@comboWithParams name="location_ardt" items=localized_area_labels default_value="${form_etape_location.locationArdt!''}"additionalParameters=" class=\"form-control input-sm\" " />
 	    	</div>
 	    </#if>
 	</div>
