@@ -153,8 +153,8 @@ public class SolrProposalIndexer implements SolrIndexer
         item.addDynamicField( "code_projet", (long) proposal.getCodeProposal( ) );
         item.addDynamicField( "location", ( ( proposal.getAdress( ) != null ) && ( !"".equals( proposal.getAdress( ).trim( ) ) ) ) ? proposal.getAdress( )
                 : ( Proposal.LOCATION_AREA_TYPE_LOCALIZED.equals( proposal.getLocationType( ).trim( ) ) ? proposal.getLocationArdt( ) : "whole city" // TODO :
-                                                                                                                                           // Must
-                                                                                                                                           // get
+                // Must
+                // get
                 // this string from
                 // campaign area
                 // service

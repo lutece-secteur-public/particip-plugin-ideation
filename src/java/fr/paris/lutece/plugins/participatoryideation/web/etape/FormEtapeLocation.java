@@ -187,18 +187,18 @@ public class FormEtapeLocation extends AbstractFormEtape
         return listErrors;
     }
 
-//    @Override
-//    public List<String> checkValidationErrorsLocalized( HttpServletRequest request, Proposal proposal, Locale locale )
-//    {
-//        List<String> listErrors = new ArrayList<>( );
-//
-//        if ( SecurityService.getInstance( ).getRegisteredUser( request ) != null )
-//        {
-//            LuteceUser user = SecurityService.getInstance( ).getRegisteredUser( request );
-//        }
-//
-//        return listErrors;
-//    }
+    // @Override
+    // public List<String> checkValidationErrorsLocalized( HttpServletRequest request, Proposal proposal, Locale locale )
+    // {
+    // List<String> listErrors = new ArrayList<>( );
+    //
+    // if ( SecurityService.getInstance( ).getRegisteredUser( request ) != null )
+    // {
+    // LuteceUser user = SecurityService.getInstance( ).getRegisteredUser( request );
+    // }
+    //
+    // return listErrors;
+    // }
 
     public String getAdress( )
     {

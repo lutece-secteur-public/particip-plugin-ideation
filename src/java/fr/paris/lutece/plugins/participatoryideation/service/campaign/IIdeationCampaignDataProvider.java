@@ -104,7 +104,7 @@ public interface IIdeationCampaignDataProvider
     public int getCampaignNumberLocalizedAreas( String codeCampaign );
 
     // Same as precedent, for last campaign.
-    
+
     public ReferenceList getLastCampaignAllAreaLabels( );
 
     public ReferenceList getLastCampaignAllAreaTypes( );

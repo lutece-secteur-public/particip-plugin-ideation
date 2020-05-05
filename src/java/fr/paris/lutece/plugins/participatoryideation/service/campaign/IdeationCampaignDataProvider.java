@@ -269,8 +269,8 @@ public class IdeationCampaignDataProvider implements IIdeationCampaignDataProvid
     @Override
     public ReferenceItem getLastCampaignWholeAreaLabel( )
     {
-        return areaLabels.get( getLastCampaign( ).getCode( ) ).stream( ).filter( r -> Proposal.LOCATION_AREA_TYPE_WHOLE.contentEquals( r.getName( ) ) ).findFirst( )
-                .get( );
+        return areaLabels.get( getLastCampaign( ).getCode( ) ).stream( ).filter( r -> Proposal.LOCATION_AREA_TYPE_WHOLE.contentEquals( r.getName( ) ) )
+                .findFirst( ).get( );
     }
 
     @Override
@@ -461,7 +461,8 @@ public class IdeationCampaignDataProvider implements IIdeationCampaignDataProvid
                 String [ ] area = propValue.split( PROPERTY_SEP );
                 if ( area.length != 3 )
                 {
-                    AppLogService.error( "The property '" + propName + "' should be formated as 'code" + PROPERTY_SEP + "label" + PROPERTY_SEP + "type' but is '" + propValue + "'." );
+                    AppLogService.error( "The property '" + propName + "' should be formated as 'code" + PROPERTY_SEP + "label" + PROPERTY_SEP
+                            + "type' but is '" + propValue + "'." );
                     break;
                 }
 

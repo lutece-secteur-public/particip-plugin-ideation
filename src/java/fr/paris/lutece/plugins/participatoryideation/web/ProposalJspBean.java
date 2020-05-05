@@ -979,7 +979,8 @@ public class ProposalJspBean extends ManageIdeationProposalsJspBean
         }
 
         // Trying to determine LocationType using LocationArdt.
-        proposal.setLocationType( StringUtils.isNotEmpty( proposalBoForm.getLocationArdt( ) ) ? Proposal.LOCATION_AREA_TYPE_LOCALIZED : Proposal.LOCATION_AREA_TYPE_WHOLE );
+        proposal.setLocationType(
+                StringUtils.isNotEmpty( proposalBoForm.getLocationArdt( ) ) ? Proposal.LOCATION_AREA_TYPE_LOCALIZED : Proposal.LOCATION_AREA_TYPE_WHOLE );
 
         if ( StringUtils.isNotEmpty( proposalBoForm.getLocationArdt( ) ) )
         {

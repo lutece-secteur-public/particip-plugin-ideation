@@ -205,13 +205,13 @@ public class FormEtapeDescription extends AbstractFormEtape
         String [ ] fieldData = null;
 
         // TODO : Move these values into field data properties
-        int fieldMinLength = 0; 
+        int fieldMinLength = 0;
         int fieldMaxLength = 200;
 
         fieldData = IdeationCampaignDataProvider.getInstance( ).getCampaignFieldData( proposal.getCodeCampaign( ), "field3" );
-        if ( "1".contentEquals( fieldData[0] ) )
+        if ( "1".contentEquals( fieldData [0] ) )
         {
-            if ( "1".contentEquals( fieldData[3] ) && StringUtils.isBlank( getField3( ) ) )
+            if ( "1".contentEquals( fieldData [3] ) && StringUtils.isBlank( getField3( ) ) )
             {
                 listErrors.add( I18nService.getLocalizedString( I18N_ERROR_FIELD3_EMPTY, new String [ ] {
                         fieldData [1]
@@ -221,39 +221,49 @@ public class FormEtapeDescription extends AbstractFormEtape
             {
                 if ( getField3( ) != null && getField3( ).trim( ).length( ) < fieldMinLength )
                 {
-                    listErrors.add( I18nService.getLocalizedString( I18N_ERROR_FIELD3_MIN_LENGTH, new String [ ] { fieldData [1], "" + fieldMinLength }, locale ) );
+                    listErrors.add( I18nService.getLocalizedString( I18N_ERROR_FIELD3_MIN_LENGTH, new String [ ] {
+                            fieldData [1], "" + fieldMinLength
+                    }, locale ) );
                 }
 
                 if ( getField3( ) != null && getField3( ).trim( ).length( ) > fieldMaxLength )
                 {
-                    listErrors.add( I18nService.getLocalizedString( I18N_ERROR_FIELD3_MAX_LENGTH, new String [ ] { fieldData [1], "" + fieldMaxLength}, locale ) );
+                    listErrors.add( I18nService.getLocalizedString( I18N_ERROR_FIELD3_MAX_LENGTH, new String [ ] {
+                            fieldData [1], "" + fieldMaxLength
+                    }, locale ) );
                 }
             }
         }
 
         fieldData = IdeationCampaignDataProvider.getInstance( ).getCampaignFieldData( proposal.getCodeCampaign( ), "field4" );
-        if ( "1".contentEquals( fieldData[0] ) )
+        if ( "1".contentEquals( fieldData [0] ) )
         {
-	        if ( "yes".equals( getField4( ) ) )
-	        {
-	            if ( "1".contentEquals( fieldData[3] ) && StringUtils.isBlank( getField4( ) ) )
-	            {
-	                listErrors.add( I18nService.getLocalizedString( I18N_ERROR_FIELD4_EMPTY, new String [ ] { fieldData [1] }, locale ) );
-	            }
-	            else
-	            {
-	                if ( getField4( ) != null && getField4( ).trim( ).length( ) < fieldMinLength )
-	                {
-	                    listErrors.add( I18nService.getLocalizedString( I18N_ERROR_FIELD4_MIN_LENGTH, new String [ ] { fieldData [1], "" + fieldMinLength }, locale ) );
-	                }
+            if ( "yes".equals( getField4( ) ) )
+            {
+                if ( "1".contentEquals( fieldData [3] ) && StringUtils.isBlank( getField4( ) ) )
+                {
+                    listErrors.add( I18nService.getLocalizedString( I18N_ERROR_FIELD4_EMPTY, new String [ ] {
+                            fieldData [1]
+                    }, locale ) );
+                }
+                else
+                {
+                    if ( getField4( ) != null && getField4( ).trim( ).length( ) < fieldMinLength )
+                    {
+                        listErrors.add( I18nService.getLocalizedString( I18N_ERROR_FIELD4_MIN_LENGTH, new String [ ] {
+                                fieldData [1], "" + fieldMinLength
+                        }, locale ) );
+                    }
 
-	                if ( getField4( ) != null && getField4( ).trim( ).length( ) > fieldMaxLength )
-	                {
-	                    listErrors.add( I18nService.getLocalizedString( I18N_ERROR_FIELD4_MAX_LENGTH, new String [ ] { fieldData [1], "" + fieldMaxLength }, locale ) );
-	                }
-	            }
-	        }
-    	}
+                    if ( getField4( ) != null && getField4( ).trim( ).length( ) > fieldMaxLength )
+                    {
+                        listErrors.add( I18nService.getLocalizedString( I18N_ERROR_FIELD4_MAX_LENGTH, new String [ ] {
+                                fieldData [1], "" + fieldMaxLength
+                        }, locale ) );
+                    }
+                }
+            }
+        }
 
         return listErrors;
     }

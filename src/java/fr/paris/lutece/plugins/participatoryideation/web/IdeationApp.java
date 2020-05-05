@@ -327,9 +327,11 @@ public class IdeationApp extends MVCApplication
 
         model.put( MARK_CAMPAIGN_THEMES, IdeationCampaignDataProvider.getInstance( ).getCampaignThemes( _proposalCreate.getCodeCampaign( ) ) );
 
-        model.put( MARK_CAMPAIGN_LOCALIZED_AREA_LABELS, IdeationCampaignDataProvider.getInstance( ).getCampaignLocalizedAreaLabels( _proposalCreate.getCodeCampaign( ) ) );
-        
-        model.put( MARK_CAMPAIGN_WHOLE_AREA_LABEL, IdeationCampaignDataProvider.getInstance( ).getCampaignWholeAreaLabel( _proposalCreate.getCodeCampaign( ) ) );
+        model.put( MARK_CAMPAIGN_LOCALIZED_AREA_LABELS,
+                IdeationCampaignDataProvider.getInstance( ).getCampaignLocalizedAreaLabels( _proposalCreate.getCodeCampaign( ) ) );
+
+        model.put( MARK_CAMPAIGN_WHOLE_AREA_LABEL,
+                IdeationCampaignDataProvider.getInstance( ).getCampaignWholeAreaLabel( _proposalCreate.getCodeCampaign( ) ) );
 
         model.put( MARK_CAMPAIGN_SUBMITTER_TYPES, IdeationCampaignDataProvider.getInstance( ).getCampaignSubmitterTypes( _proposalCreate.getCodeCampaign( ) ) );
 
@@ -1381,7 +1383,7 @@ public class IdeationApp extends MVCApplication
 
         proposal.setField4( StringUtils.trimToEmpty( formEtapeDescription.getField4( ) ) );
         proposal.setField4Complement( StringUtils.trimToEmpty( formEtapeDescription.getField4( ) ) );
-}
+    }
 
     private void convertFormEtapeUpload( HttpServletRequest request, FormEtapeUpload formEtapeUpload, Proposal proposal )
     {

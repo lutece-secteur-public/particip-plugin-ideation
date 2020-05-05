@@ -81,7 +81,7 @@
                 
                 <p>Then override the participatory-ideation properties file to configure ideation campaigns :</p>
 				
-<pre># Code and label of the campaign
+<pre># Code and label of campaign 'A' --------------------------------------------------- 
 participatoryideation.campaign.1=A;First ideation campaign
 
 # Code, label and color of campaign themes
@@ -89,10 +89,10 @@ participatoryideation.campaign.A.theme.1=GENERAL;General;#C00000
 participatoryideation.campaign.A.theme.2=NUM;Digital city;#BA05E6
 participatoryideation.campaign.A.theme.3=...
 
-# Label and type of area (type : 'whole' for whole city, or 'localized' for district ; only one whole area possible)
-participatoryideation.campaign.A.area.1=whole city;whole
-participatoryideation.campaign.A.area.2=area 1;localized
-participatoryideation.campaign.A.area.3=...
+# Code, label and type of area (type : 'whole' for whole city, or 'localized' for district ; only one whole area possible)
+participatoryideation.campaign.A.area.1=whole;Paris city;whole
+participatoryideation.campaign.A.area.2=area_1;First district;localized
+participatoryideation.campaign.A.area.3=area_2;Second district;localized
 
 # Begin and end of the ideation phase
 participatoryideation.campaign.A.ideation=2020-04-05T12:00:00;2020-04-21T11:00:00 
@@ -105,6 +105,29 @@ participatoryideation.campaign.A.field1.description=Description of field 1
 participatoryideation.campaign.A.field1.mandatory=0
 
 participatoryideation.campaign.A.field2.active=1
+...
+
+# Code and label of campaign 'B' --------------------------------------------------- 
+participatoryideation.campaign.1=B;Second ideation campaign
+
+# Code, label and color of campaign themes
+participatoryideation.campaign.B.theme.1=GENERAL;General;#C00000
+participatoryideation.campaign.B.theme.2=SPORT;Sport;#BA05E6
+
+# Code, label and type of area (type : 'whole' for whole city, or 'localized' for district ; only one whole area possible)
+participatoryideation.campaign.B.area.1=whole;Whole city;whole
+
+# Begin and end of the ideation phase
+participatoryideation.campaign.B.ideation=2020-03-20T12:00:00;2020-04-20T11:00:00 
+
+# Optional fields : 4 fields are currently handled, the third can have a complement question
+
+participatoryideation.campaign.B.field1.active=0
+participatoryideation.campaign.B.field1.label=Field 1
+participatoryideation.campaign.B.field1.description=Description of field 1
+participatoryideation.campaign.B.field1.mandatory=0
+
+participatoryideation.campaign.B.field2.active=0
 ...</pre>
 				
 
