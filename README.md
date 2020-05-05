@@ -125,7 +125,9 @@ participatoryideation.campaign.B.field2.active=0
 
  **Java classes** 
 
-Campaign data (campaign codes, phase dates, submitter types, themes...) are provided by Java class `IdeationCampaignDataProvider` , which implements the interface `IIdeationCampaignDataProvider` . It can be overrided to provide data from another system. You can view an example in [module-participatoryideation-participatorybudget](https://github.com/lutece-secteur-public/particip-module-participatoryideation-participatorybudget/blob/develop/src/java/fr/paris/lutece/plugins/participatoryideation/modules/participatorybudget/service/ideation/ParticipatoryIdeationCampaignModuleDataProvider.java) . The new data provider class has to be declared by overriding Spring context `participatoryideation_context.xml` .
+Campaign data (campaign codes, phase dates, submitter types, themes...) are provided by Java class `IdeationCampaignDataProvider` , which implements the interface `IIdeationCampaignDataProvider` .
+
+By default, this class use DB data for submitter informations, and properties files for campaigns, areas, themes, optional fields. It can be overrided to provide data from another source. You can view an example in [module-participatoryideation-participatorybudget](https://github.com/lutece-secteur-public/particip-module-participatoryideation-participatorybudget/blob/develop/src/java/fr/paris/lutece/plugins/participatoryideation/modules/participatorybudget/service/ideation/ParticipatoryIdeationCampaignModuleDataProvider.java) . The new data provider class has to be declared by overriding Spring context file `participatoryideation_context.xml` .
 
  **SQL file** 
 
