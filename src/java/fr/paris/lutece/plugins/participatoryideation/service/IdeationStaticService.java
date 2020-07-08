@@ -79,6 +79,9 @@ public class IdeationStaticService extends AbstractCacheableService implements I
     private static final String MARK_LOCATION_TYPE_LIST = "type_location_list";
     private static final String MARK_LOCATION_TYPE_MAP = "type_location_map";
 
+    private static final String MARK_FIELD4_CODES_LIST = "field4_list";
+    private static final String MARK_FIELD4_CODES_MAP = "field4_map";
+
     private static final String MARK_SUBMITTERS_TYPES_LIST = "submitter_types_list";
     private static final String MARK_SUBMITTERS_TYPES_MAP = "submitters_types_map";
     private static final String MARK_SUBMITTERS_TYPES_LIST_VALUES_MAP = "submitters_types_list_values_map";
@@ -124,8 +127,12 @@ public class IdeationStaticService extends AbstractCacheableService implements I
         // Add global static data
         model.put( MARK_QPVQVA_LIST, ProposalService.getInstance( ).getQpvQvaCodesList( ) );
         model.put( MARK_QPVQVA_MAP, ProposalService.getInstance( ).getQpvQvaCodesMap( ) );
+        
         model.put( MARK_LOCATION_TYPE_LIST, ProposalService.getInstance( ).getTypeLocationList( ) );
         model.put( MARK_LOCATION_TYPE_MAP, ProposalService.getInstance( ).getTypeLocationMap( ) );
+
+        model.put( MARK_FIELD4_CODES_LIST, ProposalService.getInstance( ).getField4CodesList( ) );
+        model.put( MARK_FIELD4_CODES_MAP, ProposalService.getInstance( ).getField4CodesMap( ) );
 
         // Add list of campaigns
         model.put( MARK_LIST_CAMPAIGN, IdeationCampaignDataProvider.getInstance( ).getCampaigns( ) );
@@ -169,8 +176,12 @@ public class IdeationStaticService extends AbstractCacheableService implements I
         // Add global static data
         model.put( MARK_QPVQVA_LIST, ProposalService.getInstance( ).getQpvQvaCodesList( ) );
         model.put( MARK_QPVQVA_MAP, ProposalService.getInstance( ).getQpvQvaCodesMap( ) );
+
         model.put( MARK_LOCATION_TYPE_LIST, ProposalService.getInstance( ).getTypeLocationList( ) );
         model.put( MARK_LOCATION_TYPE_MAP, ProposalService.getInstance( ).getTypeLocationMap( ) );
+        
+        model.put( MARK_FIELD4_CODES_LIST, ProposalService.getInstance( ).getField4CodesList( ) );
+        model.put( MARK_FIELD4_CODES_MAP, ProposalService.getInstance( ).getField4CodesMap( ) );
 
         // Add static data of all campaigns
         @SuppressWarnings( "unchecked" )
