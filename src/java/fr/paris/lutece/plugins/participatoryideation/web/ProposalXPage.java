@@ -99,6 +99,7 @@ public class ProposalXPage extends MVCApplication
     private static final String MARK_NICKNAME = "nickname";
     private static final String MARK_NICKNAME_USER = "nicknameUser";
     private static final String MARK_IS_OWN_PROPOSAL = "is_own_proposal";
+    private static final String MARK_HAS_AVATAR = "has_avatar";
     private static final String MARK_AVATAR_URL = "avatar_url";
     private static final String MARK_IS_EXTEND_INSTALLED = "isExtendInstalled";
 
@@ -191,30 +192,39 @@ public class ProposalXPage extends MVCApplication
 
         if ( _proposal.getLuteceUserName( ) != null )
         {
-            model.put( MARK_AVATAR_URL, AvatarService.getAvatarUrl( _proposal.getLuteceUserName( ) ) );
-            model.put( MARK_NICKNAME, UserPreferencesService.instance( ).getNickname( _proposal.getLuteceUserName( ) ) );
+        	if ( _proposal.isFromBackOffice() )
+        	{
+        		model.put( MARK_NICKNAME, _proposal.getLuteceUserName( ) ); 
+        		model.put( MARK_HAS_AVATAR, false );
+        	}
+        	else
+        	{
+        		model.put( MARK_HAS_AVATAR, true );
+	            model.put( MARK_AVATAR_URL, AvatarService.getAvatarUrl( _proposal.getLuteceUserName( ) ) );
+	        	model.put( MARK_NICKNAME, UserPreferencesService.instance( ).getNickname( _proposal.getLuteceUserName( ) ) );
 
-            if ( SecurityService.isAuthenticationEnable( ) )
-            {
-                LuteceUser user = SecurityService.getInstance( ).getRegisteredUser( request );
-
-                if ( user != null && user.getName( ) != null )
-                {
-                    model.put( MARK_IS_OWN_PROPOSAL, _proposal.getLuteceUserName( ).equals( user.getName( ) ) );
-                    model.put( MARK_NICKNAME_USER, UserPreferencesService.instance( ).getNickname( user.getName( ) ) );
-                    model.put( MARK_LASTNAME_USER, user.getUserInfos( ).get( "user.name.given" ) );
-                    model.put( MARK_FIRSTNAME_USER, user.getUserInfos( ).get( "user.name.family" ) );
-                    model.put( MARK_EMAIL_USER, user.getUserInfos( ).get( "user.business-info.online.email" ) );
-
-                    String strEmail = UserPreferencesService.instance( ).get( user.getName( ), PARAM_BP_EMAIL, StringUtils.EMPTY );
-                    if ( strEmail != null && !strEmail.isEmpty( ) )
-                    {
-                        model.put( MARK_EMAIL_USER, strEmail );
-                    }
-
-                }
-
-            }
+	            if ( SecurityService.isAuthenticationEnable( ) )
+	            {
+	                LuteceUser user = SecurityService.getInstance( ).getRegisteredUser( request );
+	
+	                if ( user != null && user.getName( ) != null )
+	                {
+	                    model.put( MARK_IS_OWN_PROPOSAL, _proposal.getLuteceUserName( ).equals( user.getName( ) ) );
+	                    model.put( MARK_NICKNAME_USER, UserPreferencesService.instance( ).getNickname( user.getName( ) ) );
+	                    model.put( MARK_LASTNAME_USER, user.getUserInfos( ).get( "user.name.given" ) );
+	                    model.put( MARK_FIRSTNAME_USER, user.getUserInfos( ).get( "user.name.family" ) );
+	                    model.put( MARK_EMAIL_USER, user.getUserInfos( ).get( "user.business-info.online.email" ) );
+	
+	                    String strEmail = UserPreferencesService.instance( ).get( user.getName( ), PARAM_BP_EMAIL, StringUtils.EMPTY );
+	                    if ( strEmail != null && !strEmail.isEmpty( ) )
+	                    {
+	                        model.put( MARK_EMAIL_USER, strEmail );
+	                    }
+	
+	                }
+	
+	            }
+        	}
         }
         model.put( MARK_IS_EXTEND_INSTALLED, PortalService.isExtendActivated( ) );
         IdeationStaticService.getInstance( ).fillCampaignStaticContent( model, _proposal.getCodeCampaign( ) );

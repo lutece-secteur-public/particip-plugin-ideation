@@ -68,6 +68,7 @@ public class Proposal implements Serializable, IExtendableResource
     // Variables declarations
     private int _nId;
     private String _strLuteceUserName;
+    private boolean _bIsFromBackOffice = false;
     private String _strTitre;
     private String _strField1;
     private String _strfield2;
@@ -420,7 +421,30 @@ public class Proposal implements Serializable, IExtendableResource
     {
         this._strLuteceUserName = strLuteceUserName;
     }
+    
+    
+    /**
+     * Get the from back office boolean
+     * 
+     * @return the _bIsFromBackOffice
+     */
+    public boolean isFromBackOffice( )
+    {
+        return _bIsFromBackOffice;
+    }
 
+    /**
+     * Set the from back office boolean
+     * 
+     * @param bIsFromBackOffice
+     *            the _bIsFromBackOffice to set
+     */
+    public void setFromBackOffice( boolean bIsFromBackOffice )
+    {
+        this._bIsFromBackOffice = bIsFromBackOffice;
+    }
+    
+    
     /**
      * 
      * @return cout

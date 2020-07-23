@@ -334,7 +334,9 @@
 						
 						<#-- Son avatar -->
 						<div id="prop-data-avatar">
-							<a href="${avatar_url!''}" target="_blank" title="Voir l'avatar de ${nickname!''} (nouvel onglet)"><div class="prop-data-avatar-img pull-left" style="background-image:url(${avatar_url!''});"></div></a>
+							<#if has_avatar == true>
+								<a href="${avatar_url!''}" target="_blank" title="Voir l'avatar de ${nickname!''} (nouvel onglet)"><div class="prop-data-avatar-img pull-left" style="background-image:url(${avatar_url!''});"></div></a>
+							</#if>
 							#i18n{participatoryideation.message.labelStatusPublished} ${proposal.creationTimestamp?date?string.long}<br/>
 							<a href="jsp/site/Portal.jsp?page=search-solr&conf=proposals_list&query=(pseudo_string:&quot;${(nickname!'')?url('UTF-8')}&quot;)" class="color-theme-autre" target="_blank" title="Voir les propositions déposées par ${nickname!''} (nouvel onglet)">
 								${nickname!''}

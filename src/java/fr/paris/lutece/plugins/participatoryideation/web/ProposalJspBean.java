@@ -64,6 +64,7 @@ import fr.paris.lutece.plugins.participatoryideation.util.ProposalExportUtils;
 import fr.paris.lutece.plugins.workflowcore.business.state.State;
 import fr.paris.lutece.portal.business.file.File;
 import fr.paris.lutece.portal.service.admin.AccessDeniedException;
+import fr.paris.lutece.portal.service.admin.AdminUserService;
 import fr.paris.lutece.portal.service.message.AdminMessage;
 import fr.paris.lutece.portal.service.message.AdminMessageService;
 import fr.paris.lutece.portal.service.spring.SpringContextService;
@@ -548,8 +549,10 @@ public class ProposalJspBean extends ManageIdeationProposalsJspBean
         _proposal.setCodeProposal( 0 );
         // _proposal.setCodeCampaign( CampaignHome.getLastCampaign( ).getCode( ) );
         _proposal.setSubmitterType( AppPropertiesService.getProperty( ParticipatoryIdeationConstants.PROPERTY_GENERATE_PROPOSAL_SUBMITTER_TYPE ) );
-        _proposal.setSubmitter( AppPropertiesService.getProperty( ParticipatoryIdeationConstants.PROPERTY_GENERATE_PROPOSAL_SUBMITTER ) );
-        _proposal.setLuteceUserName( AppPropertiesService.getProperty( ParticipatoryIdeationConstants.PROPERTY_GENERATE_PROPOSAL_LUTECE_USER_NAME ) );
+        _proposal.setSubmitter( AppPropertiesService.getProperty( ParticipatoryIdeationConstants.PROPERTY_GENERATE_PROPOSAL_SUBMITTER ) );        
+        _proposal.setLuteceUserName( AdminUserService.getAdminUser( request ).getAccessCode() );
+        _proposal.setFromBackOffice(true);
+        
         _proposal.setCreationTimestamp( new java.sql.Timestamp( ( new java.util.Date( ) ).getTime( ) ) );
         _proposal.setStatusPublic( Proposal.Status.STATUS_SUBMITTED );
         _proposal.setTypeQpvQva( IdeationApp.QPV_QVA_NO );

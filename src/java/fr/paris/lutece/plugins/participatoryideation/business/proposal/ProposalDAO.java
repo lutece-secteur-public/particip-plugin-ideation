@@ -64,9 +64,9 @@ public final class ProposalDAO implements IProposalDAO
     private static final String SQL_QUERY_NEW_PK = "SELECT max( id_proposal ) FROM participatoryideation_proposals";
     private static final String SQL_QUERY_NEW_CODE_PROPOSAL = "SELECT max( code_proposal ) FROM participatoryideation_proposals where code_campaign = ?";
 
-    private static final String SQL_QUERY_INSERT = "INSERT INTO participatoryideation_proposals ( id_proposal, lutece_user_name, titre, field1, description, cout, code_theme, location_type, location_ardt, submitter_type, submitter, accept_exploit, accept_contact, address,longitude,latitude,creation_timestamp,code_campaign,code_proposal,type_nqpv_qva,id_nqpv_qva,libelle_nqpv_qva, status_public, status_eudonet, motif_recev,id_project, titre_projet, url_projet, winner_projet, field2, field3, field4, field4_complement) VALUES ( ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,? ) ";
+    private static final String SQL_QUERY_INSERT = "INSERT INTO participatoryideation_proposals ( id_proposal, lutece_user_name, is_from_bo, titre, field1, description, cout, code_theme, location_type, location_ardt, submitter_type, submitter, accept_exploit, accept_contact, address,longitude,latitude,creation_timestamp,code_campaign,code_proposal,type_nqpv_qva,id_nqpv_qva,libelle_nqpv_qva, status_public, status_eudonet, motif_recev,id_project, titre_projet, url_projet, winner_projet, field2, field3, field4, field4_complement) VALUES ( ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,? ) ";
     private static final String SQL_QUERY_UPDATE = "UPDATE participatoryideation_proposals SET eudonet_exported_tag=?, status_public=?, status_eudonet=?, motif_recev=?, type_nqpv_qva=?, id_nqpv_qva=?, libelle_nqpv_qva=?, id_project = ?, titre_projet = ?, url_projet =?, winner_projet =?, titre =? , description =? , cout =? , location_type =? , location_ardt =?, field4=?, field4_complement=? WHERE id_proposal = ?";
-    private static final String SQL_QUERY_SELECTALL = "SELECT proposals.id_proposal, proposals.lutece_user_name, proposals.titre, proposals.field1, proposals.description, proposals.cout, proposals.code_theme, proposals.location_type, proposals.location_ardt, proposals.submitter_type, proposals.submitter, proposals.accept_exploit, proposals.accept_contact, proposals.address, proposals.longitude, proposals.latitude, proposals.creation_timestamp, proposals.code_campaign, proposals.code_proposal, proposals.eudonet_exported_tag, proposals.type_nqpv_qva, proposals.id_nqpv_qva, proposals.libelle_nqpv_qva, proposals.status_public, proposals.status_eudonet, proposals.motif_recev, proposals.id_project, proposals.titre_projet, proposals.url_projet, proposals.winner_projet, proposals.field2, proposals.field3, proposals.field4, proposals.field4_complement FROM participatoryideation_proposals proposals";
+    private static final String SQL_QUERY_SELECTALL = "SELECT proposals.id_proposal, proposals.lutece_user_name, proposals.is_from_bo, proposals.titre, proposals.field1, proposals.description, proposals.cout, proposals.code_theme, proposals.location_type, proposals.location_ardt, proposals.submitter_type, proposals.submitter, proposals.accept_exploit, proposals.accept_contact, proposals.address, proposals.longitude, proposals.latitude, proposals.creation_timestamp, proposals.code_campaign, proposals.code_proposal, proposals.eudonet_exported_tag, proposals.type_nqpv_qva, proposals.id_nqpv_qva, proposals.libelle_nqpv_qva, proposals.status_public, proposals.status_eudonet, proposals.motif_recev, proposals.id_project, proposals.titre_projet, proposals.url_projet, proposals.winner_projet, proposals.field2, proposals.field3, proposals.field4, proposals.field4_complement FROM participatoryideation_proposals proposals";
     private static final String SQL_QUERY_SELECT = SQL_QUERY_SELECTALL + " WHERE proposals.id_proposal = ?";
     private static final String SQL_QUERY_SELECT_BY_CODES = SQL_QUERY_SELECTALL + " WHERE proposals.code_campaign = ? and proposals.code_proposal = ?";
     private static final String SQL_QUERY_SELECTALL_ID = "SELECT id_proposal FROM participatoryideation_proposals";
@@ -152,6 +152,7 @@ public final class ProposalDAO implements IProposalDAO
 
             daoUtil.setInt( nCpt++, proposal.getId( ) );
             daoUtil.setString( nCpt++, proposal.getLuteceUserName( ) );
+            daoUtil.setBoolean( nCpt++, proposal.isFromBackOffice( ) );
             daoUtil.setString( nCpt++, proposal.getTitre( ) );
             daoUtil.setString( nCpt++, proposal.getField1( ) );
             daoUtil.setString( nCpt++, proposal.getDescription( ) );
@@ -639,6 +640,7 @@ public final class ProposalDAO implements IProposalDAO
         Proposal proposal = new Proposal( );
         proposal.setId( daoUtil.getInt( nCpt++ ) );
         proposal.setLuteceUserName( daoUtil.getString( nCpt++ ) );
+        proposal.setFromBackOffice( daoUtil.getBoolean( nCpt++ ) );
         proposal.setTitre( daoUtil.getString( nCpt++ ) );
         proposal.setField1( daoUtil.getString( nCpt++ ) );
         proposal.setDescription( daoUtil.getString( nCpt++ ) );
