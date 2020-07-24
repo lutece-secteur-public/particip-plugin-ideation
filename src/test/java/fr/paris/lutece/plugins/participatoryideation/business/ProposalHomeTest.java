@@ -39,6 +39,7 @@ import java.util.List;
 
 import fr.paris.lutece.plugins.participatoryideation.business.proposal.Proposal;
 import fr.paris.lutece.plugins.participatoryideation.business.proposal.Proposal.Status;
+import fr.paris.lutece.plugins.participatoryideation.business.proposal.ProposalHome;
 import fr.paris.lutece.portal.business.file.File;
 import fr.paris.lutece.test.LuteceTestCase;
 
@@ -47,6 +48,8 @@ import fr.paris.lutece.test.LuteceTestCase;
  */
 public class ProposalHomeTest extends LuteceTestCase
 {
+	public static Proposal proposal;
+	
     public final static String MOCK_CODE_CAMPAIGN = "mockCodeCampaign";
     public final static int MOCK_CODE_PROPOSAL = 1;
     public final static String MOCK_TITLE = "mockTitle";
@@ -72,8 +75,21 @@ public class ProposalHomeTest extends LuteceTestCase
     // *********************************************************************************************
 
     public void testBusiness( )
-    {
-
+    {    	
+    	ProposalHome.create(proposal);
+    	
+    	Proposal proposalStored = ProposalHome.findByPrimaryKey( proposal.getId( ) );
+    	
+    	assertEquals( proposalStored.getTitre( ), proposal.getTitre( ) );
+    	assertEquals( proposalStored.isFromBackOffice( ), false);
+    	
+    	proposal.setFromBackOffice( true ); 
+    	ProposalHome.create(proposal);
+    	
+    	proposalStored = ProposalHome.findByPrimaryKey( proposal.getId( ) );
+    	
+    	assertEquals( proposalStored.getTitre( ), proposal.getTitre( ) );
+    	assertEquals( proposalStored.isFromBackOffice( ), true);
     }
 
     // *********************************************************************************************
@@ -83,7 +99,7 @@ public class ProposalHomeTest extends LuteceTestCase
 
     public static Proposal getMockProposalInstance( )
     {
-        Proposal proposal = new Proposal( );
+        proposal = new Proposal( );
 
         proposal.setCodeCampaign( MOCK_CODE_CAMPAIGN );
         proposal.setCodeProposal( MOCK_CODE_PROPOSAL );
@@ -103,7 +119,7 @@ public class ProposalHomeTest extends LuteceTestCase
         proposal.setStatusEudonet( MOCK_STATUS_EUDONET );
         proposal.setImgs( MOCK_IMGS );
         proposal.setDocs( MOCK_DOCS );
-
+        
         return proposal;
     }
 

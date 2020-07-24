@@ -10,7 +10,7 @@
     <groupId>fr.paris.lutece.plugins</groupId>
     <artifactId>plugin-participatoryideation</artifactId>
     <packaging>lutece-plugin</packaging>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.1-SNAPSHOT</version>
     <name>Plugin Participatory Ideation</name>
 
     <repositories>
@@ -80,7 +80,7 @@
         <dependency>
             <groupId>fr.paris.lutece.plugins</groupId>
             <artifactId>module-extend-comment</artifactId>
-            <version>[1.1.8,)</version>
+            <version>[1.1.14]</version>
             <type>lutece-plugin</type>
         </dependency>
         <dependency>
