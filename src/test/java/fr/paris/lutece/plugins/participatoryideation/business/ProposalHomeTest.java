@@ -106,6 +106,7 @@ public class ProposalHomeTest extends LuteceTestCase
         proposal.setTitre( MOCK_TITLE );
         proposal.setDescription( MOCK_DESCRIPTION );
         proposal.setLuteceUserName( MOCK_LUTECE_USER_NAME );
+        proposal.setFromBackOffice(false);
         proposal.setCodeTheme( MOCK_CODE_THEME );
         proposal.setLocationType( MOCK_LOCATION_TYPE );
         proposal.setSubmitterType( MOCK_SUBMITTER_TYPE );

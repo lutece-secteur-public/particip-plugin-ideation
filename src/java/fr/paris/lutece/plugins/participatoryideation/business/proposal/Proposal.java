@@ -68,7 +68,7 @@ public class Proposal implements Serializable, IExtendableResource
     // Variables declarations
     private int _nId;
     private String _strLuteceUserName;
-    private boolean _bIsFromBackOffice = false;
+    private boolean _bIsFromBackOffice;
     private String _strTitre;
     private String _strField1;
     private String _strfield2;
