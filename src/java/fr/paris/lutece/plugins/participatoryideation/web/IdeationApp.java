@@ -283,7 +283,9 @@ public class IdeationApp extends MVCApplication
         {
             _proposalCreate.setLuteceUserName( "guid" );
         }
-
+        
+        _proposalCreate.setFromBackOffice(false);
+        
         if ( STEP_CONFIRMED.equals( strView ) )
         {
             // The confirmed step is special, you can view it if you have already completed the form at least once

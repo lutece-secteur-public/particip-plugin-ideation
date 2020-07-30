@@ -40,6 +40,8 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Stream;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -241,15 +243,20 @@ public class IdeationCampaignDataProvider implements IIdeationCampaignDataProvid
 
     @Override
     public ReferenceItem getCampaignWholeAreaLabel( String codeCampaign )
-    {
-        // Assuming there should be only one whole-typed item
-        return areaLabels.get( codeCampaign ).stream( ).filter( r -> Proposal.LOCATION_AREA_TYPE_WHOLE.contentEquals( r.getCode( ) ) ).findFirst( ).get( );
+    {    	
+    	Stream< ReferenceItem > areaStream = areaLabels.get( codeCampaign ).stream( );
+    	
+    	// Assuming there should be only one whole-typed item
+    	Optional< ReferenceItem > opt = areaStream.filter( r -> Proposal.LOCATION_AREA_TYPE_WHOLE.contentEquals( r.getCode( ) ) ).findFirst( );
+    	
+        return opt.get( );
     }
 
     @Override
     public ReferenceList getCampaignLocalizedAreaLabels( String codeCampaign )
     {
         ReferenceList result = new ReferenceList( );
+        
         for ( ReferenceItem item : areaLabels.get( codeCampaign ) )
         {
             if ( !Proposal.LOCATION_AREA_TYPE_WHOLE.equals( item.getCode( ) ) )
@@ -268,9 +275,8 @@ public class IdeationCampaignDataProvider implements IIdeationCampaignDataProvid
 
     @Override
     public ReferenceItem getLastCampaignWholeAreaLabel( )
-    {
-        return areaLabels.get( getLastCampaign( ).getCode( ) ).stream( ).filter( r -> Proposal.LOCATION_AREA_TYPE_WHOLE.contentEquals( r.getName( ) ) )
-                .findFirst( ).get( );
+    {	
+        return getCampaignWholeAreaLabel( getLastCampaign( ).getCode( ) );
     }
 
     @Override
@@ -350,14 +356,7 @@ public class IdeationCampaignDataProvider implements IIdeationCampaignDataProvid
     @Override
     public ReferenceList getLastCampaignThemes( )
     {
-        ReferenceList allThemes = new ReferenceList( );
-
-        for ( ReferenceList campaignThemes : themeLabels.values( ) )
-        {
-            allThemes.addAll( campaignThemes );
-        }
-
-        return allThemes;
+        return getCampaignThemes( getLastCampaign( ).getCode( ) );
     }
 
     @Override
@@ -459,6 +458,7 @@ public class IdeationCampaignDataProvider implements IIdeationCampaignDataProvid
                 }
 
                 String [ ] area = propValue.split( PROPERTY_SEP );
+                
                 if ( area.length != 3 )
                 {
                     AppLogService.error( "The property '" + propName + "' should be formated as 'code" + PROPERTY_SEP + "label" + PROPERTY_SEP

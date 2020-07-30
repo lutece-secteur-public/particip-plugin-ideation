@@ -33,8 +33,7 @@
  */
 package fr.paris.lutece.plugins.participatoryideation.service.campaign;
 
-import fr.paris.lutece.plugins.participatoryideation.service.campaign.IIdeationCampaignDataProvider;
-import fr.paris.lutece.plugins.participatoryideation.service.campaign.IdeationCampaignDataProvider;
+import fr.paris.lutece.plugins.participatoryideation.business.proposal.Proposal;
 import fr.paris.lutece.plugins.participatoryideation.util.ParticipatoryIdeationConstants;
 import fr.paris.lutece.test.LuteceTestCase;
 
@@ -52,41 +51,41 @@ public class IdeationCampaignDataProviderTest extends LuteceTestCase
         assertEquals( IdeationCampaignDataProvider.class, instance.getClass( ) );
 
         // Methods about campaign
-        assertEquals( 1, instance.getCampaigns( ).size( ) );
+        assertEquals( 2, instance.getCampaigns( ).size( ) );
         assertEquals( "A", instance.getCampaigns( ).iterator( ).next( ).getCode( ) );
-        assertEquals( "Ideation", instance.getCampaigns( ).iterator( ).next( ).getName( ) );
+        assertEquals( "First ideation campaign", instance.getCampaigns( ).iterator( ).next( ).getName( ) );
 
         // Methods about phases
         assertEquals( true, instance.isAfterBeginning( ParticipatoryIdeationConstants.IDEATION ) );
-        assertEquals( true, instance.isAfterBeginning( "123", ParticipatoryIdeationConstants.IDEATION ) );
+        assertEquals( true, instance.isAfterBeginning( "B", ParticipatoryIdeationConstants.IDEATION ) );
 
         assertEquals( false, instance.isAfterEnd( ParticipatoryIdeationConstants.IDEATION ) );
-        assertEquals( false, instance.isAfterEnd( "123", ParticipatoryIdeationConstants.IDEATION ) );
+        assertEquals( false, instance.isAfterEnd( "B", ParticipatoryIdeationConstants.IDEATION ) );
 
         assertEquals( false, instance.isBeforeBeginning( ParticipatoryIdeationConstants.IDEATION ) );
-        assertEquals( false, instance.isBeforeBeginning( "123", ParticipatoryIdeationConstants.IDEATION ) );
+        assertEquals( false, instance.isBeforeBeginning( "B", ParticipatoryIdeationConstants.IDEATION ) );
 
         assertEquals( true, instance.isBeforeEnd( ParticipatoryIdeationConstants.IDEATION ) );
-        assertEquals( true, instance.isBeforeEnd( "123", ParticipatoryIdeationConstants.IDEATION ) );
+        assertEquals( true, instance.isBeforeEnd( "B", ParticipatoryIdeationConstants.IDEATION ) );
 
         assertEquals( true, instance.isDuring( ParticipatoryIdeationConstants.IDEATION ) );
-        assertEquals( true, instance.isDuring( "123", ParticipatoryIdeationConstants.IDEATION ) );
+        assertEquals( true, instance.isDuring( "B", ParticipatoryIdeationConstants.IDEATION ) );
 
         // Methods about areas
-        assertEquals( 1, instance.getLastCampaignAllAreaLabels( ).size( ) );
-        assertEquals( 1, instance.getCampaignAllAreaLabels( "123" ).size( ) );
+        assertEquals( 0, instance.getLastCampaignAllAreaLabels( ).size( ) );
+        assertEquals( 0, instance.getCampaignAllAreaLabels( "B" ).size( ) );
 
         assertEquals( 0, instance.getLastCampaignLocalizedAreaLabels( ).size( ) );
-        assertEquals( 0, instance.getCampaignLocalizedAreaLabels( "123" ).size( ) );
+        assertEquals( 0, instance.getCampaignLocalizedAreaLabels( "B" ).size( ) );
 
         assertEquals( 0, instance.getLastCampaignNumberLocalizedAreas( ) );
-        assertEquals( 0, instance.getCampaignNumberLocalizedAreas( "123" ) );
+        assertEquals( 0, instance.getCampaignNumberLocalizedAreas( "B" ) );
 
-        assertEquals( IIdeationCampaignDataProvider.WHOLE_AREA, instance.getLastCampaignWholeAreaLabel( ) );
-        assertEquals( IIdeationCampaignDataProvider.WHOLE_AREA, instance.getCampaignWholeAreaLabel( "123" ) );
+        assertEquals( Proposal.LOCATION_AREA_TYPE_WHOLE, instance.getLastCampaignWholeAreaLabel( ).getCode()  );
+        assertEquals( Proposal.LOCATION_AREA_TYPE_WHOLE, instance.getCampaignWholeAreaLabel( "B" ).getCode() );
 
         // Methods about themes
         assertEquals( 3, instance.getLastCampaignThemes( ).size( ) );
-        assertEquals( 3, instance.getCampaignThemes( "123" ).size( ) );
+        assertEquals( 3, instance.getCampaignThemes( "B" ).size( ) );
     }
 }

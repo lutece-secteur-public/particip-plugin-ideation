@@ -42,6 +42,7 @@ ALTER TABLE participatoryideation_submitters ADD CONSTRAINT fk_participatoryidea
 CREATE TABLE IF NOT EXISTS participatoryideation_proposals (
   id_proposal int NOT NULL,
   lutece_user_name varchar(255) NOT NULL,
+  is_from_bo int default 0 NOT NULL,
   titre VARCHAR(255) NOT NULL,
   description VARCHAR(4000) NOT NULL,
   cout bigint DEFAULT NULL,
