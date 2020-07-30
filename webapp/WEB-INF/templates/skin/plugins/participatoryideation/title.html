@@ -7,7 +7,7 @@
 		<input type="text" class="form-control" name="titre" value="${form_etape_title.titre!''}" id="titre" maxlength="#dskey{participatoryideation.site_property.form.titre.maxLength}">
 	</div>
 	
-	<#if campaign_static['type_field_map']['field1'][0]?? && campaign_static['type_field_map']['field1'][0] == '1'>
+	<#if campaign_static['type_field_map']?? && campaign_static['type_field_map']['field1'][0]?? && campaign_static['type_field_map']['field1'][0] == '1'>
 		<div class="form-group">
 			<p><strong>${campaign_static['type_field_map']['field1'][1]!'Field 1'}</strong> (${i18n("participatoryideation.submit_project.steps.title.text1_validation", 0, 200)})</p>
 			<p>${campaign_static['type_field_map']['field1'][2]!''}</p>
@@ -15,7 +15,7 @@
 		</div>
 	</#if>
 
-	<#if campaign_static['type_field_map']['field2'][0]?? && campaign_static['type_field_map']['field2'][0] == '1'>
+	<#if campaign_static['type_field_map']?? && campaign_static['type_field_map']['field2'][0]?? && campaign_static['type_field_map']['field2'][0] == '1'>
 		<div class="form-group">
 			<p><strong>${campaign_static['type_field_map']['field2'][1]!'Field 1'}</strong> (${i18n("participatoryideation.submit_project.steps.title.text2_validation", 0, 200)})</p>
 			<p>${campaign_static['type_field_map']['field2'][2]!''}</p>
