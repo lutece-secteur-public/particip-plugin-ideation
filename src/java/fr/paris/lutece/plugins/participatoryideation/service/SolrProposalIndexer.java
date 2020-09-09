@@ -51,6 +51,7 @@ import fr.paris.lutece.plugins.extend.modules.rating.service.IRatingService;
 import fr.paris.lutece.plugins.participatoryideation.business.proposal.Proposal;
 import fr.paris.lutece.plugins.participatoryideation.business.proposal.ProposalHome;
 import fr.paris.lutece.plugins.participatoryideation.business.proposal.ProposalSearcher;
+import fr.paris.lutece.plugins.participatoryideation.util.ParticipatoryIdeationConstants;
 import fr.paris.lutece.plugins.participatoryideation.web.IdeationApp;
 import fr.paris.lutece.plugins.search.solr.business.SolrServerService;
 import fr.paris.lutece.plugins.search.solr.business.field.Field;
@@ -58,9 +59,12 @@ import fr.paris.lutece.plugins.search.solr.indexer.SolrIndexer;
 import fr.paris.lutece.plugins.search.solr.indexer.SolrIndexerService;
 import fr.paris.lutece.plugins.search.solr.indexer.SolrItem;
 import fr.paris.lutece.plugins.search.solr.util.SolrConstants;
+import fr.paris.lutece.plugins.workflowcore.business.state.State;
 import fr.paris.lutece.portal.service.prefs.UserPreferencesService;
 import fr.paris.lutece.portal.service.search.SearchItem;
 import fr.paris.lutece.portal.service.util.AppLogService;
+import fr.paris.lutece.portal.service.util.AppPropertiesService;
+import fr.paris.lutece.portal.service.workflow.WorkflowService;
 import fr.paris.lutece.util.url.UrlItem;
 
 public class SolrProposalIndexer implements SolrIndexer
@@ -160,6 +164,10 @@ public class SolrProposalIndexer implements SolrIndexer
                 // service
                 ) );
         item.addDynamicFieldNotAnalysed( "location_type", proposal.getLocationType( ) );
+
+        int idWorkflow = AppPropertiesService.getPropertyInt( ParticipatoryIdeationConstants.PROPERTY_WORKFLOW_ID, -1 );
+        State state = WorkflowService.getInstance( ).getState( proposal.getId( ), Proposal.WORKFLOW_RESOURCE_TYPE, idWorkflow, -1 );
+        item.addDynamicField( "workflow_id_state", (long) state.getId() );
 
         if ( Proposal.LOCATION_AREA_TYPE_LOCALIZED.equals( proposal.getLocationType( ).trim( ) ) )
         {
