@@ -46,6 +46,7 @@ public final class ParticipatoryIdeationConstants
 
     // Properties
     public static final String PROPERTY_WORKFLOW_ID = "participatoryideation.idWorkflow";
+    public static final String PROPERTY_WORKFLOW_DRAFT_ID = "participatoryideation.workflow.idDraft";
 
     public static final String PROPERTY_WORKFLOW_ACTION_NAME_CREATE_COMMENT = "participatoryideation.workFlowActionNameCreateComment";
 

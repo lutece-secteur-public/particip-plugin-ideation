@@ -11,7 +11,7 @@
 		</#if>
 		
 			<#-- If the idea is not identified, a specific error message is displayed. -->
-			<#if ( !(proposal??) || (workflow_id_state == 100))  >
+			<#if !(proposal??) >
 				<div class="row">
 					<div class="col-xs-12 col-sm-offset-2 col-sm-8">
 						<br>
@@ -21,7 +21,6 @@
 						</div>
 					</div>
 				</div>
-				
 			<#else>
 				
 				<#-- A few variables are pre-calculated. -->

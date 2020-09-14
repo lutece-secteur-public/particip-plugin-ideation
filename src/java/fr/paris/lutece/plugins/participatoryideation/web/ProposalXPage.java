@@ -50,8 +50,6 @@ import fr.paris.lutece.plugins.participatoryideation.service.IdeationStaticServi
 import fr.paris.lutece.plugins.participatoryideation.service.ProposalService;
 import fr.paris.lutece.plugins.participatoryideation.service.campaign.IdeationCampaignDataProvider;
 import fr.paris.lutece.plugins.participatoryideation.service.myinfos.MyInfosService;
-import fr.paris.lutece.plugins.participatoryideation.util.ParticipatoryIdeationConstants;
-import fr.paris.lutece.plugins.workflowcore.business.state.State;
 import fr.paris.lutece.portal.service.datastore.DatastoreService;
 import fr.paris.lutece.portal.service.mail.MailService;
 import fr.paris.lutece.portal.service.message.SiteMessageException;
@@ -64,8 +62,6 @@ import fr.paris.lutece.portal.service.spring.SpringContextService;
 import fr.paris.lutece.portal.service.template.AppTemplateService;
 import fr.paris.lutece.portal.service.util.AppLogService;
 import fr.paris.lutece.portal.service.util.AppPathService;
-import fr.paris.lutece.portal.service.util.AppPropertiesService;
-import fr.paris.lutece.portal.service.workflow.WorkflowService;
 import fr.paris.lutece.portal.util.mvc.commons.annotations.Action;
 import fr.paris.lutece.portal.util.mvc.commons.annotations.View;
 import fr.paris.lutece.portal.util.mvc.xpage.MVCApplication;
@@ -120,9 +116,6 @@ public class ProposalXPage extends MVCApplication
     private static final String MARK_MESSAGE = "message";
     private static final String MARK_SHOW_CONTACT = "show_contact";
     private static final String MARK_MESSAGE_NOT_ACCEPT = "message_not_accept";
-    
-    // temporary : for publishing purpose
-    private static final String MARK_WORKFLOW_ID_STATE = "workflow_id_state";
     
     // Properties
     private static final String PROPERTY_CONTACT_SUBJECT = "participatoryideation.site_property.view_proposal.site_properties.contact_subject";
@@ -230,18 +223,12 @@ public class ProposalXPage extends MVCApplication
 	                    }
 	
 	                }
-	
 	            }
         	}
         }
         model.put( MARK_IS_EXTEND_INSTALLED, PortalService.isExtendActivated( ) );
         IdeationStaticService.getInstance( ).fillCampaignStaticContent( model, _proposal.getCodeCampaign( ) );
-        
-        // temporary : status_public should be enough
-        int idWorkflow = AppPropertiesService.getPropertyInt( ParticipatoryIdeationConstants.PROPERTY_WORKFLOW_ID, -1 );
-        State state = WorkflowService.getInstance( ).getState( _proposal.getId( ), Proposal.WORKFLOW_RESOURCE_TYPE, idWorkflow, -1 );        
-        model.put( MARK_WORKFLOW_ID_STATE, state.getId() );
-        
+                
         XPage xpage = getXPage( TEMPLATE_VIEW_PROPOSAL, request.getLocale( ), model );
         xpage.setTitle( _proposal.getTitre( ) );
 
