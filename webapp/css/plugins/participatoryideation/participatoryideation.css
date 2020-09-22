@@ -291,6 +291,14 @@ span.avoidwrap { display: inline-block; white-space: pre; }
     border: 4px solid #3c67ff;
 }
 
+.bgcolor-theme-sport {
+    background-color: #000080;
+}
+
+.bordered-4px-theme-sport {
+    border: 4px solid #000080;
+}
+
 /* -------------------- CARD -------------------- */
 
 #prop-card { 
