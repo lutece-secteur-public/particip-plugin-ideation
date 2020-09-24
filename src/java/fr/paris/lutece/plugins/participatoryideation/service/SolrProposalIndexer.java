@@ -67,6 +67,11 @@ import fr.paris.lutece.portal.service.util.AppPropertiesService;
 import fr.paris.lutece.portal.service.workflow.WorkflowService;
 import fr.paris.lutece.util.url.UrlItem;
 
+/**
+ * Solr Indexer of Proposals
+ * @author emilio
+ *
+ */
 public class SolrProposalIndexer implements SolrIndexer
 {
 
@@ -78,7 +83,11 @@ public class SolrProposalIndexer implements SolrIndexer
 
     @Inject
     private IRatingService _ratingService;
-
+    
+    /**
+     * Used in one by one indexing, access directly to the Apache Solr client
+     * @param proposal
+     */
     public void writeProposal( Proposal proposal )
     {
         try
@@ -90,7 +99,11 @@ public class SolrProposalIndexer implements SolrIndexer
             AppLogService.error( "[SolrProposalIndexer] Error during write (proposal " + proposal.getReference( ) + ") " + e.getMessage( ), e );
         }
     }
-
+    
+    /**
+     * Used in one by one indexing, access directly to the Apache Solr client
+     * @param proposal
+     */
     public void removeProposal( Proposal proposal )
     {
 
@@ -107,7 +120,13 @@ public class SolrProposalIndexer implements SolrIndexer
             AppLogService.error( "[SolrProposalIndexer] Error during remove (proposal " + proposal.getReference( ) + ") " + e.getMessage( ), e );
         }
     }
-
+    
+    /**
+     * 
+     * @param proposal
+     * @return
+     * @throws IOException
+     */
     public SolrItem getItem( Proposal proposal ) throws IOException
     {
         // the item
@@ -258,11 +277,14 @@ public class SolrProposalIndexer implements SolrIndexer
         // TODO Auto-generated method stub
         return new ArrayList( );
     }
-
+    
+    /**
+     * Indexer Description for Solr Plugin Back Office
+     * @return description 
+     */
     @Override
     public String getDescription( )
     {
-        // TODO Auto-generated method stub
         return "Solr proposal indexer";
     }
 
@@ -272,11 +294,14 @@ public class SolrProposalIndexer implements SolrIndexer
         // TODO Auto-generated method stub
         return new ArrayList( );
     }
-
+    
+    /**
+     * Indexer Name for Solr Plugin Back Office 
+     * @return name
+     */
     @Override
     public String getName( )
     {
-        // TODO Auto-generated method stub
         return "SolrProposalIndexer";
     }
 
@@ -287,15 +312,20 @@ public class SolrProposalIndexer implements SolrIndexer
         return new ArrayList( );
     }
 
+    /**
+     * Indexer Version
+     * @return version
+     */
     @Override
     public String getVersion( )
     {
-        // TODO Auto-generated method stub
         return "1.0.0";
     }
 
-    /*
-     * Index all ideas.
+    /**
+     * Index all ideas for Back Office purpose.
+     * Messages are logged to Solr Indexing Page in BO
+     * @return 
      */
     public List<String> indexDocuments( )
     {
