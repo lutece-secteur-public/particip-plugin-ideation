@@ -888,11 +888,15 @@ public class ProposalJspBean extends ManageIdeationProposalsJspBean
                     JSP_MANAGE_PROPOSALS, AdminMessage.TYPE_ERROR );
             return redirect( request, strMessageUrl );
         }
-
+        
         // Process workflow action
-
         WorkflowService.getInstance( ).doProcessAction( resourceId, Proposal.WORKFLOW_RESOURCE_TYPE, actionId, -1, request, request.getLocale( ), false );
 
+        // Re-index because status has changed
+        Proposal proposalToReindex = ProposalHome.findByPrimaryKey(resourceId);
+        
+        _solrProposalIndexer.writeProposal( proposalToReindex );
+        
         return redirectView( request, VIEW_MANAGE_PROPOSALS );
     }
 
