@@ -271,7 +271,7 @@ public class IdeationApp extends MVCApplication
         // If user's personal infos not filled, then redirect to the 'complete myinfos' webpage
         if ( !checkUserAuthorized( request ) )
         {
-            return redirect( request, MyInfosService.getInstance( ).getUrlMyInfosFillAction( ) );
+            return redirect( request, AppPathService.getProdUrl( request ) + MyInfosService.getInstance( ).getUrlMyInfosFillAction( ) );
         }
 
         // Some automatic stuff
