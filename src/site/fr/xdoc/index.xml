@@ -4,22 +4,163 @@
         <title>Plugin ideation</title>
     </properties>
     <body>
+    
         <section name="Plugin ideation">
+            
             <!--
             <p>
                 <img src="images/ideation.png" />
             </p>
             -->
+            
+            <!-- ********************************************************************************************* -->
+            <!-- * INTRO INTRO INTRO INTRO INTRO INTRO INTRO INTRO INTRO INTRO INTRO INTRO INTRO INTRO INTRO * -->
+            <!-- * INTRO INTRO INTRO INTRO INTRO INTRO INTRO INTRO INTRO INTRO INTRO INTRO INTRO INTRO INTRO * -->
+            <!-- ********************************************************************************************* -->
+            
             <subsection name="Introduction">
-                <p></p>
+                <p>This plugin handles citizen-oriented ideation on the web.</p>
+				<p>It provides :</p>
+				<ul>
+					<li>A step-by-step form to submit a proposal</li>
+					<li>A SOLR-based search page with thumbnails</li>
+					<li>For each proposal, a sheet with all informations</li>
+					<li>A back-office to manage proposals</li>
+				</ul>
+                <p><strong>The <a href="https://github.com/lutece-secteur-public/particip-site-participatorybudget" targer="_blank">OpenPB</a> demo site uses this plugin, so you can see it in action !</strong></p>
+                <p style="color:orange">Please keep in mind that this plugin is in alpha version and is under development ; some features could not work properly.</p>
             </subsection>
-            <subsection name="Configuration">
-                <p></p>
-            </subsection>
+            
+            <!-- ********************************************************************************************* -->
+            <!-- * USAGE USAGE USAGE USAGE USAGE USAGE USAGE USAGE USAGE USAGE USAGE USAGE USAGE USAGE USAGE * -->
+            <!-- * USAGE USAGE USAGE USAGE USAGE USAGE USAGE USAGE USAGE USAGE USAGE USAGE USAGE USAGE USAGE * -->
+            <!-- ********************************************************************************************* -->
+            
             <subsection name="Usage">
-                <p></p>
+            	<p>Above all, please refer to the 'configuration' section of the document to create data for you ideation campaign.</p>
+                <p>Before accessing the SOLR search page, you must index the pre-created proposals : go to the Solr Indexing back-office page, and click on 'Start indexing' button.</p>
+                
+				<p>
+                     <b>Search page</b>
+                </p>
+                <p>Now you can access to the search page :</p>
+                <pre>http://test.paris.mdp:8080/pb/jsp/site/Portal.jsp?page=solrProposalSearch&amp;conf=proposals_list</pre>
+                <p><img src="images/search_page.png"/></p>
+                <p><img src="images/submission_sheet.png"/></p>
+                
+				<p>
+                     <b>Submit form</b>
+                </p>
+                <p>To submit a new proposal, you have to verify that dates of 'ideation' phase are right.</p>
+                <p>Then access to the following page :</p>
+                <pre>http://test.paris.mdp:8080/pb/jsp/site/Portal.jsp?page=ideation&amp;init=true&amp;campaign=&lt;campaign_code&gt;</pre>
+                <p>where &lt;campaign_code&gt; is the code of the campaign (for example : A).</p>
+                <p><img src="images/ideation_form.png"/></p>
+                
+				<p>
+                     <b>Authentication MyLutece</b>
+                </p>
+                <p>Submitting a proposal is subject to authentication via <a href="https://github.com/lutece-platform/lutece-auth-plugin-mylutece" target="_blank">MyLutece</a>.</p>
             </subsection>
+            
+            <!-- ********************************************************************************************* -->
+            <!-- * CONF CONF CONF CONF CONF CONF CONF CONF CONF CONF CONF CONF CONF CONF CONF CONF CONF CONF * -->
+            <!-- * CONF CONF CONF CONF CONF CONF CONF CONF CONF CONF CONF CONF CONF CONF CONF CONF CONF CONF * -->
+            <!-- ********************************************************************************************* -->
+            
+            <subsection name="Configuration">
+
+                <p>To use the plugin into your Lutece site, first add the following code to your pom.xml </p>
+                
+<pre>&lt;dependency&gt;
+	&lt;groupId&gt;fr.paris.lutece.plugins&lt;/groupId&gt;
+	&lt;artifactId&gt;plugin-participatoryideation&lt;/artifactId&gt;
+	&lt;version&gt;[1.0.0-SNAPSHOT,)&lt;/version&gt;
+	&lt;type&gt;lutece-plugin&lt;/type&gt;
+&lt;/dependency&gt;</pre>
+                
+                <p>Then override the participatory-ideation properties file to configure ideation campaigns :</p>
+				
+<pre># Code and label of campaign 'A' --------------------------------------------------- 
+participatoryideation.campaign.1=A;First ideation campaign
+
+# Code, label and color of campaign themes
+participatoryideation.campaign.A.theme.1=GENERAL;General;#C00000
+participatoryideation.campaign.A.theme.2=NUM;Digital city;#BA05E6
+participatoryideation.campaign.A.theme.3=...
+
+# Code, label and type of area (type : 'whole' for whole city, or 'localized' for district ; only one whole area possible)
+participatoryideation.campaign.A.area.1=whole;Paris city;whole
+participatoryideation.campaign.A.area.2=area_1;First district;localized
+participatoryideation.campaign.A.area.3=area_2;Second district;localized
+
+# Begin and end of the ideation phase
+participatoryideation.campaign.A.ideation=2020-04-05T12:00:00;2020-04-21T11:00:00 
+
+# Optional fields : 4 fields are currently handled, the third can have a complement question
+
+participatoryideation.campaign.A.field1.active=0
+participatoryideation.campaign.A.field1.label=Field 1
+participatoryideation.campaign.A.field1.description=Description of field 1
+participatoryideation.campaign.A.field1.mandatory=0
+
+participatoryideation.campaign.A.field2.active=1
+...
+
+# Code and label of campaign 'B' --------------------------------------------------- 
+participatoryideation.campaign.1=B;Second ideation campaign
+
+# Code, label and color of campaign themes
+participatoryideation.campaign.B.theme.1=GENERAL;General;#C00000
+participatoryideation.campaign.B.theme.2=SPORT;Sport;#BA05E6
+
+# Code, label and type of area (type : 'whole' for whole city, or 'localized' for district ; only one whole area possible)
+participatoryideation.campaign.B.area.1=whole;Whole city;whole
+
+# Begin and end of the ideation phase
+participatoryideation.campaign.B.ideation=2020-03-20T12:00:00;2020-04-20T11:00:00 
+
+# Optional fields : 4 fields are currently handled, the third can have a complement question
+
+participatoryideation.campaign.B.field1.active=0
+participatoryideation.campaign.B.field1.label=Field 1
+participatoryideation.campaign.B.field1.description=Description of field 1
+participatoryideation.campaign.B.field1.mandatory=0
+
+participatoryideation.campaign.B.field2.active=0
+...</pre>
+				
+
+				<p>
+                     <b>Java classes</b>
+                </p>
+				<p>
+					Campaign data (campaign codes, phase dates, submitter types, themes...) are provided by Java class <code>IdeationCampaignDataProvider</code>, which implements the interface <code>IIdeationCampaignDataProvider</code>.
+                </p>
+				<p>
+					By default, this class use DB data for submitter informations, and properties files for campaigns, areas, themes, optional fields.  
+					It can be overrided to provide data from another source. You can view an example in <a href="https://github.com/lutece-secteur-public/particip-module-participatoryideation-participatorybudget/blob/develop/src/java/fr/paris/lutece/plugins/participatoryideation/modules/participatorybudget/service/ideation/ParticipatoryIdeationCampaignModuleDataProvider.java" targer="_blank">module-participatoryideation-participatorybudget</a>.
+					The new data provider class has to be declared by overriding Spring context file <code>participatoryideation_context.xml</code>. 
+				</p>
+				
+				<p>
+                     <b>SQL file</b>
+                </p>
+                <p>SQL init file of plugin creates sample data :</p>
+				<ul>
+					<li>A basic campaign with somes phases, themes and areas (see Manage Campaign back-office page)</li>
+					<li>Data about submitters (see ManageIdeation back-office page)</li>
+				</ul>
+                <p>To use this SQL file, please refer to the <a href="https://fr.lutece.paris.fr/fr/jsp/site/Portal.jsp?page=wiki&amp;view=page&amp;page_name=maven#H3_Initialize_database" targer="_blank">Lutece Maven process</a>.</p>
+            </subsection>
+            
         </section>
+
+	  	<section name="Project Information">
+			<p>
+				<a href="http://dev.lutece.paris.fr/jira/browse/PARTIDEA" target="_blank">Issue Tracking</a> : this is a link to the issue management system for this project. Issues (bugs, features, change requests) can be created and queried using this link.
+			</p>	
+	  	</section>
+
     </body>
 </document>
-
